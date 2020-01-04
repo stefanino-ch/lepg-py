@@ -1,0 +1,21 @@
+2020-01-01 10:32:10,238 - DEBUG - Session start
+2020-01-01 10:32:10,238 - DEBUG - DataWindowStatus.__init__
+2020-01-01 10:32:13,659 - DEBUG - PreProcDataEdit.__init__
+2020-01-01 10:32:13,659 - DEBUG - PreProcessorStore created
+2020-01-01 10:32:18,903 - DEBUG - DataStatusOverview.__init__
+2020-01-01 10:32:32,041 - DEBUG - PreProcessorStore.isValid
+2020-01-01 10:32:32,041 - DEBUG - PreProcessorStore.isValid
+2020-01-01 10:32:32,053 - DEBUG - PreProcessorStore.readFile Section1 Header
+2020-01-01 10:32:32,053 - DEBUG - PreProcessorStore.readFile Section 1 Data
+2020-01-01 10:32:32,053 - DEBUG - PreProcessorStore.readFile Section 2 Header
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Section 2 Data
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Section 3 Header
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Section 3 Data
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Vault Type 2
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Section 4 Header
+2020-01-01 10:32:32,054 - DEBUG - PreProcessorStore.readFile Section 4 Data
+2020-01-01 10:36:59,509 - DEBUG - DataStatusOverview.closeEvent
+2020-01-01 10:37:01,540 - DEBUG - DataStatusOverview.__init__
+2020-01-01 10:37:04,181 - DEBUG - DataStatusOverview.closeEvent
+2020-01-01 10:37:10,009 - DEBUG - PreProcDataEdit.closeEvent
+2020-01-01 10:37:11,917 - DEBUG - Session exit

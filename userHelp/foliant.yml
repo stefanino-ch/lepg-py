@@ -1,0 +1,27 @@
+title: lepg documentation
+
+chapters:
+  - index.md
+  - PreProcessor:
+    - 'Parameters': preproc/preproc.md
+    - 'Configuration window': preproc/preproc-win.md
+  - lep:
+    - 'Writing your docs': hello.md
+
+escape_code: true
+
+preprocessors:
+    - includes
+
+backend_config:
+  mkdocs:
+    use_title: true
+    slug: userHelp
+    use_chapters: true
+    use_headings: true
+    default_subsection_title: Expand
+    mkdocs.yml:
+      site_name: lepg documentation
+      site_author: Stefan Feuz
+      use_directory_urls: false
+      

@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-11-29 20:53+0100\n"
+"PO-Revision-Date: 2019-11-29 20:53+0100\n"
+"Last-Translator: Stefan Feuz\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: lepg.py:52
+msgid "Exit"
+msgstr ""
+
+#: lepg.py:53
+msgid "Leave the app"
+msgstr ""
+
+#: lepg.py:56
+msgid "File"
+msgstr ""
+
+#: lepg.py:63
+msgid "bye"
+msgstr ""
+
+#: lepg.py:68
+msgid "New window"
+msgstr ""
+
+#: lepg.py:69
+msgid "open a new window generic window"
+msgstr ""
+
+#: lepg.py:72
+msgid "New my window"
+msgstr ""
+
+#: lepg.py:73
+msgid "open a new my window"
+msgstr ""
+
+#: lepg.py:77
+msgid "Geometry"
+msgstr ""
+
+#: lepg.py:98
+msgid "Cascade"
+msgstr ""
+
+#: lepg.py:99
+msgid "Cascade all windows"
+msgstr ""
+
+#: lepg.py:102
+msgid "Tile"
+msgstr ""
+
+#: lepg.py:103
+msgid "Tile all windows"
+msgstr ""
+
+#: lepg.py:106
+msgid "View"
+msgstr ""
+
+#: lepg.py:130
+msgid "Setup"
+msgstr ""
+
+#: lepg.py:131
+msgid "Language"
+msgstr ""
+
+#: lepg.py:169
+msgid "New"
+msgstr ""
