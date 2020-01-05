@@ -25,10 +25,10 @@ class DataStatusOverview(QMdiSubWindow):
         If files are saved
         If data withing windows has been applied
     '''
-    __WindowName = 'DataStatusOverview'
+    __windowName = 'DataStatusOverview'
 
     def __init__(self):
-        logging.debug(self.__WindowName+'.__init__')
+        logging.debug(self.__windowName+'.__init__')
         super().__init__()
         
         self.dws = DataWindowStatus()
@@ -36,10 +36,10 @@ class DataStatusOverview(QMdiSubWindow):
         
         self.buildWindow()
         self.dws.statusUpdated.connect(self.updateStatus)
-        self.pps.dataChanged.connect(self.dataChanged)
+        self.pps.dataStatusUpdate.connect(self.dataChanged)
     
     def closeEvent(self, event):  # @UnusedVariable
-        logging.debug(self.__WindowName+'.closeEvent')
+        logging.debug(self.__windowName+'.closeEvent')
     
     def buildWindow(self):
         '''
@@ -114,18 +114,21 @@ class DataStatusOverview(QMdiSubWindow):
         print('updataStatus')
         if q == 'PreProcDataEdit':
             self.preProcDataStatusS.setText(self.dws.getWindowDataStatusChar('PreProcDataEdit'))
+        # TODO: add here the PreProc file
             
-    def dataChanged(self, q):
+    def dataChanged(self, n, q):
         print('dataChanged')
-        if q == 'FileNamePath':
-            self.preProcFilenameD.setText(self.shortenPath(self.pps.getFileName()))
         
-        if q == 'FileVersion':
-            self.preProcFileversD.setText(self.pps.getSingleVal('FileVersion'))
+        if n == 'PreProcessorStore':
+            if q == 'FileNamePath':
+                self.preProcFilenameD.setText(self.shortenPath(self.pps.getFileName()))
+        
+            if q == 'FileVersion':
+                self.preProcFileversD.setText(self.pps.getSingleVal('FileVersion'))
             
     def btnPress(self, q):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__WindowName+'.btnPress unrecognized button press '+q)
+            logging.error(self.__windowName+'.btnPress unrecognized button press '+q)
         

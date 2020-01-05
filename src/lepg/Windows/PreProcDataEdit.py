@@ -21,31 +21,35 @@ class PreProcDataEdit(QMdiSubWindow):
     '''
     Window to display and edit the PreProc data. 
     
-    @signal dataStatusUpdate : sent out as soon the user has edited data or has clicked a button
+    @signal dataStatusUpdate :  sent out as soon the user has edited data or has clicked a button
+                                The first string indicates the window name.
+                                The second string indicates 
+                                    - if and which button has been pressed
+                                    - data was edited  
     '''
     dataStatusUpdate = pyqtSignal(str,str)
-    __WindowName = 'PreProcDataEdit'
+    __windowName = 'PreProcDataEdit'
 
     def __init__(self):
-        logging.debug(self.__WindowName+'.__init__')
+        logging.debug(self.__windowName+'.__init__')
         super().__init__()
         self.pps = PreProcessorStore()
         self.dws = DataWindowStatus()
         self.dws.registerSignal(self.dataStatusUpdate)
         self.buildWindow()
-        self.pps.dataChanged.connect(self.updateInputs)   
+        self.pps.dataStatusUpdate.connect(self.updateInputs)   
 
     def closeEvent(self, event):  # @UnusedVariable
         # Check for unapplied data
-        if self.dws.getWindowDataStatus(self.__WindowName) == 0:
+        if self.dws.getWindowDataStatus(self.__windowName) == 0:
             # there is unapplied data
             if self.showCancelDialog() == QMessageBox.Ok:
                 # user wants to quit, dont save, close
-                self.dataStatusUpdate.emit(self.__WindowName,'Cancel')
+                self.dataStatusUpdate.emit(self.__windowName,'Cancel')
                 self.dws.unregisterSignal(self.dataStatusUpdate)
-                self.dws.unregisterWindow(self.__WindowName)
-                self.pps.dataChanged.disconnect(self.updateInputs)
-                logging.debug(self.__WindowName+'.closeEvent')
+                self.dws.unregisterWindow(self.__windowName)
+                self.pps.dataStatusUpdate.disconnect(self.updateInputs)
+                logging.debug(self.__windowName+'.closeEvent')
                 event.accept()
             else:
                 # abort cancel 
@@ -103,17 +107,17 @@ class PreProcDataEdit(QMdiSubWindow):
     def btnPress(self, q):
         if q == 'Apply':
             self.writeDataToStore()
-            self.dataStatusUpdate.emit(self.__WindowName,'Apply')
+            self.dataStatusUpdate.emit(self.__windowName,'Apply')
         elif q == 'Ok':
             self.writeDataToStore()
-            self.dataStatusUpdate.emit(self.__WindowName,'Ok')
+            self.dataStatusUpdate.emit(self.__windowName,'Ok')
             self.close()
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__WindowName + '.btnPress unrecognized button press '+q)
+            logging.error(self.__windowName + '.btnPress unrecognized button press '+q)
 
-    def updateInputs(self, q):
+    def updateInputs(self, n, q):  # @UnusedVariable
         if q == 'WingName':
             self.wingNameE.setText(self.pps.getSingleVal('WingName'))
         
@@ -121,7 +125,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.pps.setSingleVal('WingName', self.wingNameE.text())
             
     def dataStatusChanged(self):
-        self.dataStatusUpdate.emit(self.__WindowName,'edit')
+        self.dataStatusUpdate.emit(self.__windowName,'edit')
         
     def showCancelDialog(self):
         msgBox = QMessageBox()

@@ -15,6 +15,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, 
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
+from idlelib import window
 
 
 class MainWindow(QMainWindow):
@@ -44,7 +45,8 @@ class MainWindow(QMainWindow):
             lang_en = gettext.translation ('lepg', locale_path, languages=['en'] )
             lang_en.install()
         
-        self.dataStatus = DataWindowStatus()
+        self.pps = PreProcessorStore()
+        self.dws = DataWindowStatus()
         
         super(MainWindow, self).__init__(parent)
         self.mdi = QMdiArea()
@@ -85,9 +87,14 @@ class MainWindow(QMainWindow):
         sys.exit()  
         
     def fileDataStatus(self):
-        fileDataStatusW = DataStatusOverview()
-        self.mdi.addSubWindow(fileDataStatusW)
-        fileDataStatusW.show()
+        '''
+        Opens the File Data Status overview window.
+        '''
+        if self.dws.windowExists('DataStatusOverview') == False:
+            self.fileDataStatusW = DataStatusOverview()
+            self.dws.registerWindow('DataStatusOverview')
+            self.mdi.addSubWindow(self.fileDataStatusW)
+        self.fileDataStatusW.show() 
     
     def buildPreProcMenu(self):  
         # Define the actions
@@ -126,33 +133,18 @@ class MainWindow(QMainWindow):
         geomMenu.addAction(preProcCalcAct)
         
     def preProcOpenFile(self):
-        # ask first for the filename
-        fileName, _filter =QFileDialog.getOpenFileName(
-                        None,
-                        _('Open Geometry file'),
-                        "",
-                        "Geometry Files (*.txt);;All Files (*)")
-        
-        self.pps = PreProcessorStore()
-
-        # TODO: file open must also set flags in Data Status
-        if self.pps.isValid(fileName):
-            self.pps.setFileName(fileName, True)
+        self.pps.openFile()
         
     def preProcEdit(self):
-        
-        if self.dataStatus.windowExists('PreProcDataEdit') == False:
-            self.__preProcEditW = PreProcDataEdit()
-            self.dataStatus.registerWindow('PreProcDataEdit')
-            self.mdi.addSubWindow(self.__preProcEditW)
+        '''
+        Opens the PreProc edit window.
+        '''
+        if self.dws.windowExists('PreProcDataEdit') == False:
+            self.preProcEditW = PreProcDataEdit()
+            self.dws.registerWindow('PreProcDataEdit')
+            self.mdi.addSubWindow(self.preProcEditW)
 
-        self.__preProcEditW.show() 
-
-
-
-#         self.preProcEditW = PreProcDataEdit()
-#         self.mdi.addSubWindow(self.preProcEditW)
-#         self.preProcEditW.show()  
+        self.preProcEditW.show() 
 
     def buildViewMenu(self):
         # Define the actions

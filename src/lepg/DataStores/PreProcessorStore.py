@@ -6,6 +6,7 @@ Does take care about the data handling for the PreProcessor.
 '''
 
 from PyQt5.QtCore import QObject, QFile, QTextStream, pyqtSignal
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from Singleton.Singleton import Singleton
 import logging
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
@@ -19,11 +20,15 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     Class is implemented as a Singleton. Even if it is instantiated multiple times
     all data will be the same for all instances. 
     
-    @signal dataStatusUpdate : sent out as soon a file was opened or saved
+    @signal dataStatusUpdate :  Sent out as soon a file was opened or saved
+                                The first string indicates the class name
+                                The second string indicates 
+                                    - if a file was opened
+                                    - if a file was saved
+                                    - Filename and Path has been changed
     '''
     dataStatusUpdate = pyqtSignal(str,str)
-    dataChanged = pyqtSignal(str)
-    __Name = 'PreProcessorStore'
+    __className = 'PreProcessorStore'
     
     # Variables used across the class
     __simpleData ={
@@ -63,10 +68,11 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     def __init__(self):
         '''
         '''
+        logging.debug('PreProcessorStore.__init__')
         super().__init__()
         self.dws = DataWindowStatus()
         self.dws.registerSignal(self.dataStatusUpdate)
-        logging.debug('PreProcessorStore created')
+        
     
     def isValid( self, fileName ):
         '''
@@ -104,6 +110,38 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             # TODO: add a error dialog here
         
         return self.versionOK and self.titleOK
+    
+    def openFile(self):
+        '''
+        Checks for unapplied/ unsaved data, and appropriate handling. 
+        Does the File Open dialog. 
+        '''
+        
+        # Make sure there is no unsaved/ unapplied data
+        if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
+            # There is unsaved/ unapplied data, show a warning
+            if self.showReallyOpenNewDialog() == QMessageBox.Ok:
+                # User wants to open the file
+                # Ask first for the filename
+                fileName, _filter =QFileDialog.getOpenFileName(
+                                None,
+                                _('Open Geometry file'),
+                                "",
+                                "Geometry Files (*.txt);;All Files (*)")
+
+                # TODO: file open must also set flags in Data Status
+                if self.isValid(fileName):
+                    self.setFileName(fileName, True)
+                    self.readFile()
+            
+    def showReallyOpenNewDialog(self):
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("Unsaved or unapplied data")
+        msgBox.setText("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. ")
+        msgBox.setIcon(QMessageBox.Warning)
+        
+        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        return msgBox.exec()
     
     def readFile(self):
         '''
@@ -255,7 +293,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         self.setSingleVal('CellNum', stream.readLine())
 
         inFile.close()
-        self.fileStatusUpdate.emit(self.__Name,'Open')
+        self.dataStatusUpdate.emit(self.__className,'Open')
   
     def writeFile( self, text ):
         '''
@@ -279,12 +317,10 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         '''
         if self.isValid( fileName ):
             self.setSingleVal('FileNamePath', fileName)
-            self.dataChanged.emit('FileNamePath')
             if openFile == True:
                 self.readFile()
         else:
             self.setSingleVal('FileNamePath', '')
-            self.dataChanged.emit('FileNamePath')
             
     def getFileName( self ):
         '''
@@ -294,14 +330,14 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     
     def setSingleVal(self, parameter, value):
         self.__simpleData[parameter] = value
-        self.dataChanged.emit(parameter)
+        self.dataStatusUpdate.emit(self.__className, parameter)
         
     def getSingleVal(self, parameter):
         return self.__simpleData.get(parameter)
 
     def setVault_t2_dta(self, x, y, v):
         self.__Vault_t2_dta[x][y] = v
-        self.dataChanged.emit('Vault_t2_dta')
+        self.dataStatusUpdate.emit(self.__className, 'Vault_t2_dta')
         
     def getVault_t2_dta(self, x, y, v):
         return self.__Vault_t2_dta[x][y]
