@@ -1,5 +1,5 @@
 '''
-
+Central place where the data status will be tracked. 
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
@@ -11,9 +11,18 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from Singleton.Singleton import Singleton
 
 class DataWindowStatus(QObject, metaclass=Singleton):
+    '''
+    Central place where the data status will be tracked.
+
+    Class is implemented as a Singleton. Even if it is instantiated multiple times
+    all data will be the same for all instances. 
+    
+    @signal dataStatusUpdate : sent out as soon a data or window status changes
+    '''
+    
     statusUpdated = pyqtSignal(str)
    
-    # means data has been applied or saved
+    # 1 means data has been applied or saved
     __windowDataStatus ={
         'PreProcDataEdit' : '1' ,
     }

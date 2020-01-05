@@ -1,5 +1,5 @@
 '''
-
+Parent class used to build the individial singletons across the program. 
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0

@@ -232,7 +232,7 @@ class MainWindow(QMainWindow):
             sub.setWindowTitle("subwindow"+str(MainWindow.count))
             self.mdi.addSubWindow(sub)
             sub.show()
-    
+
         
 def main():
     app = QApplication(sys.argv)

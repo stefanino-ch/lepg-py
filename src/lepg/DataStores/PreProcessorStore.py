@@ -1,5 +1,5 @@
 '''
-
+Does take care about the data handling for the PreProcessor. 
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
@@ -12,6 +12,12 @@ from DataWindowStatus.DataWindowStatus import DataWindowStatus
 
 class PreProcessorStore(QObject, metaclass=Singleton):
     '''
+    Does take care about the data handling for the PreProcessor. 
+        - Reads and writes the data files
+        - Holds as a central point all temporary data during program execution
+
+    Class is implemented as a Singleton. Even if it is instantiated multiple times
+    all data will be the same for all instances. 
     
     @signal dataStatusUpdate : sent out as soon a file was opened or saved
     '''
@@ -64,7 +70,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     
     def isValid( self, fileName ):
         '''
-        Checks if a file can be opened and contains a valid title and known version number
+        Checks if a file can be opened and contains a valid title and known version number.
         '''
         logging.debug('PreProcessorStore.isValid')
         try:

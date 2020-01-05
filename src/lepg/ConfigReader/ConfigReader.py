@@ -28,8 +28,6 @@ class ConfigReaderMeta(type):
 class ConfigReader(metaclass=ConfigReaderMeta):
     '''
     Does all the necessary work to read and save global program configurations. 
-    
-    Keyword arguments:
     '''
     def __init__(self):
         # Variables and instances used across the class

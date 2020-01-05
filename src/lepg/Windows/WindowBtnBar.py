@@ -1,5 +1,5 @@
 '''
-
+Displays the standard buttons under each data window. 
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
@@ -13,22 +13,25 @@ import os
 
 class WindowBtnBar(QWidget):
     '''
-    classdocs
+    Displays the standard buttons under each data window. 
     
+    Button Layout
         [Apply] [Ok] [Cancel]
                      [Help]
                      
-    bitmask
-    Apply    0b1000
-    Ok       0b0100
-    Cancel   0b0010
-    Help     0b0001
+    Bitmask controlling which buttons will be displayed
+        Apply    0b1000
+        Ok       0b0100
+        Cancel   0b0010
+        Help     0b0001
     '''
     my_signal = pyqtSignal(str)
     
     def __init__(self, buttons = 0b1111):
         '''
         Constructor
+        
+        @param buttons: A bitmask defining which of the buttons shall be displayed. 
         '''
         super().__init__()
         

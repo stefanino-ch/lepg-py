@@ -27,14 +27,6 @@ class PreProcDataEdit(QMdiSubWindow):
     __WindowName = 'PreProcDataEdit'
 
     def __init__(self):
-        '''
-        Constructor
-        
-        Layout
-            Data
-            Help window
-            Buttons
-        '''
         logging.debug(self.__WindowName+'.__init__')
         super().__init__()
         self.pps = PreProcessorStore()
@@ -60,6 +52,12 @@ class PreProcDataEdit(QMdiSubWindow):
                 event.ignore()
     
     def buildWindow(self):
+        '''
+        Layout
+            Data
+            Help window
+            Buttons
+        '''
         self.win = QWidget()
         self.setWidget(self.win)
 

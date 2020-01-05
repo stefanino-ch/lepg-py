@@ -4,7 +4,6 @@ Window displaying
     If files are saved
     If data withing windows has been applied
 
-
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
 '''
@@ -21,18 +20,14 @@ from DataStores.PreProcessorStore import PreProcessorStore
 
 class DataStatusOverview(QMdiSubWindow):
     '''
-    classdocs
+    Window displaying 
+        Filenames 
+        If files are saved
+        If data withing windows has been applied
     '''
     __WindowName = 'DataStatusOverview'
 
     def __init__(self):
-        '''
-        Constructor
-
-        Layout:
-            Data
-            Buttons
-        '''
         logging.debug(self.__WindowName+'.__init__')
         super().__init__()
         
@@ -47,6 +42,13 @@ class DataStatusOverview(QMdiSubWindow):
         logging.debug(self.__WindowName+'.closeEvent')
     
     def buildWindow(self):
+        '''
+        Builds the window. 
+        
+        Layout:
+            Data
+            Buttons
+        '''
         self.win = QWidget()
         self.win.setFixedWidth(350)
         self.setWidget(self.win)

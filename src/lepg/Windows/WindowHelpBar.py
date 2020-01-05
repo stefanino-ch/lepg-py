@@ -1,5 +1,5 @@
 '''
-
+Displays the standard window showing the user help text.
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
@@ -9,18 +9,10 @@ from PyQt5.QtGui import QPalette, QColor
 
 class WindowHelpBar(QWidget):
     '''
-    classdocs
+    Displays the standard window showing the user help text.
     '''
 
     def __init__(self):
-        '''
-        Constructor
-        
-        [ Help Window       ]
-        
-        [Apply] [Ok] [Cancel]
-                     [Help]
-        '''
         super().__init__()
         
         # Define GUI elements and connects
