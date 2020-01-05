@@ -1,7 +1,8 @@
 '''
-@author: Stefan Feuz; http://www.laboratoridenvol.com
 
-General Public License GNU GPL 3.0
+
+@author: Stefan Feuz; http://www.laboratoridenvol.com
+@license: General Public License GNU GPL 3.0
 '''
 
 from PyQt5.QtCore import QObject, QFile, QTextStream, pyqtSignal

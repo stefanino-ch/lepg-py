@@ -2,8 +2,7 @@
 Takes care about reading and saving the program configuration.
 
 @author: Stefan Feuz; http://www.laboratoridenvol.com
-
-General Public License GNU GPL 3.0
+@license: General Public License GNU GPL 3.0
 '''
 
 from __future__ import annotations

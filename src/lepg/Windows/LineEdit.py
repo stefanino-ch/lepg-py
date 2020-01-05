@@ -1,7 +1,8 @@
 '''
-Created on 28.12.2019
 
-@author: User
+
+@author: Stefan Feuz; http://www.laboratoridenvol.com
+@license: General Public License GNU GPL 3.0
 '''
 from PyQt5.QtCore import QEvent
 from PyQt5.QtWidgets import QLineEdit

@@ -1,7 +1,8 @@
 '''
-Created on 30.11.2019
 
-@author: User
+
+@author: Stefan Feuz; http://www.laboratoridenvol.com
+@license: General Public License GNU GPL 3.0
 '''
 
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
