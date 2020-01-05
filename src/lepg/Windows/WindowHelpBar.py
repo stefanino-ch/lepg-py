@@ -1,7 +1,8 @@
 '''
-Created on 07.12.2019
 
-@author: User
+
+@author: Stefan Feuz; http://www.laboratoridenvol.com
+@license: General Public License GNU GPL 3.0
 '''
 from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout
 from PyQt5.QtGui import QPalette, QColor

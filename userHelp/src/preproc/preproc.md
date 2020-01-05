@@ -1,3 +1,6 @@
+Author: Stefan Feuz; http://www.laboratoridenvol.com
+Copyright: General Public License GNU GPL 3.0
+
 # Preprocessor parameters
 
 Explanations here does just summarize what is explained in detail on the [Laboratori d'envol website](http://laboratoridenvol.com/leparagliding/pre.en.html)  

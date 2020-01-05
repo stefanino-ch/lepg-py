@@ -1,5 +1,6 @@
-# Hello Again
+Author: Stefan Feuz; http://www.laboratoridenvol.com
+Copyright: General Public License GNU GPL 3.0
 
-This is regular text generated from regular Markdown.
+# lepg description
 
-Foliant doesn’t force any *special* Markdown flavor.
+Currently used as a placeholder to get the help structure visualized. 
