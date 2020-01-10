@@ -98,21 +98,17 @@ class MainWindow(QMainWindow):
     
     def buildPreProcMenu(self):  
         # Define the actions
-        preProcNewFileAct = QAction(_('New PreProc File'), self)
-        preProcNewFileAct.setStatusTip(_('Create a new empty file'))
-        preProcNewFileAct.setEnabled(False)
-        
         preProcOpenFileAct = QAction(_('Open PreProc File'), self)
         preProcOpenFileAct.setStatusTip(_('Open a file'))
         preProcOpenFileAct.triggered.connect(self.preProcOpenFile)
         
         preProcSaveAct = QAction(_('Save PreProc File'), self)
         preProcSaveAct.setStatusTip(_('Save the current file'))
-        preProcSaveAct.setEnabled(False)
+        preProcSaveAct.triggered.connect(self.preProcSaveFile)
         
         preProcSaveAsAct = QAction(_('Save PreProc File As ..'), self)
         preProcSaveAsAct.setStatusTip(_('Save the current file'))
-        preProcSaveAsAct.setEnabled(False)
+        preProcSaveAsAct.triggered.connect(self.preProcSaveFileAs)
         
         preProcEditAct = QAction(_('Edit PreProc Data'), self)
         preProcEditAct.setStatusTip(_('Open the edit window for the PreProc data'))
@@ -124,7 +120,6 @@ class MainWindow(QMainWindow):
         
         # Build the menu
         geomMenu = self.mainMenu.addMenu(_('Pre Processor'))
-        geomMenu.addAction(preProcNewFileAct)
         geomMenu.addAction(preProcOpenFileAct)
         geomMenu.addAction(preProcSaveAct)
         geomMenu.addAction(preProcSaveAsAct)
@@ -134,6 +129,12 @@ class MainWindow(QMainWindow):
         
     def preProcOpenFile(self):
         self.pps.openFile()
+        
+    def preProcSaveFile(self):
+        self.pps.saveFile()
+        
+    def preProcSaveFileAs(self):
+        self.pps.saveFileAs()
         
     def preProcEdit(self):
         '''

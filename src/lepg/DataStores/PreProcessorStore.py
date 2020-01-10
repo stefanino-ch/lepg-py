@@ -120,19 +120,53 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         # Make sure there is no unsaved/ unapplied data
         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
             # There is unsaved/ unapplied data, show a warning
-            if self.showReallyOpenNewDialog() == QMessageBox.Ok:
-                # User wants to open the file
-                # Ask first for the filename
-                fileName, _filter =QFileDialog.getOpenFileName(
-                                None,
-                                _('Open Geometry file'),
-                                "",
-                                "Geometry Files (*.txt);;All Files (*)")
+            if self.showReallyOpenNewDialog() == QMessageBox.Cancel:
+                # User wants to abort
+                return
+        # Ask first for the filename
+        fileName, _filter =QFileDialog.getOpenFileName(
+                        None,
+                        _('Open PreProc file'),
+                        "",
+                        "Geometry Files (*.txt);;All Files (*)")
 
-                # TODO: file open must also set flags in Data Status
-                if self.isValid(fileName):
-                    self.setFileName(fileName, True)
-                    self.readFile()
+        # TODO: file open must also set flags in Data Status
+        if self.isValid(fileName):
+            self.setFileName(fileName)
+            self.readFile()
+            
+    def saveFile(self):
+        logging.debug('PreProcessorStore.saveFile')
+        
+        filename = self.getFileName()
+        
+        if filename != '':
+            # We do have already a valid filename
+            self.writeFile()
+        else:
+            # Ask first for the filename
+            fileName, _filter =QFileDialog.getSaveFileName(
+                        None,
+                        _('Save PreProc file'),
+                        "",
+                        "Geometry Files (*.txt);;All Files (*)")
+            
+            self.setFileName(fileName)
+            self.writeFile()
+            
+    def saveFileAs(self):
+        logging.debug('PreProcessorStore.saveFileAs')
+        
+        # Ask first for the filename
+        fileName, _filter =QFileDialog.getSaveFileName(
+                    None,
+                    _('Save PreProc file as'),
+                    "",
+                    "Geometry Files (*.txt);;All Files (*)")
+        
+        self.setFileName(fileName)
+        self.writeFile()
+        
             
     def showReallyOpenNewDialog(self):
         msgBox = QMessageBox()
@@ -295,19 +329,17 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         inFile.close()
         self.dataStatusUpdate.emit(self.__className,'Open')
   
-    def writeFile( self, text ):
+    def writeFile( self):
         '''
-        Writes the string that is passed as argument to a
-        a text file with name equal to the name of the file
-        that was read, plus the suffix ".bak"
         '''
-        if self.isValid( self.fileName ):
-            fileName = self.fileName + ".bak"
-            file = open( fileName, 'w' )
-            file.write( text )
-            file.close()
+#         if self.isValid( self.fileName ):
+#             fileName = self.fileName + ".bak"
+#             file = open( fileName, 'w' )
+#             #file.write( text )
+#             file.close()
+        return
             
-    def setFileName( self, fileName, openFile = False ):
+    def setFileName( self, fileName ):
         '''
         Does set the File Name the data store shall work with. 
         
@@ -315,12 +347,8 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         @param openFile: If set to True the file will be opened immediately the path and filename was set  
         
         '''
-        if self.isValid( fileName ):
+        if fileName != '':
             self.setSingleVal('FileNamePath', fileName)
-            if openFile == True:
-                self.readFile()
-        else:
-            self.setSingleVal('FileNamePath', '')
             
     def getFileName( self ):
         '''

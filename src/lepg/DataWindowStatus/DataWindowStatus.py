@@ -115,6 +115,12 @@ class DataWindowStatus(QObject, metaclass=Singleton):
         
     def getFileStatus(self, name):
         return self.__fileDataStatus.get(name)
+    
+    def getFileStatusChar(self, name):
+        if self.__fileDataStatus.get(name) == 0:
+            return('C')
+        else:
+            return('S')
         
     def windowExists(self, window):
         '''

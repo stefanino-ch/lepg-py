@@ -1,27 +1,8 @@
-2020-01-05 20:21:20,759 - DEBUG - Session start
-2020-01-05 20:21:20,759 - DEBUG - PreProcessorStore.__init__
-2020-01-05 20:21:20,759 - DEBUG - DataWindowStatus.__init__
-2020-01-05 20:21:23,525 - DEBUG - DataStatusOverview.__init__
-2020-01-05 20:21:25,853 - DEBUG - PreProcDataEdit.__init__
-2020-01-05 20:21:38,641 - DEBUG - PreProcessorStore.isValid
-2020-01-05 20:21:38,641 - DEBUG - PreProcessorStore.isValid
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section1 Header
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section 1 Data
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section 2 Header
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section 2 Data
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section 3 Header
-2020-01-05 20:21:38,656 - DEBUG - PreProcessorStore.readFile Section 3 Data
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Vault Type 1
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 4 Header
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 4 Data
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section1 Header
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 1 Data
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 2 Header
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 2 Data
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 3 Header
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 3 Data
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Vault Type 1
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 4 Header
-2020-01-05 20:21:38,657 - DEBUG - PreProcessorStore.readFile Section 4 Data
-2020-01-05 20:22:30,315 - DEBUG - DataStatusOverview.closeEvent
-2020-01-05 20:22:32,174 - DEBUG - Session exit
+2020-01-10 16:20:50,837 - DEBUG - Session start
+2020-01-10 16:20:50,837 - DEBUG - PreProcessorStore.__init__
+2020-01-10 16:20:50,837 - DEBUG - DataWindowStatus.__init__
+2020-01-10 16:20:54,025 - DEBUG - DataStatusOverview.__init__
+2020-01-10 16:20:58,181 - DEBUG - PreProcessorStore.saveFile
+2020-01-10 16:21:10,215 - DEBUG - PreProcessorStore.saveFile
+2020-01-10 16:21:16,205 - DEBUG - PreProcessorStore.saveFileAs
+2020-01-10 16:24:04,277 - DEBUG - PreProcessorStore.isValid

@@ -10,7 +10,7 @@ Window displaying
 import logging
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
+from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
 from PyQt5.QtWidgets import QLabel
 
 from Windows.WindowBtnBar import WindowBtnBar
@@ -50,7 +50,6 @@ class DataStatusOverview(QMdiSubWindow):
             Buttons
         '''
         self.win = QWidget()
-        self.win.setFixedWidth(350)
         self.setWidget(self.win)
         
         self.windowGrid = QGridLayout()
@@ -59,34 +58,53 @@ class DataStatusOverview(QMdiSubWindow):
         #############################
         # Add window specifics here
         self.setWindowTitle("Data Status Overview")
-        
+
+        self.preProcF = QGroupBox()    
+        self.preProcF.setTitle("Pre Processor")
+        self.preProcF.setFixedWidth(350)
+        self.windowGrid.addWidget(self.preProcF, self.__winGridRow, 0, Qt.AlignLeft)
+        self.__winGridRow += 1
+                
+        ## TODO
         self.dataGrid = QGridLayout()
-        self.__dataGridRow = 0         
+        self.__dataGridRow = 0
+        
         ##
-        self.preProcFilenameL = QLabel(_('PreProc Filename'))
+        self.preProcG = QGridLayout()
+        self.__preProcGridR = 0
+        self.preProcF.setLayout(self.preProcG)
+        
+         
+        ##
+        self.preProcFilenameL = QLabel(_('Filename'))
         self.preProcFilenameD = QLabel(self.shortenPath(self.pps.getFileName()))
         self.preProcFilenameD.adjustSize()
 
-        self.dataGrid.addWidget(self.preProcFilenameL, self.__dataGridRow , 0)
-        self.dataGrid.addWidget(self.preProcFilenameD, self.__dataGridRow, 1)
-        self.__dataGridRow += 1
+        self.preProcG.addWidget(self.preProcFilenameL, self.__preProcGridR , 0)
+        self.preProcG.addWidget(self.preProcFilenameD, self.__preProcGridR, 1)
+        self.__preProcGridR += 1
+        ##
+        self.preProcFileversL = QLabel(_('File version'))
+        self.preProcFileversD = QLabel(self.pps.getSingleVal('FileVersion'))
+
+        self.preProcG.addWidget(self.preProcFileversL, self.__preProcGridR, 0)
+        self.preProcG.addWidget(self.preProcFileversD, self.__preProcGridR, 1)
+        self.__preProcGridR += 1
         
         ##
-        self.preProcFileversL = QLabel(_('PreProc File version'))
-        self.preProcFileversD = QLabel(self.pps.getSingleVal('FileVersion'))
-        self.preProcFileversD.adjustSize()
-
-        self.dataGrid.addWidget(self.preProcFileversL, self.__dataGridRow , 0)
-        self.dataGrid.addWidget(self.preProcFileversD, self.__dataGridRow, 1)
-        self.__dataGridRow += 1
+        self.preProcFileStatL = QLabel(_('File status'))
+        self.preProcFileStatD = QLabel( self.dws.getFileStatusChar('PreProcFile'))
+        self.preProcG.addWidget(self.preProcFileStatL, self.__preProcGridR, 0)
+        self.preProcG.addWidget(self.preProcFileStatD, self.__preProcGridR, 1)
+        self.__preProcGridR += 1
         
         ##        
-        self.preProcDataStatusL = QLabel(_('PreProc Data Status'))
+        self.preProcDataStatusL = QLabel(_('Data Status'))
         self.preProcDataStatusS = QLabel( self.dws.getWindowDataStatusChar('PreProcDataEdit'))
         
-        self.dataGrid.addWidget(self.preProcDataStatusL, self.__dataGridRow , 0)
-        self.dataGrid.addWidget(self.preProcDataStatusS, self.__dataGridRow, 1)
-        self.__dataGridRow += 1
+        self.preProcG.addWidget(self.preProcDataStatusL, self.__preProcGridR , 0)
+        self.preProcG.addWidget(self.preProcDataStatusS, self.__preProcGridR, 1)
+        self.__preProcGridR += 1
         
         #############################
         # Rest of standard window setups
@@ -104,21 +122,20 @@ class DataStatusOverview(QMdiSubWindow):
         self.win.setLayout(self.windowGrid)
         
     def shortenPath(self, path):
-        self.__stringLength = 45
+        self.__stringLength = 50
         if len(path) > self.__stringLength:
             return '...'+path[-(self.__stringLength-3):]
         else:
             return path
         
     def updateStatus(self, q):
-        print('updataStatus')
         if q == 'PreProcDataEdit':
             self.preProcDataStatusS.setText(self.dws.getWindowDataStatusChar('PreProcDataEdit'))
-        # TODO: add here the PreProc file
+        
+        if q== 'PreProcFile':
+            self.preProcFileStatD.setText(self.dws.getFileStatusChar('PreProcFile'))
             
     def dataChanged(self, n, q):
-        print('dataChanged')
-        
         if n == 'PreProcessorStore':
             if q == 'FileNamePath':
                 self.preProcFilenameD.setText(self.shortenPath(self.pps.getFileName()))
