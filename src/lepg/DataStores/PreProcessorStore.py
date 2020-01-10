@@ -123,17 +123,19 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             if self.showReallyOpenNewDialog() == QMessageBox.Cancel:
                 # User wants to abort
                 return
-        # Ask first for the filename
-        fileName, _filter =QFileDialog.getOpenFileName(
+
+        fileName = QFileDialog.getOpenFileName(
                         None,
                         _('Open PreProc file'),
                         "",
                         "Geometry Files (*.txt);;All Files (*)")
 
-        # TODO: file open must also set flags in Data Status
-        if self.isValid(fileName):
-            self.setFileName(fileName)
-            self.readFile()
+        if fileName != ('', ''):
+            # User has really selected a file, if it would have aborted the dialog  
+            # an empty tuple is retured
+            if self.isValid(fileName[0]):
+                self.setFileName(fileName[0])
+                self.readFile()
             
     def saveFile(self):
         logging.debug('PreProcessorStore.saveFile')
@@ -145,28 +147,33 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             self.writeFile()
         else:
             # Ask first for the filename
-            fileName, _filter =QFileDialog.getSaveFileName(
+            fileName = QFileDialog.getSaveFileName(
                         None,
                         _('Save PreProc file'),
                         "",
                         "Geometry Files (*.txt);;All Files (*)")
             
-            self.setFileName(fileName)
-            self.writeFile()
+            if fileName != ('', ''):
+                # User has really selected a file, if it would have aborted the dialog  
+                # an empty tuple is retured
+                self.setFileName(fileName[0])
+                self.writeFile()
             
     def saveFileAs(self):
         logging.debug('PreProcessorStore.saveFileAs')
         
         # Ask first for the filename
-        fileName, _filter =QFileDialog.getSaveFileName(
+        fileName = QFileDialog.getSaveFileName(
                     None,
                     _('Save PreProc file as'),
                     "",
                     "Geometry Files (*.txt);;All Files (*)")
         
-        self.setFileName(fileName)
-        self.writeFile()
-        
+        if fileName != ('', ''):
+                # User has really selected a file, if it would have aborted the dialog  
+                # an empty tuple is retured
+                self.setFileName(fileName[0])
+                self.writeFile()
             
     def showReallyOpenNewDialog(self):
         msgBox = QMessageBox()
@@ -337,6 +344,11 @@ class PreProcessorStore(QObject, metaclass=Singleton):
 #             file = open( fileName, 'w' )
 #             #file.write( text )
 #             file.close()
+
+        # don't forget to set the file version!
+        
+        # and make flags in order
+        
         return
             
     def setFileName( self, fileName ):

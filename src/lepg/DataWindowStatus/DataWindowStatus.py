@@ -46,7 +46,6 @@ class DataWindowStatus(QObject, metaclass=Singleton):
         super().__init__()
     
     def registerSignal(self, signal):
-        print('registerSignal')
         signal.connect(self.signalReceived)
     
     def unregisterSignal(self, signal):
