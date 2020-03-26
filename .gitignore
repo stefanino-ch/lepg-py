@@ -1,4 +1,4 @@
-src/lepg/logfile.txt
+lepg/logfile.txt
 userHelp/userHelp.mkdocs
 userHelp/userHelp.mkdocs/hello.html
 userHelp/userHelp.mkdocs/index.html
@@ -6,5 +6,6 @@ userHelp/userHelp.mkdocs/search/search_index.json
 userHelp/userHelp.mkdocs/sitemap.xml
 userHelp/userHelp.mkdocs/sitemap.xml.gz
 exportTestFiles/
+
 /__pycache__
 *.pyc
