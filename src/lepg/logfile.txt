@@ -1,6 +1,0 @@
-2020-03-26 10:43:06,185 - DEBUG - Session start
-2020-03-26 10:43:06,185 - DEBUG - PreProcessorStore.__init__
-2020-03-26 10:43:06,185 - DEBUG - DataWindowStatus.__init__
-2020-03-26 10:43:09,176 - DEBUG - PreProcDataEdit.__init__
-2020-03-26 10:43:09,176 - DEBUG - PreProcDataEdit.buildWindow
-2020-03-26 10:43:36,292 - DEBUG - Session exit
