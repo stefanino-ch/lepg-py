@@ -35,7 +35,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         'FileNamePath' :  '' ,
         'FileVersion' : '', 
         'WingName' : '',
-        'LE_type' : '',
+        'LE_type' : '1',
         'LE_a1' : '',
         'LE_b1' : '',
         'LE_x1' : '',
@@ -45,7 +45,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         'LE_ex1' : '',
         'LE_c02' : '',
         'LE_ex2' : '',
-        'TE_type' : '',
+        'TE_type' : '1',
         'TE_a1' : '',
         'TE_b1' : '',
         'TE_x1' : '',
@@ -53,7 +53,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         'TE_c0' : '',
         'TE_y0' : '',
         'TE_exp' : '',
-        'Vault_type' : '',
+        'Vault_type' : '1',
         'Vault_a1' : '',
         'Vault_b1' : '',
         'Vault_x1' : '',
@@ -66,8 +66,6 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     __Vault_t2_dta = [[0,0],[0,0],[0,0],[0,0]]
     
     def __init__(self):
-        '''
-        '''
         logging.debug('PreProcessorStore.__init__')
         super().__init__()
         self.dws = DataWindowStatus()
@@ -87,40 +85,53 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             logging.error('File cannot be opened ' + fileName )
             return False
         
-        self.titleOK = False
-        self.versionOK = False
+        titleOK = False
+        versionOK = False
+        lineCounter = 0
         
-        while (stream.atEnd() != True) and not (self.titleOK and self.versionOK):
+        while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 4:
             line = stream.readLine()
             if line.find('1.5') >= 0:
                 self.setSingleVal('FileVersion', '1.5')
-                self.versionOK = True
+                versionOK = True
 
             if line.find('GEOMETRY PRE-PROCESSOR') >= 0:
-                self.titleOK = True
+                titleOK = True
+            lineCounter += 1
 
         inFile.close()
         
-        if not (self.versionOK and self.titleOK):
-            logging.error('Result of PreProc Version check %s', self.versionOK)
-            logging.error('Result of PreProc Title check %s', self.titleOK)
+        if not ( (versionOK and titleOK) ):
+            logging.error('Result of PreProc Version check %s', versionOK)
+            logging.error('Result of PreProc Title check %s', titleOK)
+            
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle('File read error')
+            msgBox.setText('File seems not to be a valid PreProc File! \nVersion detected: '+ str(versionOK)+ '\nTitle detected: '+ str(self.titleOK))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+            
             self.setSingleVal('FileNamePath', '')
-
             self.setSingleVal('FileVersion', '')
-            # TODO: add a error dialog here
-        
-        return self.versionOK and self.titleOK
+        return versionOK and titleOK
     
     def openFile(self):
         '''
         Checks for unapplied/ unsaved data, and appropriate handling. 
         Does the File Open dialog. 
         '''
-        
         # Make sure there is no unsaved/ unapplied data
         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
             # There is unsaved/ unapplied data, show a warning
-            if self.showReallyOpenNewDialog() == QMessageBox.Cancel:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("Unsaved or unapplied data")
+            msgBox.setText("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. ")
+            msgBox.setIcon(QMessageBox.Warning)        
+            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msgBox.exec()            
+            
+            if answer == QMessageBox.Cancel:
                 # User wants to abort
                 return
 
@@ -138,10 +149,13 @@ class PreProcessorStore(QObject, metaclass=Singleton):
                 self.readFile()
             
     def saveFile(self):
+        '''
+        Checks if there is already a valid file name, if not it asks for it. 
+        Starts afterwards the writing process.  
+        '''
         logging.debug('PreProcessorStore.saveFile')
         
         filename = self.getFileName()
-        
         if filename != '':
             # We do have already a valid filename
             self.writeFile()
@@ -160,6 +174,10 @@ class PreProcessorStore(QObject, metaclass=Singleton):
                 self.writeFile()
             
     def saveFileAs(self):
+        '''
+        Asks for a new filename. 
+        Starts afterwards the writing process.  
+        '''
         logging.debug('PreProcessorStore.saveFileAs')
         
         # Ask first for the filename
@@ -174,21 +192,13 @@ class PreProcessorStore(QObject, metaclass=Singleton):
                 # an empty tuple is retured
                 self.setFileName(fileName[0])
                 self.writeFile()
-            
-    def showReallyOpenNewDialog(self):
-        msgBox = QMessageBox()
-        msgBox.setWindowTitle("Unsaved or unapplied data")
-        msgBox.setText("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. ")
-        msgBox.setIcon(QMessageBox.Warning)
-        
-        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        return msgBox.exec()
     
     def readFile(self):
         '''
         Reads the data file and saves the data in the internal varibles.
         Filename and Path must be set first!
         '''
+        logging.debug(self.__className+'.readFile')
         inFile = QFile(self.getSingleVal('FileNamePath'))
         inFile.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(inFile)
@@ -338,18 +348,96 @@ class PreProcessorStore(QObject, metaclass=Singleton):
   
     def writeFile( self):
         '''
+        Writes all the values into a data file. 
+        Filename must have been set already before!
         '''
-#         if self.isValid( self.fileName ):
-#             fileName = self.fileName + ".bak"
-#             file = open( fileName, 'w' )
-#             #file.write( text )
-#             file.close()
+        separator = '**********************************\n'
+        
+        logging.debug(self.__className+'.readFile')
+        outFile = QFile(self.getSingleVal('FileNamePath'))
+        
+        if not outFile.open(QFile.ReadWrite | QFile.Text):
+        #    raise IOError, unicode(outFile.errorString())
+            logging.error(self.__className+'.writeFile '+ outFile.errorString()) 
+            
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("File save error")
+            msgBox.setText('File can not be saved: '+ outFile.errorString( ))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+            return 
+        
+        ## File is open, start writing
+        stream = QTextStream(outFile)
+        stream.setCodec('UTF-8')
 
-        # don't forget to set the file version!
+        stream << separator
+        stream << 'LEPARAGLIDING\n'
+        stream << 'GEOMETRY PRE-PROCESSOR     v1.5\n'
+        stream << separator
+        stream << self.getSingleVal('WingName') << '\n'
+        stream << separator
+        stream << '* 1. Leading edge parameters\n'
+        stream << separator
+        stream << self.getSingleVal('LE_type') << '\n'
+        stream << 'a1= ' << self.getSingleVal('LE_a1') << '\n'
+        stream << 'b1= ' << self.getSingleVal('LE_b1') << '\n'
+        stream << 'x1= ' << self.getSingleVal('LE_x1') << '\n'
+        stream << 'x2= ' << self.getSingleVal('LE_x2') << '\n'
+        stream << 'xm= ' << self.getSingleVal('LE_xm') << '\n'
+        stream << 'c0= ' << self.getSingleVal('LE_c0') << '\n'
+        stream << 'ex1= ' << self.getSingleVal('LE_ex1') << '\n'
+        stream << 'c02= ' << self.getSingleVal('LE_c02') << '\n'
+        stream << 'ex2= ' << self.getSingleVal('LE_ex2') << '\n'
         
-        # and make flags in order
+        stream << separator
+        stream << '* 2. Trailing edge parameters\n'
+        stream << separator
+        stream << self.getSingleVal('TE_type') << '\n'
+        stream << 'a1= ' << self.getSingleVal('TE_a1') << '\n'
+        stream << 'b1= ' << self.getSingleVal('TE_b1') << '\n'
+        stream << 'x1= ' << self.getSingleVal('TE_x1') << '\n'
+        stream << 'xm= ' << self.getSingleVal('TE_xm') << '\n'
+        stream << 'c0= ' << self.getSingleVal('TE_c0') << '\n'
+        stream << 'y0= ' << self.getSingleVal('TE_y0') << '\n'
+        stream << 'exp= ' << self.getSingleVal('TE_exp') << '\n'
         
-        return
+        stream << separator
+        stream << '* 3. Vault\n'
+        stream << separator
+        if self.getSingleVal('Vault_type') == '1':
+            # Write Vault type 1
+            stream << self.getSingleVal('Vault_type') << '\n'
+            stream << 'a1 = ' << self.getSingleVal('Vault_a1') << '\n'
+            stream << 'b1 = ' << self.getSingleVal('Vault_b1') << '\n'
+            stream << 'x1 = ' << self.getSingleVal('Vault_x1') << '\n'
+            stream << 'c1 = ' << self.getSingleVal('Vault_c1') << '\n'
+        else:
+            # Write Vault type 2
+            stream << self.getSingleVal('Vault_type') << '\n'
+            stream << self.getVault_t2_dta(0, 0) << '\t' << self.getVault_t2_dta(0, 1) << '\n'
+            stream << self.getVault_t2_dta(1, 0) << '\t' << self.getVault_t2_dta(1, 1) << '\n'
+            stream << self.getVault_t2_dta(2, 0) << '\t' << self.getVault_t2_dta(2, 1) << '\n'
+            stream << self.getVault_t2_dta(3, 0) << '\t' << self.getVault_t2_dta(3, 1) << '\n'
+         
+        stream << separator
+        stream << '* 4. Cells distribution\n'
+        stream << separator   
+        stream << self.getSingleVal('CellDistT') << '\n'
+        stream << self.getSingleVal('CellDistCoeff') << '\n'
+        stream << self.getSingleVal('CellNum') << '\n'
+        
+        stream.flush()
+        outFile.close()
+        
+        # Then we need to set the right file version
+        self.setSingleVal('FileVersion', '1.5')
+        
+        # Make flags in order
+        self.dataStatusUpdate.emit(self.__className,'Open')
+        
+        
             
     def setFileName( self, fileName ):
         '''
@@ -375,10 +463,10 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     def getSingleVal(self, parameter):
         return self.__simpleData.get(parameter)
 
-    def setVault_t2_dta(self, x, y, v):
-        self.__Vault_t2_dta[x][y] = v
+    def setVault_t2_dta(self, row, col, val):
+        self.__Vault_t2_dta[row][col] = val
         self.dataStatusUpdate.emit(self.__className, 'Vault_t2_dta')
         
-    def getVault_t2_dta(self, x, y, v):
-        return self.__Vault_t2_dta[x][y]
+    def getVault_t2_dta(self, row, col):
+        return self.__Vault_t2_dta[row][col]
     

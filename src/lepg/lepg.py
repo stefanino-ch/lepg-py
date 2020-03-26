@@ -9,13 +9,13 @@ import gettext
 import sys
 import logging.config
 
+from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
-from idlelib import window
 
 
 class MainWindow(QMainWindow):
@@ -49,6 +49,7 @@ class MainWindow(QMainWindow):
         self.dws = DataWindowStatus()
         
         super(MainWindow, self).__init__(parent)
+        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg")
@@ -99,23 +100,23 @@ class MainWindow(QMainWindow):
     def buildPreProcMenu(self):  
         # Define the actions
         preProcOpenFileAct = QAction(_('Open PreProc File'), self)
-        preProcOpenFileAct.setStatusTip(_('Open a file'))
+        preProcOpenFileAct.setStatusTip(_('open_preProc_file_desc'))
         preProcOpenFileAct.triggered.connect(self.preProcOpenFile)
         
         preProcSaveAct = QAction(_('Save PreProc File'), self)
-        preProcSaveAct.setStatusTip(_('Save the current file'))
+        preProcSaveAct.setStatusTip(_('save_preProc_file_desc'))
         preProcSaveAct.triggered.connect(self.preProcSaveFile)
         
         preProcSaveAsAct = QAction(_('Save PreProc File As ..'), self)
-        preProcSaveAsAct.setStatusTip(_('Save the current file'))
+        preProcSaveAsAct.setStatusTip(_('save_preProc_file_as_desc'))
         preProcSaveAsAct.triggered.connect(self.preProcSaveFileAs)
         
         preProcEditAct = QAction(_('Edit PreProc Data'), self)
-        preProcEditAct.setStatusTip(_('Open the edit window for the PreProc data'))
+        preProcEditAct.setStatusTip(_('edit_preProc_data_description'))
         preProcEditAct.triggered.connect(self.preProcEdit)
         
         preProcCalcAct = QAction(_('Calculate'), self)
-        preProcCalcAct.setStatusTip(_('Run the Pre Processor'))
+        preProcCalcAct.setStatusTip(_('calculate_preProx_des'))
         preProcCalcAct.setEnabled(False)
         
         # Build the menu
@@ -188,7 +189,7 @@ class MainWindow(QMainWindow):
     
     def setupLangDe(self):
         '''
-        TODO: proper description
+        Does to setup for the german language display
         '''
         config = ConfigReader()
         config.setLanguage("de")
@@ -196,7 +197,7 @@ class MainWindow(QMainWindow):
         
     def setupLangEn(self):
         '''
-        TODO: proper description
+        Does to setup for the english language display
         '''
         config = ConfigReader()
         config.setLanguage("en")
@@ -204,16 +205,15 @@ class MainWindow(QMainWindow):
         
     def displayRestartMsg(self):
         '''
-        TODO: proper description
-        TODO: proper translation
-        TODO: proper sizing
+        Displays a message to the user to restart the application after switching the language
         '''
         msg = QMessageBox()
         
-        msg.setWindowTitle("Language switch")
+        msg.setWindowTitle(_("Switching language"))
         msg.setIcon(QMessageBox.Information)
-        msg.setText("Please restart")
+        msg.setText(_("Please restart the application."))
         msg.setStandardButtons(QMessageBox.Ok)
+        msg.setFixedWidth(300)
         msg.exec_()  
         
         

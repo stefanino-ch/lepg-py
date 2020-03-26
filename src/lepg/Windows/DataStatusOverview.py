@@ -10,6 +10,7 @@ Window displaying
 import logging
 
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
 from PyQt5.QtWidgets import QLabel
 
@@ -45,13 +46,18 @@ class DataStatusOverview(QMdiSubWindow):
         '''
         Builds the window. 
         
-        Layout:
-            Data
-            Buttons
+        Structure:
+            win
+                windowGrid
+                    preProcF
+                        preProcG
+                            all labels for PreProc
+                    btnBar
         '''
+        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        
+                
         self.windowGrid = QGridLayout()
         self.__winGridRow = 0
 
@@ -64,16 +70,11 @@ class DataStatusOverview(QMdiSubWindow):
         self.preProcF.setFixedWidth(350)
         self.windowGrid.addWidget(self.preProcF, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
-                
-        ## TODO
-        self.dataGrid = QGridLayout()
-        self.__dataGridRow = 0
         
         ##
         self.preProcG = QGridLayout()
         self.__preProcGridR = 0
         self.preProcF.setLayout(self.preProcG)
-        
          
         ##
         self.preProcFilenameL = QLabel(_('Filename'))
@@ -108,10 +109,6 @@ class DataStatusOverview(QMdiSubWindow):
         
         #############################
         # Rest of standard window setups
-        
-        self.windowGrid.addLayout(self.dataGrid, self.__winGridRow, 0, Qt.AlignLeft)
-        self.__winGridRow += 1
-        
         self.btnBar = WindowBtnBar( 0b0100 )
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)

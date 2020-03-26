@@ -1,6 +1,6 @@
 **********************************
 LEPARAGLIDING
-GEOMETRY PRE-PROCESSOR     v1.5
+GEOMETRY PRE-PROCESSOR
 **********************************
 gnuA2 - Vault 1
 **********************************
