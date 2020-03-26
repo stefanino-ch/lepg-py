@@ -1,5 +1,5 @@
 # Logfiles
-logfile.txt
+/src/lepg/logfile.txt
 
 # Intermediate files from help system
 userHelp/userHelp.mkdocs
