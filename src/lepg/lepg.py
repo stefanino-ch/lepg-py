@@ -15,6 +15,7 @@ from DataStores.PreProcessorStore import PreProcessorStore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
+from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 
 
@@ -60,6 +61,7 @@ class MainWindow(QMainWindow):
         self.buildPreProcMenu()
         self.buildViewMenu()
         self.buildSetupMenu()
+        self.buildHelpMenu()
         
         # Create the status bar
         self.statusBar()
@@ -226,6 +228,26 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(sub)
             sub.show()
 
+    def buildHelpMenu(self):
+        # Define the actions
+        helpAboutAct = QAction(_('About'), self)
+        helpAboutAct.setStatusTip(_('Short info about the program'))
+        helpAboutAct.triggered.connect(self.helpAbout)
+        
+        # Build the menu
+        fileMenu = self.mainMenu.addMenu(_('Help'))
+        fileMenu.addAction(helpAboutAct)
+        
+    def helpAbout(self):
+        '''
+        Opens the Help About window.
+        '''
+        if self.dws.windowExists('HelpAbout') == False:
+            self.helpAboutW = HelpAbout()
+            self.dws.registerWindow('HelpAbout')
+            self.mdi.addSubWindow(self.helpAboutW)
+        self.helpAboutW.show()
+        
         
 def main():
     app = QApplication(sys.argv)
