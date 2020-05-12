@@ -70,7 +70,6 @@ class ProcRunner():
             
             if output:
                 logging.debug(self.__className+'.run_command '+ output.strip() )
-                print('output ',output.strip())
                 self.userInfo.appendText(output.strip())
                 
         return
