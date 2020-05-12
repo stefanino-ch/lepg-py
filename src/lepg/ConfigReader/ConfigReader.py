@@ -153,7 +153,10 @@ class ConfigReader(metaclass=ConfigReaderMeta):
         param -- full path and name of the pre processor executable
         '''
         self.__preProcPathName = param
-        self.writeConfigFileContent()
+        
+        # At the same time we set also the path only information        
+        directory = os.path.dirname(os.path.abspath(param))
+        self.setPreProcDirectory(directory)
         
     def getLepPathName(self):
         '''

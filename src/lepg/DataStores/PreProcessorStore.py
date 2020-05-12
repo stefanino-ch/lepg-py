@@ -4,12 +4,14 @@ Does take care about the data handling for the PreProcessor.
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
 '''
+import os
+import logging
 
 from PyQt5.QtCore import QObject, QFile, QTextStream, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from Singleton.Singleton import Singleton
-import logging
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
+from ConfigReader.ConfigReader import ConfigReader
 
 class PreProcessorStore(QObject, metaclass=Singleton):
     '''
@@ -346,18 +348,35 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         inFile.close()
         self.dataStatusUpdate.emit(self.__className,'Open')
   
-    def writeFile( self):
+    def writeFile(self, forProc=False):
         '''
         Writes all the values into a data file. 
-        Filename must have been set already before!
+        Filename must have been set already before, unless the file shall be written for the PreProcessor.
+                
+        @param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
         '''
         separator = '**********************************\n'
         
-        logging.debug(self.__className+'.readFile')
-        outFile = QFile(self.getSingleVal('FileNamePath'))
+        logging.debug(self.__className+'.writeFile')
+        
+        if forProc == False:
+            # Regular file write into a file specified by the user
+            outFile = QFile(self.getSingleVal('FileNamePath'))
+        else:
+            # Special file write into the directory where the PreProcessor resides
+            config = ConfigReader()
+            pathName = os.path.join(config.getPreProcDirectory(), 'pre-data.txt')
+            
+            # Delete old file first
+            if os.path.exists(pathName):
+                logging.debug(self.__className+'.writeFile remove old file')
+                os.remove(pathName)
+            else:
+                logging.debug(self.__className+'.writeFile no PreProc file in place')
+            
+            outFile = QFile(pathName)
         
         if not outFile.open(QFile.ReadWrite | QFile.Text):
-        #    raise IOError, unicode(outFile.errorString())
             logging.error(self.__className+'.writeFile '+ outFile.errorString()) 
             
             msgBox = QMessageBox()
@@ -386,7 +405,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         stream << 'x1= ' << self.getSingleVal('LE_x1') << '\n'
         stream << 'x2= ' << self.getSingleVal('LE_x2') << '\n'
         stream << 'xm= ' << self.getSingleVal('LE_xm') << '\n'
-        stream << 'c0= ' << self.getSingleVal('LE_c0') << '\n'
+        stream << 'c01= ' << self.getSingleVal('LE_c0') << '\n'
         stream << 'ex1= ' << self.getSingleVal('LE_ex1') << '\n'
         stream << 'c02= ' << self.getSingleVal('LE_c02') << '\n'
         stream << 'ex2= ' << self.getSingleVal('LE_ex2') << '\n'
@@ -409,10 +428,10 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         if self.getSingleVal('Vault_type') == '1':
             # Write Vault type 1
             stream << self.getSingleVal('Vault_type') << '\n'
-            stream << 'a1 = ' << self.getSingleVal('Vault_a1') << '\n'
-            stream << 'b1 = ' << self.getSingleVal('Vault_b1') << '\n'
-            stream << 'x1 = ' << self.getSingleVal('Vault_x1') << '\n'
-            stream << 'c1 = ' << self.getSingleVal('Vault_c1') << '\n'
+            stream << 'a1= ' << self.getSingleVal('Vault_a1') << '\n'
+            stream << 'b1= ' << self.getSingleVal('Vault_b1') << '\n'
+            stream << 'x1= ' << self.getSingleVal('Vault_x1') << '\n'
+            stream << 'c1= ' << self.getSingleVal('Vault_c1') << '\n'
         else:
             # Write Vault type 2
             stream << self.getSingleVal('Vault_type') << '\n'
@@ -431,13 +450,12 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         stream.flush()
         outFile.close()
         
-        # Then we need to set the right file version
-        self.setSingleVal('FileVersion', '1.5')
+        if forProc == False:
+            # Then we need to set the right file version
+            self.setSingleVal('FileVersion', '1.5')
         
-        # Make flags in order
-        self.dataStatusUpdate.emit(self.__className,'Open')
-        
-        
+            # Make flags in order
+            self.dataStatusUpdate.emit(self.__className,'Open')
             
     def setFileName( self, fileName ):
         '''

@@ -5,11 +5,13 @@ Displays the standard buttons under each data window.
 @license: General Public License GNU GPL 3.0
 '''
 
+import os
+import webbrowser
+
+
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import pyqtSignal
-
-import webbrowser
-import os
+from ConfigReader.ConfigReader import ConfigReader
 
 class WindowBtnBar(QWidget):
     '''
@@ -76,8 +78,9 @@ class WindowBtnBar(QWidget):
     def cancelBtnPress(self):
         self.my_signal.emit('Cancel')
         
-    def helpBtnPress(self):  
-        webbrowser.open(os.getcwd() + "/userHelp/" + self.__helpPage)
+    def helpBtnPress(self):
+        config = ConfigReader()
+        webbrowser.open( os.path.join(os.getcwd(), 'userHelp', config.getLanguage(), self.__helpPage) )
     
     def setHelpPage(self, helpPage):
         '''

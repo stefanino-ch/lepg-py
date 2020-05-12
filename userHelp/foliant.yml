@@ -5,11 +5,12 @@ title: lepg documentation
 
 chapters:
   - index.md
-  - PreProcessor:
-    - 'Parameters': preproc/preproc.md
-    - 'Configuration window': preproc/preproc-win.md
-  - lep:
-    - 'Writing your docs': hello.md
+  - Deutsch:
+    - Pre-Prozessor:
+      - 'Parameter': de/preproc/preproc.md
+  - English:
+      - 'Pre Processor':
+        - 'Parameters': en/preproc/preproc.md
 
 escape_code: true
 

@@ -2,7 +2,7 @@ LABORATORI D'ENVOL PARAGLIDING
 GEOMETRY PRE-PROCESSOR
 Version 1.5 "Baldiri" (2018-12-07)
 
-Since version 1.5 some additional parameters have been added, for a more precise definition of the leading edge and the trailing edge.
+Since version 1.5 some additional parameters have been added, for a more precise definition of the leading edge and the trailing edge. Look inside "jpg" folder.
 
 Now the leading edge section looks like:
 

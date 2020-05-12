@@ -562,6 +562,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.btnBar = WindowBtnBar()
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setHelpPage('preproc/preproc.html')
         
         self.windowGrid.addWidget(self.helpBar, __winGRow ,0, Qt.AlignRight)
         __winGRow += 1
@@ -721,6 +722,25 @@ class PreProcDataEdit(QMdiSubWindow):
         self.pps.setSingleVal('TE_c0',self.te_c0_E.text())
         self.pps.setSingleVal('TE_y0',self.te_y0_E.text())
         self.pps.setSingleVal('TE_exp',self.te_exp_E.text())
+        
+        if self.vault_cb.currentIndex() == 0:
+            # SIN-COS
+            self.pps.setSingleVal('Vault_type', '1')
+            self.pps.setSingleVal('Vault_a1', self.vault1_a1_E.text())
+            self.pps.setSingleVal('Vault_b1', self.vault1_b1_E.text())
+            self.pps.setSingleVal('Vault_x1', self.vault1_x1_E.text())
+            self.pps.setSingleVal('Vault_c1', self.vault1_c1_E.text())
+        else:
+            # Radius-Angle
+            self.pps.setSingleVal('Vault_type', '2')
+            self.pps.setVault_t2_dta(0,0, self.vault2_r1_E.text())
+            self.pps.setVault_t2_dta(1,0, self.vault2_r2_E.text())
+            self.pps.setVault_t2_dta(2,0, self.vault2_r3_E.text())
+            self.pps.setVault_t2_dta(3,0, self.vault2_r4_E.text())
+            self.pps.setVault_t2_dta(0,1, self.vault2_a1_E.text())
+            self.pps.setVault_t2_dta(1,1, self.vault2_a2_E.text())
+            self.pps.setVault_t2_dta(2,1, self.vault2_a3_E.text())
+            self.pps.setVault_t2_dta(3,1, self.vault2_a4_E.text())
         
         self.pps.setSingleVal('CellDistT',self.cd_type_E.text())
         self.pps.setSingleVal('CellDistCoeff',self.cd_coeff_E.text())

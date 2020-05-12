@@ -1,6 +1,9 @@
 # Logfiles
 /src/lepg/logfile.txt
 
+# Config file
+/src/lepg/configFile.txt
+
 # Intermediate files from help system
 userHelp/userHelp.mkdocs
 userHelp/userHelp.mkdocs/hello.html

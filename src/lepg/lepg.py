@@ -12,14 +12,18 @@ import logging.config
 from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox, QFileDialog
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
+from Processors.ProcRunner import ProcRunner
+from Windows.ProcessorOutput import ProcessorOutput
 
 
 class MainWindow(QMainWindow):
+    
+    __className = 'MainWindow'
 
     def __init__(self, parent = None):
         # Setup the logger
@@ -30,7 +34,7 @@ class MainWindow(QMainWindow):
         # WARNING
         # ERROR
         # CRITICAL
-        logging.debug('Session start')
+        logging.debug(self.__className + '.__init__')
         
         # Setup languages
         locale_path = 'translations'
@@ -86,7 +90,7 @@ class MainWindow(QMainWindow):
         ''' 
         Does all the work to close properly the application. 
         '''
-        logging.debug('Session exit')
+        logging.debug(self.__className + '.fileExit')
         sys.exit()  
         
     def fileDataStatus(self):
@@ -117,9 +121,9 @@ class MainWindow(QMainWindow):
         preProcEditAct.setStatusTip(_('edit_preProc_data_description'))
         preProcEditAct.triggered.connect(self.preProcEdit)
         
-        preProcCalcAct = QAction(_('Calculate'), self)
-        preProcCalcAct.setStatusTip(_('calculate_preProx_des'))
-        preProcCalcAct.setEnabled(False)
+        preProcRunAct = QAction(_('Run Pre-Processor'), self)
+        preProcRunAct.setStatusTip(_('calculate_preProx_des'))
+        preProcRunAct.triggered.connect(self.preProcRun)
         
         # Build the menu
         geomMenu = self.mainMenu.addMenu(_('Pre Processor'))
@@ -128,7 +132,7 @@ class MainWindow(QMainWindow):
         geomMenu.addAction(preProcSaveAsAct)
         geomMenu.addSeparator()
         geomMenu.addAction(preProcEditAct)
-        geomMenu.addAction(preProcCalcAct)
+        geomMenu.addAction(preProcRunAct)
         
     def preProcOpenFile(self):
         self.pps.openFile()
@@ -149,6 +153,26 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.preProcEditW)
 
         self.preProcEditW.show() 
+        
+    def preProcRun(self):
+        '''
+        Does start the Pre-Processor
+        '''
+        logging.debug(self.__className + '.preProcRun')
+        
+        # Save current file into processor directory
+        self.pps.writeFile(True)
+        
+        # Open the window for the user info
+        if self.dws.windowExists('ProcessorOutput') == False:
+            self.procOutW = ProcessorOutput()
+            self.dws.registerWindow('ProcessorOutput')
+            self.mdi.addSubWindow(self.procOutW)
+        self.procOutW.show()
+        
+        # Finally run the processor
+        preProcRunner = ProcRunner(self.procOutW)
+        preProcRunner.runPreProc()
 
     def buildViewMenu(self):
         # Define the actions
@@ -183,11 +207,17 @@ class MainWindow(QMainWindow):
         setupLangDeAct.setStatusTip('Wechselt zur deutschen Anzeige')
         setupLangDeAct.triggered.connect(self.setupLangDe)
         
+        setupPreProcAct = QAction(_('Setup Pre-Processor'), self)
+        setupPreProcAct.setStatusTip(_('setup_preProc_location'))
+        setupPreProcAct.triggered.connect(self.setupPreProcLocation)
+        
         # add actions
         setupMenu = self.mainMenu.addMenu(_('Setup'))
         setupLangMenu = setupMenu.addMenu(_('Language'))
         setupLangMenu.addAction(setupLangEnAct)
         setupLangMenu.addAction(setupLangDeAct)
+        setupMenu.addSeparator()
+        setupMenu.addAction(setupPreProcAct)
     
     def setupLangDe(self):
         '''
@@ -218,6 +248,25 @@ class MainWindow(QMainWindow):
         msg.setFixedWidth(300)
         msg.exec_()  
         
+    def setupPreProcLocation(self): 
+        '''
+        Asks the user for the location where the Pre-Processor is saved
+        '''
+        logging.debug(self.__className + '.setupPreProcLocation')
+        fileName = QFileDialog.getOpenFileName(
+                        None,
+                        _('Select Pre_Processor'),
+                        "",
+                        "Executable (*.exe)")
+
+        if fileName != ('', ''):
+            # User has really selected a file, if it would have aborted the dialog  
+            # an empty tuple is retured
+            # Write the info to the config reader
+            logging.debug(self.__className + '.setupPreProcLocation Path and Name ' + fileName[0])
+            
+            config = ConfigReader()
+            config.setPreProcPathName(fileName[0])
         
     def fileMenuActions(self, q):
         if q.text() == _('New'):
