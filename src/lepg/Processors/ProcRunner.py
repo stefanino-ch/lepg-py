@@ -34,12 +34,8 @@ class ProcRunner():
         
         config = ConfigReader()
         
-        if platform.system() == "Windows":
-            setPath = 'cd ' + config.getPreProcDirectory()
-            cmd = config.getPreProcPathName()
-        else:
-            logging.error("Sorry, your operating system is not supported yet")
-            return
+        setPath = 'cd ' + config.getPreProcDirectory()
+        cmd = config.getPreProcPathName()
             
         args = [setPath, cmd]
         self.run_command(args)
@@ -55,8 +51,16 @@ class ProcRunner():
         for cmd in cmds:
             logging.debug(self.__className+'.run_command '+ cmd )
                 
-        # TODO: add here other OS
-        process = Popen('cmd.exe', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=False, encoding='utf8')
+        # TODO: add here other OS as needed
+        if platform.system() == "Windows":
+            process = Popen('cmd.exe', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=False, encoding='utf8')
+        elif platform.system() == "Linux":
+            # TODO: Fully test Linux option
+            process = Popen('/bin/bash', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=False, encoding='utf8')
+        else:
+            logging.error("Sorry, your operating system is not supported yet")
+            return
+            
         for cmd in cmds:
             process.stdin.write(cmd + "\n")
         process.stdin.close()
