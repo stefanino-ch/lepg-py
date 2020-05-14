@@ -66,7 +66,7 @@ class ProcRunner():
         process.stdin.close()
         
         while True:
-            output = process.stdout.readline()
+            output = process.stdout.readline() + process.stderr.readline()
             
             if output == '' and process.poll() is not None:
                 self.userInfo.appendText(_('proc_terminating_msg'))

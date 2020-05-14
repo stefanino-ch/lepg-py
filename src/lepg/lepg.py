@@ -6,8 +6,9 @@ Main Class of lepg
 '''
 
 import gettext
-import sys
 import logging.config
+import sys
+import platform
 
 from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
@@ -253,11 +254,23 @@ class MainWindow(QMainWindow):
         Asks the user for the location where the Pre-Processor is saved
         '''
         logging.debug(self.__className + '.setupPreProcLocation')
-        fileName = QFileDialog.getOpenFileName(
-                        None,
-                        _('Select Pre_Processor'),
-                        "",
-                        "Executable (*.exe)")
+
+        # Do platform specific if here as the PreProx extensions are different
+        if platform.system() == "Windows":
+            fileName = QFileDialog.getOpenFileName(
+                            None,
+                            _('Select Pre_Processor'),
+                            "",
+                            "Executable (*.exe)")
+        elif platform.system() == "Linux":
+            fileName = QFileDialog.getOpenFileName(
+                            None,
+                            _('Select Pre_Processor'),
+                            "",
+                            "Compiled Fortran (*.o *.out)")
+        else:
+            logging.error("Sorry, your operating system is not supported yet")
+            return
 
         if fileName != ('', ''):
             # User has really selected a file, if it would have aborted the dialog  

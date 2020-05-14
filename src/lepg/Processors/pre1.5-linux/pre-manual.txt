@@ -1,0 +1,155 @@
+LABORATORI D'ENVOL PARAGLIDING
+GEOMETRY PRE-PROCESSOR
+Version 1.5 "Baldiri" (2018-12-07)
+
+Since version 1.5 some additional parameters have been added, for a more precise definition of the leading edge and the trailing edge.
+
+Now the leading edge section looks like:
+
+**********************************
+* 1. Leading edge parameters
+**********************************
+1
+a1= 641.92
+b1= 194.02
+x1= 340
+x2= 490
+xm= 527
+c01= 28
+ex1= 2.8
+c02= 12
+ex2= 4.0
+
+Explanation: The first "1" means defining leading edge type 1. The leading edge is defined by an ellipse of semiaxis a1 and b1 (red), centered at the point (0.0). Xm is half span. In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make two corrections with a generic curve of degree N. The first correction begins at the point x1 and allows a deflection c01, with a variation of degree ex1.The second correction begins at the point x2 > x1 and allows a deflection c02, with a variation of degree ex2.
+
+And the trailig edge section:
+
+**********************************
+* 2. Trailing edge parameters
+**********************************
+1
+a1= 643.28
+b1= 140.5
+x1= 180
+xm= 527
+c0= -8.9
+y0= 88.06
+exp= 1.5
+
+Explanation: The first "1" means defining trailing edge type 1. The trailing edge is defined by an ellipse of semiaxis a1 and b1 (green), centered at the point (0,y0). Xm is half span. In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make correction with a generic curve of degree N. The correction begins at the point x1 and allows a deflection c0, with a variation of degree exp.
+
+It is mandatory to use at least one space between the sign "=" and the parameter.
+Recommended units cm and degrees.
+The others sections are defined as in version 1.4:
+
+Version 1.4 "Escaules" (2016-08-27)
+
+NOTE: Last updated version of this manual, including graphics, notes and examples in 
+http://www.laboratoridenvol.com/leparagliding/pre.en.html
+
+INPUT FILE:
+
+pre-data.txt  
+
+Fill in the data file with the geometric parameters that define the main curves of the wing, leading edge, trailing edge, and main vault. Choose and define a distribution of cells.
+
+Recommended units to use: centímeters  (cm) and degres (0-360)
+
+OUTPUT FILES:
+
+geometry.dxf --> DXF containig planview, and distribution of cell, main vault
+
+geometry-out --> TXT file containig matrix of geometry for use with LEparagliding 2.47 input file leparagliding.txt section 1. GEOMETRY 
+     
+Auxiliar geometry matrix for use with LEparagliding >= 2.2
+Rib	x-rib      y-LE       y-TE   	xp	z	beta      RP        Washin
+
+Leading ende, trailing edge, and vault coordinates (for use with GUI):
+tlv.txt
+
+SOURCE CODE:
+
+pre-processor.f --> GNU Fortran source code :-) !
+
+EXECUTABLE FILES:
+
+pre-1.4.exe (windows version, use with cygwin1.dll in the same directory)
+
+pre-1.4.out (GNU/Linux)
+
+DESCRIPTION OF A TYPICAL INPUT DATA FILE pre-data.txt:
+
+
+**********************************
+LEPARAGLIDING
+GEOMETRY PRE-PROCESSOR     v1.4
+**********************************
+gnuLAB3
+**********************************
+* 1. Leading edge parameters
+**********************************
+a1= 580.4820
+b1= 185.936
+x1= 300
+xm= 542.2
+c0= 38.5
+**********************************
+* 2. Trailing edge parameters
+**********************************
+a1= 605.5123
+b1= 109.2926
+x1= 300.
+xm= 542.2
+c0= 1.6
+y0= 8.7086
+**********************************
+* 3. Vault
+**********************************
+1
+a1= 414.2901
+b1= 237.4300
+x1= 265.3489
+c1= 28.22
+**********************************
+* 4. Cells distribution
+**********************************
+3
+0.3
+33
+
+Sections 1. 2. and 3. change parameters acording figures
+Section 3. Vault. 
+If first number is "1" then vault using ellipse and cosinus modification, enter parameters a1, b1, x1, c1
+
+If first number is "2" then vault using four tangent circles, enter in four rows, radious and angle (deg)
+
+If lenght of the vault is not exactly the flat span, it is not problem, beacuse vault is scaled automatically to mach the real span defined in sections 1 and 2
+
+Section 4. Cells distribution
+
+First number "3" indicates cell width proportional to chord
+Second number is a coefficient between "0.0" and "1.0". If coefficient is "0" then cell width is estrictly proportional to the chord, using iterative calculus. If coefficient is set to "1.0", then cell width is uniform. Use intermediate values as you need.
+Third numer is the total cell number.
+
+If first number is "4" then we use explicit width of each cell with automatic adjustement, if the sum not match the span, the differences accumulated in the last cell.
+Example:
+4
+17
+1	38
+2	38
+3	38
+4	38
+5	38
+6	37
+7	37
+8	37
+9	36
+10	35
+11	35
+12	30
+13	28
+14	27
+15	25
+16	24
+17	20.2
+

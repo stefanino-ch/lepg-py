@@ -40,8 +40,7 @@ class ConfigReader(metaclass=ConfigReaderMeta):
         self.__parser = configparser.ConfigParser()
         
         # Detect the current application path
-        currentPath = os.getcwd()
-        self.__configFilePathName = currentPath + "\configFile.txt"
+        self.__configFilePathName = os.path.join(os.getcwd(), 'configFile.txt')
         
         if os.path.exists(self.__configFilePathName):
             self.readConfigFileContent()
