@@ -20,7 +20,9 @@ The main file is named lepg.py, usually under Windows you can just double click 
 
 ### Installation - Linux
 The steps below explain how to install on a Ubuntu System: 
-- Open a shell
+
+-> Open a shell
+
 -> sudo apt-get update
 
 -> sudo apt-get install python3 
@@ -56,7 +58,7 @@ Die Datei lepg.py ist die Hauptdatei, unter Windows reicht normalerweise doppelk
 ### Installation - Linux
 Die Anleitung gilt für ein Ubuntu System: 
 
-- Shell öffnen
+-> Shell öffnen
 
 -> sudo apt-get update
 
