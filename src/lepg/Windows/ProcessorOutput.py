@@ -58,7 +58,7 @@ class ProcessorOutput(QMdiSubWindow):
         self.font.setPointSize(8)
         self.font.setFixedPitch(True)
         self.debugOut.setFont(self.font);
-        self.debugOut.setFixedWidth(550)
+        self.debugOut.setFixedWidth(650)
         
         self.windowGrid.addWidget(self.debugOut, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
