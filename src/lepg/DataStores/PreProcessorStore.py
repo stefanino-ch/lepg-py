@@ -109,7 +109,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             
             msgBox = QMessageBox()
             msgBox.setWindowTitle('File read error')
-            msgBox.setText('File seems not to be a valid PreProc File! \nVersion detected: '+ str(versionOK)+ '\nTitle detected: '+ str(self.titleOK))
+            msgBox.setText('File seems not to be a valid PreProc File! \nVersion detected: '+ str(versionOK)+ '\nTitle detected: '+ str(titleOK))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
