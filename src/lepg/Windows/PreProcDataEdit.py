@@ -72,21 +72,20 @@ class PreProcDataEdit(QMdiSubWindow):
             
         Structure: 
             win
-                windowGrid
-                    wing_F
-                        wing_G
-                        
-                    edge_L
-                        le_F            te_F
-                            le_G            te_G
+                windowGrid                        |
+                    wing_F                        |
+                        wing_G                    |
+                    --------------------------------------------------------
+                    edge_L                        |    vault_F
+                        le_F            te_F      |        vault_G
+                            le_G            te_G  |
+                    ---------------------------------------------------------
+                    cd_F                          |    helpBar
+                        cd_G                      |                
+                    --------------------------------------------------------
+                                                  |    btnBar
+
                     
-                    vault_F
-                        vault_G
-                    
-                    cd_F
-                        cd_G
-                    helpBar
-                    btnBar
         '''
         logging.debug(self.__windowName + '.buildWindow')
         __frameWidth = 350
@@ -97,7 +96,8 @@ class PreProcDataEdit(QMdiSubWindow):
         self.setWidget(self.win)
 
         self.windowGrid = QGridLayout()
-        __winGRow = 0
+        __winGRowL = 0
+        __winGRowR = 0
         
         self.helpBar = WindowHelpBar()
         
@@ -109,8 +109,8 @@ class PreProcDataEdit(QMdiSubWindow):
         self.wing_F = QGroupBox()    
         self.wing_F.setTitle(_("Wing"))
         self.wing_F.setFixedWidth(__frameWidth)
-        self.windowGrid.addWidget(self.wing_F, __winGRow, 0, Qt.AlignLeft)
-        __winGRow += 1
+        self.windowGrid.addWidget(self.wing_F, __winGRowL, 0, Qt.AlignLeft)
+        __winGRowL += 1
         
         self.wing_G = QGridLayout()
         self.wing_G.setColumnMinimumWidth(0, __col0width)
@@ -128,8 +128,8 @@ class PreProcDataEdit(QMdiSubWindow):
 
         # Edge layout
         self.edge_L = QHBoxLayout()
-        self.windowGrid.addLayout(self.edge_L, __winGRow, 0, Qt.AlignLeft)
-        __winGRow += 1
+        self.windowGrid.addLayout(self.edge_L, __winGRowL, 0, Qt.AlignLeft)
+        __winGRowL += 1
         
         # Leading Edge Frame
         self.le_F = QGroupBox()    
@@ -359,12 +359,15 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_sp2_L = QLabel('')
         self.te_G.addWidget(self.te_sp2_L, __teGRow, 0)
         
+        # Switch to next column
+        __winGRowR = 1
+        
         # Vault
         self.vault_F = QGroupBox()    
         self.vault_F.setTitle(_("Vault"))
         self.vault_F.setFixedWidth(__frameWidth)
-        self.windowGrid.addWidget(self.vault_F, __winGRow, 0, Qt.AlignLeft)
-        __winGRow += 1
+        self.windowGrid.addWidget(self.vault_F, __winGRowR, 1, Qt.AlignLeft)
+        __winGRowR += 1
         
         self.vault_G = QGridLayout()
         self.vault_G.setColumnMinimumWidth(0, __col0width/2)
@@ -516,8 +519,8 @@ class PreProcDataEdit(QMdiSubWindow):
         self.cd_F = QGroupBox()    
         self.cd_F.setTitle(_("Cells distribution"))
         self.cd_F.setFixedWidth(__frameWidth/2)
-        self.windowGrid.addWidget(self.cd_F, __winGRow, 0, Qt.AlignLeft)
-        __winGRow += 1
+        self.windowGrid.addWidget(self.cd_F, __winGRowL, 0, Qt.AlignLeft)
+        __winGRowL += 1
 
         self.cd_G = QGridLayout()
         self.cd_G.setColumnMinimumWidth(0, __col0width)
@@ -564,10 +567,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.btnBar.my_signal.connect(self.btnPress)
         self.btnBar.setHelpPage('preproc/preproc.html')
         
-        self.windowGrid.addWidget(self.helpBar, __winGRow ,0, Qt.AlignRight)
-        __winGRow += 1
-        self.windowGrid.addWidget(self.btnBar, __winGRow ,0, Qt.AlignRight)
-        __winGRow += 1
+        self.windowGrid.addWidget(self.helpBar, __winGRowR ,1, Qt.AlignRight)
+        __winGRowR += 1
+        self.windowGrid.addWidget(self.btnBar, __winGRowR ,1, Qt.AlignRight)
+        __winGRowR += 1
         
         self.win.setLayout(self.windowGrid)
     
