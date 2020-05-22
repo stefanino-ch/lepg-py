@@ -1,0 +1,6 @@
+LEparagliding-3.10 
+(2020-05-02)
+
+Compiled in Windows 7 centrino 32bit using:
+
+gfortran leparagliding.f

@@ -13,6 +13,7 @@ import platform
 from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
+from DataStores.ProcessorStore import ProcessorStore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox, QFileDialog
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
@@ -20,7 +21,6 @@ from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
-
 
 class MainWindow(QMainWindow):
     
@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
             lang_en.install()
         
         self.pps = PreProcessorStore()
+        self.ps = ProcessorStore()
         self.dws = DataWindowStatus()
         
         super(MainWindow, self).__init__(parent)
@@ -64,6 +65,7 @@ class MainWindow(QMainWindow):
         # Build the individual menus
         self.buildFileMenu()
         self.buildPreProcMenu()
+        self.buildProcMenu()
         self.buildViewMenu()
         self.buildSetupMenu()
         self.buildHelpMenu()
@@ -123,17 +125,17 @@ class MainWindow(QMainWindow):
         preProcEditAct.triggered.connect(self.preProcEdit)
         
         preProcRunAct = QAction(_('Run Pre-Processor'), self)
-        preProcRunAct.setStatusTip(_('calculate_preProx_des'))
+        preProcRunAct.setStatusTip(_('run_preProc_des'))
         preProcRunAct.triggered.connect(self.preProcRun)
         
         # Build the menu
-        geomMenu = self.mainMenu.addMenu(_('Pre Processor'))
-        geomMenu.addAction(preProcOpenFileAct)
-        geomMenu.addAction(preProcSaveAct)
-        geomMenu.addAction(preProcSaveAsAct)
-        geomMenu.addSeparator()
-        geomMenu.addAction(preProcEditAct)
-        geomMenu.addAction(preProcRunAct)
+        preProcMenu = self.mainMenu.addMenu(_('Pre Processor'))
+        preProcMenu.addAction(preProcOpenFileAct)
+        preProcMenu.addAction(preProcSaveAct)
+        preProcMenu.addAction(preProcSaveAsAct)
+        preProcMenu.addSeparator()
+        preProcMenu.addAction(preProcEditAct)
+        preProcMenu.addAction(preProcRunAct)
         
     def preProcOpenFile(self):
         self.pps.openFile()
@@ -158,6 +160,64 @@ class MainWindow(QMainWindow):
     def preProcRun(self):
         '''
         Does start the Pre-Processor
+        '''
+        logging.debug(self.__className + '.preProcRun')
+        
+        # Save current file into processor directory
+        self.pps.writeFile(True)
+        
+        # Open the window for the user info
+        if self.dws.windowExists('ProcessorOutput') == False:
+            self.procOutW = ProcessorOutput()
+            self.dws.registerWindow('ProcessorOutput')
+            self.mdi.addSubWindow(self.procOutW)
+        self.procOutW.show()
+        
+        # Finally run the processor
+        preProcRunner = ProcRunner(self.procOutW)
+        preProcRunner.runPreProc()
+
+    def buildProcMenu(self):  
+        # Define the actions
+        procOpenFileAct = QAction(_('Open Processor File'), self)
+        procOpenFileAct.setStatusTip(_('open_Proc_file_desc'))
+        procOpenFileAct.triggered.connect(self.procOpenFile)
+        
+        procSaveAct = QAction(_('Save Processor File'), self)
+        procSaveAct.setStatusTip(_('save_proc_file_desc'))
+        procSaveAct.triggered.connect(self.procSaveFile)
+        procSaveAct.setEnabled(False)
+        
+        procSaveAsAct = QAction(_('Save Processor File As ..'), self)
+        procSaveAsAct.setStatusTip(_('save_proc_file_as_desc'))
+        procSaveAsAct.triggered.connect(self.procSaveFileAs)
+        procSaveAsAct.setEnabled(False)
+        
+        procRunAct = QAction(_('Run Processor'), self)
+        procRunAct.setStatusTip(_('run_Processor_des'))
+        procRunAct.triggered.connect(self.preProcRun)
+        procRunAct.setEnabled(False)
+        
+        # Build the menu
+        procMenu = self.mainMenu.addMenu(_('Processor'))
+        procMenu.addAction(procOpenFileAct) 
+        procMenu.addAction(procSaveAct)
+        procMenu.addAction(procSaveAsAct)
+        procMenu.addSeparator()
+        procMenu.addAction(procRunAct)
+        
+    def procOpenFile(self):
+        self.ps.openFile()
+        
+    def procSaveFile(self):
+        self.ps.saveFile()
+        
+    def procSaveFileAs(self):
+        self.ps.saveFileAs()
+        
+    def procRun(self):
+        '''
+        Does start the Processor
         '''
         logging.debug(self.__className + '.preProcRun')
         

@@ -108,8 +108,8 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             logging.error('Result of PreProc Title check %s', titleOK)
             
             msgBox = QMessageBox()
-            msgBox.setWindowTitle('File read error')
-            msgBox.setText('File seems not to be a valid PreProc File! \nVersion detected: '+ str(versionOK)+ '\nTitle detected: '+ str(self.titleOK))
+            msgBox.setWindowTitle(_('File read error'))
+            msgBox.setText(_('File seems not to be a valid PreProc File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
@@ -127,8 +127,8 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
             # There is unsaved/ unapplied data, show a warning
             msgBox = QMessageBox()
-            msgBox.setWindowTitle("Unsaved or unapplied data")
-            msgBox.setText("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. ")
+            msgBox.setWindowTitle(_("Unsaved or unapplied data"))
+            msgBox.setText(_("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. "))
             msgBox.setIcon(QMessageBox.Warning)        
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             answer = msgBox.exec()            
@@ -141,7 +141,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
                         None,
                         _('Open PreProc file'),
                         "",
-                        "Geometry Files (*.txt);;All Files (*)")
+                        "Pre Proc Files (*.txt);;All Files (*)")
 
         if fileName != ('', ''):
             # User has really selected a file, if it would have aborted the dialog  

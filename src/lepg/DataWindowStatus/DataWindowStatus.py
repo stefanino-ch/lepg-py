@@ -21,7 +21,7 @@ class DataWindowStatus(QObject, metaclass=Singleton):
                                 A string indicates either
                                     - the window name 
                                     - the PreProc file
-                                    - the LepFile 
+                                    - the ProcFile 
                                 status has changed.  
     '''
     statusUpdated = pyqtSignal(str)
@@ -31,12 +31,13 @@ class DataWindowStatus(QObject, metaclass=Singleton):
     # List of all windows taken care of
     __windowDataStatus ={
         'PreProcDataEdit' : '1' ,
+        'ProcDataEdit' : '1'
     }
     
     # List of all files taken care of
     __fileDataStatus ={
         'PreProcFile' :  '1' ,
-        'LepFile' : '1'
+        'ProcFile' : '1'
     }
     
     __instanciatedWindowList ={}
@@ -60,6 +61,12 @@ class DataWindowStatus(QObject, metaclass=Singleton):
                                 
                 self.__windowDataStatus['PreProcDataEdit'] = 1
                 self.statusUpdated.emit('PreProcDataEdit')
+            if name == 'ProcessorStore':
+                self.__fileDataStatus['ProcFile'] = 1 
+                self.statusUpdated.emit('ProcFile')
+                                
+                self.__windowDataStatus['ProcDataEdit'] = 1
+                self.statusUpdated.emit('ProcDataEdit')
             else: 
                 logging.error('DataWindowStatus.signalReceived Open: unknown name ' + name)
                 
@@ -84,8 +91,8 @@ class DataWindowStatus(QObject, metaclass=Singleton):
                 self.__fileDataStatus['PreProcFile'] = 0
                 self.statusUpdated.emit('PreProcFile')
             else: 
-                self.__fileDataStatus['LepFile'] = 0
-                self.statusUpdated.emit('LepFile')
+                self.__fileDataStatus['ProcFile'] = 0
+                self.statusUpdated.emit('ProcFile')
         
         elif action == 'Ok':
             self.__windowDataStatus[name] = 1
@@ -96,8 +103,8 @@ class DataWindowStatus(QObject, metaclass=Singleton):
                 self.__fileDataStatus['PreProcFile'] = 0
                 self.statusUpdated.emit('PreProcFile')
             else:
-                self.__fileDataStatus['LepFile'] = 0
-                self.statusUpdated.emit('LepFile')
+                self.__fileDataStatus['ProcFile'] = 0
+                self.statusUpdated.emit('ProcFile')
         
         elif action == 'Cancel':
             self.__windowDataStatus[name] = 1

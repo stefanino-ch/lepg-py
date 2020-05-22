@@ -6,7 +6,8 @@
 Python 3.7 or newer must be used.
 
 ### Limitations 
-At the moment only Pre Processor relavant data is supported. 
+At the moment only Pre Processor relavant data is fully supported.
+Other windows may exist, but are work in progress.... 
 
 ### Installation - Windows
 Make sure you have the follwing Software already installed you your computer:
@@ -43,7 +44,8 @@ The main file is named lepg.py. Start this with
 Es muss mindestens Python 3.7 or neuer verwendet werden. 
 
 ### Limitationen
-Im Moment wird nur der Pre-Prozessor unterstützt. 
+Im Moment wird nur der Pre-Prozessor unterstützt.
+Anderer Fenster existieren, sind aber Teil der aktuellen Entwicklung.  
 
 ### Installation - Windows
 Zuerst muss Python und PyQt installiert werden. 
