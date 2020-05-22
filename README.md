@@ -20,15 +20,21 @@ The main file is named lepg.py, usually under Windows you can just double click 
 
 ### Installation - Linux
 The steps below explain how to install on a Ubuntu System: 
-- Open a shell
+
+-> Open a shell
+
 -> sudo apt-get update
+
 -> sudo apt-get install python3 
+
 -> sudo apt-get install python3-pip
+
 -> pip3 install PyQt5
 
 From the [Repository](https://github.com/stefanino-ch/lepg-py) download all files and folders under the directory src/. Save the files on the local disk. 
 
 The main file is named lepg.py. Start this with
+
 -> python3 lepg.py
 
 ## Deutsch
@@ -51,13 +57,19 @@ Die Datei lepg.py ist die Hauptdatei, unter Windows reicht normalerweise doppelk
 
 ### Installation - Linux
 Die Anleitung gilt für ein Ubuntu System: 
-- Shell öffnen
+
+-> Shell öffnen
+
 -> sudo apt-get update
+
 -> sudo apt-get install python3 
+
 -> sudo apt-get install python3-pip
+
 -> pip3 install PyQt5
 
 Aus dem [Repository](https://github.com/stefanino-ch/lepg-py) alle Dateien und Ordner welche im Verzeichnis src/ sind herunterladen und auf der lokalen Festplatte speichern. 
 
 Die Hauptdatei heisst lepg.py. Das Programm wird gestartet mit:
+
 -> python3 lepg.py
