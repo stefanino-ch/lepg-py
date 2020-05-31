@@ -4,14 +4,17 @@ Does take care about the data handling for the Processor.
 @author: Stefan Feuz; http://www.laboratoridenvol.com
 @license: General Public License GNU GPL 3.0
 '''
+import math
 import os
 import logging
+import re
 
 from PyQt5.QtCore import QObject, QFile, QTextStream, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from Singleton.Singleton import Singleton
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from ConfigReader.ConfigReader import ConfigReader
+from binhex import LINELEN
 
 class ProcessorStore(QObject, metaclass=Singleton):
     '''
@@ -33,6 +36,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
     __className = 'ProcessorStore'
     
     # Variables used across the class
+    # Single values
     __simpleData ={
         'FileNamePath' :  '' ,
         'FileVersion' : '',
@@ -42,7 +46,54 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'WingScale' : '', 
         'NumCells' : '',
         'NumRibs' : '',
+        'HalfNumRibs': '', 
+        'AlphaMaxP1' : '',
+        'AlphaMaxP2' : '',
+        'AlphaMaxP3' : '', 
+        'ParaTypeP1' : '',
+        'ParaTypeP2' : '',
+        'NumAirfoilHoleConfigs' : '',
+        'StrainMiniRibs' : '',
+        'NumSkinTensionPoints' : '',
+        'SkinTensionCoeff' : '',
+        'SewingAllRibs' : '',
+        'SewingAllVRibs' : '',
+        'MarksP1' : '',
+        'MarksP2' : '',
+        'MarksP3' : '',
+        'FinesseGR' : '',
+        'CentOfPress' : '',
+        'Calage' : '',
+        'RaisersLenght' : '',
+        'LineLength' : '',
+        'Karabiners' : '',
+        'LineDescConc' : '',
+        'NumLineDesConfigs' : '',
+        'BrakeLength' : '',
+        'NumBrakePath' : '',
     }
+    
+    # Rib geometric parameters
+    __RibGeomParams = [ [0 for x in range(8)] for y in range(1)]
+    # Airfolis
+    __AirfoilParams = [ [0 for x in range(7)] for y in range(1)]
+    # ANCHOR POINTS
+    __AnchorPointParams = [ [0 for x in range(7)] for y in range(1)]
+    # AIRFOIL HOLES
+    __AirfHoleConf = [ [0 for x in range(3)] for y in range(1)]
+    __AirfHoleParams = [ [ [0 for x in range(9)] for y in range(1)] for z in range(1)]
+    # Skin Tension
+    __SkinTensionParams = [ [0 for x in range(4)] for y in range(6)]
+    # SEWING ALLOWANCES
+    __SewingAllPanelsParams = [ [0 for x in range(3)] for y in range(2)]
+    # SUSPENSION LINES DESCRIPTION
+    __LineDescConf = [0 for x in range(1)]
+    __LineDescParams = [ [ [0 for x in range(11)] for y in range(1)] for z in range(1)]
+    # BRAKES
+    __BrakePathParams = [ [0 for x in range(11)] for y in range(1)]
+    __BrakeDistrParams = [ [0 for x in range(5)] for y in range(2)]
+    # Ramification lengths
+    __setRamLengthParams = [ [0 for x in range(3)] for y in range(4)]
     
     def __init__(self):
         logging.debug(self.__className+'.__init__')
@@ -191,162 +242,212 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
         # Brand name
         line = stream.readLine()
-        # TODO: Anführungszeichen löschen
-        self.setSingleVal('BrandName', stream.readLine())
+        line = stream.readLine()
+        self.setSingleVal('BrandName', self.remTabSpaceQuot(line) )
         
         # Wing name
         line = stream.readLine()
-        # TODO: Anführungszeichen löschen
-        self.setSingleVal('WingName', stream.readLine())
+        line = stream.readLine()
+        self.setSingleVal('WingName', self.remTabSpaceQuot(line) )
         
         # Draw scale
         line = stream.readLine()
-        self.setSingleVal('DrawScale', stream.readLine())
+        line = stream.readLine()
+        value = self.remTabSpace( line )
+        self.setSingleVal('DrawScale', value )
         
         # Wing scale
         line = stream.readLine()
-        self.setSingleVal('WingScale', stream.readLine())
+        self.setSingleVal('WingScale', self.remTabSpace( stream.readLine() ) )
         
         # Number of cells
         line = stream.readLine()
-        # TODO: Tab löschen
-        self.setSingleVal('NumCells', stream.readLine())
+        self.setSingleVal('NumCells', self.remTabSpace( stream.readLine() ) )
         
         # Number of Ribs
         line = stream.readLine()
-        # TODO: Tab löschen
-        self.setSingleVal('NumRibs', stream.readLine())
+        self.setSingleVal('NumRibs', self.remTabSpace( stream.readLine() ) )
         
-#         # header of section one
-#         logging.debug('PreProcessorStore.readFile Section1 Header')
-#         x = 1
-#         while x <= 3:
-#             x += 1
-#             line = stream.readLine()
-#         
-#         #section one values
-#         logging.debug('PreProcessorStore.readFile Section 1 Data')
-#         self.setSingleVal('LE_type',stream.readLine())
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_a1', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_b1', line[1])
-# 
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_x1', line[1])
-# 
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_x2', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_xm', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_c0', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_ex1', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_c02', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('LE_ex2', line[1])
-# 
-#         # header of section two
-#         logging.debug('PreProcessorStore.readFile Section 2 Header')
-#         x = 1
-#         while x <= 3:
-#             x += 1
-#             line = stream.readLine()
-#         
-#         #section two values
-#         logging.debug('PreProcessorStore.readFile Section 2 Data')
-#         self.setSingleVal('TE_type', stream.readLine())
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_a1', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_b1', line[1])
-# 
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_x1', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_xm', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_c0', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_y0', line[1])
-#         
-#         line = stream.readLine().split()
-#         self.setSingleVal('TE_exp', line[1])
-#         
-#         ###############
-#         # header of section three
-#         logging.debug('PreProcessorStore.readFile Section 3 Header')
-#         x = 1
-#         while x <= 3:
-#             x += 1
-#             line = stream.readLine()
-#             
-#         #section three values
-#         logging.debug('PreProcessorStore.readFile Section 3 Data')
-#         self.setSingleVal('Vault_type', stream.readLine())
-#         
-#         if self.getSingleVal('Vault_type') == '1':
-#             logging.debug('PreProcessorStore.readFile Vault Type 1')
-#             # vault type 1
-#             line = stream.readLine().split()
-#             self.setSingleVal('Vault_a1', line[1])
-#             
-#             line = stream.readLine().split()
-#             self.setSingleVal('Vault_b1', line[1])
-#             
-#             line = stream.readLine().split()
-#             self.setSingleVal('Vault_x1', line[1])
-#             
-#             line = stream.readLine().split()
-#             self.setSingleVal('Vault_c1', line[1]) 
-#             
-#         else:
-#             logging.debug('PreProcessorStore.readFile Vault Type 2')
-#             # vault type 2
-#             line = stream.readLine().split()
-#             self.setVault_t2_dta(0, 0, line[0])
-#             self.setVault_t2_dta(0, 1, line[1])
-#             
-#             line = stream.readLine().split()
-#             self.setVault_t2_dta(1, 0, line[0])
-#             self.setVault_t2_dta(1, 1, line[1])
-#         
-#             line = stream.readLine().split()
-#             self.setVault_t2_dta(2, 0, line[0])
-#             self.setVault_t2_dta(2, 1, line[1])
-#             
-#             line = stream.readLine().split()
-#             self.setVault_t2_dta(3, 0, line[0])
-#             self.setVault_t2_dta(3, 1, line[1])
-#         
-#         ###############
-#         # header of section four
-#         logging.debug('PreProcessorStore.readFile Section 4 Header')
-#         x = 1
-#         while x <= 3:
-#             x += 1
-#             line = stream.readLine()
-#             
-#         #section four values
-#         logging.debug('PreProcessorStore.readFile Section 4 Data')
-#         self.setSingleVal('CellDistT', stream.readLine())
-#         self.setSingleVal('CellDistCoeff', stream.readLine())
-#         self.setSingleVal('CellNum', stream.readLine())
+        # Alpha max and parameter
+        line = stream.readLine()
+        values =  self.splitLine( stream.readLine() )
+        self.setSingleVal('AlphaMaxP1', values[0])
+        self.setSingleVal('AlphaMaxP2', values[1])
+        
+        if len(values) > 2: 
+            self.setSingleVal('AlphaMaxP3', values[2])
+        else:
+            self.setSingleVal('AlphaMaxP3', '')
+        
+        # Paraglider type and parameter
+        line = stream.readLine()
+        values =  self.splitLine( stream.readLine() )
+        self.setSingleVal('ParaTypeP1', self.remTabSpaceQuot( values[0]) )
+        self.setSingleVal('ParaTypeP2', values[1])
+        
+        # Rib geometric parameters
+        # Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin
+        line = stream.readLine()
+        line = stream.readLine()
 
+        for i in range( 0, self.getSingleVal('HalfNumRibs') ):
+            values =  self.splitLine( stream.readLine() )
+            self.setRibGeomParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8])
+
+        # AIRFOILS
+        for i in range(4):
+            line = stream.readLine()
+        
+        for i in range( 0, self.getSingleVal('HalfNumRibs') ):
+            values =  self.splitLine( stream.readLine() )
+            self.setAirfoilParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7])
+        
+        # ANCHOR POINTS
+        for i in range(4):
+            line = stream.readLine()
+        
+        for i in range( 0, self.getSingleVal('HalfNumRibs') ):
+            values =  self.splitLine( stream.readLine() )
+            self.setAnchorPointParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7])    
+        
+        # AIRFOIL HOLES
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumAirfHoleConf', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            self.setAirfHoleConf(configCounter, 0, self.remTabSpace( stream.readLine() ) )
+            self.setAirfHoleConf(configCounter, 1, self.remTabSpace( stream.readLine() ) )
+            numConfigLines = self.remTabSpace( stream.readLine() )
+            self.setAirfHoleConf(configCounter, 2, numConfigLines )
+        
+            for lineCounter in range(0, int(numConfigLines) ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 9):
+                    self.setAirfHoleParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+
+        # SKIN TENSION
+        for i in range(4):
+            line = stream.readLine()
+        
+        for lineCounter in range(0, 6 ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 4):
+                    self.setSkinTensionParams(lineCounter, paramCounter, values[paramCounter])
+        
+        self.setSingleVal('StrainMiniRibs', self.remTabSpace( stream.readLine() ) )
+                          
+        values = self.splitLine( stream.readLine() )
+        self.setSingleVal('NumSkinTensionPoints', values[0] )
+        self.setSingleVal('SkinTensionCoeff', values[1] )
+        
+        # SEWING ALLOWANCES
+        for i in range(3):
+            line = stream.readLine()
+            
+        for lineCounter in range(0, 2 ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 3):
+                    self.setSewingAllPanelsParams(lineCounter, paramCounter, values[paramCounter])
+        
+        values = self.splitLine( stream.readLine() )
+        self.setSingleVal('SewingAllRibs', values[0] )
+        values = self.splitLine( stream.readLine() )
+        self.setSingleVal('SewingAllVRibs', values[0] )
+    
+        # MARKS
+        for i in range(3):
+            line = stream.readLine()
+            
+        values = self.splitLine( stream.readLine() )
+        self.setSingleVal('MarksP1', values[0] )
+        self.setSingleVal('MarksP2', values[1] )
+        self.setSingleVal('MarksP3', values[2] )
+        
+        # Global angle of attack estimation
+        for i in range(3):
+            line = stream.readLine()
+        
+        line = stream.readLine()
+        self.setSingleVal('FinesseGR', self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.setSingleVal('CentOfPress', self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.setSingleVal('Calage', self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.setSingleVal('RaisersLenght', self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.setSingleVal('LineLength', self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.setSingleVal('Karabiners', self.remTabSpace( stream.readLine() ) )
+        
+        # SUSPENSION LINES DESCRIPTION
+        for i in range(3):
+            line = stream.readLine()
+        
+        self.setSingleVal('LineDescConc', self.remTabSpace( stream.readLine() ) )
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumLineDesConfigs', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            numConfigLines = self.remTabSpace( stream.readLine() )
+            self.setLineDescConf(configCounter, numConfigLines )
+
+        
+            for lineCounter in range(0, int(numConfigLines) ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 11):
+                    self.setLineDescParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+        # BRAKES
+        for i in range(3):
+            line = stream.readLine()
+        
+        self.setSingleVal('BrakeLength', self.remTabSpace( stream.readLine() ) )
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumBrakePath', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range (0, 11):
+                self.setBrakePathParams(configCounter, paramCounter, values[paramCounter])   
+        
+        line = stream.readLine()
+        
+        for configCounter in range(0, 2):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range (0, 5):
+                self.setBrakePathParams(configCounter, paramCounter, values[paramCounter])
+                
+        # Ramification lengths
+        for i in range(3):
+            line = stream.readLine()
+        
+        values =  self.splitLine( stream.readLine() )
+        for paramCounter in range (0, 2):
+                self.setRamLengthParams(0, paramCounter, values[paramCounter])
+        values =  self.splitLine( stream.readLine() )
+        for paramCounter in range (0, 3):
+                self.setRamLengthParams(1, paramCounter, values[paramCounter])
+        values =  self.splitLine( stream.readLine() )
+        for paramCounter in range (0, 2):
+                self.setRamLengthParams(2, paramCounter, values[paramCounter])
+        values =  self.splitLine( stream.readLine() )
+        for paramCounter in range (0, 3):
+                self.setRamLengthParams(3, paramCounter, values[paramCounter])
+        
+        # TODO: AA go on here
+        
+        # Clean up 
         inFile.close()
         self.dataStatusUpdate.emit(self.__className,'Open')
   
@@ -477,12 +578,226 @@ class ProcessorStore(QObject, metaclass=Singleton):
         return self.getSingleVal('FileNamePath')
     
     def setSingleVal(self, parameter, value):
-        logging.debug(self.__className+'.setSingle Val |' + parameter +'|'+ value+'|')
+        logging.debug(self.__className+'.setSingleVal |' + parameter +'|'+ value+'|')
         
         self.__simpleData[parameter] = value
         self.dataStatusUpdate.emit(self.__className, parameter)
         
+        # Special case for Ribs
+        # If num Ribs is changed, set also HalfNumRibs
+        if parameter == 'NumRibs':
+            value = math.ceil(float(value) / 2)
+            self.__simpleData['HalfNumRibs'] = value 
+            logging.debug(self.__className+'.setSingleVal |' + 'HalfNumRibs' +'|'+ str(value)+'|')
+            self.dataStatusUpdate.emit(self.__className, 'HalfNumRibs')
+        
     def getSingleVal(self, parameter):
         return self.__simpleData.get(parameter)
-
     
+    def setRibGeomParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7, p8):
+        '''
+        Saves Rib Geometry parameters into the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param p1..8: The individual data to save
+        '''
+        logging.debug(self.__className+'.setRibGeomParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|'+ p8+'|')
+        
+        if ribNum >= len(self.__RibGeomParams):
+            # in case of building up the array we might need to add elements
+            self.__RibGeomParams.append([p1,p2,p3,p4,p5,p6,p7,p8])
+        else:
+            # element already exists, update the data
+            self.__RibGeomParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7, p8]
+        # TODO: add emit signal
+            
+    def setAirfoilParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
+        '''
+        Saves Airfoil parameters into the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param p1..7: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAirfoilParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|')
+        
+        if ribNum >= len(self.__AirfoilParams):
+            # in case of building up the array we might need to add elements
+            self.__AirfoilParams.append([p1,p2,p3,p4,p5,p6,p7])
+        else:
+            # element already exists, update the data
+            self.__AirfoilParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7]
+        # TODO: add emit signal
+            
+    def setAnchorPointParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
+        '''
+        Saves Anchor Point parameters into the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param p1..7: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAnchorPointParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|')
+        
+        if ribNum >= len(self.__AnchorPointParams):
+            # in case of building up the array we might need to add elements
+            self.__AnchorPointParams.append([p1,p2,p3,p4,p5,p6,p7])
+        else:
+            # element already exists, update the data
+            self.__AnchorPointParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7]
+        # TODO: add emit signal
+    
+    def setAirfHoleConf(self, confNum, paramNum, value): 
+        '''
+        Saves overall Airfoil Holes config into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAirfHoleConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__AirfHoleConf):
+            self.__AirfHoleConf.append(['','',''])
+        
+        self.__AirfHoleConf[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setAirfHoleParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Airfoil Holes params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAirfHoleParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__AirfHoleParams):
+            self.__AirfHoleParams.append([['','','','','','','','','']])
+        
+        if lineNum >= len(self.__AirfHoleParams[confNum]):
+            self.__AirfHoleParams[confNum].append(['','','','','','','','',''])
+            
+        self.__AirfHoleParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setSkinTensionParams(self, lineNum, paramNum, value):
+        '''
+        Saves Skin Tension params into the data store.
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setSkinTensionParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
+        
+        self.__SkinTensionParams[lineNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setSewingAllPanelsParams(self, lineNum, paramNum, value):
+        '''
+        Saves Sewing allowances for panels params into the data store.
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
+        
+        self.__SewingAllPanelsParams[lineNum][paramNum] = value
+        # TODO: add emit signal 
+        
+    def setLineDescConf(self, confNum, value): 
+        '''
+        Saves overall Line Description config into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setLineDescConf |'+ str(confNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__LineDescConf):
+            self.__LineDescConf.append('')
+        
+        self.__LineDescConf[confNum] = value
+        # TODO: add emit signal
+    
+    def setLineDescParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Line description params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setLineDescParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__LineDescParams):
+            self.__LineDescParams.append([['','','','','','','','','','','']])
+        
+        if lineNum >= len(self.__LineDescParams[confNum]):
+            self.__LineDescParams[confNum].append(['','','','','','','','','','',''])
+            
+        self.__LineDescParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal  
+    
+    def setBrakePathParams(self, confNum, paramNum, value):
+        '''
+        Saves Brake path params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setBrakePathParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__BrakePathParams):
+            self.__BrakePathParams.append(['','','','','','','','','','',''])
+            
+        self.__BrakePathParams[confNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setBrakeDistrParams(self, confNum, paramNum, value):
+        '''
+        Saves Brake distribution params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setBrakeDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+            
+        self.__BrakeDistrParams[confNum][paramNum] = value
+        # TODO: add emit signal    
+        
+    def setRamLengthParams(self, confNum, paramNum, value):
+        '''
+        Saves Ramification Length params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+            
+        self.__setRamLengthParams[confNum][paramNum] = value
+        # TODO: add emit signal 
+    
+    def remTabSpaceQuot(self, line):
+        '''
+        Removes from a string all leading, trailing spaces tabs and quotations
+        @param Line: The string to be cleaned
+        @return: cleaned string 
+        '''
+        line = self.remTabSpace(line)
+        line = re.sub(r'^\"+|\"+$', '', line )
+        return line
+    
+    def remTabSpace(self, line):
+        '''
+        Deletes all leaing and trailing edges from a string
+        @param Line: The string to be cleaned
+        @return: cleaned string 
+        '''
+        value = re.sub(r'^\s+|\s+$', '', line ) 
+        return value
+    
+    def splitLine(self, line):
+        '''
+        Splits lines with multiple values into a list of values
+        delimiters could be spaces and tabs
+        @param line: The line to be split
+        @return: a list of values 
+        '''
+        line = self.remTabSpace(line) # remove leadind and trailing waste
+        values = re.split(r'[\t\s]\s*', line)
+        return values
