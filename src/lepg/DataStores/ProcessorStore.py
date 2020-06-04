@@ -71,6 +71,14 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'NumLineDesConfigs' : '',
         'BrakeLength' : '',
         'NumBrakePath' : '',
+        'NumMiniRibs' : '',
+        'MiniRibXSpacing' : '',
+        'MiniRibYSpacing' : '',
+        'NumRibsExtradColors': '',
+        'NumRibsIntradColors': '',
+        'NumAddRibPoints': '',
+        'InFlightLoad': '',
+        'NumDxfLayers': '',
     }
     
     # Rib geometric parameters
@@ -93,7 +101,22 @@ class ProcessorStore(QObject, metaclass=Singleton):
     __BrakePathParams = [ [0 for x in range(11)] for y in range(1)]
     __BrakeDistrParams = [ [0 for x in range(5)] for y in range(2)]
     # Ramification lengths
-    __setRamLengthParams = [ [0 for x in range(3)] for y in range(4)]
+    __RamLengthParams = [ [0 for x in range(3)] for y in range(4)]
+    # H V and VH ribs (Mini Ribs)
+    __MiniRibParams = [ [0 for x in range(12)] for y in range(1)]
+    # Extrados colors
+    __ExtradColorsConf = [ [0 for x in range(2)] for y in range(1)]
+    __ExtradColorsParams = [ [ [0 for x in range(3)] for y in range(1)] for z in range(1)]
+    # Intrados colors
+    __IntradColorsConf = [ [0 for x in range(2)] for y in range(1)]
+    __IntradColorsParams = [ [ [0 for x in range(3)] for y in range(1)] for z in range(1)]
+    # Aditional rib points
+    __AddRibPointsParams = [ [0 for x in range(2)] for y in range(1)]
+    # Elastic lines corrections
+    __LoadDistrParams = [ [0 for x in range(5)] for y in range(4)]
+    __LoadDeformParams = [ [0 for x in range(3)] for y in range(5)]
+    # DXF layer names
+    __DxfLayerParams = [ [0 for x in range(2)] for y in range(1)]
     
     def __init__(self):
         logging.debug(self.__className+'.__init__')
@@ -445,11 +468,126 @@ class ProcessorStore(QObject, metaclass=Singleton):
         for paramCounter in range (0, 3):
                 self.setRamLengthParams(3, paramCounter, values[paramCounter])
         
-        # TODO: AA go on here
+        # H V and VH ribs (Mini Ribs)
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumMiniRibs', numConfigs )
+        
+        values =  self.splitLine( stream.readLine() )
+        self.setSingleVal('MiniRibXSpacing', values[0] )
+        self.setSingleVal('MiniRibYSpacing', values[1] )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range (0, 9):
+                self.setMiniRibParams(configCounter, paramCounter, values[paramCounter+1])
+                
+            if values[1] == '6':
+                # we have a type 6 rib-> two additional params to read
+                self.setMiniRibParams(configCounter, 9, values[10])
+                self.setMiniRibParams(configCounter, 10, values[11])
+        
+        # Extrados colors
+        for i in range(3):
+            line = stream.readLine()
+                
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumRibsExtradColors', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            numConfigLines = values[1]
+            self.setExtradColorsConf(configCounter, 0, values[0] )
+            self.setExtradColorsConf(configCounter, 1, values[1] )
+                   
+            for lineCounter in range(0, int(numConfigLines) ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 3):
+                    self.setExtradColorsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+        
+        # Intrados colors
+        for i in range(3):
+            line = stream.readLine()
+                
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumRibsIntradColors', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            numConfigLines = values[1]
+            self.setIntradColorsConf(configCounter, 0, values[0] )
+            self.setIntradColorsConf(configCounter, 1, values[1] )
+                   
+            for lineCounter in range(0, int(numConfigLines) ):
+                values =  self.splitLine( stream.readLine() )
+                
+                for paramCounter in range (0, 3):
+                    self.setIntradColorsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+        
+        # Aditional rib points
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumAddRibPoints', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.setAddRibPointsParams(configCounter, 0, values[0] )
+            self.setAddRibPointsParams(configCounter, 1, values[1] )
+        
+        # Elastic lines corrections
+        for i in range(3):
+            line = stream.readLine()
+        
+        self.setSingleVal('InFlightLoad', self.remTabSpace( stream.readLine() ) )
+        
+        for configCounter in range(0, 4):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range(0, configCounter+2):
+                self.setLoadDistrParams(configCounter, paramCounter, values[paramCounter])
+        
+        for configCounter in range(0, 5):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range(0, 3):
+                self.setLoadDeformParams(configCounter, paramCounter, values[paramCounter+1])       
+        
+        # DXF layer names
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumDxfLayers', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range(0, 2):
+                self.setDxfLayerParams(configCounter, paramCounter, values[paramCounter])
+        
+        # TODO: AAA go on here
+        
         
         # Clean up 
         inFile.close()
         self.dataStatusUpdate.emit(self.__className,'Open')
+        
+
+    
+
+        
+       
+    
+    
   
     def writeFile(self, forProc=False):
         '''
@@ -769,8 +907,146 @@ class ProcessorStore(QObject, metaclass=Singleton):
         '''
         logging.debug(self.__className+'.setRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
-        self.__setRamLengthParams[confNum][paramNum] = value
+        self.__RamLengthParams[confNum][paramNum] = value
         # TODO: add emit signal 
+    
+    def setMiniRibParams(self, confNum, paramNum, value):
+        '''
+        Saves Mini Rib params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setMiniRibParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__MiniRibParams):
+            self.__MiniRibParams.append(['','','','','','','','','','',''])
+            
+        self.__MiniRibParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setExtradColorsConf(self, confNum, paramNum, value):
+        '''
+        Saves Configuration data for each Extrados Colors rib into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setExtradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__ExtradColorsConf):
+            self.__ExtradColorsConf.append(['',''])
+            
+        self.__ExtradColorsConf[confNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setExtradColorsParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Extrados description params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setExtradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__ExtradColorsParams):
+            self.__ExtradColorsParams.append([['','','']])
+        
+        if lineNum >= len(self.__ExtradColorsParams[confNum]):
+            self.__ExtradColorsParams[confNum].append(['','',''])
+            
+        self.__ExtradColorsParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setIntradColorsConf(self, confNum, paramNum, value):
+        '''
+        Saves Configuration data for each Intrados Colors rib into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setIntradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__IntradColorsConf):
+            self.__IntradColorsConf.append(['',''])
+            
+        self.__IntradColorsConf[confNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setIntradColorsParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Extrados description params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setIntradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__IntradColorsParams):
+            self.__IntradColorsParams.append([['','','']])
+        
+        if lineNum >= len(self.__IntradColorsParams[confNum]):
+            self.__IntradColorsParams[confNum].append(['','',''])
+            
+        self.__IntradColorsParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setAddRibPointsParams(self, confNum, paramNum, value):
+        '''
+        Saves Additional Rib Point data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAddRibPointsParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__AddRibPointsParams):
+            self.__AddRibPointsParams.append(['',''])
+            
+        self.__AddRibPointsParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setLoadDistrParams(self, confNum, paramNum, value):
+        '''
+        Saves Load Distribution data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setLoadDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        self.__LoadDistrParams[confNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setLoadDeformParams(self, confNum, paramNum, value):
+        '''
+        Saves Load Deformation data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setLoadDeformParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        self.__LoadDeformParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setDxfLayerParams(self, confNum, paramNum, value):
+        '''
+        Saves DXF Layer data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setDxfLayerParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__DxfLayerParams):
+            self.__DxfLayerParams.append(['',''])
+            
+        self.__DxfLayerParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
     
     def remTabSpaceQuot(self, line):
         '''
