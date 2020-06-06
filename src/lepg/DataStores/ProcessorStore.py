@@ -79,6 +79,13 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'NumAddRibPoints': '',
         'InFlightLoad': '',
         'NumDxfLayers': '',
+        'NumMarkTypes': '',
+        'JoncsType': '',
+        'NumJoncsConfigs': '',
+        'NoseMylarsType': '',
+        'NumNoseMylarsConfigs': '',
+        'TabReinfType': '',
+        'NumTabReinfConfigs': '',
     }
     
     # Rib geometric parameters
@@ -117,6 +124,31 @@ class ProcessorStore(QObject, metaclass=Singleton):
     __LoadDeformParams = [ [0 for x in range(3)] for y in range(5)]
     # DXF layer names
     __DxfLayerParams = [ [0 for x in range(2)] for y in range(1)]
+    # Marks types
+    __MarkTypeParams = [ [0 for x in range(7)] for y in range(1)]
+    # JONCS DEFINITION (NYLON RODS)
+    __JoncsConfigsParams = [ [ [0 for x in range(4)] for y in range(1)] for z in range(1)]
+    # NOSE MYLARS DEFINITION
+    __NoseMylarsParams = [ [ [0 for x in range(6)] for y in range(1)] for z in range(1)]
+    # TAB REINFORCEMENTS
+    __TabReinfParams = [ [ [0 for x in range(4)] for y in range(1)] for z in range(1)]
+    __SchemesParams = [ [0 for x in range(8)] for y in range(1)]
+    
+    # GENERAL 2D DXF OPTIONS
+    
+    # GENERAL 3D DXF OPTIONS
+    
+    # GLUE VENTS
+    
+    # SPECIAL WING TIP
+    
+    # PARAMETERS FOR CALAGE VARIATION
+    
+    # 3D SHAPING
+    
+    # AIRFOIL THICKNESS MODIFICATION
+    
+    # NEW SKIN TENSION MODULE
     
     def __init__(self):
         logging.debug(self.__className+'.__init__')
@@ -574,8 +606,129 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range(0, 2):
                 self.setDxfLayerParams(configCounter, paramCounter, values[paramCounter])
         
-        # TODO: AAA go on here
+        # Marks types
+        for i in range(3):
+            line = stream.readLine()
         
+        numConfigs = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NumMarkTypes', numConfigs )
+        
+        for configCounter in range(0, int(numConfigs)):
+            values =  self.splitLine( stream.readLine() )
+            
+            for paramCounter in range(0, 7):
+                self.setMarkTypeParams(configCounter, paramCounter, values[paramCounter])
+        
+        # JONCS DEFINITION (NYLON RODS)
+        for i in range(3):
+            line = stream.readLine()
+            
+        joncsType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('JoncsType', joncsType )
+        
+        if joncsType != '0':
+            # we have data to read
+            
+            numConfigs = self.remTabSpace( stream.readLine() )
+            self.setSingleVal('NumJoncsConfigs', numConfigs )
+        
+            for configCounter in range(0, int(numConfigs)):
+                
+                for lineCounter in range(0, 4 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 3):
+                        self.setJoncsConfigsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+                    
+                    if lineCounter > 0:
+                        self.setJoncsConfigsParams(configCounter, lineCounter, 3, values[3])
+        
+        # NOSE MYLARS DEFINITION
+        for i in range(3):
+            line = stream.readLine()
+            
+        noseMylarsType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NoseMylarsType', noseMylarsType )
+        
+        if joncsType != '0':
+            # we have data to read
+            
+            numConfigs = self.remTabSpace( stream.readLine() )
+            self.setSingleVal('NumNoseMylarsConfigs', numConfigs )
+        
+            for configCounter in range(0, int(numConfigs)):
+                
+                for lineCounter in range(0, 2 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 3):
+                        self.setNoseMylarsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+                    
+                    if lineCounter > 0:
+                        for paramCounter in range (3, 6):
+                            self.setNoseMylarsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+                                                    
+        # TAB REINFORCEMENTS
+        for i in range(3):
+            line = stream.readLine()
+            
+        tabReinfType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('TabReinfType', tabReinfType )
+        
+        if tabReinfType != '0':
+            # we have data to read
+            
+            numConfigs = self.remTabSpace( stream.readLine() )
+            self.setSingleVal('NumTabReinfConfigs', numConfigs )
+            
+            for configCounter in range(0, int(numConfigs)):
+                
+                for lineCounter in range(0, 2 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 3):
+                        self.setTabReinfParams(configCounter, lineCounter, paramCounter, values[paramCounter])
+                    
+                    if lineCounter > 0:
+                        self.setTabReinfParams(configCounter, lineCounter, 3, values[3])
+        
+        # overread "schemes"
+        stream.readLine()
+        
+        schemeCounter = 0
+        
+        # check for valid data line
+        line = stream.readLine()
+        while line.find('*') < 0:
+            # line contains no asteriks: read it
+            
+            values = self.splitLine(line)
+            
+            for paramCounter in range (0, len(values)):
+                self.setSchemesParams(schemeCounter, paramCounter, values[paramCounter])
+                
+            schemeCounter +=1
+            line = stream.readLine()
+                
+        # GENERAL 2D DXF OPTIONS
+        # be carefull: previous code has already read first line of header
+        for i in range(2):
+            line = stream.readLine()
+            
+        
+        # GENERAL 3D DXF OPTIONS
+        
+        # GLUE VENTS
+        
+        # SPECIAL WING TIP
+        
+        # PARAMETERS FOR CALAGE VARIATION
+        
+        # 3D SHAPING
+        
+        # AIRFOIL THICKNESS MODIFICATION
+        
+        # NEW SKIN TENSION MODULE
         
         # Clean up 
         inFile.close()
@@ -1047,6 +1200,92 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__DxfLayerParams[confNum][paramNum] = value
         # TODO: add emit signal
     
+    def setMarkTypeParams(self, confNum, paramNum, value):
+        '''
+        Saves Mark Type data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setMarkTypeParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__MarkTypeParams):
+            self.__MarkTypeParams.append(['','','','','','',''])
+            
+        self.__MarkTypeParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setJoncsConfigsParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Joncs Config params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setJoncsConfigsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__JoncsConfigsParams):
+            self.__JoncsConfigsParams.append([['','','','']])
+        
+        if lineNum >= len(self.__JoncsConfigsParams[confNum]):
+            self.__JoncsConfigsParams[confNum].append(['','','',''])
+            
+        self.__JoncsConfigsParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setNoseMylarsParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Nose Mylars params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setNoseMylarsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__NoseMylarsParams):
+            self.__NoseMylarsParams.append([['','','','','','']])
+        
+        if lineNum >= len(self.__NoseMylarsParams[confNum]):
+            self.__NoseMylarsParams[confNum].append(['','','','','',''])
+            
+        self.__NoseMylarsParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setTabReinfParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves overall Tab Reinforcement params into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setTabReinfParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__TabReinfParams):
+            self.__TabReinfParams.append([['','','','']])
+        
+        if lineNum >= len(self.__TabReinfParams[confNum]):
+            self.__TabReinfParams[confNum].append(['','','',''])
+            
+        self.__TabReinfParams[confNum][lineNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setSchemesParams(self, confNum, paramNum, value):
+        '''
+        Saves Schemes data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setSchemesParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__SchemesParams):
+            self.__SchemesParams.append(['','','','','','','',''])
+            
+        self.__SchemesParams[confNum][paramNum] = value
+        # TODO: add emit signal
     
     def remTabSpaceQuot(self, line):
         '''
