@@ -86,6 +86,18 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'NumNoseMylarsConfigs': '',
         'TabReinfType': '',
         'NumTabReinfConfigs': '',
+        'twoDDxfType': '',
+        'threeDDxfType': '',
+        'glueVentType': '',
+        'specWingTypType': '',
+        'specWingTypAngLE': '',
+        'specWingTypAngTE': '',
+        'calageVarType': '',
+        'numCalageVarRisers': '',
+        'threeDShapingType': '',
+        'threeDShapingTheory': '',
+        'NumThreeDShapingGroups': '',
+        
     }
     
     # Rib geometric parameters
@@ -133,17 +145,17 @@ class ProcessorStore(QObject, metaclass=Singleton):
     # TAB REINFORCEMENTS
     __TabReinfParams = [ [ [0 for x in range(4)] for y in range(1)] for z in range(1)]
     __SchemesParams = [ [0 for x in range(8)] for y in range(1)]
-    
     # GENERAL 2D DXF OPTIONS
-    
+    __2DDxfParams = [ [0 for x in range(3)] for y in range(6)]
     # GENERAL 3D DXF OPTIONS
-    
+    __3DDxfParams = [ [0 for x in range(4)] for y in range(9)]
     # GLUE VENTS
-    
+    __GlueVentParams = [0 for x in range(1)]
     # SPECIAL WING TIP
-    
+    # n/a
     # PARAMETERS FOR CALAGE VARIATION
-    
+    __calageVarCordParams = [0 for x in range(1)]
+    __calageVarAngleParams = [0 for x in range(1)]
     # 3D SHAPING
     
     # AIRFOIL THICKNESS MODIFICATION
@@ -650,7 +662,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         noseMylarsType = self.remTabSpace( stream.readLine() )
         self.setSingleVal('NoseMylarsType', noseMylarsType )
         
-        if joncsType != '0':
+        if noseMylarsType != '0':
             # we have data to read
             
             numConfigs = self.remTabSpace( stream.readLine() )
@@ -715,16 +727,105 @@ class ProcessorStore(QObject, metaclass=Singleton):
         for i in range(2):
             line = stream.readLine()
             
+        twoDDxfType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('twoDDxfType', twoDDxfType )
         
+        if twoDDxfType != '0':
+            # we have data to read
+            
+            for lineCounter in range(0, 6 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 3):
+                        self.setTwoDDxfParams(lineCounter, paramCounter, values[paramCounter])
+            
         # GENERAL 3D DXF OPTIONS
+        for i in range(3):
+            line = stream.readLine()
+            
+        threeDDxfType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('threeDDxfType', threeDDxfType )
+        
+        if threeDDxfType != '0':
+            # we have data to read
+            
+            for lineCounter in range(0, 6 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 3):
+                        self.setThreeDDxfParams(lineCounter, paramCounter, values[paramCounter])
+                        
+            for lineCounter in range(0, 3 ):
+                    values =  self.splitLine( stream.readLine() )
+                    
+                    for paramCounter in range (0, 4):
+                        self.setThreeDDxfParams(lineCounter+6, paramCounter, values[paramCounter])
         
         # GLUE VENTS
+        for i in range(3):
+            line = stream.readLine()
+            
+        glueVentType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('glueVentType', glueVentType )
         
+        if glueVentType != '0':
+            # we have data to read
+            for lineCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+                values =  self.splitLine( stream.readLine() )
+                
+                self.setGlueVentParams(lineCounter, values[1])
+            
+            
         # SPECIAL WING TIP
+        for i in range(3):
+            line = stream.readLine()
+            
+        specWingTypType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('specWingTypType', specWingTypType )
+        
+        if specWingTypType != '0':
+            # we have data to read
+            values =  self.splitLine( stream.readLine() )
+            self.setSingleVal('specWingTypAngLE', values[1] )
+            values =  self.splitLine( stream.readLine() )
+            self.setSingleVal('specWingTypAngTE', values[1] )
         
         # PARAMETERS FOR CALAGE VARIATION
+        for i in range(3):
+            line = stream.readLine()
+            
+        calageVarType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('calageVarType', calageVarType )
         
+        if calageVarType != '0':
+            # we have data to read
+            self.setSingleVal('numCalageVarRisers', self.remTabSpace( stream.readLine() ) )
+            
+            values =  self.splitLine( stream.readLine() )
+            for paramCounter in range( 0, 6 ):
+                self.setCalageVarCordParams(paramCounter, values[paramCounter])
+            
+            values =  self.splitLine( stream.readLine() )
+            for paramCounter in range( 0, 4 ):
+                self.setCalageVarAngleParams(paramCounter, values[paramCounter])
+            
         # 3D SHAPING
+        for i in range(3):
+            line = stream.readLine()
+            
+        threeDShapingType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('threeDShapingType', threeDShapingType )
+        
+        if threeDShapingType != '0':
+            # we have data to read
+            self.setSingleVal('threeDShapingTheory', self.remTabSpace( stream.readLine() ) )
+            
+            values = self.remTabSpace( stream.readLine() )
+            numGroups = int(values[1])
+            self.setSingleVal('NumThreeDShapingGroups', numGroups )
+            
+            # for groupCounter in(0, numGroups):
+                
         
         # AIRFOIL THICKNESS MODIFICATION
         
@@ -1285,6 +1386,72 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__SchemesParams.append(['','','','','','','',''])
             
         self.__SchemesParams[confNum][paramNum] = value
+        # TODO: add emit signal
+        
+    def setTwoDDxfParams(self, confNum, paramNum, value):
+        '''
+        Saves 2D DXF data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setTwoDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        self.__2DDxfParams[confNum][paramNum] = value
+        # TODO: add emit signal
+    
+    def setThreeDDxfParams(self, confNum, paramNum, value):
+        '''
+        Saves 3D DXF data into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setThreeDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        self.__3DDxfParams[confNum][paramNum] = value
+        # TODO: add emit signal 
+        
+    def setGlueVentParams(self, confNum, value):
+        '''
+        Saves GlueVent data into the data store.
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setGlueVentParams |'+ str(confNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__GlueVentParams):
+            self.__GlueVentParams.append('')
+            
+        self.__GlueVentParams[confNum] = value
+        # TODO: add emit signal 
+        
+    def setCalageVarCordParams(self, paramNum, value):
+        '''
+        Saves Calage Variation % of cord params into the data store.
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setCalageVarCordParam |'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if paramNum >= len(self.__calageVarCordParams):
+            self.__calageVarCordParams.append('')
+            
+        self.__calageVarCordParams[paramNum] = value
+        # TODO: add emit signal
+        
+    def setCalageVarAngleParams(self, paramNum, value):
+        '''
+        Saves Calage Variation angle variation params into the data store.
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setCalageVarAngleParams |'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if paramNum >= len(self.__calageVarAngleParams):
+            self.__calageVarAngleParams.append('')
+            
+        self.__calageVarAngleParams[paramNum] = value
         # TODO: add emit signal
     
     def remTabSpaceQuot(self, line):
