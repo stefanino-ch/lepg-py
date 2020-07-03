@@ -511,7 +511,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             
             for paramCounter in range (0, 5):
-                self.setBrakePathParams(configCounter, paramCounter, values[paramCounter])
+                self.setBrakeDistrParams(configCounter, paramCounter, values[paramCounter])
                 
         ##############################
         # 11. Ramification lengths
@@ -970,8 +970,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 
         @param forProc: Set this to True if the file must be saved in the directory where the Processor resides
         '''
+<<<<<<< Upstream, based on origin/latest
         
         
+=======
+>>>>>>> 44c9eba Processor data read and save functionality.
         logging.debug(self.__className+'.writeFile')
         
         if forProc == False:
@@ -1036,6 +1039,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
         stream << '* Alpha max and parameter\n'
         stream << '\t' << self.getSingleVal('AlphaMaxP1')  
+<<<<<<< Upstream, based on origin/latest
         stream << '\t'<< self.getSingleVal('AlphaMaxP2')
         stream << '\t'<< self.getSingleVal('AlphaMaxP3')<< '\n'
         
@@ -1174,6 +1178,332 @@ class ProcessorStore(QObject, metaclass=Singleton):
         ##############################
         # 22. NOSE MYLARS DEFINITION
         self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
+=======
+        stream << '\t' << self.getSingleVal('AlphaMaxP2')
+        stream << '\t' << self.getSingleVal('AlphaMaxP3')<< '\n'
+        
+        stream << '* Paraglider type and parameter\n'
+        stream << '\t'<< '\"' << self.getSingleVal('ParaTypeP1') << '\"'
+        stream << '\t'<< self.getSingleVal('ParaTypeP2')<< '\n'
+        
+        stream << '* Rib geometric parameters\n'
+        stream << '* Rib\tx-rib\ty-LE\ty-TE\txp\tz\tbeta\tRP\tWashin\n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (8):
+                stream << '\t' << self.getRibGeomParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 2. AIRFOILS
+        self.writeHeader(stream, '2. AIRFOILS')
+        
+        stream << '* Airfoil name, intake in, intake out, open , disp. rrw \n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (7):
+                stream << '\t' << self.getAirfoilParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 3. ANCHOR POINTS
+        self.writeHeader(stream, '3. ANCHOR POINTS')
+        
+        stream << '* Airf\tAnch\tA\tB\tC\tD\tE\tF\n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (7):
+                stream << '\t' << self.getAnchorPointParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 4. AIRFOIL HOLES
+        self.writeHeader(stream, '4. AIRFOIL HOLES')
+        
+        numConfigs = self.getSingleVal('NumAirfHoleConf')
+        stream << numConfigs << '\n'
+        
+        for configCounter in range( 0, int(numConfigs) ):
+            stream << self.getAirfHoleConf(configCounter, 0) << '\n'
+            stream << self.getAirfHoleConf(configCounter, 1) << '\n'
+            numConfigLines = self.getAirfHoleConf(configCounter, 2)
+            stream << numConfigLines << '\n'
+            
+            for lineCounter in range(0, int(numConfigLines) ):
+                for paramCounter in range (0, 9):
+                    stream << self.getAirfHoleParams(configCounter, lineCounter, paramCounter) << '\t'
+                stream << '\n'
+        
+        
+        ##############################
+        # 5. SKIN TENSION
+        self.writeHeader(stream, '5. SKIN TENSION')
+        stream << 'Extrados' << '\n'
+        
+        for lineCounter in range(0, 6 ):
+            for paramCounter in range (0, 4):
+                stream << self.getSkinTensionParams(lineCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        stream << self.getSingleVal('StrainMiniRibs') << '\n'
+        stream << self.getSingleVal('NumSkinTensionPoints') << '\t'
+        stream << self.getSingleVal('SkinTensionCoeff') << '\n'
+        
+
+        
+       
+        ##############################
+        # 6. SEWING ALLOWANCES
+        self.writeHeader(stream, '6. SEWING ALLOWANCES')
+       
+        for lineCounter in range(0, 2 ):
+            for paramCounter in range (0, 3):
+                stream << self.getSewingAllPanelsParams(lineCounter, paramCounter) << '\t'
+            
+            if lineCounter == 0:
+                stream << 'upper panels (mm)\n'
+            else:
+                stream << 'lower panels (mm)\n'
+         
+        stream << self.getSingleVal('SewingAllRibs')  << '\t' << 'ribs (mm)' << '\n'     
+        stream << self.getSingleVal('SewingAllVRibs')  << '\t' << 'vribs (mm)' << '\n'
+       
+        ##############################
+        # 7. MARKS
+        self.writeHeader(stream, '7. MARKS')
+        
+        stream << self.getSingleVal('MarksP1') << '\t'
+        stream << self.getSingleVal('MarksP3') << '\t'
+        stream << self.getSingleVal('MarksP2') << '\n'
+        
+        ##############################
+        # 8. Global angle of attack estimation
+        self.writeHeader(stream, '8. Global angle of attack estimation')
+        
+        stream << '* Finesse GR\n'
+        stream << '\t' << self.getSingleVal('FinesseGR') << '\n'
+        
+        stream << '* Center of pressure % of chord\n'
+        stream << '\t' << self.getSingleVal('CentOfPress') << '\n'
+        
+        stream << '* Calage %\n'
+        stream << '\t' << self.getSingleVal('Calage') << '\n'
+        
+        stream << '* Risers lenght cm\n'
+        stream << '\t' << self.getSingleVal('RaisersLenght') << '\n'
+        
+        stream << '* Line lenght cm\n'
+        stream << '\t' << self.getSingleVal('LineLength') << '\n'
+        
+        stream << '* Karabiners cm\n'
+        stream << '\t' << self.getSingleVal('Karabiners') << '\n'
+        
+        ##############################
+        # 9. SUSPENSION LINES DESCRIPTION
+        self.writeHeader(stream, '9. SUSPENSION LINES DESCRIPTION')
+        
+        stream << self.getSingleVal('LineDescConc') << '\n'
+        stream << self.getSingleVal('NumLineDesConfigs') << '\n'
+        
+        numConfigs = self.getSingleVal('NumLineDesConfigs')
+        for configCounter in range(0, int(numConfigs)):
+            stream << self.getLineDescConf(configCounter) << '\n'
+            
+            numConfigLines = self.getLineDescConf(configCounter)
+            for lineCounter in range(0, int(numConfigLines) ):
+                for paramCounter in range (0, 11):
+                    stream << self.getLineDescParams(configCounter, lineCounter, paramCounter) << '\t'
+                
+                stream << '\n'
+        
+        ##############################
+        # 10. BRAKES
+        self.writeHeader(stream, '10. BRAKES')
+        
+        stream << self.getSingleVal('BrakeLength') << '\n'
+        stream << self.getSingleVal('NumBrakePath') << '\n'
+        
+        numConfigs = self.getSingleVal('NumBrakePath')
+        for configCounter in range(0, int(numConfigs)):
+            for paramCounter in range (0, 11):
+                stream << self.getBrakePathParams(configCounter, paramCounter) << '\t'
+            stream << '\n'
+            
+        stream << '* Brake distribution\n'
+        
+        for configCounter in range(0, 2):
+            for paramCounter in range (0, 5):
+                stream << self.getBrakeDistrParams(configCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        ##############################
+        # 11. Ramification lengths
+        self.writeHeader(stream, '11. Ramification lengths')
+        
+        for lineCounter in range (4):
+            for paramCounter in range (0, 2):
+                    stream << self.getRamLengthParams(lineCounter, paramCounter) << '\t'
+            if (lineCounter == 1) or (lineCounter==3):
+                stream << self.getRamLengthParams(lineCounter, 2 )
+            stream << '\n'
+        
+        ##############################
+        # 12. H V and VH ribs (Mini Ribs)
+        self.writeHeader(stream, '12. H V and VH ribs')
+        
+        stream << self.getSingleVal('NumMiniRibs') << '\n'
+        stream << self.getSingleVal('MiniRibXSpacing') << '\t' << self.getSingleVal('MiniRibYSpacing') << '\n'
+        
+        numConfigs = self.getSingleVal('NumMiniRibs')
+        for configCounter in range(0, int(numConfigs)):
+            for paramCounter in range (0, 9):
+                stream << self.getMiniRibParams(configCounter, paramCounter) << '\t'
+            
+            if self.getMiniRibParams(configCounter, 0) == '6':
+                # we have a type 6 rib-> two additional params to write
+                stream << self.getMiniRibParams(configCounter, 9) << '\t'
+                stream << self.getMiniRibParams(configCounter, 10)
+            stream << '\n'
+        
+        ##############################
+        # 15. Extrados colors
+        self.writeHeader(stream, '15. Extrados colors')
+        
+        stream << self.getSingleVal('NumRibsExtradColors') << '\n'
+
+        numConfigs = self.getSingleVal('NumRibsExtradColors')
+        for configCounter in range(0, int(numConfigs)):
+            stream << self.getExtradColorsConf(configCounter, 0) << '\t'
+            stream << self.getExtradColorsConf(configCounter, 1) << '\n'
+             
+            numConfigLines = self.getExtradColorsConf(configCounter, 1)       
+            for lineCounter in range(0, int(numConfigLines) ):
+                for paramCounter in range (0, 3):
+                    stream << self.getExtradColorsParams(configCounter, lineCounter, paramCounter) << '\t'
+                stream << '\n'
+                
+        ##############################
+        # 16. Intrados colors
+        self.writeHeader(stream, '16. Intrados colors')
+        
+        stream << self.getSingleVal('NumRibsIntradColors') << '\n'
+
+        numConfigs = self.getSingleVal('NumRibsIntradColors')
+        for configCounter in range(0, int(numConfigs)):
+            stream << self.getIntradColorsConf(configCounter, 0) << '\t'
+            stream << self.getIntradColorsConf(configCounter, 1) << '\n'
+             
+            numConfigLines = self.getIntradColorsConf(configCounter, 1)       
+            for lineCounter in range(0, int(numConfigLines) ):
+                for paramCounter in range (0, 3):
+                    stream << self.getIntradColorsParams(configCounter, lineCounter, paramCounter) << '\t'
+                stream << '\n'
+        
+        ##############################
+        # 17. Aditional rib points
+        self.writeHeader(stream, '17. Aditional rib points')
+        
+        stream << self.getSingleVal('NumAddRibPoints') << '\n'
+        
+        numConfigs = self.getSingleVal('NumAddRibPoints')
+        for configCounter in range(0, int(numConfigs)):
+            stream << self.getAddRibPointsParams(configCounter, 0) << '\t'
+            stream << self.getAddRibPointsParams(configCounter, 1) << '\n'
+        
+        ##############################
+        # 18. Elastic lines corrections
+        self.writeHeader(stream, '18. Elastic lines corrections')
+        
+        stream << self.getSingleVal('InFlightLoad') << '\n'
+        
+        for configCounter in range(0, 4):
+            for paramCounter in range(0, configCounter+2):
+                stream << self.getLoadDistrParams(configCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        for configCounter in range(0, 5):
+            stream << configCounter << '\t'
+            
+            for paramCounter in range(0, 3):
+                stream << self.getLoadDeformParams(configCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        ##############################
+        # 19. DXF layer names
+        self.writeHeader(stream, '19. DXF layer names')
+        
+        stream << self.getSingleVal('NumDxfLayers') << '\n'
+        
+        numConfigs = self.getSingleVal('NumDxfLayers')
+        for configCounter in range(0, int(numConfigs)):
+            for paramCounter in range(0, 2):
+                stream << self.getDxfLayerParams(configCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        ##############################
+        # 20. Marks types
+        self.writeHeader(stream, '20. Marks types')
+        
+        stream << self.getSingleVal('NumMarkTypes') << '\n'
+        
+        numConfigs = self.getSingleVal('NumMarkTypes')
+        for configCounter in range(0, int(numConfigs)):
+            for paramCounter in range(0, 7):
+                stream << self.getMarkTypeParams(configCounter, paramCounter)  << '\t'
+            stream << '\n'
+            
+        ##############################
+        # 21. JONCS DEFINITION (NYLON RODS)
+        self.writeHeader(stream, '21. JONCS DEFINITION (NYLON RODS)')
+        
+        stream << self.getSingleVal('JoncsType') << '\n'
+        
+        dataType = self.getSingleVal('JoncsType')
+        if dataType != '0':
+            # we have data to write
+            stream << self.getSingleVal('NumJoncsConfigs') << '\n'
+            
+            numConfigs = self.getSingleVal('NumJoncsConfigs')
+            for configCounter in range(0, int(numConfigs)):
+                for lineCounter in range(0, 4 ):
+                    for paramCounter in range (0, 3):
+                        stream << self.getJoncsConfigsParams(configCounter, lineCounter, paramCounter) << '\t'
+                    if lineCounter > 0:
+                        stream << self.getJoncsConfigsParams(configCounter, lineCounter, 3) << '\t'
+                    stream << '\n'
+                    
+        ##############################
+        # 22. NOSE MYLARS DEFINITION
+        self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
+        
+        stream << self.getSingleVal('NoseMylarsType') << '\n'
+        
+        dataType = self.getSingleVal('NoseMylarsType')
+        if dataType != '0':
+            # we have data to write
+            
+            stream << self.getSingleVal('NumNoseMylarsConfigs') << '\n'
+            
+            numConfigs = self.getSingleVal('NumNoseMylarsConfigs')
+            for configCounter in range(0, int(numConfigs)):
+                for lineCounter in range(0, 2 ):
+                    for paramCounter in range (0, 3):
+                        stream << self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\n'
+                    
+                    if lineCounter > 0:
+                        for paramCounter in range (3, 6):
+                            stream <<  self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\n'
+                stream << '\n'
+>>>>>>> 44c9eba Processor data read and save functionality.
         
         ##############################
         # 23. TAB REINFORCEMENTS
@@ -1272,6 +1602,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
         self.dataStatusUpdate.emit(self.__className, 'RibGeomParams')
     
+<<<<<<< Upstream, based on origin/latest
     def getRibGeomParams(self, ribNum, paramNum):
         '''
         Reads Rib Geometry parameters from the data store.
@@ -1279,6 +1610,17 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
+=======
+      def getRibGeomParams(self, ribNum, paramNum):
+        '''
+        Reads Rib Geometry parameters from the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getRibGeomParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__RibGeomParams) >= ribNum:
             if len (self.__RibGeomParams[ribNum]) >= paramNum:
                 return  self.__RibGeomParams[ribNum][paramNum]
@@ -1309,6 +1651,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
+<<<<<<< Upstream, based on origin/latest
+=======
+        logging.debug(self.__className+'.getAirfoilParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfoilParams) >= ribNum:
             if len (self.__AirfoilParams[ribNum]) >= paramNum:
                 return  self.__AirfoilParams[ribNum][paramNum]
@@ -1339,6 +1686,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
+<<<<<<< Upstream, based on origin/latest
+=======
+        logging.debug(self.__className+'.getAnchorPointParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AnchorPointParams) >= ribNum:
             if len (self.__AnchorPointParams[ribNum]) >= paramNum:
                 return  self.__AnchorPointParams[ribNum][paramNum]
@@ -1368,6 +1720,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
+<<<<<<< Upstream, based on origin/latest
+=======
+        logging.debug(self.__className+'.getAirfHoleConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfHoleConf) >= confNum:
             if len (self.__AirfHoleConf[confNum]) >= paramNum:
                 return  self.__AirfHoleConf[confNum][paramNum] 
@@ -1402,6 +1759,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Number of the parameter to set. Indexing starts with 0!
         @return: Parameter value
         '''
+<<<<<<< Upstream, based on origin/latest
+=======
+        logging.debug(self.__className+'.getAirfHoleParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfHoleParams) >= confNum:
             if len (self.__AirfHoleParams[confNum]) >= lineNum:
                 if len (self.__AirfHoleParams[confNum][lineNum]) >= paramNum:
@@ -1429,6 +1791,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
+<<<<<<< Upstream, based on origin/latest
+=======
+        logging.debug(self.__className+'.getSkinTensionParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+>>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__SkinTensionParams) >= confNum:
             if len (self.__SkinTensionParams[confNum]) >= paramNum:
                 return  self.__SkinTensionParams[confNum][paramNum] 
@@ -1445,8 +1812,28 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
         self.__SewingAllPanelsParams[lineNum][paramNum] = value
+<<<<<<< Upstream, based on origin/latest
         
         self.dataStatusUpdate.emit(self.__className, 'SewingAllPanelsParams') 
+=======
+                
+        self.dataStatusUpdate.emit(self.__className, 'SewingAllPanelsParams') 
+        
+    def getSewingAllPanelsParams(self, lineNum, paramNum):
+        '''
+        Reads Sewing allowances for panels params from the data store.
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__SewingAllPanelsParams) >= lineNum:
+            if len (self.__SewingAllPanelsParams[lineNum]) >= paramNum:
+                return  self.__SewingAllPanelsParams[lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setLineDescConf(self, confNum, value): 
         '''
@@ -1462,6 +1849,23 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LineDescConf[confNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LineDescConf')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getLineDescConf(self, confNum):
+        '''
+        Reads overall Line Description config from the data store.
+        @param confNum: Number of the configuration. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getLineDescConf |'+ str(confNum)+'|')
+        
+        if len(self.__LineDescConf) >= confNum:
+            return  self.__LineDescConf[confNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setLineDescParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1482,6 +1886,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LineDescParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LineDescParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getLineDescParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads Line description params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getLineDescParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__LineDescParams) >= confNum:
+            if len (self.__LineDescParams[confNum]) >= lineNum:
+                if len (self.__LineDescParams[confNum][paramNum]) >= paramNum:
+                    return  self.__LineDescParams[confNum][lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setBrakePathParams(self, confNum, paramNum, value):
         '''
@@ -1498,6 +1922,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__BrakePathParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'BrakePathParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getBrakePathParams(self, confNum, paramNum,):
+        '''
+        Reads Brake path params from the data store.
+        @param confNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getBrakePathParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__BrakePathParams) >= confNum:
+            if len (self.__BrakePathParams[confNum]) >= paramNum:
+                return  self.__BrakePathParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setBrakeDistrParams(self, confNum, paramNum, value):
         '''
@@ -1510,7 +1952,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
         self.__BrakeDistrParams[confNum][paramNum] = value
         
+<<<<<<< Upstream, based on origin/latest
         self.dataStatusUpdate.emit(self.__className, 'BrakeDistrParams')  
+=======
+        self.dataStatusUpdate.emit(self.__className, 'BrakeDistrParams') 
+        
+    def getBrakeDistrParams(self, confNum, paramNum,):
+        '''
+        Reads Brake distribution params from the data store.
+        @param confNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getBrakeDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__BrakeDistrParams) >= confNum:
+            if len (self.__BrakeDistrParams[confNum]) >= paramNum:
+                return  self.__BrakeDistrParams[confNum][paramNum] 
+        else: 
+            return '' 
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setRamLengthParams(self, confNum, paramNum, value):
         '''
@@ -1524,6 +1985,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__RamLengthParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'RamLengthParams') 
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getRamLengthParams(self, confNum, paramNum,):
+        '''
+        Reads Ramification Length params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__RamLengthParams) >= confNum:
+            if len (self.__RamLengthParams[confNum]) >= paramNum:
+                return  self.__RamLengthParams[confNum][paramNum] 
+        else: 
+            return ''    
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setMiniRibParams(self, confNum, paramNum, value):
         '''
@@ -1540,6 +2019,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__MiniRibParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'MiniRibParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getMiniRibParams(self, confNum, paramNum,):
+        '''
+        Reads Mini Rib params from the data store.
+        @param confNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getMiniRibParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__MiniRibParams) >= confNum:
+            if len (self.__MiniRibParams[confNum]) >= paramNum:
+                return  self.__MiniRibParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setExtradColorsConf(self, confNum, paramNum, value):
         '''
@@ -1556,6 +2053,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__ExtradColorsConf[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'ExtradColorsConf')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getExtradColorsConf(self, confNum, paramNum,):
+        '''
+        Reads data for each Extrados Colors rib from the data store.
+        @param confNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getExtradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__ExtradColorsConf) >= confNum:
+            if len (self.__ExtradColorsConf[confNum]) >= paramNum:
+                return  self.__ExtradColorsConf[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setExtradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1574,8 +2089,30 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__ExtradColorsParams[confNum].append(['','',''])
             
         self.__ExtradColorsParams[confNum][lineNum][paramNum] = value
+<<<<<<< Upstream, based on origin/latest
         
         self.dataStatusUpdate.emit(self.__className, 'ExtradColorsParams')
+=======
+
+        self.dataStatusUpdate.emit(self.__className, 'ExtradColorsParams')
+        
+    def getExtradColorsParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads overall Extrados description params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getExtradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__ExtradColorsParams) >= confNum:
+            if len (self.__ExtradColorsParams[confNum]) >= lineNum:
+                if len (self.__ExtradColorsParams[confNum][lineNum]) >= paramNum:
+                    return  self.__ExtradColorsParams[confNum][lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setIntradColorsConf(self, confNum, paramNum, value):
         '''
@@ -1592,10 +2129,28 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__IntradColorsConf[confNum][paramNum] = value
        
         self.dataStatusUpdate.emit(self.__className, 'IntradColorsConf')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getIntradColorsConf(self, confNum, paramNum,):
+        '''
+        Reads data for each Intrados Colors rib from the data store.
+        @param confNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getIntradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__IntradColorsConf) >= confNum:
+            if len (self.__IntradColorsConf[confNum]) >= paramNum:
+                return  self.__IntradColorsConf[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setIntradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Extrados description params into the data store.
+        Saves overall Intrados description params into the data store.
         @param confNum: Number of the configuration set. Indexing starts with 0!
         @param lineNum: Number of the configuration line. Indexing starts with 0!
         @param paramNum: Number of the parameter to set. Indexing starts with 0!
@@ -1612,6 +2167,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__IntradColorsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'IntradColorsParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getIntradColorsParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads overall Intrados description params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getIntradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__IntradColorsParams) >= confNum:
+            if len (self.__IntradColorsParams[confNum]) >= lineNum:
+                if len (self.__IntradColorsParams[confNum][lineNum]) >= paramNum:
+                    return  self.__IntradColorsParams[confNum][lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setAddRibPointsParams(self, confNum, paramNum, value):
         '''
@@ -1628,6 +2203,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__AddRibPointsParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'AddRibPointsParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+    
+    def getAddRibPointsParams(self, confNum, paramNum,):
+        '''
+        Reads Additional Rib Point data from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getAddRibPointsParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__AddRibPointsParams) >= confNum:
+            if len (self.__AddRibPointsParams[confNum]) >= paramNum:
+                return  self.__AddRibPointsParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setLoadDistrParams(self, confNum, paramNum, value):
         '''
@@ -1641,6 +2234,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LoadDistrParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LoadDistrParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getLoadDistrParams(self, confNum, paramNum,):
+        '''
+        Reads Load Distribution data from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getLoadDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__LoadDistrParams) >= confNum:
+            if len (self.__LoadDistrParams[confNum]) >= paramNum:
+                return  self.__LoadDistrParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setLoadDeformParams(self, confNum, paramNum, value):
         '''
@@ -1654,6 +2265,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LoadDeformParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LoadDeformParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getLoadDeformParams(self, confNum, paramNum,):
+        '''
+        Reads Load Deformation data from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getLoadDeformParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__LoadDeformParams) >= confNum:
+            if len (self.__LoadDeformParams[confNum]) >= paramNum:
+                return  self.__LoadDeformParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setDxfLayerParams(self, confNum, paramNum, value):
         '''
@@ -1670,6 +2299,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__DxfLayerParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'DxfLayerParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getDxfLayerParams(self, confNum, paramNum,):
+        '''
+        Reads DXF Layer data from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getDxfLayerParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__DxfLayerParams) >= confNum:
+            if len (self.__DxfLayerParams[confNum]) >= paramNum:
+                return  self.__DxfLayerParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setMarkTypeParams(self, confNum, paramNum, value):
         '''
@@ -1686,6 +2333,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__MarkTypeParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'MarkTypeParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+        
+    def getMarkTypeParams(self, confNum, paramNum,):
+        '''
+        Reads Mark Type data from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getMarkTypeParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__MarkTypeParams) >= confNum:
+            if len (self.__MarkTypeParams[confNum]) >= paramNum:
+                return  self.__MarkTypeParams[confNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
     
     def setJoncsConfigsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1706,6 +2371,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__JoncsConfigsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'JoncsConfigsParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+    
+    def getJoncsConfigsParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads overall Joncs Config params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getJoncsConfigsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__JoncsConfigsParams) >= confNum:
+            if len (self.__JoncsConfigsParams[confNum]) >= lineNum:
+                if len (self.__JoncsConfigsParams[confNum][lineNum]) >= paramNum:
+                    return  self.__JoncsConfigsParams[confNum][lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setNoseMylarsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1726,6 +2411,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__NoseMylarsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'NoseMylarsParams')
+<<<<<<< Upstream, based on origin/latest
+=======
+    
+    def getNoseMylarsParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads overall Nose Mylars params from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the line. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        logging.debug(self.__className+'.getNoseMylarsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
+        
+        if len(self.__NoseMylarsParams) >= confNum:
+            if len (self.__NoseMylarsParams[confNum]) >= lineNum:
+                if len (self.__NoseMylarsParams[confNum][lineNum]) >= paramNum:
+                    return  self.__NoseMylarsParams[confNum][lineNum][paramNum] 
+        else: 
+            return ''
+>>>>>>> 44c9eba Processor data read and save functionality.
         
     def setTabReinfParams(self, confNum, lineNum, paramNum, value):
         '''
