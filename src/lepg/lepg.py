@@ -186,12 +186,10 @@ class MainWindow(QMainWindow):
         procSaveAct = QAction(_('Save Processor File'), self)
         procSaveAct.setStatusTip(_('save_proc_file_desc'))
         procSaveAct.triggered.connect(self.procSaveFile)
-        procSaveAct.setEnabled(False)
         
         procSaveAsAct = QAction(_('Save Processor File As ..'), self)
         procSaveAsAct.setStatusTip(_('save_proc_file_as_desc'))
         procSaveAsAct.triggered.connect(self.procSaveFileAs)
-        procSaveAsAct.setEnabled(False)
         
         procRunAct = QAction(_('Run Processor'), self)
         procRunAct.setStatusTip(_('run_Processor_des'))

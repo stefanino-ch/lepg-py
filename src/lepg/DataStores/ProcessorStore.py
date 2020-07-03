@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from Singleton.Singleton import Singleton
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from ConfigReader.ConfigReader import ConfigReader
-from binhex import LINELEN
 
 class ProcessorStore(QObject, metaclass=Singleton):
     '''
@@ -97,7 +96,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'threeDShapingType': '',
         'threeDShapingTheory': '',
         'NumThreeDShapingGroups': '',
-        
+        'airfoilThiknessModifType': '',
+        'skinTensionType': '',
+        'numSkinTensionGroups': '',
     }
     
     # Rib geometric parameters
@@ -157,17 +158,23 @@ class ProcessorStore(QObject, metaclass=Singleton):
     __calageVarCordParams = [0 for x in range(1)]
     __calageVarAngleParams = [0 for x in range(1)]
     # 3D SHAPING
+    __threeDShapingGroupConf = [ [0 for x in range(3)] for y in range(1)]
+    __threeDShapingUpGroupParams = [ [ [0 for x in range(3)] for y in range(1)] for z in range(1)]
+    __threeDShapingLoGroupParams = [ [ [0 for x in range(3)] for y in range(1)] for z in range(1)]
+    __threeDShapingPrintParams = [ [0 for x in range(5)] for y in range(5)]
+    # 30. AIRFOIL THICKNESS MODIFICATION
+    __airfThiknessModifParams = [0 for x in range(1)]
+    # 31. NEW SKIN TENSION MODULE
+    __skinTensionGroupConf = [ [0 for x in range(4)] for y in range(1)]
+    __skinTensionGroupParams = [ [ [0 for x in range(4)] for y in range(1)] for z in range(1)]
     
-    # AIRFOIL THICKNESS MODIFICATION
-    
-    # NEW SKIN TENSION MODULE
+    __separator = '**************************************************************\n'
     
     def __init__(self):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         self.dws = DataWindowStatus()
         self.dws.registerSignal(self.dataStatusUpdate)
-        
     
     def isValid( self, fileName ):
         '''
@@ -250,7 +257,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         Checks if there is already a valid file name, if not it asks for it. 
         Starts afterwards the writing process.  
         '''
-        logging.debug('PreProcessorStore.saveFile')
+        logging.debug(self.__className+'.saveFile')
         
         filename = self.getFileName()
         if filename != '':
@@ -260,9 +267,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
             # Ask first for the filename
             fileName = QFileDialog.getSaveFileName(
                         None,
-                        _('Save PreProc file'),
+                        _('Save Processor file'),
                         "",
-                        "Geometry Files (*.txt);;All Files (*)")
+                        "Processor Files (*.txt);;All Files (*)")
             
             if fileName != ('', ''):
                 # User has really selected a file, if it would have aborted the dialog  
@@ -275,14 +282,14 @@ class ProcessorStore(QObject, metaclass=Singleton):
         Asks for a new filename. 
         Starts afterwards the writing process.  
         '''
-        logging.debug('PreProcessorStore.saveFileAs')
+        logging.debug(self.__className+'.saveFileAs')
         
         # Ask first for the filename
         fileName = QFileDialog.getSaveFileName(
                     None,
-                    _('Save PreProc file as'),
+                    _('Save Processor file as'),
                     "",
-                    "Geometry Files (*.txt);;All Files (*)")
+                    "Processor Files (*.txt);;All Files (*)")
         
         if fileName != ('', ''):
                 # User has really selected a file, if it would have aborted the dialog  
@@ -300,6 +307,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         inFile.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(inFile)
 
+        ##############################
+        # 1. Geometry
         # Overread file header
         self.counter = 0
         while self.counter < 4:
@@ -361,7 +370,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             self.setRibGeomParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8])
 
-        # AIRFOILS
+        ##############################
+        # 2. AIRFOILS
         for i in range(4):
             line = stream.readLine()
         
@@ -369,7 +379,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             self.setAirfoilParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7])
         
-        # ANCHOR POINTS
+        ##############################
+        # 3. ANCHOR POINTS
         for i in range(4):
             line = stream.readLine()
         
@@ -377,7 +388,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             self.setAnchorPointParams(i, values[1], values[2], values[3], values[4], values[5], values[6], values[7])    
         
-        # AIRFOIL HOLES
+        ##############################
+        # 4. AIRFOIL HOLES
         for i in range(3):
             line = stream.readLine()
         
@@ -396,7 +408,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 for paramCounter in range (0, 9):
                     self.setAirfHoleParams(configCounter, lineCounter, paramCounter, values[paramCounter])
 
-        # SKIN TENSION
+        ##############################
+        # 5. SKIN TENSION
         for i in range(4):
             line = stream.readLine()
         
@@ -412,7 +425,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.setSingleVal('NumSkinTensionPoints', values[0] )
         self.setSingleVal('SkinTensionCoeff', values[1] )
         
-        # SEWING ALLOWANCES
+        ##############################
+        # 6. SEWING ALLOWANCES
         for i in range(3):
             line = stream.readLine()
             
@@ -427,7 +441,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         values = self.splitLine( stream.readLine() )
         self.setSingleVal('SewingAllVRibs', values[0] )
     
-        # MARKS
+        ##############################
+        # 7. MARKS
         for i in range(3):
             line = stream.readLine()
             
@@ -436,7 +451,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.setSingleVal('MarksP2', values[1] )
         self.setSingleVal('MarksP3', values[2] )
         
-        # Global angle of attack estimation
+        ##############################
+        # 8. Global angle of attack estimation
         for i in range(3):
             line = stream.readLine()
         
@@ -453,7 +469,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         line = stream.readLine()
         self.setSingleVal('Karabiners', self.remTabSpace( stream.readLine() ) )
         
-        # SUSPENSION LINES DESCRIPTION
+        ##############################
+        # 9. SUSPENSION LINES DESCRIPTION
         for i in range(3):
             line = stream.readLine()
         
@@ -472,7 +489,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 
                 for paramCounter in range (0, 11):
                     self.setLineDescParams(configCounter, lineCounter, paramCounter, values[paramCounter])
-        # BRAKES
+        ##############################
+        # 10. BRAKES
         for i in range(3):
             line = stream.readLine()
         
@@ -495,7 +513,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range (0, 5):
                 self.setBrakePathParams(configCounter, paramCounter, values[paramCounter])
                 
-        # Ramification lengths
+        ##############################
+        # 11. Ramification lengths
         for i in range(3):
             line = stream.readLine()
         
@@ -512,7 +531,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         for paramCounter in range (0, 3):
                 self.setRamLengthParams(3, paramCounter, values[paramCounter])
         
-        # H V and VH ribs (Mini Ribs)
+        ##############################
+        # 12. H V and VH ribs (Mini Ribs)
         for i in range(3):
             line = stream.readLine()
         
@@ -534,7 +554,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 self.setMiniRibParams(configCounter, 9, values[10])
                 self.setMiniRibParams(configCounter, 10, values[11])
         
-        # Extrados colors
+        ##############################
+        # 15. Extrados colors
         for i in range(3):
             line = stream.readLine()
                 
@@ -554,7 +575,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 for paramCounter in range (0, 3):
                     self.setExtradColorsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
         
-        # Intrados colors
+        ##############################
+        # 16. Intrados colors
         for i in range(3):
             line = stream.readLine()
                 
@@ -574,7 +596,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 for paramCounter in range (0, 3):
                     self.setIntradColorsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
         
-        # Aditional rib points
+        ##############################
+        # 17. Aditional rib points
         for i in range(3):
             line = stream.readLine()
         
@@ -587,7 +610,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.setAddRibPointsParams(configCounter, 0, values[0] )
             self.setAddRibPointsParams(configCounter, 1, values[1] )
         
-        # Elastic lines corrections
+        ##############################
+        # 18. Elastic lines corrections
         for i in range(3):
             line = stream.readLine()
         
@@ -605,7 +629,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range(0, 3):
                 self.setLoadDeformParams(configCounter, paramCounter, values[paramCounter+1])       
         
-        # DXF layer names
+        ##############################
+        # 19. DXF layer names
         for i in range(3):
             line = stream.readLine()
         
@@ -618,7 +643,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range(0, 2):
                 self.setDxfLayerParams(configCounter, paramCounter, values[paramCounter])
         
-        # Marks types
+        ##############################
+        # 20. Marks types
         for i in range(3):
             line = stream.readLine()
         
@@ -631,14 +657,15 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range(0, 7):
                 self.setMarkTypeParams(configCounter, paramCounter, values[paramCounter])
         
-        # JONCS DEFINITION (NYLON RODS)
+        ##############################
+        # 21. JONCS DEFINITION (NYLON RODS)
         for i in range(3):
             line = stream.readLine()
             
-        joncsType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('JoncsType', joncsType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('JoncsType', dataType )
         
-        if joncsType != '0':
+        if dataType != '0':
             # we have data to read
             
             numConfigs = self.remTabSpace( stream.readLine() )
@@ -655,14 +682,15 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     if lineCounter > 0:
                         self.setJoncsConfigsParams(configCounter, lineCounter, 3, values[3])
         
-        # NOSE MYLARS DEFINITION
+        ##############################
+        # 22. NOSE MYLARS DEFINITION
         for i in range(3):
             line = stream.readLine()
             
-        noseMylarsType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('NoseMylarsType', noseMylarsType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('NoseMylarsType', dataType )
         
-        if noseMylarsType != '0':
+        if dataType != '0':
             # we have data to read
             
             numConfigs = self.remTabSpace( stream.readLine() )
@@ -680,14 +708,15 @@ class ProcessorStore(QObject, metaclass=Singleton):
                         for paramCounter in range (3, 6):
                             self.setNoseMylarsParams(configCounter, lineCounter, paramCounter, values[paramCounter])
                                                     
-        # TAB REINFORCEMENTS
+        ##############################
+        # 23. TAB REINFORCEMENTS
         for i in range(3):
             line = stream.readLine()
             
-        tabReinfType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('TabReinfType', tabReinfType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('TabReinfType', dataType )
         
-        if tabReinfType != '0':
+        if dataType != '0':
             # we have data to read
             
             numConfigs = self.remTabSpace( stream.readLine() )
@@ -722,15 +751,16 @@ class ProcessorStore(QObject, metaclass=Singleton):
             schemeCounter +=1
             line = stream.readLine()
                 
-        # GENERAL 2D DXF OPTIONS
+        ##############################
+        # 24. GENERAL 2D DXF OPTIONS
         # be carefull: previous code has already read first line of header
         for i in range(2):
             line = stream.readLine()
             
-        twoDDxfType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('twoDDxfType', twoDDxfType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('twoDDxfType', dataType )
         
-        if twoDDxfType != '0':
+        if dataType != '0':
             # we have data to read
             
             for lineCounter in range(0, 6 ):
@@ -739,14 +769,15 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     for paramCounter in range (0, 3):
                         self.setTwoDDxfParams(lineCounter, paramCounter, values[paramCounter])
             
-        # GENERAL 3D DXF OPTIONS
+        ##############################
+        # 25. GENERAL 3D DXF OPTIONS
         for i in range(3):
             line = stream.readLine()
             
-        threeDDxfType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('threeDDxfType', threeDDxfType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('threeDDxfType', dataType )
         
-        if threeDDxfType != '0':
+        if dataType != '0':
             # we have data to read
             
             for lineCounter in range(0, 6 ):
@@ -761,14 +792,15 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     for paramCounter in range (0, 4):
                         self.setThreeDDxfParams(lineCounter+6, paramCounter, values[paramCounter])
         
-        # GLUE VENTS
+        ##############################
+        # 26. GLUE VENTS
         for i in range(3):
             line = stream.readLine()
             
-        glueVentType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('glueVentType', glueVentType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('glueVentType', dataType )
         
-        if glueVentType != '0':
+        if dataType != '0':
             # we have data to read
             for lineCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
                 values =  self.splitLine( stream.readLine() )
@@ -776,28 +808,30 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 self.setGlueVentParams(lineCounter, values[1])
             
             
-        # SPECIAL WING TIP
+        ##############################
+        # 27. SPECIAL WING TIP
         for i in range(3):
             line = stream.readLine()
             
-        specWingTypType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('specWingTypType', specWingTypType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('specWingTypType', dataType )
         
-        if specWingTypType != '0':
+        if dataType != '0':
             # we have data to read
             values =  self.splitLine( stream.readLine() )
             self.setSingleVal('specWingTypAngLE', values[1] )
             values =  self.splitLine( stream.readLine() )
             self.setSingleVal('specWingTypAngTE', values[1] )
         
-        # PARAMETERS FOR CALAGE VARIATION
+        ##############################
+        # 28. PARAMETERS FOR CALAGE VARIATION
         for i in range(3):
             line = stream.readLine()
             
-        calageVarType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('calageVarType', calageVarType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('calageVarType', dataType )
         
-        if calageVarType != '0':
+        if dataType != '0':
             # we have data to read
             self.setSingleVal('numCalageVarRisers', self.remTabSpace( stream.readLine() ) )
             
@@ -809,48 +843,134 @@ class ProcessorStore(QObject, metaclass=Singleton):
             for paramCounter in range( 0, 4 ):
                 self.setCalageVarAngleParams(paramCounter, values[paramCounter])
             
-        # 3D SHAPING
+        ##############################
+        # 29. 3D SHAPING
+        # 1                               threeDShapingType
+        # 1                               threeDShapingTheory
+        # groups    2                     NumThreeDShapingGroups
+        
+        # group     1    1    12          __threeDShapingGroupConf
+        # upper     2    1                __threeDShapingUpGroupParams
+        # 1    25    33    1.0            __threeDShapingUpGroupParams
+        # 2    33    44    1.0            __threeDShapingUpGroupParams
+        # lower    0    1                 __threeDShapingLoGroupParams
+        
+        # group    2       13      14     __threeDShapingGroupConf
+        # upper    1    1                 __threeDShapingUpGroupParams
+        # 1    30    40    1.0            __threeDShapingUpGroupParams
+        # lower    0    1                 __threeDShapingLoGroupParams
+        
+        # * Print parameters
+        # Inter3D 1    1    10    1      __threeDShapingPrintParams
+        # Ovali3D 1    1    14    0      __threeDShapingPrintParams
+        # tesse3D 0    1    14    0      __threeDShapingPrintParams
+        # exteDXF 0    1    14    0      __threeDShapingPrintParams
+        # exteSTL 0    1    14    0      __threeDShapingPrintParams
+        
         for i in range(3):
             line = stream.readLine()
             
-        threeDShapingType = self.remTabSpace( stream.readLine() )
-        self.setSingleVal('threeDShapingType', threeDShapingType )
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('threeDShapingType', dataType )
         
-        if threeDShapingType != '0':
+        if dataType != '0':
             # we have data to read
             self.setSingleVal('threeDShapingTheory', self.remTabSpace( stream.readLine() ) )
             
-            values = self.remTabSpace( stream.readLine() )
-            numGroups = int(values[1])
-            self.setSingleVal('NumThreeDShapingGroups', numGroups )
+            values = self.splitLine( stream.readLine() )
+            numGroups = values[1]
+            self.setSingleVal('NumThreeDShapingGroups', values[1] )
             
-            # for groupCounter in(0, numGroups):
+            for groupCounter in range (0, int(numGroups) ):
+                values = self.splitLine( stream.readLine() )
+                for paramCounter in range( 0, 3 ):
+                    self.setThreeDShapingGroupConf(groupCounter, paramCounter, values[paramCounter+1])
                 
+                values = self.splitLine( stream.readLine() )
+                numUpGroups = int(values[1])
+                for paramCounter in range( 0, 3 ):
+                    self.setThreeDShapingUpGroupParams(groupCounter, 0, paramCounter, values[paramCounter])
+                
+                for upGroupCounter in range(0, numUpGroups): 
+                    values = self.splitLine( stream.readLine() )
+                    for paramCounter in range( 0, 3 ):
+                        self.setThreeDShapingUpGroupParams(groupCounter, upGroupCounter+1, paramCounter, values[paramCounter+1])
+                
+                values = self.splitLine( stream.readLine() )
+                numLoGroups = int(values[1])
+                for paramCounter in range( 0, 3 ):
+                    self.setThreeDShapingLoGroupParams(groupCounter, 0, paramCounter, values[paramCounter])
+                
+                for loGroupCounter in range (0, numLoGroups):
+                    values = self.splitLine( stream.readLine() )
+                    for paramCounter in range( 0, 3 ):
+                        self.setThreeDShapingLoGroupParams(groupCounter, loGroupCounter+1, values[paramCounter+1])
         
-        # AIRFOIL THICKNESS MODIFICATION
+        # overread print params title
+        line = stream.readLine()
         
-        # NEW SKIN TENSION MODULE
+        for lineCounter in range(5):
+            values = self.splitLine( stream.readLine() )
+            
+            for paramCounter in range(5):
+                self.setThreeDShapingPrintParams(lineCounter, paramCounter, values[paramCounter] )
+        
+        ##############################
+        # 30. AIRFOIL THICKNESS MODIFICATION
+        
+        for i in range(3):
+            line = stream.readLine()
+        
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('airfoilThiknessModifType', dataType )
+        
+        if dataType != '0':
+            for i in range( 0, self.getSingleVal('HalfNumRibs') ):
+                values =  self.splitLine( stream.readLine() )
+                self.setAirfThiknessModifParams( i, values[1] )
+        
+        
+        ##############################
+        # 31. NEW SKIN TENSION MODULE
+        for i in range(3):
+            line = stream.readLine()
+        
+        dataType = self.remTabSpace( stream.readLine() )
+        self.setSingleVal('skinTensionType', dataType )
+        
+        if dataType != '0':
+            numGroups = self.remTabSpace( stream.readLine() )
+            self.setSingleVal('numSkinTensionGroups', numGroups )
+            
+            for groupCounter in range (0, int(numGroups) ):
+                # read title line
+                line = stream.readLine()
+                
+                # Group configuration
+                values = self.splitLine( stream.readLine() )
+                numConfigLines = values[3]
+                for paramCounter in range( 0, 4 ):
+                    self.setSkinTensionGroupConf(groupCounter, paramCounter, values[paramCounter+1] )
+                
+                # Group params
+                for configLineCounter in range (0, int(numConfigLines) ):
+                    values = self.splitLine( stream.readLine() )
+                    for paramCounter in range( 0, 4 ):
+                        self.setSkinTensionGroupParams(groupCounter, configLineCounter, paramCounter, values[paramCounter+1] )
+                
         
         # Clean up 
         inFile.close()
         self.dataStatusUpdate.emit(self.__className,'Open')
         
-
-    
-
-        
-       
-    
-    
-  
     def writeFile(self, forProc=False):
         '''
         Writes all the values into a data file. 
-        Filename must have been set already before, unless the file shall be written for the PreProcessor.
+        Filename must have been set already before, unless the file shall be written for the Processor.
                 
-        @param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
+        @param forProc: Set this to True if the file must be saved in the directory where the Processor resides
         '''
-        separator = '**********************************\n'
+        
         
         logging.debug(self.__className+'.writeFile')
         
@@ -886,68 +1006,217 @@ class ProcessorStore(QObject, metaclass=Singleton):
         stream = QTextStream(outFile)
         stream.setCodec('UTF-8')
 
-        stream << separator
-        stream << 'LEPARAGLIDING\n'
-        stream << 'GEOMETRY PRE-PROCESSOR     v1.5\n'
-        stream << separator
-        stream << self.getSingleVal('WingName') << '\n'
-        stream << separator
-        stream << '* 1. Leading edge parameters\n'
-        stream << separator
-        stream << self.getSingleVal('LE_type') << '\n'
-        stream << 'a1= ' << self.getSingleVal('LE_a1') << '\n'
-        stream << 'b1= ' << self.getSingleVal('LE_b1') << '\n'
-        stream << 'x1= ' << self.getSingleVal('LE_x1') << '\n'
-        stream << 'x2= ' << self.getSingleVal('LE_x2') << '\n'
-        stream << 'xm= ' << self.getSingleVal('LE_xm') << '\n'
-        stream << 'c01= ' << self.getSingleVal('LE_c0') << '\n'
-        stream << 'ex1= ' << self.getSingleVal('LE_ex1') << '\n'
-        stream << 'c02= ' << self.getSingleVal('LE_c02') << '\n'
-        stream << 'ex2= ' << self.getSingleVal('LE_ex2') << '\n'
+        stream << self.__separator
+        stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
+        stream << '* Input data file version 3.10\n'
+        stream << self.__separator
+        stream << '* Version 2020-05-02\n'
         
-        stream << separator
-        stream << '* 2. Trailing edge parameters\n'
-        stream << separator
-        stream << self.getSingleVal('TE_type') << '\n'
-        stream << 'a1= ' << self.getSingleVal('TE_a1') << '\n'
-        stream << 'b1= ' << self.getSingleVal('TE_b1') << '\n'
-        stream << 'x1= ' << self.getSingleVal('TE_x1') << '\n'
-        stream << 'xm= ' << self.getSingleVal('TE_xm') << '\n'
-        stream << 'c0= ' << self.getSingleVal('TE_c0') << '\n'
-        stream << 'y0= ' << self.getSingleVal('TE_y0') << '\n'
-        stream << 'exp= ' << self.getSingleVal('TE_exp') << '\n'
+        ##############################
+        # 1. Geometry
+        self.writeHeader(stream, '1. GEOMETRY')
         
-        stream << separator
-        stream << '* 3. Vault\n'
-        stream << separator
-        if self.getSingleVal('Vault_type') == '1':
-            # Write Vault type 1
-            stream << self.getSingleVal('Vault_type') << '\n'
-            stream << 'a1= ' << self.getSingleVal('Vault_a1') << '\n'
-            stream << 'b1= ' << self.getSingleVal('Vault_b1') << '\n'
-            stream << 'x1= ' << self.getSingleVal('Vault_x1') << '\n'
-            stream << 'c1= ' << self.getSingleVal('Vault_c1') << '\n'
-        else:
-            # Write Vault type 2
-            stream << self.getSingleVal('Vault_type') << '\n'
-            stream << self.getVault_t2_dta(0, 0) << '\t' << self.getVault_t2_dta(0, 1) << '\n'
-            stream << self.getVault_t2_dta(1, 0) << '\t' << self.getVault_t2_dta(1, 1) << '\n'
-            stream << self.getVault_t2_dta(2, 0) << '\t' << self.getVault_t2_dta(2, 1) << '\n'
-            stream << self.getVault_t2_dta(3, 0) << '\t' << self.getVault_t2_dta(3, 1) << '\n'
-         
-        stream << separator
-        stream << '* 4. Cells distribution\n'
-        stream << separator   
-        stream << self.getSingleVal('CellDistT') << '\n'
-        stream << self.getSingleVal('CellDistCoeff') << '\n'
-        stream << self.getSingleVal('CellNum') << '\n'
+        stream << '* Brand name\n'
+        stream << '\"' << self.getSingleVal('BrandName') << '\"\n'
+        
+        stream << '* Wing name\n'
+        stream << '\"' << self.getSingleVal('WingName') << '\"\n'
+        
+        stream << '* Drawing scale\n'
+        stream << self.getSingleVal('DrawScale') << '\n'
+        
+        stream << '* Wing scale\n'
+        stream << self.getSingleVal('WingScale') << '\n'
+        
+        stream << '* Number of cells\n'
+        stream << '\t'<< self.getSingleVal('NumCells') << '\n'
+        
+        stream << '* Number of ribs\n'
+        stream << '\t'<< self.getSingleVal('NumRibs') << '\n'
+        
+        stream << '* Alpha max and parameter\n'
+        stream << '\t' << self.getSingleVal('AlphaMaxP1')  
+        stream << '\t'<< self.getSingleVal('AlphaMaxP2')
+        stream << '\t'<< self.getSingleVal('AlphaMaxP3')<< '\n'
+        
+        stream << '* Paraglider type and parameter\n'
+        stream << '\t'<< '\"' << self.getSingleVal('ParaTypeP1') << '\"'
+        stream << '\t'<< self.getSingleVal('ParaTypeP2')<< '\n'
+        
+        stream << '* Rib geometric parameters\n'
+        stream << '* Rib\tx-rib\ty-LE\ty-TE\txp\tz\tbeta\tRP\tWashin\n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (8):
+                stream << '\t' << self.getRibGeomParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 2. AIRFOILS
+        self.writeHeader(stream, '2. AIRFOILS')
+        
+        stream << '* Airfoil name, intake in, intake out, open , disp. rrw \n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (7):
+                stream << '\t' << self.getAirfoilParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 3. ANCHOR POINTS
+        self.writeHeader(stream, '3. ANCHOR POINTS')
+        
+        stream << '* Airf\tAnch\tA\tB\tC\tD\tE\tF\n'
+        
+        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
+            stream << ribCounter+1 
+            
+            for paramCounter in range (7):
+                stream << '\t' << self.getAnchorPointParams(ribCounter, paramCounter)
+                
+            stream << '\n'
+        
+        ##############################
+        # 4. AIRFOIL HOLES
+        self.writeHeader(stream, '4. AIRFOIL HOLES')
+        
+        numConfigs = self.getSingleVal('NumAirfHoleConf')
+        stream << numConfigs << '\n'
+        
+        for configCounter in range( 0, int(numConfigs) ):
+            stream << self.getAirfHoleConf(configCounter, 0) << '\n'
+            stream << self.getAirfHoleConf(configCounter, 1) << '\n'
+            numConfigLines = self.getAirfHoleConf(configCounter, 2)
+            stream << numConfigLines << '\n'
+            
+            for lineCounter in range(0, int(numConfigLines) ):
+                for paramCounter in range (0, 9):
+                    stream << self.getAirfHoleParams(configCounter, lineCounter, paramCounter) << '\t'
+                stream << '\n'
+        
+        
+        ##############################
+        # 5. SKIN TENSION
+        self.writeHeader(stream, '5. SKIN TENSION')
+        stream << 'Extrados' << '\n'
+        
+        for lineCounter in range(0, 6 ):
+            for paramCounter in range (0, 4):
+                stream << self.getSkinTensionParams(lineCounter, paramCounter) << '\t'
+            stream << '\n'
+        
+        stream << self.getSingleVal('StrainMiniRibs') << '\n'
+        stream << self.getSingleVal('NumSkinTensionPoints') << '\t'
+        stream << self.getSingleVal('SkinTensionCoeff') << '\n'
+        
+        ##############################
+        # 6. SEWING ALLOWANCES
+        self.writeHeader(stream, '6. SEWING ALLOWANCES')
+        
+        ##############################
+        # 7. MARKS
+        self.writeHeader(stream, '7. MARKS')
+        
+        ##############################
+        # 8. Global angle of attack estimation
+        self.writeHeader(stream, '8. Global angle of attack estimation')
+        
+        ##############################
+        # 9. SUSPENSION LINES DESCRIPTION
+        self.writeHeader(stream, '9. SUSPENSION LINES DESCRIPTION')
+        
+        ##############################
+        # 10. BRAKES
+        self.writeHeader(stream, '10. BRAKES')
+        
+        ##############################
+        # 11. Ramification lengths
+        self.writeHeader(stream, '11. Ramification lengths')
+        
+        ##############################
+        # 12. H V and VH ribs (Mini Ribs)
+        self.writeHeader(stream, '12. H V and VH ribs')
+        
+        ##############################
+        # 15. Extrados colors
+        self.writeHeader(stream, '15. Extrados colors')
+        
+        ##############################
+        # 16. Intrados colors
+        self.writeHeader(stream, '16. Intrados colors')
+        
+        ##############################
+        # 17. Aditional rib points
+        self.writeHeader(stream, '17. Aditional rib points')
+        
+        ##############################
+        # 18. Elastic lines corrections
+        self.writeHeader(stream, '18. Elastic lines corrections')
+        
+        ##############################
+        # 19. DXF layer names
+        self.writeHeader(stream, '19. DXF layer names')
+        
+        ##############################
+        # 20. Marks types
+        self.writeHeader(stream, '20. Marks types')
+        
+        ##############################
+        # 21. JONCS DEFINITION (NYLON RODS)
+        self.writeHeader(stream, '21. JONCS DEFINITION (NYLON RODS)')
+        
+        ##############################
+        # 22. NOSE MYLARS DEFINITION
+        self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
+        
+        ##############################
+        # 23. TAB REINFORCEMENTS
+        self.writeHeader(stream, '23. TAB REINFORCEMENTS')
+        
+        ##############################
+        # 24. GENERAL 2D DXF OPTIONS
+        self.writeHeader(stream, '24. GENERAL 2D DXF OPTIONS')
+        
+        ##############################
+        # 25. GENERAL 3D DXF OPTIONS
+        self.writeHeader(stream, '25. GENERAL 3D DXF OPTIONS')
+        
+        ##############################
+        # 26. GLUE VENTS
+        self.writeHeader(stream, '26. GLUE VENTS')
+        
+        ##############################
+        # 27. SPECIAL WING TIP
+        self.writeHeader(stream, '27. SPECIAL WING TIP')
+        
+        ##############################
+        # 28. PARAMETERS FOR CALAGE VARIATION
+        self.writeHeader(stream, '28. PARAMETERS FOR CALAGE VARIATION')
+        
+        ##############################
+        # 29. 3D SHAPING
+        self.writeHeader(stream, '29. 3D SHAPING')
+        
+        ##############################
+        # 30. AIRFOIL THICKNESS MODIFICATION
+        self.writeHeader(stream, '30. AIRFOIL THICKNESS MODIFICATION')
+        
+        ##############################
+        # 31. NEW SKIN TENSION MODULE
+        self.writeHeader(stream, '31. NEW SKIN TENSION MODULE')
         
         stream.flush()
         outFile.close()
         
         if forProc == False:
             # Then we need to set the right file version
-            self.setSingleVal('FileVersion', '1.5')
+            self.setSingleVal('FileVersion', '3.1')
         
             # Make flags in order
             self.dataStatusUpdate.emit(self.__className,'Open')
@@ -1000,7 +1269,21 @@ class ProcessorStore(QObject, metaclass=Singleton):
         else:
             # element already exists, update the data
             self.__RibGeomParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7, p8]
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'RibGeomParams')
+    
+    def getRibGeomParams(self, ribNum, paramNum):
+        '''
+        Reads Rib Geometry parameters from the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        if len(self.__RibGeomParams) >= ribNum:
+            if len (self.__RibGeomParams[ribNum]) >= paramNum:
+                return  self.__RibGeomParams[ribNum][paramNum]
+        else: 
+            return ''
             
     def setAirfoilParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
         '''
@@ -1016,7 +1299,21 @@ class ProcessorStore(QObject, metaclass=Singleton):
         else:
             # element already exists, update the data
             self.__AirfoilParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7]
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'AirfoilParams')
+        
+    def getAirfoilParams(self, ribNum, paramNum):
+        '''
+        Reads Airfoil parameters from the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        if len(self.__AirfoilParams) >= ribNum:
+            if len (self.__AirfoilParams[ribNum]) >= paramNum:
+                return  self.__AirfoilParams[ribNum][paramNum]
+        else: 
+            return ''
             
     def setAnchorPointParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
         '''
@@ -1032,8 +1329,22 @@ class ProcessorStore(QObject, metaclass=Singleton):
         else:
             # element already exists, update the data
             self.__AnchorPointParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7]
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'AnchorPointParams')
     
+    def getAnchorPointParams(self, ribNum, paramNum):
+        '''
+        Reads Anchor point parameters from the data store.
+        @param ribNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        if len(self.__AnchorPointParams) >= ribNum:
+            if len (self.__AnchorPointParams[ribNum]) >= paramNum:
+                return  self.__AnchorPointParams[ribNum][paramNum]
+        else: 
+            return ''
+            
     def setAirfHoleConf(self, confNum, paramNum, value): 
         '''
         Saves overall Airfoil Holes config into the data store.
@@ -1047,7 +1358,21 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__AirfHoleConf.append(['','',''])
         
         self.__AirfHoleConf[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'AirfHoleConf')
+        
+    def getAirfHoleConf(self, confNum, paramNum):
+        '''
+        Reads Airfoil holes config values from the data store.
+        @param confNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        if len(self.__AirfHoleConf) >= confNum:
+            if len (self.__AirfHoleConf[confNum]) >= paramNum:
+                return  self.__AirfHoleConf[confNum][paramNum] 
+        else: 
+            return ''   
     
     def setAirfHoleParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1066,8 +1391,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__AirfHoleParams[confNum].append(['','','','','','','','',''])
             
         self.__AirfHoleParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
-    
+        
+        self.dataStatusUpdate.emit(self.__className, 'AirfHoleParams')
+        
+    def getAirfHoleParams(self, confNum, lineNum, paramNum):
+        '''
+        Reads Airfoil holes params values from the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param lineNum: Number of the configuration line. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @return: Parameter value
+        '''
+        if len(self.__AirfHoleParams) >= confNum:
+            if len (self.__AirfHoleParams[confNum]) >= lineNum:
+                if len (self.__AirfHoleParams[confNum][lineNum]) >= paramNum:
+                    return  self.__AirfHoleParams[confNum][lineNum][paramNum]
+        else: 
+            return ''
+            
     def setSkinTensionParams(self, lineNum, paramNum, value):
         '''
         Saves Skin Tension params into the data store.
@@ -1078,7 +1419,21 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setSkinTensionParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
         self.__SkinTensionParams[lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'SkinTensionParams')
+        
+    def getSkinTensionParams(self, confNum, paramNum):
+        '''
+        Reads Skin tension values from the data store.
+        @param confNum: Number of the rib. Indexing starts with 0!
+        @param paramNum: Individual param num
+        @return: Parameter value
+        '''
+        if len(self.__SkinTensionParams) >= confNum:
+            if len (self.__SkinTensionParams[confNum]) >= paramNum:
+                return  self.__SkinTensionParams[confNum][paramNum] 
+        else: 
+            return ''
         
     def setSewingAllPanelsParams(self, lineNum, paramNum, value):
         '''
@@ -1090,7 +1445,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
         self.__SewingAllPanelsParams[lineNum][paramNum] = value
-        # TODO: add emit signal 
+        
+        self.dataStatusUpdate.emit(self.__className, 'SewingAllPanelsParams') 
         
     def setLineDescConf(self, confNum, value): 
         '''
@@ -1104,7 +1460,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__LineDescConf.append('')
         
         self.__LineDescConf[confNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'LineDescConf')
     
     def setLineDescParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1123,7 +1480,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__LineDescParams[confNum].append(['','','','','','','','','','',''])
             
         self.__LineDescParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal  
+        
+        self.dataStatusUpdate.emit(self.__className, 'LineDescParams')
     
     def setBrakePathParams(self, confNum, paramNum, value):
         '''
@@ -1138,7 +1496,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__BrakePathParams.append(['','','','','','','','','','',''])
             
         self.__BrakePathParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'BrakePathParams')
         
     def setBrakeDistrParams(self, confNum, paramNum, value):
         '''
@@ -1150,7 +1509,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setBrakeDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
         self.__BrakeDistrParams[confNum][paramNum] = value
-        # TODO: add emit signal    
+        
+        self.dataStatusUpdate.emit(self.__className, 'BrakeDistrParams')  
         
     def setRamLengthParams(self, confNum, paramNum, value):
         '''
@@ -1162,7 +1522,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
         self.__RamLengthParams[confNum][paramNum] = value
-        # TODO: add emit signal 
+        
+        self.dataStatusUpdate.emit(self.__className, 'RamLengthParams') 
     
     def setMiniRibParams(self, confNum, paramNum, value):
         '''
@@ -1177,7 +1538,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__MiniRibParams.append(['','','','','','','','','','',''])
             
         self.__MiniRibParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'MiniRibParams')
     
     def setExtradColorsConf(self, confNum, paramNum, value):
         '''
@@ -1192,7 +1554,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__ExtradColorsConf.append(['',''])
             
         self.__ExtradColorsConf[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'ExtradColorsConf')
         
     def setExtradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1211,7 +1574,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__ExtradColorsParams[confNum].append(['','',''])
             
         self.__ExtradColorsParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'ExtradColorsParams')
         
     def setIntradColorsConf(self, confNum, paramNum, value):
         '''
@@ -1226,7 +1590,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__IntradColorsConf.append(['',''])
             
         self.__IntradColorsConf[confNum][paramNum] = value
-        # TODO: add emit signal
+       
+        self.dataStatusUpdate.emit(self.__className, 'IntradColorsConf')
         
     def setIntradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1245,7 +1610,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__IntradColorsParams[confNum].append(['','',''])
             
         self.__IntradColorsParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'IntradColorsParams')
     
     def setAddRibPointsParams(self, confNum, paramNum, value):
         '''
@@ -1260,7 +1626,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__AddRibPointsParams.append(['',''])
             
         self.__AddRibPointsParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'AddRibPointsParams')
     
     def setLoadDistrParams(self, confNum, paramNum, value):
         '''
@@ -1272,7 +1639,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setLoadDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
         self.__LoadDistrParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'LoadDistrParams')
         
     def setLoadDeformParams(self, confNum, paramNum, value):
         '''
@@ -1284,7 +1652,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setLoadDeformParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
         self.__LoadDeformParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'LoadDeformParams')
     
     def setDxfLayerParams(self, confNum, paramNum, value):
         '''
@@ -1299,7 +1668,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__DxfLayerParams.append(['',''])
             
         self.__DxfLayerParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'DxfLayerParams')
     
     def setMarkTypeParams(self, confNum, paramNum, value):
         '''
@@ -1314,7 +1684,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__MarkTypeParams.append(['','','','','','',''])
             
         self.__MarkTypeParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'MarkTypeParams')
     
     def setJoncsConfigsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1333,7 +1704,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__JoncsConfigsParams[confNum].append(['','','',''])
             
         self.__JoncsConfigsParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'JoncsConfigsParams')
         
     def setNoseMylarsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1352,7 +1724,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__NoseMylarsParams[confNum].append(['','','','','',''])
             
         self.__NoseMylarsParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'NoseMylarsParams')
         
     def setTabReinfParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1371,7 +1744,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__TabReinfParams[confNum].append(['','','',''])
             
         self.__TabReinfParams[confNum][lineNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'TabReinfParams')
         
     def setSchemesParams(self, confNum, paramNum, value):
         '''
@@ -1386,7 +1760,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__SchemesParams.append(['','','','','','','',''])
             
         self.__SchemesParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'SchemesParams')
         
     def setTwoDDxfParams(self, confNum, paramNum, value):
         '''
@@ -1398,7 +1773,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setTwoDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
         self.__2DDxfParams[confNum][paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'TwoDDxfParams')
     
     def setThreeDDxfParams(self, confNum, paramNum, value):
         '''
@@ -1410,7 +1786,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setThreeDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
         self.__3DDxfParams[confNum][paramNum] = value
-        # TODO: add emit signal 
+        
+        self.dataStatusUpdate.emit(self.__className, 'ThreeDDxfParams')
         
     def setGlueVentParams(self, confNum, value):
         '''
@@ -1424,7 +1801,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__GlueVentParams.append('')
             
         self.__GlueVentParams[confNum] = value
-        # TODO: add emit signal 
+        
+        self.dataStatusUpdate.emit(self.__className, 'GlueVentParams') 
         
     def setCalageVarCordParams(self, paramNum, value):
         '''
@@ -1438,7 +1816,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__calageVarCordParams.append('')
             
         self.__calageVarCordParams[paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'CalageVarCordParams')
         
     def setCalageVarAngleParams(self, paramNum, value):
         '''
@@ -1452,7 +1831,128 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__calageVarAngleParams.append('')
             
         self.__calageVarAngleParams[paramNum] = value
-        # TODO: add emit signal
+        
+        self.dataStatusUpdate.emit(self.__className, 'CalageVarAngleParams')
+    
+    def setThreeDShapingGroupConf(self, confNum, paramNum, value):
+        '''
+        Saves the individual gropu configurations for the 3D Shaping into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setThreeDShapingGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__threeDShapingGroupConf):
+            self.__threeDShapingGroupConf.append(['','',''])
+            
+        self.__threeDShapingGroupConf[confNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'ThreeDShapingGroupConf')
+    
+    def setThreeDShapingUpGroupParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves parameters for 3D Shaping upper groups into the data store.
+        @param confNum: Number of the Group. Indexing starts with 0!
+        @param lineNum: Number of the line withing the group. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setThreeDShapingUpGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__threeDShapingUpGroupParams):
+            self.__threeDShapingUpGroupParams.append([['','','']])
+        
+        if lineNum >= len(self.__threeDShapingUpGroupParams[confNum]):
+            self.__threeDShapingUpGroupParams[confNum].append(['','',''])
+            
+        self.__threeDShapingUpGroupParams[confNum][lineNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'ThreeDShapingUpGroupParams')
+        
+    def setThreeDShapingLoGroupParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves parameters for 3D Shaping lower groups into the data store.
+        @param confNum: Number of the Group. Indexing starts with 0!
+        @param lineNum: Number of the line withing the group. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setThreeDShapingLoGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__threeDShapingLoGroupParams):
+            self.__threeDShapingLoGroupParams.append([['','','']])
+        
+        if lineNum >= len(self.__threeDShapingLoGroupParams[confNum]):
+            self.__threeDShapingLoGroupParams[confNum].append(['','',''])
+            
+        self.__threeDShapingLoGroupParams[confNum][lineNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'ThreeDShapingLoGroupParams')
+    
+    def setThreeDShapingPrintParams(self, confNum, paramNum, value):
+        '''
+        Saves the individual print params for the 3D Shaping into the data store.
+        @param confNum: Number of the configuration set. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setThreeDShapingPrintParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+            
+        self.__threeDShapingPrintParams[confNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'ThreeDShapingPrintParams')
+    
+    def setAirfThiknessModifParams(self, confNum, value):
+        '''
+        Saves parameters for Airfoil Thikness Modification into the data store.
+        @param confNum: Number of the rib. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setAirfThiknessModifParams |'+ str(confNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__airfThiknessModifParams):
+            self.__airfThiknessModifParams.append('')
+            
+        self.__airfThiknessModifParams[confNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'AirfThiknessModifParams')
+        
+    def setSkinTensionGroupConf(self, confNum, paramNum, value):
+        '''
+        Saves the individual group configurations for the Skin Tension into the data store.
+        @param confNum: Number of the configuration. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setSkinTensionGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__skinTensionGroupConf):
+            self.__skinTensionGroupConf.append(['','','',''])
+            
+        self.__skinTensionGroupConf[confNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'SkinTensionGroupConf')
+        
+    def setSkinTensionGroupParams(self, confNum, lineNum, paramNum, value):
+        '''
+        Saves parameters for Skin Tension groups into the data store.
+        @param confNum: Number of the Group. Indexing starts with 0!
+        @param lineNum: Number of the line withing the group. Indexing starts with 0!
+        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        @param value: The individual data to save
+        '''
+        logging.debug(self.__className+'.setSkinTensionGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
+        
+        if confNum >= len(self.__skinTensionGroupParams):
+            self.__skinTensionGroupParams.append([['','','','']])
+        
+        if lineNum >= len(self.__skinTensionGroupParams[confNum]):
+            self.__skinTensionGroupParams[confNum].append(['','','',''])
+            
+        self.__skinTensionGroupParams[confNum][lineNum][paramNum] = value
+        
+        self.dataStatusUpdate.emit(self.__className, 'SkinTensionGroupParams')
     
     def remTabSpaceQuot(self, line):
         '''
@@ -1483,3 +1983,14 @@ class ProcessorStore(QObject, metaclass=Singleton):
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
         return values
+    
+    def writeHeader(self, stream, title):
+        '''
+        Writes the section header in the data file
+        @param stream: The stream to write to
+        @title: The section title 
+        '''
+        stream << self.__separator
+        stream << '* '+ title+ '\n'
+        stream << self.__separator
+
