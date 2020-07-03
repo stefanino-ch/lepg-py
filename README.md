@@ -4,6 +4,7 @@
 
 ### Requirements
 Python 3.7
+
 PyQt5
 
 ### Limitations 
@@ -42,6 +43,7 @@ The main file is named lepg.py. Start this with
 
 ### Anforderungen
 Python 3.7
+
 PyQt5
 
 ### Limitationen
