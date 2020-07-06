@@ -970,11 +970,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 
         @param forProc: Set this to True if the file must be saved in the directory where the Processor resides
         '''
-<<<<<<< Upstream, based on origin/latest
-        
-        
-=======
->>>>>>> 44c9eba Processor data read and save functionality.
         logging.debug(self.__className+'.writeFile')
         
         if forProc == False:
@@ -1039,146 +1034,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
         stream << '* Alpha max and parameter\n'
         stream << '\t' << self.getSingleVal('AlphaMaxP1')  
-<<<<<<< Upstream, based on origin/latest
-        stream << '\t'<< self.getSingleVal('AlphaMaxP2')
-        stream << '\t'<< self.getSingleVal('AlphaMaxP3')<< '\n'
-        
-        stream << '* Paraglider type and parameter\n'
-        stream << '\t'<< '\"' << self.getSingleVal('ParaTypeP1') << '\"'
-        stream << '\t'<< self.getSingleVal('ParaTypeP2')<< '\n'
-        
-        stream << '* Rib geometric parameters\n'
-        stream << '* Rib\tx-rib\ty-LE\ty-TE\txp\tz\tbeta\tRP\tWashin\n'
-        
-        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
-            stream << ribCounter+1 
-            
-            for paramCounter in range (8):
-                stream << '\t' << self.getRibGeomParams(ribCounter, paramCounter)
-                
-            stream << '\n'
-        
-        ##############################
-        # 2. AIRFOILS
-        self.writeHeader(stream, '2. AIRFOILS')
-        
-        stream << '* Airfoil name, intake in, intake out, open , disp. rrw \n'
-        
-        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
-            stream << ribCounter+1 
-            
-            for paramCounter in range (7):
-                stream << '\t' << self.getAirfoilParams(ribCounter, paramCounter)
-                
-            stream << '\n'
-        
-        ##############################
-        # 3. ANCHOR POINTS
-        self.writeHeader(stream, '3. ANCHOR POINTS')
-        
-        stream << '* Airf\tAnch\tA\tB\tC\tD\tE\tF\n'
-        
-        for ribCounter in range( 0, self.getSingleVal('HalfNumRibs') ):
-            stream << ribCounter+1 
-            
-            for paramCounter in range (7):
-                stream << '\t' << self.getAnchorPointParams(ribCounter, paramCounter)
-                
-            stream << '\n'
-        
-        ##############################
-        # 4. AIRFOIL HOLES
-        self.writeHeader(stream, '4. AIRFOIL HOLES')
-        
-        numConfigs = self.getSingleVal('NumAirfHoleConf')
-        stream << numConfigs << '\n'
-        
-        for configCounter in range( 0, int(numConfigs) ):
-            stream << self.getAirfHoleConf(configCounter, 0) << '\n'
-            stream << self.getAirfHoleConf(configCounter, 1) << '\n'
-            numConfigLines = self.getAirfHoleConf(configCounter, 2)
-            stream << numConfigLines << '\n'
-            
-            for lineCounter in range(0, int(numConfigLines) ):
-                for paramCounter in range (0, 9):
-                    stream << self.getAirfHoleParams(configCounter, lineCounter, paramCounter) << '\t'
-                stream << '\n'
-        
-        
-        ##############################
-        # 5. SKIN TENSION
-        self.writeHeader(stream, '5. SKIN TENSION')
-        stream << 'Extrados' << '\n'
-        
-        for lineCounter in range(0, 6 ):
-            for paramCounter in range (0, 4):
-                stream << self.getSkinTensionParams(lineCounter, paramCounter) << '\t'
-            stream << '\n'
-        
-        stream << self.getSingleVal('StrainMiniRibs') << '\n'
-        stream << self.getSingleVal('NumSkinTensionPoints') << '\t'
-        stream << self.getSingleVal('SkinTensionCoeff') << '\n'
-        
-        ##############################
-        # 6. SEWING ALLOWANCES
-        self.writeHeader(stream, '6. SEWING ALLOWANCES')
-        
-        ##############################
-        # 7. MARKS
-        self.writeHeader(stream, '7. MARKS')
-        
-        ##############################
-        # 8. Global angle of attack estimation
-        self.writeHeader(stream, '8. Global angle of attack estimation')
-        
-        ##############################
-        # 9. SUSPENSION LINES DESCRIPTION
-        self.writeHeader(stream, '9. SUSPENSION LINES DESCRIPTION')
-        
-        ##############################
-        # 10. BRAKES
-        self.writeHeader(stream, '10. BRAKES')
-        
-        ##############################
-        # 11. Ramification lengths
-        self.writeHeader(stream, '11. Ramification lengths')
-        
-        ##############################
-        # 12. H V and VH ribs (Mini Ribs)
-        self.writeHeader(stream, '12. H V and VH ribs')
-        
-        ##############################
-        # 15. Extrados colors
-        self.writeHeader(stream, '15. Extrados colors')
-        
-        ##############################
-        # 16. Intrados colors
-        self.writeHeader(stream, '16. Intrados colors')
-        
-        ##############################
-        # 17. Aditional rib points
-        self.writeHeader(stream, '17. Aditional rib points')
-        
-        ##############################
-        # 18. Elastic lines corrections
-        self.writeHeader(stream, '18. Elastic lines corrections')
-        
-        ##############################
-        # 19. DXF layer names
-        self.writeHeader(stream, '19. DXF layer names')
-        
-        ##############################
-        # 20. Marks types
-        self.writeHeader(stream, '20. Marks types')
-        
-        ##############################
-        # 21. JONCS DEFINITION (NYLON RODS)
-        self.writeHeader(stream, '21. JONCS DEFINITION (NYLON RODS)')
-        
-        ##############################
-        # 22. NOSE MYLARS DEFINITION
-        self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
-=======
         stream << '\t' << self.getSingleVal('AlphaMaxP2')
         stream << '\t' << self.getSingleVal('AlphaMaxP3')<< '\n'
         
@@ -1257,10 +1112,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         stream << self.getSingleVal('StrainMiniRibs') << '\n'
         stream << self.getSingleVal('NumSkinTensionPoints') << '\t'
         stream << self.getSingleVal('SkinTensionCoeff') << '\n'
-        
 
-        
-       
         ##############################
         # 6. SEWING ALLOWANCES
         self.writeHeader(stream, '6. SEWING ALLOWANCES')
@@ -1486,24 +1338,24 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
         
         stream << self.getSingleVal('NoseMylarsType') << '\n'
-        
+#         
         dataType = self.getSingleVal('NoseMylarsType')
-        if dataType != '0':
-            # we have data to write
-            
-            stream << self.getSingleVal('NumNoseMylarsConfigs') << '\n'
-            
-            numConfigs = self.getSingleVal('NumNoseMylarsConfigs')
-            for configCounter in range(0, int(numConfigs)):
-                for lineCounter in range(0, 2 ):
-                    for paramCounter in range (0, 3):
-                        stream << self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\n'
-                    
-                    if lineCounter > 0:
-                        for paramCounter in range (3, 6):
-                            stream <<  self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\n'
-                stream << '\n'
->>>>>>> 44c9eba Processor data read and save functionality.
+#         if dataType != '0':
+#             # we have data to write
+#             
+#             stream << self.getSingleVal('NumNoseMylarsConfigs') << '\n'
+#             
+#             numConfigs = self.getSingleVal('NumNoseMylarsConfigs')
+#             for configCounter in range(0, int(numConfigs)):
+#                 for lineCounter in range(0, 2 ):
+#                     for paramCounter in range (0, 3):
+#                         stream << self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\t'
+#                     stream << '\n'
+#                     
+#                     if lineCounter > 0:
+#                         for paramCounter in range (3, 6):
+#                             stream <<  self.getNoseMylarsParams(configCounter, lineCounter, paramCounter) << '\t'
+#                 stream << '\n'
         
         ##############################
         # 23. TAB REINFORCEMENTS
@@ -1602,16 +1454,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
         self.dataStatusUpdate.emit(self.__className, 'RibGeomParams')
     
-<<<<<<< Upstream, based on origin/latest
     def getRibGeomParams(self, ribNum, paramNum):
-        '''
-        Reads Rib Geometry parameters from the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
-        '''
-=======
-      def getRibGeomParams(self, ribNum, paramNum):
         '''
         Reads Rib Geometry parameters from the data store.
         @param ribNum: Number of the rib. Indexing starts with 0!
@@ -1620,7 +1463,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         '''
         logging.debug(self.__className+'.getRibGeomParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__RibGeomParams) >= ribNum:
             if len (self.__RibGeomParams[ribNum]) >= paramNum:
                 return  self.__RibGeomParams[ribNum][paramNum]
@@ -1651,11 +1493,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
-<<<<<<< Upstream, based on origin/latest
-=======
         logging.debug(self.__className+'.getAirfoilParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfoilParams) >= ribNum:
             if len (self.__AirfoilParams[ribNum]) >= paramNum:
                 return  self.__AirfoilParams[ribNum][paramNum]
@@ -1678,7 +1517,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__AnchorPointParams[ribNum]= [p1, p2, p3, p4, p5, p6, p7]
         
         self.dataStatusUpdate.emit(self.__className, 'AnchorPointParams')
-    
+
     def getAnchorPointParams(self, ribNum, paramNum):
         '''
         Reads Anchor point parameters from the data store.
@@ -1686,11 +1525,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
-<<<<<<< Upstream, based on origin/latest
-=======
         logging.debug(self.__className+'.getAnchorPointParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AnchorPointParams) >= ribNum:
             if len (self.__AnchorPointParams[ribNum]) >= paramNum:
                 return  self.__AnchorPointParams[ribNum][paramNum]
@@ -1720,11 +1556,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
-<<<<<<< Upstream, based on origin/latest
-=======
         logging.debug(self.__className+'.getAirfHoleConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfHoleConf) >= confNum:
             if len (self.__AirfHoleConf[confNum]) >= paramNum:
                 return  self.__AirfHoleConf[confNum][paramNum] 
@@ -1759,11 +1592,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Number of the parameter to set. Indexing starts with 0!
         @return: Parameter value
         '''
-<<<<<<< Upstream, based on origin/latest
-=======
         logging.debug(self.__className+'.getAirfHoleParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__AirfHoleParams) >= confNum:
             if len (self.__AirfHoleParams[confNum]) >= lineNum:
                 if len (self.__AirfHoleParams[confNum][lineNum]) >= paramNum:
@@ -1791,11 +1621,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
         @param paramNum: Individual param num
         @return: Parameter value
         '''
-<<<<<<< Upstream, based on origin/latest
-=======
         logging.debug(self.__className+'.getSkinTensionParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
->>>>>>> 44c9eba Processor data read and save functionality.
         if len(self.__SkinTensionParams) >= confNum:
             if len (self.__SkinTensionParams[confNum]) >= paramNum:
                 return  self.__SkinTensionParams[confNum][paramNum] 
@@ -1812,10 +1639,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.setSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
         self.__SewingAllPanelsParams[lineNum][paramNum] = value
-<<<<<<< Upstream, based on origin/latest
-        
-        self.dataStatusUpdate.emit(self.__className, 'SewingAllPanelsParams') 
-=======
                 
         self.dataStatusUpdate.emit(self.__className, 'SewingAllPanelsParams') 
         
@@ -1833,7 +1656,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__SewingAllPanelsParams[lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
+        
         
     def setLineDescConf(self, confNum, value): 
         '''
@@ -1849,8 +1672,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LineDescConf[confNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LineDescConf')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getLineDescConf(self, confNum):
         '''
@@ -1865,7 +1686,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
             return  self.__LineDescConf[confNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setLineDescParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -1886,8 +1706,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LineDescParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LineDescParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getLineDescParams(self, confNum, lineNum, paramNum):
         '''
@@ -1905,7 +1723,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     return  self.__LineDescParams[confNum][lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setBrakePathParams(self, confNum, paramNum, value):
         '''
@@ -1922,8 +1739,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__BrakePathParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'BrakePathParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getBrakePathParams(self, confNum, paramNum,):
         '''
@@ -1939,7 +1754,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__BrakePathParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setBrakeDistrParams(self, confNum, paramNum, value):
         '''
@@ -1952,9 +1766,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
         self.__BrakeDistrParams[confNum][paramNum] = value
         
-<<<<<<< Upstream, based on origin/latest
-        self.dataStatusUpdate.emit(self.__className, 'BrakeDistrParams')  
-=======
         self.dataStatusUpdate.emit(self.__className, 'BrakeDistrParams') 
         
     def getBrakeDistrParams(self, confNum, paramNum,):
@@ -1971,7 +1782,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__BrakeDistrParams[confNum][paramNum] 
         else: 
             return '' 
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setRamLengthParams(self, confNum, paramNum, value):
         '''
@@ -1985,8 +1795,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__RamLengthParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'RamLengthParams') 
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getRamLengthParams(self, confNum, paramNum,):
         '''
@@ -2002,7 +1810,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__RamLengthParams[confNum][paramNum] 
         else: 
             return ''    
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setMiniRibParams(self, confNum, paramNum, value):
         '''
@@ -2019,8 +1826,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__MiniRibParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'MiniRibParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getMiniRibParams(self, confNum, paramNum,):
         '''
@@ -2036,7 +1841,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__MiniRibParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setExtradColorsConf(self, confNum, paramNum, value):
         '''
@@ -2053,8 +1857,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__ExtradColorsConf[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'ExtradColorsConf')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getExtradColorsConf(self, confNum, paramNum,):
         '''
@@ -2070,7 +1872,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__ExtradColorsConf[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setExtradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -2089,10 +1890,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.__ExtradColorsParams[confNum].append(['','',''])
             
         self.__ExtradColorsParams[confNum][lineNum][paramNum] = value
-<<<<<<< Upstream, based on origin/latest
-        
-        self.dataStatusUpdate.emit(self.__className, 'ExtradColorsParams')
-=======
 
         self.dataStatusUpdate.emit(self.__className, 'ExtradColorsParams')
         
@@ -2112,7 +1909,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     return  self.__ExtradColorsParams[confNum][lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setIntradColorsConf(self, confNum, paramNum, value):
         '''
@@ -2129,8 +1925,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__IntradColorsConf[confNum][paramNum] = value
        
         self.dataStatusUpdate.emit(self.__className, 'IntradColorsConf')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getIntradColorsConf(self, confNum, paramNum,):
         '''
@@ -2146,7 +1940,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__IntradColorsConf[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setIntradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -2167,8 +1960,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__IntradColorsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'IntradColorsParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getIntradColorsParams(self, confNum, lineNum, paramNum):
         '''
@@ -2186,7 +1977,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     return  self.__IntradColorsParams[confNum][lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setAddRibPointsParams(self, confNum, paramNum, value):
         '''
@@ -2203,8 +1993,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__AddRibPointsParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'AddRibPointsParams')
-<<<<<<< Upstream, based on origin/latest
-=======
     
     def getAddRibPointsParams(self, confNum, paramNum,):
         '''
@@ -2220,7 +2008,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__AddRibPointsParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setLoadDistrParams(self, confNum, paramNum, value):
         '''
@@ -2234,8 +2021,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LoadDistrParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LoadDistrParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getLoadDistrParams(self, confNum, paramNum,):
         '''
@@ -2251,7 +2036,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__LoadDistrParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setLoadDeformParams(self, confNum, paramNum, value):
         '''
@@ -2265,8 +2049,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__LoadDeformParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'LoadDeformParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getLoadDeformParams(self, confNum, paramNum,):
         '''
@@ -2282,7 +2064,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__LoadDeformParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setDxfLayerParams(self, confNum, paramNum, value):
         '''
@@ -2299,8 +2080,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__DxfLayerParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'DxfLayerParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getDxfLayerParams(self, confNum, paramNum,):
         '''
@@ -2316,7 +2095,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__DxfLayerParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setMarkTypeParams(self, confNum, paramNum, value):
         '''
@@ -2333,8 +2111,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__MarkTypeParams[confNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'MarkTypeParams')
-<<<<<<< Upstream, based on origin/latest
-=======
         
     def getMarkTypeParams(self, confNum, paramNum,):
         '''
@@ -2350,7 +2126,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                 return  self.__MarkTypeParams[confNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
     
     def setJoncsConfigsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -2371,8 +2146,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__JoncsConfigsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'JoncsConfigsParams')
-<<<<<<< Upstream, based on origin/latest
-=======
     
     def getJoncsConfigsParams(self, confNum, lineNum, paramNum):
         '''
@@ -2390,7 +2163,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     return  self.__JoncsConfigsParams[confNum][lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setNoseMylarsParams(self, confNum, lineNum, paramNum, value):
         '''
@@ -2411,8 +2183,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.__NoseMylarsParams[confNum][lineNum][paramNum] = value
         
         self.dataStatusUpdate.emit(self.__className, 'NoseMylarsParams')
-<<<<<<< Upstream, based on origin/latest
-=======
     
     def getNoseMylarsParams(self, confNum, lineNum, paramNum):
         '''
@@ -2430,7 +2200,6 @@ class ProcessorStore(QObject, metaclass=Singleton):
                     return  self.__NoseMylarsParams[confNum][lineNum][paramNum] 
         else: 
             return ''
->>>>>>> 44c9eba Processor data read and save functionality.
         
     def setTabReinfParams(self, confNum, lineNum, paramNum, value):
         '''
