@@ -1338,12 +1338,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.writeHeader(stream, '22. NOSE MYLARS DEFINITION')
         
         stream << self.getSingleVal('NoseMylarsType') << '\n'
-#         
         dataType = self.getSingleVal('NoseMylarsType')
-#         if dataType != '0':
-#             # we have data to write
-#             
-#             stream << self.getSingleVal('NumNoseMylarsConfigs') << '\n'
+        if dataType != '0':
+            # we have data to write
+             
+            stream << self.getSingleVal('NumNoseMylarsConfigs') << '\n'
 #             
 #             numConfigs = self.getSingleVal('NumNoseMylarsConfigs')
 #             for configCounter in range(0, int(numConfigs)):
