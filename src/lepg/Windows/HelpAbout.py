@@ -67,7 +67,7 @@ class HelpAbout(QMdiSubWindow):
         self.windowGrid.addWidget(self.helpAboutTitleL, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
         
-        self.helpAboutTextL = QLabel(_('A graphical frontend to lepg\nCurrent Version \t\t\t0.1'))
+        self.helpAboutTextL = QLabel(_('A graphical frontend to lepg\nCurrent Version \t\t\t0.2'))
         self.windowGrid.addWidget(self.helpAboutTextL, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
         
