@@ -5,6 +5,8 @@ Main Class of lepg
 @license: General Public License GNU GPL 3.0
 '''
 
+from os import path
+
 import gettext
 import logging.config
 import sys
@@ -28,7 +30,13 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent = None):
         # Setup the logger
-        logging.config.fileConfig('logger.conf', disable_existing_loggers=False)
+        # Additional code needed due to pyinstaller. Check doc there. 
+        bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
+        path_to_dat = path.abspath(path.join(bundle_dir, 'logger.conf'))
+        
+        print(path_to_dat)
+        
+        logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
         self.logger = logging.getLogger('root')
         # DEBUG
         # INFO
