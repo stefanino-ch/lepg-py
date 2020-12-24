@@ -14,7 +14,6 @@ userHelp/userHelp.mkdocs/sitemap.xml.gz
 exportTestFiles/
 
 installer/build
-installer/dist-W64
 
 # all Python chache files
 /__pycache__
