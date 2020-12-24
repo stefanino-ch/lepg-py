@@ -1,5 +1,0 @@
-2020-12-24 13:30:46,606 - DEBUG - MainWindow.__init__
-2020-12-24 13:30:46,609 - DEBUG - PreProcessorStore.__init__
-2020-12-24 13:30:46,609 - DEBUG - DataWindowStatus.__init__
-2020-12-24 13:30:46,609 - DEBUG - ProcessorStore.__init__
-2020-12-24 13:30:57,940 - DEBUG - MainWindow.fileExit

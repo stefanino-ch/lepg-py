@@ -12,8 +12,7 @@ At the moment only Pre Processor relavant data is fully supported.
 Other windows may exist, but are work in progress.... 
 
 ### Installation - Windows
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer) download the .zip file.  
-Unpack the file anywhere you want on your harddisk.
+From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) download the lepg folder.  
 Go into the new directory and start the file lepg.exe. 
 
 IMPORTANT: to run the pre-processor you must first configure it: select [Setup]-> [Setup Pre-Processor] the .exe file you will find in Processors\pre1_5-w32 or similar. 
@@ -49,7 +48,7 @@ Im Moment wird nur der Pre-Prozessor unterstützt.
 Anderer Fenster existieren, sind aber Teil der aktuellen Entwicklung.  
 
 ### Installation - Windows
-Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable) die .zip Datei herunterladen und auf der lokalen Festplatte speichern. Die Datei kann an einem beliebigen Ort entpackt werden. 
+Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) den Ordner lepg herunterladen und auf der lokalen Festplatte speichern.
 In das entpakte Verzeichnis wechseln und die Datei lepg.exe starten. 
 
 WICHTIG: Bevor der Pre-Prozessor gestartet werden kann muss er erst konfiguriert werden:  [Setup]-> [Setup Pre-Processor] die .exe Datei ist in Processors\pre1_5-w32 oder ähnlich. 
