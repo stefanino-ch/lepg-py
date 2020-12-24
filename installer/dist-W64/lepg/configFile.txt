@@ -1,0 +1,7 @@
+[Defaults]
+language = en
+preprocdirectory = C:\Users\user\git\lepg-py\src\lepg\Processors\pre1.5-w32
+lepdirectory = 
+preprocpathname = C:/Users/user/git/lepg-py/src/lepg/Processors/pre1.5-w32/pre-1.5win32.exe
+leppathname = 
+
