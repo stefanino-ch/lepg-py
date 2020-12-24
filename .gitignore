@@ -13,14 +13,8 @@ userHelp/userHelp.mkdocs/sitemap.xml
 userHelp/userHelp.mkdocs/sitemap.xml.gz
 exportTestFiles/
 
-# Intermediate files from installer
-<<<<<<< HEAD
 installer/build
 installer/dist-W64
-=======
-installer/build/
-installer/dist-W64/
->>>>>>> refs/heads/latest
 
 # all Python chache files
 /__pycache__
