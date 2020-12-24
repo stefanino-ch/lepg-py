@@ -15,7 +15,7 @@ exportTestFiles/
 
 # Intermediate files from installer
 installer/build/
-installer/dist-W64/
+installer/dist-W64/lepg
 
 # all Python chache files
 /__pycache__

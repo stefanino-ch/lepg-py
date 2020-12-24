@@ -6,7 +6,6 @@ REM General Public License GNU GPL 3.0
 REM *****************
 REM Build new package
 REM *****************
-
 pyinstaller --noconfirm ^
  			--distpath dist-W64 ^
             ../src/lepg/lepg.spec 
@@ -17,7 +16,7 @@ REM zip it
 REM *****************
 
 REM Remove old archive
-del %cd%\dist-W64\lepg-w64.zip
+del %cd%\dist-W64\lepg-w64.*
 
-REM new
-"%ProgramFiles%\7-Zip\7z.exe" a -tzip %cd%/dist-W64/lepg-w64.zip  %cd%/dist-W64/lepg
+REM Create new archives
+"%ProgramFiles%\7-Zip\7z.exe" a -v20m -tzip %cd%/dist-W64/lepg-w64.zip  %cd%/dist-W64/lepg
