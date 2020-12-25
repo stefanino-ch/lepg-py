@@ -4,6 +4,14 @@ REM into the correct place within the lepg source tree.
 REM Stefan Feuz; http://www.laboratoridenvol.com
 REM General Public License GNU GPL 3.0
 
-foliant make site
+REM Start Sphinx
+call make.bat html
 
-xcopy /s /y userHelp.mkdocs ..\src\lepg\userHelp\
+REM Remove old help files in source tree
+rmdir /s /q ..\src\lepg\userHelp\
+
+REM Copy new files
+xcopy /s /y _build\html\*.* ..\src\lepg\userHelp\
+
+REM delete unnecessary files. 
+del ..\src\lepg\userHelp\.buildinfo

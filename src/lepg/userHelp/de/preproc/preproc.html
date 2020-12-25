@@ -1,360 +1,330 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <meta name="author" content="Stefan Feuz">
-        
-        <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Parameter - lepg documentation</title>
-        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preprocessor Parameter &#8212; lepg 0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="English Manual" href="../../en/english.html" />
+    <link rel="prev" title="Deutsche Anleitung" href="../deutsch.html" /> 
+  </head><body>
 
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../../index.html">lepg documentation</a>
-                </div>
-
-                <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li >
-                                <a href="../../index.html">Welcome</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Deutsch <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-  <li class="dropdown-submenu">
-    <a href="#">Pre-Prozessor</a>
-    <ul class="dropdown-menu">
-            
-<li class="active">
-    <a href="preproc.html">Parameter</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">English <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-  <li class="dropdown-submenu">
-    <a href="#">Pre Processor</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../en/preproc/preproc.html">Parameters</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li >
-                                <a rel="next" href="../../index.html">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li >
-                                <a rel="prev" href="../../en/preproc/preproc.html">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#preprocessor-parameter">Preprocessor Parameter</a></li>
-        <li class="main "><a href="#beispieldatei">Beispieldatei</a></li>
-        <li class="main "><a href="#dateibeschreibung">Dateibeschreibung</a></li>
-            <li><a href="#header">Header</a></li>
-            <li><a href="#design-name">Design Name</a></li>
-            <li><a href="#definition-eintrittskante">Definition Eintrittskante</a></li>
-            <li><a href="#definition-austrittskante">Definition Austrittskante</a></li>
-            <li><a href="#krummung">Krümmung</a></li>
-            <li><a href="#zellenverteilung">Zellenverteilung</a></li>
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
-
-<h1 id="preprocessor-parameter">Preprocessor Parameter</h1>
-<p>Die Beschreibungen hier fassen nur die wichtigsten Themen zuammen. Eine detaillierte Beschreibung findest Du auf <a href="http://laboratoridenvol.com/leparagliding/pre.en.html">Laboratori d'envol website</a></p>
-<h1 id="beispieldatei">Beispieldatei</h1>
-<pre><code>**********************************
-LEPARAGLIDING
-GEOMETRY PRE-PROCESSOR     v1.5
-**********************************
-gnuA2
-**********************************
-* 1. Leading edge parameters
-**********************************
-1
-a1= 641.92
-b1= 194.02
-x1= 340
-x2= 490
-xm= 527
-c0= 28
-ex1= 2.8
-c02= 12
-ex2= 4.0
-**********************************
-* 2. Trailing edge parameters
-**********************************
-1
-a1= 643.28
-b1= 140.5
-x1= 180
-xm= 527
-c0= -8.9
-y0= 88.06
-exp= 1.5
-**********************************
-* 3. Vault
-**********************************
-2
-741.33    10.13
-372    12.72
-288.41    24.74
-112.185   37.41
-**********************************
-* 4. Cells distribution
-**********************************
-3
-0.2
-33
-</code></pre>
-<h1 id="dateibeschreibung">Dateibeschreibung</h1>
-<h2 id="header">Header</h2>
-<pre><code>**********************************
-LEPARAGLIDING
-GEOMETRY PRE-PROCESSOR     v1.5
-**********************************
-</code></pre>
-<p>The file header will be generated automatically by lepg.</p>
-<h2 id="design-name">Design Name</h2>
-<pre><code>gnuA2
-</code></pre>
-<p>The name of the design</p>
-<h2 id="definition-eintrittskante">Definition Eintrittskante</h2>
-<pre><code>1
-</code></pre>
-<p>Leading edge type 1</p>
-<pre><code>a1= 641.92
-b1= 194.02
-x1= 340
-x2= 490
-xm= 527
-c0= 28
-ex1= 2.8
-c02= 12
-ex2= 4.0
-</code></pre>
-<p>The leading edge is defined by an ellipse of semiaxis a1 and b1 (red), centered at the point (0.0).</p>
-<p>Xm is half span.</p>
-<p>In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make two corrections with a generic curve of degree N.</p>
-<p>The first correction begins at the point x1 and allows a deflection c01, with a variation of degree ex1.</p>
-<p>The second correction begins at the point x2 &gt; x1 and allows a deflection c02, with a variation of degree ex2.
-<img src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" width="600" height="357">
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/1_LE.jpg" /></p>
-<h2 id="definition-austrittskante">Definition Austrittskante</h2>
-<pre><code>1
-</code></pre>
-<p>Trailing edge type 1</p>
-<pre><code>a1= 643.28
-b1= 140.5
-x1= 180
-xm= 527
-c0= -8.9
-y0= 88.06
-exp= 1.5
-</code></pre>
-<p>The trailing edge is defined by an ellipse of semiaxis a1 and b1 (green), centered at the point (0,y0).</p>
-<p>Xm is half span.</p>
-<p>In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make correction with a generic curve of degree N.</p>
-<p>The correction begins at the point x1 and allows a deflection c0, with a variation of degree exp.</p>
-<p><img src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" width="600" height="357">
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/1_TE.jpg" /></p>
-<h2 id="krummung">Krümmung</h2>
-<h3 id="vault-typ-1">Vault Typ 1</h3>
-<pre><code>1
-</code></pre>
-<p>Type 1: vault using ellipse and cosinus modification, indicate parameters a1, b1.</p>
-<pre><code>a1= 414.2901
-</code></pre>
-<p>semiaxis a</p>
-<pre><code>b1= 237.4300
-</code></pre>
-<p>semiaxis b</p>
-<pre><code>x1= 265.3489
-</code></pre>
-<p>point where start ellipse modification</p>
-<pre><code>c1= 28.22
-</code></pre>
-<p>increased half span</p>
-<p>The shape of the vault is an ellipse of semiaxis a1 (horizontal) and b1 (vertical), but with a modification with a "cosine type function", from point x1 of the horizontal axis. Half of the span is increased by an amount c1.</p>
-<pre><code>for all y in [0,b1]:
-If x &lt; x1 then:  x=a1*sqrt(1-((y*y)/(b1*b1)))
-If x &gt;= x1 then: x=a1*sqrt(1-((y*y)/(b1*b1)))+c1*(1-cos(((y1-y)/y1)*0.5*pi)
-</code></pre>
-<p>Verification:
-    for y=0 x=a1<em>sqrt(1-((y</em>y)/(b1<em>b1)))+c1</em>1
-    for y=y1 x=a1<em>sqrt(1-((y</em>y)/(b1<em>b1)))+c1</em>0
-    where y1=b1<em>sqrt(1-((x1</em>x1)/(a1*a1)))</p>
-<p>Attached drawing explains:</p>
-<p><img src="http://laboratoridenvol.com/leparagliding/pre/images/20121005_3_vault.jpg" width="355" height="588"></p>
-<h3 id="vault-typ-2">Vault Typ 2</h3>
-<pre><code>2
-</code></pre>
-<p>Type 2: vault using four tangent circles. In four rows indicate radious and angle (deg).</p>
-<pre><code>741.33    10.13
-</code></pre>
-<p>radius (cm) and angular sector (deg) rotated by the first circle</p>
-<pre><code>372    12.72
-</code></pre>
-<p>radius (cm) and angular sector (deg) rotated by the second circle</p>
-<pre><code>288.41    24.74
-</code></pre>
-<p>radius (cm) and angular sector (deg) rotated by the third circle</p>
-<pre><code>112.185   37.41
-</code></pre>
-<p>radius (cm) and angular sector (deg) rotated by the fourth circle</p>
-<p><img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/2_1.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/2_2.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/2_3.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/2_4.jpg" /></p>
-<h2 id="zellenverteilung">Zellenverteilung</h2>
-<pre><code>3
-</code></pre>
-<p>"3" indicates cell width proportional to chord</p>
-<p>"4" we use explicit width of each cell with automatic adjustement, if the sum not match the span.</p>
-<pre><code>0.2
-</code></pre>
-<p>Coefficient between "0.0" and "1.0". If coefficient is "0" then cell width is estrictly proportional to the chord, using iterative calculus. If coefficient is set to "1.0", then cell width is uniform. Use intermediate values as you need.</p>
-<pre><code>33
-</code></pre>
-<p>The total cell number.</p>
-<p><img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/3_1.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/3_2.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/3_3.jpg" />
-<img alt="" src="http://laboratoridenvol.com/leparagliding/pre/images/3_4.jpg" /></p></div>
-        </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><h1 style="font-size: 3em;">lepg</h1></a>
 </div>
 
-    </body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../en/english.html" title="English Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../deutsch.html" title="Deutsche Anleitung"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Preprocessor Parameter</a></li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Preprocessor Parameter</a><ul>
+<li><a class="reference internal" href="#dateibeschreibung">Dateibeschreibung</a><ul>
+<li><a class="reference internal" href="#definition-eintrittskante">Definition Eintrittskante</a></li>
+<li><a class="reference internal" href="#definition-austrittskante">Definition Austrittskante</a></li>
+<li><a class="reference internal" href="#krummung">Krümmung</a></li>
+<li><a class="reference internal" href="#zellenverteilung">Zellenverteilung</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../deutsch.html"
+                        title="previous chapter">Deutsche Anleitung</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../en/english.html"
+                        title="next chapter">English Manual</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/de/preproc/preproc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p id="howto-install-de">Author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+<p>Copyright: General Public License GNU GPL 3.0</p>
+<div class="section" id="preprocessor-parameter">
+<h1>Preprocessor Parameter<a class="headerlink" href="#preprocessor-parameter" title="Permalink to this headline">¶</a></h1>
+<p>Die Beschreibungen hier fassen nur die wichtigsten Themen zuammen. Eine detaillierte Beschreibung findest Du auf der <a class="reference external" href="http://laboratoridenvol.com/leparagliding/pre.en.html">Laboratori d’envol website</a></p>
+<p>Beispieldatei:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
+<span class="n">LEPARAGLIDING</span>
+<span class="n">GEOMETRY</span> <span class="n">PRE</span><span class="o">-</span><span class="n">PROCESSOR</span>     <span class="n">v1</span><span class="o">.</span><span class="mi">5</span>
+<span class="o">**********************************</span>
+<span class="n">gnuA2</span>
+<span class="o">**********************************</span>
+<span class="o">*</span> <span class="mf">1.</span> <span class="n">Leading</span> <span class="n">edge</span> <span class="n">parameters</span>
+<span class="o">**********************************</span>
+<span class="mi">1</span>
+<span class="n">a1</span><span class="o">=</span> <span class="mf">641.92</span>
+<span class="n">b1</span><span class="o">=</span> <span class="mf">194.02</span>
+<span class="n">x1</span><span class="o">=</span> <span class="mi">340</span>
+<span class="n">x2</span><span class="o">=</span> <span class="mi">490</span>
+<span class="n">xm</span><span class="o">=</span> <span class="mi">527</span>
+<span class="n">c0</span><span class="o">=</span> <span class="mi">28</span>
+<span class="n">ex1</span><span class="o">=</span> <span class="mf">2.8</span>
+<span class="n">c02</span><span class="o">=</span> <span class="mi">12</span>
+<span class="n">ex2</span><span class="o">=</span> <span class="mf">4.0</span>
+<span class="o">**********************************</span>
+<span class="o">*</span> <span class="mf">2.</span> <span class="n">Trailing</span> <span class="n">edge</span> <span class="n">parameters</span>
+<span class="o">**********************************</span>
+<span class="mi">1</span>
+<span class="n">a1</span><span class="o">=</span> <span class="mf">643.28</span>
+<span class="n">b1</span><span class="o">=</span> <span class="mf">140.5</span>
+<span class="n">x1</span><span class="o">=</span> <span class="mi">180</span>
+<span class="n">xm</span><span class="o">=</span> <span class="mi">527</span>
+<span class="n">c0</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.9</span>
+<span class="n">y0</span><span class="o">=</span> <span class="mf">88.06</span>
+<span class="n">exp</span><span class="o">=</span> <span class="mf">1.5</span>
+<span class="o">**********************************</span>
+<span class="o">*</span> <span class="mf">3.</span> <span class="n">Vault</span>
+<span class="o">**********************************</span>
+<span class="mi">2</span>
+<span class="mf">741.33</span>        <span class="mf">10.13</span>
+<span class="mi">372</span>   <span class="mf">12.72</span>
+<span class="mf">288.41</span>        <span class="mf">24.74</span>
+<span class="mf">112.185</span>   <span class="mf">37.41</span>
+<span class="o">**********************************</span>
+<span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
+<span class="o">**********************************</span>
+<span class="mi">3</span>
+<span class="mf">0.2</span>
+<span class="mi">33</span>
+</pre></div>
+</div>
+<div class="section" id="dateibeschreibung">
+<h2>Dateibeschreibung<a class="headerlink" href="#dateibeschreibung" title="Permalink to this headline">¶</a></h2>
+<p>Header:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
+<span class="n">LEPARAGLIDING</span>
+<span class="n">GEOMETRY</span> <span class="n">PRE</span><span class="o">-</span><span class="n">PROCESSOR</span>     <span class="n">v1</span><span class="o">.</span><span class="mi">5</span>
+<span class="o">**********************************</span>
+</pre></div>
+</div>
+<p>Der Header wird automatisch von lepg erzeugt.</p>
+<p>Design Name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gnuA2</span>
+</pre></div>
+</div>
+<p>Der Name des Designs.</p>
+<div class="section" id="definition-eintrittskante">
+<h3>Definition Eintrittskante<a class="headerlink" href="#definition-eintrittskante" title="Permalink to this headline">¶</a></h3>
+<p>Typ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>Eintrittskante Typ 1</p>
+<p>Parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a1</span><span class="o">=</span> <span class="mf">641.92</span>
+<span class="n">b1</span><span class="o">=</span> <span class="mf">194.02</span>
+<span class="n">x1</span><span class="o">=</span> <span class="mi">340</span>
+<span class="n">x2</span><span class="o">=</span> <span class="mi">490</span>
+<span class="n">xm</span><span class="o">=</span> <span class="mi">527</span>
+<span class="n">c0</span><span class="o">=</span> <span class="mi">28</span>
+<span class="n">ex1</span><span class="o">=</span> <span class="mf">2.8</span>
+<span class="n">c02</span><span class="o">=</span> <span class="mi">12</span>
+<span class="n">ex2</span><span class="o">=</span> <span class="mf">4.0</span>
+</pre></div>
+</div>
+<p>Die Eintrittskannte wird definiert mit einer Ellipse und den beiden Achsen a1 und b1, zentriert am Punkt 0.0.</p>
+<p>Xm entspricht der halben Spannweite.</p>
+<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen können 2 Korrekturen mit einer generischen Kurve N. Grades gemacht werden.</p>
+<p>Die erste Korrektur beginnt am Punkt x1 mit einer Deflektion c1 und einer Variation vom Grad ex1.</p>
+<p>Die zweite Korrektur beginnt am punkt x2 &gt; x1 mit der Deflektion c02 und einer Variation vom Grad ex2.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg"><img alt="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" style="width: 600px; height: 357px;" /></a>
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/1_LE.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/1_LE.jpg" />
+</div>
+<div class="section" id="definition-austrittskante">
+<h3>Definition Austrittskante<a class="headerlink" href="#definition-austrittskante" title="Permalink to this headline">¶</a></h3>
+<p>Typ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>Austrittskanten Typ 1</p>
+<blockquote>
+<div><p>a1= 643.28
+b1= 140.5
+x1= 180
+xm= 527
+c0= -8.9
+y0= 88.06
+exp= 1.5</p>
+</div></blockquote>
+<p>Die Austrittskante ist definiert mit einer Ellipse und den beiden Achsen a1 und b1, zentriert am Punkt 0,y0.</p>
+<p>Xm entspricht der halben Spannweite.</p>
+<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen kann eine Korrektur mit einer generischen Kurve N. Grades gemacht werden.</p>
+<p>Die Korrektur beginnt am Punkt x1 und ermöglicht eine Deflektion c0 mit einer Variation von Grad exp.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg"><img alt="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" style="width: 600px; height: 357px;" /></a>
+</div>
+<div class="section" id="krummung">
+<h3>Krümmung<a class="headerlink" href="#krummung" title="Permalink to this headline">¶</a></h3>
+<p>Krümmung Typ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>Type 1: definiert durch eine Ellipse mit einer Kosinus Modifikation definiert durch die Parameter a1, b1.</p>
+<blockquote>
+<div><p>a1= 414.2901</p>
+</div></blockquote>
+<p>Semiaxis a:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b1</span><span class="o">=</span> <span class="mf">237.4300</span>
+</pre></div>
+</div>
+<p>Semiaxis b:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="o">=</span> <span class="mf">265.3489</span>
+</pre></div>
+</div>
+<p>Punkt wo die Ellipsenmodifikation beginnt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c1</span><span class="o">=</span> <span class="mf">28.22</span>
+</pre></div>
+</div>
+<p>Erhöhte halbe Spannweite.</p>
+<p>Die Form der Krümmung ist eine Ellipse mit den Halbachsen a1 (horizontal) und b1 (vertikal), aber mit einer Kosinus Modifikation ausgehend vom Punkt x1. Die halbe Spannweite ist verlängert mit c1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nb">all</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">b1</span><span class="p">]:</span>
+<span class="n">If</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x1</span> <span class="n">then</span><span class="p">:</span>  <span class="n">x</span><span class="o">=</span><span class="n">a1</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b1</span><span class="o">*</span><span class="n">b1</span><span class="p">)))</span>
+<span class="n">If</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">x1</span> <span class="n">then</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">a1</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b1</span><span class="o">*</span><span class="n">b1</span><span class="p">)))</span><span class="o">+</span><span class="n">c1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cos</span><span class="p">(((</span><span class="n">y1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">y1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Verification::</dt><dd><p>for y=0 x=a1*sqrt(1-((y*y)/(b1*b1)))+c1*1
+for y=y1 x=a1*sqrt(1-((y*y)/(b1*b1)))+c1*0
+where y1=b1*sqrt(1-((x1*x1)/(a1*a1)))</p>
+</dd>
+</dl>
+<p>Zusätzliche Bilder zur Erklärung:</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/pre/images/20121005_3_vault.jpg"><img alt="http://laboratoridenvol.com/leparagliding/pre/images/20121005_3_vault.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/20121005_3_vault.jpg" style="width: 355px; height: 588px;" /></a>
+<p>Krümmung Typ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Type 2: Krümmung definiert durch tangentiale Kreise definiert in 4 Zeilen mit Radius und Winkel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">741.33</span>  <span class="mf">10.13</span>
+</pre></div>
+</div>
+<p>Radius (cm) Winkel (deg) um den der erste Kreis rotiert wird:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">372</span>     <span class="mf">12.72</span>
+</pre></div>
+</div>
+<p>Radius (cm) Winkel (deg) um den der zweite Kreis rotiert wird:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">288.41</span>  <span class="mf">24.74</span>
+</pre></div>
+</div>
+<p>Radius (cm) Winkel (deg) um den der dritte Kreis rotiert wird:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">112.185</span>   <span class="mf">37.41</span>
+</pre></div>
+</div>
+<p>Radius (cm) Winkel (deg) um den der vierte Kreis rotiert wird:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">laboratoridenvol</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">leparagliding</span><span class="o">/</span><span class="n">pre</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="mf">2_1.</span><span class="n">jpg</span>
+</pre></div>
+</div>
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/2_2.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/2_2.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/2_3.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/2_3.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/2_4.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/2_4.jpg" />
+</div>
+<div class="section" id="zellenverteilung">
+<h3>Zellenverteilung<a class="headerlink" href="#zellenverteilung" title="Permalink to this headline">¶</a></h3>
+<p>Verteilung:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+<ul>
+<li><p>“3” die Zellenbreit wird proportional zur Flügeltiefe verändert.</p></li>
+<li><p>“4” explizite Definition der Zellenbreite mit einer automatischen Korrektur wenn die die Summe der Zellenbreiten nicht der Spannweite entsprechen sollte:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Koeffizient zwischen 0.0 und 1.0. Ist der Koeffizient 0 wird die Zellenbreite strikt der Flügeltiefe angepasst. Ein Wert von 1.0 bedeutet dass alle Zellen gleich breit sind. Beliebige Werte dazwischen können zur individuellen Anpassung verwendet werden:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">33</span>
+</pre></div>
+</div>
+<p>Totale Anzahl Zellen.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/3_1.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/3_1.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/3_2.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/3_2.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/3_3.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/3_3.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/pre/images/3_4.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/3_4.jpg" />
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../en/english.html" title="English Manual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../deutsch.html" title="Deutsche Anleitung"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Preprocessor Parameter</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.1.
+    </div>
+  </body>
 </html>

@@ -5,12 +5,10 @@ src/lepg/logfile.txt
 src/lepg/configFile.txt
 
 # Intermediate files from help system
-userHelp/userHelp.mkdocs
-userHelp/userHelp.mkdocs/hello.html
-userHelp/userHelp.mkdocs/index.html
-userHelp/userHelp.mkdocs/search/search_index.json
-userHelp/userHelp.mkdocs/sitemap.xml
-userHelp/userHelp.mkdocs/sitemap.xml.gz
+userHelp/.escapecodecache
+userHelp/_build
+
+# Test files from export
 exportTestFiles/
 
 # Intermediate files from installer
