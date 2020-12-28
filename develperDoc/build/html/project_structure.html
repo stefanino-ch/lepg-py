@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project structure &#8212; lepg developer doc  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx13.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Doc overview" href="contents.html" />
+    <link rel="prev" title="lepg developer doc’s" href="index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+<!--    <li><a href="usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="contents.html">Docs</a></li>  -->
+<!--    <li><a href="develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="index.html">
+      <img src="_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Doc overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="lepg developer doc’s"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Project structure</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">lepg developer doc’s</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contents.html"
+                        title="next chapter">Doc overview</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="project-structure">
+<h1>Project structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>The project structure is build as shown below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>developerDoc          -&gt; All files needed to build the developer doc you&#39;re looking currently at;-)
+
+importTestFiles       -&gt; Test files for development. Some are fully compliant to spec.
+                         Others do have errors to check the error handling.
+
+installer             -&gt; pyinstaller files
+
+src                   -&gt; the project sources.
+
+userHelp              -&gt; All files needed to build the html help files displayed from lepg
+|- _build             -&gt; Herein the complete help files will be generated
+|- _static
+|- _templates         -&gt; Specific template files used by Sphinx
+|- _themes            -&gt; The theme is defining the look and feel of the user help
+|- de                 -&gt; The original text of all help files in german
+   |- preproc         -&gt; All files to create the pre-processor doc in german
+   |- deutsch.rst     -&gt; Provides the german toc for the user doc
+|- en                 -&gt; The original text of all help files in german
+   |- preproc         -&gt; All files to create the pre-processor doc in englis
+   |- english.rst     -&gt; Provides the english toc for the user doc
+|- buildUserHelp.bat  -&gt; Little helper doing all the repetive stuff to create, copy, ... the help files to the final location
+|- conf.py            -&gt; Sphinx config file
+|- contents.rst
+|- index.rst
+|- make.bat           -&gt; see Sphinx doc
+|- Makefile           -&gt; see Sphinx doc
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Doc overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="lepg developer doc’s"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Project structure</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Stefan.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.1.
+    </div>
+  </body>
+</html>

@@ -7,19 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preprocessor Parameter &#8212; lepg 0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="English Manual" href="../../en/english.html" />
-    <link rel="prev" title="Deutsche Anleitung" href="../deutsch.html" /> 
-  </head><body>
+    <link rel="prev" title="Deutsche Anleitung" href="../deutsch.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
 
-<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../../index.html"><h1 style="font-size: 3em;">lepg</h1></a>
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
 </div>
 
     <div class="related" role="navigation" aria-label="related navigation">
@@ -29,19 +75,16 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../en/english.html" title="English Manual"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
           <a href="../deutsch.html" title="Deutsche Anleitung"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">home</a>|&nbsp;</li>
-        <li><a href="../../search.html">search</a>|&nbsp;</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
-          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Preprocessor Parameter</a></li> 
       </ul>
     </div>
-
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -61,16 +104,6 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="../deutsch.html"
                         title="previous chapter">Deutsche Anleitung</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../../en/english.html"
-                        title="next chapter">English Manual</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/de/preproc/preproc.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -310,15 +343,13 @@ where y1=b1*sqrt(1-((x1*x1)/(a1*a1)))</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../en/english.html" title="English Manual"
-             >next</a> |</li>
-        <li class="right" >
           <a href="../deutsch.html" title="Deutsche Anleitung"
              >previous</a> |</li>
-        <li><a href="../../index.html">home</a>|&nbsp;</li>
-        <li><a href="../../search.html">search</a>|&nbsp;</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
-          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Preprocessor Parameter</a></li> 
       </ul>
     </div>

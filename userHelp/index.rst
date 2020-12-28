@@ -1,22 +1,13 @@
-.. lepg documentation master file, created by
-   sphinx-quickstart on Fri Dec 25 11:19:29 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. lepg_doc_master
 
-Welcome to lepg's documentation!
-================================
+lepg Manual
+===========
+Die Dokumentation ist verfügbar in Deutsch und Englisch. 
+
+The documentation is available in english and german.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   de/deutsch.rst
-  
-   en/english.rst
+   contents.rst
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

@@ -4,6 +4,10 @@ REM into the correct place within the lepg source tree.
 REM Stefan Feuz; http://www.laboratoridenvol.com
 REM General Public License GNU GPL 3.0
 
+REM Remove old help files in _build
+rmdir /s /q .\_build\doctrees
+rmdir /s /q .\_build\html
+
 REM Start Sphinx
 call make.bat html
 

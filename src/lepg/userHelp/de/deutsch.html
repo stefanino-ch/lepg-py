@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deutsche Anleitung &#8212; lepg 0.2 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -15,11 +16,57 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Preprocessor Parameter" href="preproc/preproc.html" />
-    <link rel="prev" title="Welcome to lepg’s documentation!" href="../index.html" /> 
-  </head><body>
+    <link rel="prev" title="Preprocessor parameter" href="../en/preproc/preproc.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
 
-<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../index.html"><h1 style="font-size: 3em;">lepg</h1></a>
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+<!--    <li><a href="../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../index.html">
+      <img src="../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
 </div>
 
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,30 +79,23 @@
           <a href="preproc/preproc.html" title="Preprocessor Parameter"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Welcome to lepg’s documentation!"
+          <a href="../en/preproc/preproc.html" title="Preprocessor parameter"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
+        <li><a href="../index.html">Home</a>&#160;|</li>
+        <li><a href="../contents.html">Documentation</a> &#187;</li>
 
+          <li class="nav-item nav-item-1"><a href="../contents.html" accesskey="U">lepg Documentation/ Dokumentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Deutsche Anleitung</a></li> 
       </ul>
     </div>
-
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../index.html"
-                        title="previous chapter">Welcome to lepg’s documentation!</a></p>
+  <p class="topless"><a href="../en/preproc/preproc.html"
+                        title="previous chapter">Preprocessor parameter</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="preproc/preproc.html"
                         title="next chapter">Preprocessor Parameter</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/de/deutsch.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -101,11 +141,12 @@
           <a href="preproc/preproc.html" title="Preprocessor Parameter"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Welcome to lepg’s documentation!"
+          <a href="../en/preproc/preproc.html" title="Preprocessor parameter"
              >previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
+        <li><a href="../index.html">Home</a>&#160;|</li>
+        <li><a href="../contents.html">Documentation</a> &#187;</li>
 
+          <li class="nav-item nav-item-1"><a href="../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Deutsche Anleitung</a></li> 
       </ul>
     </div>

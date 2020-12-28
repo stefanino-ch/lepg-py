@@ -25,11 +25,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     all data will be the same for all instances. 
     
     @signal dataStatusUpdate :  Sent out as soon a file was opened or saved
-                                The first string indicates the class name
-                                The second string indicates 
-                                    - if a file was opened
-                                    - if a file was saved
-                                    - Filename and Path has been changed
+        The first string indicates the class name
+        The second string indicates 
+        - if a file was opened
+        - if a file was saved
+        - Filename and Path has been changed
     '''
     dataStatusUpdate = pyqtSignal(str,str)
     __className = 'ProcessorStore'
