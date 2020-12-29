@@ -8,7 +8,7 @@ REM Build new package
 REM *****************
 pyinstaller --noconfirm ^
  			--distpath dist-W64 ^
-            ../src/lepg/lepg.spec 
+            ../src/lepg.spec 
 
 
 REM *****************
