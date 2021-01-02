@@ -8,9 +8,13 @@ Doc overview
 
    project_structure
    
-   lepg_main_file
+   windows
    
    data_stores
+   
+   gui_elements
+   
+   
 
 
 Indices and tables

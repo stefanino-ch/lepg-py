@@ -100,7 +100,7 @@ Xm entspricht der halben Spannweite.
 
 In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen können 2 Korrekturen mit einer generischen Kurve N. Grades gemacht werden. 
 
-Die erste Korrektur beginnt am Punkt x1 mit einer Deflektion c1 und einer Variation vom Grad ex1. 
+Die erste Korrektur beginnt am Punkt x1 mit einer Deflektion c01 und einer Variation vom Grad ex1. 
 
 Die zweite Korrektur beginnt am punkt x2 > x1 mit der Deflektion c02 und einer Variation vom Grad ex2. 
 
@@ -117,6 +117,8 @@ Typ::
 	1
 
 Austrittskanten Typ 1
+
+Parameter::
 
 	a1= 643.28  
 	b1= 140.5  

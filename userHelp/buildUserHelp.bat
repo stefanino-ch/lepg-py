@@ -12,10 +12,10 @@ REM Start Sphinx
 call make.bat html
 
 REM Remove old help files in source tree
-rmdir /s /q ..\src\lepg\userHelp\
+rmdir /s /q ..\src\userHelp\
 
 REM Copy new files
-xcopy /s /y _build\html\*.* ..\src\lepg\userHelp\
+xcopy /s /y _build\html\*.* ..\src\userHelp\
 
 REM delete unnecessary files. 
-del ..\src\lepg\userHelp\.buildinfo
+del ..\src\userHelp\.buildinfo

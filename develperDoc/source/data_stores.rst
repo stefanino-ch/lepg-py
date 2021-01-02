@@ -9,10 +9,14 @@ Data Stores
 Pre-Processor store
 -------------------
 .. automodule:: DataStores.PreProcessorStore
+   :undoc-members:
    :members:
+   :private-members:
    
 Processor store   
 -------------------
 .. automodule:: DataStores.ProcessorStore
+   :undoc-members:
    :members:
+   :private-members:
    

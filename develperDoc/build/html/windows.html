@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windows &#8212; lepg developer doc  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx13.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Stores" href="data_stores.html" />
+    <link rel="prev" title="Doc overview" href="contents.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+<!--    <li><a href="usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="contents.html">Docs</a></li>  -->
+<!--    <li><a href="develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="index.html">
+      <img src="_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_stores.html" title="Data Stores"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Doc overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="contents.html" accesskey="U">Doc overview</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Windows</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Windows</a><ul>
+<li><a class="reference internal" href="#module-lepg">Main file</a></li>
+<li><a class="reference internal" href="#module-Windows.PreProcDataEdit">Pre-Processor data edit</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contents.html"
+                        title="previous chapter">Doc overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data_stores.html"
+                        title="next chapter">Data Stores</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="windows">
+<h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-lepg">
+<span id="main-file"></span><h2>Main file<a class="headerlink" href="#module-lepg" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="lepg.MainWindow">
+<em class="property">class </em><code class="sig-prename descclassname">lepg.</code><code class="sig-name descname">MainWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="lepg.MainWindow.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'MainWindow'</em><a class="headerlink" href="#lepg.MainWindow.__className" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildFileMenu">
+<code class="sig-name descname">buildFileMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildFileMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildHelpMenu">
+<code class="sig-name descname">buildHelpMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildHelpMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildPreProcMenu">
+<code class="sig-name descname">buildPreProcMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPreProcMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildProcMenu">
+<code class="sig-name descname">buildProcMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildProcMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildSetupMenu">
+<code class="sig-name descname">buildSetupMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildSetupMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the actions needed for the setup menu and does build up the menu itself.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.buildViewMenu">
+<code class="sig-name descname">buildViewMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildViewMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.displayRestartMsg">
+<code class="sig-name descname">displayRestartMsg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.displayRestartMsg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a message to the user to restart the application after switching the language</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.fileDataStatus">
+<code class="sig-name descname">fileDataStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileDataStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the File Data Status overview window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.fileExit">
+<code class="sig-name descname">fileExit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileExit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does all the work to close properly the application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.fileMenuActions">
+<code class="sig-name descname">fileMenuActions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileMenuActions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.helpAbout">
+<code class="sig-name descname">helpAbout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.helpAbout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the Help About window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.preProcEdit">
+<code class="sig-name descname">preProcEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcEdit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the PreProc edit window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.preProcOpenFile">
+<code class="sig-name descname">preProcOpenFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcOpenFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.preProcRun">
+<code class="sig-name descname">preProcRun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does start the Pre-Processor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.preProcSaveFile">
+<code class="sig-name descname">preProcSaveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.preProcSaveFileAs">
+<code class="sig-name descname">preProcSaveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFileAs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procOpenFile">
+<code class="sig-name descname">procOpenFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procOpenFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procRun">
+<code class="sig-name descname">procRun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does start the Processor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procSaveFile">
+<code class="sig-name descname">procSaveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procSaveFileAs">
+<code class="sig-name descname">procSaveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFileAs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.setupLangDe">
+<code class="sig-name descname">setupLangDe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangDe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does to setup for the german language display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.setupLangEn">
+<code class="sig-name descname">setupLangEn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangEn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does to setup for the english language display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.setupPreProcLocation">
+<code class="sig-name descname">setupPreProcLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupPreProcLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks the user for the location where the Pre-Processor is saved</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.viewCascade">
+<code class="sig-name descname">viewCascade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewCascade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.viewTile">
+<code class="sig-name descname">viewTile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewTile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="lepg.main">
+<code class="sig-prename descclassname">lepg.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-Windows.PreProcDataEdit">
+<span id="pre-processor-data-edit"></span><h2>Pre-Processor data edit<a class="headerlink" href="#module-Windows.PreProcDataEdit" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.PreProcDataEdit.</code><code class="sig-name descname">PreProcDataEdit</code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit the PreProc data.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.__windowName">
+<code class="sig-name descname">__windowName</code><em class="property"> = 'PreProcDataEdit'</em><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.__windowName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Does the handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span>
+<span class="n">Help</span> <span class="n">window</span>
+<span class="n">Buttons</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowGrid</span>                        <span class="o">|</span>
+        <span class="n">wing_F</span>                        <span class="o">|</span>
+            <span class="n">wing_G</span>                    <span class="o">|</span>
+        <span class="o">--------------------------------------------------------</span>
+        <span class="n">edge_L</span>                        <span class="o">|</span>    <span class="n">vault_F</span>
+            <span class="n">le_F</span>            <span class="n">te_F</span>      <span class="o">|</span>        <span class="n">vault_G</span>
+                <span class="n">le_G</span>            <span class="n">te_G</span>  <span class="o">|</span>
+        <span class="o">---------------------------------------------------------</span>
+        <span class="n">cd_F</span>                          <span class="o">|</span>    <span class="n">helpBar</span>
+            <span class="n">cd_G</span>                      <span class="o">|</span>                
+        <span class="o">--------------------------------------------------------</span>
+                                      <span class="o">|</span>    <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>called at the time the user closes the window. Does check for unsaved data and warns the user in case.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.dataStatusChanged">
+<code class="sig-name descname">dataStatusChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Does emit a signal if the user has edited data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.dataStatusUpdate">
+<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Signal</dt>
+<dd class="field-odd"><p>Sent out as soon the user has edited data or has clicked a button. The first string indicates the window name. The second string indicates if and which button has been pressed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.enableDisableVault">
+<code class="sig-name descname">enableDisableVault</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.enableDisableVault" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Enables disables the vault input fields, depending on vault combo box settings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.updateInputs">
+<code class="sig-name descname">updateInputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.updateInputs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>If data in central store changes, we will update in here the according input fields.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.vault_cb_change">
+<code class="sig-name descname">vault_cb_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.vault_cb_change" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Handles change of vault combo box selection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PreProcDataEdit.PreProcDataEdit.writeDataToStore">
+<code class="sig-name descname">writeDataToStore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.writeDataToStore" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Classmethod</dt>
+<dd class="field-odd"><p>Writes all data back to the central data store.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_stores.html" title="Data Stores"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Doc overview"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="contents.html" >Doc overview</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Windows</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Stefan.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.1.
+    </div>
+  </body>
+</html>

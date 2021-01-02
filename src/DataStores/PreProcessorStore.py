@@ -15,24 +15,26 @@ from ConfigReader.ConfigReader import ConfigReader
 
 class PreProcessorStore(QObject, metaclass=Singleton):
     '''
-    Does take care about the data handling for the PreProcessor. 
+    :class: Does take care about the data handling for the PreProcessor.
         - Reads and writes the data files
         - Holds as a central point all temporary data during program execution
-        
-    Class is implemented as a Singleton. Even if it is instantiated multiple 
-        times all data will be the same for all instances. 
-        
-    @signal dataStatusUpdate :  Sent out as soon a file was opened or saved
+    
+    Is implemented as a **Singleton**. Even if it is instantiated multiple times all data will be the same for all instances. 
+    '''
+    dataStatusUpdate = pyqtSignal(str,str)
+    '''
+    :signal:  Sent out as soon a file was opened or saved
         The first string indicates the class name
         The second string indicates 
         - if a file was opened
         - if a file was saved
         - Filename and Path has been changed
     '''
-    dataStatusUpdate = pyqtSignal(str,str)
     __className = 'PreProcessorStore'
+    '''
+    :attr: Does help to indicate the source of the log messages
+    '''
     
-    # Variables used across the class
     __simpleData ={
         'FileNamePath' :  '' ,
         'FileVersion' : '', 
@@ -43,7 +45,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         'LE_x1' : '',
         'LE_x2' : '',
         'LE_xm' : '',
-        'LE_c0' : '',
+        'LE_c01' : '',
         'LE_ex1' : '',
         'LE_c02' : '',
         'LE_ex2' : '',
@@ -64,19 +66,28 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         'CellDistCoeff' : '',
         'CellNum' : ''
     }
+    '''
+    :attr: Variables used across the class
+    '''
     
     __Vault_t2_dta = [[0,0],[0,0],[0,0],[0,0]]
+    '''
+    :attr: Vault data handled by the class
+    '''
     
     def __init__(self):
+        '''
+        :classmethod: Constructor
+        '''
         logging.debug('PreProcessorStore.__init__')
         super().__init__()
         self.dws = DataWindowStatus()
         self.dws.registerSignal(self.dataStatusUpdate)
-        
     
     def isValid( self, fileName ):
         '''
-        Checks if a file can be opened and contains a valid title and known version number.
+        :classmethod: Checks if a file can be opened and contains a valid title and known version number.
+        :param fileName: the name of the file to be checked
         '''
         logging.debug('PreProcessorStore.isValid')
         try:
@@ -120,8 +131,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     
     def openFile(self):
         '''
-        Checks for unapplied/ unsaved data, and appropriate handling. 
-        Does the File Open dialog. 
+        :classmethod: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling. 
         '''
         # Make sure there is no unsaved/ unapplied data
         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
@@ -152,8 +162,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             
     def saveFile(self):
         '''
-        Checks if there is already a valid file name, if not it asks for it. 
-        Starts afterwards the writing process.  
+        :classmethod: Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.  
         '''
         logging.debug('PreProcessorStore.saveFile')
         
@@ -177,8 +186,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             
     def saveFileAs(self):
         '''
-        Asks for a new filename. 
-        Starts afterwards the writing process.  
+        :classmethod: Asks for a new filename. Starts afterwards the writing process.  
         '''
         logging.debug('PreProcessorStore.saveFileAs')
         
@@ -197,8 +205,8 @@ class PreProcessorStore(QObject, metaclass=Singleton):
     
     def readFile(self):
         '''
-        Reads the data file and saves the data in the internal varibles.
-        Filename and Path must be set first!
+        :classmethod: Reads the data file and saves the data in the internal varibles. 
+        :warning: Filename and Path must be set first!
         '''
         logging.debug(self.__className+'.readFile')
         inFile = QFile(self.getSingleVal('FileNamePath'))
@@ -242,7 +250,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         self.setSingleVal('LE_xm', line[1])
         
         line = stream.readLine().split()
-        self.setSingleVal('LE_c0', line[1])
+        self.setSingleVal('LE_c01', line[1])
         
         line = stream.readLine().split()
         self.setSingleVal('LE_ex1', line[1])
@@ -350,10 +358,9 @@ class PreProcessorStore(QObject, metaclass=Singleton):
   
     def writeFile(self, forProc=False):
         '''
-        Writes all the values into a data file. 
-        Filename must have been set already before, unless the file shall be written for the PreProcessor.
-                
-        @param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
+        :classmethod: Writes all the values into a data file. 
+        :warning: Filename must have been set already before, unless the file shall be written for the PreProcessor.
+        :param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
         '''
         separator = '**********************************\n'
         
@@ -405,7 +412,7 @@ class PreProcessorStore(QObject, metaclass=Singleton):
         stream << 'x1= ' << self.getSingleVal('LE_x1') << '\n'
         stream << 'x2= ' << self.getSingleVal('LE_x2') << '\n'
         stream << 'xm= ' << self.getSingleVal('LE_xm') << '\n'
-        stream << 'c01= ' << self.getSingleVal('LE_c0') << '\n'
+        stream << 'c01= ' << self.getSingleVal('LE_c01') << '\n'
         stream << 'ex1= ' << self.getSingleVal('LE_ex1') << '\n'
         stream << 'c02= ' << self.getSingleVal('LE_c02') << '\n'
         stream << 'ex2= ' << self.getSingleVal('LE_ex2') << '\n'
@@ -459,32 +466,51 @@ class PreProcessorStore(QObject, metaclass=Singleton):
             
     def setFileName( self, fileName ):
         '''
-        Does set the File Name the data store shall work with. 
-        
-        @param fileName: String containing full path and filename
-        @param openFile: If set to True the file will be opened immediately the path and filename was set  
-        
+        :classmethod: Does set the File Name the data store shall work with. 
+        :param fileName: String containing full path and filename
         '''
         if fileName != '':
             self.setSingleVal('FileNamePath', fileName)
             
     def getFileName( self ):
         '''
-        Returns the name of the file name member.
+        :classmethod: Returns the name of the file name member.
         '''
         return self.getSingleVal('FileNamePath')
     
     def setSingleVal(self, parameter, value):
+        '''
+        :classmethod: Does set a single value in the data store.
+        :param parameter: the name of the parameter to be set. Refer to *__simpleData* for the valid parameter names.
+        :param value: the value to be set.
+        '''
         self.__simpleData[parameter] = value
         self.dataStatusUpdate.emit(self.__className, parameter)
         
     def getSingleVal(self, parameter):
+        '''
+        :classmethod: Reads a single parameter from the data store
+        :param parameter: Name of the parameter to be read. Refer to *__simpleData* for the valid parameter names.
+        :returns: the value of the parameter, an empty string if the parameter was not found.
+        ''' 
         return self.__simpleData.get(parameter)
 
     def setVault_t2_dta(self, row, col, val):
+        '''
+        :classmethod: Sets the vault data in the data store. Data is organized in a matrix. 
+        :param row: number of the row to be set
+        :param col: number of the column to be set 
+        :param val: the value to be set
+        '''
         self.__Vault_t2_dta[row][col] = val
         self.dataStatusUpdate.emit(self.__className, 'Vault_t2_dta')
         
     def getVault_t2_dta(self, row, col):
+        '''
+        :classmethod: Reads vault data from the data store. Data is organized in a matrix. 
+        :param row: number of the row to be read
+        :param col: number of the column to be read 
+        :returns: the value of the parameter, an empty string if the parameter was not found.
+        '''
         return self.__Vault_t2_dta[row][col]
     

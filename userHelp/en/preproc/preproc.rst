@@ -118,6 +118,8 @@ Typ::
 
 Trailing edge type 1
 
+Parameters::
+
 	a1= 643.28  
 	b1= 140.5  
 	x1= 180  

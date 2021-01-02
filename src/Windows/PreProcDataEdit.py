@@ -1,37 +1,32 @@
 '''
-Window to display and edit the PreProc data.
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:author: Stefan Feuz; http://www.laboratoridenvol.com
+:license: General Public License GNU GPL 3.0
 '''
 import logging
-
-from PyQt5.QtCore import Qt, pyqtSignal, QRegExp
-from PyQt5.QtGui import QIcon, QValidator, QDoubleValidator, QRegExpValidator
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QMessageBox, QGroupBox, QHBoxLayout, QComboBox
 from PyQt5.QtWidgets import QLabel
-
 from Windows.LineEdit import LineEdit
 from Windows.WindowBtnBar import WindowBtnBar
 from Windows.WindowHelpBar import WindowHelpBar
-
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.PreProcessorStore import PreProcessorStore
 
 class PreProcDataEdit(QMdiSubWindow):
     '''
-    Window to display and edit the PreProc data. 
-    
-    @signal dataStatusUpdate :  sent out as soon the user has edited data or has clicked a button
-                                The first string indicates the window name.
-                                The second string indicates 
-                                    - if and which button has been pressed
-                                    - data was edited  
+    :class: Window to display and edit the PreProc data. 
     '''
     dataStatusUpdate = pyqtSignal(str,str)
+    '''
+    :signal: Sent out as soon the user has edited data or has clicked a button. The first string indicates the window name. The second string indicates if and which button has been pressed.
+    '''
     __windowName = 'PreProcDataEdit'
 
     def __init__(self):
+        '''
+        :classmethod: Constructor
+        '''
         logging.debug(self.__windowName+'.__init__')
         super().__init__()
         self.pps = PreProcessorStore()
@@ -41,6 +36,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.pps.dataStatusUpdate.connect(self.updateInputs)   
 
     def closeEvent(self, event):  # @UnusedVariable
+        '''
+        :classmethod: called at the time the user closes the window. Does check for unsaved data and warns the user in case. 
+        '''
         # Check for unapplied data
         if self.dws.getWindowDataStatus(self.__windowName) == 0:
             # there is unapplied data
@@ -62,40 +60,19 @@ class PreProcDataEdit(QMdiSubWindow):
             else:
                 # abort cancel 
                 event.ignore()
-                
-    # @TODO: move this into the editfield class
-    # @TODO: get rid of warning belos
-    def check_state(self, *args, **kwargs):
-        sender = self.sender()
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0) [0]
-        
-        if isinstance(validator, QRegExpValidator):
-            # We have a RegExpValidator
-            if state == QRegExpValidator.Acceptable:
-                color = '#c4df9b'
-            elif state == QRegExpValidator.Intermediate:
-                color = '#fff79a'
-            else:
-                color = '#f6989d'
-        else:
-            if state == QValidator.Acceptable:
-                color = '#c4df9b'
-            elif state == QValidator.Intermediate:
-                color = '#fff79a'
-            else:
-                color = '#f6989d'
-
-        sender.setStyleSheet('QLineEdit {background-color: %s }' % color) 
-    
+   
     def buildWindow(self):
         '''
-        Layout:
+        :classmethod: Creates the window including all GUI elements. 
+        
+        Layout::
+        
             Data
             Help window
             Buttons
             
-        Structure: 
+        Structure:: 
+        
             win
                 windowGrid                        |
                     wing_F                        |
@@ -109,8 +86,6 @@ class PreProcDataEdit(QMdiSubWindow):
                         cd_G                      |                
                     --------------------------------------------------------
                                                   |    btnBar
-
-                    
         '''
         logging.debug(self.__windowName + '.buildWindow')
         __frameWidth = 350
@@ -144,21 +119,13 @@ class PreProcDataEdit(QMdiSubWindow):
         self.wingName_L = QLabel(_('Wing name'))
         self.wingName_L.setAlignment(Qt.AlignRight)
         self.wingName_E = LineEdit()
+        self.wingName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
         self.wingName_E.setText(self.pps.getSingleVal('WingName'))
         self.wingName_E.textEdited.connect(self.dataStatusChanged)
         self.wingName_E.setHelpText(_('PreProc-WingNameDesc'))
         self.wingName_E.setHelpBar(self.helpBar)
         self.wing_G.addWidget(self.wingName_L, 0, 0)
         self.wing_G.addWidget(self.wingName_E, 0, 1)
-        ### setup validation
-        
-        # @todo: go on here
-        rx = QRegExp("(.|\s)*\S(.|\s)*")
-        #rx = QRegExp("[0-9]*")
-        self.wingName_V = QRegExpValidator( rx , self)
-        self.wingName_E.setValidator(self.wingName_V)
-        self.wingName_E.textChanged.connect(self.check_state)
-        self.wingName_E.textChanged.emit(self.wingName_E.text())
 
         # Edge layout
         self.edge_L = QHBoxLayout()
@@ -188,25 +155,22 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_type_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_a1_L = QLabel('a1')
+        self.le_a1_L = QLabel('a1 [cm]')
         self.le_a1_L.setAlignment(Qt.AlignRight)
         self.le_a1_E = LineEdit()
+        self.le_a1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_a1_E.setText(self.pps.getSingleVal('LE_a1'))
         self.le_a1_E.textEdited.connect(self.dataStatusChanged)
         self.le_a1_E.setHelpText(_('PreProc-le_a1_desc'))
         self.le_a1_E.setHelpBar(self.helpBar)
         self.le_G.addWidget(self.le_a1_L, __leGRow, 0)
         self.le_G.addWidget(self.le_a1_E, __leGRow, 1)
-        ### setup validation
-        self.le_a1_V = QDoubleValidator(0.0, 99999.99, 2)
-        self.le_a1_E.setValidator(self.le_a1_V)
-        self.le_a1_E.textChanged.connect(self.check_state)
-        self.le_a1_E.textChanged.emit(self.le_a1_E.text())
         __leGRow += 1
         
-        self.le_b1_L = QLabel('b1')
+        self.le_b1_L = QLabel('b1 [cm]')
         self.le_b1_L.setAlignment(Qt.AlignRight)
         self.le_b1_E = LineEdit()
+        self.le_b1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_b1_E.setText(self.pps.getSingleVal('LE_b1'))
         self.le_b1_E.textEdited.connect(self.dataStatusChanged)
         self.le_b1_E.setHelpText(_('PreProc-le_b1_desc'))
@@ -215,9 +179,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_b1_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_x1_L = QLabel('x1')
+        self.le_x1_L = QLabel('x1 [cm]')
         self.le_x1_L.setAlignment(Qt.AlignRight)
         self.le_x1_E = LineEdit()
+        self.le_x1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_x1_E.setText(self.pps.getSingleVal('LE_x1'))
         self.le_x1_E.textEdited.connect(self.dataStatusChanged)
         self.le_x1_E.setHelpText(_('PreProc-le_x1_desc'))
@@ -226,9 +191,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_x1_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_x2_L = QLabel('x2')
+        self.le_x2_L = QLabel('x2 [cm]')
         self.le_x2_L.setAlignment(Qt.AlignRight)
         self.le_x2_E = LineEdit()
+        self.le_x2_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_x2_E.setText(self.pps.getSingleVal('LE_x2'))
         self.le_x2_E.textEdited.connect(self.dataStatusChanged)
         self.le_x2_E.setHelpText(_('PreProc-le_x2_desc'))
@@ -237,9 +203,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_x2_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_xm_L = QLabel('xm')
+        self.le_xm_L = QLabel('xm [cm]')
         self.le_xm_L.setAlignment(Qt.AlignRight)
         self.le_xm_E = LineEdit()
+        self.le_xm_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_xm_E.setText(self.pps.getSingleVal('LE_xm'))
         self.le_xm_E.textEdited.connect(self.dataStatusChanged)
         self.le_xm_E.setHelpText(_('PreProc-le_xm_desc'))
@@ -248,20 +215,22 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_xm_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_c0_L = QLabel('c0')
-        self.le_c0_L.setAlignment(Qt.AlignRight)
-        self.le_c0_E = LineEdit()
-        self.le_c0_E.setText(self.pps.getSingleVal('LE_c0'))
-        self.le_c0_E.textEdited.connect(self.dataStatusChanged)
-        self.le_c0_E.setHelpText(_('PreProc-le_c0_desc'))
-        self.le_c0_E.setHelpBar(self.helpBar)
-        self.le_G.addWidget(self.le_c0_L, __leGRow, 0)
-        self.le_G.addWidget(self.le_c0_E, __leGRow, 1)
+        self.le_c01_L = QLabel('c01 [cm]')
+        self.le_c01_L.setAlignment(Qt.AlignRight)
+        self.le_c01_E = LineEdit()
+        self.le_c01_E.enableDoubleValidator(0.00, 9999.99, 2)
+        self.le_c01_E.setText(self.pps.getSingleVal('LE_c01'))
+        self.le_c01_E.textEdited.connect(self.dataStatusChanged)
+        self.le_c01_E.setHelpText(_('PreProc-le_c0_desc'))
+        self.le_c01_E.setHelpBar(self.helpBar)
+        self.le_G.addWidget(self.le_c01_L, __leGRow, 0)
+        self.le_G.addWidget(self.le_c01_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_ex1_L = QLabel('ex1')
+        self.le_ex1_L = QLabel('ex1 [coef]')
         self.le_ex1_L.setAlignment(Qt.AlignRight)
         self.le_ex1_E = LineEdit()
+        self.le_ex1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_ex1_E.setText(self.pps.getSingleVal('LE_ex1'))
         self.le_ex1_E.textEdited.connect(self.dataStatusChanged)
         self.le_ex1_E.setHelpText(_('PreProc-te_ex1_desc'))
@@ -270,9 +239,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_ex1_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_c02_L = QLabel('c02')
+        self.le_c02_L = QLabel('c02 [cm]')
         self.le_c02_L.setAlignment(Qt.AlignRight)
         self.le_c02_E = LineEdit()
+        self.le_c02_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_c02_E.setText(self.pps.getSingleVal('LE_c02'))
         self.le_c02_E.textEdited.connect(self.dataStatusChanged)
         self.le_c02_E.setHelpText(_('PreProc-le_c02_desc'))
@@ -281,9 +251,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_c02_E, __leGRow, 1)
         __leGRow += 1
         
-        self.le_ex2_L = QLabel('ex2')
+        self.le_ex2_L = QLabel('ex2 [coef]')
         self.le_ex2_L.setAlignment(Qt.AlignRight)
         self.le_ex2_E = LineEdit()
+        self.le_ex2_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.le_ex2_E.setText(self.pps.getSingleVal('LE_ex2'))
         self.le_ex2_E.textEdited.connect(self.dataStatusChanged)
         self.le_ex2_E.setHelpText(_('PreProc-le_ex2_desc'))
@@ -315,9 +286,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_type_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_a1_L = QLabel('a1')
+        self.te_a1_L = QLabel('a1 [cm]')
         self.te_a1_L.setAlignment(Qt.AlignRight)
         self.te_a1_E = LineEdit()
+        self.te_a1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_a1_E.setText(self.pps.getSingleVal('TE_a1'))
         self.te_a1_E.textEdited.connect(self.dataStatusChanged)
         self.te_a1_E.setHelpText(_('PreProc-te_a1_desc'))
@@ -326,9 +298,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_a1_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_b1_L = QLabel('b1')
+        self.te_b1_L = QLabel('b1 [cm]')
         self.te_b1_L.setAlignment(Qt.AlignRight)
         self.te_b1_E = LineEdit()
+        self.te_b1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_b1_E.setText(self.pps.getSingleVal('TE_b1'))
         self.te_b1_E.textEdited.connect(self.dataStatusChanged)
         self.te_b1_E.setHelpText(_('PreProc-te_b1_desc'))
@@ -337,9 +310,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_b1_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_x1_L = QLabel('x1')
+        self.te_x1_L = QLabel('x1 [cm]')
         self.te_x1_L.setAlignment(Qt.AlignRight)
         self.te_x1_E = LineEdit()
+        self.te_x1_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_x1_E.setText(self.pps.getSingleVal('TE_x1'))
         self.te_x1_E.textEdited.connect(self.dataStatusChanged)
         self.te_x1_E.setHelpText(_('PreProc-te_x1_desc'))
@@ -348,9 +322,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_x1_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_xm_L = QLabel('xm')
+        self.te_xm_L = QLabel('xm [cm]')
         self.te_xm_L.setAlignment(Qt.AlignRight)
         self.te_xm_E = LineEdit()
+        self.te_xm_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_xm_E.setText(self.pps.getSingleVal('TE_xm'))
         self.te_xm_E.textEdited.connect(self.dataStatusChanged)
         self.te_xm_E.setHelpText(_('PreProc-te_xm_desc'))
@@ -359,9 +334,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_xm_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_c0_L = QLabel('c0')
+        self.te_c0_L = QLabel('c0 [cm]')
         self.te_c0_L.setAlignment(Qt.AlignRight)
         self.te_c0_E = LineEdit()
+        self.te_c0_E.enableDoubleValidator(-9999.99, 9999.99, 2)
         self.te_c0_E.setText(self.pps.getSingleVal('TE_c0'))
         self.te_c0_E.textEdited.connect(self.dataStatusChanged)
         self.te_c0_E.setHelpText(_('PreProc-te_c0_desc'))
@@ -370,9 +346,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_c0_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_y0_L = QLabel('y0')
+        self.te_y0_L = QLabel('y0 [cm]')
         self.te_y0_L.setAlignment(Qt.AlignRight)
         self.te_y0_E = LineEdit()
+        self.te_y0_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_y0_E.setText(self.pps.getSingleVal('TE_y0'))
         self.te_y0_E.textEdited.connect(self.dataStatusChanged)
         self.te_y0_E.setHelpText(_('PreProc-te_y0_desc'))
@@ -381,9 +358,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.te_G.addWidget(self.te_y0_E, __teGRow, 1)
         __teGRow += 1
         
-        self.te_exp_L = QLabel('exp')
+        self.te_exp_L = QLabel('exp [coef]')
         self.te_exp_L.setAlignment(Qt.AlignRight)
         self.te_exp_E = LineEdit()
+        self.te_exp_E.enableDoubleValidator(0.00, 9999.99, 2)
         self.te_exp_E.setText(self.pps.getSingleVal('TE_exp'))
         self.te_exp_E.textEdited.connect(self.dataStatusChanged)
         self.te_exp_E.setHelpText(_('PreProc-te_exp_desc'))
@@ -426,8 +404,9 @@ class PreProcDataEdit(QMdiSubWindow):
         __vaultGRow += 1
         
         # Vault Type 1
-        self.vault1_a1_L = QLabel('a1')
+        self.vault1_a1_L = QLabel('a1 [cm]')
         self.vault1_a1_E = LineEdit()
+        self.vault1_a1_E.enableDoubleValidator(0.0000, 9999.9999, 4)
         self.vault1_a1_E.setText(self.pps.getSingleVal('Vault_a1'))
         self.vault1_a1_E.textEdited.connect(self.dataStatusChanged)
         self.vault1_a1_E.setHelpText(_('PreProc-vault1_a1_desc'))
@@ -436,8 +415,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault1_a1_E, __vaultGRow, 1, Qt.AlignRight )
         __vaultGRow += 1
 
-        self.vault1_b1_L = QLabel('b1')
+        self.vault1_b1_L = QLabel('b1 [cm]')
         self.vault1_b1_E = LineEdit()
+        self.vault1_b1_E.enableDoubleValidator(0.0000, 9999.9999, 4)
         self.vault1_b1_E.setText(self.pps.getSingleVal('Vault_b1'))
         self.vault1_b1_E.textEdited.connect(self.dataStatusChanged)
         self.vault1_b1_E.setHelpText(_('PreProc-vault1_b1_desc'))
@@ -446,18 +426,21 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault1_b1_E, __vaultGRow, 1, Qt.AlignRight )
         __vaultGRow += 1
 
-        self.vault1_x1_L = QLabel('x1')
+        self.vault1_x1_L = QLabel('x1 [cm]')
         self.vault1_x1_E = LineEdit()
+        self.vault1_x1_E.enableDoubleValidator(0.0000, 9999.9999, 4)
         self.vault1_x1_E.setText(self.pps.getSingleVal('Vault_x1'))
         self.vault1_x1_E.textEdited.connect(self.dataStatusChanged)
         self.vault1_x1_E.setHelpText(_('PreProc-vault1_x1_desc'))
         self.vault1_x1_E.setHelpBar(self.helpBar)
         self.vault_G.addWidget(self.vault1_x1_L, __vaultGRow, 0, Qt.AlignRight )
         self.vault_G.addWidget(self.vault1_x1_E, __vaultGRow, 1, Qt.AlignRight )
+        
         __vaultGRow += 1
         
-        self.vault1_c1_L = QLabel('c1')
+        self.vault1_c1_L = QLabel('c1 [cm]')
         self.vault1_c1_E = LineEdit()
+        self.vault1_c1_E.enableDoubleValidator(0.0000, 9999.9999, 4)
         self.vault1_c1_E.setText(self.pps.getSingleVal('Vault_c1'))
         self.vault1_c1_E.textEdited.connect(self.dataStatusChanged)
         self.vault1_c1_E.setHelpText(_('PreProc-vault1_c1_desc'))
@@ -469,8 +452,9 @@ class PreProcDataEdit(QMdiSubWindow):
         # Vault Type 2 - Radius
         __vaultGRow = 1
         
-        self.vault2_r1_L = QLabel('r1')
+        self.vault2_r1_L = QLabel('r1 [cm]')
         self.vault2_r1_E = LineEdit()
+        self.vault2_r1_E.enableDoubleValidator(0.000, 9999.999, 3)
         self.vault2_r1_E.setText( str(self.pps.getVault_t2_dta(0,0)) )
         self.vault2_r1_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_r1_E.setHelpText(_('PreProc-vault2_r_desc'))
@@ -479,8 +463,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_r1_E, __vaultGRow, 3, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_r2_L = QLabel('r2')
+        self.vault2_r2_L = QLabel('r2 [cm]')
         self.vault2_r2_E = LineEdit()
+        self.vault2_r2_E.enableDoubleValidator(0.000, 9999.999, 3)
         self.vault2_r2_E.setText( str(self.pps.getVault_t2_dta(1,0)) )
         self.vault2_r2_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_r2_E.setHelpText(_('PreProc-vault2_r_desc'))
@@ -489,8 +474,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_r2_E, __vaultGRow, 3, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_r3_L = QLabel('r3')
+        self.vault2_r3_L = QLabel('r3 [cm]')
         self.vault2_r3_E = LineEdit()
+        self.vault2_r3_E.enableDoubleValidator(0.000, 9999.999, 3)
         self.vault2_r3_E.setText( str(self.pps.getVault_t2_dta(2,0)) )
         self.vault2_r3_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_r3_E.setHelpText(_('PreProc-vault2_r_desc'))
@@ -499,8 +485,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_r3_E, __vaultGRow, 3, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_r4_L = QLabel('r4')
+        self.vault2_r4_L = QLabel('r4 [cm]')
         self.vault2_r4_E = LineEdit()
+        self.vault2_r4_E.enableDoubleValidator(0.000, 9999.999, 3)
         self.vault2_r4_E.setText( str(self.pps.getVault_t2_dta(3,0)) )
         self.vault2_r4_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_r4_E.setHelpText(_('PreProc-vault2_r_desc'))
@@ -511,8 +498,9 @@ class PreProcDataEdit(QMdiSubWindow):
         
         # Vault Type 2 - Angle
         __vaultGRow = 1
-        self.vault2_a1_L = QLabel('a1')
+        self.vault2_a1_L = QLabel('a1 [deg]')
         self.vault2_a1_E = LineEdit()
+        self.vault2_a1_E.enableDoubleValidator(-45.00, 45.00, 2)
         self.vault2_a1_E.setText( str(self.pps.getVault_t2_dta(0,1)) )
         self.vault2_a1_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_a1_E.setHelpText(_('PreProc-vault2_a_desc'))
@@ -521,8 +509,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_a1_E, __vaultGRow, 5, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_a2_L = QLabel('a2')
+        self.vault2_a2_L = QLabel('a2 [deg]')
         self.vault2_a2_E = LineEdit()
+        self.vault2_a2_E.enableDoubleValidator(-45.00, 45.00, 2)
         self.vault2_a2_E.setText( str(self.pps.getVault_t2_dta(1,1)) )
         self.vault2_a2_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_a2_E.setHelpText(_('PreProc-vault2_a_desc'))
@@ -531,8 +520,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_a2_E, __vaultGRow, 5, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_a3_L = QLabel('a3')
+        self.vault2_a3_L = QLabel('a3 [deg]')
         self.vault2_a3_E = LineEdit()
+        self.vault2_a3_E.enableDoubleValidator(-45.00, 45.00, 2)
         self.vault2_a3_E.setText( str(self.pps.getVault_t2_dta(2,1)) )
         self.vault2_a3_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_a3_E.setHelpText(_('PreProc-vault2_a_desc'))
@@ -541,8 +531,9 @@ class PreProcDataEdit(QMdiSubWindow):
         self.vault_G.addWidget(self.vault2_a3_E, __vaultGRow, 5, Qt.AlignRight )
         __vaultGRow += 1
         
-        self.vault2_a4_L = QLabel('a4')
+        self.vault2_a4_L = QLabel('a4 [deg]')
         self.vault2_a4_E = LineEdit()
+        self.vault2_a4_E.enableDoubleValidator(-45.00, 45.00, 2)
         self.vault2_a4_E.setText( str(self.pps.getVault_t2_dta(3,1)) )
         self.vault2_a4_E.textEdited.connect(self.dataStatusChanged)
         self.vault2_a4_E.setHelpText(_('PreProc-vault2_a_desc'))
@@ -569,17 +560,20 @@ class PreProcDataEdit(QMdiSubWindow):
         self.cd_type_L = QLabel(_('Distr Type'))
         self.cd_type_L.setAlignment(Qt.AlignRight)
         self.cd_type_E = LineEdit()
+        self.cd_type_E.enableIntValidator(2, 3)
         self.cd_type_E.setText(self.pps.getSingleVal('CellDistT'))
         self.cd_type_E.textEdited.connect(self.dataStatusChanged)
         self.cd_type_E.setHelpText(_('PreProc-cd_type_desc'))
         self.cd_type_E.setHelpBar(self.helpBar)
         self.cd_G.addWidget(self.cd_type_L, __cdGRow, 0)
         self.cd_G.addWidget(self.cd_type_E, __cdGRow, 1)
+        
         __cdGRow += 1
         
         self.cd_coeff_L = QLabel(_('Distr Coeff'))
         self.cd_coeff_L.setAlignment(Qt.AlignRight)
         self.cd_coeff_E = LineEdit()
+        self.cd_coeff_E.enableDoubleValidator(0.00, 1.00, 2)
         self.cd_coeff_E.setText(self.pps.getSingleVal('CellDistCoeff'))
         self.cd_coeff_E.textEdited.connect(self.dataStatusChanged)
         self.cd_coeff_E.setHelpText(_('PreProc-cd_coeff_desc'))
@@ -591,6 +585,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.cd_num_L = QLabel(_('Cell num'))
         self.cd_num_L.setAlignment(Qt.AlignRight)
         self.cd_num_E = LineEdit()
+        self.cd_num_E.enableIntValidator(1, 99)
         self.cd_num_E.setText(self.pps.getSingleVal('CellNum'))
         self.cd_num_E.textEdited.connect(self.dataStatusChanged)
         self.cd_num_E.setHelpText(_('PreProc-cd_num_desc'))
@@ -615,7 +610,7 @@ class PreProcDataEdit(QMdiSubWindow):
     
     def vault_cb_change(self, q):
         '''
-        Handles change of vault combo box selection
+        :classmethod: Handles change of vault combo box selection.
         '''
         logging.debug(self.__windowName+'.vault_cb_change '+str(q))
         
@@ -624,7 +619,7 @@ class PreProcDataEdit(QMdiSubWindow):
     
     def enableDisableVault(self):
         '''
-        Enables disables the vault input fields, depending on vault combo box settings
+        :classmethod: Enables disables the vault input fields, depending on vault combo box settings
         '''
         if self.vault_cb.currentIndex() == 0:
             # Sin-Cos
@@ -653,7 +648,7 @@ class PreProcDataEdit(QMdiSubWindow):
     
     def btnPress(self, q):
         '''
-        Does the handling of all pressed buttons.
+        :classmethod: Does the handling of all pressed buttons.
         '''
         if q == 'Apply':
             self.writeDataToStore()
@@ -669,7 +664,7 @@ class PreProcDataEdit(QMdiSubWindow):
 
     def updateInputs(self, n, q):  # @UnusedVariable
         '''
-        If data in central store changes, we will update in here the according input fields.
+        :classmethod: If data in central store changes, we will update in here the according input fields.
         '''
         if q == 'WingName':
             self.wingName_E.setText(self.pps.getSingleVal('WingName'))
@@ -685,8 +680,8 @@ class PreProcDataEdit(QMdiSubWindow):
             self.le_x2_E.setText(self.pps.getSingleVal('LE_x2'))   
         elif q == 'LE_xm':    
             self.le_xm_E.setText(self.pps.getSingleVal('LE_xm'))
-        elif q == 'LE_c0':    
-            self.le_c0_E.setText(self.pps.getSingleVal('LE_c0'))
+        elif q == 'LE_c01':    
+            self.le_c01_E.setText(self.pps.getSingleVal('LE_c01'))
         elif q == 'LE_ex1':    
             self.le_ex1_E.setText(self.pps.getSingleVal('LE_ex1'))     
         elif q == 'LE_c02':    
@@ -741,7 +736,7 @@ class PreProcDataEdit(QMdiSubWindow):
         
     def writeDataToStore(self):
         '''
-        Writes all data back to the central data store.
+        :classmethod: Writes all data back to the central data store.
         '''
         self.pps.setSingleVal('WingName', self.wingName_E.text())
         
@@ -751,7 +746,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.pps.setSingleVal('LE_x1',self.le_x1_E.text())
         self.pps.setSingleVal('LE_x2',self.le_x2_E.text())
         self.pps.setSingleVal('LE_xm',self.le_xm_E.text())
-        self.pps.setSingleVal('LE_c0',self.le_c0_E.text())
+        self.pps.setSingleVal('LE_c01',self.le_c01_E.text())
         self.pps.setSingleVal('LE_ex1',self.le_ex1_E.text())
         self.pps.setSingleVal('LE_c02',self.le_c02_E.text())
         self.pps.setSingleVal('LE_ex2',self.le_ex2_E.text())
@@ -791,7 +786,7 @@ class PreProcDataEdit(QMdiSubWindow):
             
     def dataStatusChanged(self):
         '''
-        Does emit a signal if the user has edited data. 
+        :classmethod: Does emit a signal if the user has edited data. 
         '''
         self.dataStatusUpdate.emit(self.__windowName,'edit')
         
