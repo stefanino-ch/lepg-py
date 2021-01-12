@@ -21,13 +21,13 @@ class PreProcDataEdit(QMdiSubWindow):
     '''
     :signal: Sent out as soon the user has edited data or has clicked a button. The first string indicates the window name. The second string indicates if and which button has been pressed.
     '''
-    __windowName = 'PreProcDataEdit'
+    __className = 'PreProcDataEdit'
 
     def __init__(self):
         '''
-        :classmethod: Constructor
+        :method: Constructor
         '''
-        logging.debug(self.__windowName+'.__init__')
+        logging.debug(self.__className+'.__init__')
         super().__init__()
         self.pps = PreProcessorStore()
         self.dws = DataWindowStatus()
@@ -37,10 +37,10 @@ class PreProcDataEdit(QMdiSubWindow):
 
     def closeEvent(self, event):  # @UnusedVariable
         '''
-        :classmethod: called at the time the user closes the window. Does check for unsaved data and warns the user in case. 
+        :method: called at the time the user closes the window. Does check for unsaved data and warns the user in case. 
         '''
         # Check for unapplied data
-        if self.dws.getWindowDataStatus(self.__windowName) == 0:
+        if self.dws.getWindowDataStatus(self.__className) == 0:
             # there is unapplied data
             msgBox = QMessageBox()
             msgBox.setWindowTitle("Changed data")
@@ -51,11 +51,11 @@ class PreProcDataEdit(QMdiSubWindow):
             
             if answer == QMessageBox.Ok:
                 # user wants to quit, dont save, close
-                self.dataStatusUpdate.emit(self.__windowName,'Cancel')
+                self.dataStatusUpdate.emit(self.__className,'Cancel')
                 self.dws.unregisterSignal(self.dataStatusUpdate)
-                self.dws.unregisterWindow(self.__windowName)
+                self.dws.unregisterWindow(self.__className)
                 self.pps.dataStatusUpdate.disconnect(self.updateInputs)
-                logging.debug(self.__windowName+'.closeEvent')
+                logging.debug(self.__className+'.closeEvent')
                 event.accept()
             else:
                 # abort cancel 
@@ -63,7 +63,7 @@ class PreProcDataEdit(QMdiSubWindow):
    
     def buildWindow(self):
         '''
-        :classmethod: Creates the window including all GUI elements. 
+        :method: Creates the window including all GUI elements. 
         
         Layout::
         
@@ -87,7 +87,7 @@ class PreProcDataEdit(QMdiSubWindow):
                     --------------------------------------------------------
                                                   |    btnBar
         '''
-        logging.debug(self.__windowName + '.buildWindow')
+        logging.debug(self.__className + '.buildWindow')
         __frameWidth = 350
         __col0width = 60
         
@@ -203,6 +203,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.le_G.addWidget(self.le_x2_E, __leGRow, 1)
         __leGRow += 1
         
+        # @TODO: Some magic would be nice to keep the xm's from LE and TE in sync
         self.le_xm_L = QLabel('xm [cm]')
         self.le_xm_L.setAlignment(Qt.AlignRight)
         self.le_xm_E = LineEdit()
@@ -610,16 +611,16 @@ class PreProcDataEdit(QMdiSubWindow):
     
     def vault_cb_change(self, q):
         '''
-        :classmethod: Handles change of vault combo box selection.
+        :method: Handles change of vault combo box selection.
         '''
-        logging.debug(self.__windowName+'.vault_cb_change '+str(q))
+        logging.debug(self.__className+'.vault_cb_change '+str(q))
         
-        self.dataStatusUpdate.emit(self.__windowName,'edit')
+        self.dataStatusUpdate.emit(self.__className,'edit')
         self.enableDisableVault()
     
     def enableDisableVault(self):
         '''
-        :classmethod: Enables disables the vault input fields, depending on vault combo box settings
+        :method: Enables disables the vault input fields, depending on vault combo box settings
         '''
         if self.vault_cb.currentIndex() == 0:
             # Sin-Cos
@@ -648,23 +649,23 @@ class PreProcDataEdit(QMdiSubWindow):
     
     def btnPress(self, q):
         '''
-        :classmethod: Does the handling of all pressed buttons.
+        :method: Does the handling of all pressed buttons.
         '''
         if q == 'Apply':
             self.writeDataToStore()
-            self.dataStatusUpdate.emit(self.__windowName,'Apply')
+            self.dataStatusUpdate.emit(self.__className,'Apply')
         elif q == 'Ok':
             self.writeDataToStore()
-            self.dataStatusUpdate.emit(self.__windowName,'Ok')
+            self.dataStatusUpdate.emit(self.__className,'Ok')
             self.close()
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__windowName + '.btnPress unrecognized button press '+q)
+            logging.error(self.__className + '.btnPress unrecognized button press '+q)
 
     def updateInputs(self, n, q):  # @UnusedVariable
         '''
-        :classmethod: If data in central store changes, we will update in here the according input fields.
+        :method: If data in central store changes, we will update in here the according input fields.
         '''
         if q == 'WingName':
             self.wingName_E.setText(self.pps.getSingleVal('WingName'))
@@ -736,7 +737,7 @@ class PreProcDataEdit(QMdiSubWindow):
         
     def writeDataToStore(self):
         '''
-        :classmethod: Writes all data back to the central data store.
+        :method: Writes all data back to the central data store.
         '''
         self.pps.setSingleVal('WingName', self.wingName_E.text())
         
@@ -786,9 +787,9 @@ class PreProcDataEdit(QMdiSubWindow):
             
     def dataStatusChanged(self):
         '''
-        :classmethod: Does emit a signal if the user has edited data. 
+        :method: Does emit a signal if the user has edited data. 
         '''
-        self.dataStatusUpdate.emit(self.__windowName,'edit')
+        self.dataStatusUpdate.emit(self.__className,'edit')
         
     
     

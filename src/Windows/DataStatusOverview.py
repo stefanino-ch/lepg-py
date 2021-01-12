@@ -1,11 +1,6 @@
 '''
-Window displaying 
-    Filenames 
-    If files are saved
-    If data withing windows has been applied
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 import logging
 
@@ -22,15 +17,19 @@ from DataStores.ProcessorStore import ProcessorStore
 
 class DataStatusOverview(QMdiSubWindow):
     '''
-    Window displaying 
-        Filenames 
-        If files are saved
-        If data withing windows has been applied
+    :class: Window displaying: Filenames, if files are saved, if data withing windows has been applied
     '''
-    __windowName = 'DataStatusOverview'
+    
+    __className = 'DataStatusOverview'
+    '''
+    :attr: Does help to indicate the source of the log messages
+    '''
 
     def __init__(self):
-        logging.debug(self.__windowName+'.__init__')
+        '''
+        :method: Constructor
+        ''' 
+        logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.dws = DataWindowStatus()
@@ -43,13 +42,17 @@ class DataStatusOverview(QMdiSubWindow):
         self.ps.dataStatusUpdate.connect(self.dataChanged)
     
     def closeEvent(self, event):  # @UnusedVariable
-        logging.debug(self.__windowName+'.closeEvent')
+        '''
+        :method: Called upon window close
+        '''
+        logging.debug(self.__className+'.closeEvent')
     
     def buildWindow(self):
         '''
-        Builds the window. 
+        :method: Builds the window. 
         
-        Structure:
+        Structure::
+        
             win
                 windowGrid
                     ---------------------------------
@@ -171,6 +174,11 @@ class DataStatusOverview(QMdiSubWindow):
         self.win.setLayout(self.windowGrid)
         
     def shortenPath(self, path):
+        '''
+        :mathod: does shorten the path strings in a way that the filename at the end and only part of the path is shown. 
+        :parameter path: the full path to be shortened
+        :returns: the short form of the path
+        '''
         self.__stringLength = 50
         if len(path) > self.__stringLength:
             return '...'+path[-(self.__stringLength-3):]
@@ -178,6 +186,9 @@ class DataStatusOverview(QMdiSubWindow):
             return path
         
     def updateStatus(self, q):
+        '''
+        :method: Updates the status information displayed in the window
+        '''
         if q == 'PreProcDataEdit':
             self.preProcDataStatusS.setText(self.dws.getWindowDataStatusChar('PreProcDataEdit'))
         
@@ -192,6 +203,9 @@ class DataStatusOverview(QMdiSubWindow):
             
             
     def dataChanged(self, n, q):
+        '''
+        :method: Updates the status information displayed in the window
+        '''
         if n == 'PreProcessorStore':
             if q == 'FileNamePath':
                 self.preProcFilenameD.setText(self.shortenPath(self.pps.getFileName()))
@@ -207,8 +221,11 @@ class DataStatusOverview(QMdiSubWindow):
                 self.procFileversD.setText(self.ps.getSingleVal('FileVersion'))
             
     def btnPress(self, q):
+        '''
+        :method: Handels the button events from the window
+        '''
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__windowName+'.btnPress unrecognized button press '+q)
+            logging.error(self.__className+'.btnPress unrecognized button press '+q)
         

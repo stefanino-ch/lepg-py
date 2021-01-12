@@ -14,19 +14,34 @@ from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
 from DataStores.ProcessorStore import ProcessorStore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QTextEdit, QAction, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
+from Windows.WingViewer import WingViewer
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
 
 class MainWindow(QMainWindow):
+    '''
+    :class: Creates the main window of the application
+    '''
     
     __className = 'MainWindow'
+    '''
+    :attr: Does help to indicate the source of the log messages
+    '''
+    
+    __enableWingFunct = False
+    '''
+    :attr: Set to true to enable all menus related to wing (Processor) functionality. This is used as a temporary aid allowing easier to sync back to the stable branch.
+    ''' 
 
     def __init__(self, parent = None):
+        '''
+        :method: Constructor
+        '''
         # Setup the logger
         # Additional code needed due to pyinstaller. Check doc there. 
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
@@ -78,6 +93,9 @@ class MainWindow(QMainWindow):
         self.statusBar()
    
     def buildFileMenu(self):
+        '''
+        :method: Builds the complete file menu
+        '''
         # Define the actions
         fileDataStatusAct = QAction(_('Show Data Status'), self)
         fileDataStatusAct.setStatusTip(_('Provides an overview about what data has (not) been saved'))
@@ -95,14 +113,14 @@ class MainWindow(QMainWindow):
     
     def fileExit(self):
         ''' 
-        Does all the work to close properly the application. 
+        :method: Does all the work to close properly the application. 
         '''
         logging.debug(self.__className + '.fileExit')
         sys.exit()  
         
     def fileDataStatus(self):
         '''
-        Opens the File Data Status overview window.
+        :method: Opens the File Data Status overview window.
         '''
         if self.dws.windowExists('DataStatusOverview') == False:
             self.fileDataStatusW = DataStatusOverview()
@@ -110,7 +128,10 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.fileDataStatusW)
         self.fileDataStatusW.show() 
     
-    def buildPreProcMenu(self):  
+    def buildPreProcMenu(self):
+        '''
+        :method: Builds the complete Pre-Processor menu
+        '''  
         # Define the actions
         preProcOpenFileAct = QAction(_('Open PreProc File'), self)
         preProcOpenFileAct.setStatusTip(_('open_preProc_file_desc'))
@@ -142,17 +163,26 @@ class MainWindow(QMainWindow):
         preProcMenu.addAction(preProcRunAct)
         
     def preProcOpenFile(self):
+        '''
+        :method: Called if the user selects *Pre Processor* -> *Open PreProc File*
+        ''' 
         self.pps.openFile()
         
     def preProcSaveFile(self):
+        '''
+        :method: Called if the user selects *Pre Processor* -> *Save PreProc File*
+        '''
         self.pps.saveFile()
         
     def preProcSaveFileAs(self):
+        '''
+        :method: Called if the user selects *Pre Processor* -> *Save PreProc File As ..*
+        '''
         self.pps.saveFileAs()
         
     def preProcEdit(self):
         '''
-        Opens the PreProc edit window.
+        :method: Called if the user selects *Pre Processor* -> *Edit PreProc Data*
         '''
         if self.dws.windowExists('PreProcDataEdit') == False:
             self.preProcEditW = PreProcDataEdit()
@@ -163,7 +193,7 @@ class MainWindow(QMainWindow):
         
     def preProcRun(self):
         '''
-        Does start the Pre-Processor
+        :method: Called if the user selects *Pre Processor* -> *Run Pre-Processor*
         '''
         logging.debug(self.__className + '.preProcRun')
         
@@ -181,19 +211,25 @@ class MainWindow(QMainWindow):
         preProcRunner = ProcRunner(self.procOutW)
         preProcRunner.runPreProc()
 
-    def buildProcMenu(self):  
+    def buildProcMenu(self):
+        '''
+        :method: Builds the complete Processor menu
+        '''  
         # Define the actions
         procOpenFileAct = QAction(_('Open Processor File'), self)
         procOpenFileAct.setStatusTip(_('open_Proc_file_desc'))
         procOpenFileAct.triggered.connect(self.procOpenFile)
+        procOpenFileAct.setEnabled(self.__enableWingFunct)
         
         procSaveAct = QAction(_('Save Processor File'), self)
         procSaveAct.setStatusTip(_('save_proc_file_desc'))
         procSaveAct.triggered.connect(self.procSaveFile)
+        procSaveAct.setEnabled(self.__enableWingFunct)
         
         procSaveAsAct = QAction(_('Save Processor File As ..'), self)
         procSaveAsAct.setStatusTip(_('save_proc_file_as_desc'))
         procSaveAsAct.triggered.connect(self.procSaveFileAs)
+        procSaveAsAct.setEnabled(self.__enableWingFunct)
         
         procRunAct = QAction(_('Run Processor'), self)
         procRunAct.setStatusTip(_('run_Processor_des'))
@@ -209,18 +245,27 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procRunAct)
         
     def procOpenFile(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Open Processor File*
+        '''
         self.ps.openFile()
-        # @TODO: delete current values upon open
+        # @TODO: delete current values upon open file open
         
     def procSaveFile(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Save Processor File*
+        '''
         self.ps.saveFile()
         
     def procSaveFileAs(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Save Processor File As..*
+        '''
         self.ps.saveFileAs()
         
     def procRun(self):
         '''
-        Does start the Processor
+        :method: Called if the user selects *Processor* -> *Run Processor*
         '''
         logging.debug(self.__className + '.preProcRun')
         
@@ -239,6 +284,14 @@ class MainWindow(QMainWindow):
         preProcRunner.runPreProc()
 
     def buildViewMenu(self):
+        '''
+        :method: Builds the View menu
+        '''
+        viewWingAct = QAction(_('Wing'), self)
+        viewWingAct.setStatusTip(_('Shows the outline of the wing'))
+        viewWingAct.triggered.connect(self.viewWing)
+        viewWingAct.setEnabled(self.__enableWingFunct)
+        
         # Define the actions
         viewCascadeAct = QAction(_('Cascade'), self)
         viewCascadeAct.setStatusTip(_('Cascade all windows'))
@@ -249,18 +302,37 @@ class MainWindow(QMainWindow):
         viewTileAct.triggered.connect(self.viewTile)
         # Build the menu
         viewMenu = self.mainMenu.addMenu(_('View'))
+        viewMenu.addAction(viewWingAct)
+        viewMenu.addSeparator()
         viewMenu.addAction(viewCascadeAct)
         viewMenu.addAction(viewTileAct)
-        
+    
+    def viewWing(self): 
+        '''
+        :method: Called if the user selects *View* -> *Show Pre-Processor outline*
+        '''
+        if self.dws.windowExists('WingViewer') == False:
+            self.wingViewer_W = WingViewer()
+            self.dws.registerWindow('WingViewer')
+            self.mdi.addSubWindow(self.wingViewer_W)
+
+        self.wingViewer_W.show()
+    
     def viewCascade(self):
+        '''
+        :method: Called if the user selects *View* -> *Cascade*
+        '''
         self.mdi.cascadeSubWindows()
         
     def viewTile(self):
+        '''
+        :method: Called if the user selects *View* -> *Tile*
+        '''
         self.mdi.tileSubWindows()   
         
     def buildSetupMenu(self):
         '''
-        Define the actions needed for the setup menu and does build up the menu itself.
+        :method: Builds the Setup menu
         '''
         #Define actions
         setupLangEnAct = QAction("English", self)
@@ -285,7 +357,7 @@ class MainWindow(QMainWindow):
     
     def setupLangDe(self):
         '''
-        Does to setup for the german language display
+        :method: Called if the user selects *Setup* *Language* -> *German*
         '''
         config = ConfigReader()
         config.setLanguage("de")
@@ -293,7 +365,7 @@ class MainWindow(QMainWindow):
         
     def setupLangEn(self):
         '''
-        Does to setup for the english language display
+        :method: Called if the user selects *Setup* *Language* -> *English*
         '''
         config = ConfigReader()
         config.setLanguage("en")
@@ -301,7 +373,7 @@ class MainWindow(QMainWindow):
         
     def displayRestartMsg(self):
         '''
-        Displays a message to the user to restart the application after switching the language
+        :method: Displays a message to the user to restart the application after switching the language
         '''
         msg = QMessageBox()
         
@@ -314,7 +386,7 @@ class MainWindow(QMainWindow):
         
     def setupPreProcLocation(self): 
         '''
-        Asks the user for the location where the Pre-Processor is saved
+        :method: Asks the user for the location where the Pre-Processor is saved
         '''
         logging.debug(self.__className + '.setupPreProcLocation')
 
@@ -343,18 +415,11 @@ class MainWindow(QMainWindow):
             
             config = ConfigReader()
             config.setPreProcPathName(fileName[0])
-        
-    def fileMenuActions(self, q):
-        if q.text() == _('New'):
-            MainWindow.count = MainWindow.count+1
-            sub = QMdiSubWindow()
-            sub.setWidget(QTextEdit())
-            sub.setWindowTitle("subwindow"+str(MainWindow.count))
-            self.mdi.addSubWindow(sub)
-            sub.show()
 
     def buildHelpMenu(self):
-        # Define the actions
+        '''
+        :method: Builds the Help Menu
+        '''
         helpAboutAct = QAction(_('About'), self)
         helpAboutAct.setStatusTip(_('Short info about the program'))
         helpAboutAct.triggered.connect(self.helpAbout)
@@ -365,7 +430,7 @@ class MainWindow(QMainWindow):
         
     def helpAbout(self):
         '''
-        Opens the Help About window.
+        :method: Opens the Help About window.
         '''
         if self.dws.windowExists('HelpAbout') == False:
             self.helpAboutW = HelpAbout()

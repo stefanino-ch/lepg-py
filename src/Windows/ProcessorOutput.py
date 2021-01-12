@@ -20,16 +20,16 @@ class ProcessorOutput(QMdiSubWindow):
     Window displaying
         the output of both of the processors
     '''
-    __windowName = 'ProcessorOutput'
+    __className = 'ProcessorOutput'
 
     def __init__(self):
-        logging.debug(self.__windowName+'.__init__')
+        logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
-        logging.debug(self.__windowName+'.closeEvent')
+        logging.debug(self.__className+'.closeEvent')
     
     def buildWindow(self):
         '''
@@ -81,5 +81,5 @@ class ProcessorOutput(QMdiSubWindow):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__windowName+'.btnPress unrecognized button press '+q)
+            logging.error(self.__className+'.btnPress unrecognized button press '+q)
         

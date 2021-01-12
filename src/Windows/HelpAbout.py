@@ -8,28 +8,27 @@ Window displaying
 import logging
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 from PyQt5.QtWidgets import QLabel
 
 from Windows.WindowBtnBar import WindowBtnBar
-from PyQt5.Qt import QFont
 
 class HelpAbout(QMdiSubWindow):
     '''
     Window displaying 
         The help about information
     '''
-    __windowName = 'HelpAbout'
+    __className = 'HelpAbout'
 
     def __init__(self):
-        logging.debug(self.__windowName+'.__init__')
+        logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
-        logging.debug(self.__windowName+'.closeEvent')
+        logging.debug(self.__className+'.closeEvent')
     
     def buildWindow(self):
         '''
@@ -94,5 +93,5 @@ class HelpAbout(QMdiSubWindow):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__windowName+'.btnPress unrecognized button press '+q)
+            logging.error(self.__className+'.btnPress unrecognized button press '+q)
         

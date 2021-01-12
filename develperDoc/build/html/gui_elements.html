@@ -14,7 +14,8 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Data Stores" href="data_stores.html" />
+    <link rel="next" title="Supporting Classes" href="support_classes.html" />
+    <link rel="prev" title="Windows" href="windows.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
  
@@ -77,7 +78,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="data_stores.html" title="Data Stores"
+          <a href="support_classes.html" title="Supporting Classes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="Windows"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Home</a>&#160;|</li>
         <li><a href="contents.html">Documentation</a> &#187;</li>
@@ -91,14 +95,18 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">GUI Elements</a><ul>
+<li><a class="reference internal" href="#module-Windows.WindowBtnBar">WindowBtnBar</a></li>
 <li><a class="reference internal" href="#module-Windows.LineEdit">LineEdit</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="data_stores.html"
-                        title="previous chapter">Data Stores</a></p>
+  <p class="topless"><a href="windows.html"
+                        title="previous chapter">Windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="support_classes.html"
+                        title="next chapter">Supporting Classes</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -121,13 +129,119 @@
 <h1>GUI Elements<a class="headerlink" href="#gui-elements" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<div class="section" id="module-Windows.WindowBtnBar">
+<span id="windowbtnbar"></span><h2>WindowBtnBar<a class="headerlink" href="#module-Windows.WindowBtnBar" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.WindowBtnBar.WindowBtnBar">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.WindowBtnBar.</code><code class="sig-name descname">WindowBtnBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buttons</span><span class="o">=</span><span class="default_value">15</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Displays the standard buttons under each data window.</p>
+</dd>
+</dl>
+<p>Button Layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Apply</span><span class="p">]</span> <span class="p">[</span><span class="n">Ok</span><span class="p">]</span> <span class="p">[</span><span class="n">Cancel</span><span class="p">]</span>
+             <span class="p">[</span><span class="n">Help</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Bitmask controlling which buttons will be displayed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Apply</span>    <span class="mb">0b1000</span>
+<span class="n">Ok</span>       <span class="mb">0b0100</span>
+<span class="n">Cancel</span>   <span class="mb">0b0010</span>
+<span class="n">Help</span>     <span class="mb">0b0001</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.__helpPage">
+<code class="sig-name descname">__helpPage</code><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.__helpPage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>the user help page which will be opened if not an individual file was configured</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.applyBtnPress">
+<code class="sig-name descname">applyBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.applyBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Called if the <em>Apply</em> button is pressed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.cancelBtnPress">
+<code class="sig-name descname">cancelBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.cancelBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Called if the <em>Cancel</em> button is pressed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.helpBtnPress">
+<code class="sig-name descname">helpBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.helpBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Called if the <em>Help</em> button is pressed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.my_signal">
+<code class="sig-name descname">my_signal</code><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.my_signal" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Signal</dt>
+<dd class="field-odd"><p>Will be emitted upon button press. The Strind indicates the name of the pressed button.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.okBtnPress">
+<code class="sig-name descname">okBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.okBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Called if the <em>Ok</em> button is pressed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.WindowBtnBar.WindowBtnBar.setHelpPage">
+<code class="sig-name descname">setHelpPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpPage</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WindowBtnBar.WindowBtnBar.setHelpPage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Set the html page to be displayed upon <em>Help</em> button press.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>helpPage</strong> – the name of the .html file to be opened if the Help Button is pressed. If not set, the main index.html will be opened.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-Windows.LineEdit">
 <span id="lineedit"></span><h2>LineEdit<a class="headerlink" href="#module-Windows.LineEdit" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
-<dt class="field-odd">author</dt>
+<dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
 </dd>
-<dt class="field-even">license</dt>
+<dt class="field-even">License</dt>
 <dd class="field-even"><p>General Public License GNU GPL 3.0</p>
 </dd>
 </dl>
@@ -174,7 +288,7 @@
 <dt id="Windows.LineEdit.LineEdit.checkContent">
 <code class="sig-name descname">checkContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.checkContent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does check the content of a line edit with the help of the applied validator. Depending on the check result the background of the line edit is changed.</p>
 </dd>
 </dl>
@@ -184,7 +298,7 @@
 <dt id="Windows.LineEdit.LineEdit.enableDoubleValidator">
 <code class="sig-name descname">enableDoubleValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates an DoubleValidator and sets it for the current line edit.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
@@ -201,7 +315,7 @@
 <dt id="Windows.LineEdit.LineEdit.enableIntValidator">
 <code class="sig-name descname">enableIntValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableIntValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates an IntValidator and sets it for the current line edit.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
@@ -224,7 +338,7 @@
 <dt id="Windows.LineEdit.LineEdit.eventFilter">
 <code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.eventFilter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Catches specific events and controls (the updates of the help window and the validation of the user inputs).</p>
 </dd>
 </dl>
@@ -234,7 +348,7 @@
 <dt id="Windows.LineEdit.LineEdit.setHelpBar">
 <code class="sig-name descname">setHelpBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Configure the help bar of a specific window where the user help text shall be displayed during program execution.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
@@ -247,7 +361,7 @@
 <dt id="Windows.LineEdit.LineEdit.setHelpText">
 <code class="sig-name descname">setHelpText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpText</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
@@ -260,7 +374,7 @@
 <dt id="Windows.LineEdit.LineEdit.setText">
 <code class="sig-name descname">setText</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Classmethod</dt>
+<dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Calls first the super class to set the text and triggers afterwards the value check making sure the background is set according to the verification result.</p>
 </dd>
 </dl>
@@ -288,7 +402,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="data_stores.html" title="Data Stores"
+          <a href="support_classes.html" title="Supporting Classes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="Windows"
              >previous</a> |</li>
         <li><a href="index.html">Home</a>&#160;|</li>
         <li><a href="contents.html">Documentation</a> &#187;</li>

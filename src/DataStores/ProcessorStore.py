@@ -1,8 +1,6 @@
 '''
-Does take care about the data handling for the Processor. 
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 import math
 import os
@@ -17,25 +15,27 @@ from ConfigReader.ConfigReader import ConfigReader
 
 class ProcessorStore(QObject, metaclass=Singleton):
     '''
-    Does take care about the data handling for the PreProcessor. 
+    :class: Does take care about the data handling for the PreProcessor. 
         - Reads and writes the data files
         - Holds as a central point all temporary data during program execution
 
-    Class is implemented as a Singleton. Even if it is instantiated multiple times
-    all data will be the same for all instances. 
-    
-    @signal dataStatusUpdate :  Sent out as soon a file was opened or saved
+    Class is implemented as a Singleton. Even if it is instantiated multiple times all data will be the same for all instances. 
+    '''
+    dataStatusUpdate = pyqtSignal(str,str)
+    '''
+    :signal: Sent out as soon a file was opened or saved
         The first string indicates the class name
         The second string indicates 
         - if a file was opened
         - if a file was saved
         - Filename and Path has been changed
     '''
-    dataStatusUpdate = pyqtSignal(str,str)
-    __className = 'ProcessorStore'
     
-    # Variables used across the class
-    # Single values
+    __className = 'ProcessorStore'
+    '''
+    :attr: Does help to indicate the source of the log messages
+    '''
+    
     __simpleData ={
         'FileNamePath' :  '' ,
         'FileVersion' : '',
@@ -100,6 +100,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         'skinTensionType': '',
         'numSkinTensionGroups': '',
     }
+    '''
+    :attr: Single value params which can be set/ read via its name
+    '''
     
     # Rib geometric parameters
     __RibGeomParams = [ [0 for x in range(8)] for y in range(1)]
@@ -171,6 +174,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
     __separator = '**************************************************************\n'
     
     def __init__(self):
+        '''
+        :method: Constructor
+        '''
         logging.debug(self.__className+'.__init__')
         super().__init__()
         self.dws = DataWindowStatus()
@@ -178,7 +184,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def isValid( self, fileName ):
         '''
-        Checks if a file can be opened and contains a valid title and known version number.
+        :method: Checks if a file can be opened and contains a valid title and known version number.
         '''
         logging.debug(self.__className +'.isValid')
         try:
@@ -222,8 +228,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def openFile(self):
         '''
-        Checks for unapplied/ unsaved data, and appropriate handling. 
-        Does the File Open dialog. 
+        :method: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog. 
         '''
         # Make sure there is no unsaved/ unapplied data
         if not (self.dws.getWindowDataStatus('ProcDataEdit') and self.dws.getFileStatus('ProcFile')):
@@ -254,8 +259,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def saveFile(self):
         '''
-        Checks if there is already a valid file name, if not it asks for it. 
-        Starts afterwards the writing process.  
+        :method: Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.  
         '''
         logging.debug(self.__className+'.saveFile')
         
@@ -279,8 +283,7 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def saveFileAs(self):
         '''
-        Asks for a new filename. 
-        Starts afterwards the writing process.  
+        :method: Asks for a new filename. Starts afterwards the writing process.  
         '''
         logging.debug(self.__className+'.saveFileAs')
         
@@ -299,8 +302,8 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def readFile(self):
         '''
-        Reads the data file and saves the data in the internal varibles.
-        Filename and Path must be set first!
+        :method: Reads the data file and saves the data in the internal varibles.
+        :warning: Filename and Path must be set first!
         '''
         logging.debug(self.__className+'.readFile')
         inFile = QFile(self.getSingleVal('FileNamePath'))
@@ -964,10 +967,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def writeFile(self, forProc=False):
         '''
-        Writes all the values into a data file. 
-        Filename must have been set already before, unless the file shall be written for the Processor.
+        :method: Writes all the values into a data file. 
+        :warning: Filename must have been set already before, unless the file shall be written for the Processor.
                 
-        @param forProc: Set this to True if the file must be saved in the directory where the Processor resides
+        :param forProc: Set this to True if the file must be saved in the directory where the Processor resides
         '''
         logging.debug(self.__className+'.writeFile')
         
@@ -1567,10 +1570,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def setFileName( self, fileName ):
         '''
-        Does set the File Name the data store shall work with. 
+        :mathod: Does set the File Name the data store shall work with. 
         
-        @param fileName: String containing full path and filename
-        @param openFile: If set to True the file will be opened immediately the path and filename was set  
+        :param fileName: String containing full path and filename
+        :param openFile: If set to True the file will be opened immediately the path and filename was set  
         
         '''
         if fileName != '':
@@ -1578,11 +1581,16 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def getFileName( self ):
         '''
-        Returns the name of the file name member.
+        :method: Returns the name of the file name member.
         '''
         return self.getSingleVal('FileNamePath')
     
     def setSingleVal(self, parameter, value):
+        '''
+        :method: Does set a single value in the data store.
+        :param parameter: the name of the parameter to be set. Refer to *__simpleData* for the valid parameter names.
+        :param value: the value to be set.
+        '''
         logging.debug(self.__className+'.setSingleVal |' + parameter +'|'+ value+'|')
         
         self.__simpleData[parameter] = value
@@ -1597,13 +1605,18 @@ class ProcessorStore(QObject, metaclass=Singleton):
             self.dataStatusUpdate.emit(self.__className, 'HalfNumRibs')
         
     def getSingleVal(self, parameter):
+        '''
+        :method: Reads a single parameter from the data store
+        :param parameter: Name of the parameter to be read. Refer to *__simpleData* for the valid parameter names.
+        :returns: the value of the parameter, an empty string if the parameter was not found.
+        '''
         return self.__simpleData.get(parameter)
     
     def setRibGeomParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7, p8):
         '''
-        Saves Rib Geometry parameters into the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param p1..8: The individual data to save
+        :method: Saves Rib Geometry parameters into the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param p1..8: The individual data to save
         '''
         logging.debug(self.__className+'.setRibGeomParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|'+ p8+'|')
         
@@ -1618,10 +1631,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getRibGeomParams(self, ribNum, paramNum):
         '''
-        Reads Rib Geometry parameters from the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Rib Geometry parameters from the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getRibGeomParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
@@ -1633,9 +1646,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def setAirfoilParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
         '''
-        Saves Airfoil parameters into the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param p1..7: The individual data to save
+        :method: Saves Airfoil parameters into the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param p1..7: The individual data to save
         '''
         logging.debug(self.__className+'.setAirfoilParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|')
         
@@ -1650,10 +1663,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getAirfoilParams(self, ribNum, paramNum):
         '''
-        Reads Airfoil parameters from the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Airfoil parameters from the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAirfoilParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
@@ -1665,9 +1678,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def setAnchorPointParams(self, ribNum, p1, p2, p3, p4, p5, p6, p7):
         '''
-        Saves Anchor Point parameters into the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param p1..7: The individual data to save
+        :method: Saves Anchor Point parameters into the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param p1..7: The individual data to save
         '''
         logging.debug(self.__className+'.setAnchorPointParams |'+ str(ribNum)+'|'+ p1+'|'+ p2+'|'+ p3+'|'+ p4+'|'+ p5+'|'+ p6+'|'+ p7+'|')
         
@@ -1682,10 +1695,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
 
     def getAnchorPointParams(self, ribNum, paramNum):
         '''
-        Reads Anchor point parameters from the data store.
-        @param ribNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Anchor point parameters from the data store.
+        :param ribNum: Number of the rib. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAnchorPointParams |'+ str(ribNum)+'|'+ str(paramNum)+'|')
         
@@ -1697,10 +1710,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def setAirfHoleConf(self, confNum, paramNum, value): 
         '''
-        Saves overall Airfoil Holes config into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Airfoil Holes config into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setAirfHoleConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -1713,10 +1726,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getAirfHoleConf(self, confNum, paramNum):
         '''
-        Reads Airfoil holes config values from the data store.
-        @param confNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Airfoil holes config values from the data store.
+        :param confNum: Number of the rib. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAirfHoleConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -1728,11 +1741,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setAirfHoleParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Airfoil Holes params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Airfoil Holes params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setAirfHoleParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -1748,11 +1761,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getAirfHoleParams(self, confNum, lineNum, paramNum):
         '''
-        Reads Airfoil holes params values from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Airfoil holes params values from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAirfHoleParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -1765,10 +1778,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
             
     def setSkinTensionParams(self, lineNum, paramNum, value):
         '''
-        Saves Skin Tension params into the data store.
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Skin Tension params into the data store.
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setSkinTensionParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
@@ -1778,10 +1791,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getSkinTensionParams(self, confNum, paramNum):
         '''
-        Reads Skin tension values from the data store.
-        @param confNum: Number of the rib. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Skin tension values from the data store.
+        :param confNum: Number of the rib. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSkinTensionParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -1793,10 +1806,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setSewingAllPanelsParams(self, lineNum, paramNum, value):
         '''
-        Saves Sewing allowances for panels params into the data store.
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Sewing allowances for panels params into the data store.
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value))
         
@@ -1806,10 +1819,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getSewingAllPanelsParams(self, lineNum, paramNum):
         '''
-        Reads Sewing allowances for panels params from the data store.
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Sewing allowances for panels params from the data store.
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSewingAllPanelsParams |'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -1822,9 +1835,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setLineDescConf(self, confNum, value): 
         '''
-        Saves overall Line Description config into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Line Description config into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setLineDescConf |'+ str(confNum)+'|'+ str(value)+'|')
         
@@ -1837,10 +1850,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getLineDescConf(self, confNum):
         '''
-        Reads overall Line Description config from the data store.
-        @param confNum: Number of the configuration. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Line Description config from the data store.
+        :param confNum: Number of the configuration. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getLineDescConf |'+ str(confNum)+'|')
         
@@ -1851,11 +1864,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setLineDescParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Line description params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Line description params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setLineDescParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -1871,11 +1884,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getLineDescParams(self, confNum, lineNum, paramNum):
         '''
-        Reads Line description params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Line description params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getLineDescParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -1888,10 +1901,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setBrakePathParams(self, confNum, paramNum, value):
         '''
-        Saves Brake path params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Brake path params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setBrakePathParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -1904,10 +1917,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getBrakePathParams(self, confNum, paramNum,):
         '''
-        Reads Brake path params from the data store.
-        @param confNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Brake path params from the data store.
+        :param confNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getBrakePathParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -1919,10 +1932,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setBrakeDistrParams(self, confNum, paramNum, value):
         '''
-        Saves Brake distribution params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Brake distribution params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setBrakeDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
@@ -1932,10 +1945,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getBrakeDistrParams(self, confNum, paramNum,):
         '''
-        Reads Brake distribution params from the data store.
-        @param confNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Brake distribution params from the data store.
+        :param confNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getBrakeDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -1947,10 +1960,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setRamLengthParams(self, confNum, paramNum, value):
         '''
-        Saves Ramification Length params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Ramification Length params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
@@ -1960,10 +1973,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getRamLengthParams(self, confNum, paramNum,):
         '''
-        Reads Ramification Length params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Ramification Length params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getRamLengthParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -1975,10 +1988,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setMiniRibParams(self, confNum, paramNum, value):
         '''
-        Saves Mini Rib params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Mini Rib params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setMiniRibParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -1991,10 +2004,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getMiniRibParams(self, confNum, paramNum,):
         '''
-        Reads Mini Rib params from the data store.
-        @param confNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads Mini Rib params from the data store.
+        :param confNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getMiniRibParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2006,10 +2019,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setExtradColorsConf(self, confNum, paramNum, value):
         '''
-        Saves Configuration data for each Extrados Colors rib into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Configuration data for each Extrados Colors rib into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setExtradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2022,10 +2035,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getExtradColorsConf(self, confNum, paramNum,):
         '''
-        Reads data for each Extrados Colors rib from the data store.
-        @param confNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads data for each Extrados Colors rib from the data store.
+        :param confNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getExtradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2037,11 +2050,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setExtradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Extrados description params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Extrados description params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setExtradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2057,11 +2070,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getExtradColorsParams(self, confNum, lineNum, paramNum):
         '''
-        Reads overall Extrados description params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Extrados description params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getExtradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2074,10 +2087,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setIntradColorsConf(self, confNum, paramNum, value):
         '''
-        Saves Configuration data for each Intrados Colors rib into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Configuration data for each Intrados Colors rib into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setIntradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2090,10 +2103,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getIntradColorsConf(self, confNum, paramNum,):
         '''
-        Reads data for each Intrados Colors rib from the data store.
-        @param confNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads data for each Intrados Colors rib from the data store.
+        :param confNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getIntradColorsConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2105,11 +2118,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setIntradColorsParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Intrados description params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Intrados description params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setIntradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2125,11 +2138,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getIntradColorsParams(self, confNum, lineNum, paramNum):
         '''
-        Reads overall Intrados description params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Intrados description params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getIntradColorsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2142,10 +2155,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setAddRibPointsParams(self, confNum, paramNum, value):
         '''
-        Saves Additional Rib Point data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Additional Rib Point data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setAddRibPointsParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2158,10 +2171,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getAddRibPointsParams(self, confNum, paramNum,):
         '''
-        Reads Additional Rib Point data from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Additional Rib Point data from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAddRibPointsParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2173,10 +2186,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setLoadDistrParams(self, confNum, paramNum, value):
         '''
-        Saves Load Distribution data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Load Distribution data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setLoadDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2186,10 +2199,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getLoadDistrParams(self, confNum, paramNum,):
         '''
-        Reads Load Distribution data from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Load Distribution data from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getLoadDistrParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2201,10 +2214,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setLoadDeformParams(self, confNum, paramNum, value):
         '''
-        Saves Load Deformation data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Load Deformation data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setLoadDeformParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2214,10 +2227,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getLoadDeformParams(self, confNum, paramNum,):
         '''
-        Reads Load Deformation data from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Load Deformation data from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getLoadDeformParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2229,10 +2242,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setDxfLayerParams(self, confNum, paramNum, value):
         '''
-        Saves DXF Layer data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves DXF Layer data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setDxfLayerParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2245,10 +2258,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getDxfLayerParams(self, confNum, paramNum,):
         '''
-        Reads DXF Layer data from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads DXF Layer data from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getDxfLayerParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2260,10 +2273,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setMarkTypeParams(self, confNum, paramNum, value):
         '''
-        Saves Mark Type data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Mark Type data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setMarkTypeParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2276,10 +2289,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getMarkTypeParams(self, confNum, paramNum,):
         '''
-        Reads Mark Type data from the data store.
-        @param confNum: Number of the configuration read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Mark Type data from the data store.
+        :param confNum: Number of the configuration read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getMarkTypeParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2291,11 +2304,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setJoncsConfigsParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Joncs Config params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Joncs Config params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setJoncsConfigsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2311,11 +2324,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getJoncsConfigsParams(self, confNum, lineNum, paramNum):
         '''
-        Reads overall Joncs Config params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Joncs Config params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getJoncsConfigsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2328,11 +2341,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setNoseMylarsParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Nose Mylars params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Nose Mylars params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setNoseMylarsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2348,11 +2361,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getNoseMylarsParams(self, confNum, lineNum, paramNum):
         '''
-        Reads overall Nose Mylars params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Nose Mylars params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getNoseMylarsParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2365,11 +2378,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setTabReinfParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves overall Tab Reinforcement params into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the configuration line. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves overall Tab Reinforcement params into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the configuration line. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setTabReinfParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2385,11 +2398,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getTabReinfParams(self, confNum, lineNum, paramNum):
         '''
-        Reads overall Tab Reinforcement params from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads overall Tab Reinforcement params from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getTabReinfParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2402,10 +2415,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setSchemesParams(self, confNum, paramNum, value):
         '''
-        Saves Schemes data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Schemes data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setSchemesParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2420,27 +2433,26 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getNumSchemesLines(self):
         '''
-        Returns the number of Tab Reinforcement Scheme lines into the data store.
-        @return: number of Scheme lines
+        :method: Returns the number of Tab Reinforcement Scheme lines into the data store.
+        :returns: number of Scheme lines
         '''
         logging.debug(self.__className+'.getNumSchemesLines |')
         return len(self.__SchemesParams)
         
     def getNumSchemesParams(self, line):
         '''
-        Returns the number of parameters registered in a specific Tabinforcement 
-        Scheme line into the data store.
-        @param line: the line of which the num of parameters is asked. Indexing starts with 0!
-        @return: number of Parameters
+        :method: Returns the number of parameters registered in a specific Tabinforcement Scheme line into the data store.
+        :param line: the line of which the num of parameters is asked. Indexing starts with 0!
+        :returns: number of Parameters
         '''
         return len(self.__SchemesParams[line])
     
     def getSchemesParams(self, lineNum, paramNum,):
         '''
-        Reads Schemes data from the data store.
-        @param lineNum: Number of the line to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Schemes data from the data store.
+        :param lineNum: Number of the line to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSchemesParams |'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2452,10 +2464,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setTwoDDxfParams(self, confNum, paramNum, value):
         '''
-        Saves 2D DXF data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves 2D DXF data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setTwoDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2465,10 +2477,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getTwoDDxfParams(self, confNum, paramNum):
         '''
-        Reads 2D DXF data from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads 2D DXF data from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSchemesParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2480,10 +2492,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setThreeDDxfParams(self, confNum, paramNum, value):
         '''
-        Saves 3D DXF data into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves 3D DXF data into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setThreeDParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2493,10 +2505,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getThreeDDxfParams(self, confNum, paramNum):
         '''
-        Reads 3D DXF data from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads 3D DXF data from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSchemesParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2508,9 +2520,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setGlueVentParams(self, confNum, value):
         '''
-        Saves GlueVent data into the data store.
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves GlueVent data into the data store.
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setGlueVentParams |'+ str(confNum)+'|'+ str(value)+'|')
         
@@ -2523,9 +2535,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getGlueVentParams(self, confNum):
         '''
-        Reads GlueVent data from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads GlueVent data from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getGlueVentParams |'+ str(confNum)+'|')
         
@@ -2536,9 +2548,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setCalageVarCordParams(self, paramNum, value):
         '''
-        Saves Calage Variation % of cord params into the data store.
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Calage Variation % of cord params into the data store.
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setCalageVarCordParam |'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2551,9 +2563,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getCalageVarCordParams(self, paramNum):
         '''
-        Reads Calage Variation % of cord params from the data store.
-        @param paramNum: Number of the param to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Calage Variation % of cord params from the data store.
+        :param paramNum: Number of the param to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getCalageVarCordParams |'+ str(paramNum)+'|')
         
@@ -2564,9 +2576,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setCalageVarAngleParams(self, paramNum, value):
         '''
-        Saves Calage Variation angle variation params into the data store.
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves Calage Variation angle variation params into the data store.
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setCalageVarAngleParams |'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2579,9 +2591,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getCalageVarAngleParams(self, paramNum):
         '''
-        Reads Calage Variation angle variation params from the data store.
-        @param paramNum: Number of the param to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads Calage Variation angle variation params from the data store.
+        :param paramNum: Number of the param to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getCalageVarCordParams |'+ str(paramNum)+'|')
         
@@ -2592,10 +2604,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setThreeDShapingGroupConf(self, confNum, paramNum, value):
         '''
-        Saves the individual gropu configurations for the 3D Shaping into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves the individual gropu configurations for the 3D Shaping into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setThreeDShapingGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2608,10 +2620,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getThreeDShapingGroupConf(self, confNum, paramNum):
         '''
-        Reads individual gropu configurations for the 3D Shaping from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads individual gropu configurations for the 3D Shaping from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getThreeDShapingGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2623,11 +2635,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setThreeDShapingUpGroupParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves parameters for 3D Shaping upper groups into the data store.
-        @param confNum: Number of the Group. Indexing starts with 0!
-        @param lineNum: Number of the line withing the group. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
-        @param value: The individual data to save
+        :method: Saves parameters for 3D Shaping upper groups into the data store.
+        :param confNum: Number of the Group. Indexing starts with 0!
+        :param lineNum: Number of the line withing the group. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setThreeDShapingUpGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2643,20 +2655,20 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getNumThreeDShapingUpGroups(self, confNum):
         '''
-        Returns the number of 3D shaping up groups for a specific configuration into the data store.
-        @param confNum: the configuration number of which num of groups is asked. Indexing starts with 0!
-        @return: number of groups
+        :method: Returns the number of 3D shaping up groups for a specific configuration into the data store.
+        :param confNum: the configuration number of which num of groups is asked. Indexing starts with 0!
+        :returns: number of groups
         '''
         logging.debug(self.__className+'.getNumThreeDShapingUpGroups |'+ str(confNum)+'|')
         return len(self.__threeDShapingUpGroupParams[confNum])-1
 
     def getThreeDShapingUpGroupParams(self, confNum, lineNum, paramNum):
         '''
-        Reads parameters for 3D Shaping upper groups from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads parameters for 3D Shaping upper groups from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getThreeDShapingUpGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2669,11 +2681,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setThreeDShapingLoGroupParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves parameters for 3D Shaping lower groups into the data store.
-        @param confNum: Number of the Group. Indexing starts with 0!
-        @param lineNum: Number of the line withing the group. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
-        @param value: The individual data to save
+        :method: Saves parameters for 3D Shaping lower groups into the data store.
+        :param confNum: Number of the Group. Indexing starts with 0!
+        :param lineNum: Number of the line withing the group. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setThreeDShapingLoGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2689,20 +2701,20 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getNumThreeDShapingLoGroups(self, confNum):
         '''
-        Returns the number of 3D shaping lo groups for a specific configuration into the data store.
-        @param confNum: the configuration number of which num of groups is asked. Indexing starts with 0!
-        @return: number of groups
+        :method: Returns the number of 3D shaping lo groups for a specific configuration into the data store.
+        :param confNum: the configuration number of which num of groups is asked. Indexing starts with 0!
+        :returns: number of groups
         '''
         logging.debug(self.__className+'.getNumThreeDShapingLoGroups |'+ str(confNum)+'|')
         return len(self.__threeDShapingLoGroupParams[confNum])-1
     
     def getThreeDShapingLoGroupParams(self, confNum, lineNum, paramNum):
         '''
-        Reads parameters for 3D Shaping lower groups from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads parameters for 3D Shaping lower groups from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getThreeDShapingLoGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2715,10 +2727,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def setThreeDShapingPrintParams(self, confNum, paramNum, value):
         '''
-        Saves the individual print params for the 3D Shaping into the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves the individual print params for the 3D Shaping into the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setThreeDShapingPrintParams |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
             
@@ -2728,10 +2740,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def getThreeDShapingPrintParams(self, confNum, paramNum):
         '''
-        Reads individual individual print params for the 3D Shaping from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads individual individual print params for the 3D Shaping from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getThreeDShapingPrintParams |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2743,9 +2755,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setAirfThiknessModifParams(self, confNum, value):
         '''
-        Saves parameters for Airfoil Thikness Modification into the data store.
-        @param confNum: Number of the rib. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves parameters for Airfoil Thikness Modification into the data store.
+        :param confNum: Number of the rib. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setAirfThiknessModifParams |'+ str(confNum)+'|'+ str(value)+'|')
         
@@ -2758,9 +2770,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getAirfThiknessModifParams(self, confNum):
         '''
-        Reads parameters for Airfoil Thikness Modification from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads parameters for Airfoil Thikness Modification from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getAirfThiknessModifParams |'+ str(confNum)+'|')
         
@@ -2771,10 +2783,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setSkinTensionGroupConf(self, confNum, paramNum, value):
         '''
-        Saves the individual group configurations for the Skin Tension into the data store.
-        @param confNum: Number of the configuration. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0!
-        @param value: The individual data to save
+        :method: Saves the individual group configurations for the Skin Tension into the data store.
+        :param confNum: Number of the configuration. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setSkinTensionGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2787,10 +2799,10 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getSkinTensionGroupConf(self, confNum, paramNum):
         '''
-        Reads individual group configurations for the Skin Tension from the data store.
-        @param confNum: Number of the config to read. Indexing starts with 0!
-        @param paramNum: Number of the parameter to read. Indexing starts with 0!
-        @return: Parameter value
+        :method: Reads individual group configurations for the Skin Tension from the data store.
+        :param confNum: Number of the config to read. Indexing starts with 0!
+        :param paramNum: Number of the parameter to read. Indexing starts with 0!
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSkinTensionGroupConf |'+ str(confNum)+'|'+ str(paramNum)+'|')
         
@@ -2802,11 +2814,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def setSkinTensionGroupParams(self, confNum, lineNum, paramNum, value):
         '''
-        Saves parameters for Skin Tension groups into the data store.
-        @param confNum: Number of the Group. Indexing starts with 0!
-        @param lineNum: Number of the line withing the group. Indexing starts with 0!
-        @param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
-        @param value: The individual data to save
+        :method: Saves parameters for Skin Tension groups into the data store.
+        :param confNum: Number of the Group. Indexing starts with 0!
+        :param lineNum: Number of the line withing the group. Indexing starts with 0!
+        :param paramNum: Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!
+        :param value: The individual data to save
         '''
         logging.debug(self.__className+'.setSkinTensionGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|'+ str(value)+'|')
         
@@ -2822,11 +2834,11 @@ class ProcessorStore(QObject, metaclass=Singleton):
         
     def getSkinTensionGroupParams(self, confNum, lineNum, paramNum):
         '''
-        Reads parameters for Skin Tension groups from the data store.
-        @param confNum: Number of the configuration set. Indexing starts with 0!
-        @param lineNum: Number of the line. Indexing starts with 0!
-        @param paramNum: Individual param num
-        @return: Parameter value
+        :method: Reads parameters for Skin Tension groups from the data store.
+        :param confNum: Number of the configuration set. Indexing starts with 0!
+        :param lineNum: Number of the line. Indexing starts with 0!
+        :param paramNum: Individual param num
+        :returns: Parameter value
         '''
         logging.debug(self.__className+'.getSkinTensionGroupParams |'+ str(confNum)+'|'+ str(lineNum)+'|'+ str(paramNum)+'|')
         
@@ -2839,9 +2851,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def remTabSpaceQuot(self, line):
         '''
-        Removes from a string all leading, trailing spaces tabs and quotations
-        @param Line: The string to be cleaned
-        @return: cleaned string 
+        :method: Removes from a string all leading, trailing spaces tabs and quotations
+        :param Line: The string to be cleaned
+        :returns: cleaned string 
         '''
         line = self.remTabSpace(line)
         line = re.sub(r'^\"+|\"+$', '', line )
@@ -2849,19 +2861,18 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def remTabSpace(self, line):
         '''
-        Deletes all leaing and trailing edges from a string
-        @param Line: The string to be cleaned
-        @return: cleaned string 
+        :method: Deletes all leaing and trailing edges from a string
+        :param Line: The string to be cleaned
+        :returns: cleaned string 
         '''
         value = re.sub(r'^\s+|\s+$', '', line ) 
         return value
     
     def splitLine(self, line):
         '''
-        Splits lines with multiple values into a list of values
-        delimiters could be spaces and tabs
-        @param line: The line to be split
-        @return: a list of values 
+        :method: Splits lines with multiple values into a list of values delimiters could be spaces and tabs
+        :param line: The line to be split
+        :returns: a list of values 
         '''
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
@@ -2869,9 +2880,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
     
     def writeHeader(self, stream, title):
         '''
-        Writes the section header in the data file
-        @param stream: The stream to write to
-        @title: The section title 
+        :method: Writes the section header in the data file
+        :param stream: The stream to write to
+        :param title: The section title 
         '''
         stream << self.__separator
         stream << '* '+ title+ '\n'

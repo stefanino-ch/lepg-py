@@ -31,6 +31,7 @@ class DataWindowStatus(QObject, metaclass=Singleton):
     # List of all windows taken care of
     __windowDataStatus ={
         'PreProcDataEdit' : '1' ,
+        'WingOutlineViewer' : '1',
         'ProcDataEdit' : '1'
     }
     

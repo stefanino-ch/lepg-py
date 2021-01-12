@@ -10,11 +10,9 @@ Doc overview
    
    windows
    
-   data_stores
-   
    gui_elements
    
-   
+   support_classes
 
 
 Indices and tables

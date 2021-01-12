@@ -1,8 +1,6 @@
 '''
-Displays the standard buttons under each data window. 
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 
 import os
@@ -15,29 +13,37 @@ from ConfigReader.ConfigReader import ConfigReader
 
 class WindowBtnBar(QWidget):
     '''
-    Displays the standard buttons under each data window. 
+    :class: Displays the standard buttons under each data window. 
     
-    Button Layout
+    Button Layout::
+    
         [Apply] [Ok] [Cancel]
                      [Help]
                      
-    Bitmask controlling which buttons will be displayed
+    Bitmask controlling which buttons will be displayed::
+    
         Apply    0b1000
         Ok       0b0100
         Cancel   0b0010
         Help     0b0001
     '''
     my_signal = pyqtSignal(str)
+    '''
+    :Signal: Will be emitted upon button press. The Strind indicates the name of the pressed button. 
+    '''
     
     def __init__(self, buttons = 0b1111):
         '''
-        Constructor
+        :class: Constructor
         
-        @param buttons: A bitmask defining which of the buttons shall be displayed. 
+        :param buttons: A bitmask defining which of the buttons shall be displayed. 
         '''
         super().__init__()
         
         self.__helpPage = 'index.html'
+        '''
+        :attr: the user help page which will be opened if not an individual file was configured
+        '''
         
         layout = QGridLayout()
         
@@ -70,21 +76,33 @@ class WindowBtnBar(QWidget):
         self.setLayout(layout)
         
     def applyBtnPress(self):
+        '''
+        :class: Called if the *Apply* button is pressed
+        '''
         self.my_signal.emit('Apply')
         
     def okBtnPress(self):
+        '''
+        :class: Called if the *Ok* button is pressed
+        '''
         self.my_signal.emit('Ok')
         
     def cancelBtnPress(self):
+        '''
+        :class: Called if the *Cancel* button is pressed
+        '''
         self.my_signal.emit('Cancel')
         
     def helpBtnPress(self):
+        '''
+        :class: Called if the *Help* button is pressed
+        '''
         config = ConfigReader()
         webbrowser.open( os.path.join(os.getcwd(), 'userHelp', config.getLanguage(), self.__helpPage) )
     
     def setHelpPage(self, helpPage):
         '''
-        @param helpPage: the name of the file to be opened if the Help Button is pressed. If not set, the main index.html will be opened.
+        :class: Set the html page to be displayed upon *Help* button press.
+        :param helpPage: the name of the .html file to be opened if the Help Button is pressed. If not set, the main index.html will be opened.
         '''
         self.__helpPage = helpPage
-        

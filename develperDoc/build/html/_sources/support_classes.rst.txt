@@ -1,7 +1,7 @@
-.. data stores
+.. support_classes
 
-Data Stores
-===========
+Supporting Classes
+==================
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -16,6 +16,20 @@ Pre-Processor store
 Processor store   
 -------------------
 .. automodule:: DataStores.ProcessorStore
+   :undoc-members:
+   :members:
+   :private-members:
+
+Data Window Status
+------------------
+.. automodule::    DataWindowStatus.DataWindowStatus
+   :undoc-members:
+   :members:
+   :private-members:
+
+Proc Runner
+-----------
+.. automodule::    Processors.ProcRunner
    :undoc-members:
    :members:
    :private-members:

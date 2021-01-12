@@ -1,6 +1,6 @@
 '''
-:author: Stefan Feuz; http://www.laboratoridenvol.com
-:license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 
 Many thanks to https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/ for the qvalidator explanations
 '''
@@ -26,7 +26,7 @@ class LineEdit(QLineEdit):
     
     def __init__(self):
         '''
-        :classmethod: Constructor
+        :method: Constructor
         '''
         super().__init__()
         
@@ -36,7 +36,7 @@ class LineEdit(QLineEdit):
     
     def eventFilter(self, source, event):
         '''
-        :classmethod: Catches specific events and controls (the updates of the help window and the validation of the user inputs).
+        :method: Catches specific events and controls (the updates of the help window and the validation of the user inputs).
         '''
         if self.__helpBar != None:
             if event.type() == QEvent.Enter:
@@ -50,25 +50,25 @@ class LineEdit(QLineEdit):
                 
         return super(LineEdit, self).eventFilter(source, event)
 
-# ..py :classmethod setHelpBar(self, helpBar)
+# ..py :method setHelpBar(self, helpBar)
 # :param str helpBar: Reference of the respecitive help bar to work with
     def setHelpBar(self, helpBar): 
         '''
-        :classmethod: Configure the help bar of a specific window where the user help text shall be displayed during program execution. 
+        :method: Configure the help bar of a specific window where the user help text shall be displayed during program execution. 
         :param helpBar: Instance of the respecitive help bar to work with
         '''
         self.__helpBar = helpBar
         
     def setHelpText(self, helpText):
         '''
-        :classmethod: Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.   
+        :method: Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.   
         :param helpText: Help text to be displayed
         '''
         self.__helpText = helpText
     
     def enableIntValidator(self, bottom, top):
         '''
-        :classmethod: Creates an IntValidator and sets it for the current line edit.
+        :method: Creates an IntValidator and sets it for the current line edit.
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         '''
@@ -78,7 +78,7 @@ class LineEdit(QLineEdit):
             
     def enableDoubleValidator(self,bottom, top, decimals=0):
         '''
-        :classmethod: Creates an DoubleValidator and sets it for the current line edit.
+        :method: Creates an DoubleValidator and sets it for the current line edit.
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         :param decimals: number of decimals to be checked
@@ -99,7 +99,7 @@ class LineEdit(QLineEdit):
         
     def checkContent(self):
         '''
-        :classmethod: Does check the content of a line edit with the help of the applied validator. Depending on the check result the background of the line edit is changed.
+        :method: Does check the content of a line edit with the help of the applied validator. Depending on the check result the background of the line edit is changed.
         '''
         if self.__hasDoubleValidator or self.__hasIntValidator:
             state = self.validator.validate(self.text(), 0) [0]
@@ -124,7 +124,7 @@ class LineEdit(QLineEdit):
 
     def setText(self, *args, **kwargs):
         '''
-        :classmethod: Calls first the super class to set the text and triggers afterwards the value check making sure the background is set according to the verification result. 
+        :method: Calls first the super class to set the text and triggers afterwards the value check making sure the background is set according to the verification result. 
         '''
         QLineEdit.setText(self, *args, **kwargs)
         self.checkContent()
