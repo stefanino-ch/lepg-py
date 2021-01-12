@@ -8,6 +8,13 @@ GUI Elements
 
 WindowBtnBar
 ------------
+.. automodule:: Windows.WindowHelpBar
+   :undoc-members:
+   :members:
+   :private-members:
+
+WindowBtnBar
+------------
 .. automodule:: Windows.WindowBtnBar
    :undoc-members:
    :members:

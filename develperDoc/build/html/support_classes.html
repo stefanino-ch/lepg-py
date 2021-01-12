@@ -95,6 +95,7 @@
 <li><a class="reference internal" href="#module-DataStores.ProcessorStore">Processor store</a></li>
 <li><a class="reference internal" href="#module-DataWindowStatus.DataWindowStatus">Data Window Status</a></li>
 <li><a class="reference internal" href="#module-Processors.ProcRunner">Proc Runner</a></li>
+<li><a class="reference internal" href="#module-ConfigReader.ConfigReader">ConfigReader</a></li>
 </ul>
 </li>
 </ul>
@@ -2242,41 +2243,52 @@ The second string indicates
 </div>
 <div class="section" id="module-DataWindowStatus.DataWindowStatus">
 <span id="data-window-status"></span><h2>Data Window Status<a class="headerlink" href="#module-DataWindowStatus.DataWindowStatus" title="Permalink to this headline">¶</a></h2>
-<p>Central place where the data status will be tracked.</p>
-<p>&#64;author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
-&#64;license: General Public License GNU GPL 3.0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
 <dl class="py class">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus">
 <em class="property">class </em><code class="sig-prename descclassname">DataWindowStatus.DataWindowStatus.</code><code class="sig-name descname">DataWindowStatus</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Central place where the data status will be tracked.</p>
-<p>Class is implemented as a Singleton. Even if it is instantiated multiple times
-all data will be the same for all instances.</p>
-<dl>
-<dt>&#64;signal dataStatusUpdate<span class="classifier">sent out as soon a data or window status changes</span></dt><dd><dl class="simple">
-<dt>A string indicates either</dt><dd><ul class="simple">
-<li><p>the window name</p></li>
-<li><p>the PreProc file</p></li>
-<li><p>the ProcFile</p></li>
-</ul>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Central place where the data status will be tracked.</p>
 </dd>
 </dl>
-<p>status has changed.</p>
-</dd>
-</dl>
+<p>Class is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple times all data will be the same for all instances.</p>
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.__fileDataStatus">
 <code class="sig-name descname">__fileDataStatus</code><em class="property"> = {'PreProcFile': '1', 'ProcFile': '1'}</em><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.__fileDataStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>List of all files taken care of</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.__instanciatedWindowList">
 <code class="sig-name descname">__instanciatedWindowList</code><em class="property"> = {}</em><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.__instanciatedWindowList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Helps to remember which windows have already been opened before</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.__windowDataStatus">
 <code class="sig-name descname">__windowDataStatus</code><em class="property"> = {'PreProcDataEdit': '1', 'ProcDataEdit': '1', 'WingOutlineViewer': '1'}</em><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.__windowDataStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>List of all windows taken care of</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus._instance">
@@ -2286,65 +2298,147 @@ all data will be the same for all instances.</p>
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.getFileStatus">
 <code class="sig-name descname">getFileStatus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.getFileStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Ask for the status of a specific file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>0</strong> if a file has been Changed but not yet saved. <strong>1</strong> if a file has been saved and no values has been changed since then.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.getFileStatusChar">
 <code class="sig-name descname">getFileStatusChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.getFileStatusChar" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Ask for the status of a specific file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>C</strong> if a file has been Changed but not yet saved. <strong>S</strong> if a file has been saved and no values has been changed since then.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.getWindowDataStatus">
 <code class="sig-name descname">getWindowDataStatus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.getWindowDataStatus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Ask for the status of a specific window.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>0</strong> if the window contains data which has not yet been applied. <strong>1</strong> if a apply was pressed and and no values has been changed since then.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.getWindowDataStatusChar">
 <code class="sig-name descname">getWindowDataStatusChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.getWindowDataStatusChar" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Ask for the status of a specific window.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>C</strong> if the window contains data which has not yet been applied. <strong>S</strong> if a apply was pressed and and no values has been changed since then.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.registerSignal">
 <code class="sig-name descname">registerSignal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.registerSignal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Each new sender must been registered first.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.registerWindow">
 <code class="sig-name descname">registerWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.registerWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Windows which are instanciated shall be registered here. This is part of the work to avoid 
-multiple windows of the same name are open.</p>
-<p>&#64;param window: window name to be register</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Windows which are instanciated shall be registered here. This is part of the work to avoid multiple windows of the same name are open.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>window</strong> – window name to be register</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.signalReceived">
 <code class="sig-name descname">signalReceived</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.signalReceived" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the moment a signal was received. Does all the signal handling.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> – Name of the signal emitter</p></li>
+<li><p><strong>action</strong> – The action which is reported by the emitter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.statusUpdated">
 <code class="sig-name descname">statusUpdated</code><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.statusUpdated" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Signal</dt>
+<dd class="field-odd"><p>sent out as soon a data or window status changes
+A string indicates either
+- the window name 
+- the PreProc file
+- the ProcFile 
+status has changed.
+<strong>1</strong> means data has been applied or saved</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.unregisterSignal">
 <code class="sig-name descname">unregisterSignal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.unregisterSignal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>At the moment a sender does not exist anymore: unregister also its signal</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.unregisterWindow">
 <code class="sig-name descname">unregisterWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.unregisterWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Windows which are closed shall be unregistered here. This is part of the work to avoid 
-multiple windows of the same name are open.</p>
-<p>&#64;param window: window name to be unregistered</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Windows which are closed shall be unregistered here. This is part of the work to avoid multiple windows of the same name are open.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>window</strong> – window name to be unregistered</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.windowExists">
 <code class="sig-name descname">windowExists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.windowExists" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if a window has already been instanciated.</p>
-<p>&#64;param window: Name of the window to check for it’s existence
-&#64;return: True/ False: depending on window has been registered/ unregistered</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a window has already been instanciated.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>window</strong> – Name of the window to check for it’s existence</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True/ False: depending on window has been registered/ unregistered</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -2375,6 +2469,169 @@ multiple windows of the same name are open.</p>
 <code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Processors.ProcRunner.ProcRunner.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does finally execute all the commands to run the processor.</p>
 <p>&#64;param cmds: A list of commands to be executed</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ConfigReader.ConfigReader">
+<span id="configreader"></span><h2>ConfigReader<a class="headerlink" href="#module-ConfigReader.ConfigReader" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="ConfigReader.ConfigReader.ConfigReader">
+<em class="property">class </em><code class="sig-prename descclassname">ConfigReader.ConfigReader.</code><code class="sig-name descname">ConfigReader</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Does all the necessary work to read and save global program configurations.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="ConfigReader.ConfigReader.ConfigReader._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getLanguage">
+<code class="sig-name descname">getLanguage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLanguage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns language info e.g. en</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getLepDirectory">
+<code class="sig-name descname">getLepDirectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLepDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the directory where the Procecssor resides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getLepPathName">
+<code class="sig-name descname">getLepPathName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLepPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Return the path/ and name string for the Processor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getPreProcDirectory">
+<code class="sig-name descname">getPreProcDirectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getPreProcDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the directory where the PreProcecssor resides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getPreProcPathName">
+<code class="sig-name descname">getPreProcPathName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getPreProcPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Return the path/ and name string for the PreProcessor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.readConfigFileContent">
+<code class="sig-name descname">readConfigFileContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.readConfigFileContent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Reads all values from the config file. Does apply hardcoded defaults if a key/ value pair does not exist in the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setLanguage">
+<code class="sig-name descname">setLanguage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lang</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setLanguage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the language info</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>lang</strong> – language string e.g. en, de</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setLepDirectory">
+<code class="sig-name descname">setLepDirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setLepDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the Processor directory</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>lang</strong> – Directory string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setLepPathName">
+<code class="sig-name descname">setLepPathName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setLepPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the path/ and name string for the lep processor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>param</strong> – Full path and name of the Processor executable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setPreProcDirectory">
+<code class="sig-name descname">setPreProcDirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setPreProcDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the PreProcessor directory</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>lang</strong> – Directory string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setPreProcPathName">
+<code class="sig-name descname">setPreProcPathName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setPreProcPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Sets the path/ and name string for the pre processor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>param</strong> – Full path and name of the pre processor executable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.writeConfigFileContent">
+<code class="sig-name descname">writeConfigFileContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.writeConfigFileContent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Write all configuration options in the config file</p>
+</dd>
+</dl>
+<p>Options changed during program execution must be written back with set.. methods prior to write the config file.
+Usually you won’t need to call this method, as every set.. method does trigger immediately a write operation as well.</p>
 </dd></dl>
 
 </dd></dl>

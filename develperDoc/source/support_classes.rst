@@ -14,7 +14,7 @@ Pre-Processor store
    :private-members:
    
 Processor store   
--------------------
+---------------
 .. automodule:: DataStores.ProcessorStore
    :undoc-members:
    :members:
@@ -30,6 +30,13 @@ Data Window Status
 Proc Runner
 -----------
 .. automodule::    Processors.ProcRunner
+   :undoc-members:
+   :members:
+   :private-members:
+   
+ConfigReader
+------------
+.. automodule::    ConfigReader.ConfigReader
    :undoc-members:
    :members:
    :private-members:

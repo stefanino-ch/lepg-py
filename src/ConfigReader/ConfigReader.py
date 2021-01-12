@@ -1,8 +1,6 @@
 '''
-Takes care about reading and saving the program configuration.
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 
 from __future__ import annotations
@@ -12,31 +10,14 @@ import configparser
 from PyQt5.QtCore import QObject
 from Singleton.Singleton import Singleton
 
-#from typing import Optional
-
-# class ConfigReaderMeta(type):
-#     ''' 
-#     The meta class for the ConfigReader
-#     
-#     As the configuration options are used across the whole program
-#     this was implemented as a singleton to avoid data mismatches.
-#     '''
-#     
-#     _instance: Optional[ConfigReader] = None
-#     def __call__(self):
-#         if self._instance is None:
-#             self._instance = super().__call__()
-#         return self._instance
-
-#class ConfigReader(metaclass=ConfigReaderMeta):
-# @TODO: cleanup above
-
-
 class ConfigReader(QObject, metaclass=Singleton):
     '''
-    Does all the necessary work to read and save global program configurations. 
+    :class: Does all the necessary work to read and save global program configurations. 
     '''
     def __init__(self):
+        '''
+        :method: Constructor
+        '''
         # Variables and instances used across the class
         self.__configFileNamePath = ""
         self.__language = ""
@@ -58,6 +39,9 @@ class ConfigReader(QObject, metaclass=Singleton):
             self.readConfigFileContent()
 
     def readConfigFileContent(self):
+        '''
+        :method: Reads all values from the config file. Does apply hardcoded defaults if a key/ value pair does not exist in the file. 
+        ''' 
         with open(self.__configFilePathName, 'r+') as openFile:
             self.__parser.read_file(openFile)
             
@@ -98,12 +82,10 @@ class ConfigReader(QObject, metaclass=Singleton):
             
     def writeConfigFileContent(self):
         '''
-        Write all configuration options in the config file 
+        :method: Write all configuration options in the config file 
     
-        Options changed during program execution must be written back with set.. 
-        methods prior to write the config file.
-        Usually you won't need to call this as every set.. method does 
-        trigger immediately a write operation as well.
+        Options changed during program execution must be written back with set.. methods prior to write the config file.
+        Usually you won't need to call this method, as every set.. method does trigger immediately a write operation as well.
         '''
         cfgfile = open(self.__configFilePathName,'w')
         self.__parser.set('Defaults','Language',self.__language)
@@ -117,46 +99,56 @@ class ConfigReader(QObject, metaclass=Singleton):
         
     def getLanguage(self):
         '''
-        Return language info e.g. en
+        :method: Returns language info e.g. en
         '''
         return self.__language
     
-    def setLanguage(self, param):
+    def setLanguage(self, lang):
         '''
-        Set the language info
-        
-        Keyword arguments:
-        param -- language string e.g. en, de
+        :method: Set the language info
+        :param lang: language string e.g. en, de
         '''
-        self.__language = param
+        self.__language = lang
         self.writeConfigFileContent()
     
     def getPreProcDirectory(self):
+        '''
+        :method: Returns the directory where the PreProcecssor resides
+        '''
         return self.__preProcDirectory
     
-    def setPreProcDirectory(self, param):    
+    def setPreProcDirectory(self, param):
+        '''
+        :method: Set the PreProcessor directory
+        :param lang: Directory string
+        '''    
         self.__preProcDirectory = param
         self.writeConfigFileContent()
         
     def getLepDirectory(self):
+        '''
+        :method: Returns the directory where the Procecssor resides
+        '''
         return self.__lepDirectory
     
-    def setLepDirectory(self, param):    
+    def setLepDirectory(self, param): 
+        '''
+        :method: Set the Processor directory
+        :param lang: Directory string
+        '''   
         self.__lepDirectory = param
         self.writeConfigFileContent()
         
     def getPreProcPathName(self):
         '''
-        Return the path/ and name string for the pre processor
+        :method: Return the path/ and name string for the PreProcessor
         '''
         return self.__preProcPathName
     
     def setPreProcPathName(self, param): 
         '''
-        Sets the path/ and name string for the pre processor 
-    
-        Keyword arguments:
-        param -- full path and name of the pre processor executable
+        :method: Sets the path/ and name string for the pre processor 
+        :param param: Full path and name of the pre processor executable
         '''
         self.__preProcPathName = param
         
@@ -166,15 +158,14 @@ class ConfigReader(QObject, metaclass=Singleton):
         
     def getLepPathName(self):
         '''
-        Return the path/ and name string for the lep processor
+        :method: Return the path/ and name string for the Processor
         '''
         return self.__lepPathName
     
     def setLepPathName(self, param):    
-        '''Set the path/ and name string for the lep processor 
-            
-        Keyword arguments:
-        param -- full path and name of the lep processor executable"""
+        '''
+        :method: Set the path/ and name string for the lep processor 
+        :param param: Full path and name of the Processor executable
         '''
         self.__lepPathName = param 
         self.writeConfigFileContent()

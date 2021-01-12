@@ -1,13 +1,14 @@
 '''
-Parent class used to build the individial singletons across the program. 
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 
 from PyQt5.QtCore import QObject
 
 class Singleton(type(QObject), type):
+    '''
+    :class: Parent class used to build the individial singletons across the program. 
+    '''
     def __init__(cls, name, bases, dict):  # @NoSelf @ReservedAssignment
         super().__init__(name, bases, dict)
         cls._instance = None

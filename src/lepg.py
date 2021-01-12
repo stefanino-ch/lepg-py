@@ -1,6 +1,6 @@
 '''
-:author: Stefan Feuz; http://www.laboratoridenvol.com
-:license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 
 from os import path

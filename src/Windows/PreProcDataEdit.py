@@ -1,6 +1,6 @@
 '''
-:author: Stefan Feuz; http://www.laboratoridenvol.com
-:license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 import logging
 from PyQt5.QtCore import Qt, pyqtSignal
@@ -37,7 +37,7 @@ class PreProcDataEdit(QMdiSubWindow):
 
     def closeEvent(self, event):  # @UnusedVariable
         '''
-        :method: called at the time the user closes the window. Does check for unsaved data and warns the user in case. 
+        :method: Called at the time the user closes the window. Does check for unsaved data and warns the user in case. 
         '''
         # Check for unapplied data
         if self.dws.getWindowDataStatus(self.__className) == 0:

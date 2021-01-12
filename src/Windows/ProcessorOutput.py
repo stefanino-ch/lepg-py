@@ -1,41 +1,42 @@
 '''
-Window displaying
-    the output of both of the processors
-    
-
-@author: Stefan Feuz; http://www.laboratoridenvol.com
-@license: General Public License GNU GPL 3.0
+@Author: Stefan Feuz; http://www.laboratoridenvol.com
+@License: General Public License GNU GPL 3.0
 '''
 import logging
 
-from PyQt5.Qt import QFont
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QGridLayout, QTextEdit, QSizePolicy
 
 from Windows.WindowBtnBar import WindowBtnBar
 
 class ProcessorOutput(QMdiSubWindow):
     '''
-    Window displaying
-        the output of both of the processors
+    :class: Window displaying the output of both of the processors
     '''
     __className = 'ProcessorOutput'
 
     def __init__(self):
+        '''
+        :method: Constructor
+        '''
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
+        '''
+        :method: Called at the time the user closes the window.
+        '''
         logging.debug(self.__className+'.closeEvent')
     
     def buildWindow(self):
         '''
-        Builds the window. 
+        :method: Builds the window. 
         
-        Structure:
+        Structure::
+        
             win
                 windowGrid
                     debugOut
@@ -75,9 +76,15 @@ class ProcessorOutput(QMdiSubWindow):
         self.win.setLayout(self.windowGrid)
     
     def appendText(self, string):
+        '''
+        :method: Does append text at the end of the message view.
+        '''
         self.debugOut.append(string)
             
     def btnPress(self, q):
+        '''
+        :method: Handles button functionality within the window. 
+        '''
         if q == 'Ok':
             self.close()
         else:

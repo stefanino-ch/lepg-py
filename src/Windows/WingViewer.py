@@ -1,6 +1,6 @@
 '''
-:author: Stefan Feuz; http://www.laboratoridenvol.com
-:license: General Public License GNU GPL 3.0
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
 '''
 import logging
 from PyQt5.QtCore import Qt
@@ -22,7 +22,7 @@ class WingViewer(QMdiSubWindow):
 
     def __init__(self):
         '''
-        :classmethod: Constructor
+        :method: Constructor
         '''
         logging.debug(self.__className+'.__init__')
         super().__init__()
@@ -33,6 +33,9 @@ class WingViewer(QMdiSubWindow):
         self.pps.dataStatusUpdate.connect(self.updateWindow)  
     
     def closeEvent(self, event):  # @UnusedVariable
+        '''
+        :method: Called at the time the user closes the window.
+        '''
         logging.debug(self.__className+'.closeEvent') 
    
     def buildWindow(self):
