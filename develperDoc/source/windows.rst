@@ -26,13 +26,27 @@ Pre-Processor data edit
    :undoc-members:
    :members:
    :private-members:
-   
-Wing Viewer
------------
-.. automodule:: Windows.WingViewer
+
+Processor Basic Data
+--------------------
+.. automodule:: Windows.ProcBasicData
    :undoc-members:
    :members:
    :private-members:
+
+Processor Geometry
+--------------------
+.. automodule:: Windows.ProcGeometry
+   :undoc-members:
+   :members:
+   :private-members:
+  
+#Wing Viewer
+#-----------
+#.. automodule:: Windows.WingViewer
+#   :undoc-members:
+#   :members:
+#   :private-members:
    
 Help About
 ----------

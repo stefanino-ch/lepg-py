@@ -6,6 +6,21 @@ GUI Elements
    :maxdepth: 2
    :caption: Contents:
 
+LineEdit
+--------
+.. automodule:: Windows.LineEdit
+   :undoc-members:
+   :members:
+   :private-members:
+   
+TableView
+---------
+.. automodule:: Windows.TableView
+   :undoc-members: 
+   :members:
+   :private-members: 
+   :special-members: __init__
+
 WindowBtnBar
 ------------
 .. automodule:: Windows.WindowHelpBar
@@ -21,11 +36,6 @@ WindowBtnBar
    :private-members:
 
 
-LineEdit
---------
-.. automodule:: Windows.LineEdit
-   :undoc-members:
-   :members:
-   :private-members:
+
 
  

@@ -13,9 +13,9 @@ Pre-Processor store
    :members:
    :private-members:
    
-Processor store   
+Processor Model
 ---------------
-.. automodule:: DataStores.ProcessorStore
+.. automodule:: DataStores.ProcessorModel
    :undoc-members:
    :members:
    :private-members:

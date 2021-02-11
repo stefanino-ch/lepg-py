@@ -92,7 +92,7 @@
   <ul>
 <li><a class="reference internal" href="#">Supporting Classes</a><ul>
 <li><a class="reference internal" href="#module-DataStores.PreProcessorStore">Pre-Processor store</a></li>
-<li><a class="reference internal" href="#module-DataStores.ProcessorStore">Processor store</a></li>
+<li><a class="reference internal" href="#module-DataStores.ProcessorModel">Processor Model</a></li>
 <li><a class="reference internal" href="#module-DataWindowStatus.DataWindowStatus">Data Window Status</a></li>
 <li><a class="reference internal" href="#module-Processors.ProcRunner">Proc Runner</a></li>
 <li><a class="reference internal" href="#module-ConfigReader.ConfigReader">ConfigReader</a></li>
@@ -362,8 +362,8 @@ The second string indicates
 </dd></dl>
 
 </div>
-<div class="section" id="module-DataStores.ProcessorStore">
-<span id="processor-store"></span><h2>Processor store<a class="headerlink" href="#module-DataStores.ProcessorStore" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-DataStores.ProcessorModel">
+<span id="processor-model"></span><h2>Processor Model<a class="headerlink" href="#module-DataStores.ProcessorModel" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
@@ -373,179 +373,207 @@ The second string indicates
 </dd>
 </dl>
 <dl class="py class">
-<dt id="DataStores.ProcessorStore.ProcessorStore">
-<em class="property">class </em><code class="sig-prename descclassname">DataStores.ProcessorStore.</code><code class="sig-name descname">ProcessorStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel">
+<em class="property">class </em><code class="sig-prename descclassname">DataStores.ProcessorModel.</code><code class="sig-name descname">ProcessorModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Does take care about the data handling for the PreProcessor. 
+<dd class="field-odd"><p>Does take care about the data handling for the processor.
 - Reads and writes the data files
 - Holds as a central point all temporary data during program execution</p>
 </dd>
 </dl>
-<p>Class is implemented as a Singleton. Even if it is instantiated multiple times all data will be the same for all instances.</p>
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__2DDxfParams">
-<code class="sig-name descname">__2DDxfParams</code><em class="property"> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__2DDxfParams" title="Permalink to this definition">¶</a></dt>
+<p>Is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple times all data will be the same for all instances.</p>
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel">
+<em class="property">class </em><code class="sig-name descname">RibModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.RPCol">
+<code class="sig-name descname">RPCol</code><em class="property"> = 7</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.RPCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__3DDxfParams">
-<code class="sig-name descname">__3DDxfParams</code><em class="property"> = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__3DDxfParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.RibNumCol">
+<code class="sig-name descname">RibNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.RibNumCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__AddRibPointsParams">
-<code class="sig-name descname">__AddRibPointsParams</code><em class="property"> = [[0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__AddRibPointsParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.WashinCol">
+<code class="sig-name descname">WashinCol</code><em class="property"> = 8</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.WashinCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__AirfHoleConf">
-<code class="sig-name descname">__AirfHoleConf</code><em class="property"> = [[0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__AirfHoleConf" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'RibModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__AirfHoleParams">
-<code class="sig-name descname">__AirfHoleParams</code><em class="property"> = [[[0, 0, 0, 0, 0, 0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__AirfHoleParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.addRows">
+<code class="sig-name descname">addRows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.addRows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thanks to <a class="reference external" href="https://stackoverflow.com/questions/47318601/inserting-row-into-qsqltablemodel#47319440">https://stackoverflow.com/questions/47318601/inserting-row-into-qsqltablemodel#47319440</a>
+for the example about how to insert.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.betaCol">
+<code class="sig-name descname">betaCol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.betaCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.createRibTable">
+<code class="sig-name descname">createRibTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.createRibTable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__AirfoilParams">
-<code class="sig-name descname">__AirfoilParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__AirfoilParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.didSelect">
+<code class="sig-name descname">didSelect</code><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.didSelect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.removeRows">
+<code class="sig-name descname">removeRows</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.removeRows" title="Permalink to this definition">¶</a></dt>
+<dd><p>We must implement this to get a signal back after a row was deleted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.select">
+<code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.select" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.setupRibRows">
+<code class="sig-name descname">setupRibRows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">halfNumRibs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.setupRibRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.sortTable">
+<code class="sig-name descname">sortTable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">order</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.sortTable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__AnchorPointParams">
-<code class="sig-name descname">__AnchorPointParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__AnchorPointParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.xpCol">
+<code class="sig-name descname">xpCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.xpCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__BrakeDistrParams">
-<code class="sig-name descname">__BrakeDistrParams</code><em class="property"> = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__BrakeDistrParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.xribCol">
+<code class="sig-name descname">xribCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.xribCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__BrakePathParams">
-<code class="sig-name descname">__BrakePathParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__BrakePathParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.yLECol">
+<code class="sig-name descname">yLECol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.yLECol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__DxfLayerParams">
-<code class="sig-name descname">__DxfLayerParams</code><em class="property"> = [[0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__DxfLayerParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.yTECol">
+<code class="sig-name descname">yTECol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.yTECol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__ExtradColorsConf">
-<code class="sig-name descname">__ExtradColorsConf</code><em class="property"> = [[0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__ExtradColorsConf" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.zCol">
+<code class="sig-name descname">zCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.zCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel">
+<em class="property">class </em><code class="sig-name descname">WingModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaMaxCentCol">
+<code class="sig-name descname">AlphaMaxCentCol</code><em class="property"> = 8</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaMaxCentCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__ExtradColorsParams">
-<code class="sig-name descname">__ExtradColorsParams</code><em class="property"> = [[[0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__ExtradColorsParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaMaxTipCol">
+<code class="sig-name descname">AlphaMaxTipCol</code><em class="property"> = 9</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaMaxTipCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__GlueVentParams">
-<code class="sig-name descname">__GlueVentParams</code><em class="property"> = [0]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__GlueVentParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaModeCol">
+<code class="sig-name descname">AlphaModeCol</code><em class="property"> = 7</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.AlphaModeCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__IntradColorsConf">
-<code class="sig-name descname">__IntradColorsConf</code><em class="property"> = [[0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__IntradColorsConf" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.BrandNameCol">
+<code class="sig-name descname">BrandNameCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.BrandNameCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the Brand Name column</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.DrawScaleCol">
+<code class="sig-name descname">DrawScaleCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.DrawScaleCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__IntradColorsParams">
-<code class="sig-name descname">__IntradColorsParams</code><em class="property"> = [[[0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__IntradColorsParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.NumCellsCol">
+<code class="sig-name descname">NumCellsCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.NumCellsCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__JoncsConfigsParams">
-<code class="sig-name descname">__JoncsConfigsParams</code><em class="property"> = [[[0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__JoncsConfigsParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.NumRibsCol">
+<code class="sig-name descname">NumRibsCol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.NumRibsCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__LineDescConf">
-<code class="sig-name descname">__LineDescConf</code><em class="property"> = [0]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__LineDescConf" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.ParaParamCol">
+<code class="sig-name descname">ParaParamCol</code><em class="property"> = 11</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.ParaParamCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__LineDescParams">
-<code class="sig-name descname">__LineDescParams</code><em class="property"> = [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__LineDescParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.ParaTypeCol">
+<code class="sig-name descname">ParaTypeCol</code><em class="property"> = 10</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.ParaTypeCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__LoadDeformParams">
-<code class="sig-name descname">__LoadDeformParams</code><em class="property"> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__LoadDeformParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.WingNameCol">
+<code class="sig-name descname">WingNameCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.WingNameCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__LoadDistrParams">
-<code class="sig-name descname">__LoadDistrParams</code><em class="property"> = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__LoadDistrParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.WingScaleCol">
+<code class="sig-name descname">WingScaleCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.WingScaleCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__MarkTypeParams">
-<code class="sig-name descname">__MarkTypeParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__MarkTypeParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'WingModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__MiniRibParams">
-<code class="sig-name descname">__MiniRibParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__MiniRibParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.createWingTable">
+<code class="sig-name descname">createWingTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.createWingTable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__NoseMylarsParams">
-<code class="sig-name descname">__NoseMylarsParams</code><em class="property"> = [[[0, 0, 0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__NoseMylarsParams" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.halfNumRibs">
+<code class="sig-name descname">halfNumRibs</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.halfNumRibs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__RamLengthParams">
-<code class="sig-name descname">__RamLengthParams</code><em class="property"> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__RamLengthParams" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.syncData">
+<code class="sig-name descname">syncData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.syncData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__RibGeomParams">
-<code class="sig-name descname">__RibGeomParams</code><em class="property"> = [[0, 0, 0, 0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__RibGeomParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__SchemesParams">
-<code class="sig-name descname">__SchemesParams</code><em class="property"> = [[0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__SchemesParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__SewingAllPanelsParams">
-<code class="sig-name descname">__SewingAllPanelsParams</code><em class="property"> = [[0, 0, 0], [0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__SewingAllPanelsParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__SkinTensionParams">
-<code class="sig-name descname">__SkinTensionParams</code><em class="property"> = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__SkinTensionParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__TabReinfParams">
-<code class="sig-name descname">__TabReinfParams</code><em class="property"> = [[[0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__TabReinfParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__airfThiknessModifParams">
-<code class="sig-name descname">__airfThiknessModifParams</code><em class="property"> = [0]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__airfThiknessModifParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__calageVarAngleParams">
-<code class="sig-name descname">__calageVarAngleParams</code><em class="property"> = [0]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__calageVarAngleParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__calageVarCordParams">
-<code class="sig-name descname">__calageVarCordParams</code><em class="property"> = [0]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__calageVarCordParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcessorStore'</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ProcessorModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -554,900 +582,36 @@ The second string indicates
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__separator">
-<code class="sig-name descname">__separator</code><em class="property"> = '**************************************************************\n'</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__separator" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__simpleData">
-<code class="sig-name descname">__simpleData</code><em class="property"> = {'AlphaMaxP1': '', 'AlphaMaxP2': '', 'AlphaMaxP3': '', 'BrakeLength': '', 'BrandName': '', 'Calage': '', 'CentOfPress': '', 'DrawScale': '', 'FileNamePath': '', 'FileVersion': '', 'FinesseGR': '', 'HalfNumRibs': '', 'InFlightLoad': '', 'JoncsType': '', 'Karabiners': '', 'LineDescConc': '', 'LineLength': '', 'MarksP1': '', 'MarksP2': '', 'MarksP3': '', 'MiniRibXSpacing': '', 'MiniRibYSpacing': '', 'NoseMylarsType': '', 'NumAddRibPoints': '', 'NumAirfoilHoleConfigs': '', 'NumBrakePath': '', 'NumCells': '', 'NumDxfLayers': '', 'NumJoncsConfigs': '', 'NumLineDesConfigs': '', 'NumMarkTypes': '', 'NumMiniRibs': '', 'NumNoseMylarsConfigs': '', 'NumRibs': '', 'NumRibsExtradColors': '', 'NumRibsIntradColors': '', 'NumSkinTensionPoints': '', 'NumTabReinfConfigs': '', 'NumThreeDShapingGroups': '', 'ParaTypeP1': '', 'ParaTypeP2': '', 'RaisersLenght': '', 'SewingAllRibs': '', 'SewingAllVRibs': '', 'SkinTensionCoeff': '', 'StrainMiniRibs': '', 'TabReinfType': '', 'WingName': '', 'WingScale': '', 'airfoilThiknessModifType': '', 'calageVarType': '', 'glueVentType': '', 'numCalageVarRisers': '', 'numSkinTensionGroups': '', 'skinTensionType': '', 'specWingTypAngLE': '', 'specWingTypAngTE': '', 'specWingTypType': '', 'threeDDxfType': '', 'threeDShapingTheory': '', 'threeDShapingType': '', 'twoDDxfType': ''}</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__simpleData" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Single value params which can be set/ read via its name</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__skinTensionGroupConf">
-<code class="sig-name descname">__skinTensionGroupConf</code><em class="property"> = [[0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__skinTensionGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__skinTensionGroupParams">
-<code class="sig-name descname">__skinTensionGroupParams</code><em class="property"> = [[[0, 0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__skinTensionGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__threeDShapingGroupConf">
-<code class="sig-name descname">__threeDShapingGroupConf</code><em class="property"> = [[0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__threeDShapingGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__threeDShapingLoGroupParams">
-<code class="sig-name descname">__threeDShapingLoGroupParams</code><em class="property"> = [[[0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__threeDShapingLoGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__threeDShapingPrintParams">
-<code class="sig-name descname">__threeDShapingPrintParams</code><em class="property"> = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__threeDShapingPrintParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.__threeDShapingUpGroupParams">
-<code class="sig-name descname">__threeDShapingUpGroupParams</code><em class="property"> = [[[0, 0, 0]]]</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.__threeDShapingUpGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore._instance">
-<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore._instance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorStore.ProcessorStore.dataStatusUpdate">
-<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Signal</dt>
-<dd class="field-odd"><p>Sent out as soon a file was opened or saved
-The first string indicates the class name
-The second string indicates 
-- if a file was opened
-- if a file was saved
-- Filename and Path has been changed</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAddRibPointsParams">
-<code class="sig-name descname">getAddRibPointsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAddRibPointsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Additional Rib Point data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAirfHoleConf">
-<code class="sig-name descname">getAirfHoleConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAirfHoleConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Airfoil holes config values from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAirfHoleParams">
-<code class="sig-name descname">getAirfHoleParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAirfHoleParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Airfoil holes params values from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAirfThiknessModifParams">
-<code class="sig-name descname">getAirfThiknessModifParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAirfThiknessModifParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads parameters for Airfoil Thikness Modification from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAirfoilParams">
-<code class="sig-name descname">getAirfoilParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAirfoilParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Airfoil parameters from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getAnchorPointParams">
-<code class="sig-name descname">getAnchorPointParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getAnchorPointParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Anchor point parameters from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getBrakeDistrParams">
-<code class="sig-name descname">getBrakeDistrParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getBrakeDistrParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Brake distribution params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getBrakePathParams">
-<code class="sig-name descname">getBrakePathParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getBrakePathParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Brake path params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getCalageVarAngleParams">
-<code class="sig-name descname">getCalageVarAngleParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getCalageVarAngleParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Calage Variation angle variation params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>paramNum</strong> – Number of the param to read. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getCalageVarCordParams">
-<code class="sig-name descname">getCalageVarCordParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getCalageVarCordParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Calage Variation % of cord params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>paramNum</strong> – Number of the param to read. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getDxfLayerParams">
-<code class="sig-name descname">getDxfLayerParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getDxfLayerParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads DXF Layer data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getExtradColorsConf">
-<code class="sig-name descname">getExtradColorsConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getExtradColorsConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads data for each Extrados Colors rib from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getExtradColorsParams">
-<code class="sig-name descname">getExtradColorsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getExtradColorsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Extrados description params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getFileName">
-<code class="sig-name descname">getFileName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getFileName" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the name of the file name member.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getGlueVentParams">
-<code class="sig-name descname">getGlueVentParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getGlueVentParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads GlueVent data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getIntradColorsConf">
-<code class="sig-name descname">getIntradColorsConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getIntradColorsConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads data for each Intrados Colors rib from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getIntradColorsParams">
-<code class="sig-name descname">getIntradColorsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getIntradColorsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Intrados description params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getJoncsConfigsParams">
-<code class="sig-name descname">getJoncsConfigsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getJoncsConfigsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Joncs Config params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getLineDescConf">
-<code class="sig-name descname">getLineDescConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getLineDescConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Line Description config from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getLineDescParams">
-<code class="sig-name descname">getLineDescParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getLineDescParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Line description params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getLoadDeformParams">
-<code class="sig-name descname">getLoadDeformParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getLoadDeformParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Load Deformation data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getLoadDistrParams">
-<code class="sig-name descname">getLoadDistrParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getLoadDistrParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Load Distribution data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getMarkTypeParams">
-<code class="sig-name descname">getMarkTypeParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getMarkTypeParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Mark Type data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getMiniRibParams">
-<code class="sig-name descname">getMiniRibParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getMiniRibParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Mini Rib params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getNoseMylarsParams">
-<code class="sig-name descname">getNoseMylarsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getNoseMylarsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Nose Mylars params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getNumSchemesLines">
-<code class="sig-name descname">getNumSchemesLines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getNumSchemesLines" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the number of Tab Reinforcement Scheme lines into the data store.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>number of Scheme lines</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getNumSchemesParams">
-<code class="sig-name descname">getNumSchemesParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getNumSchemesParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the number of parameters registered in a specific Tabinforcement Scheme line into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>line</strong> – the line of which the num of parameters is asked. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>number of Parameters</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getNumThreeDShapingLoGroups">
-<code class="sig-name descname">getNumThreeDShapingLoGroups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getNumThreeDShapingLoGroups" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the number of 3D shaping lo groups for a specific configuration into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>confNum</strong> – the configuration number of which num of groups is asked. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>number of groups</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getNumThreeDShapingUpGroups">
-<code class="sig-name descname">getNumThreeDShapingUpGroups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getNumThreeDShapingUpGroups" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the number of 3D shaping up groups for a specific configuration into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>confNum</strong> – the configuration number of which num of groups is asked. Indexing starts with 0!</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>number of groups</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getRamLengthParams">
-<code class="sig-name descname">getRamLengthParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getRamLengthParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Ramification Length params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getRibGeomParams">
-<code class="sig-name descname">getRibGeomParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getRibGeomParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Rib Geometry parameters from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSchemesParams">
-<code class="sig-name descname">getSchemesParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSchemesParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Schemes data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>lineNum</strong> – Number of the line to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSewingAllPanelsParams">
-<code class="sig-name descname">getSewingAllPanelsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSewingAllPanelsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Sewing allowances for panels params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSingleVal">
-<code class="sig-name descname">getSingleVal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parameter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSingleVal" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads a single parameter from the data store</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>parameter</strong> – Name of the parameter to be read. Refer to <em>__simpleData</em> for the valid parameter names.</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the value of the parameter, an empty string if the parameter was not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSkinTensionGroupConf">
-<code class="sig-name descname">getSkinTensionGroupConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSkinTensionGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads individual group configurations for the Skin Tension from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSkinTensionGroupParams">
-<code class="sig-name descname">getSkinTensionGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSkinTensionGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads parameters for Skin Tension groups from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getSkinTensionParams">
-<code class="sig-name descname">getSkinTensionParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getSkinTensionParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads Skin tension values from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getTabReinfParams">
-<code class="sig-name descname">getTabReinfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getTabReinfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads overall Tab Reinforcement params from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getThreeDDxfParams">
-<code class="sig-name descname">getThreeDDxfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getThreeDDxfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads 3D DXF data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getThreeDShapingGroupConf">
-<code class="sig-name descname">getThreeDShapingGroupConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getThreeDShapingGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads individual gropu configurations for the 3D Shaping from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getThreeDShapingLoGroupParams">
-<code class="sig-name descname">getThreeDShapingLoGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getThreeDShapingLoGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads parameters for 3D Shaping lower groups from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getThreeDShapingPrintParams">
-<code class="sig-name descname">getThreeDShapingPrintParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getThreeDShapingPrintParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads individual individual print params for the 3D Shaping from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getThreeDShapingUpGroupParams">
-<code class="sig-name descname">getThreeDShapingUpGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getThreeDShapingUpGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads parameters for 3D Shaping upper groups from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Individual param num</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.getTwoDDxfParams">
-<code class="sig-name descname">getTwoDDxfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.getTwoDDxfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads 2D DXF data from the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the config to read. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to read. Indexing starts with 0!</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Parameter value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.isValid">
-<code class="sig-name descname">isValid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.isValid" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.isValid">
+<code class="sig-name descname">isValid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.isValid" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and known version number.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.openFile">
-<code class="sig-name descname">openFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.openFile" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog.</p>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>fileName</strong> – the name of the file to be checked</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.readFile">
-<code class="sig-name descname">readFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.readFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.openFile">
+<code class="sig-name descname">openFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.openFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.readFile">
+<code class="sig-name descname">readFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Reads the data file and saves the data in the internal varibles.</p>
@@ -1459,8 +623,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.remTabSpace">
-<code class="sig-name descname">remTabSpace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.remTabSpace" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.remTabSpace">
+<code class="sig-name descname">remTabSpace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.remTabSpace" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Deletes all leaing and trailing edges from a string</p>
@@ -1475,8 +639,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.remTabSpaceQuot">
-<code class="sig-name descname">remTabSpaceQuot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.remTabSpaceQuot" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.remTabSpaceQuot">
+<code class="sig-name descname">remTabSpaceQuot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.remTabSpaceQuot" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes from a string all leading, trailing spaces tabs and quotations</p>
@@ -1491,749 +655,14 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.saveFile">
-<code class="sig-name descname">saveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.saveFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.setFileName">
+<code class="sig-name descname">setFileName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.setFileName" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.saveFileAs">
-<code class="sig-name descname">saveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.saveFileAs" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Asks for a new filename. Starts afterwards the writing process.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAddRibPointsParams">
-<code class="sig-name descname">setAddRibPointsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAddRibPointsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Additional Rib Point data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAirfHoleConf">
-<code class="sig-name descname">setAirfHoleConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAirfHoleConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Airfoil Holes config into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAirfHoleParams">
-<code class="sig-name descname">setAirfHoleParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAirfHoleParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Airfoil Holes params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAirfThiknessModifParams">
-<code class="sig-name descname">setAirfThiknessModifParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAirfThiknessModifParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves parameters for Airfoil Thikness Modification into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAirfoilParams">
-<code class="sig-name descname">setAirfoilParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">p1</span></em>, <em class="sig-param"><span class="n">p2</span></em>, <em class="sig-param"><span class="n">p3</span></em>, <em class="sig-param"><span class="n">p4</span></em>, <em class="sig-param"><span class="n">p5</span></em>, <em class="sig-param"><span class="n">p6</span></em>, <em class="sig-param"><span class="n">p7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAirfoilParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Airfoil parameters into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>p1..7</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setAnchorPointParams">
-<code class="sig-name descname">setAnchorPointParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">p1</span></em>, <em class="sig-param"><span class="n">p2</span></em>, <em class="sig-param"><span class="n">p3</span></em>, <em class="sig-param"><span class="n">p4</span></em>, <em class="sig-param"><span class="n">p5</span></em>, <em class="sig-param"><span class="n">p6</span></em>, <em class="sig-param"><span class="n">p7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setAnchorPointParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Anchor Point parameters into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>p1..7</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setBrakeDistrParams">
-<code class="sig-name descname">setBrakeDistrParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setBrakeDistrParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Brake distribution params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setBrakePathParams">
-<code class="sig-name descname">setBrakePathParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setBrakePathParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Brake path params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setCalageVarAngleParams">
-<code class="sig-name descname">setCalageVarAngleParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setCalageVarAngleParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Calage Variation angle variation params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setCalageVarCordParams">
-<code class="sig-name descname">setCalageVarCordParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setCalageVarCordParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Calage Variation % of cord params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setDxfLayerParams">
-<code class="sig-name descname">setDxfLayerParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setDxfLayerParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves DXF Layer data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setExtradColorsConf">
-<code class="sig-name descname">setExtradColorsConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setExtradColorsConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Configuration data for each Extrados Colors rib into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setExtradColorsParams">
-<code class="sig-name descname">setExtradColorsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setExtradColorsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Extrados description params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setFileName">
-<code class="sig-name descname">setFileName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setFileName" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Mathod</dt>
 <dd class="field-odd"><p>Does set the File Name the data store shall work with.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>fileName</strong> – String containing full path and filename</p></li>
-<li><p><strong>openFile</strong> – If set to True the file will be opened immediately the path and filename was set</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setGlueVentParams">
-<code class="sig-name descname">setGlueVentParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setGlueVentParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves GlueVent data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setIntradColorsConf">
-<code class="sig-name descname">setIntradColorsConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setIntradColorsConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Configuration data for each Intrados Colors rib into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setIntradColorsParams">
-<code class="sig-name descname">setIntradColorsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setIntradColorsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Intrados description params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setJoncsConfigsParams">
-<code class="sig-name descname">setJoncsConfigsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setJoncsConfigsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Joncs Config params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setLineDescConf">
-<code class="sig-name descname">setLineDescConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setLineDescConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Line Description config into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setLineDescParams">
-<code class="sig-name descname">setLineDescParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setLineDescParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Line description params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setLoadDeformParams">
-<code class="sig-name descname">setLoadDeformParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setLoadDeformParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Load Deformation data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setLoadDistrParams">
-<code class="sig-name descname">setLoadDistrParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setLoadDistrParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Load Distribution data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setMarkTypeParams">
-<code class="sig-name descname">setMarkTypeParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setMarkTypeParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Mark Type data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setMiniRibParams">
-<code class="sig-name descname">setMiniRibParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setMiniRibParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Mini Rib params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setNoseMylarsParams">
-<code class="sig-name descname">setNoseMylarsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setNoseMylarsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Nose Mylars params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setRamLengthParams">
-<code class="sig-name descname">setRamLengthParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setRamLengthParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Ramification Length params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setRibGeomParams">
-<code class="sig-name descname">setRibGeomParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">p1</span></em>, <em class="sig-param"><span class="n">p2</span></em>, <em class="sig-param"><span class="n">p3</span></em>, <em class="sig-param"><span class="n">p4</span></em>, <em class="sig-param"><span class="n">p5</span></em>, <em class="sig-param"><span class="n">p6</span></em>, <em class="sig-param"><span class="n">p7</span></em>, <em class="sig-param"><span class="n">p8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setRibGeomParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Rib Geometry parameters into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ribNum</strong> – Number of the rib. Indexing starts with 0!</p></li>
-<li><p><strong>p1..8</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSchemesParams">
-<code class="sig-name descname">setSchemesParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSchemesParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Schemes data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSewingAllPanelsParams">
-<code class="sig-name descname">setSewingAllPanelsParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSewingAllPanelsParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Sewing allowances for panels params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSingleVal">
-<code class="sig-name descname">setSingleVal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parameter</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSingleVal" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does set a single value in the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>parameter</strong> – the name of the parameter to be set. Refer to <em>__simpleData</em> for the valid parameter names.</p></li>
-<li><p><strong>value</strong> – the value to be set.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSkinTensionGroupConf">
-<code class="sig-name descname">setSkinTensionGroupConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSkinTensionGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves the individual group configurations for the Skin Tension into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSkinTensionGroupParams">
-<code class="sig-name descname">setSkinTensionGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSkinTensionGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves parameters for Skin Tension groups into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the Group. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line withing the group. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setSkinTensionParams">
-<code class="sig-name descname">setSkinTensionParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setSkinTensionParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves Skin Tension params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setTabReinfParams">
-<code class="sig-name descname">setTabReinfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setTabReinfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves overall Tab Reinforcement params into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the configuration line. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setThreeDDxfParams">
-<code class="sig-name descname">setThreeDDxfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setThreeDDxfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves 3D DXF data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setThreeDShapingGroupConf">
-<code class="sig-name descname">setThreeDShapingGroupConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setThreeDShapingGroupConf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves the individual gropu configurations for the 3D Shaping into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setThreeDShapingLoGroupParams">
-<code class="sig-name descname">setThreeDShapingLoGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setThreeDShapingLoGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves parameters for 3D Shaping lower groups into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the Group. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line withing the group. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setThreeDShapingPrintParams">
-<code class="sig-name descname">setThreeDShapingPrintParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setThreeDShapingPrintParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves the individual print params for the 3D Shaping into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setThreeDShapingUpGroupParams">
-<code class="sig-name descname">setThreeDShapingUpGroupParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">lineNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setThreeDShapingUpGroupParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves parameters for 3D Shaping upper groups into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the Group. Indexing starts with 0!</p></li>
-<li><p><strong>lineNum</strong> – Number of the line withing the group. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0! Conf line numbers are ignored!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.setTwoDDxfParams">
-<code class="sig-name descname">setTwoDDxfParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confNum</span></em>, <em class="sig-param"><span class="n">paramNum</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.setTwoDDxfParams" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Saves 2D DXF data into the data store.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>confNum</strong> – Number of the configuration set. Indexing starts with 0!</p></li>
-<li><p><strong>paramNum</strong> – Number of the parameter to set. Indexing starts with 0!</p></li>
-<li><p><strong>value</strong> – The individual data to save</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.splitLine">
-<code class="sig-name descname">splitLine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.splitLine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Splits lines with multiple values into a list of values delimiters could be spaces and tabs</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>line</strong> – The line to be split</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a list of values</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.writeFile">
-<code class="sig-name descname">writeFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">forProc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.writeFile" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Writes all the values into a data file.</p>
-</dd>
-<dt class="field-even">Warning</dt>
-<dd class="field-even"><p>Filename must have been set already before, unless the file shall be written for the Processor.</p>
-</dd>
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>forProc</strong> – Set this to True if the file must be saved in the directory where the Processor resides</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorStore.ProcessorStore.writeHeader">
-<code class="sig-name descname">writeHeader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stream</span></em>, <em class="sig-param"><span class="n">title</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorStore.ProcessorStore.writeHeader" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Writes the section header in the data file</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>stream</strong> – The stream to write to</p></li>
-<li><p><strong>title</strong> – The section title</p></li>
-</ul>
+<dd class="field-even"><p><strong>fileName</strong> – String containing full path and filename</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2282,7 +711,7 @@ The second string indicates
 
 <dl class="py attribute">
 <dt id="DataWindowStatus.DataWindowStatus.DataWindowStatus.__windowDataStatus">
-<code class="sig-name descname">__windowDataStatus</code><em class="property"> = {'PreProcDataEdit': '1', 'ProcDataEdit': '1', 'WingOutlineViewer': '1'}</em><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.__windowDataStatus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__windowDataStatus</code><em class="property"> = {'PreProcDataEdit': '1', 'ProcBasicData': '1', 'ProcGeometry': '1', 'WingOutlineViewer': '1'}</em><a class="headerlink" href="#DataWindowStatus.DataWindowStatus.DataWindowStatus.__windowDataStatus" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>List of all windows taken care of</p>

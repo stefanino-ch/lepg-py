@@ -98,7 +98,8 @@
 <li><a class="reference internal" href="#module-lepg">Main file</a></li>
 <li><a class="reference internal" href="#module-Windows.DataStatusOverview">Data Status Overview</a></li>
 <li><a class="reference internal" href="#module-Windows.PreProcDataEdit">Pre-Processor data edit</a></li>
-<li><a class="reference internal" href="#module-Windows.WingViewer">Wing Viewer</a></li>
+<li><a class="reference internal" href="#module-Windows.ProcBasicData">Processor Basic Data</a></li>
+<li><a class="reference internal" href="#module-Windows.ProcGeometry">Processor Geometry</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcessorOutput">ProcessorOutput</a></li>
 </ul>
@@ -163,7 +164,7 @@
 
 <dl class="py attribute">
 <dt id="lepg.MainWindow.__enableWingFunct">
-<code class="sig-name descname">__enableWingFunct</code><em class="property"> = False</em><a class="headerlink" href="#lepg.MainWindow.__enableWingFunct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__enableWingFunct</code><em class="property"> = True</em><a class="headerlink" href="#lepg.MainWindow.__enableWingFunct" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Set to true to enable all menus related to wing (Processor) functionality. This is used as a temporary aid allowing easier to sync back to the stable branch.</p>
@@ -317,6 +318,26 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Save PreProc File As ..</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procBasicDataEdit">
+<code class="sig-name descname">procBasicDataEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procBasicDataEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Basic data</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procGeometryEdit">
+<code class="sig-name descname">procGeometryEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGeometryEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Geometry</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -679,8 +700,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-Windows.WingViewer">
-<span id="wing-viewer"></span><h2>Wing Viewer<a class="headerlink" href="#module-Windows.WingViewer" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-Windows.ProcBasicData">
+<span id="processor-basic-data"></span><h2>Processor Basic Data<a class="headerlink" href="#module-Windows.ProcBasicData" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
@@ -690,16 +711,16 @@
 </dd>
 </dl>
 <dl class="py class">
-<dt id="Windows.WingViewer.WingViewer">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.WingViewer.</code><code class="sig-name descname">WingViewer</code><a class="headerlink" href="#Windows.WingViewer.WingViewer" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcBasicData.</code><code class="sig-name descname">ProcBasicData</code><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Window to display the outline of the data the Pre-Processor will use to generate the wing basics.</p>
+<dd class="field-odd"><p>Window to display and edit the Basic Data</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="Windows.WingViewer.WingViewer.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'WingViewer'</em><a class="headerlink" href="#Windows.WingViewer.WingViewer.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ProcBasicData'</em><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -708,8 +729,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.btnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -718,18 +739,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.buildDataBuffer">
-<code class="sig-name descname">buildDataBuffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.buildDataBuffer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does initially load the window internal data buffer</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -743,39 +754,103 @@
 <p>Structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
     <span class="n">windowGrid</span> 
-        <span class="n">tail_F</span>          <span class="o">|</span> <span class="n">side_F</span>
-            <span class="n">tailView</span>    <span class="o">|</span>    <span class="n">sideView</span>
+         <span class="n">Labels</span>    <span class="o">|</span> <span class="n">Edit</span> <span class="n">fields</span>
+         <span class="o">...</span>       <span class="o">|</span> <span class="o">...</span>
         <span class="o">-------------------------</span>
-        <span class="n">top_F</span>           <span class="o">|</span>
-            <span class="n">topView</span>     <span class="o">|</span>
-        <span class="o">-------------------------</span>
-                        <span class="o">|</span>    <span class="n">btnBar</span>
+                    <span class="o">|</span> <span class="n">helpBar</span>
+                    <span class="o">|</span> <span class="n">btnBar</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.calcScaleFactor">
-<code class="sig-name descname">calcScaleFactor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">viewWidth</span></em>, <em class="sig-param"><span class="n">wingSpan</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.calcScaleFactor" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData.checkNumCellsRibs">
+<code class="sig-name descname">checkNumCellsRibs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.checkNumCellsRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does calculate the scale factor based on the size of the graphics view and the wing span</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>viewWidth</strong> – Current view width</p></li>
-<li><p><strong>wingSpan</strong> – Wing span of the current design</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the scale factor</p>
+<dd class="field-odd"><p>The difference between NumCells and NumRibs must be 1, if this is not the case we have a nonsense setup</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ProcBasicData.ProcBasicData.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.ProcGeometry">
+<span id="processor-geometry"></span><h2>Processor Geometry<a class="headerlink" href="#module-Windows.ProcGeometry" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.ProcGeometry.ProcGeometry">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcGeometry.</code><code class="sig-name descname">ProcGeometry</code><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit geometry data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.ProcGeometry.ProcGeometry.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ProcGeometry'</em><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcGeometry.ProcGeometry.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcGeometry.ProcGeometry.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span>
+<span class="n">Buttons</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowGrid</span> 
+         <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+                        <span class="o">|</span> <span class="n">helpBar</span>
+                        <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcGeometry.ProcGeometry.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -784,27 +859,19 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.drawTopView">
-<code class="sig-name descname">drawTopView</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.drawTopView" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Draws the top view based on the window data buffer</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.WingViewer.WingViewer.updateWindow">
-<code class="sig-name descname">updateWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.WingViewer.WingViewer.updateWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>If data in central store changes, we will update in here the window.</p>
-</dd>
-</dl>
+<dt id="Windows.ProcGeometry.ProcGeometry.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><p>: method : handles the sort of the table by rib number</p>
 </dd></dl>
 
 </dd></dl>
 
+<p>#Wing Viewer
+#———–
+#.. automodule:: Windows.WingViewer
+#   :undoc-members:
+#   :members:
+#   :private-members:</p>
 </div>
 <div class="section" id="module-Windows.HelpAbout">
 <span id="help-about"></span><h2>Help About<a class="headerlink" href="#module-Windows.HelpAbout" title="Permalink to this headline">¶</a></h2>

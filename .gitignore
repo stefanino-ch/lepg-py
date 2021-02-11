@@ -1,8 +1,8 @@
 # Logfiles
-src/lepg/logfile.txt
+src/logfile.txt
 
 # Config file
-src/lepg/configFile.txt
+src/configFile.txt
 
 # Intermediate files from help system
 userHelp/.escapecodecache

@@ -13,15 +13,21 @@ import platform
 from PyQt5.QtGui import QIcon
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
+
 from DataStores.ProcessorStore import ProcessorStore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog
+from DataStores.ProcessorModel import ProcessorModel
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog, QMenu
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.WingViewer import WingViewer
+from Windows.ProcBasicData import ProcBasicData
+from Windows.ProcGeometry import ProcGeometry
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
+
 
 class MainWindow(QMainWindow):
     '''
@@ -33,7 +39,7 @@ class MainWindow(QMainWindow):
     :attr: Does help to indicate the source of the log messages
     '''
     
-    __enableWingFunct = False
+    __enableWingFunct = True
     '''
     :attr: Set to true to enable all menus related to wing (Processor) functionality. This is used as a temporary aid allowing easier to sync back to the stable branch.
     ''' 
@@ -71,7 +77,11 @@ class MainWindow(QMainWindow):
             lang_en.install()
         
         self.pps = PreProcessorStore()
+        
+        # @TODO: ProcessorModel
         self.ps = ProcessorStore()
+        self.pm = ProcessorModel()
+        
         self.dws = DataWindowStatus()
         
         super(MainWindow, self).__init__(parent)
@@ -157,6 +167,7 @@ class MainWindow(QMainWindow):
         preProcMenu = self.mainMenu.addMenu(_('Pre Processor'))
         preProcMenu.addAction(preProcOpenFileAct)
         preProcMenu.addAction(preProcSaveAct)
+        preProcMenu.addSeparator()
         preProcMenu.addAction(preProcSaveAsAct)
         preProcMenu.addSeparator()
         preProcMenu.addAction(preProcEditAct)
@@ -216,20 +227,114 @@ class MainWindow(QMainWindow):
         :method: Builds the complete Processor menu
         '''  
         # Define the actions
-        procOpenFileAct = QAction(_('Open Processor File'), self)
-        procOpenFileAct.setStatusTip(_('open_Proc_file_desc'))
-        procOpenFileAct.triggered.connect(self.procOpenFile)
-        procOpenFileAct.setEnabled(self.__enableWingFunct)
+        procOpenFile_A = QAction(_('Open Processor File'), self)
+        procOpenFile_A.setStatusTip(_('open_Proc_file_desc'))
+        procOpenFile_A.triggered.connect(self.procOpenFile)
+        procOpenFile_A.setEnabled(self.__enableWingFunct)
         
-        procSaveAct = QAction(_('Save Processor File'), self)
-        procSaveAct.setStatusTip(_('save_proc_file_desc'))
-        procSaveAct.triggered.connect(self.procSaveFile)
-        procSaveAct.setEnabled(self.__enableWingFunct)
+        procSave_A = QAction(_('Save Processor File'), self)
+        procSave_A.setStatusTip(_('save_proc_file_desc'))
+        procSave_A.triggered.connect(self.procSaveFile)
+        procSave_A.setEnabled(self.__enableWingFunct)
         
-        procSaveAsAct = QAction(_('Save Processor File As ..'), self)
-        procSaveAsAct.setStatusTip(_('save_proc_file_as_desc'))
-        procSaveAsAct.triggered.connect(self.procSaveFileAs)
-        procSaveAsAct.setEnabled(self.__enableWingFunct)
+        procSaveAs_A = QAction(_('Save Processor File As ..'), self)
+        procSaveAs_A.setStatusTip(_('save_proc_file_as_desc'))
+        procSaveAs_A.triggered.connect(self.procSaveFileAs)
+        procSaveAs_A.setEnabled(self.__enableWingFunct)
+        
+        procBasicData_A = QAction(_('Basic data'), self)
+        procBasicData_A.setStatusTip(_('Editing the wing basics'))
+        procBasicData_A.triggered.connect(self.procBasicDataEdit)
+        procBasicData_A.setEnabled(self.__enableWingFunct)
+        
+        procGeometry_A = QAction(_('Geometry'), self)
+        procGeometry_A.setStatusTip(_('Edit wing geometry'))
+        procGeometry_A.triggered.connect(self.procGeometryEdit)
+        procGeometry_A.setEnabled(self.__enableWingFunct)
+        
+        procEditAirfoils_A = QAction(_('Airfoils'), self)
+        procEditAirfoils_A.setEnabled(False)
+        
+        procEditAnchPoints_A = QAction(_('Anchor Points'), self)
+        procEditAnchPoints_A.setEnabled(False)
+        
+        procEditRibHoles_A = QAction(_('Rib Holes'), self)
+        procEditRibHoles_A.setEnabled(False)
+        
+        procEditSkinTension_A = QAction(_('Skin Tension'), self)
+        procEditSkinTension_A.setEnabled(False)
+        
+        procEditSeewingAllowance_A = QAction(_('Seewing Allowance'), self)
+        procEditSeewingAllowance_A.setEnabled(False)
+        
+        procEditSeewingMarcage_A = QAction(_('Seewing Marcage'), self)
+        procEditSeewingMarcage_A.setEnabled(False)
+        
+        procEditGenAoA_A = QAction(_('Estimated general AoA'), self)
+        procEditGenAoA_A.setEnabled(False)
+        
+        procEditLines_A = QAction(_('Lines'), self)
+        procEditLines_A.setEnabled(False)
+        
+        procEditBrakes_A = QAction(_('Brakes'), self)
+        procEditBrakes_A.setEnabled(False)
+        
+        procEditRamLength_A = QAction(_('Ramifications length'), self)
+        procEditRamLength_A.setEnabled(False)
+        
+        procEditMiniRibs_A = QAction(_('H V and VH ribs'), self)
+        procEditMiniRibs_A.setEnabled(False)
+        
+        procEditExtrCols_A = QAction(_('Extrados colors'), self)
+        procEditExtrCols_A.setEnabled(False)
+        
+        procEditIntrCols_A = QAction(_('Intrados colors'), self)
+        procEditIntrCols_A.setEnabled(False)
+        
+        procEditAddRibPts_A = QAction(_('Additional rib points'), self)
+        procEditAddRibPts_A.setEnabled(False)
+        
+        procEditElLinesCorr_A = QAction(_('Elastic lines correction'), self)
+        procEditElLinesCorr_A.setEnabled(False)
+        
+        procEditDxfLayers_A = QAction(_('DXF Layer names'), self)
+        procEditDxfLayers_A.setEnabled(False)
+        
+        procEditMarksT_A = QAction(_('Marks types'), self)
+        procEditMarksT_A.setEnabled(False)
+        
+        procEditJoncsDes_A = QAction(_('Joncs definitions'), self)
+        procEditJoncsDes_A.setEnabled(False)
+        
+        procEditNoseMylars_A = QAction(_('Nose mylars'), self)
+        procEditNoseMylars_A.setEnabled(False)
+        
+        procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
+        procEditTabReinf_A.setEnabled(False)
+        
+        procEditGen2D_A = QAction(_('2D DXF options'), self)
+        procEditGen2D_A.setEnabled(False)
+        
+        procEditGen3D_A = QAction(_('3D DXF options'), self)
+        procEditGen3D_A.setEnabled(False)
+        
+        procEditGlueVents_A = QAction(_('Glue vents'), self)
+        procEditGlueVents_A.setEnabled(False)
+        
+        procEditSpecWingt_A = QAction(_('Special wingtip'), self)
+        procEditSpecWingt_A.setEnabled(False)
+        
+        procEditSpeedTrimS_A = QAction(_('Speed/ Trimmer study'), self)
+        procEditSpeedTrimS_A.setEnabled(False)
+        
+        procEdit3DShaping_A = QAction(_('3D shaping'), self)
+        procEdit3DShaping_A.setEnabled(False)
+        
+        procEditThiknessMod_A = QAction(_('Thikness modification'), self)
+        procEditThiknessMod_A.setEnabled(False)
+        
+        procEditNewSkinTens_A = QAction(_('New skin tension'), self)
+        procEditNewSkinTens_A.setEnabled(False)
         
         procRunAct = QAction(_('Run Processor'), self)
         procRunAct.setStatusTip(_('run_Processor_des'))
@@ -238,9 +343,53 @@ class MainWindow(QMainWindow):
         
         # Build the menu
         procMenu = self.mainMenu.addMenu(_('Processor'))
-        procMenu.addAction(procOpenFileAct) 
-        procMenu.addAction(procSaveAct)
-        procMenu.addAction(procSaveAsAct)
+        procMenu.addAction(procOpenFile_A) 
+        procMenu.addAction(procSave_A)
+        procMenu.addAction(procSaveAs_A)
+        procMenu.addSeparator()
+        procMenu.addAction(procBasicData_A)
+        procMenu.addAction(procGeometry_A)
+        procMenu.addAction(procEditAirfoils_A)
+        procMenu.addAction(procEditAnchPoints_A)
+        procMenu.addAction(procEditRibHoles_A)
+        
+        skinTensMenu = QMenu(_('Skin Tension'),self)
+        skinTensMenu.addAction(procEditSkinTension_A)
+        skinTensMenu.addAction(procEditNewSkinTens_A)
+        procMenu.addMenu(skinTensMenu)
+        
+        procMenu.addAction(procEditGenAoA_A)
+        procMenu.addAction(procEditLines_A)
+        procMenu.addAction(procEditBrakes_A)
+        procMenu.addAction(procEditRamLength_A)
+        procMenu.addAction(procEditMiniRibs_A)
+        
+        colsMenu = QMenu(_('Colors'),self)
+        colsMenu.addAction(procEditExtrCols_A)
+        colsMenu.addAction(procEditIntrCols_A)
+        procMenu.addMenu(colsMenu)
+        
+        procMenu.addAction(procEditAddRibPts_A)
+        procMenu.addAction(procEditElLinesCorr_A)
+        procMenu.addAction(procEditJoncsDes_A)
+        procMenu.addAction(procEditNoseMylars_A)
+        procMenu.addAction(procEditTabReinf_A)
+        procMenu.addAction(procEditGlueVents_A)
+        procMenu.addAction(procEditSpecWingt_A)
+        procMenu.addAction(procEditSpeedTrimS_A)
+        procMenu.addAction(procEdit3DShaping_A)
+        procMenu.addAction(procEditThiknessMod_A)
+        
+        
+        planMenu = QMenu(_('Plan options'),self)
+        planMenu.addAction(procEditSeewingAllowance_A)
+        planMenu.addAction(procEditSeewingMarcage_A)
+        planMenu.addAction(procEditDxfLayers_A)
+        planMenu.addAction(procEditMarksT_A)
+        planMenu.addAction(procEditGen2D_A)
+        planMenu.addAction(procEditGen3D_A)
+        procMenu.addMenu(planMenu)
+        
         procMenu.addSeparator()
         procMenu.addAction(procRunAct)
         
@@ -248,8 +397,12 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Open Processor File*
         '''
-        self.ps.openFile()
         # @TODO: delete current values upon open file open
+        
+        # @TODO: ProcessorModel
+        # self.ps.openFile()
+        self.pm.openFile()
+        
         
     def procSaveFile(self):
         '''
@@ -262,6 +415,27 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* -> *Save Processor File As..*
         '''
         self.ps.saveFileAs()
+    
+    def procBasicDataEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Basic data*
+        '''
+        if self.dws.windowExists('ProcBasicData') == False:
+            self.basicDataW = ProcBasicData()
+            self.dws.registerWindow('ProcBasicData')
+            self.mdi.addSubWindow(self.basicDataW)
+        self.basicDataW.show()
+
+    def procGeometryEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Geometry*
+        '''
+        if self.dws.windowExists('ProcGeometry') == False:
+            self.geometryW = ProcGeometry()
+            self.dws.registerWindow('ProcGeometry')
+            self.mdi.addSubWindow(self.geometryW)
+        self.geometryW.show()
+
         
     def procRun(self):
         '''

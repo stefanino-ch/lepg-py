@@ -95,9 +95,10 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">GUI Elements</a><ul>
+<li><a class="reference internal" href="#module-Windows.LineEdit">LineEdit</a></li>
+<li><a class="reference internal" href="#module-Windows.TableView">TableView</a></li>
 <li><a class="reference internal" href="#module-Windows.WindowHelpBar">WindowBtnBar</a></li>
 <li><a class="reference internal" href="#id1">WindowBtnBar</a></li>
-<li><a class="reference internal" href="#module-Windows.LineEdit">LineEdit</a></li>
 </ul>
 </li>
 </ul>
@@ -129,6 +130,425 @@
   <div class="section" id="gui-elements">
 <h1>GUI Elements<a class="headerlink" href="#gui-elements" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-Windows.LineEdit">
+<span id="lineedit"></span><h2>LineEdit<a class="headerlink" href="#module-Windows.LineEdit" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<p>Many thanks to</p>
+<p><a class="reference external" href="https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/">https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/</a> for the qvalidator explanations</p>
+<dl class="py class">
+<dt id="Windows.LineEdit.LineEdit">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.LineEdit.</code><code class="sig-name descname">LineEdit</code><a class="headerlink" href="#Windows.LineEdit.LineEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Subclasses QLineEdit to add additional functionality</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.LineEdit.LineEdit.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'LineEdit'</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Windows.LineEdit.LineEdit.__hasDoubleValidator">
+<code class="sig-name descname">__hasDoubleValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>True if DoubleValidator has been set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Windows.LineEdit.LineEdit.__hasIntValidator">
+<code class="sig-name descname">__hasIntValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasIntValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>True if IntValidator has been set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Windows.LineEdit.LineEdit.__hasRegExpValidator">
+<code class="sig-name descname">__hasRegExpValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>True if RegExpValidator has been set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.checkContent">
+<code class="sig-name descname">checkContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.checkContent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Does check the content of a line edit with the help of the applied validator. Depending on the check result the background of the line edit is changed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.enableDoubleValidator">
+<code class="sig-name descname">enableDoubleValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates an DoubleValidator and sets it for the current line edit.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>bottom</strong> – lower value of validation border</p></li>
+<li><p><strong>top</strong> – upper value of validation border</p></li>
+<li><p><strong>decimals</strong> – number of decimals to be checked</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.enableIntValidator">
+<code class="sig-name descname">enableIntValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableIntValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates an IntValidator and sets it for the current line edit.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>bottom</strong> – lower value of validation border</p></li>
+<li><p><strong>top</strong> – upper value of validation border</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.enableRegExpValidator">
+<code class="sig-name descname">enableRegExpValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regexp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an RegExpValidator and sets it to the current line edit.
+:param regexp: the RegExp to be applied to the validator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.eventFilter">
+<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Catches specific events and controls (the updates of the help window and the validation of the user inputs).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.setHelpBar">
+<code class="sig-name descname">setHelpBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpBar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Configure the help bar of a specific window where the user help text shall be displayed during program execution.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>helpBar</strong> – Instance of the respecitive help bar to work with</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.setHelpText">
+<code class="sig-name descname">setHelpText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpText</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpText" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>helpText</strong> – Help text to be displayed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.LineEdit.LineEdit.setText">
+<code class="sig-name descname">setText</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setText" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Calls first the super class to set the text and triggers afterwards the value check making sure the background is set according to the verification result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.TableView">
+<span id="tableview"></span><h2>TableView<a class="headerlink" href="#module-Windows.TableView" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<p>Many thanks to</p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/20064975/how-to-catch-mouse-over-event-of-qtablewidget-item-in-pyqt">https://stackoverflow.com/questions/20064975/how-to-catch-mouse-over-event-of-qtablewidget-item-in-pyqt</a></p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/13449971/pyside-pyqt4-how-to-set-a-validator-when-editing-a-cell-in-a-qtableview">https://stackoverflow.com/questions/13449971/pyside-pyqt4-how-to-set-a-validator-when-editing-a-cell-in-a-qtableview</a></p>
+<p><a class="reference external" href="https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/">https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/</a></p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520">https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520</a></p>
+<dl class="py class">
+<dt id="Windows.TableView.TableView">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.TableView.</code><code class="sig-name descname">TableView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Subclasses QLineEdit to add additional functionality</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.TableView.TableView.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'TableView'</em><a class="headerlink" href="#Windows.TableView.TableView.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Constructor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.enableDoubleValidator">
+<code class="sig-name descname">enableDoubleValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">firstRow</span></em>, <em class="sig-param"><span class="n">lastRow</span></em>, <em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Limits one ore multiple columns to a specific double input range</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>firstRow</strong> – first row of the table where the validator should be set</p></li>
+<li><p><strong>lastRow</strong> – last row of the table where the validator should be set</p></li>
+<li><p><strong>bottom</strong> – lower value of validation border</p></li>
+<li><p><strong>top</strong> – upper value of validation border</p></li>
+<li><p><strong>decimals</strong> – number of decimals allowed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.enableIntValidator">
+<code class="sig-name descname">enableIntValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">firstRow</span></em>, <em class="sig-param"><span class="n">lastRow</span></em>, <em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.enableIntValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Limits one ore multiple columns to a specific int input range</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>firstRow</strong> – first row of the table where the validator should be set</p></li>
+<li><p><strong>lastRow</strong> – last row of the table where the validator should be set</p></li>
+<li><p><strong>bottom</strong> – lower value of validation border</p></li>
+<li><p><strong>top</strong> – upper value of validation border</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.enableRegExpValidator">
+<code class="sig-name descname">enableRegExpValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">firstRow</span></em>, <em class="sig-param"><span class="n">lastRow</span></em>, <em class="sig-param"><span class="n">regexp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Limits one ore multiple columns to a specific RegExp</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>firstRow</strong> – first row of the table where the validator should be set</p></li>
+<li><p><strong>lastRow</strong> – last row of the table where the validator should be set</p></li>
+<li><p><strong>regexp</strong> – the RegExp to be applied to the validator.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.eventFilter">
+<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em>, <em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Catches specific events and controls (the updates of the help window and the validation of the user inputs).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.setHelpBar">
+<code class="sig-name descname">setHelpBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.setHelpBar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Configure the help bar of a specific window where the user help text shall be displayed during program execution.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>helpBar</strong> – Instance of the respecitive help bar to work with</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.TableView.setHelpText">
+<code class="sig-name descname">setHelpText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">helpText</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.TableView.setHelpText" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>column</strong> – number of the column for which the text will be set. Be careful: numbering starts with 0! Be careful again: add elements in the column order!</p></li>
+<li><p><strong>helpText</strong> – Help text to be displayed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Windows.TableView.ValidatedDoubleItemDelegate">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.TableView.</code><code class="sig-name descname">ValidatedDoubleItemDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedDoubleItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>creates a delegate limiting the input to a specific double range.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.TableView.ValidatedDoubleItemDelegate.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ValidatedDoubleItemDelegate'</em><a class="headerlink" href="#Windows.TableView.ValidatedDoubleItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedDoubleItemDelegate.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedDoubleItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Constructor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>bottom</strong> – lower border of the valid range</p></li>
+<li><p><strong>top</strong> – upper border of the valid range</p></li>
+<li><p><strong>decimals</strong> – number of decimals allowed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedDoubleItemDelegate.createEditor">
+<code class="sig-name descname">createEditor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#Windows.TableView.ValidatedDoubleItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Windows.TableView.ValidatedIntItemDelegate">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.TableView.</code><code class="sig-name descname">ValidatedIntItemDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedIntItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>creates a delegate limiting the input to a specific int range.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.TableView.ValidatedIntItemDelegate.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ValidatedIntItemDelegate'</em><a class="headerlink" href="#Windows.TableView.ValidatedIntItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedIntItemDelegate.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedIntItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Constructor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>bottom</strong> – lower border of the valid range</p></li>
+<li><p><strong>top</strong> – upper border of the valid range</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedIntItemDelegate.createEditor">
+<code class="sig-name descname">createEditor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#Windows.TableView.ValidatedIntItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Windows.TableView.ValidatedRegExpItemDelegate">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.TableView.</code><code class="sig-name descname">ValidatedRegExpItemDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regexp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedRegExpItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>creates a delegate limiting the input to a specific RegExp.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.TableView.ValidatedRegExpItemDelegate.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ValidatedRegExpItemDelegate'</em><a class="headerlink" href="#Windows.TableView.ValidatedRegExpItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedRegExpItemDelegate.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regexp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TableView.ValidatedRegExpItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Constructor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>regexp</strong> – lower border of the valid range</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.TableView.ValidatedRegExpItemDelegate.createEditor">
+<code class="sig-name descname">createEditor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#Windows.TableView.ValidatedRegExpItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-Windows.WindowHelpBar">
 <span id="windowbtnbar"></span><h2>WindowBtnBar<a class="headerlink" href="#module-Windows.WindowHelpBar" title="Permalink to this headline">¶</a></h2>
@@ -267,154 +687,6 @@
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>helpPage</strong> – the name of the .html file to be opened if the Help Button is pressed. If not set, the main index.html will be opened.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-Windows.LineEdit">
-<span id="lineedit"></span><h2>LineEdit<a class="headerlink" href="#module-Windows.LineEdit" title="Permalink to this headline">¶</a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">Author</dt>
-<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
-</dd>
-<dt class="field-even">License</dt>
-<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
-</dd>
-</dl>
-<p>Many thanks to <a class="reference external" href="https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/">https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/</a> for the qvalidator explanations</p>
-<dl class="py class">
-<dt id="Windows.LineEdit.LineEdit">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.LineEdit.</code><code class="sig-name descname">LineEdit</code><a class="headerlink" href="#Windows.LineEdit.LineEdit" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Subclasses QLineEdit to add additional functionality</p>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt id="Windows.LineEdit.LineEdit.__hasDoubleValidator">
-<code class="sig-name descname">__hasDoubleValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasDoubleValidator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>True if DoubleValidator has been set.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="Windows.LineEdit.LineEdit.__hasIntValidator">
-<code class="sig-name descname">__hasIntValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasIntValidator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>True if IntValidator has been set.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="Windows.LineEdit.LineEdit.__hasRegExpValidator">
-<code class="sig-name descname">__hasRegExpValidator</code><em class="property"> = False</em><a class="headerlink" href="#Windows.LineEdit.LineEdit.__hasRegExpValidator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>True if RegExpValidator has been set.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.checkContent">
-<code class="sig-name descname">checkContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.checkContent" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does check the content of a line edit with the help of the applied validator. Depending on the check result the background of the line edit is changed.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.enableDoubleValidator">
-<code class="sig-name descname">enableDoubleValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">decimals</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Creates an DoubleValidator and sets it for the current line edit.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>bottom</strong> – lower value of validation border</p></li>
-<li><p><strong>top</strong> – upper value of validation border</p></li>
-<li><p><strong>decimals</strong> – number of decimals to be checked</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.enableIntValidator">
-<code class="sig-name descname">enableIntValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bottom</span></em>, <em class="sig-param"><span class="n">top</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableIntValidator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Creates an IntValidator and sets it for the current line edit.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>bottom</strong> – lower value of validation border</p></li>
-<li><p><strong>top</strong> – upper value of validation border</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.enableRegExpValidator">
-<code class="sig-name descname">enableRegExpValidator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regexp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an RegExpValidator and sets it to the current line edit.
-:param regexp: the RegExp to be applied to the validator.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.eventFilter">
-<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.eventFilter" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Catches specific events and controls (the updates of the help window and the validation of the user inputs).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.setHelpBar">
-<code class="sig-name descname">setHelpBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpBar" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Configure the help bar of a specific window where the user help text shall be displayed during program execution.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>helpBar</strong> – Instance of the respecitive help bar to work with</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.setHelpText">
-<code class="sig-name descname">setHelpText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">helpText</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setHelpText" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>helpText</strong> – Help text to be displayed</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="Windows.LineEdit.LineEdit.setText">
-<code class="sig-name descname">setText</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.LineEdit.LineEdit.setText" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Calls first the super class to set the text and triggers afterwards the value check making sure the background is set according to the verification result.</p>
 </dd>
 </dl>
 </dd></dl>

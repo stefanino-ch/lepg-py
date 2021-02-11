@@ -116,7 +116,7 @@ class PreProcDataEdit(QMdiSubWindow):
         self.wing_G.setColumnMinimumWidth(0, __col0width)
         self.wing_F.setLayout(self.wing_G)
         
-        self.wingName_L = QLabel(_('Wing name'))
+        self.wingName_L = QLabel(_('Wing name [txt]'))
         self.wingName_L.setAlignment(Qt.AlignRight)
         self.wingName_E = LineEdit()
         self.wingName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
@@ -571,7 +571,7 @@ class PreProcDataEdit(QMdiSubWindow):
         
         __cdGRow += 1
         
-        self.cd_coeff_L = QLabel(_('Distr Coeff'))
+        self.cd_coeff_L = QLabel(_('Distr coeff [coef]'))
         self.cd_coeff_L.setAlignment(Qt.AlignRight)
         self.cd_coeff_E = LineEdit()
         self.cd_coeff_E.enableDoubleValidator(0.00, 1.00, 2)
@@ -583,10 +583,10 @@ class PreProcDataEdit(QMdiSubWindow):
         self.cd_G.addWidget(self.cd_coeff_E, __cdGRow, 1)
         __cdGRow += 1
         
-        self.cd_num_L = QLabel(_('Cell num'))
+        self.cd_num_L = QLabel(_('Number of cells [num]'))
         self.cd_num_L.setAlignment(Qt.AlignRight)
         self.cd_num_E = LineEdit()
-        self.cd_num_E.enableIntValidator(1, 99)
+        self.cd_num_E.enableIntValidator(1, 999)
         self.cd_num_E.setText(self.pps.getSingleVal('CellNum'))
         self.cd_num_E.textEdited.connect(self.dataStatusChanged)
         self.cd_num_E.setHelpText(_('PreProc-cd_num_desc'))
