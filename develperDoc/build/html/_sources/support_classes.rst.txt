@@ -12,6 +12,13 @@ Pre-Processor store
    :undoc-members:
    :members:
    :private-members:
+ 
+SqlTableModel
+-------------
+.. automodule:: DataStores.SqlTableModel
+   :undoc-members:
+   :members:
+   :private-members:
    
 Processor Model
 ---------------

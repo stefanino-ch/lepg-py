@@ -12,12 +12,12 @@ from Windows.WindowBtnBar import WindowBtnBar
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.ProcessorModel import ProcessorModel
 
-class ProcGeometry(QMdiSubWindow):
+class ProcAirfoils(QMdiSubWindow):
     '''
-    :class: Window to display and edit geometry data  
+    :class: Window to display and edit airfoils data  
     '''
 
-    __className = 'ProcGeometry'
+    __className = 'ProcAirfoils'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -29,7 +29,7 @@ class ProcGeometry(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.rib_M = ProcessorModel.RibModel()
+        self.airf_M = ProcessorModel.AirfoilsModel()
         self.dws = DataWindowStatus()
         self.buildWindow()
     
@@ -54,7 +54,7 @@ class ProcGeometry(QMdiSubWindow):
                 windowGrid 
                      Table
                     -------------------------
-                    SortBtn         | helpBar
+                     SortBtn        | helpBar
                                     | btnBar
         '''
         logging.debug(self.__className + '.buildWindow')
@@ -72,32 +72,29 @@ class ProcGeometry(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Geometry"))
+        self.setWindowTitle(_("Airfoils"))
         
         self.table = TableView()
-        self.table.setModel( self.rib_M )
-        self.table.hideColumn(self.rib_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
-        
+        self.table.setModel( self.airf_M )
+        self.table.hideColumn(self.airf_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
+            
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
-        self.table.setHelpText(ProcessorModel.RibModel.RibNumCol, _('Proc-RibNumDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.xribCol, _('Proc-xribDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.yLECol, _('Proc-yLEDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.yTECol, _('Proc-yTEDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.xpCol, _('Proc-xpDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.zCol, _('Proc-zDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.betaCol, _('Proc-betaDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.RPCol, _('Proc-RPDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.WashinCol, _('Proc-WashinDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.RibNumCol, _('Proc-RibNumDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.AirfNameCol, _('Proc-AirfoilNameDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.IntakeStartCol, _('Proc-IntakeStartDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.IntakeEndCol, _('Proc-IntakeEnDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.OpenCloseCol, _('Proc-OpenCloseDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.DisplacCol, _('Proc-DisplacDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.RelWeightCol, _('Proc-RelWeightDesc'))
+        self.table.setHelpText(ProcessorModel.AirfoilsModel.rrwCol, _('Proc-rrwDesc'))
         
-        self.table.enableIntValidator(ProcessorModel.RibModel.RibNumCol, ProcessorModel.RibModel.RibNumCol, 1, 999)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xribCol, ProcessorModel.RibModel.xribCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.yLECol, ProcessorModel.RibModel.yTECol, -500, 1000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xpCol, ProcessorModel.RibModel.xpCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.zCol, ProcessorModel.RibModel.zCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.betaCol, ProcessorModel.RibModel.betaCol, 75, 105, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.RPCol, ProcessorModel.RibModel.RPCol, 0, 100, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.WashinCol, ProcessorModel.RibModel.WashinCol, -10, 10, 2)
+        self.table.enableIntValidator(ProcessorModel.AirfoilsModel.RibNumCol, ProcessorModel.AirfoilsModel.RibNumCol, 1, 999)
+        self.table.enableRegExpValidator(ProcessorModel.AirfoilsModel.AirfNameCol, ProcessorModel.AirfoilsModel.AirfNameCol, "(.|\s)*\S(.|\s)*")
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.IntakeStartCol, ProcessorModel.AirfoilsModel.IntakeEndCol, 0, 100, 2)
+        self.table.enableIntValidator(ProcessorModel.AirfoilsModel.OpenCloseCol, ProcessorModel.AirfoilsModel.OpenCloseCol, 0, 1)
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.DisplacCol, ProcessorModel.AirfoilsModel.DisplacCol, 0, 3000, 2)
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.RelWeightCol,ProcessorModel.AirfoilsModel.rrwCol, 0, 100, 2)
         
         self.windowGrid.addWidget(self.table, __winGRowL, 0, 1, 2)
         __winGRowL += 1
@@ -106,8 +103,9 @@ class ProcGeometry(QMdiSubWindow):
         self.sortBtn = QPushButton(_('Sort by Rib Number'))
         self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.sortBtn.clicked.connect(self.sortBtnPress)
-        self.windowGrid.addWidget(self.sortBtn,__winGRowL,0, Qt.AlignTop)
+        self.windowGrid.addWidget(self.sortBtn,__winGRowL,0,Qt.AlignTop)
         __winGRowL += 1
+        
 
         #############################
         # Commons for all windows
@@ -128,7 +126,7 @@ class ProcGeometry(QMdiSubWindow):
         : method : handles the sort of the table by rib number
         '''
         logging.debug(self.__className+'.sortBtnPress')
-        self.rib_M.sortTable(ProcessorModel.RibModel.RibNumCol, Qt.AscendingOrder)
+        self.airf_M.sortTable(ProcessorModel.AirfoilsModel.RibNumCol, Qt.AscendingOrder)
     
     def btnPress(self, q):
         '''

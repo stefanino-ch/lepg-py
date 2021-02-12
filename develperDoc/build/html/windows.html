@@ -100,6 +100,7 @@
 <li><a class="reference internal" href="#module-Windows.PreProcDataEdit">Pre-Processor data edit</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcBasicData">Processor Basic Data</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcGeometry">Processor Geometry</a></li>
+<li><a class="reference internal" href="#module-Windows.ProcAirfoils">Processor Airfoils</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcessorOutput">ProcessorOutput</a></li>
 </ul>
@@ -318,6 +319,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Save PreProc File As ..</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procAirfoilsEdit">
+<code class="sig-name descname">procAirfoilsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAirfoilsEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Airfoils</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -842,7 +853,7 @@
     <span class="n">windowGrid</span> 
          <span class="n">Table</span>
         <span class="o">-------------------------</span>
-                        <span class="o">|</span> <span class="n">helpBar</span>
+        <span class="n">SortBtn</span>         <span class="o">|</span> <span class="n">helpBar</span>
                         <span class="o">|</span> <span class="n">btnBar</span>
 </pre></div>
 </div>
@@ -861,6 +872,87 @@
 <dl class="py method">
 <dt id="Windows.ProcGeometry.ProcGeometry.sortBtnPress">
 <code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><p>: method : handles the sort of the table by rib number</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.ProcAirfoils">
+<span id="processor-airfoils"></span><h2>Processor Airfoils<a class="headerlink" href="#module-Windows.ProcAirfoils" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.ProcAirfoils.ProcAirfoils">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcAirfoils.</code><code class="sig-name descname">ProcAirfoils</code><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit airfoils data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.ProcAirfoils.ProcAirfoils.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ProcAirfoils'</em><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcAirfoils.ProcAirfoils.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcAirfoils.ProcAirfoils.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span>
+<span class="n">Buttons</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowGrid</span> 
+         <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+         <span class="n">SortBtn</span>        <span class="o">|</span> <span class="n">helpBar</span>
+                        <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcAirfoils.ProcAirfoils.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ProcAirfoils.ProcAirfoils.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><p>: method : handles the sort of the table by rib number</p>
 </dd></dl>
 

@@ -40,6 +40,14 @@ Processor Geometry
    :undoc-members:
    :members:
    :private-members:
+
+Processor Airfoils
+--------------------
+.. automodule:: Windows.ProcAirfoils
+   :undoc-members:
+   :members:
+   :private-members:
+   
   
 #Wing Viewer
 #-----------

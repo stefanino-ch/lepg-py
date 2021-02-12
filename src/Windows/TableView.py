@@ -152,16 +152,21 @@ class TableView(QTableView):
     def setHelpText(self, column, helpText):
         '''
         :method: Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.   
-        :param column: number of the column for which the text will be set. Be careful: numbering starts with 0! Be careful again: add elements in the column order!
+        :param column: number of the column for which the text will be set. 
         :param helpText: Help text to be displayed
         '''
         logging.debug(self.__className+'.setHelpText')
-        if len(self.__helpText) < column :
-            self.__helpText.append(helpText)
-        else:
-            self.__helpText[column] = helpText
+        length = len(self.__helpText)
+        if length <= column:
+            # add columns
+            missingCols = (column - length) + 1
+            i=0
+            while i < missingCols:
+                self.__helpText.append('')
+                i += 1
+        self.__helpText[column] = helpText
     
-    def enableIntValidator(self, firstRow, lastRow, bottom, top):
+    def enableIntValidator(self, firstCol, lastCol, bottom, top):
         '''
         :method: Limits one ore multiple columns to a specific int input range
         :param firstRow: first row of the table where the validator should be set
@@ -173,13 +178,13 @@ class TableView(QTableView):
         self.intDelegate.append( ValidatedIntItemDelegate(bottom, top) )
         index = len(self.intDelegate)-1
         
-        i = firstRow
-        while i<= lastRow:
+        i = firstCol
+        while i<= lastCol:
             self.setItemDelegateForColumn(i, self.intDelegate[index])
             i += 1
 
             
-    def enableDoubleValidator(self, firstRow, lastRow, bottom, top, decimals=0):
+    def enableDoubleValidator(self, firstCol, lastCol, bottom, top, decimals=0):
         '''
         :method: Limits one ore multiple columns to a specific double input range
         :param firstRow: first row of the table where the validator should be set
@@ -192,12 +197,12 @@ class TableView(QTableView):
         self.doubleDelegate.append( ValidatedDoubleItemDelegate(bottom, top, decimals) )
         index = len(self.doubleDelegate)-1
         
-        i = firstRow
-        while i<= lastRow:
+        i = firstCol
+        while i<= lastCol:
             self.setItemDelegateForColumn(i, self.doubleDelegate[index])
             i += 1
         
-    def enableRegExpValidator(self, firstRow, lastRow, regexp):
+    def enableRegExpValidator(self, firstCol, lastCol, regexp):
         '''
         :method: Limits one ore multiple columns to a specific RegExp
         :param firstRow: first row of the table where the validator should be set
@@ -208,7 +213,7 @@ class TableView(QTableView):
         self.regExpDelegate.append( ValidatedRegExpItemDelegate(regexp) )
         index = len(self.regExpDelegate)-1
         
-        i = firstRow
-        while i<= lastRow:
+        i = firstCol
+        while i<= lastCol:
             self.setItemDelegateForColumn(i, self.regExpDelegate[index])
             i += 1

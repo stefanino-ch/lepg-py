@@ -23,6 +23,7 @@ from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.WingViewer import WingViewer
 from Windows.ProcBasicData import ProcBasicData
 from Windows.ProcGeometry import ProcGeometry
+from Windows.ProcAirfoils import ProcAirfoils
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
@@ -253,7 +254,9 @@ class MainWindow(QMainWindow):
         procGeometry_A.setEnabled(self.__enableWingFunct)
         
         procEditAirfoils_A = QAction(_('Airfoils'), self)
-        procEditAirfoils_A.setEnabled(False)
+        procEditAirfoils_A.setStatusTip(_('Edit airfoils geometry'))
+        procEditAirfoils_A.triggered.connect(self.procAirfoilsEdit)
+        procEditAirfoils_A.setEnabled(self.__enableWingFunct)
         
         procEditAnchPoints_A = QAction(_('Anchor Points'), self)
         procEditAnchPoints_A.setEnabled(False)
@@ -436,6 +439,15 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.geometryW)
         self.geometryW.show()
 
+    def procAirfoilsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Airfoils*
+        '''
+        if self.dws.windowExists('ProcAirfoils') == False:
+            self.airfoilsW = ProcAirfoils()
+            self.dws.registerWindow('ProcAirfoils')
+            self.mdi.addSubWindow(self.airfoilsW)
+        self.airfoilsW.show()
         
     def procRun(self):
         '''

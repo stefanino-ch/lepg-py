@@ -8,11 +8,12 @@ import logging
 import math
 import re
 
-from PyQt5.QtCore import QFile, QTextStream, QObject, pyqtSignal
+from PyQt5.QtCore import QFile, QTextStream, QObject
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Singleton.Singleton import Singleton
+from DataStores.SqlTableModel import SqlTableModel
 
 class ProcessorModel(QObject, metaclass=Singleton):
     '''
@@ -45,6 +46,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # make sure tables are there
         self.rib_M = self.RibModel()
         self.wing_M = self.WingModel()
+        self.airf_M = self.AirfoilsModel()
         
     def isValid( self, fileName ):
         '''
@@ -209,6 +211,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for y in range(0, 9):
                 self.rib_M.setData(self.rib_M.index(i, y), values[y] )
         
+        ##############################
+        # 2. AIRFOILS
+        for i in range(4):
+            line = stream.readLine()
+        
+        for i in range( 0, self.wing_M.halfNumRibs ):
+            values =  self.splitLine( stream.readLine() )
+            for y in range(0, 8):
+                self.airf_M.setData(self.airf_M.index(i, y), values[y] )
+        
+        
+        
         inFile.close() 
        
     def remTabSpace(self, line):
@@ -243,11 +257,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
     
-    class WingModel(QSqlTableModel, metaclass=Singleton):
+    class WingModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all data related to the wing itself. 
         '''
-        
         __className = 'WingModel'
 
         BrandNameCol = 1
@@ -284,18 +297,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query = QSqlQuery()
             query.exec("DROP TABLE if exists Wing;")
             query.exec("create table if not exists Wing ("
-                    "ID INT PRIMARY KEY,"
-                    "BrandName varchar(50),"
-                    "WingName varchar(50),"
-                    "DrawScale varchar(50),"
-                    "WingScale varchar(50),"
-                    "NumCells varchar(50),"
-                    "NumRibs varchar(50),"
-                    "AlphaMode varchar(50),"
-                    "AlphaMaxCent varchar(50),"
-                    "AlphaMaxTip varchar(50),"
-                    "ParaType varchar(50),"
-                    "ParaParam varchar(50));")
+                    "ID INTEGER PRIMARY KEY,"
+                    "BrandName TEXT,"
+                    "WingName TEXT,"
+                    "DrawScale REAL,"
+                    "WingScale REAL,"
+                    "NumCells INTEGER,"
+                    "NumRibs INTEGER,"
+                    "AlphaMode INTEGER,"
+                    "AlphaMaxCent REAL,"
+                    "AlphaMaxTip REAL,"
+                    "ParaType TEXT,"
+                    "ParaParam INTEGER);")
             query.exec("INSERT into Wing (ID) Values( '1' );")
 
         def __init__(self, parent=None): # @UnusedVariable
@@ -310,6 +323,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.rib_M = ProcessorModel.RibModel()
+            self.airf_M = ProcessorModel.AirfoilsModel()
             self.dataChanged.connect(self.syncData)
              
         def syncData(self, q):
@@ -326,8 +340,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     logging.debug(self.__className+'.syncData ' + 'halfNumRibs: ' +str(self.halfNumRibs))
                     
                     self.rib_M.setupRibRows(self.halfNumRibs)
+                    self.airf_M.setupRibRows(self.halfNumRibs)
     
-    class RibModel(QSqlTableModel, metaclass=Singleton):
+    class RibModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all data related to the individual ribs. 
         '''
@@ -335,12 +350,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         :attr: Does help to indicate the source of the log messages
         '''
-        
-        didSelect = pyqtSignal()
-        '''
-        :signal: emitted as soon select() was executed on the model. You must know about this fact if you have mappers to LineEdits in place, as the mapping must be redone after every select().
-        '''
-        
         RibNumCol = 0
         ''':attr: number of the rib number column'''
         xribCol = 1
@@ -359,7 +368,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''':attr: number of the column providing RP percentage of chord to be held on the relative torsion of the airfoils'''
         WashinCol = 8
         ''':attr: number of the column providing washin in degrees defined manually (if parameter is set to "0")'''
-
+        
         def createRibTable(self):
             '''
             :method: cereates initially the empty rib table
@@ -377,8 +386,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "z REAL,"
                     "beta REAL,"
                     "RP REAL,"
-                    "Washin REAL);")
-            query.exec("INSERT into Rib (RibNum) Values( '1' );")
+                    "Washin REAL,"
+                    "ID INTEGER);")
+            query.exec("INSERT into Rib (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
             '''
@@ -390,79 +400,54 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Rib")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+
+    class AirfoilsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all data related to the individual ribs. 
+        '''
+        __className = 'AirfoilsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: number of the rib number column'''
+        AirfNameCol = 1
+        IntakeStartCol = 2 
+        IntakeEndCol = 3
+        OpenCloseCol = 4
+        DisplacCol = 5
+        RelWeightCol = 6
+        rrwCol = 7
         
-        def removeRows(self, *args, **kwargs):
-            '''
-            :method: overwritten class method. Needed to get a signal back after a row was deleted.
-            '''
-            logging.debug(self.__className+'.removeRows')
-            
-            res = QSqlTableModel.removeRows(self, *args, **kwargs)
-            self.select()           # Select MUST only be done once! 
-            return res
         
-        def addRows(self, row, count):
+        def createAirfoilsTable(self):
             '''
-            :method: add one or multiple rows to the model
-            :param row: row after which the new rows must be inserted
-            :param count: the number of new rows to be inserted
-            
-            Thanks to https://stackoverflow.com/questions/47318601/inserting-row-into-qsqltablemodel#47319440
-            for the example about how to insert.
-            '''
-            logging.debug(self.__className+ '.addRows')
-            
-            QSqlDatabase.database().transaction()             
-            for i in range( 0, count ):
-                numRows = self.rowCount()
-                record = self.record()
-                record.setValue("RibNum", numRows+1);
-                #-1 is set to indicate that it will be added to the last row*/
-                if not self.insertRecord(row+i, record):
-                    logging.critical(self.__className + '.addRows insertRecord Err type: %s' %self.lastError().type())
-                    logging.critical(self.__className + '.addRows insertRecord Err text: %s' %self.lastError().text())
-                    QSqlDatabase.database().rollback()
-                    return False
-                
-            if not QSqlDatabase.database().commit():
-                logging.critical(self.__className + '.addRows commit Err type: %s' %self.lastError().type())
-                logging.critical(self.__className + '.addRows commit Err text: %s' %self.lastError().text())
-                return False
-            return True
-        
-        def select(self, *args, **kwargs):
-            '''
-            :method: overwritten class method. Needed to get a signal back after a select().
-            :emits didSelect: 
-            '''
-            logging.debug(self.__className+'.select')
-            
-            res = QSqlTableModel.select(self, *args, **kwargs)
-            self.didSelect.emit()   # Now we must tell the rest of the app that a row has been removed.
-            return res
-        
-        def sortTable(self, row, order):
-            '''
-            :method: forces the model to sort
-            :param: row which is used to sort
-            :param order: Qt.AscendingOrder or Qt.DescendingOrder
-            '''
-            logging.debug(self.__className+'.sortTable')
-            self.setSort(row, order)
-            self.select()
-            
-        def setupRibRows(self, halfNumRibs):
-            '''
-            :method: compares the number of rows currently with what it should be. Add/ removes rows accordingly.
-            :param halfNumRibs: the number of rows to be achieved. 
+            :method: cereates initially the empty rib table
             ''' 
-            logging.debug(self.__className+'.setupRibRows')
-            self.submitAll()
+            logging.debug(self.__className+'.createAirfoilsTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Airfoils;")
+            query.exec("create table if not exists Airfoils ("
+                    "RibNum INTEGER,"
+                    "AirfName TEXT,"
+                    "IntakeStart REAL,"
+                    "IntakeEnd REAL,"
+                    "OpenClose INTEGER,"
+                    "Displac REAL,"
+                    "RelWeight REAL,"
+                    "rrw REAL,"
+                    "ID INTEGER);")
+            query.exec("INSERT into Airfoils (ID) Values( '1' );")
             
-            numRows = self.rowCount()
-            if numRows > halfNumRibs:
-                numToRemove = numRows-halfNumRibs
-                self.removeRows(numRows-1, numToRemove)
-            elif numRows < halfNumRibs:
-                numToAdd = halfNumRibs - numRows
-                self.addRows(numRows, numToAdd)
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createAirfoilsTable()
+            self.setTable("Airfoils")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
