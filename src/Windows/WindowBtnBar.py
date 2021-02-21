@@ -98,7 +98,10 @@ class WindowBtnBar(QWidget):
         :class: Called if the *Help* button is pressed
         '''
         config = ConfigReader()
-        webbrowser.open( os.path.join(os.getcwd(), 'userHelp', config.getLanguage(), self.__helpPage) )
+        if self.__helpPage == 'index.html':
+            webbrowser.open( os.path.join(os.getcwd(), 'userHelp', self.__helpPage) )
+        else:
+            webbrowser.open( os.path.join(os.getcwd(), 'userHelp', config.getLanguage(), self.__helpPage) )
     
     def setHelpPage(self, helpPage):
         '''

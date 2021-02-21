@@ -32,7 +32,8 @@ class DataWindowStatus(QObject, metaclass=Singleton):
         'WingOutlineViewer' : '1',
         'ProcBasicData' : '1',
         'ProcGeometry' : '1',
-        'ProcAirfoils' : '1'
+        'ProcAirfoils' : '1',
+        'RibHoles' : '1'
     }
     '''
     :attr: List of all windows taken care of

@@ -166,8 +166,7 @@ class ProcBasicData(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        # @TODO: setup and enable user help
-        #self.btnBar.setHelpPage('preproc/preproc.html')
+        self.btnBar.setHelpPage('proc/basicData.html')
         
         self.windowGrid.addWidget(self.helpBar, __winGRowR ,1, Qt.AlignRight)
         __winGRowR += 1

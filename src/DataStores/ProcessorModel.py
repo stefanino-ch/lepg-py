@@ -3,12 +3,18 @@
 '''
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
+
+Many thanks to the authors of:
+
+https://doc.qt.io/qtforpython/overviews/sql-model.html
+
+https://www.datacamp.com/community/tutorials/inner-classes-python
 '''
 import logging
 import math
 import re
 
-from PyQt5.QtCore import QFile, QTextStream, QObject
+from PyQt5.QtCore import QFile, QTextStream, QObject, pyqtSignal, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
@@ -47,6 +53,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.rib_M = self.RibModel()
         self.wing_M = self.WingModel()
         self.airf_M = self.AirfoilsModel()
+        self.lightC_M = self.LightConfModel()
+        self.lightD_M = self.LightDetModel()
         
     def isValid( self, fileName ):
         '''
@@ -156,36 +164,43 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 self.counter += 1
         
         # Brand name
+        logging.debug(self.__className+'.readFile: Brand name')
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.BrandNameCol ), self.remTabSpaceQuot(line) )
 
         # Wing name
+        logging.debug(self.__className+'.readFile: Wing name')
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.WingNameCol), self.remTabSpaceQuot(line) )
         
         # Draw scale
+        logging.debug(self.__className+'.readFile: Draw scale')
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.DrawScaleCol), self.remTabSpace( line ) )
         
         # Wing scale
+        logging.debug(self.__className+'.readFile: Wing scale')
         line = stream.readLine()
         # self.setSingleVal('WingScale', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.WingScaleCol), self.remTabSpace( stream.readLine() ) )
         
         # Number of cells
+        logging.debug(self.__className+'.readFile: Number of cells')
         line = stream.readLine()
         # self.setSingleVal('NumCells', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumCellsCol), self.remTabSpace( stream.readLine() ) )
         
         # Number of Ribs
+        logging.debug(self.__className+'.readFile: Number of ribs')
         line = stream.readLine()
         # self.setSingleVal('NumRibs', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumRibsCol), self.remTabSpace( stream.readLine() ) )
 
         # Alpha max and parameter
+        logging.debug(self.__className+'.readFile: Alpha max and parameter')
         line = stream.readLine()
         values =  self.splitLine( stream.readLine() )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxTipCol), values[0] )
@@ -196,12 +211,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxCentCol), '' )
         
         # Paraglider type and parameter
+        logging.debug(self.__className+'.readFile: Paraglider type and parameter')
         line = stream.readLine()
         values =  self.splitLine( stream.readLine() )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaTypeCol), self.remTabSpaceQuot( values[0]) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaParamCol), values[1])
         
         # Rib geometric parameters
+        logging.debug(self.__className+'.readFile: Rib geometric parameters')
         # Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin
         line = stream.readLine()
         line = stream.readLine()
@@ -213,6 +230,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         ##############################
         # 2. AIRFOILS
+        logging.debug(self.__className+'.readFile: Airfoils')
         for i in range(4):
             line = stream.readLine()
         
@@ -221,7 +239,40 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for y in range(0, 8):
                 self.airf_M.setData(self.airf_M.index(i, y), values[y] )
         
+        ##############################
+        # 3. ANCHOR POINTS
+        logging.debug(self.__className+'.readFile: Anchor points')
+        # Just overreading the lines for temporary testing
+        for i in range(18):
+            line = stream.readLine()
+            
+        ##############################
+        # 4. RIB HOLES
+        logging.debug(self.__className+'.readFile: Rib holes')
+        for i in range(3):
+            line = stream.readLine()
         
+        numConfigs = int(self.remTabSpace( stream.readLine() ))
+        self.lightC_M.setNumConfigs( numConfigs )
+        for i in range( 0, numConfigs ):
+            ini = int(self.remTabSpace( stream.readLine()))
+            fin = int(self.remTabSpace( stream.readLine()))
+            self.lightC_M.updateConfigRow(i+1, ini, fin)
+            
+            numConfigLines = int(self.remTabSpace( stream.readLine() ))
+            self.lightD_M.setNumDetailRows(i+1, numConfigLines )
+            
+            # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1
+            for l in range(0, numConfigLines):
+                values =  self.splitLine( stream.readLine() )
+                self.lightD_M.updateDetRow(i+1, l+1, float(values[0]), \
+                                        float(values[1]), \
+                                        float(values[2]), \
+                                        float(values[4]), \
+                                        float(values[5]), \
+                                        float(values[6]), \
+                                        float(values[7]))
+
         
         inFile.close() 
        
@@ -259,45 +310,45 @@ class ProcessorModel(QObject, metaclass=Singleton):
     
     class WingModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: provides a SqlTableModel holding all data related to the wing itself. 
+        :class: Provides a SqlTableModel holding all data related to the wing itself. 
         '''
         __className = 'WingModel'
 
-        BrandNameCol = 1
+        BrandNameCol = 0
         ''':attr: number of the brand name column'''
-        WingNameCol = 2
+        WingNameCol = 1
         ''':attr: number of the wing name column'''
-        DrawScaleCol = 3
+        DrawScaleCol = 2
         ''':attr: number of the draw scale column'''
-        WingScaleCol = 4
+        WingScaleCol = 3
         ''':attr: number of the wing scale column'''
-        NumCellsCol = 5
+        NumCellsCol = 4
         ''':attr: number of the number of cells column'''
-        NumRibsCol = 6
+        NumRibsCol = 5
         ''':attr: number of the number of ribs column'''
-        AlphaModeCol = 7
+        AlphaModeCol = 6
         ''':attr: number of the alpha type column'''
-        AlphaMaxCentCol = 8
+        AlphaMaxCentCol = 7
         ''':attr: number of the alpha max angle in center column'''
-        AlphaMaxTipCol = 9
+        AlphaMaxTipCol = 8
         ''':attr: number of the alpha max angle on wingtip column'''
-        ParaTypeCol = 10
+        ParaTypeCol = 9
         ''':attr: number of the paraglider type column'''
-        ParaParamCol = 11
+        ParaParamCol = 10
         ''':attr: number of the column holding the parameter attached to paraglider type'''
+        
         halfNumRibs = 0
         ''':attr: the number of different ribs needed to build the wing. This is more or less the half number of total ribs.'''
 
         def createWingTable(self): 
             '''
-            :method: cereates initially the empty wing table
+            :method: Creates initially the empty wing table
             '''   
             logging.debug(self.__className+'.createWingTable')
                 
             query = QSqlQuery()
             query.exec("DROP TABLE if exists Wing;")
             query.exec("create table if not exists Wing ("
-                    "ID INTEGER PRIMARY KEY,"
                     "BrandName TEXT,"
                     "WingName TEXT,"
                     "DrawScale REAL,"
@@ -308,7 +359,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "AlphaMaxCent REAL,"
                     "AlphaMaxTip REAL,"
                     "ParaType TEXT,"
-                    "ParaParam INTEGER);")
+                    "ParaParam INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
             query.exec("INSERT into Wing (ID) Values( '1' );")
 
         def __init__(self, parent=None): # @UnusedVariable
@@ -324,13 +377,15 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             self.rib_M = ProcessorModel.RibModel()
             self.airf_M = ProcessorModel.AirfoilsModel()
+            self.lightC_M = ProcessorModel.LightConfModel()
             self.dataChanged.connect(self.syncData)
              
         def syncData(self, q):
             '''
-            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate the current number of half ribs and calls the method to setup the model accordingly. 
+            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate \
+                the current number of half ribs and calls the method to setup the model accordingly. If NumLightConf is changed \ 
+                the NumLightConf Model must be keept in sync.
             '''
-            # 
             logging.debug(self.__className+'.syncData')
             
             if q.column() == self.NumRibsCol:
@@ -341,10 +396,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     
                     self.rib_M.setupRibRows(self.halfNumRibs)
                     self.airf_M.setupRibRows(self.halfNumRibs)
+
     
     class RibModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: provides a SqlTableModel holding all data related to the individual ribs. 
+        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
         '''
         __className = 'RibModel'
         '''
@@ -371,7 +427,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         def createRibTable(self):
             '''
-            :method: cereates initially the empty rib table
+            :method: Creates initially the empty rib table.
             ''' 
             logging.debug(self.__className+'.createRibTable')   
             query = QSqlQuery()
@@ -387,7 +443,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "beta REAL,"
                     "RP REAL,"
                     "Washin REAL,"
-                    "ID INTEGER);")
+                    "ID INTEGER PRIMARY KEY);")
             query.exec("INSERT into Rib (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
@@ -404,7 +460,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
     class AirfoilsModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: provides a SqlTableModel holding all data related to the individual ribs. 
+        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
         '''
         __className = 'AirfoilsModel'
         '''
@@ -413,17 +469,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
         RibNumCol = 0
         ''':attr: number of the rib number column'''
         AirfNameCol = 1
+        ''':attr: number of the rib name column'''
         IntakeStartCol = 2 
+        ''':attr: number of the intake start column'''
         IntakeEndCol = 3
+        ''':attr: number of the intake end column'''
         OpenCloseCol = 4
+        ''':attr: number of the column for the open/ close config'''
         DisplacCol = 5
+        ''':attr: number of the column for the displacement'''
         RelWeightCol = 6
+        ''':attr: number of the column for the relative weight '''
         rrwCol = 7
+        ''':attr: number of the column for the rrw config'''
         
         
         def createAirfoilsTable(self):
             '''
-            :method: cereates initially the empty rib table
+            :method: Creates initially the empty rib table
             ''' 
             logging.debug(self.__className+'.createAirfoilsTable')   
             query = QSqlQuery()
@@ -438,7 +501,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "Displac REAL,"
                     "RelWeight REAL,"
                     "rrw REAL,"
-                    "ID INTEGER);")
+                    "ID INTEGER PRIMARY KEY);")
             query.exec("INSERT into Airfoils (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
@@ -451,3 +514,304 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Airfoils")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+    class LightConfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all data related to the global lightening config parameters 
+        '''
+        
+        numConfigsChanged = pyqtSignal(int)
+        '''
+        :Signal: emitted in the moment the number of configurations handled by the model ist changed. \
+        Param1: new number of configurations. 
+        '''
+        
+        __className = 'LightConfModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        __numConfigs = 0
+        
+        InitialRibCol = 0
+        ''':attr: number of the column holding the first rib of the config'''
+        FinalRibCol = 1 
+        ''':attr: number of the column holding the final rib'''
+        ConfigNumCol = 2
+        ''':attr: number of the column holding the config number'''
+        
+        def createLightConfTable(self):
+                '''
+                :method: Creates initially the empty LightConf table.
+                ''' 
+                logging.debug(self.__className+'.createLightConfTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists LightConf;")
+                query.exec("create table if not exists LightConf ("
+                        "InitialRib INTEGER,"
+                        "FinalRib INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createLightConfTable()
+            self.setTable("LightConf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+        def addConfigRow(self):
+            '''
+            :method: Adds an individual configuration.
+            '''
+            logging.debug(self.__className+'.addConfigRow')
+            currNumRows = self.rowCount()
+                
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("INSERT into LightConf (ConfigNum) Values( :conf);")
+            query.bindValue(":conf", currNumRows+1 )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+        
+        def updateConfigRow(self, config, initialRib, finalRib):
+            logging.debug(self.__className+'.setConfigRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE LightConf SET InitialRib= :initial , FinalRib= :final WHERE (ConfigNum = :config);")
+            query.bindValue(":initial", initialRib )
+            query.bindValue(":final", finalRib )
+            query.bindValue(":config", config )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+        def removeRowsByConfigNum(self, configNum ):
+            '''
+            :method: Removes an individual configuration.
+            :param configNum: Number of the config to be deleted.  
+            '''
+            logging.debug(self.__className+'.removeRowsByConfigNum')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("DELETE FROM LightConf where ConfigNum = :num ")
+            query.bindValue(":num", str(configNum))
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+        def setNumConfigs(self, mustNumConfigs):
+            '''
+            :method: Assures the model will be setup to hold the correct number of configs based on parameters passed. 
+            :param mustNumConfigs: Number of configs the model must provide.
+            '''
+            logging.debug(self.__className+'.setNumConfigs')
+            currNumConfigs = self.numConfigs()
+            
+            diff = abs(mustNumConfigs-currNumConfigs)
+            if diff != 0:
+                # do it only if really the number has changed
+                i = 0
+                if mustNumConfigs > currNumConfigs:
+                    # add config lines
+                    while i < diff:
+                        self.addConfigRow()
+                        i += 1
+                else:
+                    # remove config lines
+                    while i < diff:
+                        self.removeRowsByConfigNum( currNumConfigs-i )
+                        i += 1
+                
+                # emit the change signal
+                self.numConfigsChanged.emit( self.numConfigs() )
+                
+        def numConfigs(self):
+            '''
+            :method: Use this to check how many configs the model currently holds
+            :return: Current number of configs.
+            '''     
+            return self.rowCount()
+                
+            
+         
+
+    class LightDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the indivudual lightening config parameters.
+        '''
+        numDetailsChanged = pyqtSignal(int, int)
+        '''
+        :Signal: Emitted at the moment the number of data lines in the model is changed. \
+        Param 1: the configuration number which has changed \
+        Param2: new number of data lines
+        '''
+        
+        __className = 'LightDetModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        LightTypCol = 1 
+        ''':attr: num of column for 1..3: hole type info'''
+        DistLECol = 2
+        ''':attr: num of column for 1..3: distance from LE to hole center in% chord '''
+        DisChordCol = 3
+        ''':attr: num of column for 1..3: distance from the center of hole to the chord line in% of chord'''
+        HorAxisCol = 4
+        ''':attr: num of column for 1..2: horizontal axis of the ellipse as% of chord; 3: traingle base as% of chord'''
+        VertAxisCol = 5
+        ''':attr: num of column for 1..2: ellipse vertical axis as% of chord; 3: triangle heigth as% of chord'''
+        RotAngleCol = 6
+        ''':attr: num of column 1..3:  for rotation angle of the ellipse'''
+        Opt1Col = 7
+        ''':attr: num of column 1: na; 2:  central strip width; 3: Radius of the smoothed corners'''
+        ConfigNumCol = 8
+        ''':attr: num of column for 1..3: config number'''
+        
+        def createLightDetTable(self):
+                '''
+                :method: Creates initially the empty lightening details table.
+                ''' 
+                logging.debug(self.__className+'.createLightDetTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists LightDet;")
+                query.exec("create table if not exists LightDet ("
+                        "OrderNum INTEGER,"
+                        "LightTyp INTEGER,"
+                        "DistLE REAL,"
+                        "DisChord REAL,"
+                        "HorAxis REAL,"
+                        "VertAxis REAL,"
+                        "RotAngle REAL,"
+                        "Opt1 REAL,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+                query.exec("INSERT into LightDet (ConfigNum, OrderNum) Values( '1', '1' );")
+                
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createLightDetTable()
+            self.setTable("LightDet")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+        def addDetailRow(self, configNum):
+            '''
+            :method: Adds a row to the model. Takes care about the initial setup of some row values. 
+            :parm configNum: Number of the config for which the row must be added.
+            '''
+            logging.debug(self.__className+'.addConfigRow')
+
+            currNumRows = self.numDetailRows(configNum)
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("INSERT into LightDet (ConfigNum, OrderNum) Values( :conf, :order);")
+            query.bindValue(":conf", str(configNum))
+            query.bindValue(":order", str(currNumRows+1))
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+        def updateDetRow(self, ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.setConfigRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            #query.prepare("UPDATE LightDet SET LightTyp= :light, DistLE= :dist, DisChord= :dis, HorAxis= :hor, VertAxis= :vert, RotAngle: rot, Opt= :opt WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.prepare("UPDATE LightDet SET LightTyp= :light, "
+                          "DistLE= :dist, DisChord= :dis, HorAxis= :hor, "
+                          "VertAxis= :vert, RotAngle= :rot, Opt1= :opt1 "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":light", LightTyp )
+            query.bindValue(":dist", DistLE )
+            query.bindValue(":dis", DisChord )
+            query.bindValue(":hor", HorAxis )
+            query.bindValue(":vert", VertAxis )
+            query.bindValue(":rot", RotAngle )
+            query.bindValue(":opt1", Opt1 )
+            query.bindValue(":config", ConfigNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+
+        def removeLastDetailRow(self, configNum):
+            '''
+            :method: Removes the last detail row from the model.
+            :param configNum: Number of the config for which the row must be deleted.  
+            '''
+            logging.debug(self.__className+'.removeDetailRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select ConfigNum, OrderNum FROM LightDet WHERE ConfigNum = :conf ORDER BY OrderNum ASC")
+            query.bindValue(":conf", str(configNum))
+            query.exec()
+            orderNum = 0
+            while (query.next()):
+                orderNum = query.value(1)
+            
+            if orderNum>0:
+                query.prepare("DELETE FROM LightDet WHERE (ConfigNum = :conf AND OrderNum = :order);")
+                query.bindValue(":conf", str(configNum))
+                query.bindValue(":order", str(orderNum))
+                query.exec()
+                self.select() # to a select() to assure the model is updated properly
+            
+            
+        def setNumDetailRows(self, configNum, mustNumDetailRows):
+            '''
+            :method: Assures the model will be setup to hold the correct number of rows based on parameters passed. 
+            :param configNum: Number of the config for which the row must be deleted.
+            :param mustNumDetailRows: Number of rows the model must provide.
+            '''
+            logging.debug(self.__className+'.setNumDetails')
+            
+            currNumDetailRows = self.numDetailRows(configNum)
+            diff = abs(mustNumDetailRows-currNumDetailRows)
+            
+            
+            if diff != 0:
+                # do it only if really the number has changed
+                i = 0
+                if mustNumDetailRows > currNumDetailRows:
+                    # add config lines
+                    while i < diff:
+                        self.addDetailRow(configNum)
+                        i += 1
+                else:
+                    # remove config lines
+                    while i < diff:
+                        self.removeLastDetailRow( configNum )
+                        i += 1
+                
+                # emit the change signal
+                self.numDetailsChanged.emit(configNum, self.numDetailRows(configNum))
+        
+        def numDetailRows(self, configNum):
+            '''
+            :method: Use this to check how many rows a specific config holds currently.
+            :param configNum: Number of the config for which the number of rows must be returned.
+            :return: Current number of rows.
+            '''
+            logging.debug(self.__className+'.getNumDetailLines')
+            
+            proxyModel = QSortFilterProxyModel()
+            proxyModel.setSourceModel(self)
+            proxyModel.setFilterKeyColumn(ProcessorModel.LightDetModel.ConfigNumCol)
+            proxyModel.setFilterRegExp( QRegExp( str(configNum) ) )
+            return proxyModel.rowCount()
+            

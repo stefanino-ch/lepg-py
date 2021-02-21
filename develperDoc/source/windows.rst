@@ -48,6 +48,13 @@ Processor Airfoils
    :members:
    :private-members:
    
+Processor Rib Holes
+-------------------
+.. automodule:: Windows.ProcRibHoles
+   :undoc-members:
+   :members:
+   :private-members:
+   
   
 #Wing Viewer
 #-----------

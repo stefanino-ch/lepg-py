@@ -5,7 +5,7 @@
 import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QHeaderView, QPushButton
+from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QSizePolicy, QHeaderView, QPushButton
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
@@ -51,11 +51,10 @@ class ProcAirfoils(QMdiSubWindow):
         Structure:: 
         
             win
-                windowGrid 
+                windowLayout 
                      Table
-                    -------------------------
-                     SortBtn        | helpBar
-                                    | btnBar
+                    ---------------------------
+                     SortBtn | helpBar | btnBar
         '''
         logging.debug(self.__className + '.buildWindow')
         
@@ -64,9 +63,7 @@ class ProcAirfoils(QMdiSubWindow):
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 300)
 
-        self.windowGrid = QGridLayout()
-        __winGRowL = 0
-        __winGRowR = 0
+        self.windowLayout = QVBoxLayout()
         
         self.helpBar = WindowHelpBar()
         
@@ -77,7 +74,7 @@ class ProcAirfoils(QMdiSubWindow):
         self.table = TableView()
         self.table.setModel( self.airf_M )
         self.table.hideColumn(self.airf_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
-            
+        self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
         self.table.setHelpText(ProcessorModel.AirfoilsModel.RibNumCol, _('Proc-RibNumDesc'))
@@ -96,30 +93,27 @@ class ProcAirfoils(QMdiSubWindow):
         self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.DisplacCol, ProcessorModel.AirfoilsModel.DisplacCol, 0, 3000, 2)
         self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.RelWeightCol,ProcessorModel.AirfoilsModel.rrwCol, 0, 100, 2)
         
-        self.windowGrid.addWidget(self.table, __winGRowL, 0, 1, 2)
-        __winGRowL += 1
-        __winGRowR += 1
+        self.windowLayout.addWidget(self.table)
         
         self.sortBtn = QPushButton(_('Sort by Rib Number'))
         self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.sortBtn.clicked.connect(self.sortBtnPress)
-        self.windowGrid.addWidget(self.sortBtn,__winGRowL,0,Qt.AlignTop)
-        __winGRowL += 1
-        
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        # @TODO: setup and enable user help
-        #self.btnBar.setHelpPage('preproc/preproc.html')
+        self.btnBar.setHelpPage('proc/airfoils.html')
+
+        bottomLayout = QHBoxLayout()
+        bottomLayout.addWidget(self.sortBtn)
+        bottomLayout.addStretch()        
+        bottomLayout.addWidget(self.helpBar)
+        bottomLayout.addWidget(self.btnBar)
+        self.windowLayout.addLayout(bottomLayout)
         
-        self.windowGrid.addWidget(self.helpBar, __winGRowR, 1, alignment= Qt.AlignRight)
-        __winGRowR += 1
-        self.windowGrid.addWidget(self.btnBar, __winGRowR, 1, alignment=  Qt.AlignRight)
-        
-        self.win.setLayout(self.windowGrid)
+        self.win.setLayout(self.windowLayout)
     
     def sortBtnPress(self):
         '''
@@ -134,7 +128,7 @@ class ProcAirfoils(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.btnPress')
         if q == 'Apply':
-            print('apply')
+            pass
                         
         elif q == 'Ok':
             self.close()

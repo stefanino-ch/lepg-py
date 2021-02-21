@@ -24,6 +24,7 @@ from Windows.WingViewer import WingViewer
 from Windows.ProcBasicData import ProcBasicData
 from Windows.ProcGeometry import ProcGeometry
 from Windows.ProcAirfoils import ProcAirfoils
+from Windows.ProcRibHoles import ProcRibHoles
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
@@ -261,8 +262,10 @@ class MainWindow(QMainWindow):
         procEditAnchPoints_A = QAction(_('Anchor Points'), self)
         procEditAnchPoints_A.setEnabled(False)
         
-        procEditRibHoles_A = QAction(_('Rib Holes'), self)
-        procEditRibHoles_A.setEnabled(False)
+        procRibHoles_A = QAction(_('Rib Holes'), self)
+        procRibHoles_A.setStatusTip(_('Edit rib holes (Rib lightening) data'))
+        procRibHoles_A.triggered.connect(self.procRibHolesEdit)
+        procRibHoles_A.setEnabled(self.__enableWingFunct)
         
         procEditSkinTension_A = QAction(_('Skin Tension'), self)
         procEditSkinTension_A.setEnabled(False)
@@ -354,7 +357,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procGeometry_A)
         procMenu.addAction(procEditAirfoils_A)
         procMenu.addAction(procEditAnchPoints_A)
-        procMenu.addAction(procEditRibHoles_A)
+        procMenu.addAction(procRibHoles_A)
         
         skinTensMenu = QMenu(_('Skin Tension'),self)
         skinTensMenu.addAction(procEditSkinTension_A)
@@ -448,6 +451,17 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('ProcAirfoils')
             self.mdi.addSubWindow(self.airfoilsW)
         self.airfoilsW.show()
+
+    def procRibHolesEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Airfoils*
+        '''
+        if self.dws.windowExists('RibHoles') == False:
+            self.ribHolesW = ProcRibHoles()
+            self.dws.registerWindow('RibHoles')
+            self.mdi.addSubWindow(self.ribHolesW)
+        self.ribHolesW.show()
+
         
     def procRun(self):
         '''
