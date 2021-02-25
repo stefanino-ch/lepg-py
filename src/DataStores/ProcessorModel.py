@@ -486,7 +486,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         def createAirfoilsTable(self):
             '''
-            :method: Creates initially the empty rib table
+            :method: Creates initially the empty anchor points table
             ''' 
             logging.debug(self.__className+'.createAirfoilsTable')   
             query = QSqlQuery()
@@ -512,6 +512,61 @@ class ProcessorModel(QObject, metaclass=Singleton):
             super().__init__()
             self.createAirfoilsTable()
             self.setTable("Airfoils")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+    class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
+        '''
+        __className = 'AnchorPointsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: Number of the rib number column'''
+        NumAnchCol = 1
+        ''':attr: Number of the column holding the number of anchors'''
+        PosACol = 2
+        ''':attr: Number the column holding Pos A'''
+        PosBCol = 3
+        ''':attr: Number the column holding Pos B'''
+        PosCCol = 4
+        ''':attr: Number the column holding Pos C'''
+        PosDCol = 5
+        ''':attr: Number the column holding Pos D'''
+        PosECol = 6
+        ''':attr: Number the column holding Pos E'''
+        PosFCol = 7
+        ''':attr: Number the column holding Pos F'''
+        
+        def createAnchorPointsTable(self):
+            '''
+            :method: Creates initially the empty anchor points table
+            ''' 
+            logging.debug(self.__className+'.createAnchorPointsTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AnchorPoints;")
+            query.exec("create table if not exists AnchorPoints ("
+                    "RibNum INTEGER,"
+                    "NumAnchors INTEGER,"
+                    "PosA REAL,"
+                    "PosB REAL,"
+                    "PosC REAL,"
+                    "PosD REAL,"
+                    "PosE REAL,"
+                    "PosF REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createAnchorPointsTable()
+            self.setTable("AnchorPoints")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
