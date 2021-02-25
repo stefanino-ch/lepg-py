@@ -231,9 +231,9 @@ class ProcRibHoles(QMdiSubWindow):
          
         detTable.enableIntValidator(ProcessorModel.LightDetModel.OrderNumCol, ProcessorModel.LightDetModel.OrderNumCol, 1, 999)
         detTable.enableIntValidator(ProcessorModel.LightDetModel.LightTypCol, ProcessorModel.LightDetModel.LightTypCol, 1, 3)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.DistLECol, ProcessorModel.LightDetModel.VertAxisCol, 0, 100, 2)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.RotAngleCol, ProcessorModel.LightDetModel.RotAngleCol, 0, 360, 2)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.Opt1Col, ProcessorModel.LightDetModel.Opt1Col, 0, 100, 2)
+        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.DistLECol, ProcessorModel.LightDetModel.VertAxisCol, 0, 100, 3)
+        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.RotAngleCol, ProcessorModel.LightDetModel.RotAngleCol, 0, 360, 3)
+        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.Opt1Col, ProcessorModel.LightDetModel.Opt1Col, 0, 100, 3)
         
         detTable.setHelpBar(self.helpBar)
         detTable.setHelpText(ProcessorModel.LightDetModel.OrderNumCol, _('Proc-OrderNumDesc'))

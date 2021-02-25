@@ -53,6 +53,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.rib_M = self.RibModel()
         self.wing_M = self.WingModel()
         self.airf_M = self.AirfoilsModel()
+        self.anchPoints_M = self.AnchorPointsModel()
         self.lightC_M = self.LightConfModel()
         self.lightD_M = self.LightDetModel()
         
@@ -243,8 +244,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # 3. ANCHOR POINTS
         logging.debug(self.__className+'.readFile: Anchor points')
         # Just overreading the lines for temporary testing
-        for i in range(18):
+        for i in range(4):
             line = stream.readLine()
+            
+        for i in range( 0, self.wing_M.halfNumRibs ):
+            values =  self.splitLine( stream.readLine() )
+            for y in range(0, 8):
+                self.anchPoints_M.setData(self.anchPoints_M.index(i, y), values[y] )
             
         ##############################
         # 4. RIB HOLES
@@ -376,6 +382,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.rib_M = ProcessorModel.RibModel()
+            self.anchPoints_M = ProcessorModel.AnchorPointsModel()
             self.airf_M = ProcessorModel.AirfoilsModel()
             self.lightC_M = ProcessorModel.LightConfModel()
             self.dataChanged.connect(self.syncData)
@@ -396,6 +403,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     
                     self.rib_M.setupRibRows(self.halfNumRibs)
                     self.airf_M.setupRibRows(self.halfNumRibs)
+                    self.anchPoints_M.setupRibRows(self.halfNumRibs)
 
     
     class RibModel(SqlTableModel, metaclass=Singleton):

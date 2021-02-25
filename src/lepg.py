@@ -29,6 +29,7 @@ from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
+from Windows.ProcAnchorPoints import ProcAnchorPoints
 
 
 class MainWindow(QMainWindow):
@@ -260,7 +261,9 @@ class MainWindow(QMainWindow):
         procEditAirfoils_A.setEnabled(self.__enableWingFunct)
         
         procEditAnchPoints_A = QAction(_('Anchor Points'), self)
-        procEditAnchPoints_A.setEnabled(False)
+        procEditAnchPoints_A.setStatusTip(_('Edit Anchor points data'))
+        procEditAnchPoints_A.triggered.connect(self.procAnchorPointsEdit)
+        procEditAnchPoints_A.setEnabled(self.__enableWingFunct)
         
         procRibHoles_A = QAction(_('Rib Holes'), self)
         procRibHoles_A.setStatusTip(_('Edit rib holes (Rib lightening) data'))
@@ -451,6 +454,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('ProcAirfoils')
             self.mdi.addSubWindow(self.airfoilsW)
         self.airfoilsW.show()
+        
+    def procAnchorPointsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Anchor Points*
+        '''
+        if self.dws.windowExists('ProcAnchorPoints') == False:
+            self.anchPointsW = ProcAnchorPoints()
+            self.dws.registerWindow('ProcAirfoils')
+            self.mdi.addSubWindow(self.anchPointsW)
+        self.anchPointsW.show()
 
     def procRibHolesEdit(self):
         '''

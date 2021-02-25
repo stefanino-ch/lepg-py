@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2020-01-18 18:03+0100\n"
-"PO-Revision-Date: 2020-01-18 18:03+0100\n"
+"POT-Creation-Date: 2021-02-24 14:40+0100\n"
+"PO-Revision-Date: 2021-02-24 14:43+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -14,310 +14,895 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: DataStores/PreProcessorStore.py:140
+#: DataStores/PreProcessorStore.py:120 DataStores/ProcessorModel.py:94
+#: DataStores/ProcessorStore.py:219
+msgid "File read error"
+msgstr ""
+
+#: DataStores/PreProcessorStore.py:121 DataStores/ProcessorModel.py:95
+msgid ""
+"File seems not to be a valid PreProc File! \n"
+"Version detected: "
+msgstr ""
+
+#: DataStores/PreProcessorStore.py:121 DataStores/ProcessorModel.py:95
+#: DataStores/ProcessorStore.py:220
+msgid ""
+"\n"
+"Title detected: "
+msgstr ""
+
+#: DataStores/PreProcessorStore.py:138 DataStores/ProcessorStore.py:237
+msgid "Unsaved or unapplied data"
+msgstr ""
+
+#: DataStores/PreProcessorStore.py:139 DataStores/ProcessorStore.py:238
+msgid ""
+"You have unsaved or unapplied data. \n"
+"\n"
+"Press OK to open the new file and overwrite the changes.\n"
+"Press Cancel to abort. "
+msgstr ""
+
+#: DataStores/PreProcessorStore.py:150 DataStores/ProcessorModel.py:135
 msgid "Open PreProc file"
 msgstr "PreProc Datei öffnen"
 
-#: DataStores/PreProcessorStore.py:166
+#: DataStores/PreProcessorStore.py:175
 msgid "Save PreProc file"
 msgstr "PrePro Datei speichern"
 
-#: DataStores/PreProcessorStore.py:186
+#: DataStores/PreProcessorStore.py:194
 msgid "Save PreProc file as"
 msgstr "PreProc Datei speichern unter"
 
-#: Windows/DataStatusOverview.py:78
+#: DataStores/ProcessorStore.py:220
+msgid ""
+"File seems not to be a valid Proc File! \n"
+"Version detected: "
+msgstr ""
+
+#: DataStores/ProcessorStore.py:249
+#, fuzzy
+#| msgid "Open PreProc file"
+msgid "Open Proc file"
+msgstr "PreProc Datei öffnen"
+
+#: DataStores/ProcessorStore.py:274
+#, fuzzy
+#| msgid "Save PreProc file"
+msgid "Save Processor file"
+msgstr "PrePro Datei speichern"
+
+#: DataStores/ProcessorStore.py:293
+#, fuzzy
+#| msgid "Save PreProc file as"
+msgid "Save Processor file as"
+msgstr "PreProc Datei speichern unter"
+
+#: Processors/ProcRunner.py:72
+msgid "proc_terminating_msg"
+msgstr ""
+
+#: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:135
 msgid "Filename"
 msgstr "Dateiname"
 
-#: Windows/DataStatusOverview.py:86
+#: Windows/DataStatusOverview.py:100 Windows/DataStatusOverview.py:143
 msgid "File version"
 msgstr "Dateiversion"
 
-#: Windows/DataStatusOverview.py:94
+#: Windows/DataStatusOverview.py:108 Windows/DataStatusOverview.py:151
 msgid "File status"
 msgstr "Datei-Status"
 
-#: Windows/DataStatusOverview.py:101
+#: Windows/DataStatusOverview.py:115 Windows/DataStatusOverview.py:158
 msgid "Data Status"
 msgstr "Daten-Status"
 
-#: Windows/PreProcDataEdit.py:104
+#: Windows/HelpAbout.py:55
+msgid "lepg-py"
+msgstr ""
+
+#: Windows/HelpAbout.py:66
+msgid ""
+"A graphical frontend to lepg\n"
+"Current Version \t\t\t0.2"
+msgstr ""
+
+#: Windows/HelpAbout.py:70
+msgid ""
+"Developers: \n"
+"Stefan Feuz"
+msgstr ""
+
+#: Windows/HelpAbout.py:74
+msgid "General Public License GNU GPL 3.0"
+msgstr ""
+
+#: Windows/PreProcDataEdit.py:106
 msgid "Pre Processor data edit"
 msgstr "Pre Prozessor Daten editieren"
 
-#: Windows/PreProcDataEdit.py:108
+#: Windows/PreProcDataEdit.py:110 lepg.py:490
 msgid "Wing"
 msgstr "Flügel"
 
-#: Windows/PreProcDataEdit.py:117
-msgid "Wing name"
+#: Windows/PreProcDataEdit.py:119 Windows/ProcBasicData.py:97
+#, fuzzy
+#| msgid "Wing name"
+msgid "Wing name [txt]"
 msgstr "Flügelname"
 
-#: Windows/PreProcDataEdit.py:122
+#: Windows/PreProcDataEdit.py:125
 msgid "PreProc-WingNameDesc"
 msgstr "Flügelname"
 
-#: Windows/PreProcDataEdit.py:134
+#: Windows/PreProcDataEdit.py:137
 msgid "Leading Edge"
 msgstr "Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:143 Windows/PreProcDataEdit.py:265
-#: Windows/PreProcDataEdit.py:374
+#: Windows/PreProcDataEdit.py:146 Windows/PreProcDataEdit.py:278
+#: Windows/PreProcDataEdit.py:397
 msgid "Type"
 msgstr "Typ"
 
-#: Windows/PreProcDataEdit.py:148
+#: Windows/PreProcDataEdit.py:151
 msgid "PreProc-le_type_desc"
 msgstr "Aktuell gibt es nur \"Typ 1\" Eintrittskanten"
 
-#: Windows/PreProcDataEdit.py:160
+#: Windows/PreProcDataEdit.py:164
 msgid "PreProc-le_a1_desc"
 msgstr "Ellipse der Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:171
+#: Windows/PreProcDataEdit.py:176
 msgid "PreProc-le_b1_desc"
 msgstr "Flügeltiefe Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:182
+#: Windows/PreProcDataEdit.py:188
 msgid "PreProc-le_x1_desc"
 msgstr "1. Krümmungsübergang Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:193
+#: Windows/PreProcDataEdit.py:200
 msgid "PreProc-le_x2_desc"
 msgstr "2. Krümmungsübergang Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:204
+#: Windows/PreProcDataEdit.py:213
 msgid "PreProc-le_xm_desc"
 msgstr "Halbe Spannweite Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:215
+#: Windows/PreProcDataEdit.py:225
 msgid "PreProc-le_c0_desc"
 msgstr "Ablenkung Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:226
+#: Windows/PreProcDataEdit.py:237
 msgid "PreProc-te_ex1_desc"
 msgstr "Krümmungsstart Austrittskante"
 
-#: Windows/PreProcDataEdit.py:237
+#: Windows/PreProcDataEdit.py:249
 msgid "PreProc-le_c02_desc"
 msgstr "Ablenkung Eintrittskante"
 
-#: Windows/PreProcDataEdit.py:248
+#: Windows/PreProcDataEdit.py:261
 msgid "PreProc-le_ex2_desc"
 msgstr "_"
 
-#: Windows/PreProcDataEdit.py:256
+#: Windows/PreProcDataEdit.py:269
 msgid "Trailing Edge"
 msgstr "Austrittskante"
 
-#: Windows/PreProcDataEdit.py:270
+#: Windows/PreProcDataEdit.py:283
 msgid "PreProc-te_type_desc"
 msgstr "Aktuell gibt es nur \"Typ 1\" Austrittskanten"
 
-#: Windows/PreProcDataEdit.py:282
+#: Windows/PreProcDataEdit.py:296
 msgid "PreProc-te_a1_desc"
 msgstr "Ellipse der Austrittskante"
 
-#: Windows/PreProcDataEdit.py:293
+#: Windows/PreProcDataEdit.py:308
 msgid "PreProc-te_b1_desc"
 msgstr "Flügeltiefe Austrittskante"
 
-#: Windows/PreProcDataEdit.py:304
+#: Windows/PreProcDataEdit.py:320
 msgid "PreProc-te_x1_desc"
 msgstr "Krümmungsstart Austrittskante"
 
-#: Windows/PreProcDataEdit.py:315
+#: Windows/PreProcDataEdit.py:332
 msgid "PreProc-te_xm_desc"
 msgstr "Halbe Spannweite Austrittskante"
 
-#: Windows/PreProcDataEdit.py:326
+#: Windows/PreProcDataEdit.py:344
 msgid "PreProc-te_c0_desc"
 msgstr "Ablenkung Austrittskante"
 
-#: Windows/PreProcDataEdit.py:337
+#: Windows/PreProcDataEdit.py:356
 msgid "PreProc-te_y0_desc"
 msgstr "Flügeltiefenreduktion Austrittskante"
 
-#: Windows/PreProcDataEdit.py:348
+#: Windows/PreProcDataEdit.py:368
 msgid "PreProc-te_exp_desc"
 msgstr "_"
 
-#: Windows/PreProcDataEdit.py:362
+#: Windows/PreProcDataEdit.py:385
 msgid "Vault"
 msgstr "Krümmung"
 
-#: Windows/PreProcDataEdit.py:376
+#: Windows/PreProcDataEdit.py:399
 msgid "Sin-Cos"
 msgstr "Sin-Cos"
 
-#: Windows/PreProcDataEdit.py:377
+#: Windows/PreProcDataEdit.py:400
 msgid "Radius-Angle"
 msgstr "Radius-Winkel"
 
-#: Windows/PreProcDataEdit.py:389
+#: Windows/PreProcDataEdit.py:413
 msgid "PreProc-vault1_a1_desc"
 msgstr "Flügelhöhe"
 
-#: Windows/PreProcDataEdit.py:399
+#: Windows/PreProcDataEdit.py:424
 msgid "PreProc-vault1_b1_desc"
 msgstr "Halbe Flügelspannweite"
 
-#: Windows/PreProcDataEdit.py:409
+#: Windows/PreProcDataEdit.py:435
 msgid "PreProc-vault1_x1_desc"
 msgstr "Krümmungsstart Flügel"
 
-#: Windows/PreProcDataEdit.py:419
+#: Windows/PreProcDataEdit.py:447
 msgid "PreProc-vault1_c1_desc"
 msgstr "Punkt an der die Ellipsenmodifikation startet"
 
-#: Windows/PreProcDataEdit.py:432 Windows/PreProcDataEdit.py:442
-#: Windows/PreProcDataEdit.py:452 Windows/PreProcDataEdit.py:462
+#: Windows/PreProcDataEdit.py:461 Windows/PreProcDataEdit.py:472
+#: Windows/PreProcDataEdit.py:483 Windows/PreProcDataEdit.py:494
 msgid "PreProc-vault2_r_desc"
 msgstr "Radius"
 
-#: Windows/PreProcDataEdit.py:474 Windows/PreProcDataEdit.py:484
-#: Windows/PreProcDataEdit.py:494 Windows/PreProcDataEdit.py:504
+#: Windows/PreProcDataEdit.py:507 Windows/PreProcDataEdit.py:518
+#: Windows/PreProcDataEdit.py:529 Windows/PreProcDataEdit.py:540
 msgid "PreProc-vault2_a_desc"
 msgstr "Winkel"
 
-#: Windows/PreProcDataEdit.py:515
+#: Windows/PreProcDataEdit.py:551
 msgid "Cells distribution"
 msgstr "Zellenverteilung"
 
-#: Windows/PreProcDataEdit.py:525
+#: Windows/PreProcDataEdit.py:561
 msgid "Distr Type"
 msgstr "Verteilungstyp"
 
-#: Windows/PreProcDataEdit.py:530
+#: Windows/PreProcDataEdit.py:567
 msgid "PreProc-cd_type_desc"
 msgstr ""
 "3: Zellbreite proportional zu Spannweite\n"
 "4: Fixe Zellenbreite"
 
-#: Windows/PreProcDataEdit.py:536
-msgid "Distr Coeff"
+#: Windows/PreProcDataEdit.py:574
+#, fuzzy
+#| msgid "Distr Coeff"
+msgid "Distr coeff [coef]"
 msgstr "Verteilungskoeff"
 
-#: Windows/PreProcDataEdit.py:541
+#: Windows/PreProcDataEdit.py:580
 msgid "PreProc-cd_coeff_desc"
 msgstr "0.0 (proportional)... 1.0 (gleiche Breite)"
 
-#: Windows/PreProcDataEdit.py:547
-msgid "Cell num"
-msgstr "Anzahl Zellen"
+#: Windows/PreProcDataEdit.py:586 Windows/ProcBasicData.py:136
+msgid "Number of cells [num]"
+msgstr ""
 
-#: Windows/PreProcDataEdit.py:552
+#: Windows/PreProcDataEdit.py:592
 msgid "PreProc-cd_num_desc"
 msgstr "Totale Anzahl Zellen"
 
-#: lepg.py:67
+#: Windows/ProcAirfoils.py:72 lepg.py:257
+msgid "Airfoils"
+msgstr ""
+
+#: Windows/ProcAirfoils.py:80 Windows/ProcGeometry.py:81
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-RibNumDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:81
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-AirfoilNameDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:82
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-IntakeStartDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:83
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-IntakeEnDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:84
+msgid "Proc-OpenCloseDesc"
+msgstr ""
+
+#: Windows/ProcAirfoils.py:85
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-DisplacDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:86
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-RelWeightDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcAirfoils.py:87
+msgid "Proc-rrwDesc"
+msgstr ""
+
+#: Windows/ProcAirfoils.py:98 Windows/ProcGeometry.py:102
+msgid "Sort by Rib Number"
+msgstr ""
+
+#: Windows/ProcBasicData.py:82
+msgid "Basic Data"
+msgstr ""
+
+#: Windows/ProcBasicData.py:84
+msgid "Brand name [txt]"
+msgstr ""
+
+#: Windows/ProcBasicData.py:89
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-BrandNameDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcBasicData.py:102
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-WingNameDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcBasicData.py:110
+msgid "Draw scale [coef]"
+msgstr ""
+
+#: Windows/ProcBasicData.py:115
+msgid "Proc-DrawScaleDesc"
+msgstr ""
+
+#: Windows/ProcBasicData.py:123
+msgid "Wing scale [coef]"
+msgstr ""
+
+#: Windows/ProcBasicData.py:128
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-WingScaleDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcBasicData.py:141
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-NumCellsDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcBasicData.py:150
+msgid "Number of ribs [num]"
+msgstr ""
+
+#: Windows/ProcBasicData.py:155
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-NumRibsDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcGeometry.py:73 lepg.py:252
+msgid "Geometry"
+msgstr ""
+
+#: Windows/ProcGeometry.py:82
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-xribDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcGeometry.py:83
+#, fuzzy
+#| msgid "PreProc-te_y0_desc"
+msgid "Proc-yLEDesc"
+msgstr "Flügeltiefenreduktion Austrittskante"
+
+#: Windows/ProcGeometry.py:84
+#, fuzzy
+#| msgid "PreProc-te_y0_desc"
+msgid "Proc-yTEDesc"
+msgstr "Flügeltiefenreduktion Austrittskante"
+
+#: Windows/ProcGeometry.py:85
+#, fuzzy
+#| msgid "PreProc-te_exp_desc"
+msgid "Proc-xpDesc"
+msgstr "_"
+
+#: Windows/ProcGeometry.py:86
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-zDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcGeometry.py:87
+#, fuzzy
+#| msgid "PreProc-le_a1_desc"
+msgid "Proc-betaDesc"
+msgstr "Ellipse der Eintrittskante"
+
+#: Windows/ProcGeometry.py:88
+msgid "Proc-RPDesc"
+msgstr ""
+
+#: Windows/ProcGeometry.py:89
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-WashinDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcRibHoles.py:82
+msgid "Edit rib holes (Rib lightening)"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:84
+msgid "Number of configurations"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:108
+msgid "Sort by orderNum"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:191
+msgid "Proc-InitialRibDesc"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:192
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-FinalRibDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcRibHoles.py:202
+msgid "Number of Lines"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:239
+#, fuzzy
+#| msgid "PreProc-cd_num_desc"
+msgid "Proc-OrderNumDesc"
+msgstr "Totale Anzahl Zellen"
+
+#: Windows/ProcRibHoles.py:240
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-LigthTypeDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcRibHoles.py:241
+msgid "Proc-DistLEDesc"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:242
+msgid "Proc-DisChordDesc"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:243
+msgid "Proc-HorAxisDesc"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:244
+msgid "Proc-VertAxisDesc"
+msgstr ""
+
+#: Windows/ProcRibHoles.py:245
+#, fuzzy
+#| msgid "PreProc-WingNameDesc"
+msgid "Proc-RotAngleDesc"
+msgstr "Flügelname"
+
+#: Windows/ProcRibHoles.py:246
+#, fuzzy
+#| msgid "PreProc-te_a1_desc"
+msgid "Proc-Opt1Desc"
+msgstr "Ellipse der Austrittskante"
+
+#: Windows/WingViewer.py:75
+msgid "Wing outline viewer"
+msgstr ""
+
+#: Windows/WingViewer.py:82
+msgid "Tail view"
+msgstr ""
+
+#: Windows/WingViewer.py:101
+msgid "Side view"
+msgstr ""
+
+#: Windows/WingViewer.py:119
+msgid "Top view"
+msgstr ""
+
+#: lepg.py:112
 msgid "Show Data Status"
 msgstr "Daten-Status anzeigen"
 
-#: lepg.py:68
+#: lepg.py:113
 msgid "Provides an overview about what data has (not) been saved"
 msgstr ""
 "Zeigt einen Überblick welche Daten\n"
 "gespeichert sind und welche nicht"
 
-#: lepg.py:71
+#: lepg.py:116
 msgid "Exit"
 msgstr "Beenden"
 
-#: lepg.py:72
+#: lepg.py:117
 msgid "Leave the app"
 msgstr "Programm schliessen"
 
-#: lepg.py:76
+#: lepg.py:121
 msgid "File"
 msgstr "Datei"
 
-#: lepg.py:100
+#: lepg.py:148
 msgid "Open PreProc File"
 msgstr "PreProc Datei öffnen"
 
-#: lepg.py:101
+#: lepg.py:149
 msgid "open_preProc_file_desc"
 msgstr "Gespeicherte Datendatei öffnen"
 
-#: lepg.py:104
+#: lepg.py:152
 msgid "Save PreProc File"
 msgstr "PreProc Datei speichern"
 
-#: lepg.py:105
+#: lepg.py:153
 msgid "save_preProc_file_desc"
 msgstr "Aktuelle Daten speichern"
 
-#: lepg.py:108
+#: lepg.py:156
 msgid "Save PreProc File As .."
 msgstr "PreProc Datei speichern unter .."
 
-#: lepg.py:109
+#: lepg.py:157
 msgid "save_preProc_file_as_desc"
 msgstr "Aktuelle Daten unter einem neuen Namen speichern"
 
-#: lepg.py:112
+#: lepg.py:160
 msgid "Edit PreProc Data"
 msgstr "PreProc Daten editieren"
 
-#: lepg.py:113
+#: lepg.py:161
 msgid "edit_preProc_data_description"
 msgstr "Öffnet das Fester zum editieren der PreProc Daten"
 
-#: lepg.py:116
-msgid "Calculate"
-msgstr "Berechnen"
+#: lepg.py:164
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "Run Pre-Processor"
+msgstr "Pre Prozessor"
 
-#: lepg.py:117
-msgid "calculate_preProx_des"
-msgstr "Startet den PreProzessor"
+#: lepg.py:165
+#, fuzzy
+#| msgid "open_preProc_file_desc"
+msgid "run_preProc_des"
+msgstr "Gespeicherte Datendatei öffnen"
 
-#: lepg.py:121
+#: lepg.py:169
 msgid "Pre Processor"
 msgstr "Pre Prozessor"
 
-#: lepg.py:151
+#: lepg.py:232
+#, fuzzy
+#| msgid "Open PreProc File"
+msgid "Open Processor File"
+msgstr "PreProc Datei öffnen"
+
+#: lepg.py:233
+#, fuzzy
+#| msgid "open_preProc_file_desc"
+msgid "open_Proc_file_desc"
+msgstr "Gespeicherte Datendatei öffnen"
+
+#: lepg.py:237
+#, fuzzy
+#| msgid "Save PreProc File"
+msgid "Save Processor File"
+msgstr "PreProc Datei speichern"
+
+#: lepg.py:238
+#, fuzzy
+#| msgid "save_preProc_file_desc"
+msgid "save_proc_file_desc"
+msgstr "Aktuelle Daten speichern"
+
+#: lepg.py:242
+#, fuzzy
+#| msgid "Save PreProc File As .."
+msgid "Save Processor File As .."
+msgstr "PreProc Datei speichern unter .."
+
+#: lepg.py:243
+#, fuzzy
+#| msgid "save_preProc_file_as_desc"
+msgid "save_proc_file_as_desc"
+msgstr "Aktuelle Daten unter einem neuen Namen speichern"
+
+#: lepg.py:247
+msgid "Basic data"
+msgstr ""
+
+#: lepg.py:248
+msgid "Editing the wing basics"
+msgstr ""
+
+#: lepg.py:253
+msgid "Edit wing geometry"
+msgstr ""
+
+#: lepg.py:258
+msgid "Edit airfoils geometry"
+msgstr ""
+
+#: lepg.py:262
+msgid "Anchor Points"
+msgstr ""
+
+#: lepg.py:265
+msgid "Rib Holes"
+msgstr ""
+
+#: lepg.py:266
+msgid "Edit rib holes (Rib lightening) data"
+msgstr ""
+
+#: lepg.py:270 lepg.py:362
+msgid "Skin Tension"
+msgstr ""
+
+#: lepg.py:273
+msgid "Seewing Allowance"
+msgstr ""
+
+#: lepg.py:276
+#, fuzzy
+#| msgid "Switching language"
+msgid "Seewing Marcage"
+msgstr "Anzeigesprache gewechselt"
+
+#: lepg.py:279
+msgid "Estimated general AoA"
+msgstr ""
+
+#: lepg.py:282
+msgid "Lines"
+msgstr ""
+
+#: lepg.py:285
+msgid "Brakes"
+msgstr ""
+
+#: lepg.py:288
+msgid "Ramifications length"
+msgstr ""
+
+#: lepg.py:291
+msgid "H V and VH ribs"
+msgstr ""
+
+#: lepg.py:294
+msgid "Extrados colors"
+msgstr ""
+
+#: lepg.py:297
+msgid "Intrados colors"
+msgstr ""
+
+#: lepg.py:300
+msgid "Additional rib points"
+msgstr ""
+
+#: lepg.py:303
+msgid "Elastic lines correction"
+msgstr ""
+
+#: lepg.py:306
+msgid "DXF Layer names"
+msgstr ""
+
+#: lepg.py:309
+msgid "Marks types"
+msgstr ""
+
+#: lepg.py:312
+msgid "Joncs definitions"
+msgstr ""
+
+#: lepg.py:315
+msgid "Nose mylars"
+msgstr ""
+
+#: lepg.py:318
+msgid "Tab reinforcements"
+msgstr ""
+
+#: lepg.py:321
+msgid "2D DXF options"
+msgstr ""
+
+#: lepg.py:324
+msgid "3D DXF options"
+msgstr ""
+
+#: lepg.py:327
+msgid "Glue vents"
+msgstr ""
+
+#: lepg.py:330
+msgid "Special wingtip"
+msgstr ""
+
+#: lepg.py:333
+msgid "Speed/ Trimmer study"
+msgstr ""
+
+#: lepg.py:336
+msgid "3D shaping"
+msgstr ""
+
+#: lepg.py:339
+msgid "Thikness modification"
+msgstr ""
+
+#: lepg.py:342
+msgid "New skin tension"
+msgstr ""
+
+#: lepg.py:345
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "Run Processor"
+msgstr "Pre Prozessor"
+
+#: lepg.py:346
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "run_Processor_des"
+msgstr "Pre Prozessor"
+
+#: lepg.py:351
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "Processor"
+msgstr "Pre Prozessor"
+
+#: lepg.py:373
+msgid "Colors"
+msgstr ""
+
+#: lepg.py:390
+msgid "Plan options"
+msgstr ""
+
+#: lepg.py:491
+msgid "Shows the outline of the wing"
+msgstr ""
+
+#: lepg.py:496
 msgid "Cascade"
 msgstr "Hintereinander"
 
-#: lepg.py:152
+#: lepg.py:497
 msgid "Cascade all windows"
 msgstr "Alle Fenster hintereinander anzeigen"
 
-#: lepg.py:155
+#: lepg.py:500
 msgid "Tile"
 msgstr "Gekachelt"
 
-#: lepg.py:156
+#: lepg.py:501
 msgid "Tile all windows"
 msgstr "Alle Fenster gekachelt anzeigen"
 
-#: lepg.py:159
+#: lepg.py:504
 msgid "View"
 msgstr "Ansicht"
 
-#: lepg.py:183
+#: lepg.py:546
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "Setup Pre-Processor"
+msgstr "Pre Prozessor"
+
+#: lepg.py:547
+#, fuzzy
+#| msgid "edit_preProc_data_description"
+msgid "setup_preProc_location"
+msgstr "Öffnet das Fester zum editieren der PreProc Daten"
+
+#: lepg.py:551
 msgid "Setup"
 msgstr "Einstellungen"
 
-#: lepg.py:184
+#: lepg.py:552
 msgid "Language"
 msgstr "Sprache"
 
-#: lepg.py:210
+#: lepg.py:580
 msgid "Switching language"
 msgstr "Anzeigesprache gewechselt"
 
-#: lepg.py:212
+#: lepg.py:582
 msgid "Please restart the application."
 msgstr "Bitte die Applikation neu starten."
 
-#: lepg.py:219
-msgid "New"
-msgstr "Neu"
+#: lepg.py:597 lepg.py:603
+#, fuzzy
+#| msgid "Pre Processor"
+msgid "Select Pre_Processor"
+msgstr "Pre Prozessor"
+
+#: lepg.py:623
+msgid "About"
+msgstr ""
+
+#: lepg.py:624
+msgid "Short info about the program"
+msgstr ""
+
+#: lepg.py:628
+msgid "Help"
+msgstr ""
+
+#: userHelp/_static/doctools.js:194
+msgid "Permalink to this headline"
+msgstr ""
+
+#: userHelp/_static/doctools.js:200
+msgid "Permalink to this definition"
+msgstr ""
+
+#: userHelp/_static/doctools.js:233
+msgid "Hide Search Matches"
+msgstr ""
+
+#: userHelp/_static/searchtools.js:136
+msgid "Searching"
+msgstr ""
+
+#: userHelp/_static/searchtools.js:141
+msgid "Preparing search..."
+msgstr ""
+
+#: userHelp/_static/searchtools.js:303
+msgid "Search Results"
+msgstr ""
+
+#: userHelp/_static/searchtools.js:305
+msgid ""
+"Your search did not match any documents. Please make sure that all words are "
+"spelled correctly and that you've selected enough categories."
+msgstr ""
+
+#: userHelp/_static/searchtools.js:307
+#, javascript-format
+msgid "Search finished, found %s page(s) matching the search query."
+msgstr ""
+
+#: userHelp/_static/searchtools.js:361
+msgid ", in "
+msgstr ""

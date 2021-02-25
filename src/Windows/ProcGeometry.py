@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QS
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.ProcessorModel import ProcessorModel
 
 class ProcGeometry(QMdiSubWindow):
@@ -30,7 +29,6 @@ class ProcGeometry(QMdiSubWindow):
         super().__init__()
         
         self.rib_M = ProcessorModel.RibModel()
-        self.dws = DataWindowStatus()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -89,13 +87,13 @@ class ProcGeometry(QMdiSubWindow):
         self.table.setHelpText(ProcessorModel.RibModel.WashinCol, _('Proc-WashinDesc'))
         
         self.table.enableIntValidator(ProcessorModel.RibModel.RibNumCol, ProcessorModel.RibModel.RibNumCol, 1, 999)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xribCol, ProcessorModel.RibModel.xribCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.yLECol, ProcessorModel.RibModel.yTECol, -500, 1000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xpCol, ProcessorModel.RibModel.xpCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.zCol, ProcessorModel.RibModel.zCol, -500, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.betaCol, ProcessorModel.RibModel.betaCol, 75, 105, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.RPCol, ProcessorModel.RibModel.RPCol, 0, 100, 2)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.WashinCol, ProcessorModel.RibModel.WashinCol, -10, 10, 2)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.xribCol, ProcessorModel.RibModel.xribCol, -500, 3000, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.yLECol, ProcessorModel.RibModel.yTECol, -500, 1000, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.xpCol, ProcessorModel.RibModel.xpCol, -500, 3000, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.zCol, ProcessorModel.RibModel.zCol, -500, 3000, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.betaCol, ProcessorModel.RibModel.betaCol, 75, 105, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.RPCol, ProcessorModel.RibModel.RPCol, 0, 100, 3)
+        self.table.enableDoubleValidator(ProcessorModel.RibModel.WashinCol, ProcessorModel.RibModel.WashinCol, -10, 10, 3)
         
         self.windowLayout.addWidget(self.table)
         

@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QS
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.ProcessorModel import ProcessorModel
 
 class ProcAirfoils(QMdiSubWindow):
@@ -30,7 +29,6 @@ class ProcAirfoils(QMdiSubWindow):
         super().__init__()
         
         self.airf_M = ProcessorModel.AirfoilsModel()
-        self.dws = DataWindowStatus()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -88,10 +86,10 @@ class ProcAirfoils(QMdiSubWindow):
         
         self.table.enableIntValidator(ProcessorModel.AirfoilsModel.RibNumCol, ProcessorModel.AirfoilsModel.RibNumCol, 1, 999)
         self.table.enableRegExpValidator(ProcessorModel.AirfoilsModel.AirfNameCol, ProcessorModel.AirfoilsModel.AirfNameCol, "(.|\s)*\S(.|\s)*")
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.IntakeStartCol, ProcessorModel.AirfoilsModel.IntakeEndCol, 0, 100, 2)
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.IntakeStartCol, ProcessorModel.AirfoilsModel.IntakeEndCol, 0, 100, 3)
         self.table.enableIntValidator(ProcessorModel.AirfoilsModel.OpenCloseCol, ProcessorModel.AirfoilsModel.OpenCloseCol, 0, 1)
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.DisplacCol, ProcessorModel.AirfoilsModel.DisplacCol, 0, 3000, 2)
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.RelWeightCol,ProcessorModel.AirfoilsModel.rrwCol, 0, 100, 2)
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.DisplacCol, ProcessorModel.AirfoilsModel.DisplacCol, 0, 3000, 3)
+        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.RelWeightCol,ProcessorModel.AirfoilsModel.rrwCol, 0, 100, 3)
         
         self.windowLayout.addWidget(self.table)
         
