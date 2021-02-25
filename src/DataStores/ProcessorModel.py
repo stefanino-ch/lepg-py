@@ -56,6 +56,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.anchPoints_M = self.AnchorPointsModel()
         self.lightC_M = self.LightConfModel()
         self.lightD_M = self.LightDetModel()
+        self.skinTens_M = self.SkinTensionModel()
+        self.skinTensParams_M = self.SkinTensionParamsModel()
         
     def isValid( self, fileName ):
         '''
@@ -279,6 +281,22 @@ class ProcessorModel(QObject, metaclass=Singleton):
                                         float(values[6]), \
                                         float(values[7]))
 
+        ##############################
+        # 5. SKIN TENSION
+        logging.debug(self.__className+'.readFile: Skin tension')
+        for i in range(4):
+            line = stream.readLine()
+        
+        for l in range(0, 6 ):
+            values =  self.splitLine( stream.readLine() )
+            self.skinTens_M.updateRow(l+1, values[0], values[1], values[2], values[3])
+
+        val = self.remTabSpace( stream.readLine() )
+        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val )        
+                          
+        values = self.splitLine( stream.readLine() )
+        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0] )
+        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[0] )
         
         inFile.close() 
        
@@ -877,4 +895,104 @@ class ProcessorModel(QObject, metaclass=Singleton):
             proxyModel.setFilterKeyColumn(ProcessorModel.LightDetModel.ConfigNumCol)
             proxyModel.setFilterRegExp( QRegExp( str(configNum) ) )
             return proxyModel.rowCount()
+    
+    class SkinTensionModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to Skin tension. 
+        '''
+        __className = 'SkinTensionModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        TopDistLECol = 0
+        ''':attr: Distance in% of chord on the leading edge of extrados'''
+        TopWideCol = 1
+        ''':attr: Extrados over-wide corresponding in % of chord'''
+        BottDistTECol = 2
+        ''':attr: Distance in% of chord on trailing edge'''
+        BottWideCol = 3
+        ''':attr: Intrados over-wide corresponding in% of chord'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Skin tension table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists SkinTension;")
+            query.exec("create table if not exists SkinTension ("
+                    "TopDistLE REAL,"
+                    "TopWide REAL,"
+                    "BottDistTE REAL,"
+                    "BottWide REAL,"
+                    "ID INTEGER PRIMARY KEY);")
             
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("SkinTension")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.addRows(-1, 6)
+        
+        def updateRow(self, row, topDistLE, topWide, bottDistTE, bottWide):
+            '''
+            :method: updates a specific row with the parameters passed.
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE SkinTension SET TopDistLE= :topDis, TopWide= :topWide, BottDistTE= :bottDis, BottWide= :bottWide  WHERE (ID = :id);")
+            query.bindValue(":topDis", topDistLE )
+            query.bindValue(":topWide", topWide )
+            query.bindValue(":bottDis", bottDistTE )
+            query.bindValue(":bottWide", bottWide )
+            query.bindValue(":id", row )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class SkinTensionParamsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the three individual params of the Skin tension setup. 
+        '''
+        __className = 'SkinTensionParamsModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        StrainMiniRibsCol = 0
+        ''':attr: Parameter to control the mini ribs'''
+        NumPointsCol = 1
+        ''':attr: Number of points'''
+        CoeffCol = 2
+        ''':attr: The coefficient'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Skin tension params table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists SkinTensionParams;")
+            query.exec("create table if not exists SkinTensionParams ("
+                    "StrainMiniRibs REAL,"
+                    "NumPoints Integer,"
+                    "Coeff REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into SkinTensionParams (StrainMiniRibs, NumPoints, Coeff,  ID) Values( '0.0114', '1000', '1.0', 1 );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("SkinTensionParams")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+        

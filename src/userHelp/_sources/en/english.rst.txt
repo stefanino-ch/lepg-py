@@ -11,3 +11,4 @@ English Manual
    proc/airfoils.rst
    proc/anchorPoints.rst
    proc/ribHoles.rst
+   proc/skinTension.rst

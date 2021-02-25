@@ -42,8 +42,15 @@ Processor Geometry
    :private-members:
 
 Processor Airfoils
---------------------
+------------------
 .. automodule:: Windows.ProcAirfoils
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor Anchor Points
+-----------------------
+.. automodule:: Windows.ProcAnchorPoints
    :undoc-members:
    :members:
    :private-members:
@@ -54,6 +61,13 @@ Processor Rib Holes
    :undoc-members:
    :members:
    :private-members:
+   
+Processor Skin tension
+----------------------
+.. automodule:: Windows.ProcSkinTension
+   :undoc-members:
+   :members:
+   :private-members:  
    
   
 #Wing Viewer

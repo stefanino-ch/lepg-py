@@ -30,6 +30,7 @@ from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
 from Windows.ProcAnchorPoints import ProcAnchorPoints
+from Windows.ProcSkinTension import ProcSkinTension
 
 
 class MainWindow(QMainWindow):
@@ -255,23 +256,25 @@ class MainWindow(QMainWindow):
         procGeometry_A.triggered.connect(self.procGeometryEdit)
         procGeometry_A.setEnabled(self.__enableWingFunct)
         
-        procEditAirfoils_A = QAction(_('Airfoils'), self)
-        procEditAirfoils_A.setStatusTip(_('Edit airfoils geometry'))
-        procEditAirfoils_A.triggered.connect(self.procAirfoilsEdit)
-        procEditAirfoils_A.setEnabled(self.__enableWingFunct)
+        procAirfoils_A = QAction(_('Airfoils'), self)
+        procAirfoils_A.setStatusTip(_('Edit airfoils geometry'))
+        procAirfoils_A.triggered.connect(self.procAirfoilsEdit)
+        procAirfoils_A.setEnabled(self.__enableWingFunct)
         
-        procEditAnchPoints_A = QAction(_('Anchor Points'), self)
-        procEditAnchPoints_A.setStatusTip(_('Edit Anchor points data'))
-        procEditAnchPoints_A.triggered.connect(self.procAnchorPointsEdit)
-        procEditAnchPoints_A.setEnabled(self.__enableWingFunct)
+        procAnchPoints_A = QAction(_('Anchor Points'), self)
+        procAnchPoints_A.setStatusTip(_('Edit Anchor points data'))
+        procAnchPoints_A.triggered.connect(self.procAnchorPointsEdit)
+        procAnchPoints_A.setEnabled(self.__enableWingFunct)
         
         procRibHoles_A = QAction(_('Rib Holes'), self)
         procRibHoles_A.setStatusTip(_('Edit rib holes (Rib lightening) data'))
         procRibHoles_A.triggered.connect(self.procRibHolesEdit)
         procRibHoles_A.setEnabled(self.__enableWingFunct)
         
-        procEditSkinTension_A = QAction(_('Skin Tension'), self)
-        procEditSkinTension_A.setEnabled(False)
+        procSkinTension_A = QAction(_('Skin Tension'), self)
+        procSkinTension_A.setStatusTip(_('Edit Skin tension data'))
+        procSkinTension_A.triggered.connect(self.procSkinTensionEdit)
+        procSkinTension_A.setEnabled(self.__enableWingFunct)
         
         procEditSeewingAllowance_A = QAction(_('Seewing Allowance'), self)
         procEditSeewingAllowance_A.setEnabled(False)
@@ -358,12 +361,12 @@ class MainWindow(QMainWindow):
         procMenu.addSeparator()
         procMenu.addAction(procBasicData_A)
         procMenu.addAction(procGeometry_A)
-        procMenu.addAction(procEditAirfoils_A)
-        procMenu.addAction(procEditAnchPoints_A)
+        procMenu.addAction(procAirfoils_A)
+        procMenu.addAction(procAnchPoints_A)
         procMenu.addAction(procRibHoles_A)
         
         skinTensMenu = QMenu(_('Skin Tension'),self)
-        skinTensMenu.addAction(procEditSkinTension_A)
+        skinTensMenu.addAction(procSkinTension_A)
         skinTensMenu.addAction(procEditNewSkinTens_A)
         procMenu.addMenu(skinTensMenu)
         
@@ -406,10 +409,6 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Open Processor File*
         '''
-        # @TODO: delete current values upon open file open
-        
-        # @TODO: ProcessorModel
-        # self.ps.openFile()
         self.pm.openFile()
         
         
@@ -474,6 +473,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('RibHoles')
             self.mdi.addSubWindow(self.ribHolesW)
         self.ribHolesW.show()
+    
+    def procSkinTensionEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Skin Tension*
+        '''
+        if self.dws.windowExists('SkinTension') == False:
+            self.skinTensionW = ProcSkinTension()
+            self.dws.registerWindow('SkinTension')
+            self.mdi.addSubWindow(self.skinTensionW)
+        self.skinTensionW.show()
 
         
     def procRun(self):
