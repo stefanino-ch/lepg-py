@@ -9,4 +9,5 @@ English Manual
    proc/basicData.rst
    proc/geometry.rst
    proc/airfoils.rst
+   proc/anchorPoints.rst
    proc/ribHoles.rst
