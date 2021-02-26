@@ -68,7 +68,14 @@ Processor Skin tension
    :undoc-members:
    :members:
    :private-members:  
-   
+ 
+ 
+Plan Seewing allowances
+-----------------------
+.. automodule:: Windows.PlanSeewingAllowances
+   :undoc-members:
+   :members:
+   :private-members:
   
 #Wing Viewer
 #-----------

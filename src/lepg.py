@@ -31,6 +31,7 @@ from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
 from Windows.ProcAnchorPoints import ProcAnchorPoints
 from Windows.ProcSkinTension import ProcSkinTension
+from Windows.PlanSeewingAllowances import PlanSeewingAllowances
 
 
 class MainWindow(QMainWindow):
@@ -99,6 +100,7 @@ class MainWindow(QMainWindow):
         self.buildFileMenu()
         self.buildPreProcMenu()
         self.buildProcMenu()
+        self.buildPlanMenu()
         self.buildViewMenu()
         self.buildSetupMenu()
         self.buildHelpMenu()
@@ -276,12 +278,6 @@ class MainWindow(QMainWindow):
         procSkinTension_A.triggered.connect(self.procSkinTensionEdit)
         procSkinTension_A.setEnabled(self.__enableWingFunct)
         
-        procEditSeewingAllowance_A = QAction(_('Seewing Allowance'), self)
-        procEditSeewingAllowance_A.setEnabled(False)
-        
-        procEditSeewingMarcage_A = QAction(_('Seewing Marcage'), self)
-        procEditSeewingMarcage_A.setEnabled(False)
-        
         procEditGenAoA_A = QAction(_('Estimated general AoA'), self)
         procEditGenAoA_A.setEnabled(False)
         
@@ -309,12 +305,6 @@ class MainWindow(QMainWindow):
         procEditElLinesCorr_A = QAction(_('Elastic lines correction'), self)
         procEditElLinesCorr_A.setEnabled(False)
         
-        procEditDxfLayers_A = QAction(_('DXF Layer names'), self)
-        procEditDxfLayers_A.setEnabled(False)
-        
-        procEditMarksT_A = QAction(_('Marks types'), self)
-        procEditMarksT_A.setEnabled(False)
-        
         procEditJoncsDes_A = QAction(_('Joncs definitions'), self)
         procEditJoncsDes_A.setEnabled(False)
         
@@ -323,12 +313,6 @@ class MainWindow(QMainWindow):
         
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
-        
-        procEditGen2D_A = QAction(_('2D DXF options'), self)
-        procEditGen2D_A.setEnabled(False)
-        
-        procEditGen3D_A = QAction(_('3D DXF options'), self)
-        procEditGen3D_A.setEnabled(False)
         
         procEditGlueVents_A = QAction(_('Glue vents'), self)
         procEditGlueVents_A.setEnabled(False)
@@ -391,17 +375,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procEditSpeedTrimS_A)
         procMenu.addAction(procEdit3DShaping_A)
         procMenu.addAction(procEditThiknessMod_A)
-        
-        
-        planMenu = QMenu(_('Plan options'),self)
-        planMenu.addAction(procEditSeewingAllowance_A)
-        planMenu.addAction(procEditSeewingMarcage_A)
-        planMenu.addAction(procEditDxfLayers_A)
-        planMenu.addAction(procEditMarksT_A)
-        planMenu.addAction(procEditGen2D_A)
-        planMenu.addAction(procEditGen3D_A)
-        procMenu.addMenu(planMenu)
-        
+         
         procMenu.addSeparator()
         procMenu.addAction(procRunAct)
         
@@ -504,6 +478,53 @@ class MainWindow(QMainWindow):
         # Finally run the processor
         preProcRunner = ProcRunner(self.procOutW)
         preProcRunner.runPreProc()
+    
+    def buildPlanMenu(self):
+        '''
+        :method: Builds the complete Plan menu
+        '''  
+        # Define the actions
+        
+        planSeewingAll_A = QAction(_('Seewing Allowance'), self)
+        planSeewingAll_A.setStatusTip(_('Edit Seewing allowances'))
+        planSeewingAll_A.triggered.connect(self.planSeewingAllEdit)
+        planSeewingAll_A.setEnabled(self.__enableWingFunct)
+        
+        procEditSeewingMarcage_A = QAction(_('Seewing Marcage'), self)
+        procEditSeewingMarcage_A.setEnabled(False)
+
+        
+        procEditDxfLayers_A = QAction(_('DXF Layer names'), self)
+        procEditDxfLayers_A.setEnabled(False)
+        
+        procEditMarksT_A = QAction(_('Marks types'), self)
+        procEditMarksT_A.setEnabled(False)
+
+        
+        procEditGen2D_A = QAction(_('2D DXF options'), self)
+        procEditGen2D_A.setEnabled(False)
+        
+        procEditGen3D_A = QAction(_('3D DXF options'), self)
+        procEditGen3D_A.setEnabled(False)
+        
+        # Build the menu
+        planMenu = self.mainMenu.addMenu(_('Plan'))
+        planMenu.addAction(planSeewingAll_A)
+        planMenu.addAction(procEditSeewingMarcage_A)
+        planMenu.addAction(procEditDxfLayers_A)
+        planMenu.addAction(procEditMarksT_A)
+        planMenu.addAction(procEditGen2D_A)
+        planMenu.addAction(procEditGen3D_A)
+    
+    def planSeewingAllEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Skin Tension*
+        '''
+        if self.dws.windowExists('SeewingAllowances') == False:
+            self.seewingAllW = PlanSeewingAllowances()
+            self.dws.registerWindow('SeewingAllowances')
+            self.mdi.addSubWindow(self.seewingAllW)
+        self.seewingAllW.show()
 
     def buildViewMenu(self):
         '''

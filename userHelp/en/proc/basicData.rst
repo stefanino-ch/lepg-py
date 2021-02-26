@@ -10,4 +10,4 @@ Basic data
 
 There is still some work to be done...
 
-All details you will find on the website of `Laboratori d'envol website <http://laboratoridenvol.com/leparagliding/pre.en.html>`_
+All details you will find `on Peres website <http://laboratoridenvol.com/leparagliding/manual.en.html#6.1>`_

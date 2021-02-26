@@ -58,6 +58,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.lightD_M = self.LightDetModel()
         self.skinTens_M = self.SkinTensionModel()
         self.skinTensParams_M = self.SkinTensionParamsModel()
+        self.sewAll_M = self.SewingAllowancesModel()
         
     def isValid( self, fileName ):
         '''
@@ -297,6 +298,21 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = self.splitLine( stream.readLine() )
         self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0] )
         self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[0] )
+        
+        ##############################
+        # 6. SEWING ALLOWANCES
+        logging.debug(self.__className+'.readFile: Sewing allowances')
+        for i in range(3):
+            line = stream.readLine()
+            
+        for l in range(0, 2 ):
+                values =  self.splitLine( stream.readLine() )
+                self.sewAll_M.updateRow(l+1, values[0], values[1], values[2])
+        
+        values = self.splitLine( stream.readLine() )
+        self.sewAll_M.updateRow(3, values[0])
+        values = self.splitLine( stream.readLine() )
+        self.sewAll_M.updateRow(4, values[0])
         
         inFile.close() 
        
@@ -995,4 +1011,60 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("SkinTensionParams")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+    class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Sewing allowances parameters. 
+        '''
+        __className = 'SewingAllowancesModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        EdgeSeamCol = 0
+        ''':attr: Number of the col holding the Edge seem values'''
+        LeSeemCol = 1
+        ''':attr: Number of the col holding the LE seem values'''
+        TeSeemCol = 2
+        ''':attr: Number of the col holding the TE seem values'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Sewing allowances table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists SewingAllowances;")
+            query.exec("create table if not exists SewingAllowances ("
+                    "EdgeSeam Integer,"
+                    "LESeem Integer,"
+                    "TESeem Integer,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("SewingAllowances")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.addRows(-1, 4)
+        
+        def updateRow(self, row, edgeSeam, leSeem=0, teSeem=0):
+            '''
+            :method: updates a specific row with the parameters passed.
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE SewingAllowances SET EdgeSeam= :edgeSeam, LESeem= :lESeem, TESeem= :tESeem WHERE (ID = :id);")
+            query.bindValue(":edgeSeam", edgeSeam )
+            query.bindValue(":lESeem", leSeem )
+            query.bindValue(":tESeem", teSeem )
+            query.bindValue(":id", row )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
         

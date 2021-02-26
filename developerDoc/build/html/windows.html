@@ -104,6 +104,7 @@
 <li><a class="reference internal" href="#module-Windows.ProcAnchorPoints">Processor Anchor Points</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcRibHoles">Processor Rib Holes</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcSkinTension">Processor Skin tension</a></li>
+<li><a class="reference internal" href="#module-Windows.PlanSeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcessorOutput">ProcessorOutput</a></li>
 </ul>
@@ -197,6 +198,16 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="lepg.MainWindow.buildPlanMenu">
+<code class="sig-name descname">buildPlanMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPlanMenu" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Builds the complete Plan menu</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="lepg.MainWindow.buildPreProcMenu">
 <code class="sig-name descname">buildPreProcMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPreProcMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -272,6 +283,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Opens the Help About window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.planSeewingAllEdit">
+<code class="sig-name descname">planSeewingAllEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.planSeewingAllEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Skin Tension</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1274,6 +1295,79 @@
 <dl class="py method">
 <dt id="Windows.ProcSkinTension.ProcSkinTension.closeEvent">
 <code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.PlanSeewingAllowances">
+<span id="plan-seewing-allowances"></span><h2>Plan Seewing allowances<a class="headerlink" href="#module-Windows.PlanSeewingAllowances" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.PlanSeewingAllowances.PlanSeewingAllowances">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.PlanSeewingAllowances.</code><code class="sig-name descname">PlanSeewingAllowances</code><a class="headerlink" href="#Windows.PlanSeewingAllowances.PlanSeewingAllowances" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit Seewing allowances data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.PlanSeewingAllowances.PlanSeewingAllowances.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'PlanSeewingAllowances'</em><a class="headerlink" href="#Windows.PlanSeewingAllowances.PlanSeewingAllowances.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PlanSeewingAllowances.PlanSeewingAllowances.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PlanSeewingAllowances.PlanSeewingAllowances.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PlanSeewingAllowances.PlanSeewingAllowances.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PlanSeewingAllowances.PlanSeewingAllowances.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span> 
+        <span class="n">editGrid_L</span>
+             <span class="n">uppeP_T</span>
+             <span class="n">lowerP_T</span>
+             <span class="n">ribs_t</span>
+             <span class="n">vRibsT</span>
+            <span class="o">---------------------------</span>
+                        <span class="n">helpBar</span> <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.PlanSeewingAllowances.PlanSeewingAllowances.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PlanSeewingAllowances.PlanSeewingAllowances.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>

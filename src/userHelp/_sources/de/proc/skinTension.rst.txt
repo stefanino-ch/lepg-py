@@ -10,4 +10,4 @@ Segelspannung
 
 Da fehlt noch was...
 
-Eine detaillierte Beschreibung findest Du auf der `Laboratori d'envol website <http://laboratoridenvol.com/leparagliding/pre.en.html>`_
+`Detailbeschreibung auf der Webseite von Pere. <http://laboratoridenvol.com/leparagliding/manual.en.html#6.5>`_
