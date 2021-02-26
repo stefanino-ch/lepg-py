@@ -59,6 +59,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.skinTens_M = self.SkinTensionModel()
         self.skinTensParams_M = self.SkinTensionParamsModel()
         self.sewAll_M = self.SewingAllowancesModel()
+        self.marks_M = self.MarksModel()
         
     def isValid( self, fileName ):
         '''
@@ -313,6 +314,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.sewAll_M.updateRow(3, values[0])
         values = self.splitLine( stream.readLine() )
         self.sewAll_M.updateRow(4, values[0])
+        
+        ##############################
+        # 7. MARKS
+        logging.debug(self.__className+'.readFile: Marks')
+        for i in range(3):
+            line = stream.readLine()
+            
+        values = self.splitLine( stream.readLine() )
+        self.marks_M.updateRow(values[0], values[1], values[1])
+        
+        
         
         inFile.close() 
        
@@ -1065,6 +1077,62 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":lESeem", leSeem )
             query.bindValue(":tESeem", teSeem )
             query.bindValue(":id", row )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+    class MarksModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Marks parameters. 
+        '''
+        __className = 'MarksModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        MarksSpCol = 0
+        ''':attr: Number of the col holding the marks spacing value'''
+        PointRadCol = 1
+        ''':attr: Number of the col holding the point radius value'''
+        PointDisplCol = 2
+        ''':attr: Number of the col holding the points displacement value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Marks table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Marks;")
+            query.exec("create table if not exists Marks ("
+                    "MarksSp REAL,"
+                    "PointRad REAL,"
+                    "PointDispl REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Marks")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.addRows(-1, 1)
+        
+        def updateRow(self, marksSp, pointRad, pointDispl):
+            '''
+            :method: updates a specific row with the parameters passed.
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Marks SET MarksSp= :marksSp, PointRad= :pointRad, PointDispl= :pointDispl WHERE (ID = :id);")
+            query.bindValue(":marksSp", marksSp )
+            query.bindValue(":pointRad", pointRad )
+            query.bindValue(":pointDispl", pointDispl )
+            query.bindValue(":id", 1 )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
         

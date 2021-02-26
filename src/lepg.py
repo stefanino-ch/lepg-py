@@ -32,6 +32,7 @@ from Windows.ProcessorOutput import ProcessorOutput
 from Windows.ProcAnchorPoints import ProcAnchorPoints
 from Windows.ProcSkinTension import ProcSkinTension
 from Windows.PlanSeewingAllowances import PlanSeewingAllowances
+from Windows.PlanMarks import PlanMarks
 
 
 class MainWindow(QMainWindow):
@@ -490,8 +491,10 @@ class MainWindow(QMainWindow):
         planSeewingAll_A.triggered.connect(self.planSeewingAllEdit)
         planSeewingAll_A.setEnabled(self.__enableWingFunct)
         
-        procEditSeewingMarcage_A = QAction(_('Seewing Marcage'), self)
-        procEditSeewingMarcage_A.setEnabled(False)
+        planMarks_A = QAction(_('Marks'), self)
+        planMarks_A.setStatusTip(_('Edit the Marks parameters'))
+        planMarks_A.triggered.connect(self.planMarksEdit)
+        planMarks_A.setEnabled(self.__enableWingFunct)
 
         
         procEditDxfLayers_A = QAction(_('DXF Layer names'), self)
@@ -510,7 +513,7 @@ class MainWindow(QMainWindow):
         # Build the menu
         planMenu = self.mainMenu.addMenu(_('Plan'))
         planMenu.addAction(planSeewingAll_A)
-        planMenu.addAction(procEditSeewingMarcage_A)
+        planMenu.addAction(planMarks_A)
         planMenu.addAction(procEditDxfLayers_A)
         planMenu.addAction(procEditMarksT_A)
         planMenu.addAction(procEditGen2D_A)
@@ -518,13 +521,23 @@ class MainWindow(QMainWindow):
     
     def planSeewingAllEdit(self):
         '''
-        :method: Called if the user selects *Processor* -> *Skin Tension*
+        :method: Called if the user selects *Plan* -> *Sewing allowances*
         '''
         if self.dws.windowExists('SeewingAllowances') == False:
             self.seewingAllW = PlanSeewingAllowances()
             self.dws.registerWindow('SeewingAllowances')
             self.mdi.addSubWindow(self.seewingAllW)
         self.seewingAllW.show()
+    
+    def planMarksEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> *Marks*
+        '''
+        if self.dws.windowExists('Marks') == False:
+            self.marksW = PlanMarks()
+            self.dws.registerWindow('Marks')
+            self.mdi.addSubWindow(self.marksW)
+        self.marksW.show()   
 
     def buildViewMenu(self):
         '''
