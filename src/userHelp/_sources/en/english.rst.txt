@@ -14,3 +14,4 @@ English Manual
    proc/skinTension.rst
    proc/seewingAllowances.rst
    proc/marks.rst
+   proc/globalAoA.rst

@@ -9,6 +9,8 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 from PyQt5.QtWidgets import QLabel
 
+from __init__ import __version__
+
 from Windows.WindowBtnBar import WindowBtnBar
 
 class HelpAbout(QMdiSubWindow):
@@ -63,7 +65,7 @@ class HelpAbout(QMdiSubWindow):
         self.windowGrid.addWidget(self.helpAboutTitleL, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
         
-        self.helpAboutTextL = QLabel(_('A graphical frontend to lepg\nCurrent Version \t\t\t0.2'))
+        self.helpAboutTextL = QLabel(_('A graphical frontend to lepg\nCurrent Version \t\t\t%s') %(__version__))
         self.windowGrid.addWidget(self.helpAboutTextL, self.__winGridRow, 0, Qt.AlignLeft)
         self.__winGridRow += 1
         

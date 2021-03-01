@@ -4,18 +4,18 @@
 '''
 import logging
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class PlanMarks(QMdiSubWindow):
+class Marks(QMdiSubWindow):
     '''
     :class: Window to display and edit Seewing allowances data  
     '''
 
-    __className = 'PlanMarks'
+    __className = 'Marks'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -68,6 +68,7 @@ class PlanMarks(QMdiSubWindow):
       
         marks_T.hideColumn(self.marks_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
         marks_T.verticalHeader().setVisible(False)
+        marks_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         marks_T.setHelpBar(self.helpBar)
         
         marks_T.setHelpText(ProcessorModel.MarksModel.MarksSpCol, _('Marks-MarksSpacingDesc'))
@@ -77,13 +78,8 @@ class PlanMarks(QMdiSubWindow):
         marks_T.enableDoubleValidator(ProcessorModel.MarksModel.MarksSpCol, ProcessorModel.MarksModel.PointDisplCol, 0, 10, 2)
         
         marks_T.setFixedHeight(2 + marks_T.horizontalHeader().height() + marks_T.rowHeight(0))
-        marks_T.setFixedWidth(2 +marks_T.columnWidth(0)+marks_T.columnWidth(1)+marks_T.columnWidth(2) )
 
-        editLayout = QHBoxLayout()
-        editLayout.addWidget(marks_T)
-        editLayout.addStretch()
-
-        self.windowLayout.addLayout(editLayout)
+        self.windowLayout.addWidget(marks_T)
 
         #############################
         # Commons for all windows

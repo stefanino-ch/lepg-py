@@ -4,8 +4,8 @@
 '''
 import logging
 
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 
 class SqlTableModel(QSqlTableModel):
     '''

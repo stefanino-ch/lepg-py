@@ -76,6 +76,7 @@ class ProcGeometry(QMdiSubWindow):
         self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
+        
         self.table.setHelpText(ProcessorModel.RibModel.RibNumCol, _('Proc-RibNumDesc'))
         self.table.setHelpText(ProcessorModel.RibModel.xribCol, _('Proc-xribDesc'))
         self.table.setHelpText(ProcessorModel.RibModel.yLECol, _('Proc-yLEDesc'))

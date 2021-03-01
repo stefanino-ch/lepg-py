@@ -67,15 +67,30 @@ Processor Skin tension
 .. automodule:: Windows.ProcSkinTension
    :undoc-members:
    :members:
-   :private-members:  
+   :private-members: 
+
+Processor Global AoA
+--------------------
+.. automodule:: Windows.GlobalAoA
+   :undoc-members:
+   :members:
+   :private-members:   
  
  
 Plan Seewing allowances
 -----------------------
-.. automodule:: Windows.PlanSeewingAllowances
+.. automodule:: Windows.SeewingAllowances
    :undoc-members:
    :members:
    :private-members:
+   
+Plan Marks
+----------
+.. automodule:: Windows.Marks
+   :undoc-members:
+   :members:
+   :private-members:
+   
   
 #Wing Viewer
 #-----------

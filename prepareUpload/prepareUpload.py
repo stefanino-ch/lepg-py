@@ -2,23 +2,78 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 '''
-
 import os
+import re
+import sys
+
+# https://stackoverflow.com/questions/458550/standard-way-to-embed-version-into-python-package
+def readVersion(pathFile):
+    verstrline = open(pathFile, "rt").read()
+    VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
+    mo = re.search(VSRE, verstrline, re.M)
+    if mo:
+        verstr = mo.group(1)
+        return(verstr)
+    else:
+        print("Unable to find version string in %s." % (pathFile,))
+        sys.exit()
+    
+# https://stackoverflow.com/questions/52952905/python-increment-version-number-by-0-0-1
+def incrementVersion(ver):
+    ver = ver.split('.')
+    ver[2] = str(int(ver[2]) + 1)
+    return '.'.join(ver)
+
+# https://stackoverflow.com/questions/57108712/replace-updated-version-strings-in-files-via-python
+def updateVersionString(pathFile, ver):
+    version_regex = re.compile(r"(^_*?version_*?\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    with open(pathFile, "r+") as f:
+        content = f.read()
+        f.seek(0)
+        f.write(
+            re.sub(
+                version_regex,
+                lambda match: "{}{}".format(match.group(1), ver),
+                content,
+            )
+        )
+        f.truncate()
+
+
 
 print('*****************************************************')
 print('Executing all steps to prepare a complete upload ....')
 print('*****************************************************')
 print()
-answ = input('Update developer doc? [y/ n]')
+print('Update developer doc? [y/ n]')
+answ = input('Default= y ')
 
 if answ != 'n':
     os.system('python ../developerDoc/buildDevDoc.py ')
     
+
 print()   
-answ = input("Update user help? [y/ n] ")
+print('Update user help? [y/ n]')
+answ = input('Default= y ')
 
 if answ != 'n':
-    os.system('python ../userHelp/buildUserHelp.py ')   
+    os.system('python ../userHelp/buildUserHelp.py ')  
     
+
+print()
+dirpath = os.path.dirname(os.path.realpath(__file__))
+versFile = os.path.join(dirpath, '../src/__init__.py')
+vers = readVersion(versFile)
+print('The current version is: %s' %(vers))   
+print('Update version number [y/ n]')
+answ = input('Default= n ')
+
+if answ == 'y':
+    vers = incrementVersion(vers)
+    updateVersionString(versFile, vers)
+    print('Version number updated to: %s' %(vers))
+print()
+
+
 # TODO: add code to prepare the complete executable
     

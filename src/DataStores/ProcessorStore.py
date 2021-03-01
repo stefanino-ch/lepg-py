@@ -182,6 +182,9 @@ class ProcessorStore(QObject, metaclass=Singleton):
         self.dws = DataWindowStatus()
         self.dws.registerSignal(self.dataStatusUpdate)
     
+    def setStatusBar(self, statusBar):
+        self.__statusBar = statusBar
+    
     def isValid( self, fileName ):
         '''
         :method: Checks if a file can be opened and contains a valid title and known version number.

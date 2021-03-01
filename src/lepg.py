@@ -11,13 +11,16 @@ import sys
 import platform
 
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog, QMenu
+
+from __init__ import __version__
+
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorStore import PreProcessorStore
 
 from DataStores.ProcessorStore import ProcessorStore
 from DataStores.ProcessorModel import ProcessorModel
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog, QMenu
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.WingViewer import WingViewer
@@ -31,9 +34,9 @@ from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
 from Windows.ProcAnchorPoints import ProcAnchorPoints
 from Windows.ProcSkinTension import ProcSkinTension
-from Windows.PlanSeewingAllowances import PlanSeewingAllowances
-from Windows.PlanMarks import PlanMarks
-
+from Windows.SeewingAllowances import SeewingAllowances
+from Windows.Marks import Marks
+from Windows.GlobalAoA import GlobalAoA
 
 class MainWindow(QMainWindow):
     '''
@@ -94,7 +97,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
-        self.setWindowTitle("lepg")
+        self.setWindowTitle("lepg %s" %(__version__))
         self.mainMenu = self.menuBar()
         
         # Build the individual menus
@@ -279,8 +282,10 @@ class MainWindow(QMainWindow):
         procSkinTension_A.triggered.connect(self.procSkinTensionEdit)
         procSkinTension_A.setEnabled(self.__enableWingFunct)
         
-        procEditGenAoA_A = QAction(_('Estimated general AoA'), self)
-        procEditGenAoA_A.setEnabled(False)
+        procGenAoA_A = QAction(_('Estimated general AoA'), self)
+        procGenAoA_A.setStatusTip(_('Edit global AoA data'))
+        procGenAoA_A.triggered.connect(self.procGlobalAoAEdit)
+        procGenAoA_A.setEnabled(self.__enableWingFunct)
         
         procEditLines_A = QAction(_('Lines'), self)
         procEditLines_A.setEnabled(False)
@@ -355,7 +360,7 @@ class MainWindow(QMainWindow):
         skinTensMenu.addAction(procEditNewSkinTens_A)
         procMenu.addMenu(skinTensMenu)
         
-        procMenu.addAction(procEditGenAoA_A)
+        procMenu.addAction(procGenAoA_A)
         procMenu.addAction(procEditLines_A)
         procMenu.addAction(procEditBrakes_A)
         procMenu.addAction(procEditRamLength_A)
@@ -458,7 +463,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('SkinTension')
             self.mdi.addSubWindow(self.skinTensionW)
         self.skinTensionW.show()
-
+        
+    def procGlobalAoAEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Global AoA*
+        '''
+        if self.dws.windowExists('GlobalAoA') == False:
+            self.globAoAW = GlobalAoA()
+            self.dws.registerWindow('GlobalAoA')
+            self.mdi.addSubWindow(self.globAoAW)
+        self.globAoAW.show()
         
     def procRun(self):
         '''
@@ -524,7 +538,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         '''
         if self.dws.windowExists('SeewingAllowances') == False:
-            self.seewingAllW = PlanSeewingAllowances()
+            self.seewingAllW = SeewingAllowances()
             self.dws.registerWindow('SeewingAllowances')
             self.mdi.addSubWindow(self.seewingAllW)
         self.seewingAllW.show()
@@ -534,7 +548,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Plan* -> *Marks*
         '''
         if self.dws.windowExists('Marks') == False:
-            self.marksW = PlanMarks()
+            self.marksW = Marks()
             self.dws.registerWindow('Marks')
             self.mdi.addSubWindow(self.marksW)
         self.marksW.show()   

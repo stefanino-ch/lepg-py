@@ -17,7 +17,14 @@ The project structure is build as shown below::
   
   installer             -> pyinstaller files
   
-  src                   -> the project sources. 
+  prepareUpload         -> one single script which collects all the updated to be done before a new version is uploaded. 
+                           - updating developer doc
+                           - updating user help
+                           - increasing the version number by x.x.1
+  
+  src                   -> the project sources
+  
+  translation			-> some notes about the GUI translation
   
   userHelp              -> All files needed to build the html help files displayed from lepg
   |- _build             -> Herein the complete help files will be generated

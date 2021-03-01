@@ -127,7 +127,14 @@ importTestFiles       -&gt; Test files for development. Some are fully compliant
 
 installer             -&gt; pyinstaller files
 
-src                   -&gt; the project sources.
+prepareUpload         -&gt; one single script which collects all the updated to be done before a new version is uploaded.
+                         - updating developer doc
+                         - updating user help
+                         - increasing the version number by x.x.1
+
+src                   -&gt; the project sources
+
+translation                   -&gt; some notes about the GUI translation
 
 userHelp              -&gt; All files needed to build the html help files displayed from lepg
 |- _build             -&gt; Herein the complete help files will be generated

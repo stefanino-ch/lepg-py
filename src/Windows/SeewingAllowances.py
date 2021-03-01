@@ -12,12 +12,12 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class PlanSeewingAllowances(QMdiSubWindow):
+class SeewingAllowances(QMdiSubWindow):
     '''
     :class: Window to display and edit Seewing allowances data  
     '''
 
-    __className = 'PlanSeewingAllowances'
+    __className = 'SeewingAllowances'
     '''
     :attr: Does help to indicate the source of the log messages
     '''

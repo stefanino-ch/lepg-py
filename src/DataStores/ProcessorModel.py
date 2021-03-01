@@ -14,7 +14,7 @@ import logging
 import math
 import re
 
-from PyQt5.QtCore import QFile, QTextStream, QObject, pyqtSignal, QSortFilterProxyModel, QRegExp
+from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
@@ -33,6 +33,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
     '''
     :attr: Does help to indicate the source of the log messages
     '''
+    
     
     def __init__(self, parent=None): # @UnusedVariable
         '''
@@ -60,6 +61,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.skinTensParams_M = self.SkinTensionParamsModel()
         self.sewAll_M = self.SewingAllowancesModel()
         self.marks_M = self.MarksModel()
+        self.globAoA_M = self.GlobAoAModel()
         
     def isValid( self, fileName ):
         '''
@@ -302,7 +304,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         ##############################
         # 6. SEWING ALLOWANCES
-        logging.debug(self.__className+'.readFile: Sewing allowances')
+        logging.debug(self.__className+'.readFile: Seewing allowances')
         for i in range(3):
             line = stream.readLine()
             
@@ -324,7 +326,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = self.splitLine( stream.readLine() )
         self.marks_M.updateRow(values[0], values[1], values[1])
         
-        
+        ##############################
+        # 8. Global angle of attack estimation
+        logging.debug(self.__className+'.readFile: Global AoA')
+        for i in range(3):
+            line = stream.readLine()
+            
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.FinesseCol), self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.CentOfPressCol), self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.CalageCol), self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.RisersCol), self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.LinesCol), self.remTabSpace( stream.readLine() ) )
+        line = stream.readLine()
+        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.KarabinersCol), self.remTabSpace( stream.readLine() ) )
         
         inFile.close() 
        
@@ -1062,6 +1081,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("SewingAllowances")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Edge seem [mm]"))
+            self.setHeaderData(1, Qt.Horizontal, _("LE seem [mm]"))
+            self.setHeaderData(2, Qt.Horizontal, _("TE seem [mm]"))
+            
             self.addRows(-1, 4)
         
         def updateRow(self, row, edgeSeam, leSeem=0, teSeem=0):
@@ -1118,6 +1142,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Marks")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Marks Spacing [cm]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Point Radius [cm]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Point Displacement [cm]"))
+            
             self.addRows(-1, 1)
         
         def updateRow(self, marksSp, pointRad, pointDispl):
@@ -1135,4 +1164,59 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", 1 )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+    class GlobAoAModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the global AoA parameters. 
+        '''
+        __className = 'GlobAoAModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
         
+        FinesseCol = 0
+        ''':attr: Number of the col holding the finesse value'''
+        CentOfPressCol = 1
+        ''':attr: Number of the col holding the center of pressure value'''
+        CalageCol = 2
+        ''':attr: Number of the col holding the calage value'''
+        RisersCol = 3
+        ''':attr: Number of the col holding the risers length value'''
+        LinesCol = 4
+        ''':attr: Number of the col holding the lines length value'''
+        KarabinersCol = 5 
+        ''':attr: Number of the col holding the karabiners length value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty GlobalAoA table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists GlobalAoA;")
+            query.exec("create table if not exists GlobalAoA ("
+                    "Finesse REAL,"
+                    "CentOfPress INTEGER,"
+                    "Calage INTEGER,"
+                    "Risers INTEGER,"
+                    "Lines INTEGER,"
+                    "Karabiners INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into GlobalAoA (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("GlobalAoA")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [%chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Calage [%chord]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
+            self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
+            self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
