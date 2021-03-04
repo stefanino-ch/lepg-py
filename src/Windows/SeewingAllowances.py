@@ -71,7 +71,6 @@ class SeewingAllowances(QMdiSubWindow):
         
         editGrid_L = QGridLayout()
         
-        
         ##### upper panel
         upperP_L = QLabel(_('Upper panel'))
         upperP_L.setAlignment(Qt.AlignRight)

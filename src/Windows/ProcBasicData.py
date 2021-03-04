@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QL
 from Windows.LineEdit import LineEdit
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.ProcessorModel import ProcessorModel
 
 class ProcBasicData(QMdiSubWindow):
@@ -31,8 +30,6 @@ class ProcBasicData(QMdiSubWindow):
         
         self.wing_M = ProcessorModel.WingModel()
         self.wing_M.setSort(0, Qt.AscendingOrder)
-        
-        self.dws = DataWindowStatus()
 
         self.buildWindow()
     

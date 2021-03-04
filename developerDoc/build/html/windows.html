@@ -102,9 +102,10 @@
 <li><a class="reference internal" href="#module-Windows.ProcGeometry">Processor Geometry</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcAirfoils">Processor Airfoils</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcAnchorPoints">Processor Anchor Points</a></li>
-<li><a class="reference internal" href="#module-Windows.ProcRibHoles">Processor Rib Holes</a></li>
+<li><a class="reference internal" href="#module-Windows.RibHoles">Processor Rib Holes</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcSkinTension">Processor Skin tension</a></li>
 <li><a class="reference internal" href="#module-Windows.GlobalAoA">Processor Global AoA</a></li>
+<li><a class="reference internal" href="#module-Windows.Lines">Processor Lines</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
@@ -405,6 +406,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Global AoA</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procLinesEdit">
+<code class="sig-name descname">procLinesEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procLinesEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Lines</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1113,8 +1124,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-Windows.ProcRibHoles">
-<span id="processor-rib-holes"></span><h2>Processor Rib Holes<a class="headerlink" href="#module-Windows.ProcRibHoles" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-Windows.RibHoles">
+<span id="processor-rib-holes"></span><h2>Processor Rib Holes<a class="headerlink" href="#module-Windows.RibHoles" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
@@ -1124,16 +1135,16 @@
 </dd>
 </dl>
 <dl class="py class">
-<dt id="Windows.ProcRibHoles.ProcRibHoles">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcRibHoles.</code><code class="sig-name descname">ProcRibHoles</code><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.RibHoles.</code><code class="sig-name descname">RibHoles</code><a class="headerlink" href="#Windows.RibHoles.RibHoles" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcRibHoles'</em><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'RibHoles'</em><a class="headerlink" href="#Windows.RibHoles.RibHoles.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1142,8 +1153,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.addTab">
-<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.addTab" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.addTab">
+<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.addTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
@@ -1152,8 +1163,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.btnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1162,8 +1173,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1175,9 +1186,9 @@
         <span class="n">numConfSpin</span>
 
         <span class="n">Tabs</span>
-        <span class="n">configTable</span>
-        <span class="n">numDetSpin</span>
-        <span class="n">detailTable</span>
+            <span class="n">configTable</span>
+            <span class="n">numDetSpin</span>
+            <span class="n">detailTable</span>
         <span class="o">-------------------------</span>
                 <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
 </pre></div>
@@ -1185,8 +1196,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1195,8 +1206,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.confSpinChange">
-<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.confSpinChange">
+<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.confSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
@@ -1205,8 +1216,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.detSpinChange">
-<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.detSpinChange">
+<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.detSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
@@ -1215,8 +1226,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.modelNumConfigsChanged">
-<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.modelNumConfigsChanged">
+<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
@@ -1225,8 +1236,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.removeTab">
-<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.removeTab" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.removeTab">
+<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.removeTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
@@ -1235,8 +1246,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -1245,8 +1256,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ProcRibHoles.ProcRibHoles.updateTabs">
-<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcRibHoles.ProcRibHoles.updateTabs" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.RibHoles.RibHoles.updateTabs">
+<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.updateTabs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
@@ -1390,6 +1401,144 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.Lines">
+<span id="processor-lines"></span><h2>Processor Lines<a class="headerlink" href="#module-Windows.Lines" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.Lines.Lines">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.Lines.</code><code class="sig-name descname">Lines</code><a class="headerlink" href="#Windows.Lines.Lines" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.Lines.Lines.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'Lines'</em><a class="headerlink" href="#Windows.Lines.Lines.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.addTab">
+<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.addTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">config</span> <span class="n">edit</span>
+
+        <span class="n">Tabs</span>
+            <span class="n">numLinesSpin</span>
+            <span class="n">LinesTable</span>
+        <span class="o">-------------------------</span>
+                <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+<p>Naming:</p>
+<blockquote>
+<div><p>conf equals plans
+details equals line paths</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.confSpinChange">
+<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.modelSizeChanged">
+<code class="sig-name descname">modelSizeChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.numLinesChange">
+<code class="sig-name descname">numLinesChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.removeTab">
+<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.removeTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.Lines.Lines.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
 </dd>
 </dl>
 </dd></dl>

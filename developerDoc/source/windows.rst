@@ -57,7 +57,7 @@ Processor Anchor Points
    
 Processor Rib Holes
 -------------------
-.. automodule:: Windows.ProcRibHoles
+.. automodule:: Windows.RibHoles
    :undoc-members:
    :members:
    :private-members:
@@ -75,7 +75,13 @@ Processor Global AoA
    :undoc-members:
    :members:
    :private-members:   
- 
+
+Processor Lines
+---------------
+.. automodule:: Windows.Lines
+   :undoc-members:
+   :members:
+   :private-members: 
  
 Plan Seewing allowances
 -----------------------

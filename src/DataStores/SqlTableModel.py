@@ -4,8 +4,8 @@
 '''
 import logging
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
+from PyQt5.QtCore import pyqtSignal, QSortFilterProxyModel, QRegExp
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
 class SqlTableModel(QSqlTableModel):
     '''
@@ -20,6 +20,9 @@ class SqlTableModel(QSqlTableModel):
     '''
     :signal: emitted as soon select() was executed on the model. You must know about this fact if you have mappers to LineEdits in place, as the mapping must be redone after every select().
     '''
+    
+    numDetailsChanged = pyqtSignal(int, int)
+    numRowsForConfigChanged = pyqtSignal(int, int)
         
     def __init__(self, parent=None): # @UnusedVariable
         '''
@@ -108,3 +111,113 @@ class SqlTableModel(QSqlTableModel):
         elif numRows < halfNumRibs:
             numToAdd = halfNumRibs - numRows
             self.addRows(numRows, numToAdd)
+
+    def numConfigs(self):
+        '''
+        :method: reads from a table how many different configurations are saved.
+        :return: number of different configs
+        '''
+        logging.debug(self.__className+'.numConfigs')
+                
+        # TODO: Add transaction
+        query = QSqlQuery()
+        query.prepare("Select ConfigNum FROM %s ORDER BY ConfigNum ASC" %(self.tableName()) )
+        query.exec()
+        orderNum = 0
+        while (query.next()):
+            orderNum = query.value(0)
+        
+        return orderNum
+
+    def addRowForConfig(self, configNum):
+        '''
+        :method: Adds a row to the model. Sets Columns *ConfigNum* and *OrderNum*
+        :parm configNum: Number of the config for which the row must be added.
+        :attention: The two columns *ConfigNum* and *OrderNum* must exist for proper funtionality
+        '''
+        logging.debug(self.__className+'.addRowForConfig')
+
+        currNumRows = self.numRowsForConfig(configNum)
+        
+        # TODO: Add transaction
+        query = QSqlQuery()
+        query.prepare("INSERT into %s (ConfigNum, OrderNum) Values( :conf, :order);" %(self.tableName()))
+        query.bindValue(":conf", str(configNum))
+        query.bindValue(":order", str(currNumRows+1))
+        query.exec()
+        self.select() # to a select() to assure the model is updated properly
+
+    def removeRowForConfig(self, configNum):
+        '''
+        :method: Removes the last row of a specific config from the model.
+        :param configNum: Number of the config for which the row must be deleted.  
+        '''
+        logging.debug(self.__className+'.removeRowForConfig')
+        
+        # TODO: Add transaction
+        query = QSqlQuery()
+        query.prepare("Select ConfigNum, OrderNum FROM %s WHERE ConfigNum = :conf ORDER BY OrderNum ASC" %(self.tableName()) )
+        query.bindValue(":conf", str(configNum))
+        query.exec()
+        orderNum = 0
+        while (query.next()):
+            orderNum = query.value(1)
+        
+        if orderNum>0:
+            query.prepare("DELETE FROM %s WHERE (ConfigNum = :conf AND OrderNum = :order);" %(self.tableName()) )
+            query.bindValue(":table", self.tableName() )
+            query.bindValue(":conf", str(configNum))
+            query.bindValue(":order", str(orderNum))
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    def setNumRowsForConfig(self, configNum, mustNumRows):
+        '''
+        :method: Assures the model will be setup to hold the correct number of rows based on parameters passed. 
+        :param configNum: Number of the config for which the row must be deleted.
+        :param mustNumRows: Number of rows the model must provide.
+        '''
+        logging.debug(self.__className+'.setNumRowsForConfig')
+        
+        currNumRows = self.numRowsForConfig(configNum)
+        diff = abs(mustNumRows-currNumRows)
+        
+        
+        if diff != 0:
+            # do it only if really the number has changed
+            i = 0
+            if mustNumRows > currNumRows:
+                # add config lines
+                while i < diff:
+                    self.addRowForConfig(configNum)
+                    i += 1
+            else:
+                # remove config lines
+                while i < diff:
+                    self.removeRowForConfig( configNum )
+                    i += 1
+            
+            # emit the change signal
+            self.numRowsForConfigChanged.emit(configNum, self.numRowsForConfig(configNum))
+
+            
+    def numRowsForConfig(self, configNum):
+            '''
+            :method: Use this to check how many rows a specific config holds currently.
+            :param configNum: Number of the config for which the number of rows must be returned.
+            :return: Current number of rows.
+            :attention: To use this method the model must have the variable *ConfigNumCol* defined. 
+            '''
+            logging.debug(self.__className+'.numRowsForConfig')
+            
+            if hasattr(self, 'ConfigNumCol'):
+                proxyModel = QSortFilterProxyModel()
+                proxyModel.setSourceModel(self)
+                proxyModel.setFilterKeyColumn( self.ConfigNumCol )
+                proxyModel.setFilterRegExp( QRegExp( str(configNum) ) )
+                return proxyModel.rowCount()
+            else:
+                logging.critical(self.__className+'.numRowsForConfig: ConfigNumCol not defined')
+                return
+            
+

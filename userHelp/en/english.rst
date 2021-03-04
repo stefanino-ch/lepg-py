@@ -15,3 +15,4 @@ English Manual
    proc/seewingAllowances.rst
    proc/marks.rst
    proc/globalAoA.rst
+   proc/lines.rst

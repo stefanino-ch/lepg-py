@@ -27,7 +27,7 @@ from Windows.WingViewer import WingViewer
 from Windows.ProcBasicData import ProcBasicData
 from Windows.ProcGeometry import ProcGeometry
 from Windows.ProcAirfoils import ProcAirfoils
-from Windows.ProcRibHoles import ProcRibHoles
+from Windows.RibHoles import RibHoles
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
@@ -37,6 +37,7 @@ from Windows.ProcSkinTension import ProcSkinTension
 from Windows.SeewingAllowances import SeewingAllowances
 from Windows.Marks import Marks
 from Windows.GlobalAoA import GlobalAoA
+from Windows.Lines import Lines
 
 class MainWindow(QMainWindow):
     '''
@@ -287,8 +288,10 @@ class MainWindow(QMainWindow):
         procGenAoA_A.triggered.connect(self.procGlobalAoAEdit)
         procGenAoA_A.setEnabled(self.__enableWingFunct)
         
-        procEditLines_A = QAction(_('Lines'), self)
-        procEditLines_A.setEnabled(False)
+        procLines_A = QAction(_('Lines'), self)
+        procLines_A.setStatusTip(_('Edit Lines data'))
+        procLines_A.triggered.connect(self.procLinesEdit)
+        procLines_A.setEnabled(self.__enableWingFunct)
         
         procEditBrakes_A = QAction(_('Brakes'), self)
         procEditBrakes_A.setEnabled(False)
@@ -361,7 +364,7 @@ class MainWindow(QMainWindow):
         procMenu.addMenu(skinTensMenu)
         
         procMenu.addAction(procGenAoA_A)
-        procMenu.addAction(procEditLines_A)
+        procMenu.addAction(procLines_A)
         procMenu.addAction(procEditBrakes_A)
         procMenu.addAction(procEditRamLength_A)
         procMenu.addAction(procEditMiniRibs_A)
@@ -449,7 +452,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* -> *Airfoils*
         '''
         if self.dws.windowExists('RibHoles') == False:
-            self.ribHolesW = ProcRibHoles()
+            self.ribHolesW = RibHoles()
             self.dws.registerWindow('RibHoles')
             self.mdi.addSubWindow(self.ribHolesW)
         self.ribHolesW.show()
@@ -473,6 +476,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('GlobalAoA')
             self.mdi.addSubWindow(self.globAoAW)
         self.globAoAW.show()
+        
+    def procLinesEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Lines*
+        '''
+        if self.dws.windowExists('Lines') == False:
+            self.lines_W = Lines()
+            self.dws.registerWindow('Lines')
+            self.mdi.addSubWindow(self.lines_W)
+        self.lines_W.show()   
         
     def procRun(self):
         '''

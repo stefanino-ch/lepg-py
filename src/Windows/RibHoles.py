@@ -9,15 +9,14 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.ProcessorModel import ProcessorModel
 
-class ProcRibHoles(QMdiSubWindow):
+class RibHoles(QMdiSubWindow):
     '''
     :class: Window to display and edit airfoils holes data  
     '''
 
-    __className = 'ProcRibHoles'
+    __className = 'RibHoles'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -33,14 +32,13 @@ class ProcRibHoles(QMdiSubWindow):
         self.lightC_M.numConfigsChanged.connect( self.modelNumConfigsChanged )
         
         self.lightD_M = ProcessorModel.LightDetModel()
-        self.lightD_M.numDetailsChanged.connect(self.updateTabs)
+        self.lightD_M.numRowsForConfigChanged.connect(self.updateTabs)
         
         self.confProxyModel = []
 
         self.detProxyModel = []
         self.numDet_S = []
 
-        self.dws = DataWindowStatus()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -60,9 +58,9 @@ class ProcRibHoles(QMdiSubWindow):
                     numConfSpin
                     
                     Tabs
-                    configTable
-                    numDetSpin
-                    detailTable
+                        configTable
+                        numDetSpin
+                        detailTable
                     -------------------------
                             helpBar  | btnBar
         '''
@@ -129,7 +127,7 @@ class ProcRibHoles(QMdiSubWindow):
         '''
         :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
         '''
-        logging.debug(self.__className+'.modelNumConfigsChanged')
+        logging.debug(self.__className+'.confSpinChange')
         self.lightC_M.setNumConfigs( self.numConf_S.value() )
     
     def modelNumConfigsChanged(self, numConfigs):
@@ -161,7 +159,7 @@ class ProcRibHoles(QMdiSubWindow):
         :method: Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.detSpinChange')
-        self.lightD_M.setNumDetailRows(self.tabs.currentIndex()+1, self.numDet_S[self.tabs.currentIndex()].value() )
+        self.lightD_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numDet_S[self.tabs.currentIndex()].value() )
     
     def addTab(self):
         '''
@@ -236,19 +234,19 @@ class ProcRibHoles(QMdiSubWindow):
         detTable.enableDoubleValidator(ProcessorModel.LightDetModel.Opt1Col, ProcessorModel.LightDetModel.Opt1Col, 0, 100, 3)
         
         detTable.setHelpBar(self.helpBar)
-        detTable.setHelpText(ProcessorModel.LightDetModel.OrderNumCol, _('Proc-OrderNumDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.LightTypCol, _('Proc-LigthTypeDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.DistLECol, _('Proc-DistLEDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.DisChordCol, _('Proc-DisChordDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.HorAxisCol, _('Proc-HorAxisDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.VertAxisCol, _('Proc-VertAxisDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.RotAngleCol, _('Proc-RotAngleDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.Opt1Col, _('Proc-Opt1Desc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.OrderNumCol, _('OrderNumDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.LightTypCol, _('RibHoles-LigthTypeDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.DistLECol, _('RibHoles-DistLEDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.DisChordCol, _('RibHoles-DisChordDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.HorAxisCol, _('RibHoles-HorAxisDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.VertAxisCol, _('RibHoles-VertAxisDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.RotAngleCol, _('RibHoles-RotAngleDesc'))
+        detTable.setHelpText(ProcessorModel.LightDetModel.Opt1Col, _('RibHoles-Opt1Desc'))
         
         # then setup spin
         if self.detProxyModel[currNumTabs].rowCount() ==0:
             # a new tab was created from the gui
-            self.lightD_M.setNumDetailRows(currNumTabs+1, 1 )
+            self.lightD_M.setNumRowsForConfig(currNumTabs+1, 1 )
         # a new tab was added based on file load. The model has been updated already before. 
         self.numDet_S[currNumTabs].setValue(self.detProxyModel[currNumTabs].rowCount())
         tabWidget.setLayout(tabLayout)
@@ -268,7 +266,7 @@ class ProcRibHoles(QMdiSubWindow):
         self.confProxyModel.pop(numTabs-1)
         self.detProxyModel.pop(numTabs-1)
         self.numDet_S.pop(numTabs-1)
-        self.lightD_M.setNumDetailRows(numTabs, 0 )
+        self.lightD_M.setNumRowsForConfig(numTabs, 0 )
     
     def updateTabs(self):
         '''
@@ -278,15 +276,15 @@ class ProcRibHoles(QMdiSubWindow):
         
         i=0
         while i< self.tabs.count():
-            if self.numDet_S[i].value != self.lightD_M.numDetailRows(i+1):
-                self.numDet_S[i].setValue( self.lightD_M.numDetailRows(i+1) )
+            if self.numDet_S[i].value != self.lightD_M.numRowsForConfig(i+1):
+                self.numDet_S[i].setValue( self.lightD_M.numRowsForConfig(i+1) )
             i+=1
             
     def sortBtnPress(self):
         '''
         :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
         '''
-        logging.debug(self.__className+'.btnPress')
+        logging.debug(self.__className+'.sortBtnPress')
         
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
