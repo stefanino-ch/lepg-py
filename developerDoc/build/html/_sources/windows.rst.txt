@@ -82,6 +82,13 @@ Processor Lines
    :undoc-members:
    :members:
    :private-members: 
+
+Processor Brakes
+----------------
+.. automodule:: Windows.Brakes
+   :undoc-members:
+   :members:
+   :private-members:
  
 Plan Seewing allowances
 -----------------------

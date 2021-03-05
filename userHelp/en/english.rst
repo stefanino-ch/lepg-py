@@ -16,3 +16,4 @@ English Manual
    proc/marks.rst
    proc/globalAoA.rst
    proc/lines.rst
+   proc/brakes.rst

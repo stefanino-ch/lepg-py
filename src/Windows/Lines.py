@@ -55,12 +55,12 @@ class Lines(QMdiSubWindow):
             win
                 windowLayout
                     config edit
-                    
+                    numConfSpin
                     Tabs
                         numLinesSpin
                         LinesTable
                     -------------------------
-                            helpBar  | btnBar
+                        OrderBtn | helpBar  | btnBar
                             
         Naming:
         
@@ -80,7 +80,7 @@ class Lines(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Edit lines"))
+        self.setWindowTitle(_("Edit Lines"))
         
         wrapper = QDataWidgetMapper()
         wrapper.setModel(self.wing_M)
@@ -166,7 +166,7 @@ class Lines(QMdiSubWindow):
             
     def modelSizeChanged(self):
         '''
-        :method: called after the model has been changed it's size. Herein we assure the GUI follows the model.
+        :method: Called after the model has been changed it's size. Herein we assure the GUI follows the model.
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         
@@ -220,7 +220,6 @@ class Lines(QMdiSubWindow):
         numLines_L = QLabel(_('Number of Line paths'))
         numLines_L.setAlignment(Qt.AlignRight)
         numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        tabLayout.addWidget(numLines_L)
         self.numLines_S.append(QSpinBox())
         self.numLines_S[currNumTabs].setRange(1,999)
         self.numLines_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))

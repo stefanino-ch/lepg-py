@@ -63,6 +63,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.marks_M = self.MarksModel()
         self.globAoA_M = self.GlobAoAModel()
         self.lines_M = self.LinesModel()
+        self.brakes_M = self.BrakesModel()
+        self.brakeL_M = self.BrakeLengthModel()
         
     def isValid( self, fileName ):
         '''
@@ -363,8 +365,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range(0, numConfigLines):
                 values =  self.splitLine( stream.readLine() )
                 self.lines_M.updateLineRow(i+1, l+1, \
-                                        int(values[0]), \
-                                        int(values[1]), \
+                                        values[0], \
+                                        values[1], \
                                         values[2], \
                                         values[3], \
                                         values[4], \
@@ -375,6 +377,41 @@ class ProcessorModel(QObject, metaclass=Singleton):
                                         values[9], \
                                         values[10] )
         
+        ##############################
+        # 10. BRAKES
+        logging.debug(self.__className+'.readFile: Brakes')
+        for i in range(3):
+            line = stream.readLine()
+        
+        self.wing_M.setData(self.wing_M.index(0, self.WingModel.BrakeLengthCol ), self.remTabSpace( stream.readLine() ) )
+        
+        numConfigLines = int( self.remTabSpace( stream.readLine() ) )
+        self.brakes_M.setNumRowsForConfig(1, numConfigLines )
+        
+        # TODO: some magic is needed to assure the OrderNums are in a line. if this is not the case new rows migth be appended to old data
+        for l in range(0, numConfigLines):
+            values =  self.splitLine( stream.readLine() )
+            self.brakes_M.updateBrakeRow(1, l+1, \
+                                        values[0], \
+                                        values[1], \
+                                        values[2], \
+                                        values[3], \
+                                        values[4], \
+                                        values[5], \
+                                        values[6], \
+                                        values[7], \
+                                        values[8], \
+                                        values[9], \
+                                        values[10] )   
+        
+        line = stream.readLine()
+        
+        for c in range(0, 2):
+            values =  self.splitLine( stream.readLine() )
+            
+            for p in range (0, 5):
+                self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
+    
         
         ##############################
         # Cleanup
@@ -411,6 +448,199 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
         return values
+
+    class BrakesModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the lines parameters. 
+        '''
+        __className = 'BrakesModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        NumBranchesCol = 1
+        ''':attr: Number of the col holding the number of branches'''
+        BranchLvlOneCol = 2
+        ''':attr: Number of the col holding the branching level 1 value'''
+        OrderLvlOneCol = 3
+        ''':attr: Number of the col holding order at level 1 value'''
+        LevelOfRamTwoCol = 4
+        ''':attr: Number of the col holding level of ramification 2 value'''
+        OrderLvlTwoCol = 5
+        ''':attr: Number of the col holding order at level 2 value'''
+        LevelOfRamThreeCol = 6
+        ''':attr: Number of the col holding level of ramification 3 value'''
+        OrderLvlThreeCol = 7
+        ''':attr: Number of the col holding order at level 3 value'''
+        BranchLvlFourCol = 8
+        ''':attr: Number of the col holding branching level 4 value'''
+        OrderLvlFourCol = 9
+        ''':attr: Number of the col holding order at level 4 value'''
+        AnchorLineCol = 10
+        ''':attr: Number of the col holding the  anchor line (1 = A, 2 = B, 3 = C, 4 = c 5 = D, 6 = brake) value'''
+        AnchorRibNumCol = 11
+        ''':attr: Number of the col holding the anchor rib number value'''
+        ConfigNumCol = 12
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Lines table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Brakes;")
+            query.exec("create table if not exists Brakes ("
+                    "OrderNum INTEGER,"
+                    "NumBranches INTEGER,"
+                    "BranchLvlOne INTEGER,"
+                    "OrderLvlOne INTEGER,"
+                    "LevelOfRamTwo INTEGER,"
+                    "OrderLvlTwo INTEGER,"
+                    "LevelOfRamThree INTEGER,"
+                    "OrderLvlThree INTEGER,"
+                    "BranchLvlFour INTEGER,"
+                    "OrderLvlFour INTEGER,"
+                    "AnchorLine INTEGER,"
+                    "AnchorRibNum INTEGER,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Brakes")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
+            self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
+            self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
+            self.setHeaderData(4, Qt.Horizontal, _("Ramif lvl2"))
+            self.setHeaderData(5, Qt.Horizontal, _("Order lvl 2"))
+            self.setHeaderData(6, Qt.Horizontal, _("Ramif lvl3"))
+            self.setHeaderData(7, Qt.Horizontal, _("Order lvl 3"))
+            self.setHeaderData(8, Qt.Horizontal, _("Branch lvl 4"))
+            self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
+            self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
+            self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
+        
+        def updateBrakeRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateLineRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Brakes SET "
+                          "NumBranches= :i1, "
+                          "BranchLvlOne= :i2, "
+                          "OrderLvlOne= :i3, "
+                          "LevelOfRamTwo= :i4, "
+                          "OrderLvlTwo= :i5, "
+                          "LevelOfRamThree= :i6, "
+                          "OrderLvlThree= :i7, "
+                          "BranchLvlFour= :i8, "
+                          "OrderLvlFour= :i9, "
+                          "AnchorLine= :i10, "
+                          "AnchorRibNum= :i11 "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":i1", i1 )
+            query.bindValue(":i2", i2 )
+            query.bindValue(":i3", i3 )
+            query.bindValue(":i4", i4 )
+            query.bindValue(":i5", i5 )
+            query.bindValue(":i6", i6 )
+            query.bindValue(":i7", i7 )
+            query.bindValue(":i8", i8 )
+            query.bindValue(":i9", i9 )
+            query.bindValue(":i10", i10 )
+            query.bindValue(":i11", i11 )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class BrakeLengthModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Marks parameters. 
+        '''
+        __className = 'BrakeLengthModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        s1Col = 0
+        ''':attr: Number of the col holding the s1 value'''
+        s2Col = 1
+        ''':attr: Number of the col holding the s2 value'''
+        s3Col = 2
+        ''':attr: Number of the col holding the s3 value'''
+        s4Col = 3
+        ''':attr: Number of the col holding the s4 value'''
+        s5Col = 4
+        ''':attr: Number of the col holding the s5 value'''
+        d1Col = 5
+        ''':attr: Number of the col holding the d1 value'''
+        d2Col = 6
+        ''':attr: Number of the col holding the d2 value'''
+        d3Col = 7
+        ''':attr: Number of the col holding the d3 value'''
+        d4Col = 8
+        ''':attr: Number of the col holding the d4 value'''
+        d5Col = 9
+        ''':attr: Number of the col holding the d5 value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Brake length table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists BrakeLenght;")
+            query.exec("create table if not exists BrakeLenght ("
+                    "s1 INTEGER,"
+                    "s2 INTEGER,"
+                    "s3 INTEGER,"
+                    "s4 INTEGER,"
+                    "s5 INTEGER,"
+                    "d1 INTEGER,"
+                    "d2 INTEGER,"
+                    "d3 INTEGER,"
+                    "d4 INTEGER,"
+                    "d5 INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into BrakeLenght (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("BrakeLenght")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("s1 [%]"))
+            self.setHeaderData(1, Qt.Horizontal, _("s2 [%]"))
+            self.setHeaderData(2, Qt.Horizontal, _("s3 [%]"))
+            self.setHeaderData(3, Qt.Horizontal, _("s4 [%]"))
+            self.setHeaderData(4, Qt.Horizontal, _("s5 [%]"))
+            self.setHeaderData(5, Qt.Horizontal, _("d1 [cm]"))
+            self.setHeaderData(6, Qt.Horizontal, _("d2 [cm]"))
+            self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
+            self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
+            self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
+
     
     class WingModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -442,6 +672,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the parameter attached to paraglider type'''
         LinesConcTypeCol = 11
         ''':attr: number of the column holding the lines concept type'''
+        BrakeLengthCol = 12
+        ''':attr: number of the column holding the lenthg of the brake lines'''
         
         halfNumRibs = 0
         ''':attr: the number of different ribs needed to build the wing. This is more or less the half number of total ribs.'''
@@ -467,6 +699,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "ParaType TEXT,"
                     "ParaParam INTEGER,"
                     "LinesConcType INTEGER,"
+                    "Brakelength INTEGER,"
                     "ID INTEGER PRIMARY KEY);")
             
             query.exec("INSERT into Wing (ID) Values( '1' );")

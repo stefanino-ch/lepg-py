@@ -38,6 +38,7 @@ from Windows.SeewingAllowances import SeewingAllowances
 from Windows.Marks import Marks
 from Windows.GlobalAoA import GlobalAoA
 from Windows.Lines import Lines
+from Windows.Brakes import Brakes
 
 class MainWindow(QMainWindow):
     '''
@@ -293,8 +294,10 @@ class MainWindow(QMainWindow):
         procLines_A.triggered.connect(self.procLinesEdit)
         procLines_A.setEnabled(self.__enableWingFunct)
         
-        procEditBrakes_A = QAction(_('Brakes'), self)
-        procEditBrakes_A.setEnabled(False)
+        procBrakes_A = QAction(_('Brakes'), self)
+        procBrakes_A.setStatusTip(_('Edit Brake lines data'))
+        procBrakes_A.triggered.connect(self.procBrakesEdit)
+        procBrakes_A.setEnabled(self.__enableWingFunct)
         
         procEditRamLength_A = QAction(_('Ramifications length'), self)
         procEditRamLength_A.setEnabled(False)
@@ -365,7 +368,7 @@ class MainWindow(QMainWindow):
         
         procMenu.addAction(procGenAoA_A)
         procMenu.addAction(procLines_A)
-        procMenu.addAction(procEditBrakes_A)
+        procMenu.addAction(procBrakes_A)
         procMenu.addAction(procEditRamLength_A)
         procMenu.addAction(procEditMiniRibs_A)
         
@@ -485,7 +488,17 @@ class MainWindow(QMainWindow):
             self.lines_W = Lines()
             self.dws.registerWindow('Lines')
             self.mdi.addSubWindow(self.lines_W)
-        self.lines_W.show()   
+        self.lines_W.show() 
+        
+    def procBrakesEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Brakes*
+        '''
+        if self.dws.windowExists('Brakes') == False:
+            self.brakes_W = Brakes()
+            self.dws.registerWindow('Brakes')
+            self.mdi.addSubWindow(self.brakes_W)
+        self.brakes_W.show()
         
     def procRun(self):
         '''
