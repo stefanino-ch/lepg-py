@@ -10,4 +10,8 @@ Leinen
 
 Da fehlt noch was...
 
-`Detailbeschreibung auf der Webseite von Pere. <http://laboratoridenvol.com/leparagliding/manual.en.html#6.9>`_
+Eine detaillierte Beschreibung findest Du auf der |pere_link|.
+
+.. |pere_link| raw:: html
+
+	<a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>
