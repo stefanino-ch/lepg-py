@@ -18,3 +18,5 @@ Deutsche Anleitung
    proc/globalAoA.rst
    proc/lines.rst
    proc/brakes.rst
+   proc/ramification.rst
+   proc/hVvHribs.rst

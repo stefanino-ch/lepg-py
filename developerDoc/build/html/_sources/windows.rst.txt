@@ -89,6 +89,20 @@ Processor Brakes
    :undoc-members:
    :members:
    :private-members:
+   
+Processor Ramification
+----------------------
+.. automodule:: Windows.Ramification
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor HV VH Ribs
+--------------------
+.. automodule:: Windows.HvVhRibs
+   :undoc-members:
+   :members:
+   :private-members:
  
 Plan Seewing allowances
 -----------------------

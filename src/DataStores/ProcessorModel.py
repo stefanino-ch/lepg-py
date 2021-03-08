@@ -65,6 +65,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.lines_M = self.LinesModel()
         self.brakes_M = self.BrakesModel()
         self.brakeL_M = self.BrakeLengthModel()
+        self.ramif_M = self.RamificationModel()
+        self.hVvHRibs_M = self.HvVhRibsModel()
         
     def isValid( self, fileName ):
         '''
@@ -275,6 +277,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.lightC_M.updateConfigRow(i+1, ini, fin)
             
             numConfigLines = int(self.remTabSpace( stream.readLine() ))
+            self.lightD_M.setNumRowsForConfig(i+1, 0 )
             self.lightD_M.setNumRowsForConfig(i+1, numConfigLines )
             
             # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1
@@ -360,6 +363,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for i in range( 0, numConfigs ):
             numConfigLines = int( self.remTabSpace( stream.readLine() ) )
+            self.lines_M.setNumRowsForConfig(i+1, 0 )
             self.lines_M.setNumRowsForConfig(i+1, numConfigLines )
              
             for l in range(0, numConfigLines):
@@ -385,10 +389,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.BrakeLengthCol ), self.remTabSpace( stream.readLine() ) )
         
+        # delete existing data
+        self.brakes_M.setNumRowsForConfig(1, 0 )
+        
+        # read new data
         numConfigLines = int( self.remTabSpace( stream.readLine() ) )
         self.brakes_M.setNumRowsForConfig(1, numConfigLines )
         
-        # TODO: some magic is needed to assure the OrderNums are in a line. if this is not the case new rows migth be appended to old data
         for l in range(0, numConfigLines):
             values =  self.splitLine( stream.readLine() )
             self.brakes_M.updateBrakeRow(1, l+1, \
@@ -411,6 +418,70 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             for p in range (0, 5):
                 self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
+
+        ##############################
+        # 11. Ramification lengths
+        logging.debug(self.__className+'.readFile: Ramification')
+        for i in range(3):
+            line = stream.readLine()
+        
+        values =  self.splitLine( stream.readLine() )
+        self.ramif_M.updateDataRow(1, 1, values[0], values[1], 0)
+        
+        values =  self.splitLine( stream.readLine() )
+        self.ramif_M.updateDataRow(1, 2, values[0], values[1], values[2])
+                    
+        values =  self.splitLine( stream.readLine() )
+        self.ramif_M.updateDataRow(1,3, values[0], values[1], 0)
+            
+        values =  self.splitLine( stream.readLine() )
+        self.ramif_M.updateDataRow(1, 4, values[0], values[1], values[2])
+
+        ##############################
+        # 12. H V and VH ribs (Mini Ribs)
+        logging.debug(self.__className+'.readFile: H V and VH ribs (Mini Ribs)')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigLines = int(self.remTabSpace( stream.readLine() ) )
+        
+        values =  self.splitLine( stream.readLine() )
+        self.wing_M.setData(self.wing_M.index(0, self.WingModel.xSpacingCol ), values[0] )
+        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ySpacingCol ), values[1] )
+        
+        # delete existing data
+        self.hVvHRibs_M.setNumRowsForConfig(1, 0 )
+        # read new data
+        self.hVvHRibs_M.setNumRowsForConfig(1, numConfigLines )
+        
+        for l in range(0, numConfigLines):
+            values =  self.splitLine( stream.readLine() )
+            if (values[1] == '6') or (values[1] == '16'):
+                self.hVvHRibs_M.updateDataRow(1, l+1, \
+                                        values[0], \
+                                        values[1], \
+                                        values[2], \
+                                        values[3], \
+                                        values[4], \
+                                        values[5], \
+                                        values[6], \
+                                        values[7], \
+                                        values[8], \
+                                        values[9], \
+                                        values[10], \
+                                        values[11])
+            else:
+                self.hVvHRibs_M.updateDataRow(1, l+1, \
+                                        values[0], \
+                                        values[1], \
+                                        values[2], \
+                                        values[3], \
+                                        values[4], \
+                                        values[5], \
+                                        values[6], \
+                                        values[7], \
+                                        values[8], \
+                                        values[9])
     
         
         ##############################
@@ -448,6 +519,118 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
         return values
+
+    class AirfoilsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
+        '''
+        __className = 'AirfoilsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: number of the rib number column'''
+        AirfNameCol = 1
+        ''':attr: number of the rib name column'''
+        IntakeStartCol = 2 
+        ''':attr: number of the intake start column'''
+        IntakeEndCol = 3
+        ''':attr: number of the intake end column'''
+        OpenCloseCol = 4
+        ''':attr: number of the column for the open/ close config'''
+        DisplacCol = 5
+        ''':attr: number of the column for the displacement'''
+        RelWeightCol = 6
+        ''':attr: number of the column for the relative weight '''
+        rrwCol = 7
+        ''':attr: number of the column for the rrw config'''
+        
+        
+        def createAirfoilsTable(self):
+            '''
+            :method: Creates initially the empty anchor points table
+            ''' 
+            logging.debug(self.__className+'.createAirfoilsTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Airfoils;")
+            query.exec("create table if not exists Airfoils ("
+                    "RibNum INTEGER,"
+                    "AirfName TEXT,"
+                    "IntakeStart REAL,"
+                    "IntakeEnd REAL,"
+                    "OpenClose INTEGER,"
+                    "Displac REAL,"
+                    "RelWeight REAL,"
+                    "rrw REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into Airfoils (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createAirfoilsTable()
+            self.setTable("Airfoils")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+    class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
+        '''
+        __className = 'AnchorPointsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: Number of the rib number column'''
+        NumAnchCol = 1
+        ''':attr: Number of the column holding the number of anchors'''
+        PosACol = 2
+        ''':attr: Number the column holding Pos A'''
+        PosBCol = 3
+        ''':attr: Number the column holding Pos B'''
+        PosCCol = 4
+        ''':attr: Number the column holding Pos C'''
+        PosDCol = 5
+        ''':attr: Number the column holding Pos D'''
+        PosECol = 6
+        ''':attr: Number the column holding Pos E'''
+        PosFCol = 7
+        ''':attr: Number the column holding Pos F'''
+        
+        def createAnchorPointsTable(self):
+            '''
+            :method: Creates initially the empty anchor points table
+            ''' 
+            logging.debug(self.__className+'.createAnchorPointsTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AnchorPoints;")
+            query.exec("create table if not exists AnchorPoints ("
+                    "RibNum INTEGER,"
+                    "NumAnchors INTEGER,"
+                    "PosA REAL,"
+                    "PosB REAL,"
+                    "PosC REAL,"
+                    "PosD REAL,"
+                    "PosE REAL,"
+                    "PosF REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createAnchorPointsTable()
+            self.setTable("AnchorPoints")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
     class BrakesModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -642,151 +825,123 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
 
     
-    class WingModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the wing itself. 
-        '''
-        __className = 'WingModel'
-
-        BrandNameCol = 0
-        ''':attr: number of the brand name column'''
-        WingNameCol = 1
-        ''':attr: number of the wing name column'''
-        DrawScaleCol = 2
-        ''':attr: number of the draw scale column'''
-        WingScaleCol = 3
-        ''':attr: number of the wing scale column'''
-        NumCellsCol = 4
-        ''':attr: number of the number of cells column'''
-        NumRibsCol = 5
-        ''':attr: number of the number of ribs column'''
-        AlphaModeCol = 6
-        ''':attr: number of the alpha type column'''
-        AlphaMaxCentCol = 7
-        ''':attr: number of the alpha max angle in center column'''
-        AlphaMaxTipCol = 8
-        ''':attr: number of the alpha max angle on wingtip column'''
-        ParaTypeCol = 9
-        ''':attr: number of the paraglider type column'''
-        ParaParamCol = 10
-        ''':attr: number of the column holding the parameter attached to paraglider type'''
-        LinesConcTypeCol = 11
-        ''':attr: number of the column holding the lines concept type'''
-        BrakeLengthCol = 12
-        ''':attr: number of the column holding the lenthg of the brake lines'''
-        
-        halfNumRibs = 0
-        ''':attr: the number of different ribs needed to build the wing. This is more or less the half number of total ribs.'''
-
-        def createWingTable(self): 
-            '''
-            :method: Creates initially the empty wing table
-            '''   
-            logging.debug(self.__className+'.createWingTable')
-                
-            query = QSqlQuery()
-            query.exec("DROP TABLE if exists Wing;")
-            query.exec("create table if not exists Wing ("
-                    "BrandName TEXT,"
-                    "WingName TEXT,"
-                    "DrawScale REAL,"
-                    "WingScale REAL,"
-                    "NumCells INTEGER,"
-                    "NumRibs INTEGER,"
-                    "AlphaMode INTEGER,"
-                    "AlphaMaxCent REAL,"
-                    "AlphaMaxTip REAL,"
-                    "ParaType TEXT,"
-                    "ParaParam INTEGER,"
-                    "LinesConcType INTEGER,"
-                    "Brakelength INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
             
-            query.exec("INSERT into Wing (ID) Values( '1' );")
-
+    class GlobAoAModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the global AoA parameters. 
+        '''
+        __className = 'GlobAoAModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        FinesseCol = 0
+        ''':attr: Number of the col holding the finesse value'''
+        CentOfPressCol = 1
+        ''':attr: Number of the col holding the center of pressure value'''
+        CalageCol = 2
+        ''':attr: Number of the col holding the calage value'''
+        RisersCol = 3
+        ''':attr: Number of the col holding the risers length value'''
+        LinesCol = 4
+        ''':attr: Number of the col holding the lines length value'''
+        KarabinersCol = 5 
+        ''':attr: Number of the col holding the karabiners length value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty GlobalAoA table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists GlobalAoA;")
+            query.exec("create table if not exists GlobalAoA ("
+                    "Finesse REAL,"
+                    "CentOfPress INTEGER,"
+                    "Calage INTEGER,"
+                    "Risers INTEGER,"
+                    "Lines INTEGER,"
+                    "Karabiners INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into GlobalAoA (ID) Values( '1' );")
+            
         def __init__(self, parent=None): # @UnusedVariable
             '''
             :method: Constructor
             '''
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createWingTable()
-            self.setTable("Wing")
+            self.createTable()
+            self.setTable("GlobalAoA")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-            self.rib_M = ProcessorModel.RibModel()
-            self.anchPoints_M = ProcessorModel.AnchorPointsModel()
-            self.airf_M = ProcessorModel.AirfoilsModel()
-            self.lightC_M = ProcessorModel.LightConfModel()
-            self.dataChanged.connect(self.syncData)
-             
-        def syncData(self, q):
-            '''
-            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate \
-                the current number of half ribs and calls the method to setup the model accordingly. If NumLightConf is changed \ 
-                the NumLightConf Model must be keept in sync.
-            '''
-            logging.debug(self.__className+'.syncData')
-            
-            if q.column() == self.NumRibsCol:
-                numRibs = self.index(0, self.NumRibsCol).data()
-                if numRibs.isnumeric():
-                    self.halfNumRibs = math.ceil(float(numRibs) / 2)
-                    logging.debug(self.__className+'.syncData ' + 'halfNumRibs: ' +str(self.halfNumRibs))
                     
-                    self.rib_M.setupRibRows(self.halfNumRibs)
-                    self.airf_M.setupRibRows(self.halfNumRibs)
-                    self.anchPoints_M.setupRibRows(self.halfNumRibs)
-
+            self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [%chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Calage [%chord]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
+            self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
+            self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
     
-    class RibModel(SqlTableModel, metaclass=Singleton):
+    class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
+        :class: Provides a SqlTableModel holding the lines parameters. 
         '''
-        __className = 'RibModel'
-        '''
-        :attr: Does help to indicate the source of the log messages
-        '''
-        RibNumCol = 0
-        ''':attr: number of the rib number column'''
-        xribCol = 1
-        ''':attr: number of the column providing rib X coordinate'''
-        yLECol = 2
-        ''':attr: number of the column providing Y coordinate of the leading edge'''
-        yTECol = 3
-        ''':attr: number of the column providing Y coordinate of the trailing edge'''
-        xpCol = 4
-        ''':attr: number of the column providing X' coordinate of the rib in its final position in space'''
-        zCol = 5
-        ''':attr: number of the column providing Z coordinate of the rib in its final position in space '''
-        betaCol = 6
-        ''':attr: number of the column providing the angle "beta" of the rib to the vertical (degres)'''
-        RPCol = 7
-        ''':attr: number of the column providing RP percentage of chord to be held on the relative torsion of the airfoils'''
-        WashinCol = 8
-        ''':attr: number of the column providing washin in degrees defined manually (if parameter is set to "0")'''
+        __className = 'HvVhRibsModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
         
-        def createRibTable(self):
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        RibNumCol = 1
+        ''':attr: Number of the col holding the rib num for which the setup is valid'''
+        TypeCol = 2
+        ''':attr: Number of the col holding the rib type info'''
+        IniRibCol = 3
+        ''':attr: Number of the col holding initial rib of the configuration'''
+        ParamACol = 4
+        ''':attr: Number of the col holding param A'''
+        ParamBCol = 5
+        ''':attr: Number of the col holding param B'''
+        ParamCCol = 6
+        ''':attr: Number of the col holding param C'''
+        ParamDCol = 7
+        ''':attr: Number of the col holding param D'''
+        ParamECol = 8
+        ''':attr: Number of the col holding param E'''
+        ParamFCol = 9
+        ''':attr: Number of the col holding param F'''
+        ParamGCol = 10
+        ''':attr: Number of the col holding param G'''
+        ParamHCol = 11
+        ''':attr: Number of the col holding param H'''
+        ParamICol = 12
+        ''':attr: Number of the col holding param I'''
+        ConfigNumCol = 13
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
             '''
-            :method: Creates initially the empty rib table.
+            :method: Creates initially the empty Lines table
             ''' 
-            logging.debug(self.__className+'.createRibTable')   
+            logging.debug(self.__className+'.createTable')   
             query = QSqlQuery()
                 
-            query.exec("DROP TABLE if exists Rib;")
-            query.exec("create table if not exists Rib ("
+            query.exec("DROP TABLE if exists HvVhRibs;")
+            query.exec("create table if not exists HvVhRibs ("
+                    "OrderNum INTEGER,"
                     "RibNum INTEGER,"
-                    "xrib REAL,"
-                    "yLE REAL,"
-                    "yTE REAL,"
-                    "xp REAL,"
-                    "z REAL,"
-                    "beta REAL,"
-                    "RP REAL,"
-                    "Washin REAL,"
+                    "Type INTEGER,"
+                    "IniRib INTEGER,"
+                    "ParamA INTEGER,"
+                    "ParamB INTEGER,"
+                    "ParamC INTEGER,"
+                    "ParamD REAL,"
+                    "ParamE REAL,"
+                    "ParamF REAL,"
+                    "ParamG REAL,"
+                    "ParamH REAL,"
+                    "ParamI REAL,"
+                    "ConfigNum INTEGER,"
                     "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Rib (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
             '''
@@ -794,123 +949,64 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createRibTable()
-            self.setTable("Rib")
+            self.createTable()
+            self.setTable("HvVhRibs")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("Rib num"))
+            self.setHeaderData(2, Qt.Horizontal, _("Type"))
+            self.setHeaderData(3, Qt.Horizontal, _("Ini Rib"))
+            self.setHeaderData(4, Qt.Horizontal, _("Param A"))
+            self.setHeaderData(5, Qt.Horizontal, _("Param B"))
+            self.setHeaderData(6, Qt.Horizontal, _("Param C"))
+            self.setHeaderData(7, Qt.Horizontal, _("Param D"))
+            self.setHeaderData(8, Qt.Horizontal, _("Param E"))
+            self.setHeaderData(9, Qt.Horizontal, _("Param F"))
+            self.setHeaderData(10, Qt.Horizontal, _("Param G"))
+            self.setHeaderData(11, Qt.Horizontal, _("Param H"))
+            self.setHeaderData(12, Qt.Horizontal, _("Param I"))
+        
+        def updateDataRow(self, configNum, orderNum, ribNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF, paramG, paramH=0, paramI=0):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateLineRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE HvVhRibs SET "
+                          "RibNum= :ribNum, "
+                          "Type= :typ, "
+                          "IniRib= :iniRib, "
+                          "ParamA= :paramA, "
+                          "ParamB= :paramB, "
+                          "ParamC= :paramC, "
+                          "ParamD= :paramD, "
+                          "ParamE= :paramE, "
+                          "ParamF= :paramF, "
+                          "ParamG= :paramG, "
+                          "ParamH= :paramH, "
+                          "ParamI= :paramI "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":ribNum", ribNum )
+            query.bindValue(":typ", typ )
+            query.bindValue(":iniRib", iniRib )
+            query.bindValue(":paramA", paramA )
+            query.bindValue(":paramB", paramB )
+            query.bindValue(":paramC", paramC )
+            query.bindValue(":paramD", paramD )
+            query.bindValue(":paramE", paramE )
+            query.bindValue(":paramF", paramF )
+            query.bindValue(":paramG", paramG )
+            query.bindValue(":paramH", paramH )
+            query.bindValue(":paramI", paramI )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
-    class AirfoilsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
-        '''
-        __className = 'AirfoilsModel'
-        '''
-        :attr: Does help to indicate the source of the log messages
-        '''
-        RibNumCol = 0
-        ''':attr: number of the rib number column'''
-        AirfNameCol = 1
-        ''':attr: number of the rib name column'''
-        IntakeStartCol = 2 
-        ''':attr: number of the intake start column'''
-        IntakeEndCol = 3
-        ''':attr: number of the intake end column'''
-        OpenCloseCol = 4
-        ''':attr: number of the column for the open/ close config'''
-        DisplacCol = 5
-        ''':attr: number of the column for the displacement'''
-        RelWeightCol = 6
-        ''':attr: number of the column for the relative weight '''
-        rrwCol = 7
-        ''':attr: number of the column for the rrw config'''
-        
-        
-        def createAirfoilsTable(self):
-            '''
-            :method: Creates initially the empty anchor points table
-            ''' 
-            logging.debug(self.__className+'.createAirfoilsTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists Airfoils;")
-            query.exec("create table if not exists Airfoils ("
-                    "RibNum INTEGER,"
-                    "AirfName TEXT,"
-                    "IntakeStart REAL,"
-                    "IntakeEnd REAL,"
-                    "OpenClose INTEGER,"
-                    "Displac REAL,"
-                    "RelWeight REAL,"
-                    "rrw REAL,"
-                    "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Airfoils (ID) Values( '1' );")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createAirfoilsTable()
-            self.setTable("Airfoils")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-    class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
-        '''
-        __className = 'AnchorPointsModel'
-        '''
-        :attr: Does help to indicate the source of the log messages
-        '''
-        RibNumCol = 0
-        ''':attr: Number of the rib number column'''
-        NumAnchCol = 1
-        ''':attr: Number of the column holding the number of anchors'''
-        PosACol = 2
-        ''':attr: Number the column holding Pos A'''
-        PosBCol = 3
-        ''':attr: Number the column holding Pos B'''
-        PosCCol = 4
-        ''':attr: Number the column holding Pos C'''
-        PosDCol = 5
-        ''':attr: Number the column holding Pos D'''
-        PosECol = 6
-        ''':attr: Number the column holding Pos E'''
-        PosFCol = 7
-        ''':attr: Number the column holding Pos F'''
-        
-        def createAnchorPointsTable(self):
-            '''
-            :method: Creates initially the empty anchor points table
-            ''' 
-            logging.debug(self.__className+'.createAnchorPointsTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists AnchorPoints;")
-            query.exec("create table if not exists AnchorPoints ("
-                    "RibNum INTEGER,"
-                    "NumAnchors INTEGER,"
-                    "PosA REAL,"
-                    "PosB REAL,"
-                    "PosC REAL,"
-                    "PosD REAL,"
-                    "PosE REAL,"
-                    "PosF REAL,"
-                    "ID INTEGER PRIMARY KEY);")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createAnchorPointsTable()
-            self.setTable("AnchorPoints")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
     class LightConfModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -1135,7 +1231,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
-        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
         NumBranchesCol = 1
         ''':attr: Number of the col holding the number of branches'''
         BranchLvlOneCol = 2
@@ -1271,6 +1367,200 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 
                 # emit the change signal
                 self.numConfigsChanged.emit( self.numConfigs() )
+
+    class MarksModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Marks parameters. 
+        '''
+        __className = 'MarksModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        MarksSpCol = 0
+        ''':attr: Number of the col holding the marks spacing value'''
+        PointRadCol = 1
+        ''':attr: Number of the col holding the point radius value'''
+        PointDisplCol = 2
+        ''':attr: Number of the col holding the points displacement value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Marks table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Marks;")
+            query.exec("create table if not exists Marks ("
+                    "MarksSp REAL,"
+                    "PointRad REAL,"
+                    "PointDispl REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Marks")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Marks Spacing [cm]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Point Radius [cm]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Point Displacement [cm]"))
+            
+            self.addRows(-1, 1)
+        
+        def updateRow(self, marksSp, pointRad, pointDispl):
+            '''
+            :method: updates a specific row with the parameters passed.
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Marks SET MarksSp= :marksSp, PointRad= :pointRad, PointDispl= :pointDispl WHERE (ID = :id);")
+            query.bindValue(":marksSp", marksSp )
+            query.bindValue(":pointRad", pointRad )
+            query.bindValue(":pointDispl", pointDispl )
+            query.bindValue(":id", 1 )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class RamificationModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the ramification parameters. 
+        '''
+        __className = 'RamificationModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        RowsCol = 1
+        ''':attr: Number of the col holding the number of rows'''
+        ThirdToSailCol = 2
+        ''':attr: Number of the col holding the distance branching third to sail (l3)'''
+        FourthToSailCol = 3
+        ''':attr: Number of the col holding the distance beginning of fourth branching to sail (l2)'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Ramification table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Ramification;")
+            query.exec("create table if not exists Ramification ("
+                    "OrderNum INTEGER,"
+                    "Rows INTEGER,"
+                    "ThirdToSail INTEGER,"
+                    "FourthToSail INTEGER,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Ramification")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Rows"))
+            self.setHeaderData(2, Qt.Horizontal, _("Third to sail [cm]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Fourth to sail [cm]"))
+            
+            self.setNumRowsForConfig(1,4)
+ 
+        def updateDataRow(self, configNum, orderNum, rows, thirdToSail, fourthToSail):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateDataRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Ramification SET "
+                          "Rows= :rows, "
+                          "ThirdToSail= :thirdToSail, "
+                          "FourthToSail= :fourthToSail "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":rows", rows )
+            query.bindValue(":thirdToSail", thirdToSail )
+            query.bindValue(":fourthToSail", fourthToSail )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+           
+    class RibModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
+        '''
+        __className = 'RibModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: number of the rib number column'''
+        xribCol = 1
+        ''':attr: number of the column providing rib X coordinate'''
+        yLECol = 2
+        ''':attr: number of the column providing Y coordinate of the leading edge'''
+        yTECol = 3
+        ''':attr: number of the column providing Y coordinate of the trailing edge'''
+        xpCol = 4
+        ''':attr: number of the column providing X' coordinate of the rib in its final position in space'''
+        zCol = 5
+        ''':attr: number of the column providing Z coordinate of the rib in its final position in space '''
+        betaCol = 6
+        ''':attr: number of the column providing the angle "beta" of the rib to the vertical (degres)'''
+        RPCol = 7
+        ''':attr: number of the column providing RP percentage of chord to be held on the relative torsion of the airfoils'''
+        WashinCol = 8
+        ''':attr: number of the column providing washin in degrees defined manually (if parameter is set to "0")'''
+        
+        def createRibTable(self):
+            '''
+            :method: Creates initially the empty rib table.
+            ''' 
+            logging.debug(self.__className+'.createRibTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Rib;")
+            query.exec("create table if not exists Rib ("
+                    "RibNum INTEGER,"
+                    "xrib REAL,"
+                    "yLE REAL,"
+                    "yTE REAL,"
+                    "xp REAL,"
+                    "z REAL,"
+                    "beta REAL,"
+                    "RP REAL,"
+                    "Washin REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into Rib (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createRibTable()
+            self.setTable("Rib")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+
     
     class SkinTensionModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -1432,120 +1722,106 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", row )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
-            
-    class MarksModel(SqlTableModel, metaclass=Singleton):
+
+
+    class WingModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding the Marks parameters. 
+        :class: Provides a SqlTableModel holding all data related to the wing itself. 
         '''
-        __className = 'MarksModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        MarksSpCol = 0
-        ''':attr: Number of the col holding the marks spacing value'''
-        PointRadCol = 1
-        ''':attr: Number of the col holding the point radius value'''
-        PointDisplCol = 2
-        ''':attr: Number of the col holding the points displacement value'''
-        
-        def createTable(self):
+        __className = 'WingModel'
+
+        BrandNameCol = 0
+        ''':attr: number of the brand name column'''
+        WingNameCol = 1
+        ''':attr: number of the wing name column'''
+        DrawScaleCol = 2
+        ''':attr: number of the draw scale column'''
+        WingScaleCol = 3
+        ''':attr: number of the wing scale column'''
+        NumCellsCol = 4
+        ''':attr: number of the number of cells column'''
+        NumRibsCol = 5
+        ''':attr: number of the number of ribs column'''
+        AlphaModeCol = 6
+        ''':attr: number of the alpha type column'''
+        AlphaMaxCentCol = 7
+        ''':attr: number of the alpha max angle in center column'''
+        AlphaMaxTipCol = 8
+        ''':attr: number of the alpha max angle on wingtip column'''
+        ParaTypeCol = 9
+        ''':attr: number of the paraglider type column'''
+        ParaParamCol = 10
+        ''':attr: number of the column holding the parameter attached to paraglider type'''
+        LinesConcTypeCol = 11
+        ''':attr: number of the column holding the lines concept type'''
+        BrakeLengthCol = 12
+        ''':attr: number of the column holding the lenthg of the brake lines'''
+        xSpacingCol = 13
+        ''':attr: number of the column holding xSpacing for the HvVh Ribs'''
+        ySpacingCol = 14
+        ''':attr: number of the column holding ySpacing for the HvVh Ribs'''
+        halfNumRibs = 0
+        ''':attr: the number of different ribs needed to build the wing. This is more or less the half number of total ribs.'''
+
+        def createWingTable(self): 
             '''
-            :method: Creates initially the empty Marks table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
+            :method: Creates initially the empty wing table
+            '''   
+            logging.debug(self.__className+'.createWingTable')
                 
-            query.exec("DROP TABLE if exists Marks;")
-            query.exec("create table if not exists Marks ("
-                    "MarksSp REAL,"
-                    "PointRad REAL,"
-                    "PointDispl REAL,"
+            query = QSqlQuery()
+            query.exec("DROP TABLE if exists Wing;")
+            query.exec("create table if not exists Wing ("
+                    "BrandName TEXT,"
+                    "WingName TEXT,"
+                    "DrawScale REAL,"
+                    "WingScale REAL,"
+                    "NumCells INTEGER,"
+                    "NumRibs INTEGER,"
+                    "AlphaMode INTEGER,"
+                    "AlphaMaxCent REAL,"
+                    "AlphaMaxTip REAL,"
+                    "ParaType TEXT,"
+                    "ParaParam INTEGER,"
+                    "LinesConcType INTEGER,"
+                    "Brakelength INTEGER,"
+                    "xSpacing REAL,"
+                    "ySpacing REAL, "
                     "ID INTEGER PRIMARY KEY);")
             
+            query.exec("INSERT into Wing (ID) Values( '1' );")
+
         def __init__(self, parent=None): # @UnusedVariable
             '''
             :method: Constructor
             '''
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createTable()
-            self.setTable("Marks")
+            self.createWingTable()
+            self.setTable("Wing")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.rib_M = ProcessorModel.RibModel()
+            self.anchPoints_M = ProcessorModel.AnchorPointsModel()
+            self.airf_M = ProcessorModel.AirfoilsModel()
+            self.lightC_M = ProcessorModel.LightConfModel()
+            self.dataChanged.connect(self.syncData)
+             
+        def syncData(self, q):
+            '''
+            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate \
+                the current number of half ribs and calls the method to setup the model accordingly. If NumLightConf is changed \ 
+                the NumLightConf Model must be keept in sync.
+            '''
+            logging.debug(self.__className+'.syncData')
+            
+            if q.column() == self.NumRibsCol:
+                numRibs = self.index(0, self.NumRibsCol).data()
+                if numRibs.isnumeric():
+                    self.halfNumRibs = math.ceil(float(numRibs) / 2)
+                    logging.debug(self.__className+'.syncData ' + 'halfNumRibs: ' +str(self.halfNumRibs))
                     
-            self.setHeaderData(0, Qt.Horizontal, _("Marks Spacing [cm]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Point Radius [cm]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Point Displacement [cm]"))
-            
-            self.addRows(-1, 1)
-        
-        def updateRow(self, marksSp, pointRad, pointDispl):
-            '''
-            :method: updates a specific row with the parameters passed.
-            '''
-            logging.debug(self.__className+'.updateRow')
-            
-            # TODO: add transaction
-            query = QSqlQuery()
-            query.prepare("UPDATE Marks SET MarksSp= :marksSp, PointRad= :pointRad, PointDispl= :pointDispl WHERE (ID = :id);")
-            query.bindValue(":marksSp", marksSp )
-            query.bindValue(":pointRad", pointRad )
-            query.bindValue(":pointDispl", pointDispl )
-            query.bindValue(":id", 1 )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
-    class GlobAoAModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the global AoA parameters. 
-        '''
-        __className = 'GlobAoAModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        FinesseCol = 0
-        ''':attr: Number of the col holding the finesse value'''
-        CentOfPressCol = 1
-        ''':attr: Number of the col holding the center of pressure value'''
-        CalageCol = 2
-        ''':attr: Number of the col holding the calage value'''
-        RisersCol = 3
-        ''':attr: Number of the col holding the risers length value'''
-        LinesCol = 4
-        ''':attr: Number of the col holding the lines length value'''
-        KarabinersCol = 5 
-        ''':attr: Number of the col holding the karabiners length value'''
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty GlobalAoA table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists GlobalAoA;")
-            query.exec("create table if not exists GlobalAoA ("
-                    "Finesse REAL,"
-                    "CentOfPress INTEGER,"
-                    "Calage INTEGER,"
-                    "Risers INTEGER,"
-                    "Lines INTEGER,"
-                    "Karabiners INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into GlobalAoA (ID) Values( '1' );")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("GlobalAoA")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-                    
-            self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [%chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Calage [%chord]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
-            self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
-            self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
+                    self.rib_M.setupRibRows(self.halfNumRibs)
+                    self.airf_M.setupRibRows(self.halfNumRibs)
+                    self.anchPoints_M.setupRibRows(self.halfNumRibs)

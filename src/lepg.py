@@ -39,6 +39,8 @@ from Windows.Marks import Marks
 from Windows.GlobalAoA import GlobalAoA
 from Windows.Lines import Lines
 from Windows.Brakes import Brakes
+from Windows.Ramification import Ramification
+from Windows.HvVhRibs import HvVhRibs
 
 class MainWindow(QMainWindow):
     '''
@@ -299,11 +301,15 @@ class MainWindow(QMainWindow):
         procBrakes_A.triggered.connect(self.procBrakesEdit)
         procBrakes_A.setEnabled(self.__enableWingFunct)
         
-        procEditRamLength_A = QAction(_('Ramifications length'), self)
-        procEditRamLength_A.setEnabled(False)
+        procRam_A = QAction(_('Ramifications length'), self)
+        procRam_A.setStatusTip(_('Edit Ramification data'))
+        procRam_A.triggered.connect(self.procRamEdit)
+        procRam_A.setEnabled(self.__enableWingFunct)
         
-        procEditMiniRibs_A = QAction(_('H V and VH ribs'), self)
-        procEditMiniRibs_A.setEnabled(False)
+        procHvvHRibs_A = QAction(_('HV and VH ribs'), self)
+        procHvvHRibs_A.setStatusTip(_('Edit HV/ VH ribs data'))
+        procHvvHRibs_A.triggered.connect(self.procHvVhEdit)
+        procHvvHRibs_A.setEnabled(self.__enableWingFunct)
         
         procEditExtrCols_A = QAction(_('Extrados colors'), self)
         procEditExtrCols_A.setEnabled(False)
@@ -369,8 +375,8 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procGenAoA_A)
         procMenu.addAction(procLines_A)
         procMenu.addAction(procBrakes_A)
-        procMenu.addAction(procEditRamLength_A)
-        procMenu.addAction(procEditMiniRibs_A)
+        procMenu.addAction(procRam_A)
+        procMenu.addAction(procHvvHRibs_A)
         
         colsMenu = QMenu(_('Colors'),self)
         colsMenu.addAction(procEditExtrCols_A)
@@ -499,6 +505,26 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('Brakes')
             self.mdi.addSubWindow(self.brakes_W)
         self.brakes_W.show()
+
+    def procRamEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Ramification*
+        '''
+        if self.dws.windowExists('Ramification') == False:
+            self.ramif_W = Ramification()
+            self.dws.registerWindow('Ramification')
+            self.mdi.addSubWindow(self.ramif_W)
+        self.ramif_W.show()
+
+    def procHvVhEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *HV VH Ribs*
+        '''
+        if self.dws.windowExists('HvVhRibs') == False:
+            self.hVvH_W = HvVhRibs()
+            self.dws.registerWindow('HvVhRibs')
+            self.mdi.addSubWindow(self.hVvH_W)
+        self.hVvH_W.show()
         
     def procRun(self):
         '''
