@@ -14,7 +14,7 @@ import logging
 import math
 import re
 
-from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
+from PyQt5.QtCore import Qt, QFile, QTextStream, QObject
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
@@ -67,6 +67,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.brakeL_M = self.BrakeLengthModel()
         self.ramif_M = self.RamificationModel()
         self.hVvHRibs_M = self.HvVhRibsModel()
+        self.extradColsConf_M = self.ExtradColsConfModel()
+        self.extradColsDet_M = self.ExtradColsDetModel()
+        self.intradColsConf_M = self.IntradColsConfModel()
+        self.intradColsDet_M = self.IntradColsDetModel()
         
     def isValid( self, fileName ):
         '''
@@ -482,7 +486,48 @@ class ProcessorModel(QObject, metaclass=Singleton):
                                         values[7], \
                                         values[8], \
                                         values[9])
-    
+
+        ##############################
+        # 15. Extrados colors
+        logging.debug(self.__className+'.readFile: Extrados colors')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = int(self.remTabSpace( stream.readLine() ) )
+        self.extradColsConf_M.setNumConfigs(numConfigs)
+        
+        for configCounter in range(0, numConfigs):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.extradColsConf_M.updateRow(configCounter+1, values[0])
+            
+            numConfigLines = int(values[1])
+            self.extradColsDet_M.setNumRowsForConfig(configCounter+1, numConfigLines)
+                   
+            for l in range(0, numConfigLines):
+                values =  self.splitLine( stream.readLine() )
+                self.extradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
+            
+        ##############################
+        # 15. Intrados colors
+        logging.debug(self.__className+'.readFile: Intrados colors')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = int(self.remTabSpace( stream.readLine() ) )
+        self.intradColsConf_M.setNumConfigs(numConfigs)
+        
+        for configCounter in range(0, numConfigs):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.intradColsConf_M.updateRow(configCounter+1, values[0])
+            
+            numConfigLines = int(values[1])
+            self.intradColsDet_M.setNumRowsForConfig(configCounter+1, numConfigLines)
+                   
+            for l in range(0, numConfigLines):
+                values =  self.splitLine( stream.readLine() )
+                self.intradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
         
         ##############################
         # Cleanup
@@ -824,7 +869,113 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
             self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
 
-    
+    class ExtradColsConfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all data related to the Extrados colors configuration 
+        '''
+        __className = 'ExtradColsConfModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        FirstRibCol = 1
+        ''':attr: number of the column holding the first rib of the config'''
+        ConfigNumCol = 2
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+                '''
+                :method: Creates initially the empty table.
+                ''' 
+                logging.debug(self.__className+'.createTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists ExtradColsConf;")
+                query.exec("create table if not exists ExtradColsConf ("
+                        "OrderNum INTEGER,"
+                        "FirstRib INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ExtradColsConf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+        
+        def updateRow(self, configNum, firstRib):
+            logging.debug(self.__className+'.updateRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ExtradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":config", configNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+            
+    class ExtradColsDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all detail data related to the Extrados colors 
+        '''
+        __className = 'ExtradColsDetModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        DistTeCol = 1
+        ''':attr: number of the column holding the first rib of the config'''
+        ConfigNumCol = 2
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+                '''
+                :method: Creates initially the empty table.
+                ''' 
+                logging.debug(self.__className+'.createTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists ExtradColsDet;")
+                query.exec("create table if not exists ExtradColsDet ("
+                        "OrderNum INTEGER,"
+                        "DistTe INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ExtradColsDet")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [% chord]"))
+        
+        def updateRow(self, configNum, orderNum, distTe):
+            logging.debug(self.__className+'.updateRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ExtradColsDet SET DistTe= :distTe WHERE (ConfigNum = :config  AND OrderNum = :order);")
+            query.bindValue(":distTe", distTe )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
             
     class GlobAoAModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -890,7 +1041,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
-        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
         RibNumCol = 1
         ''':attr: Number of the col holding the rib num for which the setup is valid'''
         TypeCol = 2
@@ -1007,40 +1158,145 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
+
+    class IntradColsConfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all data related to the Intrados colors configuration 
+        '''
+        __className = 'IntradColsConfModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        FirstRibCol = 1
+        ''':attr: number of the column holding the first rib of the config'''
+        ConfigNumCol = 2
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+                '''
+                :method: Creates initially the empty table.
+                ''' 
+                logging.debug(self.__className+'.createTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists IntradColsConf;")
+                query.exec("create table if not exists IntradColsConf ("
+                        "OrderNum INTEGER,"
+                        "FirstRib INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("IntradColsConf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+        
+        def updateRow(self, configNum, firstRib):
+            logging.debug(self.__className+'.updateRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE IntradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":config", configNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+            
+    class IntradColsDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all detail data related to the Intrados colors 
+        '''
+        __className = 'IntradColsDetModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        DistTeCol = 1
+        ''':attr: number of the column holding the first rib of the config'''
+        ConfigNumCol = 2
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+                '''
+                :method: Creates initially the empty table.
+                ''' 
+                logging.debug(self.__className+'.createTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists IntradColsDet;")
+                query.exec("create table if not exists IntradColsDet ("
+                        "OrderNum INTEGER,"
+                        "DistTe INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("IntradColsDet")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [% chord]"))
+        
+        def updateRow(self, configNum, orderNum, distTe):
+            logging.debug(self.__className+'.updateRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE IntradColsDet SET DistTe= :distTe WHERE (ConfigNum = :config  AND OrderNum = :order);")
+            query.bindValue(":distTe", distTe )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
             
     class LightConfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all data related to the global lightening config parameters 
         '''
-        
-        numConfigsChanged = pyqtSignal(int)
-        '''
-        :Signal: emitted in the moment the number of configurations handled by the model ist changed. \
-        Param1: new number of configurations. 
-        '''
-        
+       
         __className = 'LightConfModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
         __numConfigs = 0
         
-        InitialRibCol = 0
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        InitialRibCol = 1
         ''':attr: number of the column holding the first rib of the config'''
-        FinalRibCol = 1 
+        FinalRibCol = 2 
         ''':attr: number of the column holding the final rib'''
-        ConfigNumCol = 2
+        ConfigNumCol = 3
         ''':attr: number of the column holding the config number'''
         
-        def createLightConfTable(self):
+        def createTable(self):
                 '''
                 :method: Creates initially the empty LightConf table.
                 ''' 
-                logging.debug(self.__className+'.createLightConfTable')   
+                logging.debug(self.__className+'.createTable')   
                 query = QSqlQuery()
                     
                 query.exec("DROP TABLE if exists LightConf;")
                 query.exec("create table if not exists LightConf ("
+                        "OrderNum INTEGER,"
                         "InitialRib INTEGER,"
                         "FinalRib INTEGER,"
                         "ConfigNum INTEGER,"
@@ -1052,24 +1308,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createLightConfTable()
+            self.createTable()
             self.setTable("LightConf")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-        def addConfigRow(self):
-            '''
-            :method: Adds an individual configuration.
-            '''
-            logging.debug(self.__className+'.addConfigRow')
-            currNumRows = self.rowCount()
-                
-            # TODO: Add transaction
-            query = QSqlQuery()
-            query.prepare("INSERT into LightConf (ConfigNum) Values( :conf);")
-            query.bindValue(":conf", currNumRows+1 )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
         
         def updateConfigRow(self, config, initialRib, finalRib):
             logging.debug(self.__className+'.setConfigRow')
@@ -1081,56 +1323,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":config", config )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
-            
-        def removeRowsByConfigNum(self, configNum ):
-            '''
-            :method: Removes an individual configuration.
-            :param configNum: Number of the config to be deleted.  
-            '''
-            logging.debug(self.__className+'.removeRowsByConfigNum')
-            
-            # TODO: add transaction
-            query = QSqlQuery()
-            query.prepare("DELETE FROM LightConf where ConfigNum = :num ")
-            query.bindValue(":num", str(configNum))
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
-        def setNumConfigs(self, mustNumConfigs):
-            '''
-            :method: Assures the model will be setup to hold the correct number of configs based on parameters passed. 
-            :param mustNumConfigs: Number of configs the model must provide.
-            '''
-            logging.debug(self.__className+'.setNumConfigs')
-            currNumConfigs = self.numConfigs()
-            
-            diff = abs(mustNumConfigs-currNumConfigs)
-            if diff != 0:
-                # do it only if really the number has changed
-                i = 0
-                if mustNumConfigs > currNumConfigs:
-                    # add config lines
-                    while i < diff:
-                        self.addConfigRow()
-                        i += 1
-                else:
-                    # remove config lines
-                    while i < diff:
-                        self.removeRowsByConfigNum( currNumConfigs-i )
-                        i += 1
-                
-                # emit the change signal
-                self.numConfigsChanged.emit( self.numConfigs() )
-                
-        def numConfigs(self):
-            '''
-            :method: Use this to check how many configs the model currently holds
-            :return: Current number of configs.
-            '''     
-            return self.rowCount()
-                
-            
-         
+
 
     class LightDetModel(SqlTableModel, metaclass=Singleton):
         '''

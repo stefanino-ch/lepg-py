@@ -30,6 +30,7 @@ class SqlTableModel(QSqlTableModel):
         '''
         logging.debug(self.__className+'.__init__')
         super().__init__()
+ 
     
     def removeRowsAtEnd(self, numToRemove):
         '''
@@ -45,6 +46,7 @@ class SqlTableModel(QSqlTableModel):
             i+=1
         self.select() # use as less selects as possible
         return res
+ 
     
     def addRows(self, row, count):
         '''
@@ -74,6 +76,7 @@ class SqlTableModel(QSqlTableModel):
             logging.critical(self.__className + '.addRows commit Err text: %s' %self.lastError().text())
             return False
         return True
+  
     
     def select(self, *args, **kwargs):
         '''
@@ -85,6 +88,7 @@ class SqlTableModel(QSqlTableModel):
         res = QSqlTableModel.select(self, *args, **kwargs)
         self.didSelect.emit()   # Now we must tell the rest of the app that a row has been removed.
         return res
+ 
     
     def sortTable(self, row, order):
         '''
@@ -95,6 +99,7 @@ class SqlTableModel(QSqlTableModel):
         logging.debug(self.__className+'.sortTable')
         self.setSort(row, order)
         self.select()
+  
         
     def setupRibRows(self, halfNumRibs):
         '''
@@ -111,6 +116,35 @@ class SqlTableModel(QSqlTableModel):
         elif numRows < halfNumRibs:
             numToAdd = halfNumRibs - numRows
             self.addRows(numRows, numToAdd)
+
+
+    def setNumConfigs(self, mustNumConfigs):
+        '''
+        :method: Assures the model will hold at least one row for each config based on the parameter passed. 
+        :param mustNumConfigs: Number of configs the model must provide.
+        '''
+        logging.debug(self.__className+'.setNumConfigs')
+        currNumConfigs = self.numConfigs()
+        
+        diff = abs(mustNumConfigs-currNumConfigs)
+        if diff != 0:
+            # do it only if really the number has changed
+            i = 0
+            if mustNumConfigs > currNumConfigs:
+                # add config lines
+                while i < diff:
+                    #self.addConfigRow()
+                    self.setNumRowsForConfig(currNumConfigs+1+i, 1)
+                    self.numRowsForConfigChanged.emit(currNumConfigs+1+i, 1)  # emit the change signal
+                    i += 1
+            else:
+                # remove config lines
+                while i < diff:
+                    #self.removeRowsByConfigNum( currNumConfigs-i )
+                    self.setNumRowsForConfig(currNumConfigs-i, 0)
+                    self.numRowsForConfigChanged.emit(currNumConfigs-i, 0)  # emit the change signal
+                    i += 1
+
 
     def numConfigs(self):
         '''
@@ -129,6 +163,7 @@ class SqlTableModel(QSqlTableModel):
         
         return orderNum
 
+
     def addRowForConfig(self, configNum):
         '''
         :method: Adds a row to the model. Sets Columns *ConfigNum* and *OrderNum*
@@ -146,6 +181,7 @@ class SqlTableModel(QSqlTableModel):
         query.bindValue(":order", str(currNumRows+1))
         query.exec()
         self.select() # to a select() to assure the model is updated properly
+
 
     def removeRowForConfig(self, configNum):
         '''
@@ -170,6 +206,7 @@ class SqlTableModel(QSqlTableModel):
             query.bindValue(":order", str(orderNum))
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+
 
     def setNumRowsForConfig(self, configNum, mustNumRows):
         '''
@@ -219,5 +256,3 @@ class SqlTableModel(QSqlTableModel):
             else:
                 logging.critical(self.__className+'.numRowsForConfig: ConfigNumCol not defined')
                 return
-            
-

@@ -517,6 +517,19 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.SqlTableModel.SqlTableModel.setNumConfigs">
+<code class="sig-name descname">setNumConfigs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mustNumConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.SqlTableModel.SqlTableModel.setNumConfigs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Assures the model will hold at least one row for each config based on the parameter passed.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>mustNumConfigs</strong> – Number of configs the model must provide.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.SqlTableModel.SqlTableModel.setNumRowsForConfig">
 <code class="sig-name descname">setNumRowsForConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">mustNumRows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.SqlTableModel.SqlTableModel.setNumRowsForConfig" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1129,6 +1142,146 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel">
+<em class="property">class </em><code class="sig-name descname">ExtradColsConfModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>provides a SqlTableModel holding all data related to the Extrados colors configuration</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.FirstRibCol">
+<code class="sig-name descname">FirstRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.FirstRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ExtradColsConfModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel">
+<em class="property">class </em><code class="sig-name descname">ExtradColsDetModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>provides a SqlTableModel holding all detail data related to the Extrados colors</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.DistTeCol">
+<code class="sig-name descname">DistTeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.DistTeCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ExtradColsDetModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">distTe</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="DataStores.ProcessorModel.ProcessorModel.GlobAoAModel">
 <em class="property">class </em><code class="sig-name descname">GlobAoAModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.GlobAoAModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1256,7 +1409,7 @@ for the example about how to insert.</p>
 <code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.HvVhRibsModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a confit</p>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1409,6 +1562,146 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel">
+<em class="property">class </em><code class="sig-name descname">IntradColsConfModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>provides a SqlTableModel holding all data related to the Intrados colors configuration</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.FirstRibCol">
+<code class="sig-name descname">FirstRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.FirstRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'IntradColsConfModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel">
+<em class="property">class </em><code class="sig-name descname">IntradColsDetModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>provides a SqlTableModel holding all detail data related to the Intrados colors</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.DistTeCol">
+<code class="sig-name descname">DistTeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.DistTeCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'IntradColsDetModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">distTe</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel">
 <em class="property">class </em><code class="sig-name descname">LightConfModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1418,7 +1711,7 @@ for the example about how to insert.</p>
 </dl>
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.ConfigNumCol">
-<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>number of the column holding the config number</p>
@@ -1428,7 +1721,7 @@ for the example about how to insert.</p>
 
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.FinalRibCol">
-<code class="sig-name descname">FinalRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.FinalRibCol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">FinalRibCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.FinalRibCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>number of the column holding the final rib</p>
@@ -1438,10 +1731,20 @@ for the example about how to insert.</p>
 
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.InitialRibCol">
-<code class="sig-name descname">InitialRibCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.InitialRibCol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">InitialRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.InitialRibCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1467,70 +1770,11 @@ for the example about how to insert.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.addConfigRow">
-<code class="sig-name descname">addConfigRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.addConfigRow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Adds an individual configuration.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.createLightConfTable">
-<code class="sig-name descname">createLightConfTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.createLightConfTable" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.createTable" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty LightConf table.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.numConfigs">
-<code class="sig-name descname">numConfigs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.numConfigs" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Use this to check how many configs the model currently holds</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Current number of configs.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.numConfigsChanged">
-<code class="sig-name descname">numConfigsChanged</code><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.numConfigsChanged" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Signal</dt>
-<dd class="field-odd"><p>emitted in the moment the number of configurations handled by the model ist changed.         Param1: new number of configurations.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.removeRowsByConfigNum">
-<code class="sig-name descname">removeRowsByConfigNum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.removeRowsByConfigNum" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Removes an individual configuration.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>configNum</strong> – Number of the config to be deleted.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.setNumConfigs">
-<code class="sig-name descname">setNumConfigs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mustNumConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.setNumConfigs" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Assures the model will be setup to hold the correct number of configs based on parameters passed.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>mustNumConfigs</strong> – Number of configs the model must provide.</p>
 </dd>
 </dl>
 </dd></dl>

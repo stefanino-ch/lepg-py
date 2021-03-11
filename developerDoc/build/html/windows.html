@@ -109,6 +109,8 @@
 <li><a class="reference internal" href="#module-Windows.Brakes">Processor Brakes</a></li>
 <li><a class="reference internal" href="#module-Windows.Ramification">Processor Ramification</a></li>
 <li><a class="reference internal" href="#module-Windows.HvVhRibs">Processor HV VH Ribs</a></li>
+<li><a class="reference internal" href="#module-Windows.ExtradColors">Processor Extrados colors</a></li>
+<li><a class="reference internal" href="#module-Windows.IntradColors">Processor Intrados colors</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
@@ -404,6 +406,16 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="lepg.MainWindow.procExtradColorsEdit">
+<code class="sig-name descname">procExtradColorsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procExtradColorsEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Extrados colors</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="lepg.MainWindow.procGeometryEdit">
 <code class="sig-name descname">procGeometryEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGeometryEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -429,6 +441,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>HV VH Ribs</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procIntradColorsEdit">
+<code class="sig-name descname">procIntradColorsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procIntradColorsEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Intrados colors</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1260,7 +1282,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.modelNumConfigsChanged">
-<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
@@ -1856,6 +1878,294 @@ details equals brake line paths</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.ExtradColors">
+<span id="processor-extrados-colors"></span><h2>Processor Extrados colors<a class="headerlink" href="#module-Windows.ExtradColors" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.ExtradColors.ExtradColors">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.ExtradColors.</code><code class="sig-name descname">ExtradColors</code><a class="headerlink" href="#Windows.ExtradColors.ExtradColors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.ExtradColors.ExtradColors.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ExtradColors'</em><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.addTab">
+<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.addTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">numConfSpin</span>
+
+        <span class="n">Tabs</span>
+            <span class="n">configTable</span>
+            <span class="n">numDetSpin</span>
+            <span class="n">detailTable</span>
+        <span class="o">-------------------------</span>
+                <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.confSpinChange">
+<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.detSpinChange">
+<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.modelNumConfigsChanged">
+<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.removeTab">
+<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.removeTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ExtradColors.ExtradColors.updateTabs">
+<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.IntradColors">
+<span id="processor-intrados-colors"></span><h2>Processor Intrados colors<a class="headerlink" href="#module-Windows.IntradColors" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.IntradColors.IntradColors">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.IntradColors.</code><code class="sig-name descname">IntradColors</code><a class="headerlink" href="#Windows.IntradColors.IntradColors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.IntradColors.IntradColors.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'IntradColors'</em><a class="headerlink" href="#Windows.IntradColors.IntradColors.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.addTab">
+<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.addTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">numConfSpin</span>
+
+        <span class="n">Tabs</span>
+            <span class="n">configTable</span>
+            <span class="n">numDetSpin</span>
+            <span class="n">detailTable</span>
+        <span class="o">-------------------------</span>
+                <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.confSpinChange">
+<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.detSpinChange">
+<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.modelNumConfigsChanged">
+<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.removeTab">
+<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.removeTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.IntradColors.IntradColors.updateTabs">
+<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -20,3 +20,5 @@ Deutsche Anleitung
    proc/brakes.rst
    proc/ramification.rst
    proc/hVvHribs.rst
+   proc/extradosColors.rst
+   proc/intradosColors.rst

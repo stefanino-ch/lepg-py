@@ -41,6 +41,8 @@ from Windows.Lines import Lines
 from Windows.Brakes import Brakes
 from Windows.Ramification import Ramification
 from Windows.HvVhRibs import HvVhRibs
+from Windows.ExtradColors import ExtradColors
+from Windows.IntradColors import IntradColors
 
 class MainWindow(QMainWindow):
     '''
@@ -311,11 +313,15 @@ class MainWindow(QMainWindow):
         procHvvHRibs_A.triggered.connect(self.procHvVhEdit)
         procHvvHRibs_A.setEnabled(self.__enableWingFunct)
         
-        procEditExtrCols_A = QAction(_('Extrados colors'), self)
-        procEditExtrCols_A.setEnabled(False)
+        procExtradColors_A = QAction(_('Extrados colors'), self)
+        procExtradColors_A.setStatusTip(_('Edit extrados colors data'))
+        procExtradColors_A.triggered.connect(self.procExtradColorsEdit)
+        procExtradColors_A.setEnabled(self.__enableWingFunct)
         
-        procEditIntrCols_A = QAction(_('Intrados colors'), self)
-        procEditIntrCols_A.setEnabled(False)
+        procIntradColors_A = QAction(_('Intrados colors'), self)
+        procIntradColors_A.setStatusTip(_('Edit intrados colors data'))
+        procIntradColors_A.triggered.connect(self.procIntradColorsEdit)
+        procIntradColors_A.setEnabled(self.__enableWingFunct)
         
         procEditAddRibPts_A = QAction(_('Additional rib points'), self)
         procEditAddRibPts_A.setEnabled(False)
@@ -379,8 +385,8 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procHvvHRibs_A)
         
         colsMenu = QMenu(_('Colors'),self)
-        colsMenu.addAction(procEditExtrCols_A)
-        colsMenu.addAction(procEditIntrCols_A)
+        colsMenu.addAction(procExtradColors_A)
+        colsMenu.addAction(procIntradColors_A)
         procMenu.addMenu(colsMenu)
         
         procMenu.addAction(procEditAddRibPts_A)
@@ -525,6 +531,27 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('HvVhRibs')
             self.mdi.addSubWindow(self.hVvH_W)
         self.hVvH_W.show()
+
+    def procExtradColorsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Extrados colors*
+        '''
+        if self.dws.windowExists('ExtradosColors') == False:
+            self.extradColors_W = ExtradColors()
+            self.dws.registerWindow('ExtradosColors')
+            self.mdi.addSubWindow(self.extradColors_W)
+        self.extradColors_W.show()
+
+    def procIntradColorsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Intrados colors*
+        '''
+        if self.dws.windowExists('IntradosColors') == False:
+            self.intradColors_W = IntradColors()
+            self.dws.registerWindow('IntradosColors')
+            self.mdi.addSubWindow(self.intradColors_W)
+        self.intradColors_W.show()
+
         
     def procRun(self):
         '''

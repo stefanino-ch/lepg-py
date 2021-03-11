@@ -103,6 +103,20 @@ Processor HV VH Ribs
    :undoc-members:
    :members:
    :private-members:
+   
+Processor Extrados colors
+-------------------------
+.. automodule:: Windows.ExtradColors
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor Intrados colors
+-------------------------
+.. automodule:: Windows.IntradColors
+   :undoc-members:
+   :members:
+   :private-members:
  
 Plan Seewing allowances
 -----------------------
