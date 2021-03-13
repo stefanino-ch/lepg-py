@@ -43,6 +43,8 @@ from Windows.Ramification import Ramification
 from Windows.HvVhRibs import HvVhRibs
 from Windows.ExtradColors import ExtradColors
 from Windows.IntradColors import IntradColors
+from Windows.AddRibPoints import AddRibPoints
+from Windows.ElasticLinesCorr import ElasticLinesCorr
 
 class MainWindow(QMainWindow):
     '''
@@ -323,11 +325,15 @@ class MainWindow(QMainWindow):
         procIntradColors_A.triggered.connect(self.procIntradColorsEdit)
         procIntradColors_A.setEnabled(self.__enableWingFunct)
         
-        procEditAddRibPts_A = QAction(_('Additional rib points'), self)
-        procEditAddRibPts_A.setEnabled(False)
+        procAddRibPts_A = QAction(_('Additional rib points'), self)
+        procAddRibPts_A.setStatusTip(_('Edit additional rib points data'))
+        procAddRibPts_A.triggered.connect(self.procAddRibPtsEdit)
+        procAddRibPts_A.setEnabled(self.__enableWingFunct)
         
-        procEditElLinesCorr_A = QAction(_('Elastic lines correction'), self)
-        procEditElLinesCorr_A.setEnabled(False)
+        procElLinesCorr_A = QAction(_('Elastic lines correction'), self)
+        procElLinesCorr_A.setStatusTip(_('Edit Elastic lines correction data'))
+        procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
+        procElLinesCorr_A.setEnabled(self.__enableWingFunct)
         
         procEditJoncsDes_A = QAction(_('Joncs definitions'), self)
         procEditJoncsDes_A.setEnabled(False)
@@ -389,8 +395,8 @@ class MainWindow(QMainWindow):
         colsMenu.addAction(procIntradColors_A)
         procMenu.addMenu(colsMenu)
         
-        procMenu.addAction(procEditAddRibPts_A)
-        procMenu.addAction(procEditElLinesCorr_A)
+        procMenu.addAction(procAddRibPts_A)
+        procMenu.addAction(procElLinesCorr_A)
         procMenu.addAction(procEditJoncsDes_A)
         procMenu.addAction(procEditNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
@@ -551,6 +557,27 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('IntradosColors')
             self.mdi.addSubWindow(self.intradColors_W)
         self.intradColors_W.show()
+
+    def procAddRibPtsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Additional rib points*
+        '''
+        if self.dws.windowExists('AddRibPoints') == False:
+            self.addRibPts_W = AddRibPoints()
+            self.dws.registerWindow('AddRibPoints')
+            self.mdi.addSubWindow(self.addRibPts_W)
+        self.addRibPts_W.show()
+
+    def procElLinesCorrEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Elastic lines correction*
+        '''
+        if self.dws.windowExists('ElasticLinesCorr') == False:
+            self.elLinesCorr_W = ElasticLinesCorr()
+            self.dws.registerWindow('ElasticLinesCorr')
+            self.mdi.addSubWindow(self.elLinesCorr_W)
+        self.elLinesCorr_W.show()
+
 
         
     def procRun(self):

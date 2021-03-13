@@ -195,7 +195,7 @@ class ProcBasicData(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.btnPress')
         if q == 'Apply':
-            print('apply')
+            pass
                         
         elif q == 'Ok':
             self.close()

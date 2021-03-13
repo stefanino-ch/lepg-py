@@ -22,3 +22,4 @@ Deutsche Anleitung
    proc/hVvHribs.rst
    proc/extradosColors.rst
    proc/intradosColors.rst
+   proc/addRibPoints.rst

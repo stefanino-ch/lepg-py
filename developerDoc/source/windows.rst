@@ -117,6 +117,13 @@ Processor Intrados colors
    :undoc-members:
    :members:
    :private-members:
+   
+Processor additional rib points
+-------------------------------
+.. automodule:: Windows.AddRibPoints
+   :undoc-members:
+   :members:
+   :private-members:
  
 Plan Seewing allowances
 -----------------------

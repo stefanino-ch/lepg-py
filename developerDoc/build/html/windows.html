@@ -111,6 +111,7 @@
 <li><a class="reference internal" href="#module-Windows.HvVhRibs">Processor HV VH Ribs</a></li>
 <li><a class="reference internal" href="#module-Windows.ExtradColors">Processor Extrados colors</a></li>
 <li><a class="reference internal" href="#module-Windows.IntradColors">Processor Intrados colors</a></li>
+<li><a class="reference internal" href="#module-Windows.AddRibPoints">Processor additional rib points</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
@@ -159,7 +160,7 @@
 </dl>
 <dl class="py class">
 <dt id="lepg.MainWindow">
-<em class="property">class </em><code class="sig-prename descclassname">lepg.</code><code class="sig-name descname">MainWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lepg.</span></code><code class="sig-name descname"><span class="pre">MainWindow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Creates the main window of the application</p>
@@ -167,7 +168,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="lepg.MainWindow.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'MainWindow'</em><a class="headerlink" href="#lepg.MainWindow.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'MainWindow'</span></em><a class="headerlink" href="#lepg.MainWindow.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -177,7 +178,7 @@
 
 <dl class="py attribute">
 <dt id="lepg.MainWindow.__enableWingFunct">
-<code class="sig-name descname">__enableWingFunct</code><em class="property"> = True</em><a class="headerlink" href="#lepg.MainWindow.__enableWingFunct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__enableWingFunct</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#lepg.MainWindow.__enableWingFunct" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Set to true to enable all menus related to wing (Processor) functionality. This is used as a temporary aid allowing easier to sync back to the stable branch.</p>
@@ -187,7 +188,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildFileMenu">
-<code class="sig-name descname">buildFileMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildFileMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildFileMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildFileMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the complete file menu</p>
@@ -197,7 +198,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildHelpMenu">
-<code class="sig-name descname">buildHelpMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildHelpMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildHelpMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildHelpMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the Help Menu</p>
@@ -207,7 +208,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildPlanMenu">
-<code class="sig-name descname">buildPlanMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPlanMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildPlanMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPlanMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the complete Plan menu</p>
@@ -217,7 +218,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildPreProcMenu">
-<code class="sig-name descname">buildPreProcMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPreProcMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildPreProcMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildPreProcMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the complete Pre-Processor menu</p>
@@ -227,7 +228,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildProcMenu">
-<code class="sig-name descname">buildProcMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildProcMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildProcMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildProcMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the complete Processor menu</p>
@@ -237,7 +238,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildSetupMenu">
-<code class="sig-name descname">buildSetupMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildSetupMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildSetupMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildSetupMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the Setup menu</p>
@@ -247,7 +248,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.buildViewMenu">
-<code class="sig-name descname">buildViewMenu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildViewMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildViewMenu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.buildViewMenu" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the View menu</p>
@@ -257,7 +258,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.displayRestartMsg">
-<code class="sig-name descname">displayRestartMsg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.displayRestartMsg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">displayRestartMsg</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.displayRestartMsg" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Displays a message to the user to restart the application after switching the language</p>
@@ -267,7 +268,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.fileDataStatus">
-<code class="sig-name descname">fileDataStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileDataStatus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">fileDataStatus</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileDataStatus" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Opens the File Data Status overview window.</p>
@@ -277,7 +278,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.fileExit">
-<code class="sig-name descname">fileExit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileExit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">fileExit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.fileExit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does all the work to close properly the application.</p>
@@ -287,7 +288,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.helpAbout">
-<code class="sig-name descname">helpAbout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.helpAbout" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">helpAbout</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.helpAbout" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Opens the Help About window.</p>
@@ -297,7 +298,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.planMarksEdit">
-<code class="sig-name descname">planMarksEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.planMarksEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">planMarksEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.planMarksEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Plan</em> -&gt; <em>Marks</em></p>
@@ -307,7 +308,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.planSeewingAllEdit">
-<code class="sig-name descname">planSeewingAllEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.planSeewingAllEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">planSeewingAllEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.planSeewingAllEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Plan</em> -&gt; <em>Sewing allowances</em></p>
@@ -317,7 +318,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.preProcEdit">
-<code class="sig-name descname">preProcEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">preProcEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Edit PreProc Data</em></p>
@@ -327,7 +328,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.preProcOpenFile">
-<code class="sig-name descname">preProcOpenFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcOpenFile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">preProcOpenFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcOpenFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Open PreProc File</em></p>
@@ -337,7 +338,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.preProcRun">
-<code class="sig-name descname">preProcRun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcRun" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">preProcRun</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcRun" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Run Pre-Processor</em></p>
@@ -347,7 +348,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.preProcSaveFile">
-<code class="sig-name descname">preProcSaveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">preProcSaveFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Save PreProc File</em></p>
@@ -357,7 +358,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.preProcSaveFileAs">
-<code class="sig-name descname">preProcSaveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFileAs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">preProcSaveFileAs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.preProcSaveFileAs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Pre Processor</em> -&gt; <em>Save PreProc File As ..</em></p>
@@ -366,8 +367,18 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="lepg.MainWindow.procAddRibPtsEdit">
+<code class="sig-name descname"><span class="pre">procAddRibPtsEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAddRibPtsEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Additional rib points</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="lepg.MainWindow.procAirfoilsEdit">
-<code class="sig-name descname">procAirfoilsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAirfoilsEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procAirfoilsEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAirfoilsEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Airfoils</em></p>
@@ -377,7 +388,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procAnchorPointsEdit">
-<code class="sig-name descname">procAnchorPointsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAnchorPointsEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procAnchorPointsEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procAnchorPointsEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Anchor Points</em></p>
@@ -387,7 +398,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procBasicDataEdit">
-<code class="sig-name descname">procBasicDataEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procBasicDataEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procBasicDataEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procBasicDataEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Basic data</em></p>
@@ -397,7 +408,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procBrakesEdit">
-<code class="sig-name descname">procBrakesEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procBrakesEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procBrakesEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procBrakesEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Brakes</em></p>
@@ -406,8 +417,18 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="lepg.MainWindow.procElLinesCorrEdit">
+<code class="sig-name descname"><span class="pre">procElLinesCorrEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procElLinesCorrEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Elastic lines correction</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="lepg.MainWindow.procExtradColorsEdit">
-<code class="sig-name descname">procExtradColorsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procExtradColorsEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procExtradColorsEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procExtradColorsEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Extrados colors</em></p>
@@ -417,7 +438,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procGeometryEdit">
-<code class="sig-name descname">procGeometryEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGeometryEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procGeometryEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGeometryEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Geometry</em></p>
@@ -427,7 +448,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procGlobalAoAEdit">
-<code class="sig-name descname">procGlobalAoAEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGlobalAoAEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procGlobalAoAEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGlobalAoAEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Global AoA</em></p>
@@ -437,7 +458,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procHvVhEdit">
-<code class="sig-name descname">procHvVhEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procHvVhEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procHvVhEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procHvVhEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>HV VH Ribs</em></p>
@@ -447,7 +468,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procIntradColorsEdit">
-<code class="sig-name descname">procIntradColorsEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procIntradColorsEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procIntradColorsEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procIntradColorsEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Intrados colors</em></p>
@@ -457,7 +478,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procLinesEdit">
-<code class="sig-name descname">procLinesEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procLinesEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procLinesEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procLinesEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Lines</em></p>
@@ -467,7 +488,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procOpenFile">
-<code class="sig-name descname">procOpenFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procOpenFile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procOpenFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procOpenFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Open Processor File</em></p>
@@ -477,7 +498,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procRamEdit">
-<code class="sig-name descname">procRamEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRamEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procRamEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRamEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Ramification</em></p>
@@ -487,7 +508,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procRibHolesEdit">
-<code class="sig-name descname">procRibHolesEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRibHolesEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procRibHolesEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRibHolesEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Airfoils</em></p>
@@ -497,7 +518,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procRun">
-<code class="sig-name descname">procRun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRun" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procRun</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procRun" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Run Processor</em></p>
@@ -507,7 +528,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procSaveFile">
-<code class="sig-name descname">procSaveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procSaveFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Save Processor File</em></p>
@@ -517,7 +538,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procSaveFileAs">
-<code class="sig-name descname">procSaveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFileAs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procSaveFileAs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSaveFileAs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Save Processor File As..</em></p>
@@ -527,7 +548,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.procSkinTensionEdit">
-<code class="sig-name descname">procSkinTensionEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSkinTensionEdit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">procSkinTensionEdit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procSkinTensionEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Skin Tension</em></p>
@@ -537,7 +558,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.setupLangDe">
-<code class="sig-name descname">setupLangDe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangDe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setupLangDe</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangDe" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Setup</em> <em>Language</em> -&gt; <em>German</em></p>
@@ -547,7 +568,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.setupLangEn">
-<code class="sig-name descname">setupLangEn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangEn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setupLangEn</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupLangEn" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Setup</em> <em>Language</em> -&gt; <em>English</em></p>
@@ -557,7 +578,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.setupPreProcLocation">
-<code class="sig-name descname">setupPreProcLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupPreProcLocation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setupPreProcLocation</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupPreProcLocation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Asks the user for the location where the Pre-Processor is saved</p>
@@ -567,7 +588,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.viewCascade">
-<code class="sig-name descname">viewCascade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewCascade" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">viewCascade</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewCascade" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>View</em> -&gt; <em>Cascade</em></p>
@@ -577,7 +598,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.viewTile">
-<code class="sig-name descname">viewTile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewTile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">viewTile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewTile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>View</em> -&gt; <em>Tile</em></p>
@@ -587,7 +608,7 @@
 
 <dl class="py method">
 <dt id="lepg.MainWindow.viewWing">
-<code class="sig-name descname">viewWing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewWing" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">viewWing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.viewWing" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>View</em> -&gt; <em>Show Pre-Processor outline</em></p>
@@ -599,7 +620,7 @@
 
 <dl class="py function">
 <dt id="lepg.main">
-<code class="sig-prename descclassname">lepg.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">lepg.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -615,7 +636,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.DataStatusOverview.DataStatusOverview">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.DataStatusOverview.</code><code class="sig-name descname">DataStatusOverview</code><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.DataStatusOverview.</span></code><code class="sig-name descname"><span class="pre">DataStatusOverview</span></code><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window displaying: Filenames, if files are saved, if data withing windows has been applied</p>
@@ -623,7 +644,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'DataStatusOverview'</em><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'DataStatusOverview'</span></em><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -633,7 +654,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handels the button events from the window</p>
@@ -643,7 +664,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the window.</p>
@@ -668,7 +689,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon window close</p>
@@ -678,7 +699,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.dataChanged">
-<code class="sig-name descname">dataChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.dataChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dataChanged</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.dataChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the status information displayed in the window</p>
@@ -688,7 +709,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.shortenPath">
-<code class="sig-name descname">shortenPath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.shortenPath" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">shortenPath</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.shortenPath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Mathod</dt>
 <dd class="field-odd"><p>does shorten the path strings in a way that the filename at the end and only part of the path is shown.</p>
@@ -704,7 +725,7 @@
 
 <dl class="py method">
 <dt id="Windows.DataStatusOverview.DataStatusOverview.updateStatus">
-<code class="sig-name descname">updateStatus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.updateStatus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateStatus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.DataStatusOverview.DataStatusOverview.updateStatus" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the status information displayed in the window</p>
@@ -727,7 +748,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.PreProcDataEdit.</code><code class="sig-name descname">PreProcDataEdit</code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.PreProcDataEdit.</span></code><code class="sig-name descname"><span class="pre">PreProcDataEdit</span></code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit the PreProc data.</p>
@@ -735,12 +756,12 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'PreProcDataEdit'</em><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'PreProcDataEdit'</span></em><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.__className" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does the handling of all pressed buttons.</p>
@@ -750,7 +771,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -782,7 +803,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window. Does check for unsaved data and warns the user in case.</p>
@@ -792,7 +813,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.dataStatusChanged">
-<code class="sig-name descname">dataStatusChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dataStatusChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does emit a signal if the user has edited data.</p>
@@ -802,7 +823,7 @@
 
 <dl class="py attribute">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.dataStatusUpdate">
-<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dataStatusUpdate</span></code><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Signal</dt>
 <dd class="field-odd"><p>Sent out as soon the user has edited data or has clicked a button. The first string indicates the window name. The second string indicates if and which button has been pressed.</p>
@@ -812,7 +833,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.enableDisableVault">
-<code class="sig-name descname">enableDisableVault</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.enableDisableVault" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">enableDisableVault</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.enableDisableVault" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Enables disables the vault input fields, depending on vault combo box settings</p>
@@ -822,7 +843,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.updateInputs">
-<code class="sig-name descname">updateInputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.updateInputs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateInputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.updateInputs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>If data in central store changes, we will update in here the according input fields.</p>
@@ -832,7 +853,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.vault_cb_change">
-<code class="sig-name descname">vault_cb_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.vault_cb_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">vault_cb_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.vault_cb_change" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handles change of vault combo box selection.</p>
@@ -842,7 +863,7 @@
 
 <dl class="py method">
 <dt id="Windows.PreProcDataEdit.PreProcDataEdit.writeDataToStore">
-<code class="sig-name descname">writeDataToStore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.writeDataToStore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">writeDataToStore</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.PreProcDataEdit.PreProcDataEdit.writeDataToStore" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Writes all data back to the central data store.</p>
@@ -865,7 +886,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.ProcBasicData.ProcBasicData">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcBasicData.</code><code class="sig-name descname">ProcBasicData</code><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcBasicData.</span></code><code class="sig-name descname"><span class="pre">ProcBasicData</span></code><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit the Basic Data</p>
@@ -873,7 +894,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcBasicData.ProcBasicData.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcBasicData'</em><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcBasicData'</span></em><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -883,7 +904,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcBasicData.ProcBasicData.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -893,7 +914,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcBasicData.ProcBasicData.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -918,7 +939,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcBasicData.ProcBasicData.checkNumCellsRibs">
-<code class="sig-name descname">checkNumCellsRibs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.checkNumCellsRibs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">checkNumCellsRibs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.checkNumCellsRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>The difference between NumCells and NumRibs must be 1, if this is not the case we have a nonsense setup</p>
@@ -928,7 +949,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcBasicData.ProcBasicData.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcBasicData.ProcBasicData.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -951,7 +972,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.ProcGeometry.ProcGeometry">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcGeometry.</code><code class="sig-name descname">ProcGeometry</code><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcGeometry.</span></code><code class="sig-name descname"><span class="pre">ProcGeometry</span></code><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit geometry data</p>
@@ -959,7 +980,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcGeometry.ProcGeometry.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcGeometry'</em><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcGeometry'</span></em><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -969,7 +990,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcGeometry.ProcGeometry.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -979,7 +1000,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcGeometry.ProcGeometry.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1002,7 +1023,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcGeometry.ProcGeometry.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1012,7 +1033,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcGeometry.ProcGeometry.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcGeometry.ProcGeometry.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><p>: method : handles the sort of the table by rib number</p>
 </dd></dl>
 
@@ -1031,7 +1052,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.ProcAirfoils.ProcAirfoils">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcAirfoils.</code><code class="sig-name descname">ProcAirfoils</code><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcAirfoils.</span></code><code class="sig-name descname"><span class="pre">ProcAirfoils</span></code><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils data</p>
@@ -1039,7 +1060,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcAirfoils.ProcAirfoils.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcAirfoils'</em><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcAirfoils'</span></em><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1049,7 +1070,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAirfoils.ProcAirfoils.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1059,7 +1080,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAirfoils.ProcAirfoils.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1082,7 +1103,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAirfoils.ProcAirfoils.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1092,7 +1113,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAirfoils.ProcAirfoils.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAirfoils.ProcAirfoils.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><p>: method : handles the sort of the table by rib number</p>
 </dd></dl>
 
@@ -1111,7 +1132,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcAnchorPoints.</code><code class="sig-name descname">ProcAnchorPoints</code><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcAnchorPoints.</span></code><code class="sig-name descname"><span class="pre">ProcAnchorPoints</span></code><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit anchor points data</p>
@@ -1119,7 +1140,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcAnchorPoints'</em><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcAnchorPoints'</span></em><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1129,7 +1150,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1139,7 +1160,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1162,7 +1183,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1172,7 +1193,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcAnchorPoints.ProcAnchorPoints.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcAnchorPoints.ProcAnchorPoints.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><p>: method : handles the sort of the table by rib number</p>
 </dd></dl>
 
@@ -1191,7 +1212,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.RibHoles.RibHoles">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.RibHoles.</code><code class="sig-name descname">RibHoles</code><a class="headerlink" href="#Windows.RibHoles.RibHoles" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.RibHoles.</span></code><code class="sig-name descname"><span class="pre">RibHoles</span></code><a class="headerlink" href="#Windows.RibHoles.RibHoles" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
@@ -1199,7 +1220,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.RibHoles.RibHoles.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'RibHoles'</em><a class="headerlink" href="#Windows.RibHoles.RibHoles.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'RibHoles'</span></em><a class="headerlink" href="#Windows.RibHoles.RibHoles.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1209,7 +1230,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.addTab">
-<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.addTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.addTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
@@ -1219,7 +1240,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1229,7 +1250,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1252,7 +1273,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1262,7 +1283,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.confSpinChange">
-<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">confSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.confSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
@@ -1272,7 +1293,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.detSpinChange">
-<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">detSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.detSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
@@ -1282,7 +1303,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.modelNumConfigsChanged">
-<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelNumConfigsChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
@@ -1292,7 +1313,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.removeTab">
-<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.removeTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">removeTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.removeTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
@@ -1302,7 +1323,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -1312,7 +1333,7 @@
 
 <dl class="py method">
 <dt id="Windows.RibHoles.RibHoles.updateTabs">
-<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.updateTabs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateTabs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.RibHoles.RibHoles.updateTabs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
@@ -1335,7 +1356,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.ProcSkinTension.ProcSkinTension">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcSkinTension.</code><code class="sig-name descname">ProcSkinTension</code><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcSkinTension.</span></code><code class="sig-name descname"><span class="pre">ProcSkinTension</span></code><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Skin tension data</p>
@@ -1343,7 +1364,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcSkinTension.ProcSkinTension.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcSkinTension'</em><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcSkinTension'</span></em><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1353,7 +1374,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcSkinTension.ProcSkinTension.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1363,7 +1384,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcSkinTension.ProcSkinTension.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1382,7 +1403,7 @@
 
 <dl class="py method">
 <dt id="Windows.ProcSkinTension.ProcSkinTension.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcSkinTension.ProcSkinTension.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1405,7 +1426,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.GlobalAoA.GlobalAoA">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.GlobalAoA.</code><code class="sig-name descname">GlobalAoA</code><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.GlobalAoA.</span></code><code class="sig-name descname"><span class="pre">GlobalAoA</span></code><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit global AoA data</p>
@@ -1413,7 +1434,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.GlobalAoA.GlobalAoA.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'GlobalAoA'</em><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'GlobalAoA'</span></em><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1423,7 +1444,7 @@
 
 <dl class="py method">
 <dt id="Windows.GlobalAoA.GlobalAoA.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1433,7 +1454,7 @@
 
 <dl class="py method">
 <dt id="Windows.GlobalAoA.GlobalAoA.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1452,7 +1473,7 @@
 
 <dl class="py method">
 <dt id="Windows.GlobalAoA.GlobalAoA.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlobalAoA.GlobalAoA.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1475,7 +1496,7 @@
 </dl>
 <dl class="py class">
 <dt id="Windows.Lines.Lines">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.Lines.</code><code class="sig-name descname">Lines</code><a class="headerlink" href="#Windows.Lines.Lines" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.Lines.</span></code><code class="sig-name descname"><span class="pre">Lines</span></code><a class="headerlink" href="#Windows.Lines.Lines" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
@@ -1483,7 +1504,7 @@
 </dl>
 <dl class="py attribute">
 <dt id="Windows.Lines.Lines.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'Lines'</em><a class="headerlink" href="#Windows.Lines.Lines.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Lines'</span></em><a class="headerlink" href="#Windows.Lines.Lines.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1493,7 +1514,7 @@
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.addTab">
-<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.addTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.addTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
@@ -1503,7 +1524,7 @@
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1513,7 +1534,7 @@
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1540,7 +1561,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1550,7 +1571,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.confSpinChange">
-<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">confSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.confSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
@@ -1560,7 +1581,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.modelSizeChanged">
-<code class="sig-name descname">modelSizeChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelSizeChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
@@ -1570,7 +1591,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.numLinesChange">
-<code class="sig-name descname">numLinesChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">numLinesChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.numLinesChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
@@ -1580,7 +1601,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.removeTab">
-<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.removeTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">removeTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.removeTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
@@ -1590,7 +1611,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Lines.Lines.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Lines.Lines.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -1613,7 +1634,7 @@ details equals line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.Brakes.Brakes">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.Brakes.</code><code class="sig-name descname">Brakes</code><a class="headerlink" href="#Windows.Brakes.Brakes" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.Brakes.</span></code><code class="sig-name descname"><span class="pre">Brakes</span></code><a class="headerlink" href="#Windows.Brakes.Brakes" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Brake line details</p>
@@ -1621,7 +1642,7 @@ details equals line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.Brakes.Brakes.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'Brakes'</em><a class="headerlink" href="#Windows.Brakes.Brakes.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Brakes'</span></em><a class="headerlink" href="#Windows.Brakes.Brakes.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1631,7 +1652,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1641,7 +1662,7 @@ details equals line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1665,7 +1686,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1675,7 +1696,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.modelSizeChanged">
-<code class="sig-name descname">modelSizeChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelSizeChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
@@ -1685,7 +1706,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.numLinesChange">
-<code class="sig-name descname">numLinesChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">numLinesChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.numLinesChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
@@ -1695,7 +1716,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Brakes.Brakes.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Brakes.Brakes.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -1718,7 +1739,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.Ramification.Ramification">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.Ramification.</code><code class="sig-name descname">Ramification</code><a class="headerlink" href="#Windows.Ramification.Ramification" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.Ramification.</span></code><code class="sig-name descname"><span class="pre">Ramification</span></code><a class="headerlink" href="#Windows.Ramification.Ramification" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Seewing allowances data</p>
@@ -1726,7 +1747,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.Ramification.Ramification.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'Ramification'</em><a class="headerlink" href="#Windows.Ramification.Ramification.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Ramification'</span></em><a class="headerlink" href="#Windows.Ramification.Ramification.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1736,7 +1757,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Ramification.Ramification.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1746,7 +1767,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Ramification.Ramification.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1768,7 +1789,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Ramification.Ramification.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Ramification.Ramification.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1791,7 +1812,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.HvVhRibs.HvVhRibs">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.HvVhRibs.</code><code class="sig-name descname">HvVhRibs</code><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.HvVhRibs.</span></code><code class="sig-name descname"><span class="pre">HvVhRibs</span></code><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Brake line details</p>
@@ -1799,7 +1820,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.HvVhRibs.HvVhRibs.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'HvVhRibs'</em><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'HvVhRibs'</span></em><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1809,7 +1830,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1819,7 +1840,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1844,7 +1865,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1854,7 +1875,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.modelSizeChanged">
-<code class="sig-name descname">modelSizeChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelSizeChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
@@ -1864,7 +1885,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.numLinesChange">
-<code class="sig-name descname">numLinesChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">numLinesChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.numLinesChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
@@ -1874,7 +1895,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.HvVhRibs.HvVhRibs.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HvVhRibs.HvVhRibs.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -1897,7 +1918,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.ExtradColors.ExtradColors">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ExtradColors.</code><code class="sig-name descname">ExtradColors</code><a class="headerlink" href="#Windows.ExtradColors.ExtradColors" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ExtradColors.</span></code><code class="sig-name descname"><span class="pre">ExtradColors</span></code><a class="headerlink" href="#Windows.ExtradColors.ExtradColors" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
@@ -1905,7 +1926,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ExtradColors.ExtradColors.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ExtradColors'</em><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ExtradColors'</span></em><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -1915,7 +1936,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.addTab">
-<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.addTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.addTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
@@ -1925,7 +1946,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1935,7 +1956,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1958,7 +1979,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -1968,7 +1989,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.confSpinChange">
-<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">confSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
@@ -1978,7 +1999,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.detSpinChange">
-<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">detSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
@@ -1988,7 +2009,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.modelNumConfigsChanged">
-<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelNumConfigsChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
@@ -1998,7 +2019,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.removeTab">
-<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.removeTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">removeTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.removeTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
@@ -2008,7 +2029,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -2018,7 +2039,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.ExtradColors.ExtradColors.updateTabs">
-<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateTabs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ExtradColors.ExtradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
@@ -2041,7 +2062,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.IntradColors.IntradColors">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.IntradColors.</code><code class="sig-name descname">IntradColors</code><a class="headerlink" href="#Windows.IntradColors.IntradColors" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.IntradColors.</span></code><code class="sig-name descname"><span class="pre">IntradColors</span></code><a class="headerlink" href="#Windows.IntradColors.IntradColors" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
@@ -2049,7 +2070,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.IntradColors.IntradColors.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'IntradColors'</em><a class="headerlink" href="#Windows.IntradColors.IntradColors.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'IntradColors'</span></em><a class="headerlink" href="#Windows.IntradColors.IntradColors.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -2059,7 +2080,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.addTab">
-<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.addTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.addTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
@@ -2069,7 +2090,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2079,7 +2100,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2102,7 +2123,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -2112,7 +2133,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.confSpinChange">
-<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">confSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.confSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
@@ -2122,7 +2143,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.detSpinChange">
-<code class="sig-name descname">detSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">detSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.detSpinChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
@@ -2132,7 +2153,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.modelNumConfigsChanged">
-<code class="sig-name descname">modelNumConfigsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">modelNumConfigsChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
@@ -2142,7 +2163,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.removeTab">
-<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.removeTab" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">removeTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.removeTab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
@@ -2152,7 +2173,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.sortBtnPress">
-<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.sortBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
@@ -2162,10 +2183,114 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.IntradColors.IntradColors.updateTabs">
-<code class="sig-name descname">updateTabs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateTabs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.IntradColors.IntradColors.updateTabs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.AddRibPoints">
+<span id="processor-additional-rib-points"></span><h2>Processor additional rib points<a class="headerlink" href="#module-Windows.AddRibPoints" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.AddRibPoints.AddRibPoints">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.AddRibPoints.</span></code><code class="sig-name descname"><span class="pre">AddRibPoints</span></code><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit Brake line details</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.AddRibPoints.AddRibPoints.__className">
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'AddRibPoints'</span></em><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">numLinesSpin</span>
+        <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+            <span class="n">OrderBtn</span>  <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Naming:</dt><dd><p>Conf is always one as there is only one configuration possible</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.closeEvent">
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.modelSizeChanged">
+<code class="sig-name descname"><span class="pre">modelSizeChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.numLinesChange">
+<code class="sig-name descname"><span class="pre">numLinesChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.AddRibPoints.AddRibPoints.sortBtnPress">
+<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.AddRibPoints.AddRibPoints.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2185,7 +2310,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.SeewingAllowances.SeewingAllowances">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.SeewingAllowances.</code><code class="sig-name descname">SeewingAllowances</code><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.SeewingAllowances.</span></code><code class="sig-name descname"><span class="pre">SeewingAllowances</span></code><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Seewing allowances data</p>
@@ -2193,7 +2318,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.SeewingAllowances.SeewingAllowances.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'SeewingAllowances'</em><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'SeewingAllowances'</span></em><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -2203,7 +2328,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.SeewingAllowances.SeewingAllowances.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2213,7 +2338,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.SeewingAllowances.SeewingAllowances.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2235,7 +2360,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.SeewingAllowances.SeewingAllowances.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SeewingAllowances.SeewingAllowances.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -2258,7 +2383,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py class">
 <dt id="Windows.Marks.Marks">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.Marks.</code><code class="sig-name descname">Marks</code><a class="headerlink" href="#Windows.Marks.Marks" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.Marks.</span></code><code class="sig-name descname"><span class="pre">Marks</span></code><a class="headerlink" href="#Windows.Marks.Marks" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Seewing allowances data</p>
@@ -2266,7 +2391,7 @@ details equals brake line paths</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.Marks.Marks.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'Marks'</em><a class="headerlink" href="#Windows.Marks.Marks.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Marks'</span></em><a class="headerlink" href="#Windows.Marks.Marks.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -2276,7 +2401,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Marks.Marks.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2286,7 +2411,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Marks.Marks.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2304,7 +2429,7 @@ details equals brake line paths</p>
 
 <dl class="py method">
 <dt id="Windows.Marks.Marks.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.Marks.Marks.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -2327,24 +2452,24 @@ details equals brake line paths</p>
 &#64;License: General Public License GNU GPL 3.0</p>
 <dl class="py class">
 <dt id="Windows.HelpAbout.HelpAbout">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.HelpAbout.</code><code class="sig-name descname">HelpAbout</code><a class="headerlink" href="#Windows.HelpAbout.HelpAbout" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.HelpAbout.</span></code><code class="sig-name descname"><span class="pre">HelpAbout</span></code><a class="headerlink" href="#Windows.HelpAbout.HelpAbout" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Window displaying </dt><dd><p>The help about information</p>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.HelpAbout.HelpAbout.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'HelpAbout'</em><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'HelpAbout'</span></em><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.__className" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="Windows.HelpAbout.HelpAbout.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="Windows.HelpAbout.HelpAbout.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds the window.</p>
 <dl>
 <dt>Structure:</dt><dd><dl>
@@ -2364,7 +2489,7 @@ helpAboutLicL</p>
 
 <dl class="py method">
 <dt id="Windows.HelpAbout.HelpAbout.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCloseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QCloseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.HelpAbout.HelpAbout.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2376,7 +2501,7 @@ helpAboutLicL</p>
 &#64;License: General Public License GNU GPL 3.0</p>
 <dl class="py class">
 <dt id="Windows.ProcessorOutput.ProcessorOutput">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ProcessorOutput.</code><code class="sig-name descname">ProcessorOutput</code><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ProcessorOutput.</span></code><code class="sig-name descname"><span class="pre">ProcessorOutput</span></code><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window displaying the output of both of the processors</p>
@@ -2384,12 +2509,12 @@ helpAboutLicL</p>
 </dl>
 <dl class="py attribute">
 <dt id="Windows.ProcessorOutput.ProcessorOutput.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ProcessorOutput'</em><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.__className" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ProcessorOutput'</span></em><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.__className" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="Windows.ProcessorOutput.ProcessorOutput.appendText">
-<code class="sig-name descname">appendText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.appendText" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">appendText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.appendText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does append text at the end of the message view.</p>
@@ -2399,7 +2524,7 @@ helpAboutLicL</p>
 
 <dl class="py method">
 <dt id="Windows.ProcessorOutput.ProcessorOutput.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.btnPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handles button functionality within the window.</p>
@@ -2409,7 +2534,7 @@ helpAboutLicL</p>
 
 <dl class="py method">
 <dt id="Windows.ProcessorOutput.ProcessorOutput.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.buildWindow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the window.</p>
@@ -2427,7 +2552,7 @@ helpAboutLicL</p>
 
 <dl class="py method">
 <dt id="Windows.ProcessorOutput.ProcessorOutput.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.closeEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ProcessorOutput.ProcessorOutput.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -2471,7 +2596,7 @@ helpAboutLicL</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
   </body>
 </html>

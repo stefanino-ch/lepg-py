@@ -71,6 +71,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.extradColsDet_M = self.ExtradColsDetModel()
         self.intradColsConf_M = self.IntradColsConfModel()
         self.intradColsDet_M = self.IntradColsDetModel()
+        self.addRibPts_M = self.AddRibPointsModel()
+        self.elLinesCorr_M = self.ElasticLinesCorrModel()
         
     def isValid( self, fileName ):
         '''
@@ -509,7 +511,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 self.extradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
             
         ##############################
-        # 15. Intrados colors
+        # 16. Intrados colors
         logging.debug(self.__className+'.readFile: Intrados colors')
         for i in range(3):
             line = stream.readLine()
@@ -529,6 +531,53 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 values =  self.splitLine( stream.readLine() )
                 self.intradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
         
+        
+        ##############################
+        # 17. Aditional rib points
+        logging.debug(self.__className+'.readFile: Additional rib points')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = int(self.remTabSpace( stream.readLine() ) )
+        self.addRibPts_M.setNumRowsForConfig(1, 0)
+        self.addRibPts_M.setNumRowsForConfig(1, numConfigs)
+        
+        for l in range(0, numConfigs):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.addRibPts_M.updateRow(1, l+1, values[0], values[1])
+
+        ##############################
+        # 18. Elastic lines corrections
+        logging.debug(self.__className+'.readFile: Elastic Lines correction')
+        for i in range(3):
+            line = stream.readLine()
+        
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.LoadCol), self.remTabSpace( stream.readLine() ) )
+        
+        values =  self.splitLine( stream.readLine() )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistBCol), values[1] )
+        
+        values =  self.splitLine( stream.readLine() )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistBCol), values[1] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistCCol), values[2] )
+
+        values =  self.splitLine( stream.readLine() )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistBCol), values[1] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistCCol), values[2] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistDCol), values[3] )
+        
+        values =  self.splitLine( stream.readLine() )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistBCol), values[1] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), values[2] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), values[3] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), values[4] )
+            
+                
         ##############################
         # Cleanup
         inFile.close() 
@@ -564,6 +613,73 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
         return values
+
+
+    class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
+        '''
+        __className = 'AddRibPointsModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column used for ordering the individual lines of a config'''
+        XCoordCol = 1
+        ''':attr: Number of the col holding the X-Coordinate'''
+        YCoordCol = 2
+        ''':attr: Number of the col holding the Y-Coordinate'''
+        ConfigNumCol = 3
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AddRibPoints;")
+            query.exec("create table if not exists AddRibPoints ("
+                    "OrderNum INTEGER,"
+                    "XCoord REAL,"
+                    "YCoord REAL,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("AddRibPoints")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [% Chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [% Chord]"))
+        
+        def updateRow(self, configNum, orderNum, xCoord, yCoord):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE AddRibPoints SET "
+                          "XCoord= :xCoord, "
+                          "YCoord= :yCoord "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":xCoord", xCoord )
+            query.bindValue(":yCoord", yCoord )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
 
     class AirfoilsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -685,7 +801,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
-        ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
         NumBranchesCol = 1
         ''':attr: Number of the col holding the number of branches'''
         BranchLvlOneCol = 2
@@ -868,6 +984,84 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
             self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
             self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
+
+    class ElasticLinesCorrModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the parameters for the elastic lines correction. 
+        '''
+        __className = 'ElasticLinesCorrModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        LoadCol = 0 
+        ''':attr: Num of column for flight load'''
+        TwoLineDistACol = 1
+        ''':attr: Num of column for 1st two line load dist'''
+        TwoLineDistBCol = 2
+        ''':attr: Num of column for 2nd two line load dist'''
+        ThreeLineDistACol = 3
+        ''':attr: Num of column for 1st tree line load dist'''
+        ThreeLineDistBCol = 4
+        ''':attr: Num of column for 2nd tree line load dist'''
+        ThreeLineDistCCol = 5
+        ''':attr: Num of column for 3rd tree line load dist'''
+        FourLineDistACol = 6
+        ''':attr: Num of column for 1st four line load distr'''
+        FourLineDistBCol = 7
+        ''':attr: Num of column for 2nd four line load distr'''
+        FourLineDistCCol = 8
+        ''':attr: Num of column for 3rd four line load distr'''
+        FourLineDistDCol = 9
+        ''':attr: Num of column for 4th four line load distr'''
+        FiveLineDistACol = 10
+        ''':attr: Num of column for 1st five line load distr'''
+        FiveLineDistBCol = 11
+        ''':attr: Num of column for 2nd five line load distr'''
+        FiveLineDistCCol = 12
+        ''':attr: Num of column for 3rd five line load distr'''
+        FiveLineDistDCol = 13
+        ''':attr: Num of column for 4th five line load distr'''
+        FiveLineDistECol = 14
+        ''':attr: Num of column for 5th five line load distr'''
+        
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ElaslticLinesCorr;")
+            query.exec("create table if not exists ElaslticLinesCorr ("
+                    "Load REAL,"
+                    "TwoLineDistA REAL, "
+                    "TwoLineDistB REAL, "
+                    "ThreeLineDistA REAL, "
+                    "ThreeLineDistB REAL, "
+                    "ThreeLineDistC REAL, "
+                    "FourLineDistA REAL, "
+                    "FourLineDistB REAL, "
+                    "FourLineDistC REAL, "
+                    "FourLineDistD REAL, "
+                    "FiveLineDistA REAL, "
+                    "FiveLineDistB REAL, "
+                    "FiveLineDistC REAL, "
+                    "FiveLineDistD REAL, "
+                    "FiveLineDistE REAL, "
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into ElaslticLinesCorr (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ElaslticLinesCorr")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+        
 
     class ExtradColsConfModel(SqlTableModel, metaclass=Singleton):
         '''
