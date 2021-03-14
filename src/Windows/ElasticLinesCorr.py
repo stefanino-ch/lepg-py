@@ -5,11 +5,14 @@
 import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QDataWidgetMapper
+from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QDataWidgetMapper,\
+    QVBoxLayout, QHBoxLayout, QHeaderView
 from Windows.LineEdit import LineEdit
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
+from Windows.TableView import TableView
 from DataStores.ProcessorModel import ProcessorModel
+from pip._internal import self_outdated_check
 
 class ElasticLinesCorr(QMdiSubWindow):
     '''
@@ -29,6 +32,7 @@ class ElasticLinesCorr(QMdiSubWindow):
         super().__init__()
         
         self.elLinesCorr_M = ProcessorModel.ElasticLinesCorrModel()
+        self.elLinesDef_M = ProcessorModel.ElasticLinesDefModel()
 
         self.buildWindow()
     
@@ -57,19 +61,22 @@ class ElasticLinesCorr(QMdiSubWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(400, 300)
-
-        self.windowGrid = QGridLayout()
-        __winGRow = 0
+        self.win.setMinimumSize(300, 300)
         
+        self.windowLayout = QVBoxLayout()
+
         self.helpBar = WindowHelpBar()
         
         #############################
         # Add window specifics here
-        self.wrapper = QDataWidgetMapper()
-        self.wrapper.setModel(self.elLinesCorr_M)
         
         self.setWindowTitle(_("Elastic lines correction"))
+
+        self.gridLayout = QGridLayout()
+        __gridRow = 0
+        
+        self.wrapper = QDataWidgetMapper()
+        self.wrapper.setModel(self.elLinesCorr_M)
         
         load_L = QLabel(_('in flight load [kg]'))
         load_L.setAlignment(Qt.AlignRight)
@@ -78,17 +85,18 @@ class ElasticLinesCorr(QMdiSubWindow):
         #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
         self.load_E.setHelpText(_('ElLinesCorr-LoadDesc'))
         self.load_E.setHelpBar(self.helpBar)
-        self.windowGrid.addWidget(load_L, __winGRow, 0)
-        self.windowGrid.addWidget(self.load_E, __winGRow, 1)
-        __winGRow += 1
+        self.gridLayout.addWidget(load_L, __gridRow, 0)
+        self.gridLayout.addWidget(self.load_E, __gridRow, 1)
+        __gridRow += 1
         
-        self.windowGrid.addWidget(QLabel(_('Load distr [%]')), __winGRow, 1)
-        self.windowGrid.addWidget(QLabel(_('Load distr [%]')), __winGRow, 2)
-        self.windowGrid.addWidget(QLabel(_('Load distr [%]')), __winGRow, 3)
-        self.windowGrid.addWidget(QLabel(_('Load distr [%]')), __winGRow, 4)
-        self.windowGrid.addWidget(QLabel(_('Load distr [%]')), __winGRow, 5)
-        __winGRow += 1
+        self.gridLayout.addWidget(QLabel(_('Load distr [%]')), __gridRow, 1)
+        self.gridLayout.addWidget(QLabel(_('Load distr [%]')), __gridRow, 2)
+        self.gridLayout.addWidget(QLabel(_('Load distr [%]')), __gridRow, 3)
+        self.gridLayout.addWidget(QLabel(_('Load distr [%]')), __gridRow, 4)
+        self.gridLayout.addWidget(QLabel(_('Load distr [%]')), __gridRow, 5)
+        __gridRow += 1
         
+        # Two Lines
         twoLineT_L = QLabel(_('Two Lines'))
         twoLineT_L.setAlignment(Qt.AlignRight)
         self.twoLineA_E = LineEdit()
@@ -103,26 +111,149 @@ class ElasticLinesCorr(QMdiSubWindow):
         self.twoLineB_E.setHelpText(_('ElLinesCorr-TwoLineDistDesc'))
         self.twoLineB_E.setHelpBar(self.helpBar)
         
-        self.windowGrid.addWidget(twoLineT_L, __winGRow, 0)
-        self.windowGrid.addWidget(self.twoLineA_E, __winGRow, 1)
-        self.windowGrid.addWidget(self.twoLineB_E, __winGRow, 2)
-        __winGRow += 1
+        self.gridLayout.addWidget(twoLineT_L, __gridRow, 0)
+        self.gridLayout.addWidget(self.twoLineA_E, __gridRow, 1)
+        self.gridLayout.addWidget(self.twoLineB_E, __gridRow, 2)
+        __gridRow += 1
         
-            
+        # Three Lines
+        threeLineT_L = QLabel(_('Three Lines'))
+        threeLineT_L.setAlignment(Qt.AlignRight)
+        self.threeLineA_E = LineEdit()
+        self.wrapper.addMapping(self.threeLineA_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistACol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.threeLineA_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
+        self.threeLineA_E.setHelpBar(self.helpBar)
+        
+        self.threeLineB_E = LineEdit()
+        self.wrapper.addMapping(self.threeLineB_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistBCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.threeLineB_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
+        self.threeLineB_E.setHelpBar(self.helpBar)
+
+        self.threeLineC_E = LineEdit()
+        self.wrapper.addMapping(self.threeLineC_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistCCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.threeLineC_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
+        self.threeLineC_E.setHelpBar(self.helpBar)
+        
+        self.gridLayout.addWidget(threeLineT_L, __gridRow, 0)
+        self.gridLayout.addWidget(self.threeLineA_E, __gridRow, 1)
+        self.gridLayout.addWidget(self.threeLineB_E, __gridRow, 2)
+        self.gridLayout.addWidget(self.threeLineC_E, __gridRow, 3)
+        __gridRow += 1
+        
+        # Four Lines
+        fourLineT_L = QLabel(_('Four Lines'))
+        fourLineT_L.setAlignment(Qt.AlignRight)
+        self.fourLineA_E = LineEdit()
+        self.wrapper.addMapping(self.fourLineA_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistACol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fourLineA_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
+        self.fourLineA_E.setHelpBar(self.helpBar)
+        
+        self.fourLineB_E = LineEdit()
+        self.wrapper.addMapping(self.fourLineB_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistBCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fourLineB_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
+        self.fourLineB_E.setHelpBar(self.helpBar)
+
+        self.fourLineC_E = LineEdit()
+        self.wrapper.addMapping(self.fourLineC_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistCCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fourLineC_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
+        self.fourLineC_E.setHelpBar(self.helpBar)
+        
+        self.fourLineD_E = LineEdit()
+        self.wrapper.addMapping(self.fourLineD_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistDCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fourLineD_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
+        self.fourLineD_E.setHelpBar(self.helpBar)
+        
+        self.gridLayout.addWidget(fourLineT_L, __gridRow, 0)
+        self.gridLayout.addWidget(self.fourLineA_E, __gridRow, 1)
+        self.gridLayout.addWidget(self.fourLineB_E, __gridRow, 2)
+        self.gridLayout.addWidget(self.fourLineC_E, __gridRow, 3)
+        self.gridLayout.addWidget(self.fourLineD_E, __gridRow, 4)
+        __gridRow += 1
+        
+        # Five Lines
+        fiveLineT_L = QLabel(_('Five Lines'))
+        fiveLineT_L.setAlignment(Qt.AlignRight)
+        self.viveLineA_E = LineEdit()
+        self.wrapper.addMapping(self.viveLineA_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistACol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.viveLineA_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
+        self.viveLineA_E.setHelpBar(self.helpBar)
+        
+        self.viveLineB_E = LineEdit()
+        self.wrapper.addMapping(self.viveLineB_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistBCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.viveLineB_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
+        self.viveLineB_E.setHelpBar(self.helpBar)
+
+        self.fiveLineC_E = LineEdit()
+        self.wrapper.addMapping(self.fiveLineC_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistCCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fiveLineC_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
+        self.fiveLineC_E.setHelpBar(self.helpBar)
+        
+        self.fiveLineD_E = LineEdit()
+        self.wrapper.addMapping(self.fiveLineD_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistDCol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fiveLineD_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
+        self.fiveLineD_E.setHelpBar(self.helpBar)
+        
+        self.fiveLineE_E = LineEdit()
+        self.wrapper.addMapping(self.fiveLineE_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistECol)
+        #self.brandName_E.enableRegExpValidator("(.|\s)*\S(.|\s)*")
+        self.fiveLineE_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
+        self.fiveLineE_E.setHelpBar(self.helpBar)        
+        
+        self.gridLayout.addWidget(fiveLineT_L, __gridRow, 0)
+        self.gridLayout.addWidget(self.viveLineA_E, __gridRow, 1)
+        self.gridLayout.addWidget(self.viveLineB_E, __gridRow, 2)
+        self.gridLayout.addWidget(self.fiveLineC_E, __gridRow, 3)
+        self.gridLayout.addWidget(self.fiveLineD_E, __gridRow, 4)
+        self.gridLayout.addWidget(self.fiveLineE_E, __gridRow, 5)
+        __gridRow += 1
+
+        self.windowLayout.addLayout(self.gridLayout) 
+        
+        def_T = TableView()
+        def_T.setModel( self.elLinesDef_M )
+        def_T.verticalHeader().setVisible(False)
+        def_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        def_T.hideColumn( self.elLinesDef_M.columnCount()-1 )
+        def_T.hideColumn( self.elLinesDef_M.columnCount()-2 )
+        def_T.setFixedHeight(2 + def_T.horizontalHeader().height() + 5* def_T.rowHeight(0))
+        self.windowLayout.addWidget(def_T)
+        
+        def_T.enableIntValidator(ProcessorModel.ElasticLinesDefModel.OrderNumCol, ProcessorModel.ElasticLinesDefModel.OrderNumCol, 1,5 )
+        def_T.enableDoubleValidator(ProcessorModel.ElasticLinesDefModel.DefLowCol, ProcessorModel.ElasticLinesDefModel.DefHighCol, 0, 10, 2)
+        
+        def_T.setHelpBar(self.helpBar)
+        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.OrderNumCol, _('ElLinesCorr-NumOfLinesDesc'))
+        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefLowCol, _('ElLinesCorr-LowColDesc'))
+        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefMidCol, _('ElLinesCorr-MidColDesc'))
+        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefHighCol , _('ElLinesCorr-HigColDesc'))
+        
+  
         self.wrapper.toFirst()
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/elasticLinesCorrection.html')
+        self.btnBar.setHelpPage('proc/elasticLinesCorr.html')
         
-        self.windowGrid.addWidget(self.helpBar, __winGRow ,1, Qt.AlignRight)
-        __winGRow += 1
-        self.windowGrid.addWidget(self.btnBar, __winGRow ,1, Qt.AlignRight)
-        __winGRow += 1
+        bottomLayout = QHBoxLayout()
+        bottomLayout.addStretch() 
+        bottomLayout.addWidget(self.helpBar)
+        bottomLayout.addWidget(self.btnBar)
+        self.windowLayout.addLayout(bottomLayout)
         
-        self.win.setLayout(self.windowGrid)
+        self.win.setLayout(self.windowLayout)
     
     def btnPress(self, q):
         '''

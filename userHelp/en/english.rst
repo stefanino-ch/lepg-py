@@ -3,6 +3,7 @@ English Manual
 
 .. toctree::
    :maxdepth: 1
+   :caption: English:
 
    preproc/preproc.rst
    
@@ -22,3 +23,4 @@ English Manual
    proc/extradosColors.rst
    proc/intradosColors.rst
    proc/addRibPoints.rst
+   proc/elasticLinesCorr.rst

@@ -23,3 +23,4 @@ Deutsche Anleitung
    proc/extradosColors.rst
    proc/intradosColors.rst
    proc/addRibPoints.rst
+   proc/elasticLinesCorr.rst

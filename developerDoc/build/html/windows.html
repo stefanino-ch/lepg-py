@@ -111,7 +111,8 @@
 <li><a class="reference internal" href="#module-Windows.HvVhRibs">Processor HV VH Ribs</a></li>
 <li><a class="reference internal" href="#module-Windows.ExtradColors">Processor Extrados colors</a></li>
 <li><a class="reference internal" href="#module-Windows.IntradColors">Processor Intrados colors</a></li>
-<li><a class="reference internal" href="#module-Windows.AddRibPoints">Processor additional rib points</a></li>
+<li><a class="reference internal" href="#module-Windows.AddRibPoints">Processor Additional rib points</a></li>
+<li><a class="reference internal" href="#module-Windows.ElasticLinesCorr">Processor Elastic lines corr</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
@@ -2195,7 +2196,7 @@ details equals brake line paths</p>
 
 </div>
 <div class="section" id="module-Windows.AddRibPoints">
-<span id="processor-additional-rib-points"></span><h2>Processor additional rib points<a class="headerlink" href="#module-Windows.AddRibPoints" title="Permalink to this headline">¶</a></h2>
+<span id="processor-additional-rib-points"></span><h2>Processor Additional rib points<a class="headerlink" href="#module-Windows.AddRibPoints" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
@@ -2291,6 +2292,77 @@ details equals brake line paths</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.ElasticLinesCorr">
+<span id="processor-elastic-lines-corr"></span><h2>Processor Elastic lines corr<a class="headerlink" href="#module-Windows.ElasticLinesCorr" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.ElasticLinesCorr.ElasticLinesCorr">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Windows.ElasticLinesCorr.</span></code><code class="sig-name descname"><span class="pre">ElasticLinesCorr</span></code><a class="headerlink" href="#Windows.ElasticLinesCorr.ElasticLinesCorr" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit the Basic Data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.ElasticLinesCorr.ElasticLinesCorr.__className">
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ElasticLinesCorr'</span></em><a class="headerlink" href="#Windows.ElasticLinesCorr.ElasticLinesCorr.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ElasticLinesCorr.ElasticLinesCorr.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ElasticLinesCorr.ElasticLinesCorr.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ElasticLinesCorr.ElasticLinesCorr.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ElasticLinesCorr.ElasticLinesCorr.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowGrid</span> 
+         <span class="n">Labels</span>    <span class="o">|</span> <span class="n">Edit</span> <span class="n">fields</span>
+         <span class="o">...</span>       <span class="o">|</span> <span class="o">...</span>
+        <span class="o">-------------------------</span>
+                    <span class="o">|</span> <span class="n">helpBar</span>
+                    <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.ElasticLinesCorr.ElasticLinesCorr.closeEvent">
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ElasticLinesCorr.ElasticLinesCorr.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -1412,6 +1412,101 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ElasticLinesDefModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic lines correction)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.ConfigNumCol">
+<code class="sig-name descname"><span class="pre">ConfigNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number (always 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefHighCol">
+<code class="sig-name descname"><span class="pre">DefHighCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefHighCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the deformation in the higher level</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefLowCol">
+<code class="sig-name descname"><span class="pre">DefLowCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefLowCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the deformation in the lower level</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefMidCol">
+<code class="sig-name descname"><span class="pre">DefMidCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.DefMidCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the deformation in the medium level</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.OrderNumCol">
+<code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.__className">
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ElasticLinesDefModel'</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel._instance">
+<code class="sig-name descname"><span class="pre">_instance</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.createTable">
+<code class="sig-name descname"><span class="pre">createTable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.updateRow">
+<code class="sig-name descname"><span class="pre">updateRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defLow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defMid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defHigh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ExtradColsConfModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">

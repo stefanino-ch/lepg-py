@@ -73,6 +73,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.intradColsDet_M = self.IntradColsDetModel()
         self.addRibPts_M = self.AddRibPointsModel()
         self.elLinesCorr_M = self.ElasticLinesCorrModel()
+        self.elLinesDef_M = self.ElasticLinesDefModel()
         
     def isValid( self, fileName ):
         '''
@@ -576,7 +577,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), values[2] )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), values[3] )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), values[4] )
-            
+
+        for l in range (0,5):
+            values =  self.splitLine( stream.readLine() )
+            self.elLinesDef_M.updateRow(1, l+1, values[1], values[2], values[3])
                 
         ##############################
         # Cleanup
@@ -1061,7 +1065,79 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("ElaslticLinesCorr")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+    class ElasticLinesDefModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic lines correction)
+        '''
+        __className = 'ElasticLinesDefModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
         
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        DefLowCol = 1
+        ''':attr: Number of the col holding the deformation in the lower level'''
+        DefMidCol = 2
+        ''':attr: Number of the col holding the deformation in the medium level'''
+        DefHighCol = 3
+        ''':attr: Number of the col holding the deformation in the higher level'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number (always 1)'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ElaslticLinesDef;")
+            query.exec("create table if not exists ElaslticLinesDef ("
+                    "OrderNum INTEGER,"
+                    "DefLow REAL,"
+                    "DefMid REAL,"
+                    "DefHigh REAL,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ElaslticLinesDef")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Num lines per rib"))
+            self.setHeaderData(1, Qt.Horizontal, _("Def in lower level"))
+            self.setHeaderData(2, Qt.Horizontal, _("Def in mid level"))
+            self.setHeaderData(3, Qt.Horizontal, _("Def in higher level"))
+            
+            self.setNumRowsForConfig(1,5)
+            
+        def updateRow(self, configNum, orderNum, defLow, defMid, defHigh):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ElaslticLinesDef SET "
+                          "DefLow= :defLow, "
+                          "DefMid= :defMid, "
+                          "DefHigh= :defHigh "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":defLow", defLow )
+            query.bindValue(":defMid", defMid )
+            query.bindValue(":defHigh", defHigh )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
     class ExtradColsConfModel(SqlTableModel, metaclass=Singleton):
         '''

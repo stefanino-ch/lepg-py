@@ -118,13 +118,20 @@ Processor Intrados colors
    :members:
    :private-members:
    
-Processor additional rib points
+Processor Additional rib points
 -------------------------------
 .. automodule:: Windows.AddRibPoints
    :undoc-members:
    :members:
    :private-members:
- 
+
+Processor Elastic lines corr
+----------------------------
+.. automodule:: Windows.ElasticLinesCorr
+   :undoc-members:
+   :members:
+   :private-members:
+   
 Plan Seewing allowances
 -----------------------
 .. automodule:: Windows.SeewingAllowances
