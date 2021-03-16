@@ -152,7 +152,13 @@ Plan Marks
    :undoc-members:
    :members:
    :private-members:
-   
+
+Plan Marks
+----------
+.. automodule:: Windows.MarksTypes
+   :undoc-members:
+   :members:
+   :private-members:
   
 #Wing Viewer
 #-----------

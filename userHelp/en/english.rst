@@ -25,3 +25,4 @@ English Manual
    proc/addRibPoints.rst
    proc/elasticLinesCorr.rst
    proc/dxfLayerNames.rst
+   proc/marksTypes.rst

@@ -75,6 +75,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.elLinesCorr_M = self.ElasticLinesCorrModel()
         self.elLinesDef_M = self.ElasticLinesDefModel()
         self.dxfLayNames_M = self.DxfLayerNamesModel()
+        self.marksT_M = self.MarksTypesModel()
         
     def isValid( self, fileName ):
         '''
@@ -597,6 +598,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             
             self.dxfLayNames_M.updateRow(1, l+1, values[0], values[1])
+            
+                ##############################
+        # 23. Marks types
+        logging.debug(self.__className+'.readFile: Marks types')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = int( self.remTabSpace( stream.readLine() ) )
+        self.marksT_M.setNumRowsForConfig(1,0)
+        self.marksT_M.setNumRowsForConfig(1, numConfigs)
+        
+        for l in range(0, numConfigs):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.marksT_M.updateRow(1, l+1, values[0], \
+                                    values[1], values[2], values[3], \
+                                    values[4], values[5], values[6])
                 
         ##############################
         # Cleanup
@@ -1971,6 +1989,101 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", 1 )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+
+    class MarksTypesModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'MarksTypesModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        TypeCol = 1
+        ''':attr: Number of the col holding the type description of the mark'''
+        FormOneCol = 2
+        ''':attr: Number of the col holding the first mark form'''
+        FormOnePOneCol = 3 
+        ''':attr: Number of the col holding the first parameter for the 1st mark form'''
+        FormOnePTwoCol = 4
+        ''':attr: Number of the col holding the 2nd parameter for the 1st mark form'''
+        FormTwoCol = 5
+        ''':attr: Number of the col holding the 2nd mark form'''
+        FormTwoPOneCol = 6 
+        ''':attr: Number of the col holding the first parameter for the 2nd mark form'''
+        FormTwoPTwoCol = 7
+        ''':attr: Number of the col holding the 2nd parameter for the 2nd mark form'''
+        ConfigNumCol = 8
+        ''':attr: num of column for config number (always 1)'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists MarksTypes;")
+            query.exec("create table if not exists MarksTypes ("
+                    "OrderNum INTEGER,"
+                    "Type text,"
+                    "FormOne INTEGER,"
+                    "FormOnePOne REAL,"
+                    "FormOnePTwo REAL,"
+                    "FormTwo INTEGER,"
+                    "FormTwoPOne REAL,"
+                    "FormTwoPTwo REAL,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("MarksTypes")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Marks type"))
+            self.setHeaderData(2, Qt.Horizontal, _("Form 1"))
+            self.setHeaderData(3, Qt.Horizontal, _("Form 1 1st param"))
+            self.setHeaderData(4, Qt.Horizontal, _("Form 1 2nd param"))
+            self.setHeaderData(5, Qt.Horizontal, _("Form 2"))
+            self.setHeaderData(6, Qt.Horizontal, _("Form 2 1st param"))
+            self.setHeaderData(7, Qt.Horizontal, _("Form 2 2nd param"))
+            
+        def updateRow(self, configNum, orderNum, pType, formOne, formOnePOne, formOnePTwo, formTwo, formTwoPOne, formTwoPTwo):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE MarksTypes SET "
+                          "Type= :pType, "
+                          "FormOne= :formOne, "
+                          "FormOnePOne= :formOnePOne, "
+                          "FormOnePTwo= :formOnePTwo, "
+                          "FormTwo= :formTwo, "
+                          "FormTwoPOne= :formTwoPOne, "
+                          "FormTwoPTwo= :formTwoPTwo "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":pType", pType )
+            query.bindValue(":formOne", formOne )
+            query.bindValue(":formOnePOne", formOnePOne )
+            query.bindValue(":formOnePTwo", formOnePTwo )
+            query.bindValue(":formTwo", formTwo )
+            query.bindValue(":formTwoPOne", formTwoPOne )
+            query.bindValue(":formTwoPTwo", formTwoPTwo )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
 
     class RamificationModel(SqlTableModel, metaclass=Singleton):
         '''

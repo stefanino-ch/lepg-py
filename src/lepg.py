@@ -46,6 +46,7 @@ from Windows.IntradColors import IntradColors
 from Windows.AddRibPoints import AddRibPoints
 from Windows.ElasticLinesCorr import ElasticLinesCorr
 from Windows.DxfLayerNames import DxfLayerNames
+from Windows.MarksTypes import MarksTypes
 
 class MainWindow(QMainWindow):
     '''
@@ -623,8 +624,10 @@ class MainWindow(QMainWindow):
         planDxfLayerNames_A.triggered.connect(self.planDxFLayerNamesEdit)
         planDxfLayerNames_A.setEnabled(self.__enableWingFunct)
         
-        procEditMarksT_A = QAction(_('Marks types'), self)
-        procEditMarksT_A.setEnabled(False)
+        procMarksT_A = QAction(_('Marks types'), self)
+        procMarksT_A.setStatusTip(_('Edit individual paramters for the marks on the plans'))
+        procMarksT_A.triggered.connect(self.marksTypesEdit)
+        procMarksT_A.setEnabled(self.__enableWingFunct)
 
         
         procEditGen2D_A = QAction(_('2D DXF options'), self)
@@ -638,7 +641,7 @@ class MainWindow(QMainWindow):
         planMenu.addAction(planSeewingAll_A)
         planMenu.addAction(planMarks_A)
         planMenu.addAction(planDxfLayerNames_A)
-        planMenu.addAction(procEditMarksT_A)
+        planMenu.addAction(procMarksT_A)
         planMenu.addAction(procEditGen2D_A)
         planMenu.addAction(procEditGen3D_A)
     
@@ -671,7 +674,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('DxfLayerNames')
             self.mdi.addSubWindow(self.dxfLayNamesW)
         self.dxfLayNamesW.show() 
-        
+    
+    def marksTypesEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> Marks types*
+        '''
+        if self.dws.windowExists('MarksTypes') == False:
+            self.marksTypesW = MarksTypes()
+            self.dws.registerWindow('MarksTypes')
+            self.mdi.addSubWindow(self.marksTypesW)
+        self.marksTypesW.show() 
  
 
     def buildViewMenu(self):
