@@ -13,15 +13,20 @@ print()
 print('Removing already existing html files to force a new build...')
 
 dirpath = os.path.dirname(os.path.realpath(__file__))
-
 pathName = os.path.join(dirpath, '_build/doctrees')
-if os.path.isdir(pathName):
-    shutil.rmtree(pathName)
-
 srcPath = os.path.join(dirpath, '_build/html')
-if os.path.isdir(srcPath):
-    shutil.rmtree(srcPath)
 
+print('Delete old doc to force a complete build? [y/ n]')
+answ = input('Default= n ')
+
+if answ == 'y':
+    if os.path.isdir(pathName):
+        shutil.rmtree(pathName)
+    
+    if os.path.isdir(srcPath):
+        shutil.rmtree(srcPath)
+
+print()
 print('...starting Sphinx...')
 pathName = os.path.join(dirpath, 'make.bat html')
 os.system(pathName)

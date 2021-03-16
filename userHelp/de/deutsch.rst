@@ -24,3 +24,4 @@ Deutsche Anleitung
    proc/intradosColors.rst
    proc/addRibPoints.rst
    proc/elasticLinesCorr.rst
+   proc/dxfLayerNames.rst

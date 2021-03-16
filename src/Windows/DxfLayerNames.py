@@ -3,21 +3,21 @@
 :License: General Public License GNU GPL 3.0
 '''
 import logging
-from PyQt5.QtCore import Qt, QSortFilterProxyModel
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, \
-    QHBoxLayout, QVBoxLayout, QPushButton, QDataWidgetMapper
+    QHBoxLayout, QVBoxLayout
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class AddRibPoints(QMdiSubWindow):
+class DxfLayerNames(QMdiSubWindow):
     '''
     :class: Window to display and edit Brake line details  
     '''
 
-    __className = 'AddRibPoints'
+    __className = 'DxfLayerNames'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -29,8 +29,8 @@ class AddRibPoints(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.addRibPts_M = ProcessorModel.AddRibPointsModel()
-        self.addRibPts_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
+        self.dxfLayNames_M = ProcessorModel.DxfLayerNamesModel()
+        self.dxfLayNames_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -68,12 +68,9 @@ class AddRibPoints(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Additional Rib points"))
+        self.setWindowTitle(_("DXF layer names"))
         
-        self.wrapper = QDataWidgetMapper()
-        self.wrapper.setModel(self.addRibPts_M)
-        
-        numLines_L = QLabel(_('Number of configs'))
+        numLines_L = QLabel(_('Number of Layers'))
         numLines_L.setAlignment(Qt.AlignRight)
         numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         
@@ -91,31 +88,23 @@ class AddRibPoints(QMdiSubWindow):
         self.windowLayout.addLayout(numLinesLayout)
         ###############
         
-        self.proxyModel = QSortFilterProxyModel()
-        self.proxyModel.setSourceModel(self.addRibPts_M)
-        
-        ribs_T = TableView()
-        ribs_T.setModel( self.proxyModel )
-        ribs_T.verticalHeader().setVisible(False)
-        ribs_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        ribs_T.hideColumn( self.addRibPts_M.columnCount()-1 )
-        ribs_T.hideColumn( self.addRibPts_M.columnCount()-2 )
-        self.windowLayout.addWidget(ribs_T)
+        dxfLayNames_T = TableView()
+        dxfLayNames_T.setModel( self.dxfLayNames_M )
+        dxfLayNames_T.verticalHeader().setVisible(False)
+        dxfLayNames_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        dxfLayNames_T.hideColumn( self.dxfLayNames_M.columnCount()-1 )
+        dxfLayNames_T.hideColumn( self.dxfLayNames_M.columnCount()-2 )
+        dxfLayNames_T.hideColumn( 0 )
+        self.windowLayout.addWidget(dxfLayNames_T)
          
-        ribs_T.enableIntValidator(ProcessorModel.AddRibPointsModel.OrderNumCol, ProcessorModel.HvVhRibsModel.RibNumCol, 1, 999)
-        ribs_T.enableDoubleValidator(ProcessorModel.AddRibPointsModel.XCoordCol, ProcessorModel.AddRibPointsModel.YCoordCol, 1, 100, 2)
+        dxfLayNames_T.enableRegExpValidator(ProcessorModel.DxfLayerNamesModel.LayerCol, ProcessorModel.DxfLayerNamesModel.DescriptionCol, "^[a-zA-Z0-9_.-]*$")
           
-        ribs_T.setHelpBar(self.helpBar)
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.OrderNumCol, _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.XCoordCol, _('AddRibPts-XCoordDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.YCoordCol , _('AddRibPts-YCorodDesc'))
-        
-        sortBtn = QPushButton(_('Sort by orderNum'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
+        dxfLayNames_T.setHelpBar(self.helpBar)
+        dxfLayNames_T.setHelpText(ProcessorModel.DxfLayerNamesModel.LayerCol, _('DxfLayNames-LayerDesc'))
+        dxfLayNames_T.setHelpText(ProcessorModel.DxfLayerNamesModel.DescriptionCol, _('DxfLayNames-DescriptionDesc'))
         
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.addRibPts_M.numRowsForConfig(1) )
+        self.numLines_S.setValue( self.dxfLayNames_M.numRowsForConfig(1) )
         self.numLines_S.blockSignals(False)
 
         #############################
@@ -123,10 +112,9 @@ class AddRibPoints(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/addRibPoints.html')
+        self.btnBar.setHelpPage('proc/dxfLayerNames.html')
         
         bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
         bottomLayout.addStretch() 
         bottomLayout.addWidget(self.helpBar)
         bottomLayout.addWidget(self.btnBar)
@@ -140,7 +128,7 @@ class AddRibPoints(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.addRibPts_M.numRowsForConfig(1) )
+        self.numLines_S.setValue( self.dxfLayNames_M.numRowsForConfig(1) )
         self.numLines_S.blockSignals(False)
         
                    
@@ -149,16 +137,7 @@ class AddRibPoints(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.numLinesChange')
-        self.addRibPts_M.setNumRowsForConfig(1, self.numLines_S.value() )
-
-    def sortBtnPress(self):
-        '''
-        :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
-        '''
-        logging.debug(self.__className+'.sortBtnPress')
-
-        self.proxyModel.sort(ProcessorModel.AddRibPointsModel.OrderNumCol, Qt.AscendingOrder)
-        self.proxyModel.setDynamicSortFilter(False)
+        self.dxfLayNames_M.setNumRowsForConfig(1, self.numLines_S.value() )
     
     def btnPress(self, q):
         '''

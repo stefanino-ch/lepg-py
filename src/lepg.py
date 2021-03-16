@@ -45,6 +45,7 @@ from Windows.ExtradColors import ExtradColors
 from Windows.IntradColors import IntradColors
 from Windows.AddRibPoints import AddRibPoints
 from Windows.ElasticLinesCorr import ElasticLinesCorr
+from Windows.DxfLayerNames import DxfLayerNames
 
 class MainWindow(QMainWindow):
     '''
@@ -617,8 +618,10 @@ class MainWindow(QMainWindow):
         planMarks_A.setEnabled(self.__enableWingFunct)
 
         
-        procEditDxfLayers_A = QAction(_('DXF Layer names'), self)
-        procEditDxfLayers_A.setEnabled(False)
+        planDxfLayerNames_A = QAction(_('DXF Layer names'), self)
+        planDxfLayerNames_A.setStatusTip(_('Edit the names of the individual DXF layers'))
+        planDxfLayerNames_A.triggered.connect(self.planDxFLayerNamesEdit)
+        planDxfLayerNames_A.setEnabled(self.__enableWingFunct)
         
         procEditMarksT_A = QAction(_('Marks types'), self)
         procEditMarksT_A.setEnabled(False)
@@ -634,7 +637,7 @@ class MainWindow(QMainWindow):
         planMenu = self.mainMenu.addMenu(_('Plan'))
         planMenu.addAction(planSeewingAll_A)
         planMenu.addAction(planMarks_A)
-        planMenu.addAction(procEditDxfLayers_A)
+        planMenu.addAction(planDxfLayerNames_A)
         planMenu.addAction(procEditMarksT_A)
         planMenu.addAction(procEditGen2D_A)
         planMenu.addAction(procEditGen3D_A)
@@ -657,7 +660,19 @@ class MainWindow(QMainWindow):
             self.marksW = Marks()
             self.dws.registerWindow('Marks')
             self.mdi.addSubWindow(self.marksW)
-        self.marksW.show()   
+        self.marksW.show()  
+        
+    def planDxFLayerNamesEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> *DXF Layer names*
+        '''
+        if self.dws.windowExists('DxfLayerNames') == False:
+            self.dxfLayNamesW = DxfLayerNames()
+            self.dws.registerWindow('DxfLayerNames')
+            self.mdi.addSubWindow(self.dxfLayNamesW)
+        self.dxfLayNamesW.show() 
+        
+ 
 
     def buildViewMenu(self):
         '''

@@ -74,6 +74,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.addRibPts_M = self.AddRibPointsModel()
         self.elLinesCorr_M = self.ElasticLinesCorrModel()
         self.elLinesDef_M = self.ElasticLinesDefModel()
+        self.dxfLayNames_M = self.DxfLayerNamesModel()
         
     def isValid( self, fileName ):
         '''
@@ -581,6 +582,21 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for l in range (0,5):
             values =  self.splitLine( stream.readLine() )
             self.elLinesDef_M.updateRow(1, l+1, values[1], values[2], values[3])
+            
+        ##############################
+        # 19. DXF layer names
+        logging.debug(self.__className+'.readFile: DXF layer names')
+        for i in range(3):
+            line = stream.readLine()
+        
+        numConfigs = int( self.remTabSpace( stream.readLine() ) )
+        self.dxfLayNames_M.setNumRowsForConfig(1,0)
+        self.dxfLayNames_M.setNumRowsForConfig(1, numConfigs)
+        
+        for l in range(0, numConfigs):
+            values =  self.splitLine( stream.readLine() )
+            
+            self.dxfLayNames_M.updateRow(1, l+1, values[0], values[1])
                 
         ##############################
         # Cleanup
@@ -989,6 +1005,70 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
             self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
 
+    class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'DxfLayerNamesModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        LayerCol = 1
+        ''':attr: Number of the col holding the lepg name of a layer'''
+        DescriptionCol = 2
+        ''':attr: Number of the col holding the user defined name of a layer'''
+        ConfigNumCol = 3
+        ''':attr: num of column for config number (always 1)'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists DxfLayerNames;")
+            query.exec("create table if not exists DxfLayerNames ("
+                    "OrderNum INTEGER,"
+                    "Layer text,"
+                    "Description text,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("DxfLayerNames")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Layer name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Description"))
+            
+        def updateRow(self, configNum, orderNum, layer, desc):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE DxfLayerNames SET "
+                          "Layer= :layer, "
+                          "Description= :desc "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":layer", layer )
+            query.bindValue(":desc", desc )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
     class ElasticLinesCorrModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the parameters for the elastic lines correction. 
@@ -1074,7 +1154,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
-        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        ''':attr: used here for the number of lines'''
         DefLowCol = 1
         ''':attr: Number of the col holding the deformation in the lower level'''
         DefMidCol = 2
