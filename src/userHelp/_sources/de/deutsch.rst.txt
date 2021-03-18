@@ -26,3 +26,4 @@ Deutsche Anleitung
    proc/elasticLinesCorr.rst
    proc/dxfLayerNames.rst
    proc/marksTypes.rst
+   proc/joncsDefinition.rst

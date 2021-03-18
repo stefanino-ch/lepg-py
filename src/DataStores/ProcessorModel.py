@@ -76,6 +76,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.elLinesDef_M = self.ElasticLinesDefModel()
         self.dxfLayNames_M = self.DxfLayerNamesModel()
         self.marksT_M = self.MarksTypesModel()
+        self.joncsDef_M = self.JoncsDefModel()
         
     def isValid( self, fileName ):
         '''
@@ -600,7 +601,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.dxfLayNames_M.updateRow(1, l+1, values[0], values[1])
             
                 ##############################
-        # 23. Marks types
+        # 20. Marks types
         logging.debug(self.__className+'.readFile: Marks types')
         for i in range(3):
             line = stream.readLine()
@@ -615,7 +616,73 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.marksT_M.updateRow(1, l+1, values[0], \
                                     values[1], values[2], values[3], \
                                     values[4], values[5], values[6])
+            
+        ##############################
+        # 21. JONCS DEFINITION (NYLON RODS)
+        logging.debug(self.__className+'.readFile: Joncs definition')
+        for i in range(3):
+            line = stream.readLine()
+        
+        # delete all what is there
+        self.joncsDef_M.setNumConfigs(0)
+            
+        scheme = int( self.remTabSpace( stream.readLine() ) )
+            
+        if scheme == 1:
+            # in scheme 1 config num is always 1
+            configNum = 1
+            
+            numGroups =  int( self.remTabSpace( stream.readLine() ) )
+            self.joncsDef_M.setNumRowsForConfig(configNum, numGroups)
+            
+            for g in range (0, numGroups):
+                valuesA = self.splitLine( stream.readLine() )
+                valuesB = self.splitLine( stream.readLine() )
+                valuesC = self.splitLine( stream.readLine() )
+                valuesD = self.splitLine( stream.readLine() )
+                self.joncsDef_M.updateTypeOneRow(configNum, g+1, \
+                                                 valuesA[1], valuesA[2], \
+                                                 valuesB[0], valuesB[1], valuesB[2], valuesB[3], \
+                                                 valuesC[0], valuesC[1], valuesC[2], valuesC[3], \
+                                                 valuesD[0], valuesD[1], valuesD[2], valuesD[3] )
+        
+        elif scheme == 2:
+            numBlocs =  int( self.remTabSpace( stream.readLine() ) )
+            
+            for b in range (0,numBlocs):
+                values = self.splitLine( stream.readLine() )
                 
+                blocType = int(values[1])
+                if blocType == 1:
+                    numGroups =  int( self.remTabSpace( stream.readLine() ) )
+                    self.joncsDef_M.setNumRowsForConfig(b+1, numGroups)
+                    
+                    for g in range (0, numGroups):
+                        valuesA = self.splitLine( stream.readLine() )
+                        valuesB = self.splitLine( stream.readLine() )
+                        valuesC = self.splitLine( stream.readLine() )
+                        valuesD = self.splitLine( stream.readLine() )
+                        self.joncsDef_M.updateTypeOneRow(b+1, g+1, \
+                                                         valuesA[1], valuesA[2], \
+                                                         valuesB[0], valuesB[1], valuesB[2], valuesB[3], \
+                                                         valuesC[0], valuesC[1], valuesC[2], valuesC[3], \
+                                                         valuesD[0], valuesD[1], valuesD[2], valuesD[3] )
+
+                else:
+                    numGroups =  int( self.remTabSpace( stream.readLine() ) )
+                    self.joncsDef_M.setNumRowsForConfig(b+1, numGroups)
+                    
+                    for g in range (0, numGroups):
+                        valuesA = self.splitLine( stream.readLine() )
+                        valuesB = self.splitLine( stream.readLine() )
+                        valuesC = self.splitLine( stream.readLine() )
+                        self.joncsDef_M.updateTypeTwoRow(b+1, g+1, \
+                                                         valuesA[1], valuesA[2], \
+                                                         valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], \
+                                                         valuesC[0], valuesC[1], valuesC[2], valuesC[3])
+        # Little bad hack. Some of the GUI depends on data within the rows set above. 
+        # To get teh GUI updated properly we fake here a model update to force an update in the GUI.  
+        self.joncsDef_M.numRowsForConfigChanged.emit(0, 0)
         ##############################
         # Cleanup
         inFile.close() 
@@ -1633,6 +1700,226 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+
+
+    class JoncsDefModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'JoncsDefModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        FirstRibCol = 1
+        ''':attr: Number of the col holding the first rib'''
+        LastRibCol = 2
+        ''':attr: Number of the col holding the last rib'''
+        pBACol = 3 
+        ''':attr: Number of the col holding the 1st param of 2nd row'''
+        pBBCol = 4
+        ''':attr: Number of the col holding the 2nd param of 2nd row'''
+        pBCCol = 5
+        ''':attr: Number of the col holding the 3rd param of 2nd row'''
+        pBDCol = 6 
+        ''':attr: Number of the col holding the 4th param of 2nd row'''
+        pBECol = 7
+        ''':attr: Number of the col holding the 5th param of 2nd row'''
+        pCACol = 8 
+        ''':attr: Number of the col holding the 1st param of 3rd row'''
+        pCBCol = 9
+        ''':attr: Number of the col holding the 2nd param of 3rd row'''
+        pCCCol = 10
+        ''':attr: Number of the col holding the 3rd param of 3rd row'''
+        pCDCol = 11
+        ''':attr: Number of the col holding the 4th param of 3rd row'''
+        pDACol = 12
+        ''':attr: Number of the col holding the 1st param of 4th row'''
+        pDBCol = 13
+        ''':attr: Number of the col holding the 2nd param of 4th row'''
+        pDCCol = 14
+        ''':attr: Number of the col holding the 3rd param of 4th row'''
+        pDDCol = 15
+        ''':attr: Number of the col holding the 4th param of 4th row'''
+        TypeCol = 16 
+        ''':attr: Number of the col holding the type num'''
+        ConfigNumCol = 17
+        ''':attr: num of column for config number (always 1)'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists JoncsDef;")
+            query.exec("create table if not exists JoncsDef ("
+                    "OrderNum INTEGER, "
+                    "FirstRib INTEGER, "
+                    "LastRib INTEGER, "
+                    "pBA REAL, "
+                    "pBB REAL, "
+                    "pBC REAL, "
+                    "PBD REAL, "
+                    "pBE REAL, "
+                    "pCA REAL, "
+                    "pCB REAL, "
+                    "pCC REAL, "
+                    "PCD REAL, "
+                    "pDA REAL, "
+                    "pDB REAL, "
+                    "pDC REAL, "
+                    "PDD REAL, "
+                    "Type INTEGER, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("JoncsDef")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
+            self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
+            self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            self.setHeaderData(6, Qt.Horizontal, _("Row 2 D"))
+            self.setHeaderData(7, Qt.Horizontal, _("Row 2 E"))
+            self.setHeaderData(8, Qt.Horizontal, _("Row 3 A"))
+            self.setHeaderData(9, Qt.Horizontal, _("Row 3 B"))
+            self.setHeaderData(10, Qt.Horizontal, _("Row 3 C"))
+            self.setHeaderData(11, Qt.Horizontal, _("Row 3 D"))
+            self.setHeaderData(12, Qt.Horizontal, _("Row 4 A"))
+            self.setHeaderData(13, Qt.Horizontal, _("Row 4 B"))
+            self.setHeaderData(14, Qt.Horizontal, _("Row 4 C"))
+            self.setHeaderData(15, Qt.Horizontal, _("Row 4 D"))
+            
+        def updateTypeOneRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pCA, pCB, pCC, pCD, pDA, pDB, pDC, pDD):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateTypeOneRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE JoncsDef SET "
+                          "FirstRib= :firstRib, "
+                          "LastRib= :lastRib, "
+                          "pBA= :pBA, "
+                          "pBB= :pBB, "
+                          "pBC= :pBC, "
+                          "pBD= :pBD, "
+                          "pCA= :pCA, "
+                          "pCB= :pCB, "
+                          "pCC= :pCC, "
+                          "pCD= :pCD, "
+                          "pDA= :pDA, "
+                          "pDB= :pDB, "
+                          "pDC= :pDC, "
+                          "pDD= :pDD, "
+                          "Type= :t "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":lastRib", lastRib )
+            query.bindValue(":pBA", pBA )
+            query.bindValue(":pBB", pBB )
+            query.bindValue(":pBC", pBC )
+            query.bindValue(":pBD", pBD )
+            query.bindValue(":pCA", pCA )
+            query.bindValue(":pCB", pCB )
+            query.bindValue(":pCC", pCC )
+            query.bindValue(":pCD", pCD )
+            query.bindValue(":pDA", pDA )
+            query.bindValue(":pDB", pDB )
+            query.bindValue(":pDC", pDC )
+            query.bindValue(":pDD", pDD )
+            query.bindValue(":t", 1 )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+        def updateTypeTwoRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pBE ,pCA, pCB, pCC, pCD):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateTypeTwoRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE JoncsDef SET "
+                          "FirstRib= :firstRib, "
+                          "LastRib= :lastRib, "
+                          "pBA= :pBA, "
+                          "pBB= :pBB, "
+                          "pBC= :pBC, "
+                          "pBD= :pBD, "
+                          "pBE= :pBE, "
+                          "pCA= :pCA, "
+                          "pCB= :pCB, "
+                          "pCC= :pCC, "
+                          "pCD= :pCD, "
+                          "Type= 2 "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":lastRib", lastRib )
+            query.bindValue(":pBA", pBA )
+            query.bindValue(":pBB", pBB )
+            query.bindValue(":pBC", pBC )
+            query.bindValue(":pBD", pBD )
+            query.bindValue(":pBE", pBE )
+            query.bindValue(":pCA", pCA )
+            query.bindValue(":pCB", pCB )
+            query.bindValue(":pCC", pCC )
+            query.bindValue(":pCD", pCD )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+        def setType(self, configNum, typeNum):
+            '''
+            :method: Sets for all rows of a specific config the type num 
+            :param typeNum: 1: type== 1; 2: type== 2
+            '''
+            logging.debug(self.__className+'.setType')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE JoncsDef SET "
+                          "type= :typeNum "
+                          "WHERE (ConfigNum = :config);")
+            query.bindValue(":typeNum", typeNum )
+            query.bindValue(":config", configNum )
+            query.exec()
+        
+        def getType(self, configNum):
+            '''
+            :method: Detects for a defined config if the type is set. 
+            :return: 0: type is empty; 1: type== 1; 2: type== 2
+            '''
+            logging.debug(self.__className+'.getType')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select Type FROM JoncsDef WHERE (ConfigNum = :config) ORDER BY OrderNum ASC;")
+            query.bindValue(":config", configNum )
+            query.exec()
+            typeNum = 0
+            if query.next():
+                typeNum = query.value(0)
+                if typeNum == "":
+                    typeNum = 0
+            
+            return typeNum
+            
             
             
     class LightConfModel(SqlTableModel, metaclass=Singleton):

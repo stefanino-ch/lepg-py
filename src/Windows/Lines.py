@@ -15,7 +15,7 @@ from DataStores.ProcessorModel import ProcessorModel
 
 class Lines(QMdiSubWindow):
     '''
-    :class: Window to display and edit airfoils holes data  
+    :class: Window to display and edit lines data  
     '''
 
     __className = 'Lines'
@@ -114,11 +114,11 @@ class Lines(QMdiSubWindow):
         edit.setReadOnly(True)
         self.numConf_S.valueChanged.connect(self.confSpinChange)
          
-        numPlanLayout = QHBoxLayout()
-        numPlanLayout.addWidget(numConf_L)
-        numPlanLayout.addWidget(self.numConf_S)
-        numPlanLayout.addStretch()
-        self.windowLayout.addLayout(numPlanLayout)
+        numConfLayout = QHBoxLayout()
+        numConfLayout.addWidget(numConf_L)
+        numConfLayout.addWidget(self.numConf_S)
+        numConfLayout.addStretch()
+        self.windowLayout.addLayout(numConfLayout)
          
         self.tabs = QTabWidget()
         self.windowLayout.addWidget(self.tabs)

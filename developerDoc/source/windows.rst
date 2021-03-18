@@ -131,6 +131,13 @@ Processor Elastic lines corr
    :undoc-members:
    :members:
    :private-members:
+  
+Processor Joncs definition
+----------------------------
+.. automodule:: Windows.JoncsDefinition
+   :undoc-members:
+   :members:
+   :private-members:
    
 Plan Seewing allowances
 -----------------------

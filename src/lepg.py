@@ -47,6 +47,7 @@ from Windows.AddRibPoints import AddRibPoints
 from Windows.ElasticLinesCorr import ElasticLinesCorr
 from Windows.DxfLayerNames import DxfLayerNames
 from Windows.MarksTypes import MarksTypes
+from Windows.JoncsDefinition import JoncsDefinition
 
 class MainWindow(QMainWindow):
     '''
@@ -337,8 +338,10 @@ class MainWindow(QMainWindow):
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
         procElLinesCorr_A.setEnabled(self.__enableWingFunct)
         
-        procEditJoncsDes_A = QAction(_('Joncs definitions'), self)
-        procEditJoncsDes_A.setEnabled(False)
+        procJoncsDef_A = QAction(_('Joncs definitions'), self)
+        procJoncsDef_A.setStatusTip(_('Edit Joncs (Nylon rods) definition'))
+        procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
+        procJoncsDef_A.setEnabled(self.__enableWingFunct)
         
         procEditNoseMylars_A = QAction(_('Nose mylars'), self)
         procEditNoseMylars_A.setEnabled(False)
@@ -399,7 +402,7 @@ class MainWindow(QMainWindow):
         
         procMenu.addAction(procAddRibPts_A)
         procMenu.addAction(procElLinesCorr_A)
-        procMenu.addAction(procEditJoncsDes_A)
+        procMenu.addAction(procJoncsDef_A)
         procMenu.addAction(procEditNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
         procMenu.addAction(procEditGlueVents_A)
@@ -579,6 +582,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('ElasticLinesCorr')
             self.mdi.addSubWindow(self.elLinesCorr_W)
         self.elLinesCorr_W.show()
+
+    def procJoncsDefEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Joncs definition*
+        '''
+        if self.dws.windowExists('JoncsDef') == False:
+            self.joncsDef_W = JoncsDefinition()
+            self.dws.registerWindow('JoncsDef')
+            self.mdi.addSubWindow(self.joncsDef_W)
+        self.joncsDef_W.show()
 
 
         

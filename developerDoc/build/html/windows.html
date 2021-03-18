@@ -113,6 +113,7 @@
 <li><a class="reference internal" href="#module-Windows.IntradColors">Processor Intrados colors</a></li>
 <li><a class="reference internal" href="#module-Windows.AddRibPoints">Processor Additional rib points</a></li>
 <li><a class="reference internal" href="#module-Windows.ElasticLinesCorr">Processor Elastic lines corr</a></li>
+<li><a class="reference internal" href="#module-Windows.JoncsDefinition">Processor Joncs definition</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#id1">Plan Marks</a></li>
@@ -495,6 +496,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Intrados colors</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procJoncsDefEdit">
+<code class="sig-name descname">procJoncsDefEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procJoncsDefEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Joncs definition</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1522,7 +1533,7 @@
 <em class="property">class </em><code class="sig-prename descclassname">Windows.Lines.</code><code class="sig-name descname">Lines</code><a class="headerlink" href="#Windows.Lines.Lines" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
+<dd class="field-odd"><p>Window to display and edit lines data</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -2385,6 +2396,174 @@ details equals brake line paths</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.JoncsDefinition">
+<span id="processor-joncs-definition"></span><h2>Processor Joncs definition<a class="headerlink" href="#module-Windows.JoncsDefinition" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.JoncsDefinition.JoncsDefinition">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.JoncsDefinition.</code><code class="sig-name descname">JoncsDefinition</code><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit airfoils holes data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'JoncsDefinition'</em><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.addTab">
+<code class="sig-name descname">addTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.addTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">config</span> <span class="n">edit</span> <span class="p">(</span><span class="n">blocs</span><span class="p">)</span>
+        <span class="n">numConfSpin</span>
+        <span class="n">Tabs</span>
+            <span class="n">typeRadio</span>
+            <span class="n">numLinesSpin</span>
+            <span class="n">LinesTable</span>
+        <span class="o">-------------------------</span>
+            <span class="n">OrderBtn</span> <span class="o">|</span> <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+<p>Naming:</p>
+<blockquote>
+<div><p>conf equals blocs</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.confSpinChange">
+<code class="sig-name descname">confSpinChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.modelSizeChanged">
+<code class="sig-name descname">modelSizeChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.modelSizeChanged" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called after the model has been changed it’s size. Herein we assure the GUI follows the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.numLinesChange">
+<code class="sig-name descname">numLinesChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.numLinesChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.removeTab">
+<code class="sig-name descname">removeTab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.removeTab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.setTypeOneColumns">
+<code class="sig-name descname">setTypeOneColumns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.setTypeOneColumns" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Enables disables table columns to be accurate for type one tables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.setTypeTwoColumns">
+<code class="sig-name descname">setTypeTwoColumns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.setTypeTwoColumns" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Enables disables table columns to be accurate for type two tables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.sortBtnPress">
+<code class="sig-name descname">sortBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.JoncsDefinition.JoncsDefinition.typeCbChange">
+<code class="sig-name descname">typeCbChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.JoncsDefinition.JoncsDefinition.typeCbChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon manual changes of the type combo. Does assure all elements will follow the user configuration.</p>
 </dd>
 </dl>
 </dd></dl>
