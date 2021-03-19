@@ -48,6 +48,7 @@ from Windows.ElasticLinesCorr import ElasticLinesCorr
 from Windows.DxfLayerNames import DxfLayerNames
 from Windows.MarksTypes import MarksTypes
 from Windows.JoncsDefinition import JoncsDefinition
+from Windows.NoseMylars import NoseMylars
 
 class MainWindow(QMainWindow):
     '''
@@ -343,8 +344,10 @@ class MainWindow(QMainWindow):
         procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
         procJoncsDef_A.setEnabled(self.__enableWingFunct)
         
-        procEditNoseMylars_A = QAction(_('Nose mylars'), self)
-        procEditNoseMylars_A.setEnabled(False)
+        procNoseMylars_A = QAction(_('Nose Mylars'), self)
+        procNoseMylars_A.setStatusTip(_('Edit Nose mylars definition'))
+        procNoseMylars_A.triggered.connect(self.procNoseMylarsEdit)
+        procNoseMylars_A.setEnabled(self.__enableWingFunct)
         
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
@@ -403,7 +406,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procAddRibPts_A)
         procMenu.addAction(procElLinesCorr_A)
         procMenu.addAction(procJoncsDef_A)
-        procMenu.addAction(procEditNoseMylars_A)
+        procMenu.addAction(procNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
         procMenu.addAction(procEditGlueVents_A)
         procMenu.addAction(procEditSpecWingt_A)
@@ -592,6 +595,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('JoncsDef')
             self.mdi.addSubWindow(self.joncsDef_W)
         self.joncsDef_W.show()
+
+    def procNoseMylarsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Nose mylars*
+        '''
+        if self.dws.windowExists('NoseMylars') == False:
+            self.noseMylars_W = NoseMylars()
+            self.dws.registerWindow('NoseMylars')
+            self.mdi.addSubWindow(self.noseMylars_W)
+        self.noseMylars_W.show()
 
 
         

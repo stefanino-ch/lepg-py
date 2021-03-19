@@ -139,6 +139,13 @@ Processor Joncs definition
    :members:
    :private-members:
    
+Processor Nose mylars
+---------------------
+.. automodule:: Windows.NoseMylars
+   :undoc-members:
+   :members:
+   :private-members:
+   
 Plan Seewing allowances
 -----------------------
 .. automodule:: Windows.SeewingAllowances

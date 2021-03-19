@@ -379,12 +379,10 @@ class JoncsDefinition(QMdiSubWindow):
         :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
         '''
         logging.debug(self.__className+'.sortBtnPress')
-        
-        return
-        
+                
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
-            self.proxyModel[currTab].sort(ProcessorModel.LinesModel.OrderNumCol, Qt.AscendingOrder)
+            self.proxyModel[currTab].sort(ProcessorModel.JoncsDefModel.OrderNumCol, Qt.AscendingOrder)
             self.proxyModel[currTab].setDynamicSortFilter(False)
     
     def btnPress(self, q):

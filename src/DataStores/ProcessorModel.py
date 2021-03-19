@@ -77,6 +77,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.dxfLayNames_M = self.DxfLayerNamesModel()
         self.marksT_M = self.MarksTypesModel()
         self.joncsDef_M = self.JoncsDefModel()
+        self.noseMylars_M = self.NoseMylarsModel()
         
     def isValid( self, fileName ):
         '''
@@ -683,6 +684,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # Little bad hack. Some of the GUI depends on data within the rows set above. 
         # To get teh GUI updated properly we fake here a model update to force an update in the GUI.  
         self.joncsDef_M.numRowsForConfigChanged.emit(0, 0)
+
+        ##############################
+        # 22. NOSE MYLARS DEFINITION
+        logging.debug(self.__className+'.readFile: Nose mylars')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = self.remTabSpace( stream.readLine() )
+        self.noseMylars_M.setNumConfigs(0)
+        
+        if data != '0':
+            # we have data to read
+            
+            numConfigs = int(self.remTabSpace( stream.readLine() ) )
+            self.noseMylars_M.setNumRowsForConfig(1, numConfigs)
+        
+            for c in range(0, numConfigs):
+                valuesA = self.splitLine( stream.readLine() )
+                valuesB = self.splitLine( stream.readLine() )
+                
+                self.noseMylars_M.updateRow(1, c+1, \
+                                            valuesA[1], valuesA[2], \
+                                            valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5])  
+        
+        
         ##############################
         # Cleanup
         inFile.close() 
@@ -2366,6 +2392,108 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":formTwo", formTwo )
             query.bindValue(":formTwoPOne", formTwoPOne )
             query.bindValue(":formTwoPTwo", formTwoPTwo )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+
+    class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'NoseMylarsModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        FirstRibCol = 1
+        ''':attr: Number of the col holding the first rib'''
+        LastRibCol = 2
+        ''':attr: Number of the col holding the last rib'''
+        xOneCol = 3 
+        ''':attr: Number of the col holding the 1st param of 2nd row'''
+        uOneCol = 4
+        ''':attr: Number of the col holding the 2nd param of 2nd row'''
+        uTwoCol = 5
+        ''':attr: Number of the col holding the 3rd param of 2nd row'''
+        xTwoCol = 6 
+        ''':attr: Number of the col holding the 4th param of 2nd row'''
+        vOneCol = 7
+        ''':attr: Number of the col holding the 5th param of 2nd row'''
+        vTwoCol = 8 
+        ''':attr: Number of the col holding the 1st param of 3rd row'''
+        ConfigNumCol = 9
+        ''':attr: num of column for config number (always 1)'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists NoseMylars;")
+            query.exec("create table if not exists NoseMylars ("
+                    "OrderNum INTEGER, "
+                    "FirstRib INTEGER, "
+                    "LastRib INTEGER, "
+                    "xOne REAL, "
+                    "uOne REAL, "
+                    "uTwo REAL, "
+                    "xTwo REAL, "
+                    "vOne REAL, "
+                    "vTwo REAL, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("NoseMylars")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Horizontal, _("X1 [%chord"))
+            self.setHeaderData(4, Qt.Horizontal, _("U1 [%chord"))
+            self.setHeaderData(5, Qt.Horizontal, _("U2 [%chord"))
+            self.setHeaderData(6, Qt.Horizontal, _("X2 [%chord"))
+            self.setHeaderData(7, Qt.Horizontal, _("V1 [%chord"))
+            self.setHeaderData(8, Qt.Horizontal, _("V2 [%chord"))
+            
+        def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE NoseMylars SET "
+                          "FirstRib= :firstRib, "
+                          "LastRib= :lastRib, "
+                          "xOne= :xOne, "
+                          "uOne= :uOne, "
+                          "uTwo= :uTwo, "
+                          "xTwo= :xTwo, "
+                          "vOne= :vOne, "
+                          "vTwo= :vTwo "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":lastRib", lastRib )
+            query.bindValue(":xOne", xOne )
+            query.bindValue(":uOne", uOne )
+            query.bindValue(":uTwo", uTwo )
+            query.bindValue(":xTwo", xTwo )
+            query.bindValue(":vOne", vOne )
+            query.bindValue(":vTwo", vTwo )
             query.bindValue(":config", configNum )
             query.bindValue(":order", orderNum )
             query.exec()

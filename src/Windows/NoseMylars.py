@@ -12,12 +12,12 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class AddRibPoints(QMdiSubWindow):
+class NoseMylars(QMdiSubWindow):
     '''
     :class: Window to display and edit Brake line details  
     '''
 
-    __className = 'AddRibPoints'
+    __className = 'NoseMylars'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -29,8 +29,8 @@ class AddRibPoints(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.addRibPts_M = ProcessorModel.AddRibPointsModel()
-        self.addRibPts_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
+        self.noseMylars_M = ProcessorModel.NoseMylarsModel()
+        self.noseMylars_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -60,7 +60,7 @@ class AddRibPoints(QMdiSubWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(550, 400)
+        self.win.setMinimumSize(7000, 400)
 
         self.windowLayout = QVBoxLayout()
         
@@ -68,10 +68,10 @@ class AddRibPoints(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Additional Rib points"))
+        self.setWindowTitle(_("Nose mylars"))
         
         self.wrapper = QDataWidgetMapper()
-        self.wrapper.setModel(self.addRibPts_M)
+        self.wrapper.setModel(self.noseMylars_M)
         
         numLines_L = QLabel(_('Number of configs'))
         numLines_L.setAlignment(Qt.AlignRight)
@@ -92,30 +92,36 @@ class AddRibPoints(QMdiSubWindow):
         ###############
         
         self.proxyModel = QSortFilterProxyModel()
-        self.proxyModel.setSourceModel(self.addRibPts_M)
+        self.proxyModel.setSourceModel(self.noseMylars_M)
         
-        ribs_T = TableView()
-        ribs_T.setModel( self.proxyModel )
-        ribs_T.verticalHeader().setVisible(False)
-        ribs_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        ribs_T.hideColumn( self.addRibPts_M.columnCount()-1 )
-        ribs_T.hideColumn( self.addRibPts_M.columnCount()-2 )
-        self.windowLayout.addWidget(ribs_T)
+        table_T = TableView()
+        table_T.setModel( self.proxyModel )
+        table_T.verticalHeader().setVisible(False)
+        table_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table_T.hideColumn( self.noseMylars_M.columnCount()-1 )
+        table_T.hideColumn( self.noseMylars_M.columnCount()-2 )
+        self.windowLayout.addWidget(table_T)
          
-        ribs_T.enableIntValidator(ProcessorModel.AddRibPointsModel.OrderNumCol, ProcessorModel.AddRibPointsModel.RibNumCol, 1, 999)
-        ribs_T.enableDoubleValidator(ProcessorModel.AddRibPointsModel.XCoordCol, ProcessorModel.AddRibPointsModel.YCoordCol, 1, 100, 2)
+        table_T.enableIntValidator(ProcessorModel.NoseMylarsModel.OrderNumCol, ProcessorModel.NoseMylarsModel.LastRibCol, 1, 999)
+        table_T.enableDoubleValidator(ProcessorModel.NoseMylarsModel.xOneCol, ProcessorModel.NoseMylarsModel.vTwoCol, 1, 100, 1)
           
-        ribs_T.setHelpBar(self.helpBar)
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.OrderNumCol, _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.XCoordCol, _('AddRibPts-XCoordDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.YCoordCol , _('AddRibPts-YCorodDesc'))
+        table_T.setHelpBar(self.helpBar)
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.OrderNumCol, _('OrderNumDesc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.FirstRibCol, _('NoseMylars-FirstRibDesc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.LastRibCol , _('NoseMylars-LastRibDesc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.xOneCol , _('NoseMylars-x1Desc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.uOneCol , _('NoseMylars-u1Desc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.uTwoCol , _('NoseMylars-u2Desc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.xTwoCol , _('NoseMylars-x2Desc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.vOneCol , _('NoseMylars-v1Desc'))
+        table_T.setHelpText(ProcessorModel.NoseMylarsModel.vTwoCol , _('NoseMylars-v2Desc'))
         
         sortBtn = QPushButton(_('Sort by orderNum'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
         
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.addRibPts_M.numRowsForConfig(1) )
+        self.numLines_S.setValue( self.noseMylars_M.numRowsForConfig(1) )
         self.numLines_S.blockSignals(False)
 
         #############################
@@ -123,7 +129,7 @@ class AddRibPoints(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/addRibPoints.html')
+        self.btnBar.setHelpPage('proc/noseMylars.html')
         
         bottomLayout = QHBoxLayout()
         bottomLayout.addWidget(sortBtn)
@@ -140,7 +146,7 @@ class AddRibPoints(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.addRibPts_M.numRowsForConfig(1) )
+        self.numLines_S.setValue( self.noseMylars_M.numRowsForConfig(1) )
         self.numLines_S.blockSignals(False)
         
                    
@@ -149,7 +155,7 @@ class AddRibPoints(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.numLinesChange')
-        self.addRibPts_M.setNumRowsForConfig(1, self.numLines_S.value() )
+        self.noseMylars_M.setNumRowsForConfig(1, self.numLines_S.value() )
 
     def sortBtnPress(self):
         '''
@@ -157,7 +163,7 @@ class AddRibPoints(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.sortBtnPress')
 
-        self.proxyModel.sort(ProcessorModel.AddRibPointsModel.OrderNumCol, Qt.AscendingOrder)
+        self.proxyModel.sort(ProcessorModel.NoseMylarsModel.OrderNumCol, Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
     
     def btnPress(self, q):

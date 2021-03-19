@@ -27,3 +27,4 @@ English Manual
    proc/dxfLayerNames.rst
    proc/marksTypes.rst
    proc/joncsDefinition.rst
+   proc/noseMylars.rst
