@@ -28,3 +28,5 @@ English Manual
    proc/marksTypes.rst
    proc/joncsDefinition.rst
    proc/noseMylars.rst
+   proc/twoDDxf.rst
+   proc/threeDDxf.rst

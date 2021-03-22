@@ -173,6 +173,20 @@ Plan Marks
    :undoc-members:
    :members:
    :private-members:
+   
+2D DFX Options
+--------------
+.. automodule:: Windows.TwoDDxf
+   :undoc-members:
+   :members:
+   :private-members:
+   
+3D DFX Options
+--------------
+.. automodule:: Windows.ThreeDDxf
+   :undoc-members:
+   :members:
+   :private-members:
   
 #Wing Viewer
 #-----------

@@ -49,6 +49,8 @@ from Windows.DxfLayerNames import DxfLayerNames
 from Windows.MarksTypes import MarksTypes
 from Windows.JoncsDefinition import JoncsDefinition
 from Windows.NoseMylars import NoseMylars
+from Windows.TwoDDxf import TwoDDxf
+from Windows.ThreeDDxf import ThreeDDxf
 
 class MainWindow(QMainWindow):
     '''
@@ -656,11 +658,15 @@ class MainWindow(QMainWindow):
         procMarksT_A.setEnabled(self.__enableWingFunct)
 
         
-        procEditGen2D_A = QAction(_('2D DXF options'), self)
-        procEditGen2D_A.setEnabled(False)
+        procTwoDDxf_A = QAction(_('2D DXF options'), self)
+        procTwoDDxf_A.setStatusTip(_('Edit for the 2D dxf plans'))
+        procTwoDDxf_A.triggered.connect(self.twoDDxfEdit)
+        procTwoDDxf_A.setEnabled(self.__enableWingFunct)
         
-        procEditGen3D_A = QAction(_('3D DXF options'), self)
-        procEditGen3D_A.setEnabled(False)
+        procThreeDDxf_A = QAction(_('3D DXF options'), self)
+        procThreeDDxf_A.setStatusTip(_('Edit for the 3D dxf plans'))
+        procThreeDDxf_A.triggered.connect(self.threeDDxfEdit)
+        procThreeDDxf_A.setEnabled(self.__enableWingFunct)
         
         # Build the menu
         planMenu = self.mainMenu.addMenu(_('Plan'))
@@ -668,8 +674,8 @@ class MainWindow(QMainWindow):
         planMenu.addAction(planMarks_A)
         planMenu.addAction(planDxfLayerNames_A)
         planMenu.addAction(procMarksT_A)
-        planMenu.addAction(procEditGen2D_A)
-        planMenu.addAction(procEditGen3D_A)
+        planMenu.addAction(procTwoDDxf_A)
+        planMenu.addAction(procThreeDDxf_A)
     
     def planSeewingAllEdit(self):
         '''
@@ -710,6 +716,26 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('MarksTypes')
             self.mdi.addSubWindow(self.marksTypesW)
         self.marksTypesW.show() 
+        
+    def twoDDxfEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> 2D DFX *
+        '''
+        if self.dws.windowExists('TwoDDxf') == False:
+            self.twoDDxfW = TwoDDxf()
+            self.dws.registerWindow('TwoDDxf')
+            self.mdi.addSubWindow(self.twoDDxfW)
+        self.twoDDxfW.show()
+ 
+    def threeDDxfEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> 3D DFX*
+        '''
+        if self.dws.windowExists('ThreeDDxf') == False:
+            self.threeDDxfW = ThreeDDxf()
+            self.dws.registerWindow('ThreeDDxf')
+            self.mdi.addSubWindow(self.threeDDxfW)
+        self.threeDDxfW.show()
  
 
     def buildViewMenu(self):

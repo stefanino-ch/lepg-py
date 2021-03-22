@@ -60,7 +60,7 @@ class NoseMylars(QMdiSubWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(7000, 400)
+        self.win.setMinimumSize(700, 400)
 
         self.windowLayout = QVBoxLayout()
         

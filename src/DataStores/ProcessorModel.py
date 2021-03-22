@@ -78,6 +78,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.marksT_M = self.MarksTypesModel()
         self.joncsDef_M = self.JoncsDefModel()
         self.noseMylars_M = self.NoseMylarsModel()
+        self.twoDDxf_M = self.TwoDDxf()
+        self.threeDDxf_M = self.ThreeDDxf()
         
     def isValid( self, fileName ):
         '''
@@ -707,7 +709,49 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 self.noseMylars_M.updateRow(1, c+1, \
                                             valuesA[1], valuesA[2], \
                                             valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5])  
+       
+        ##############################
+        # 23. TAB REINFORCEMENTS
+        logging.debug(self.__className+'.readFile: Jump over Tab reinforcements')
+                
+        counter = 0
+        while counter < 4:
+            line = stream.readLine()
+            if line.find('***************') >= 0:
+                counter += 1
         
+        ##############################
+        # 24. GENERAL 2D DXF OPTIONS
+        # be carefull: previous code has already read both **** lines of header        
+        logging.debug(self.__className+'.readFile: General 2D DXF options')
+            
+        data = int( self.remTabSpace( stream.readLine() ) )
+        
+        if data != '0':
+            self.twoDDxf_M.setNumRowsForConfig(1, 6)
+            # we have data to read
+            for l in range(0, 6 ):
+                values =  self.splitLine( stream.readLine() )
+                self.twoDDxf_M.updateRow(1, l+1, values[0], values[1], values[2])    
+            
+        ##############################
+        # 25. GENERAL 3D DXF OPTIONS
+        logging.debug(self.__className+'.readFile: General 3D DXF options')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = int( self.remTabSpace( stream.readLine() ) )
+        
+        if data != '0':
+            self.threeDDxf_M.setNumRowsForConfig(1, 9)
+            # we have data to read
+            for l in range(0, 6 ):
+                values =  self.splitLine( stream.readLine() )
+                self.threeDDxf_M.updateRow(1, l+1, values[0], values[1], values[2])
+                
+            for l in range(0, 3 ):
+                values =  self.splitLine( stream.readLine() )
+                self.threeDDxf_M.updateRow(1, l+1+6, values[0], values[2], values[3], values[1])
         
         ##############################
         # Cleanup
@@ -745,6 +789,155 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
 
+    class TwoDDxf(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'TwoDDxf'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        LineNameCol = 1
+        ''':attr: Number of the col holding the fixed line name '''
+        ColorCodeCol = 2
+        ''':attr: Number of the col holding the color code'''
+        ColorNameCol = 3 
+        ''':attr: Number of the col holding the optional color name'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number (always 1)'''
+        
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("TwoDDxf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,6)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Color code"))
+            self.setHeaderData(3, Qt.Horizontal, _("Color name (opt)"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists TwoDDxf;")
+            query.exec("create table if not exists TwoDDxf ("
+                    "OrderNum INTEGER,"
+                    "LineName TEXT,"
+                    "ColorCode INTEGER,"
+                    "ColorName TEXT,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE TwoDDxf SET "
+                          "LineName= :lineName, "
+                          "ColorCode= :colorCode, "
+                          "ColorName= :colorName "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":lineName", lineName )
+            query.bindValue(":colorCode", colorCode )
+            query.bindValue(":colorName", colorName )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class ThreeDDxf(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'ThreeDDxf'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        LineNameCol = 1
+        ''':attr: Number of the col holding the fixed line name '''
+        UnifilarCol = 2
+        ''':attr: Number of the col holding the unifilar flag'''
+        ColorCodeCol = 3
+        ''':attr: Number of the col holding the color code'''
+        ColorNameCol = 4 
+        ''':attr: Number of the col holding the optional color name'''
+        ConfigNumCol = 5
+        ''':attr: num of column for config number (always 1)'''
+
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDDxf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,9)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Unifilar"))
+            self.setHeaderData(3, Qt.Horizontal, _("Color code"))
+            self.setHeaderData(4, Qt.Horizontal, _("Color name (opt)"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDDxf;")
+            query.exec("create table if not exists ThreeDDxf ("
+                    "OrderNum INTEGER,"
+                    "LineName TEXT,"
+                    "Unifilar INTEGER, "
+                    "ColorCode INTEGER,"
+                    "ColorName TEXT,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName, unifilar=0):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDDxf SET "
+                          "LineName= :lineName, "
+                          "Unifilar= :unifilar, "
+                          "ColorCode= :colorCode, "
+                          "ColorName= :colorName "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":lineName", lineName )
+            query.bindValue(":unifilar", unifilar )
+            query.bindValue(":colorCode", colorCode )
+            query.bindValue(":colorName", colorName )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
         '''
