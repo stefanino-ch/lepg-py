@@ -30,3 +30,4 @@ English Manual
    proc/noseMylars.rst
    proc/twoDDxf.rst
    proc/threeDDxf.rst
+   proc/glueVent.rst

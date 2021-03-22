@@ -115,6 +115,7 @@
 <li><a class="reference internal" href="#module-Windows.ElasticLinesCorr">Processor Elastic lines corr</a></li>
 <li><a class="reference internal" href="#module-Windows.JoncsDefinition">Processor Joncs definition</a></li>
 <li><a class="reference internal" href="#module-Windows.NoseMylars">Processor Nose mylars</a></li>
+<li><a class="reference internal" href="#module-Windows.GlueVent">Processor Glue vent</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#id1">Plan Marks</a></li>
@@ -479,6 +480,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Global AoA</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procGlueVentEdit">
+<code class="sig-name descname">procGlueVentEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procGlueVentEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Glue vents</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2708,6 +2719,79 @@ details equals brake line paths</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-Windows.GlueVent">
+<span id="processor-glue-vent"></span><h2>Processor Glue vent<a class="headerlink" href="#module-Windows.GlueVent" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.GlueVent.GlueVent">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.GlueVent.</code><code class="sig-name descname">GlueVent</code><a class="headerlink" href="#Windows.GlueVent.GlueVent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit Brake line details</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.GlueVent.GlueVent.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'GlueVent'</em><a class="headerlink" href="#Windows.GlueVent.GlueVent.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.GlueVent.GlueVent.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlueVent.GlueVent.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.GlueVent.GlueVent.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlueVent.GlueVent.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+            <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Naming:</dt><dd><p>Conf is always one as there is only one configuration possible</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.GlueVent.GlueVent.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.GlueVent.GlueVent.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-Windows.SeewingAllowances">
 <span id="plan-seewing-allowances"></span><h2>Plan Seewing allowances<a class="headerlink" href="#module-Windows.SeewingAllowances" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
@@ -3049,16 +3133,16 @@ details equals brake line paths</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt id="Windows.TwoDDxf.TwoDDxf">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.TwoDDxf.</code><code class="sig-name descname">TwoDDxf</code><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxf" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.TwoDDxf.TwoDDxfModel">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.TwoDDxf.</code><code class="sig-name descname">TwoDDxfModel</code><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxfModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Brake line details</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="Windows.TwoDDxf.TwoDDxf.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'TwoDDxf'</em><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxf.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.TwoDDxf.TwoDDxfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'TwoDDxfModel'</em><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxfModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -3067,8 +3151,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.TwoDDxf.TwoDDxf.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxf.btnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.TwoDDxf.TwoDDxfModel.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxfModel.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3077,8 +3161,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.TwoDDxf.TwoDDxf.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxf.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.TwoDDxf.TwoDDxfModel.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxfModel.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3099,8 +3183,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.TwoDDxf.TwoDDxf.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxf.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.TwoDDxf.TwoDDxfModel.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.TwoDDxf.TwoDDxfModel.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>
@@ -3122,16 +3206,16 @@ details equals brake line paths</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt id="Windows.ThreeDDxf.ThreeDDxf">
-<em class="property">class </em><code class="sig-prename descclassname">Windows.ThreeDDxf.</code><code class="sig-name descname">ThreeDDxf</code><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxf" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ThreeDDxf.ThreeDDxfModel">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.ThreeDDxf.</code><code class="sig-name descname">ThreeDDxfModel</code><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxfModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Window to display and edit Brake line details</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="Windows.ThreeDDxf.ThreeDDxf.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDDxf'</em><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxf.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ThreeDDxf.ThreeDDxfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDDxfModel'</em><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxfModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -3140,8 +3224,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ThreeDDxf.ThreeDDxf.btnPress">
-<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxf.btnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ThreeDDxf.ThreeDDxfModel.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxfModel.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3150,8 +3234,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ThreeDDxf.ThreeDDxf.buildWindow">
-<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxf.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ThreeDDxf.ThreeDDxfModel.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxfModel.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3172,8 +3256,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Windows.ThreeDDxf.ThreeDDxf.closeEvent">
-<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxf.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="Windows.ThreeDDxf.ThreeDDxfModel.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.ThreeDDxf.ThreeDDxfModel.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called at the time the user closes the window.</p>

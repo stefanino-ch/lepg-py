@@ -49,8 +49,9 @@ from Windows.DxfLayerNames import DxfLayerNames
 from Windows.MarksTypes import MarksTypes
 from Windows.JoncsDefinition import JoncsDefinition
 from Windows.NoseMylars import NoseMylars
-from Windows.TwoDDxf import TwoDDxf
-from Windows.ThreeDDxf import ThreeDDxf
+from Windows.TwoDDxf import TwoDDxfModel
+from Windows.ThreeDDxf import ThreeDDxfModel
+from Windows.GlueVent import GlueVent
 
 class MainWindow(QMainWindow):
     '''
@@ -354,8 +355,10 @@ class MainWindow(QMainWindow):
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
         
-        procEditGlueVents_A = QAction(_('Glue vents'), self)
-        procEditGlueVents_A.setEnabled(False)
+        procGlueVents_A = QAction(_('Glue vents'), self)
+        procGlueVents_A.setStatusTip(_('Edit Glue vent definitions'))
+        procGlueVents_A.triggered.connect(self.procGlueVentEdit)
+        procGlueVents_A.setEnabled(self.__enableWingFunct)
         
         procEditSpecWingt_A = QAction(_('Special wingtip'), self)
         procEditSpecWingt_A.setEnabled(False)
@@ -410,7 +413,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procJoncsDef_A)
         procMenu.addAction(procNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
-        procMenu.addAction(procEditGlueVents_A)
+        procMenu.addAction(procGlueVents_A)
         procMenu.addAction(procEditSpecWingt_A)
         procMenu.addAction(procEditSpeedTrimS_A)
         procMenu.addAction(procEdit3DShaping_A)
@@ -608,6 +611,15 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.noseMylars_W)
         self.noseMylars_W.show()
 
+    def procGlueVentEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Glue vents*
+        '''
+        if self.dws.windowExists('GlueVent') == False:
+            self.GlueVent_W = GlueVent()
+            self.dws.registerWindow('GlueVent')
+            self.mdi.addSubWindow(self.GlueVent_W)
+        self.GlueVent_W.show()
 
         
     def procRun(self):
@@ -722,7 +734,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Plan* -> 2D DFX *
         '''
         if self.dws.windowExists('TwoDDxf') == False:
-            self.twoDDxfW = TwoDDxf()
+            self.twoDDxfW = TwoDDxfModel()
             self.dws.registerWindow('TwoDDxf')
             self.mdi.addSubWindow(self.twoDDxfW)
         self.twoDDxfW.show()
@@ -732,7 +744,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Plan* -> 3D DFX*
         '''
         if self.dws.windowExists('ThreeDDxf') == False:
-            self.threeDDxfW = ThreeDDxf()
+            self.threeDDxfW = ThreeDDxfModel()
             self.dws.registerWindow('ThreeDDxf')
             self.mdi.addSubWindow(self.threeDDxfW)
         self.threeDDxfW.show()

@@ -10,12 +10,12 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class TwoDDxf(QMdiSubWindow):
+class TwoDDxfModel(QMdiSubWindow):
     '''
     :class: Window to display and edit Brake line details  
     '''
 
-    __className = 'TwoDDxf'
+    __className = 'TwoDDxfModel'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -27,7 +27,7 @@ class TwoDDxf(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.twoDDxf_M = ProcessorModel.TwoDDxf()
+        self.twoDDxf_M = ProcessorModel.TwoDDxfModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -76,14 +76,14 @@ class TwoDDxf(QMdiSubWindow):
         one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + 6*one_T.rowHeight(0))
         self.windowLayout.addWidget(one_T)
          
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxf.LineNameCol, ProcessorModel.TwoDDxf.LineNameCol, "^[a-zA-Z0-9_.-]*$")
-        one_T.enableIntValidator(ProcessorModel.TwoDDxf.ColorCodeCol, ProcessorModel.TwoDDxf.ColorCodeCol, 0, 255)
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxf.LineNameCol, ProcessorModel.TwoDDxf.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableIntValidator(ProcessorModel.TwoDDxfModel.ColorCodeCol, ProcessorModel.TwoDDxfModel.ColorCodeCol, 0, 255)
+        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.TwoDDxf.LineNameCol, _('TwoDDxf-LineNameDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxf.ColorCodeCol, _('TwoDDxf-ColorCodeDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxf.ColorNameCol, _('TwoDDxf-ColorNameDesc'))
+        one_T.setHelpText(ProcessorModel.TwoDDxfModel.LineNameCol, _('TwoDDxf-LineNameDesc'))
+        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorCodeCol, _('TwoDDxf-ColorCodeDesc'))
+        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorNameCol, _('TwoDDxf-ColorNameDesc'))
 
         #############################
         # Commons for all windows

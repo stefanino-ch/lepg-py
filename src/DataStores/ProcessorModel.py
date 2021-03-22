@@ -78,8 +78,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.marksT_M = self.MarksTypesModel()
         self.joncsDef_M = self.JoncsDefModel()
         self.noseMylars_M = self.NoseMylarsModel()
-        self.twoDDxf_M = self.TwoDDxf()
-        self.threeDDxf_M = self.ThreeDDxf()
+        self.twoDDxf_M = self.TwoDDxfModel()
+        self.threeDDxf_M = self.ThreeDDxfModel()
+        self.glueVent_M = ProcessorModel.GlueVentModel()
         
     def isValid( self, fileName ):
         '''
@@ -754,6 +755,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 self.threeDDxf_M.updateRow(1, l+1+6, values[0], values[2], values[3], values[1])
         
         ##############################
+        # 26. GLUE VENTS
+        logging.debug(self.__className+'.readFile: Glue vents')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = int( self.remTabSpace( stream.readLine() ) )
+        
+        if data != '0':
+            # we have data to read
+            for l in range( 0, self.wing_M.halfNumRibs ):
+                values =  self.splitLine( stream.readLine() )
+                self.glueVent_M.updateRow(1, l+1, values[1])
+        
+        ##############################
         # Cleanup
         inFile.close() 
        
@@ -789,11 +804,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
 
-    class TwoDDxf(SqlTableModel, metaclass=Singleton):
+    class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the DXF layer names
         '''
-        __className = 'TwoDDxf'
+        __className = 'TwoDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
@@ -861,11 +876,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
-    class ThreeDDxf(SqlTableModel, metaclass=Singleton):
+    class ThreeDDxfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the DXF layer names
         '''
-        __className = 'ThreeDDxf'
+        __className = 'ThreeDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         OrderNumCol = 0 
@@ -1686,6 +1701,67 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
             self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
             self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
+
+    class GlueVentModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'GlueVentModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        VentParamCol = 1
+        ''':attr: Number of the col holding the vent parameter'''
+        ConfigNumCol = 2
+        ''':attr: num of column for config number (always 1)'''
+
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("GlueVent")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,9)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Airfoil num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Vent param"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists GlueVent;")
+            query.exec("create table if not exists GlueVent ("
+                    "OrderNum INTEGER, "
+                    "VentParam REAL, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, ventParam):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE GlueVent SET "
+                          "VentParam= :ventParam "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":ventParam", ventParam )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
     
     class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3070,6 +3146,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.anchPoints_M = ProcessorModel.AnchorPointsModel()
             self.airf_M = ProcessorModel.AirfoilsModel()
             self.lightC_M = ProcessorModel.LightConfModel()
+            self.glueVent_M = ProcessorModel.GlueVentModel()
             self.dataChanged.connect(self.syncData)
              
         def syncData(self, q):
@@ -3089,3 +3166,4 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     self.rib_M.setupRibRows(self.halfNumRibs)
                     self.airf_M.setupRibRows(self.halfNumRibs)
                     self.anchPoints_M.setupRibRows(self.halfNumRibs)
+                    self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)

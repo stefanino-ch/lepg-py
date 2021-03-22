@@ -145,6 +145,13 @@ Processor Nose mylars
    :undoc-members:
    :members:
    :private-members:
+
+Processor Glue vent
+-------------------
+.. automodule:: Windows.GlueVent
+   :undoc-members:
+   :members:
+   :private-members:
    
 Plan Seewing allowances
 -----------------------
