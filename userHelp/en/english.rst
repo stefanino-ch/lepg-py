@@ -31,3 +31,4 @@ English Manual
    proc/twoDDxf.rst
    proc/threeDDxf.rst
    proc/glueVent.rst
+   proc/specWingTip.rst

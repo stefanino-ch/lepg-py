@@ -14,7 +14,7 @@ import logging
 import math
 import re
 
-from PyQt5.QtCore import Qt, QFile, QTextStream, QObject
+from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
@@ -81,6 +81,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.twoDDxf_M = self.TwoDDxfModel()
         self.threeDDxf_M = self.ThreeDDxfModel()
         self.glueVent_M = ProcessorModel.GlueVentModel()
+        self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
         
     def isValid( self, fileName ):
         '''
@@ -728,7 +729,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
         data = int( self.remTabSpace( stream.readLine() ) )
         
+        self.twoDDxf_M.setIsUsed(False)
+        
         if data != '0':
+            self.twoDDxf_M.setIsUsed(True)
             self.twoDDxf_M.setNumRowsForConfig(1, 6)
             # we have data to read
             for l in range(0, 6 ):
@@ -743,7 +747,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
         data = int( self.remTabSpace( stream.readLine() ) )
         
+        self.threeDDxf_M.setIsUsed(False)
+        
         if data != '0':
+            self.threeDDxf_M.setIsUsed(True)
             self.threeDDxf_M.setNumRowsForConfig(1, 9)
             # we have data to read
             for l in range(0, 6 ):
@@ -762,11 +769,34 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
         data = int( self.remTabSpace( stream.readLine() ) )
         
+        self.glueVent_M.setIsUsed(False)
+        
         if data != '0':
+            self.glueVent_M.setIsUsed(True)
             # we have data to read
             for l in range( 0, self.wing_M.halfNumRibs ):
                 values =  self.splitLine( stream.readLine() )
                 self.glueVent_M.updateRow(1, l+1, values[1])
+        
+        ##############################
+        # 26. SPECIAL WING TIP
+        logging.debug(self.__className+'.readFile: Special wing tip')
+        for i in range(3):
+            line = stream.readLine()
+        
+        data = int( self.remTabSpace( stream.readLine() ) )   
+        
+        self.specWingTyp_M.setIsUsed(False)
+        self.specWingTyp_M.setNumRowsForConfig(1, 1)
+        
+        if data != '0':
+            self.specWingTyp_M.setIsUsed(True)
+            
+            valuesA =  self.splitLine( stream.readLine() )
+            valuesB =  self.splitLine( stream.readLine() )
+            
+            self.specWingTyp_M.updateRow(1, 1, valuesA[1], valuesB[1])
+            
         
         ##############################
         # Cleanup
@@ -810,7 +840,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         __className = 'TwoDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
-        
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
         OrderNumCol = 0 
         ''':attr: num of column for ordering the individual lines of a config'''
         LineNameCol = 1
@@ -875,6 +911,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+        
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
 
     class ThreeDDxfModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -882,6 +935,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         __className = 'ThreeDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
         
         OrderNumCol = 0 
         ''':attr: num of column for ordering the individual lines of a config'''
@@ -954,6 +1014,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
+        
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
@@ -1708,6 +1785,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         __className = 'GlueVentModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
         
         OrderNumCol = 0 
         ''':attr: num of column for ordering the individual lines of a config'''
@@ -1762,6 +1846,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
     
     class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3062,6 +3163,95 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", row )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+
+    class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'SpecWingTipModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        AngleLECol = 1
+        ''':attr: Number of the col holding the LE angle'''
+        AngleTECol = 2
+        ''':attr: Number of the col holding the TE angle'''
+        ConfigNumCol = 3
+        ''':attr: num of column for config number (always 1)'''
+        
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("SpecWingTip")
+            
+            self.setHeaderData(1, Qt.Horizontal, _("LE Angle [deg]"))
+            self.setHeaderData(2, Qt.Horizontal, _("TE Angle [deg]"))
+            
+            self.setNumRowsForConfig(1,1)
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists SpecWingTip;")
+            query.exec("create table if not exists SpecWingTip ("
+                    "OrderNum INTEGER,"
+                    "AngleLE REAL,"
+                    "AngleTE REAL,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, angleLE, angleTE):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE SpecWingTip SET "
+                          "AngleLE= :angleLE, "
+                          "AngleTE= :angleTE "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":angleLE", angleLE )
+            query.bindValue(":angleTE", angleTE )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+        
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
 
 
     class WingModel(SqlTableModel, metaclass=Singleton):

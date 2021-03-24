@@ -4,23 +4,22 @@
 '''
 import logging
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QHBoxLayout, QVBoxLayout,\
-    QComboBox, QLabel
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+    QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class TwoDDxfModel(QMdiSubWindow):
+class SpecWingTip(QMdiSubWindow):
     '''
     :class: Window to display and edit Brake line details  
     '''
 
-    __className = 'TwoDDxfModel'
+    __className = 'SpecWingTip'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
-
 
     def __init__(self):
         '''
@@ -29,8 +28,8 @@ class TwoDDxfModel(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.twoDDxf_M = ProcessorModel.TwoDDxfModel()
-        self.twoDDxf_M.usageUpd.connect( self.usageUpdate )
+        self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
+        self.specWingTyp_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -59,7 +58,7 @@ class TwoDDxfModel(QMdiSubWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(500, 400)
+        self.win.setMinimumSize(450, 200)
 
         self.windowLayout = QVBoxLayout()
         
@@ -67,39 +66,36 @@ class TwoDDxfModel(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("2D DXF Options"))
+        self.setWindowTitle(_("Special wing tip"))
         
         usage_L = QLabel(_('Type'))
         self.usage_CB = QComboBox()
-        self.usage_CB.addItem(_("Defaults"))
-        self.usage_CB.addItem(_("User defined"))
+        self.usage_CB.addItem(_("None"))
+        self.usage_CB.addItem(_("Type 1"))
         self.usage_CB.currentIndexChanged.connect(self.usageCbChange)
         usage_Lo = QHBoxLayout()
         usage_Lo.addWidget(usage_L)
         usage_Lo.addWidget(self.usage_CB)
         usage_Lo.addStretch()
         
-        self.windowLayout.addLayout(usage_Lo)        
+        self.windowLayout.addLayout(usage_Lo)
         
         one_T = TableView()
-        one_T.setModel( self.twoDDxf_M )
+        one_T.setModel( self.specWingTyp_M )
         one_T.verticalHeader().setVisible(False)
         one_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        one_T.hideColumn( self.twoDDxf_M.columnCount()-1 )
-        one_T.hideColumn( self.twoDDxf_M.columnCount()-2 )
+        one_T.hideColumn( self.specWingTyp_M.columnCount()-1 )
+        one_T.hideColumn( self.specWingTyp_M.columnCount()-2 )
         one_T.hideColumn( 0 )
-        one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + 6*one_T.rowHeight(0))
+        one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + one_T.rowHeight(0))
         self.windowLayout.addWidget(one_T)
-         
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
-        one_T.enableIntValidator(ProcessorModel.TwoDDxfModel.ColorCodeCol, ProcessorModel.TwoDDxfModel.ColorCodeCol, 0, 255)
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        
+        one_T.enableDoubleValidator(ProcessorModel.SpecWingTipModel.AngleLECol, ProcessorModel.SpecWingTipModel.AngleTECol, -45, 45, 2)
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.LineNameCol, _('TwoDDxf-LineNameDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorCodeCol, _('TwoDDxf-ColorCodeDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorNameCol, _('TwoDDxf-ColorNameDesc'))
-        
+        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleLECol, _('SpecWingTyp-AngleLEDesc'))
+        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleTECol, _('SpecWingTyp-AngleLEDesc'))
+
         self.usageUpdate()
         
         #############################
@@ -107,7 +103,7 @@ class TwoDDxfModel(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/twoDDxf.html')
+        self.btnBar.setHelpPage('proc/specWingTip.html')
         
         bottomLayout = QHBoxLayout()
         bottomLayout.addStretch() 
@@ -123,21 +119,21 @@ class TwoDDxfModel(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.usageUpdate')
         
-        if self.twoDDxf_M.isUsed():
+        if self.specWingTyp_M.isUsed():
             self.usage_CB.setCurrentIndex(1)
         else:
             self.usage_CB.setCurrentIndex(0)
-    
+            
     def usageCbChange(self):
         '''
         :method: Updates the model as soon the usage CB has been changed
         '''
         logging.debug(self.__className+'.usageCbChange')
         if self.usage_CB.currentIndex() == 0:
-            self.twoDDxf_M.setIsUsed(False)
+            self.specWingTyp_M.setIsUsed(False)
         else:
-            self.twoDDxf_M.setIsUsed(True)
-    
+            self.specWingTyp_M.setIsUsed(True)
+            
     def btnPress(self, q):
         '''
         :method: Handling of all pressed buttons.

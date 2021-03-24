@@ -4,7 +4,8 @@
 '''
 import logging
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+    QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 from Windows.TableView import TableView
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
@@ -28,6 +29,7 @@ class GlueVent(QMdiSubWindow):
         super().__init__()
         
         self.glueVent_M = ProcessorModel.GlueVentModel()
+        self.glueVent_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -66,6 +68,18 @@ class GlueVent(QMdiSubWindow):
         # Add window specifics here
         self.setWindowTitle(_("Glue vent"))
         
+        usage_L = QLabel(_('Type'))
+        self.usage_CB = QComboBox()
+        self.usage_CB.addItem(_("Defaults"))
+        self.usage_CB.addItem(_("User defined"))
+        self.usage_CB.currentIndexChanged.connect(self.usageCbChange)
+        usage_Lo = QHBoxLayout()
+        usage_Lo.addWidget(usage_L)
+        usage_Lo.addWidget(self.usage_CB)
+        usage_Lo.addStretch()
+        
+        self.windowLayout.addLayout(usage_Lo)
+        
         one_T = TableView()
         one_T.setModel( self.glueVent_M )
         one_T.verticalHeader().setVisible(False)
@@ -81,6 +95,8 @@ class GlueVent(QMdiSubWindow):
         one_T.setHelpText(ProcessorModel.GlueVentModel.OrderNumCol, _('GlueVent-AirfoilNumDesc'))
         one_T.setHelpText(ProcessorModel.GlueVentModel.VentParamCol, _('GlueVent-VentParamDesc'))
 
+        self.usageUpdate()
+        
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
@@ -95,7 +111,28 @@ class GlueVent(QMdiSubWindow):
         self.windowLayout.addLayout(bottomLayout)
         
         self.win.setLayout(self.windowLayout)
-    
+
+    def usageUpdate(self):
+        '''
+        :method: Updates the GUI as soon in the model the usage flag has been changed
+        '''
+        logging.debug(self.__className+'.usageUpdate')
+        
+        if self.glueVent_M.isUsed():
+            self.usage_CB.setCurrentIndex(1)
+        else:
+            self.usage_CB.setCurrentIndex(0)
+            
+    def usageCbChange(self):
+        '''
+        :method: Updates the model as soon the usage CB has been changed
+        '''
+        logging.debug(self.__className+'.usageCbChange')
+        if self.usage_CB.currentIndex() == 0:
+            self.glueVent_M.setIsUsed(False)
+        else:
+            self.glueVent_M.setIsUsed(True)
+            
     def btnPress(self, q):
         '''
         :method: Handling of all pressed buttons.

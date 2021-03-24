@@ -24,7 +24,7 @@ from DataStores.ProcessorModel import ProcessorModel
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.WingViewer import WingViewer
-from Windows.ProcBasicData import ProcBasicData
+from Windows.BasicData import BasicData
 from Windows.ProcGeometry import ProcGeometry
 from Windows.ProcAirfoils import ProcAirfoils
 from Windows.RibHoles import RibHoles
@@ -52,6 +52,7 @@ from Windows.NoseMylars import NoseMylars
 from Windows.TwoDDxf import TwoDDxfModel
 from Windows.ThreeDDxf import ThreeDDxfModel
 from Windows.GlueVent import GlueVent
+from Windows.SpecWingTip import SpecWingTip
 
 class MainWindow(QMainWindow):
     '''
@@ -360,8 +361,10 @@ class MainWindow(QMainWindow):
         procGlueVents_A.triggered.connect(self.procGlueVentEdit)
         procGlueVents_A.setEnabled(self.__enableWingFunct)
         
-        procEditSpecWingt_A = QAction(_('Special wingtip'), self)
-        procEditSpecWingt_A.setEnabled(False)
+        procSpecWingTip_A = QAction(_('Special wingtip'), self)
+        procSpecWingTip_A.setStatusTip(_('Edit Special wing tip definitions'))
+        procSpecWingTip_A.triggered.connect(self.procSpecWingtTipEdit)
+        procSpecWingTip_A.setEnabled(self.__enableWingFunct)
         
         procEditSpeedTrimS_A = QAction(_('Speed/ Trimmer study'), self)
         procEditSpeedTrimS_A.setEnabled(False)
@@ -414,7 +417,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
         procMenu.addAction(procGlueVents_A)
-        procMenu.addAction(procEditSpecWingt_A)
+        procMenu.addAction(procSpecWingTip_A)
         procMenu.addAction(procEditSpeedTrimS_A)
         procMenu.addAction(procEdit3DShaping_A)
         procMenu.addAction(procEditThiknessMod_A)
@@ -446,7 +449,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* -> *Basic data*
         '''
         if self.dws.windowExists('ProcBasicData') == False:
-            self.basicDataW = ProcBasicData()
+            self.basicDataW = BasicData()
             self.dws.registerWindow('ProcBasicData')
             self.mdi.addSubWindow(self.basicDataW)
         self.basicDataW.show()
@@ -621,6 +624,15 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.GlueVent_W)
         self.GlueVent_W.show()
 
+    def procSpecWingtTipEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Special wing tip*
+        '''
+        if self.dws.windowExists('SpecWingTip') == False:
+            self.SpecWingTip_W = SpecWingTip()
+            self.dws.registerWindow('SpecWingTip')
+            self.mdi.addSubWindow(self.SpecWingTip_W)
+        self.SpecWingTip_W.show()
         
     def procRun(self):
         '''

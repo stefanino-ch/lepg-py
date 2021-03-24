@@ -29,7 +29,7 @@ Pre-Processor data edit
 
 Processor Basic Data
 --------------------
-.. automodule:: Windows.ProcBasicData
+.. automodule:: Windows.BasicData
    :undoc-members:
    :members:
    :private-members:
@@ -149,6 +149,13 @@ Processor Nose mylars
 Processor Glue vent
 -------------------
 .. automodule:: Windows.GlueVent
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor Special wing tip
+--------------------------
+.. automodule:: Windows.SpecWingTip
    :undoc-members:
    :members:
    :private-members:
