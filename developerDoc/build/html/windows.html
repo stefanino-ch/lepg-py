@@ -117,6 +117,7 @@
 <li><a class="reference internal" href="#module-Windows.NoseMylars">Processor Nose mylars</a></li>
 <li><a class="reference internal" href="#module-Windows.GlueVent">Processor Glue vent</a></li>
 <li><a class="reference internal" href="#module-Windows.SpecWingTip">Processor Special wing tip</a></li>
+<li><a class="reference internal" href="#module-Windows.CalageVar">Processor Calage variation</a></li>
 <li><a class="reference internal" href="#module-Windows.SeewingAllowances">Plan Seewing allowances</a></li>
 <li><a class="reference internal" href="#module-Windows.Marks">Plan Marks</a></li>
 <li><a class="reference internal" href="#id1">Plan Marks</a></li>
@@ -441,6 +442,16 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Brakes</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lepg.MainWindow.procCalageVarEdit">
+<code class="sig-name descname">procCalageVarEdit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.procCalageVarEdit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Calage variation</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2901,6 +2912,101 @@ details equals brake line paths</p>
 <dl class="py method">
 <dt id="Windows.SpecWingTip.SpecWingTip.usageUpdate">
 <code class="sig-name descname">usageUpdate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SpecWingTip.SpecWingTip.usageUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.CalageVar">
+<span id="processor-calage-variation"></span><h2>Processor Calage variation<a class="headerlink" href="#module-Windows.CalageVar" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.CalageVar.CalageVar">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.CalageVar.</code><code class="sig-name descname">CalageVar</code><a class="headerlink" href="#Windows.CalageVar.CalageVar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit Brake line details</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.CalageVar.CalageVar.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'CalageVar'</em><a class="headerlink" href="#Windows.CalageVar.CalageVar.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.CalageVar.CalageVar.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.CalageVar.CalageVar.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.CalageVar.CalageVar.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.CalageVar.CalageVar.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowLayout</span>
+        <span class="n">Table</span>
+        <span class="n">Table</span>
+        <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+            <span class="n">helpBar</span>  <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Naming:</dt><dd><p>Conf is always one as there is only one configuration possible</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.CalageVar.CalageVar.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.CalageVar.CalageVar.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.CalageVar.CalageVar.usageCbChange">
+<code class="sig-name descname">usageCbChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.CalageVar.CalageVar.usageCbChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.CalageVar.CalageVar.usageUpdate">
+<code class="sig-name descname">usageUpdate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.CalageVar.CalageVar.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>

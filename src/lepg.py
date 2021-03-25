@@ -53,6 +53,7 @@ from Windows.TwoDDxf import TwoDDxfModel
 from Windows.ThreeDDxf import ThreeDDxfModel
 from Windows.GlueVent import GlueVent
 from Windows.SpecWingTip import SpecWingTip
+from Windows.CalageVar import CalageVar
 
 class MainWindow(QMainWindow):
     '''
@@ -366,8 +367,10 @@ class MainWindow(QMainWindow):
         procSpecWingTip_A.triggered.connect(self.procSpecWingtTipEdit)
         procSpecWingTip_A.setEnabled(self.__enableWingFunct)
         
-        procEditSpeedTrimS_A = QAction(_('Speed/ Trimmer study'), self)
-        procEditSpeedTrimS_A.setEnabled(False)
+        procCalageVar_A = QAction(_('Calage variation'), self)
+        procCalageVar_A.setStatusTip(_('Edit parameters for calage variation study'))
+        procCalageVar_A.triggered.connect(self.procCalageVarEdit)
+        procCalageVar_A.setEnabled(self.__enableWingFunct)
         
         procEdit3DShaping_A = QAction(_('3D shaping'), self)
         procEdit3DShaping_A.setEnabled(False)
@@ -418,7 +421,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procEditTabReinf_A)
         procMenu.addAction(procGlueVents_A)
         procMenu.addAction(procSpecWingTip_A)
-        procMenu.addAction(procEditSpeedTrimS_A)
+        procMenu.addAction(procCalageVar_A)
         procMenu.addAction(procEdit3DShaping_A)
         procMenu.addAction(procEditThiknessMod_A)
          
@@ -633,6 +636,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('SpecWingTip')
             self.mdi.addSubWindow(self.SpecWingTip_W)
         self.SpecWingTip_W.show()
+
+    def procCalageVarEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Calage variation*
+        '''
+        if self.dws.windowExists('CalageVar') == False:
+            self.calageVar_W = CalageVar()
+            self.dws.registerWindow('CalageVar')
+            self.mdi.addSubWindow(self.calageVar_W)
+        self.calageVar_W.show()
         
     def procRun(self):
         '''

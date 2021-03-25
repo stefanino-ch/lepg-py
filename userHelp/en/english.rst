@@ -32,3 +32,4 @@ English Manual
    proc/threeDDxf.rst
    proc/glueVent.rst
    proc/specWingTip.rst
+   proc/calageVar.rst

@@ -82,6 +82,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.threeDDxf_M = self.ThreeDDxfModel()
         self.glueVent_M = ProcessorModel.GlueVentModel()
         self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
+        self.calageVar_M = ProcessorModel.CalageVarModel()
         
     def isValid( self, fileName ):
         '''
@@ -797,6 +798,28 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             self.specWingTyp_M.updateRow(1, 1, valuesA[1], valuesB[1])
             
+        ##############################
+        # 28. PARAMETERS FOR CALAGE VARIATION
+        logging.debug(self.__className+'.readFile: Calage variation')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = int( self.remTabSpace( stream.readLine() ) )   
+        
+        self.calageVar_M.setIsUsed(False)
+        self.calageVar_M.setNumRowsForConfig(1, 1)
+        
+        if data != '0':
+            self.calageVar_M.setIsUsed(True)
+            
+            valuesA =  self.splitLine( stream.readLine() )
+            valuesB =  self.splitLine( stream.readLine() )
+            valuesC =  self.splitLine( stream.readLine() )
+            
+            self.calageVar_M.updateRow(1, 1, \
+                                       valuesA[0], \
+                                       valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5], \
+                                       valuesC[0], valuesC[1], valuesC[2], valuesC[3])
         
         ##############################
         # Cleanup
@@ -833,6 +856,150 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = self.remTabSpace(line) # remove leadind and trailing waste
         values = re.split(r'[\t\s]\s*', line)
         return values
+
+    class CalageVarModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'CalageVarModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        NumRisersCol = 1
+        ''':attr: Number of the col holding the fixed line name '''
+        PosACol = 2
+        ''':attr: Number of the col holding the position for riser A'''
+        PosBCol = 3
+        ''':attr: Number of the col holding the position for riser B'''
+        PosCCol = 4
+        ''':attr: Number of the col holding the position for riser C'''
+        PosDCol = 5
+        ''':attr: Number of the col holding the position for riser D'''
+        PosECol = 6
+        ''':attr: Number of the col holding the position for riser E'''
+        PosFCol = 7
+        ''':attr: Number of the col holding the position for riser F'''
+        MaxNegAngCol = 8 
+        ''':attr: Number of the col holding the max negative angle'''
+        NumNegStepsCol = 9 
+        ''':attr: Number of the col holding the number of steps for the positive angle simulation'''
+        MaxPosAngCol = 10
+        ''':attr: Number of the col holding the max positive angle'''
+        NumPosStepsCol = 11 
+        ''':attr: Number of the col holding the number of steps for the negative angle simulation'''
+        ConfigNumCol = 12
+        ''':attr: num of column for config number (always 1)'''
+        
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("CalageVar")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,1)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Num Risers"))
+            self.setHeaderData(2, Qt.Horizontal, _("Pos R. A [%]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Pos R. B [%]"))
+            self.setHeaderData(4, Qt.Horizontal, _("Pos R. C [%]"))
+            self.setHeaderData(5, Qt.Horizontal, _("Pos R. D [%]"))
+            self.setHeaderData(6, Qt.Horizontal, _("Pos R. E [%]"))
+            self.setHeaderData(7, Qt.Horizontal, _("Pos R. F [%]"))
+            self.setHeaderData(8, Qt.Horizontal, _("Max neg ang [deg]"))
+            self.setHeaderData(9, Qt.Horizontal, _("Num pos steps"))
+            self.setHeaderData(10, Qt.Horizontal, _("Max pos ang [deg]"))
+            self.setHeaderData(11, Qt.Horizontal, _("Num neg steps"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists CalageVar;")
+            query.exec("create table if not exists CalageVar ("
+                    "OrderNum INTEGER, "
+                    "NumRisers INTEGER, "
+                    "PosA REAL, "
+                    "PosB REAL, "
+                    "PosC REAL, "
+                    "PosD REAL, "
+                    "PosE REAL, "
+                    "PosF REAL, "
+                    "MaxNegAng REAL, "
+                    "NumNegSteps INTEGER, "
+                    "MaxPosAng REAL, "
+                    "NumPosSteps INTEGER, "
+                    "ConfigNum INTEGER, "
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, numRisers, posA, posB, posC, posD, posE, posF, maxNegAng, numNegSteps, maxPosAng, numPosSteps):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE CalageVar SET "
+                          "NumRisers= :numRisers, "
+                          "PosA= :posA, "
+                          "PosB= :posB, "
+                          "PosC= :posC, "
+                          "PosD= :posD, "
+                          "PosE= :posE, "
+                          "PosF= :posF, "
+                          "MaxNegAng= :maxNegAng, "
+                          "NumNegSteps= :numNegSteps, "
+                          "MaxPosAng= :maxPosAng, "
+                          "NumPosSteps= :numPosSteps "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":numRisers", numRisers )
+            query.bindValue(":posA", posA )
+            query.bindValue(":posB", posB )
+            query.bindValue(":posC", posC )
+            query.bindValue(":posD", posD )
+            query.bindValue(":posE", posE )
+            query.bindValue(":posF", posF )
+            query.bindValue(":maxNegAng", maxNegAng )
+            query.bindValue(":numNegSteps", numNegSteps )
+            query.bindValue(":maxPosAng", maxPosAng )
+            query.bindValue(":numPosSteps", numPosSteps )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+        
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
+
 
     class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
         '''

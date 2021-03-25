@@ -160,6 +160,13 @@ Processor Special wing tip
    :members:
    :private-members:
    
+Processor Calage variation
+--------------------------
+.. automodule:: Windows.CalageVar
+   :undoc-members:
+   :members:
+   :private-members:
+   
 Plan Seewing allowances
 -----------------------
 .. automodule:: Windows.SeewingAllowances
