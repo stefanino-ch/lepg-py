@@ -27,3 +27,9 @@ Deutsche Anleitung
    proc/dxfLayerNames.rst
    proc/marksTypes.rst
    proc/joncsDefinition.rst
+   proc/noseMylars.rst
+   proc/twoDDxf.rst
+   proc/threeDDxf.rst
+   proc/glueVent.rst
+   proc/specWingTip.rst
+   proc/calageVar.rst

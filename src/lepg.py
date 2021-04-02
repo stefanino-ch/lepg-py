@@ -24,7 +24,7 @@ from DataStores.ProcessorModel import ProcessorModel
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcDataEdit import PreProcDataEdit
 from Windows.WingViewer import WingViewer
-from Windows.ProcBasicData import ProcBasicData
+from Windows.BasicData import BasicData
 from Windows.ProcGeometry import ProcGeometry
 from Windows.ProcAirfoils import ProcAirfoils
 from Windows.RibHoles import RibHoles
@@ -48,6 +48,13 @@ from Windows.ElasticLinesCorr import ElasticLinesCorr
 from Windows.DxfLayerNames import DxfLayerNames
 from Windows.MarksTypes import MarksTypes
 from Windows.JoncsDefinition import JoncsDefinition
+from Windows.NoseMylars import NoseMylars
+from Windows.TwoDDxf import TwoDDxfModel
+from Windows.ThreeDDxf import ThreeDDxfModel
+from Windows.GlueVent import GlueVent
+from Windows.SpecWingTip import SpecWingTip
+from Windows.CalageVar import CalageVar
+from Windows.ThreeDShaping import ThreeDShaping
 
 class MainWindow(QMainWindow):
     '''
@@ -343,23 +350,33 @@ class MainWindow(QMainWindow):
         procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
         procJoncsDef_A.setEnabled(self.__enableWingFunct)
         
-        procEditNoseMylars_A = QAction(_('Nose mylars'), self)
-        procEditNoseMylars_A.setEnabled(False)
+        procNoseMylars_A = QAction(_('Nose Mylars'), self)
+        procNoseMylars_A.setStatusTip(_('Edit Nose mylars definition'))
+        procNoseMylars_A.triggered.connect(self.procNoseMylarsEdit)
+        procNoseMylars_A.setEnabled(self.__enableWingFunct)
         
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
         
-        procEditGlueVents_A = QAction(_('Glue vents'), self)
-        procEditGlueVents_A.setEnabled(False)
+        procGlueVents_A = QAction(_('Glue vents'), self)
+        procGlueVents_A.setStatusTip(_('Edit Glue vent definitions'))
+        procGlueVents_A.triggered.connect(self.procGlueVentEdit)
+        procGlueVents_A.setEnabled(self.__enableWingFunct)
         
-        procEditSpecWingt_A = QAction(_('Special wingtip'), self)
-        procEditSpecWingt_A.setEnabled(False)
+        procSpecWingTip_A = QAction(_('Special wingtip'), self)
+        procSpecWingTip_A.setStatusTip(_('Edit Special wing tip definitions'))
+        procSpecWingTip_A.triggered.connect(self.procSpecWingtTipEdit)
+        procSpecWingTip_A.setEnabled(self.__enableWingFunct)
         
-        procEditSpeedTrimS_A = QAction(_('Speed/ Trimmer study'), self)
-        procEditSpeedTrimS_A.setEnabled(False)
+        procCalageVar_A = QAction(_('Calage variation'), self)
+        procCalageVar_A.setStatusTip(_('Edit parameters for calage variation study'))
+        procCalageVar_A.triggered.connect(self.procCalageVarEdit)
+        procCalageVar_A.setEnabled(self.__enableWingFunct)
         
-        procEdit3DShaping_A = QAction(_('3D shaping'), self)
-        procEdit3DShaping_A.setEnabled(False)
+        procThreeDShaping_A = QAction(_('3D shaping'), self)
+        procThreeDShaping_A.setStatusTip(_('Edit parameters 3D shaping'))
+        procThreeDShaping_A.triggered.connect(self.procThreeDShapingEdit)
+        procThreeDShaping_A.setEnabled(self.__enableWingFunct)
         
         procEditThiknessMod_A = QAction(_('Thikness modification'), self)
         procEditThiknessMod_A.setEnabled(False)
@@ -403,12 +420,12 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procAddRibPts_A)
         procMenu.addAction(procElLinesCorr_A)
         procMenu.addAction(procJoncsDef_A)
-        procMenu.addAction(procEditNoseMylars_A)
+        procMenu.addAction(procNoseMylars_A)
         procMenu.addAction(procEditTabReinf_A)
-        procMenu.addAction(procEditGlueVents_A)
-        procMenu.addAction(procEditSpecWingt_A)
-        procMenu.addAction(procEditSpeedTrimS_A)
-        procMenu.addAction(procEdit3DShaping_A)
+        procMenu.addAction(procGlueVents_A)
+        procMenu.addAction(procSpecWingTip_A)
+        procMenu.addAction(procCalageVar_A)
+        procMenu.addAction(procThreeDShaping_A)
         procMenu.addAction(procEditThiknessMod_A)
          
         procMenu.addSeparator()
@@ -438,7 +455,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* -> *Basic data*
         '''
         if self.dws.windowExists('ProcBasicData') == False:
-            self.basicDataW = ProcBasicData()
+            self.basicDataW = BasicData()
             self.dws.registerWindow('ProcBasicData')
             self.mdi.addSubWindow(self.basicDataW)
         self.basicDataW.show()
@@ -593,6 +610,56 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.joncsDef_W)
         self.joncsDef_W.show()
 
+    def procNoseMylarsEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Nose mylars*
+        '''
+        if self.dws.windowExists('NoseMylars') == False:
+            self.noseMylars_W = NoseMylars()
+            self.dws.registerWindow('NoseMylars')
+            self.mdi.addSubWindow(self.noseMylars_W)
+        self.noseMylars_W.show()
+
+    def procGlueVentEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Glue vents*
+        '''
+        if self.dws.windowExists('GlueVent') == False:
+            self.GlueVent_W = GlueVent()
+            self.dws.registerWindow('GlueVent')
+            self.mdi.addSubWindow(self.GlueVent_W)
+        self.GlueVent_W.show()
+
+    def procSpecWingtTipEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Special wing tip*
+        '''
+        if self.dws.windowExists('SpecWingTip') == False:
+            self.SpecWingTip_W = SpecWingTip()
+            self.dws.registerWindow('SpecWingTip')
+            self.mdi.addSubWindow(self.SpecWingTip_W)
+        self.SpecWingTip_W.show()
+
+    def procCalageVarEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Calage variation*
+        '''
+        if self.dws.windowExists('CalageVar') == False:
+            self.calageVar_W = CalageVar()
+            self.dws.registerWindow('CalageVar')
+            self.mdi.addSubWindow(self.calageVar_W)
+        self.calageVar_W.show()
+
+    def procThreeDShapingEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *3D Shapung*
+        '''
+        if self.dws.windowExists('ThreeDShaping') == False:
+            self.threeDSh_W = ThreeDShaping()
+            self.dws.registerWindow('ThreeDShaping')
+            self.mdi.addSubWindow(self.threeDSh_W)
+        self.threeDSh_W.show()
+
 
         
     def procRun(self):
@@ -643,11 +710,15 @@ class MainWindow(QMainWindow):
         procMarksT_A.setEnabled(self.__enableWingFunct)
 
         
-        procEditGen2D_A = QAction(_('2D DXF options'), self)
-        procEditGen2D_A.setEnabled(False)
+        procTwoDDxf_A = QAction(_('2D DXF options'), self)
+        procTwoDDxf_A.setStatusTip(_('Edit for the 2D dxf plans'))
+        procTwoDDxf_A.triggered.connect(self.twoDDxfEdit)
+        procTwoDDxf_A.setEnabled(self.__enableWingFunct)
         
-        procEditGen3D_A = QAction(_('3D DXF options'), self)
-        procEditGen3D_A.setEnabled(False)
+        procThreeDDxf_A = QAction(_('3D DXF options'), self)
+        procThreeDDxf_A.setStatusTip(_('Edit for the 3D dxf plans'))
+        procThreeDDxf_A.triggered.connect(self.threeDDxfEdit)
+        procThreeDDxf_A.setEnabled(self.__enableWingFunct)
         
         # Build the menu
         planMenu = self.mainMenu.addMenu(_('Plan'))
@@ -655,8 +726,8 @@ class MainWindow(QMainWindow):
         planMenu.addAction(planMarks_A)
         planMenu.addAction(planDxfLayerNames_A)
         planMenu.addAction(procMarksT_A)
-        planMenu.addAction(procEditGen2D_A)
-        planMenu.addAction(procEditGen3D_A)
+        planMenu.addAction(procTwoDDxf_A)
+        planMenu.addAction(procThreeDDxf_A)
     
     def planSeewingAllEdit(self):
         '''
@@ -697,6 +768,26 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('MarksTypes')
             self.mdi.addSubWindow(self.marksTypesW)
         self.marksTypesW.show() 
+        
+    def twoDDxfEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> 2D DFX *
+        '''
+        if self.dws.windowExists('TwoDDxf') == False:
+            self.twoDDxfW = TwoDDxfModel()
+            self.dws.registerWindow('TwoDDxf')
+            self.mdi.addSubWindow(self.twoDDxfW)
+        self.twoDDxfW.show()
+ 
+    def threeDDxfEdit(self):
+        '''
+        :method: Called if the user selects *Plan* -> 3D DFX*
+        '''
+        if self.dws.windowExists('ThreeDDxf') == False:
+            self.threeDDxfW = ThreeDDxfModel()
+            self.dws.registerWindow('ThreeDDxf')
+            self.mdi.addSubWindow(self.threeDDxfW)
+        self.threeDDxfW.show()
  
 
     def buildViewMenu(self):

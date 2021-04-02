@@ -11,7 +11,7 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class ProcBasicData(QMdiSubWindow):
+class BasicData(QMdiSubWindow):
     '''
     :class: Window to display and edit the Basic Data  
     '''
@@ -42,12 +42,7 @@ class ProcBasicData(QMdiSubWindow):
     def buildWindow(self):
         '''
         :method: Creates the window including all GUI elements. 
-        
-        Layout::
-        
-            Data
-            Buttons
-            
+
         Structure:: 
         
             win

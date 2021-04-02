@@ -29,7 +29,7 @@ Pre-Processor data edit
 
 Processor Basic Data
 --------------------
-.. automodule:: Windows.ProcBasicData
+.. automodule:: Windows.BasicData
    :undoc-members:
    :members:
    :private-members:
@@ -139,6 +139,34 @@ Processor Joncs definition
    :members:
    :private-members:
    
+Processor Nose mylars
+---------------------
+.. automodule:: Windows.NoseMylars
+   :undoc-members:
+   :members:
+   :private-members:
+
+Processor Glue vent
+-------------------
+.. automodule:: Windows.GlueVent
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor Special wing tip
+--------------------------
+.. automodule:: Windows.SpecWingTip
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor Calage variation
+--------------------------
+.. automodule:: Windows.CalageVar
+   :undoc-members:
+   :members:
+   :private-members:
+   
 Plan Seewing allowances
 -----------------------
 .. automodule:: Windows.SeewingAllowances
@@ -163,6 +191,20 @@ Plan Marks
 Plan Marks
 ----------
 .. automodule:: Windows.MarksTypes
+   :undoc-members:
+   :members:
+   :private-members:
+   
+2D DFX Options
+--------------
+.. automodule:: Windows.TwoDDxf
+   :undoc-members:
+   :members:
+   :private-members:
+   
+3D DFX Options
+--------------
+.. automodule:: Windows.ThreeDDxf
    :undoc-members:
    :members:
    :private-members:
