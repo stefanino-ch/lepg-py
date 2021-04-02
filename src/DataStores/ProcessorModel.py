@@ -14,7 +14,7 @@ import logging
 import math
 import re
 
-from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
+from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal, QSortFilterProxyModel
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
@@ -83,6 +83,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.glueVent_M = ProcessorModel.GlueVentModel()
         self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
         self.calageVar_M = ProcessorModel.CalageVarModel()
+        self.threeDShConf_M = ProcessorModel.ThreeDShConfModel()
+        self.threeDShUpDet_M = ProcessorModel.ThreeDShUpDetModel()
+        self.threeDShLoDet_M = ProcessorModel.ThreeDShLoDetModel()
+        self.threeDShPr_M = ProcessorModel.ThreeDShPrintModel()
         
     def isValid( self, fileName ):
         '''
@@ -820,6 +824,68 @@ class ProcessorModel(QObject, metaclass=Singleton):
                                        valuesA[0], \
                                        valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5], \
                                        valuesC[0], valuesC[1], valuesC[2], valuesC[3])
+        
+        ##############################
+        # 29. 3D SHAPING
+        logging.debug(self.__className+'.readFile: 3D Shaping')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = int( self.remTabSpace( stream.readLine() ) )
+        
+        self.threeDShConf_M.setNumConfigs(0)
+        self.threeDShUpDet_M.setNumConfigs(0)
+        self.threeDShLoDet_M.setNumConfigs(0)
+        
+        if data != '0':
+            # overread type as it is always 1
+            line = stream.readLine()
+            
+            values =  self.splitLine( stream.readLine() )
+            numGroups = int (values[1])
+            self.threeDShConf_M.setNumConfigs(numGroups)
+            
+            for g in range(0, numGroups):
+                # ribs and so
+                values = self.splitLine( stream.readLine() )
+                
+                self.threeDShConf_M.updateRow(g+1, 1, values[2], values[3])
+                
+                # upper config
+                values = self.splitLine( stream.readLine() )
+                numUpCuts = int (values[1] )
+                if numUpCuts == 1:
+                    self.threeDShUpDet_M.setNumRowsForConfig(g+1, numUpCuts)
+                    
+                    values = self.splitLine( stream.readLine() )
+                    self.threeDShUpDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
+                    
+                elif numUpCuts == 2:
+                    self.threeDShUpDet_M.setNumRowsForConfig(g+1, numUpCuts)
+                    
+                    values = self.splitLine( stream.readLine() )
+                    self.threeDShUpDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
+                    
+                    values = self.splitLine( stream.readLine() )
+                    self.threeDShUpDet_M.updateRow(g+1, 2, values[1], values[2], values[3])
+                    
+                # lower config
+                values = self.splitLine( stream.readLine() )
+                numLoCuts = int (values[1] )
+                if numLoCuts == 1:
+                    self.threeDShLoDet_M.setNumRowsForConfig(g+1, numUpCuts)
+                    
+                    values = self.splitLine( stream.readLine() )
+                    self.threeDShLoDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
+            
+            line = stream.readLine()
+            
+            self.threeDShPr_M.setNumRowsForConfig(1, 0)
+            self.threeDShPr_M.setNumRowsForConfig(1, 5)
+            
+            for l in range(0,5):
+                values = self.splitLine( stream.readLine() )
+                self.threeDShPr_M.updateRow(1, l+1, values[0], values[1], values[2], values[3], values[4])
         
         ##############################
         # Cleanup
@@ -2267,7 +2333,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
     class JoncsDefModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding the DXF layer names
+        :class: Provides a SqlTableModel holding the Joncs definition data
         '''
         __className = 'JoncsDefModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
@@ -3420,6 +3486,305 @@ class ProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.isUsed')
             return self.__isUsed
 
+    class ThreeDShConfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the 3d Shaping configuration
+        '''
+        __className = 'ThreeDShConfModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        FirstRibCol = 1
+        ''':attr: Number of the col holding the first rib'''
+        LastRibCol = 2
+        ''':attr: Number of the col holding the last rib'''
+        ConfigNumCol = 3
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDShapingConf;")
+            query.exec("create table if not exists ThreeDShapingConf ("
+                    "OrderNum INTEGER, "
+                    "FirstRib INTEGER, "
+                    "LastRib INTEGER, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDShapingConf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
+#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
+#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            
+        def updateRow(self, configNum, orderNum, firstRib, lastRib):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDShapingConf SET "
+                          "FirstRib= :firstRib, "
+                          "LastRib= :lastRib "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":firstRib", firstRib )
+            query.bindValue(":lastRib", lastRib )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class ThreeDShUpDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the 3d Shaping data for the upper panels
+        '''
+        __className = 'ThreeDShUpDetModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        IniPointCol = 1 
+        ''':attr: Number of the col holding initial point of the zone of influence'''
+        CutPointCol = 2
+        ''':attr: Number of the col holding position of the point where the cut is set'''
+        DepthCol = 3
+        ''':attr: Number of the col holding the shaping depth'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDShapingUpDetail;")
+            query.exec("create table if not exists ThreeDShapingUpDetail ("
+                    "OrderNum INTEGER, "
+                    "IniPoint INTEGER, "
+                    "CutPoint INTEGER, "
+                    "Depth REAL, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDShapingUpDetail")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
+#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
+#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            
+        def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDShapingUpDetail SET "
+                          "IniPoint= :iniPoint, "
+                          "CutPoint= :cutPoint, "
+                          "Depth= :depth "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":iniPoint", iniPoint )
+            query.bindValue(":cutPoint", cutPoint )
+            query.bindValue(":depth", depth )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+    class ThreeDShLoDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the 3d Shaping data for the lower panels
+        '''
+        __className = 'ThreeDShLoDetModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        IniPointCol = 1 
+        ''':attr: Number of the col holding initial point of the zone of influence'''
+        CutPointCol = 2
+        ''':attr: Number of the col holding position of the point where the cut is set'''
+        DepthCol = 3
+        ''':attr: Number of the col holding the shaping depth'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDShapingLoDetail;")
+            query.exec("create table if not exists ThreeDShapingLoDetail ("
+                    "OrderNum INTEGER, "
+                    "IniPoint INTEGER, "
+                    "CutPoint INTEGER, "
+                    "Depth REAL, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDShapingLoDetail")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
+#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
+#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            
+        def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDShapingLoDetail SET "
+                          "IniPoint= :iniPoint, "
+                          "CutPoint= :cutPoint, "
+                          "Depth= :depth "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":iniPoint", iniPoint )
+            query.bindValue(":cutPoint", cutPoint )
+            query.bindValue(":depth", depth )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class ThreeDShPrintModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Print data for 3d Shaping
+        '''
+        __className = 'ThreeDShPrintModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        NameCol = 1
+        ''':attr: Number of the col holding the layer name'''
+        DrawCol = 2
+        ''':attr: Number of the col holding the info if the layer shall be drawn'''
+        FirstPanelCol = 3 
+        ''':attr: Number of the col holding the number of the first panel to print'''
+        LastPanelCol = 4
+        ''':attr: Number of the col holding the number of the last panel to print'''
+        SymmetricCol = 5
+        ''':attr: Number of the col holding the symmetric information'''
+        ConfigNumCol = 6
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDShapingPrint;")
+            query.exec("create table if not exists ThreeDShapingPrint ("
+                    "OrderNum INTEGER, "
+                    "Name TEXT, "
+                    "Draw INTEGER, "
+                    "FirstPanel INTEGER, "
+                    "LastPanel INTEGER, "
+                    "Symmetric INTEGER, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDShapingPrint")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumConfigs(1)
+            self.setNumRowsForConfig(1, 5)
+
+#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
+#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
+#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            
+        def updateRow(self, configNum, orderNum, name, draw, firstPanel, lastPanel, symmetric):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDShapingPrint SET "
+                          "Name= :name, "
+                          "Draw= :draw, "
+                          "FirstPanel= :firstPanel, "
+                          "LastPanel= :lastPanel, "
+                          "Symmetric= :symmetric "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":name", name )
+            query.bindValue(":draw", draw )
+            query.bindValue(":firstPanel", firstPanel )
+            query.bindValue(":lastPanel", lastPanel )
+            query.bindValue(":symmetric", symmetric )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
     class WingModel(SqlTableModel, metaclass=Singleton):
         '''

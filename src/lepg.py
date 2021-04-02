@@ -54,6 +54,7 @@ from Windows.ThreeDDxf import ThreeDDxfModel
 from Windows.GlueVent import GlueVent
 from Windows.SpecWingTip import SpecWingTip
 from Windows.CalageVar import CalageVar
+from Windows.ThreeDShaping import ThreeDShaping
 
 class MainWindow(QMainWindow):
     '''
@@ -372,8 +373,10 @@ class MainWindow(QMainWindow):
         procCalageVar_A.triggered.connect(self.procCalageVarEdit)
         procCalageVar_A.setEnabled(self.__enableWingFunct)
         
-        procEdit3DShaping_A = QAction(_('3D shaping'), self)
-        procEdit3DShaping_A.setEnabled(False)
+        procThreeDShaping_A = QAction(_('3D shaping'), self)
+        procThreeDShaping_A.setStatusTip(_('Edit parameters 3D shaping'))
+        procThreeDShaping_A.triggered.connect(self.procThreeDShapingEdit)
+        procThreeDShaping_A.setEnabled(self.__enableWingFunct)
         
         procEditThiknessMod_A = QAction(_('Thikness modification'), self)
         procEditThiknessMod_A.setEnabled(False)
@@ -422,7 +425,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procGlueVents_A)
         procMenu.addAction(procSpecWingTip_A)
         procMenu.addAction(procCalageVar_A)
-        procMenu.addAction(procEdit3DShaping_A)
+        procMenu.addAction(procThreeDShaping_A)
         procMenu.addAction(procEditThiknessMod_A)
          
         procMenu.addSeparator()
@@ -646,6 +649,18 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('CalageVar')
             self.mdi.addSubWindow(self.calageVar_W)
         self.calageVar_W.show()
+
+    def procThreeDShapingEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *3D Shapung*
+        '''
+        if self.dws.windowExists('ThreeDShaping') == False:
+            self.threeDSh_W = ThreeDShaping()
+            self.dws.registerWindow('ThreeDShaping')
+            self.mdi.addSubWindow(self.threeDSh_W)
+        self.threeDSh_W.show()
+
+
         
     def procRun(self):
         '''
