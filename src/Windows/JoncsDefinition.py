@@ -215,13 +215,12 @@ class JoncsDefinition(QMdiSubWindow):
 
         # Data lines
         typeLayout = QHBoxLayout()
-        type_CB_L = QLabel(_('Type'))
+        type_L = QLabel(_('Type'))
         self.type_CB.append(QComboBox())
         self.type_CB[currNumTabs].addItem(_("1"))
         self.type_CB[currNumTabs].addItem(_("2"))
-        # self.vault_cb.setCurrentIndex( int(self.pps.getSingleVal('Vault_type')) -1 )
         self.type_CB[currNumTabs].currentIndexChanged.connect(self.typeCbChange)
-        typeLayout.addWidget(type_CB_L)
+        typeLayout.addWidget(type_L)
         typeLayout.addWidget(self.type_CB[currNumTabs])
         typeLayout.addStretch()
         tabLayout.addLayout(typeLayout)
