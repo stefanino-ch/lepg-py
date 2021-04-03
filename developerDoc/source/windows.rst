@@ -166,6 +166,14 @@ Processor Calage variation
    :undoc-members:
    :members:
    :private-members:
+
+Processor 3D Shaping
+--------------------
+.. automodule:: Windows.ThreeDShaping
+   :undoc-members:
+   :members:
+   :private-members:  
+   
    
 Plan Seewing allowances
 -----------------------

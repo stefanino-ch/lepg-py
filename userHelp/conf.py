@@ -22,7 +22,7 @@ copyright = '2020, Stefan Feuz'
 author = 'Stefan Feuz'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2'
+release = '3.15.x'
 
 
 # -- General configuration ---------------------------------------------------

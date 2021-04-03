@@ -3528,12 +3528,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
-#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
-#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
             
         def updateRow(self, configNum, orderNum, firstRib, lastRib):
             '''
@@ -3599,12 +3595,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
-#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
-#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P [%chord]"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P [%chord]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             '''
@@ -3672,12 +3665,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
-#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
-#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P [%chord]"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P [%chord]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             '''

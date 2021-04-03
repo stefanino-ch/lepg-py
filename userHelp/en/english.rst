@@ -33,3 +33,4 @@ English Manual
    proc/glueVent.rst
    proc/specWingTip.rst
    proc/calageVar.rst
+   proc/threeDShaping.rst

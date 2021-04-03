@@ -2498,7 +2498,7 @@ for the example about how to insert.</p>
 <em class="property">class </em><code class="sig-name descname">JoncsDefModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.JoncsDefModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Provides a SqlTableModel holding the DXF layer names</p>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the Joncs definition data</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -4238,6 +4238,396 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Signal</dt>
 <dd class="field-odd"><p>emitted as soon the usage flag is changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel">
+<em class="property">class </em><code class="sig-name descname">ThreeDShConfModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the 3d Shaping configuration</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.FirstRibCol">
+<code class="sig-name descname">FirstRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.FirstRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the first rib</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.LastRibCol">
+<code class="sig-name descname">LastRibCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.LastRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the last rib</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDShConfModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em>, <em class="sig-param"><span class="n">lastRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel">
+<em class="property">class </em><code class="sig-name descname">ThreeDShLoDetModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the 3d Shaping data for the lower panels</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.CutPointCol">
+<code class="sig-name descname">CutPointCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.CutPointCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding position of the point where the cut is set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.DepthCol">
+<code class="sig-name descname">DepthCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.DepthCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the shaping depth</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.IniPointCol">
+<code class="sig-name descname">IniPointCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.IniPointCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding initial point of the zone of influence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDShLoDetModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">iniPoint</span></em>, <em class="sig-param"><span class="n">cutPoint</span></em>, <em class="sig-param"><span class="n">depth</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel">
+<em class="property">class </em><code class="sig-name descname">ThreeDShPrintModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the Print data for 3d Shaping</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.DrawCol">
+<code class="sig-name descname">DrawCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.DrawCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the info if the layer shall be drawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.FirstPanelCol">
+<code class="sig-name descname">FirstPanelCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.FirstPanelCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the number of the first panel to print</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.LastPanelCol">
+<code class="sig-name descname">LastPanelCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.LastPanelCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the number of the last panel to print</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.NameCol">
+<code class="sig-name descname">NameCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.NameCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the layer name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.SymmetricCol">
+<code class="sig-name descname">SymmetricCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.SymmetricCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the symmetric information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDShPrintModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">draw</span></em>, <em class="sig-param"><span class="n">firstPanel</span></em>, <em class="sig-param"><span class="n">lastPanel</span></em>, <em class="sig-param"><span class="n">symmetric</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel">
+<em class="property">class </em><code class="sig-name descname">ThreeDShUpDetModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the 3d Shaping data for the upper panels</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.CutPointCol">
+<code class="sig-name descname">CutPointCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.CutPointCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding position of the point where the cut is set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.DepthCol">
+<code class="sig-name descname">DepthCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.DepthCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding the shaping depth</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.IniPointCol">
+<code class="sig-name descname">IniPointCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.IniPointCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Number of the col holding initial point of the zone of influence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'ThreeDShUpDetModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">iniPoint</span></em>, <em class="sig-param"><span class="n">cutPoint</span></em>, <em class="sig-param"><span class="n">depth</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
