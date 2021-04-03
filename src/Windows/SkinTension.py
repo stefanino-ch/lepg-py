@@ -10,12 +10,12 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class ProcSkinTension(QMdiSubWindow):
+class SkinTension(QMdiSubWindow):
     '''
     :class: Window to display and edit Skin tension data  
     '''
 
-    __className = 'ProcSkinTension'
+    __className = 'SkinTension'
     '''
     :attr: Does help to indicate the source of the log messages
     '''

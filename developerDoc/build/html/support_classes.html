@@ -3494,6 +3494,206 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel">
+<em class="property">class </em><code class="sig-name descname">NewSkinTensConfModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>provides a SqlTableModel holding all data related to the group wide parameters for New Skin Tension</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.FinalRibCol">
+<code class="sig-name descname">FinalRibCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.FinalRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the final rib</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.InitialRibCol">
+<code class="sig-name descname">InitialRibCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.InitialRibCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the first rib of the config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.TypeCol">
+<code class="sig-name descname">TypeCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.TypeCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding type information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'NewSkinTensConfModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.__numConfigs">
+<code class="sig-name descname">__numConfigs</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.__numConfigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">initialRib</span></em>, <em class="sig-param"><span class="n">finalRib</span></em>, <em class="sig-param"><span class="n">calcT</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel">
+<em class="property">class </em><code class="sig-name descname">NewSkinTensDetModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all detail data related to New skin tension.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.BottDistTECol">
+<code class="sig-name descname">BottDistTECol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.BottDistTECol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Distance in% of chord on trailing edge</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.BottWideCol">
+<code class="sig-name descname">BottWideCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.BottWideCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Intrados over-wide corresponding in% of chord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the config number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.TopDistLECol">
+<code class="sig-name descname">TopDistLECol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.TopDistLECol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Distance in% of chord on the leading edge of extrados</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.TopWideCol">
+<code class="sig-name descname">TopWideCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.TopWideCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Extrados over-wide corresponding in % of chord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'NewSkinTensionDetModel'</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the empty Skin tension table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">topDistLE</span></em>, <em class="sig-param"><span class="n">topWide</span></em>, <em class="sig-param"><span class="n">botDistTE</span></em>, <em class="sig-param"><span class="n">botWide</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>updates a specific row with the parameters passed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="DataStores.ProcessorModel.ProcessorModel.NoseMylarsModel">
 <em class="property">class </em><code class="sig-name descname">NoseMylarsModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NoseMylarsModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">

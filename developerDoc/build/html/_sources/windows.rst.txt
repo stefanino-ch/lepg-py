@@ -64,7 +64,7 @@ Processor Rib Holes
    
 Processor Skin tension
 ----------------------
-.. automodule:: Windows.ProcSkinTension
+.. automodule:: Windows.SkinTension
    :undoc-members:
    :members:
    :private-members: 
@@ -177,6 +177,13 @@ Processor 3D Shaping
 Processor Airfoil thickness
 ---------------------------
 .. automodule:: Windows.AirfoilThickness
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor New skin tension
+--------------------------
+.. automodule:: Windows.NewSkinTension
    :undoc-members:
    :members:
    :private-members:

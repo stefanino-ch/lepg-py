@@ -33,7 +33,7 @@ from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
 from Windows.ProcAnchorPoints import ProcAnchorPoints
-from Windows.ProcSkinTension import ProcSkinTension
+from Windows.SkinTension import SkinTension
 from Windows.SeewingAllowances import SeewingAllowances
 from Windows.Marks import Marks
 from Windows.GlobalAoA import GlobalAoA
@@ -56,6 +56,7 @@ from Windows.SpecWingTip import SpecWingTip
 from Windows.CalageVar import CalageVar
 from Windows.ThreeDShaping import ThreeDShaping
 from Windows.AirfoilThickness import AirfoilThickness
+from Windows.NewSkinTension import NewSkinTension
 
 class MainWindow(QMainWindow):
     '''
@@ -384,8 +385,10 @@ class MainWindow(QMainWindow):
         procAirfoilThick_A.triggered.connect(self.procAirfoilThickEdit)
         procAirfoilThick_A.setEnabled(self.__enableWingFunct)
         
-        procEditNewSkinTens_A = QAction(_('New skin tension'), self)
-        procEditNewSkinTens_A.setEnabled(False)
+        procNewSkinTens_A = QAction(_('New skin tension'), self)
+        procNewSkinTens_A.setStatusTip(_('Edit parameters for new skin tension'))
+        procNewSkinTens_A.triggered.connect(self.procNewSkinTensionEdit)
+        procNewSkinTens_A.setEnabled(self.__enableWingFunct)
         
         procRunAct = QAction(_('Run Processor'), self)
         procRunAct.setStatusTip(_('run_Processor_des'))
@@ -406,7 +409,7 @@ class MainWindow(QMainWindow):
         
         skinTensMenu = QMenu(_('Skin Tension'),self)
         skinTensMenu.addAction(procSkinTension_A)
-        skinTensMenu.addAction(procEditNewSkinTens_A)
+        skinTensMenu.addAction(procNewSkinTens_A)
         procMenu.addMenu(skinTensMenu)
         
         procMenu.addAction(procGenAoA_A)
@@ -508,7 +511,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* -> *Skin Tension*
         '''
         if self.dws.windowExists('SkinTension') == False:
-            self.skinTensionW = ProcSkinTension()
+            self.skinTensionW = SkinTension()
             self.dws.registerWindow('SkinTension')
             self.mdi.addSubWindow(self.skinTensionW)
         self.skinTensionW.show()
@@ -672,6 +675,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('AirfoilThickness')
             self.mdi.addSubWindow(self.airfThick_W)
         self.airfThick_W.show()
+        
+    def procNewSkinTensionEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *New skin tension*
+        '''
+        if self.dws.windowExists('NewSkinTension') == False:
+            self.newSkinTens_W = NewSkinTension()
+            self.dws.registerWindow('NewSkinTension')
+            self.mdi.addSubWindow(self.newSkinTens_W)
+        self.newSkinTens_W.show()
         
     def procRun(self):
         '''

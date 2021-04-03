@@ -88,6 +88,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.threeDShLoDet_M = ProcessorModel.ThreeDShLoDetModel()
         self.threeDShPr_M = ProcessorModel.ThreeDShPrintModel()
         self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
+        self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
+        self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
         
     def isValid( self, fileName ):
         '''
@@ -905,6 +907,35 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 values =  self.splitLine( stream.readLine() )
                 self.airfThick_M.updateRow(1, l+1, values[1])
         
+        
+        ##############################
+        # 31. NEW SKIN TENSION
+        logging.debug(self.__className+'.readFile: New skin tension')
+        for i in range(3):
+            line = stream.readLine()
+            
+        data = int( self.remTabSpace( stream.readLine() ) )
+        
+        self.newSkinTensConf_M.setNumConfigs(0)
+        self.newSkinTensDet_M.setNumConfigs(0)
+        
+        if data != '0':
+            numGroups = int( self.remTabSpace( stream.readLine() ) )
+            self.newSkinTensConf_M.setNumConfigs(numGroups)
+            
+            for g in range (0, numGroups):
+                # comment line
+                line = stream.readLine()
+                
+                values = self.splitLine( stream.readLine() )
+                self.newSkinTensConf_M.updateRow(g+1, values[1], values[2], values[4])
+                
+                numLines = int(values[3])
+                self.newSkinTensDet_M.setNumRowsForConfig(g+1, numLines)
+                for l in range (0, numLines):
+                    values = self.splitLine( stream.readLine() )
+                    self.newSkinTensDet_M.updateRow(g+1, l+1, values[1], values[2], values[3], values[4])
+            
         ##############################
         # Cleanup
         inFile.close() 
@@ -3099,6 +3130,147 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
+    class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: provides a SqlTableModel holding all data related to the group wide parameters for New Skin Tension 
+        '''
+       
+        __className = 'NewSkinTensConfModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        __numConfigs = 0
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        InitialRibCol = 1
+        ''':attr: number of the column holding the first rib of the config'''
+        FinalRibCol = 2 
+        ''':attr: number of the column holding the final rib'''
+        TypeCol = 3
+        ''':attr: number of the column holding type information'''
+        ConfigNumCol = 4
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+                '''
+                :method: Creates initially the empty table.
+                ''' 
+                logging.debug(self.__className+'.createTable')   
+                query = QSqlQuery()
+                    
+                query.exec("DROP TABLE if exists NewSkinTensConf;")
+                query.exec("create table if not exists NewSkinTensConf ("
+                        "OrderNum INTEGER,"
+                        "InitialRib INTEGER,"
+                        "FinalRib INTEGER,"
+                        "Type INTEGER,"
+                        "ConfigNum INTEGER,"
+                        "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("NewSkinTensConf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Horizontal, _("Type"))
+        
+        def updateRow(self, config, initialRib, finalRib, calcT):
+            logging.debug(self.__className+'.updateRow')
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE NewSkinTensConf SET InitialRib= :initial , FinalRib= :final, Type= :calcT WHERE (ConfigNum = :config);")
+            query.bindValue(":initial", initialRib )
+            query.bindValue(":final", finalRib )
+            query.bindValue(":calcT", calcT )
+            query.bindValue(":config", config )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+    class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all detail data related to New skin tension. 
+        '''
+        __className = 'NewSkinTensionDetModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        TopDistLECol = 1
+        ''':attr: Distance in% of chord on the leading edge of extrados'''
+        TopWideCol = 2
+        ''':attr: Extrados over-wide corresponding in % of chord'''
+        BottDistTECol = 3
+        ''':attr: Distance in% of chord on trailing edge'''
+        BottWideCol = 4
+        ''':attr: Intrados over-wide corresponding in% of chord'''
+        ConfigNumCol = 5
+        ''':attr: number of the column holding the config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Skin tension table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists NewSkinTensDet;")
+            query.exec("create table if not exists NewSkinTensDet ("
+                    "OrderNum INTEGER, "
+                    "TopDistLE REAL, "
+                    "TopWide REAL, "
+                    "BotDistTE REAL, "
+                    "BotWide REAL, "
+                    "ConfigNum INTEGER, "
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("NewSkinTensDet")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))            
+            self.setHeaderData(1, Qt.Horizontal, _("Top dist LE"))
+            self.setHeaderData(2, Qt.Horizontal, _("Top widening"))
+            self.setHeaderData(3, Qt.Horizontal, _("Bott dist TE"))
+            self.setHeaderData(4, Qt.Horizontal, _("Bott widening"))
+        
+        def updateRow(self, configNum, orderNum, topDistLE, topWide, botDistTE, botWide):
+            '''
+            :method: updates a specific row with the parameters passed.
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE NewSkinTensDet SET "
+                          "TopDistLE= :topDis, "
+                          "TopWide= :topWide, "
+                          "BotDistTE= :botDis, "
+                          "BotWide= :botWide  "
+                          "WHERE (ConfigNum = :config AND OrderNum= :order);")
+            query.bindValue(":topDis", topDistLE )
+            query.bindValue(":topWide", topWide )
+            query.bindValue(":botDis", botDistTE )
+            query.bindValue(":botWide", botWide )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
     class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3377,6 +3549,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             self.addRows(-1, 6)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Top dist LE"))
+            self.setHeaderData(1, Qt.Horizontal, _("Top widening"))
+            self.setHeaderData(2, Qt.Horizontal, _("Bott dist TE"))
+            self.setHeaderData(3, Qt.Horizontal, _("Bott widening"))
         
         def updateRow(self, row, topDistLE, topWide, bottDistTE, bottWide):
             '''
