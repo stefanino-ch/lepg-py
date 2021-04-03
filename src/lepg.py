@@ -55,6 +55,7 @@ from Windows.GlueVent import GlueVent
 from Windows.SpecWingTip import SpecWingTip
 from Windows.CalageVar import CalageVar
 from Windows.ThreeDShaping import ThreeDShaping
+from Windows.AirfoilThickness import AirfoilThickness
 
 class MainWindow(QMainWindow):
     '''
@@ -378,8 +379,10 @@ class MainWindow(QMainWindow):
         procThreeDShaping_A.triggered.connect(self.procThreeDShapingEdit)
         procThreeDShaping_A.setEnabled(self.__enableWingFunct)
         
-        procEditThiknessMod_A = QAction(_('Thikness modification'), self)
-        procEditThiknessMod_A.setEnabled(False)
+        procAirfoilThick_A = QAction(_('Airfoil thickness'), self)
+        procAirfoilThick_A.setStatusTip(_('Edit parameters for airfoil thickness'))
+        procAirfoilThick_A.triggered.connect(self.procAirfoilThickEdit)
+        procAirfoilThick_A.setEnabled(self.__enableWingFunct)
         
         procEditNewSkinTens_A = QAction(_('New skin tension'), self)
         procEditNewSkinTens_A.setEnabled(False)
@@ -426,7 +429,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procSpecWingTip_A)
         procMenu.addAction(procCalageVar_A)
         procMenu.addAction(procThreeDShaping_A)
-        procMenu.addAction(procEditThiknessMod_A)
+        procMenu.addAction(procAirfoilThick_A)
          
         procMenu.addSeparator()
         procMenu.addAction(procRunAct)
@@ -660,7 +663,15 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.threeDSh_W)
         self.threeDSh_W.show()
 
-
+    def procAirfoilThickEdit(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Airfoil thickness*
+        '''
+        if self.dws.windowExists('AirfoilThickness') == False:
+            self.airfThick_W = AirfoilThickness()
+            self.dws.registerWindow('AirfoilThickness')
+            self.mdi.addSubWindow(self.airfThick_W)
+        self.airfThick_W.show()
         
     def procRun(self):
         '''

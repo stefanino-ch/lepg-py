@@ -174,6 +174,13 @@ Processor 3D Shaping
    :members:
    :private-members:  
    
+Processor Airfoil thickness
+---------------------------
+.. automodule:: Windows.AirfoilThickness
+   :undoc-members:
+   :members:
+   :private-members:
+   
    
 Plan Seewing allowances
 -----------------------

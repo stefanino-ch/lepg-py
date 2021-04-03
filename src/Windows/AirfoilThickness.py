@@ -11,12 +11,12 @@ from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
-class GlueVent(QMdiSubWindow):
+class AirfoilThickness(QMdiSubWindow):
     '''
-    :class: Window to display and edit Glue vent data
+    :class: Window to display and edit Airfoil thickness data
     '''
 
-    __className = 'GlueVent'
+    __className = 'AirfoilThickness'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -28,8 +28,8 @@ class GlueVent(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.glueVent_M = ProcessorModel.GlueVentModel()
-        self.glueVent_M.usageUpd.connect( self.usageUpdate )
+        self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
+        self.airfThick_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -66,11 +66,11 @@ class GlueVent(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Glue vent"))
+        self.setWindowTitle(_("Airfoil thickness"))
         
         usage_L = QLabel(_('Type'))
         self.usage_CB = QComboBox()
-        self.usage_CB.addItem(_("Defaults"))
+        self.usage_CB.addItem(_("None"))
         self.usage_CB.addItem(_("User defined"))
         self.usage_CB.currentIndexChanged.connect(self.usageCbChange)
         usage_Lo = QHBoxLayout()
@@ -81,19 +81,19 @@ class GlueVent(QMdiSubWindow):
         self.windowLayout.addLayout(usage_Lo)
         
         one_T = TableView()
-        one_T.setModel( self.glueVent_M )
+        one_T.setModel( self.airfThick_M )
         one_T.verticalHeader().setVisible(False)
         one_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        one_T.hideColumn( self.glueVent_M.columnCount()-1 )
-        one_T.hideColumn( self.glueVent_M.columnCount()-2 )
+        one_T.hideColumn( self.airfThick_M.columnCount()-1 )
+        one_T.hideColumn( self.airfThick_M.columnCount()-2 )
         self.windowLayout.addWidget(one_T)
         
-        one_T.enableIntValidator(ProcessorModel.GlueVentModel.OrderNumCol, ProcessorModel.GlueVentModel.OrderNumCol, 0, 999)
-        one_T.enableDoubleValidator(ProcessorModel.GlueVentModel.VentParamCol, ProcessorModel.GlueVentModel.VentParamCol, -3, 1, 0)
+        one_T.enableIntValidator(ProcessorModel.AirfoilThicknessModel.OrderNumCol, ProcessorModel.AirfoilThicknessModel.OrderNumCol, 0, 999)
+        one_T.enableDoubleValidator(ProcessorModel.AirfoilThicknessModel.CoeffCol, ProcessorModel.AirfoilThicknessModel.CoeffCol, 0, 10, 1)
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.GlueVentModel.OrderNumCol, _('GlueVent-AirfoilNumDesc'))
-        one_T.setHelpText(ProcessorModel.GlueVentModel.VentParamCol, _('GlueVent-VentParamDesc'))
+        one_T.setHelpText(ProcessorModel.AirfoilThicknessModel.OrderNumCol, _('AirfThick-RibNumDesc'))
+        one_T.setHelpText(ProcessorModel.AirfoilThicknessModel.CoeffCol, _('AirfThick-CoeffDesc'))
 
         self.usageUpdate()
         
@@ -102,7 +102,7 @@ class GlueVent(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/glueVent.html')
+        self.btnBar.setHelpPage('proc/airfoilThickness.html')
         
         bottomLayout = QHBoxLayout()
         bottomLayout.addStretch() 
@@ -118,7 +118,7 @@ class GlueVent(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.usageUpdate')
         
-        if self.glueVent_M.isUsed():
+        if self.airfThick_M.isUsed():
             self.usage_CB.setCurrentIndex(1)
         else:
             self.usage_CB.setCurrentIndex(0)
@@ -129,9 +129,9 @@ class GlueVent(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.usageCbChange')
         if self.usage_CB.currentIndex() == 0:
-            self.glueVent_M.setIsUsed(False)
+            self.airfThick_M.setIsUsed(False)
         else:
-            self.glueVent_M.setIsUsed(True)
+            self.airfThick_M.setIsUsed(True)
             
     def btnPress(self, q):
         '''

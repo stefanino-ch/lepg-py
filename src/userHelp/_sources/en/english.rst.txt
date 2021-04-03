@@ -34,3 +34,5 @@ English Manual
    proc/specWingTip.rst
    proc/calageVar.rst
    proc/threeDShaping.rst
+   proc/airfoilThickness.rst
+   proc/newSkinTension.rst
