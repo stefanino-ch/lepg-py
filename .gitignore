@@ -21,3 +21,4 @@ installer/dist-W64/lepg
 
 # stuff from the development environment
 .pydevproject
+/preTest.txt

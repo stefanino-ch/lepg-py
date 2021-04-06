@@ -14,7 +14,7 @@ from DataStores.ProcessorModel import ProcessorModel
 
 class DxfLayerNames(QMdiSubWindow):
     '''
-    :class: Window to display and edit Brake line details  
+    :class: Window to display and edit DXF Layer names  
     '''
 
     __className = 'DxfLayerNames'

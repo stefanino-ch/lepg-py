@@ -16,23 +16,21 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessa
 from __init__ import __version__
 
 from ConfigReader.ConfigReader import ConfigReader
-from DataStores.PreProcessorStore import PreProcessorStore
-
-from DataStores.ProcessorStore import ProcessorStore
+from DataStores.PreProcessorModel import PreProcessorModel
 from DataStores.ProcessorModel import ProcessorModel
 
 from Windows.DataStatusOverview import DataStatusOverview
-from Windows.PreProcDataEdit import PreProcDataEdit
+from Windows.PreProcData import PreProcData
 from Windows.WingViewer import WingViewer
 from Windows.BasicData import BasicData
-from Windows.ProcGeometry import ProcGeometry
-from Windows.ProcAirfoils import ProcAirfoils
+from Windows.Geometry import Geometry
+from Windows.Airfoils import Airfoils
 from Windows.RibHoles import RibHoles
 from Windows.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
 from Windows.ProcessorOutput import ProcessorOutput
-from Windows.ProcAnchorPoints import ProcAnchorPoints
+from Windows.AnchorPoints import AnchorPoints
 from Windows.SkinTension import SkinTension
 from Windows.SeewingAllowances import SeewingAllowances
 from Windows.Marks import Marks
@@ -57,6 +55,8 @@ from Windows.CalageVar import CalageVar
 from Windows.ThreeDShaping import ThreeDShaping
 from Windows.AirfoilThickness import AirfoilThickness
 from Windows.NewSkinTension import NewSkinTension
+from Windows.PreProcCellsDistribution import PreProcCellsDistribution
+
 
 class MainWindow(QMainWindow):
     '''
@@ -67,11 +67,6 @@ class MainWindow(QMainWindow):
     '''
     :attr: Does help to indicate the source of the log messages
     '''
-    
-    __enableWingFunct = True
-    '''
-    :attr: Set to true to enable all menus related to wing (Processor) functionality. This is used as a temporary aid allowing easier to sync back to the stable branch.
-    ''' 
 
     def __init__(self, parent = None):
         '''
@@ -105,10 +100,8 @@ class MainWindow(QMainWindow):
             lang_en = gettext.translation ('lepg', locale_path, languages=['en'] )
             lang_en.install()
         
-        self.pps = PreProcessorStore()
-        
-        # @TODO: ProcessorModel
-        self.ps = ProcessorStore()
+        #self.pps = PreProcessorStore()
+        self.ppm = PreProcessorModel()
         self.pm = ProcessorModel()
         
         self.dws = DataWindowStatus()
@@ -185,9 +178,13 @@ class MainWindow(QMainWindow):
         preProcSaveAsAct.setStatusTip(_('save_preProc_file_as_desc'))
         preProcSaveAsAct.triggered.connect(self.preProcSaveFileAs)
         
-        preProcEditAct = QAction(_('Edit PreProc Data'), self)
+        preProcEditAct = QAction(_('Name, LE, TE, Vault'), self)
         preProcEditAct.setStatusTip(_('edit_preProc_data_description'))
         preProcEditAct.triggered.connect(self.preProcEdit)
+        
+        preProcCellsDistrAct = QAction(_('Cells distribution'), self)
+        preProcCellsDistrAct.setStatusTip(_('edit_preProc_cellsDistr_description'))
+        preProcCellsDistrAct.triggered.connect(self.preProcCellsDistrEdit)
         
         preProcRunAct = QAction(_('Run Pre-Processor'), self)
         preProcRunAct.setStatusTip(_('run_preProc_des'))
@@ -197,40 +194,50 @@ class MainWindow(QMainWindow):
         preProcMenu = self.mainMenu.addMenu(_('Pre Processor'))
         preProcMenu.addAction(preProcOpenFileAct)
         preProcMenu.addAction(preProcSaveAct)
-        preProcMenu.addSeparator()
         preProcMenu.addAction(preProcSaveAsAct)
         preProcMenu.addSeparator()
         preProcMenu.addAction(preProcEditAct)
+        preProcMenu.addAction(preProcCellsDistrAct)
+        preProcMenu.addSeparator()
         preProcMenu.addAction(preProcRunAct)
         
     def preProcOpenFile(self):
         '''
         :method: Called if the user selects *Pre Processor* -> *Open PreProc File*
         ''' 
-        self.pps.openFile()
+        self.ppm.openFile()
         
     def preProcSaveFile(self):
         '''
         :method: Called if the user selects *Pre Processor* -> *Save PreProc File*
         '''
-        self.pps.saveFile()
+        self.ppm.saveFile()
         
     def preProcSaveFileAs(self):
         '''
         :method: Called if the user selects *Pre Processor* -> *Save PreProc File As ..*
         '''
-        self.pps.saveFileAs()
+        self.ppm.saveFileAs()
         
     def preProcEdit(self):
         '''
-        :method: Called if the user selects *Pre Processor* -> *Edit PreProc Data*
+        :method: Called if the user selects *Pre Processor* -> *Name, LE, TE, Vault*
         '''
         if self.dws.windowExists('PreProcDataEdit') == False:
-            self.preProcEditW = PreProcDataEdit()
+            self.preProcEditW = PreProcData()
             self.dws.registerWindow('PreProcDataEdit')
             self.mdi.addSubWindow(self.preProcEditW)
-
         self.preProcEditW.show() 
+        
+    def preProcCellsDistrEdit(self):
+        '''
+        :method: Called if the user selects *Pre Processor* -> *Cells distribution*
+        '''
+        if self.dws.windowExists('PreProcCellsDistribution') == False:
+            self.preProcCellsDistrW = PreProcCellsDistribution()
+            self.dws.registerWindow('PreProcCellsDistribution')
+            self.mdi.addSubWindow(self.preProcCellsDistrW)
+        self.preProcCellsDistrW.show()
         
     def preProcRun(self):
         '''
@@ -239,7 +246,7 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.preProcRun')
         
         # Save current file into processor directory
-        self.pps.writeFile(True)
+        self.ppm.writeFile(True)
         
         # Open the window for the user info
         if self.dws.windowExists('ProcessorOutput') == False:
@@ -260,102 +267,82 @@ class MainWindow(QMainWindow):
         procOpenFile_A = QAction(_('Open Processor File'), self)
         procOpenFile_A.setStatusTip(_('open_Proc_file_desc'))
         procOpenFile_A.triggered.connect(self.procOpenFile)
-        procOpenFile_A.setEnabled(self.__enableWingFunct)
         
         procSave_A = QAction(_('Save Processor File'), self)
         procSave_A.setStatusTip(_('save_proc_file_desc'))
         procSave_A.triggered.connect(self.procSaveFile)
-        procSave_A.setEnabled(self.__enableWingFunct)
         
         procSaveAs_A = QAction(_('Save Processor File As ..'), self)
         procSaveAs_A.setStatusTip(_('save_proc_file_as_desc'))
         procSaveAs_A.triggered.connect(self.procSaveFileAs)
-        procSaveAs_A.setEnabled(self.__enableWingFunct)
         
         procBasicData_A = QAction(_('Basic data'), self)
         procBasicData_A.setStatusTip(_('Editing the wing basics'))
         procBasicData_A.triggered.connect(self.procBasicDataEdit)
-        procBasicData_A.setEnabled(self.__enableWingFunct)
         
         procGeometry_A = QAction(_('Geometry'), self)
         procGeometry_A.setStatusTip(_('Edit wing geometry'))
         procGeometry_A.triggered.connect(self.procGeometryEdit)
-        procGeometry_A.setEnabled(self.__enableWingFunct)
         
         procAirfoils_A = QAction(_('Airfoils'), self)
         procAirfoils_A.setStatusTip(_('Edit airfoils geometry'))
         procAirfoils_A.triggered.connect(self.procAirfoilsEdit)
-        procAirfoils_A.setEnabled(self.__enableWingFunct)
         
         procAnchPoints_A = QAction(_('Anchor Points'), self)
         procAnchPoints_A.setStatusTip(_('Edit Anchor points data'))
         procAnchPoints_A.triggered.connect(self.procAnchorPointsEdit)
-        procAnchPoints_A.setEnabled(self.__enableWingFunct)
         
         procRibHoles_A = QAction(_('Rib Holes'), self)
         procRibHoles_A.setStatusTip(_('Edit rib holes (Rib lightening) data'))
         procRibHoles_A.triggered.connect(self.procRibHolesEdit)
-        procRibHoles_A.setEnabled(self.__enableWingFunct)
         
         procSkinTension_A = QAction(_('Skin Tension'), self)
         procSkinTension_A.setStatusTip(_('Edit Skin tension data'))
         procSkinTension_A.triggered.connect(self.procSkinTensionEdit)
-        procSkinTension_A.setEnabled(self.__enableWingFunct)
         
         procGenAoA_A = QAction(_('Estimated general AoA'), self)
         procGenAoA_A.setStatusTip(_('Edit global AoA data'))
         procGenAoA_A.triggered.connect(self.procGlobalAoAEdit)
-        procGenAoA_A.setEnabled(self.__enableWingFunct)
         
         procLines_A = QAction(_('Lines'), self)
         procLines_A.setStatusTip(_('Edit Lines data'))
         procLines_A.triggered.connect(self.procLinesEdit)
-        procLines_A.setEnabled(self.__enableWingFunct)
         
         procBrakes_A = QAction(_('Brakes'), self)
         procBrakes_A.setStatusTip(_('Edit Brake lines data'))
         procBrakes_A.triggered.connect(self.procBrakesEdit)
-        procBrakes_A.setEnabled(self.__enableWingFunct)
         
         procRam_A = QAction(_('Ramifications length'), self)
         procRam_A.setStatusTip(_('Edit Ramification data'))
         procRam_A.triggered.connect(self.procRamEdit)
-        procRam_A.setEnabled(self.__enableWingFunct)
         
         procHvvHRibs_A = QAction(_('HV and VH ribs'), self)
         procHvvHRibs_A.setStatusTip(_('Edit HV/ VH ribs data'))
         procHvvHRibs_A.triggered.connect(self.procHvVhEdit)
-        procHvvHRibs_A.setEnabled(self.__enableWingFunct)
         
         procExtradColors_A = QAction(_('Extrados colors'), self)
         procExtradColors_A.setStatusTip(_('Edit extrados colors data'))
         procExtradColors_A.triggered.connect(self.procExtradColorsEdit)
-        procExtradColors_A.setEnabled(self.__enableWingFunct)
         
         procIntradColors_A = QAction(_('Intrados colors'), self)
         procIntradColors_A.setStatusTip(_('Edit intrados colors data'))
         procIntradColors_A.triggered.connect(self.procIntradColorsEdit)
-        procIntradColors_A.setEnabled(self.__enableWingFunct)
         
         procAddRibPts_A = QAction(_('Additional rib points'), self)
         procAddRibPts_A.setStatusTip(_('Edit additional rib points data'))
         procAddRibPts_A.triggered.connect(self.procAddRibPtsEdit)
-        procAddRibPts_A.setEnabled(self.__enableWingFunct)
         
         procElLinesCorr_A = QAction(_('Elastic lines correction'), self)
         procElLinesCorr_A.setStatusTip(_('Edit Elastic lines correction data'))
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
-        procElLinesCorr_A.setEnabled(self.__enableWingFunct)
         
         procJoncsDef_A = QAction(_('Joncs definitions'), self)
         procJoncsDef_A.setStatusTip(_('Edit Joncs (Nylon rods) definition'))
         procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
-        procJoncsDef_A.setEnabled(self.__enableWingFunct)
         
         procNoseMylars_A = QAction(_('Nose Mylars'), self)
         procNoseMylars_A.setStatusTip(_('Edit Nose mylars definition'))
         procNoseMylars_A.triggered.connect(self.procNoseMylarsEdit)
-        procNoseMylars_A.setEnabled(self.__enableWingFunct)
         
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
@@ -363,37 +350,30 @@ class MainWindow(QMainWindow):
         procGlueVents_A = QAction(_('Glue vents'), self)
         procGlueVents_A.setStatusTip(_('Edit Glue vent definitions'))
         procGlueVents_A.triggered.connect(self.procGlueVentEdit)
-        procGlueVents_A.setEnabled(self.__enableWingFunct)
         
         procSpecWingTip_A = QAction(_('Special wingtip'), self)
         procSpecWingTip_A.setStatusTip(_('Edit Special wing tip definitions'))
         procSpecWingTip_A.triggered.connect(self.procSpecWingtTipEdit)
-        procSpecWingTip_A.setEnabled(self.__enableWingFunct)
         
         procCalageVar_A = QAction(_('Calage variation'), self)
         procCalageVar_A.setStatusTip(_('Edit parameters for calage variation study'))
         procCalageVar_A.triggered.connect(self.procCalageVarEdit)
-        procCalageVar_A.setEnabled(self.__enableWingFunct)
         
         procThreeDShaping_A = QAction(_('3D shaping'), self)
         procThreeDShaping_A.setStatusTip(_('Edit parameters 3D shaping'))
         procThreeDShaping_A.triggered.connect(self.procThreeDShapingEdit)
-        procThreeDShaping_A.setEnabled(self.__enableWingFunct)
         
         procAirfoilThick_A = QAction(_('Airfoil thickness'), self)
         procAirfoilThick_A.setStatusTip(_('Edit parameters for airfoil thickness'))
         procAirfoilThick_A.triggered.connect(self.procAirfoilThickEdit)
-        procAirfoilThick_A.setEnabled(self.__enableWingFunct)
         
         procNewSkinTens_A = QAction(_('New skin tension'), self)
         procNewSkinTens_A.setStatusTip(_('Edit parameters for new skin tension'))
         procNewSkinTens_A.triggered.connect(self.procNewSkinTensionEdit)
-        procNewSkinTens_A.setEnabled(self.__enableWingFunct)
         
         procRunAct = QAction(_('Run Processor'), self)
         procRunAct.setStatusTip(_('run_Processor_des'))
-        procRunAct.triggered.connect(self.preProcRun)
-        procRunAct.setEnabled(False)
+        procRunAct.triggered.connect(self.procRun)
         
         # Build the menu
         procMenu = self.mainMenu.addMenu(_('Processor'))
@@ -448,13 +428,13 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Save Processor File*
         '''
-        self.ps.saveFile()
+        self.pm.saveFile()
         
     def procSaveFileAs(self):
         '''
         :method: Called if the user selects *Processor* -> *Save Processor File As..*
         '''
-        self.ps.saveFileAs()
+        self.pm.saveFileAs()
     
     def procBasicDataEdit(self):
         '''
@@ -470,9 +450,9 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Geometry*
         '''
-        if self.dws.windowExists('ProcGeometry') == False:
-            self.geometryW = ProcGeometry()
-            self.dws.registerWindow('ProcGeometry')
+        if self.dws.windowExists('Geometry') == False:
+            self.geometryW = Geometry()
+            self.dws.registerWindow('Geometry')
             self.mdi.addSubWindow(self.geometryW)
         self.geometryW.show()
 
@@ -480,9 +460,9 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Airfoils*
         '''
-        if self.dws.windowExists('ProcAirfoils') == False:
-            self.airfoilsW = ProcAirfoils()
-            self.dws.registerWindow('ProcAirfoils')
+        if self.dws.windowExists('Airfoils') == False:
+            self.airfoilsW = Airfoils()
+            self.dws.registerWindow('Airfoils')
             self.mdi.addSubWindow(self.airfoilsW)
         self.airfoilsW.show()
         
@@ -490,9 +470,9 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Anchor Points*
         '''
-        if self.dws.windowExists('ProcAnchorPoints') == False:
-            self.anchPointsW = ProcAnchorPoints()
-            self.dws.registerWindow('ProcAirfoils')
+        if self.dws.windowExists('AnchorPoints') == False:
+            self.anchPointsW = AnchorPoints()
+            self.dws.registerWindow('Airfoils')
             self.mdi.addSubWindow(self.anchPointsW)
         self.anchPointsW.show()
 
@@ -690,11 +670,11 @@ class MainWindow(QMainWindow):
         '''
         :method: Called if the user selects *Processor* -> *Run Processor*
         '''
-        logging.debug(self.__className + '.preProcRun')
+        logging.debug(self.__className + '.procRun')
         
         # Save current file into processor directory
-        self.pps.writeFile(True)
-        
+        self.pm.writeFile(True)
+
         # Open the window for the user info
         if self.dws.windowExists('ProcessorOutput') == False:
             self.procOutW = ProcessorOutput()
@@ -703,8 +683,8 @@ class MainWindow(QMainWindow):
         self.procOutW.show()
         
         # Finally run the processor
-        preProcRunner = ProcRunner(self.procOutW)
-        preProcRunner.runPreProc()
+        procRunner = ProcRunner(self.procOutW)
+        procRunner.runProc()
     
     def buildPlanMenu(self):
         '''
@@ -715,34 +695,26 @@ class MainWindow(QMainWindow):
         planSeewingAll_A = QAction(_('Seewing Allowance'), self)
         planSeewingAll_A.setStatusTip(_('Edit Seewing allowances'))
         planSeewingAll_A.triggered.connect(self.planSeewingAllEdit)
-        planSeewingAll_A.setEnabled(self.__enableWingFunct)
         
         planMarks_A = QAction(_('Marks'), self)
         planMarks_A.setStatusTip(_('Edit the Marks parameters'))
         planMarks_A.triggered.connect(self.planMarksEdit)
-        planMarks_A.setEnabled(self.__enableWingFunct)
-
         
         planDxfLayerNames_A = QAction(_('DXF Layer names'), self)
         planDxfLayerNames_A.setStatusTip(_('Edit the names of the individual DXF layers'))
         planDxfLayerNames_A.triggered.connect(self.planDxFLayerNamesEdit)
-        planDxfLayerNames_A.setEnabled(self.__enableWingFunct)
         
         procMarksT_A = QAction(_('Marks types'), self)
         procMarksT_A.setStatusTip(_('Edit individual paramters for the marks on the plans'))
         procMarksT_A.triggered.connect(self.marksTypesEdit)
-        procMarksT_A.setEnabled(self.__enableWingFunct)
-
         
         procTwoDDxf_A = QAction(_('2D DXF options'), self)
         procTwoDDxf_A.setStatusTip(_('Edit for the 2D dxf plans'))
         procTwoDDxf_A.triggered.connect(self.twoDDxfEdit)
-        procTwoDDxf_A.setEnabled(self.__enableWingFunct)
         
         procThreeDDxf_A = QAction(_('3D DXF options'), self)
         procThreeDDxf_A.setStatusTip(_('Edit for the 3D dxf plans'))
         procThreeDDxf_A.triggered.connect(self.threeDDxfEdit)
-        procThreeDDxf_A.setEnabled(self.__enableWingFunct)
         
         # Build the menu
         planMenu = self.mainMenu.addMenu(_('Plan'))
@@ -821,7 +793,7 @@ class MainWindow(QMainWindow):
         viewWingAct = QAction(_('Wing'), self)
         viewWingAct.setStatusTip(_('Shows the outline of the wing'))
         viewWingAct.triggered.connect(self.viewWing)
-        viewWingAct.setEnabled(self.__enableWingFunct)
+        viewWingAct.setEnabled(False)
         
         # Define the actions
         viewCascadeAct = QAction(_('Cascade'), self)
@@ -875,8 +847,12 @@ class MainWindow(QMainWindow):
         setupLangDeAct.triggered.connect(self.setupLangDe)
         
         setupPreProcAct = QAction(_('Setup Pre-Processor'), self)
-        setupPreProcAct.setStatusTip(_('setup_preProc_location'))
+        setupPreProcAct.setStatusTip(_('setup Pre-Processor location'))
         setupPreProcAct.triggered.connect(self.setupPreProcLocation)
+        
+        setupProcAct = QAction(_('Setup Processor'), self)
+        setupProcAct.setStatusTip(_('setup Processor location'))
+        setupProcAct.triggered.connect(self.setupProcLocation)
         
         # add actions
         setupMenu = self.mainMenu.addMenu(_('Setup'))
@@ -885,6 +861,7 @@ class MainWindow(QMainWindow):
         setupLangMenu.addAction(setupLangDeAct)
         setupMenu.addSeparator()
         setupMenu.addAction(setupPreProcAct)
+        setupMenu.addAction(setupProcAct)
     
     def setupLangDe(self):
         '''
@@ -946,6 +923,38 @@ class MainWindow(QMainWindow):
             
             config = ConfigReader()
             config.setPreProcPathName(fileName[0])
+            
+    def setupProcLocation(self): 
+        '''
+        :method: Asks the user for the location where the Processor is saved
+        '''
+        logging.debug(self.__className + '.setupProcLocation')
+
+        # Do platform specific if here as the PreProx extensions are different
+        if platform.system() == "Windows":
+            fileName = QFileDialog.getOpenFileName(
+                            None,
+                            _('Select Processor'),
+                            "",
+                            "Executable (*.exe)")
+        elif platform.system() == "Linux":
+            fileName = QFileDialog.getOpenFileName(
+                            None,
+                            _('Select Processor'),
+                            "",
+                            "Compiled Fortran (*.o *.out)")
+        else:
+            logging.error("Sorry, your operating system is not supported yet")
+            return
+
+        if fileName != ('', ''):
+            # User has really selected a file, if it would have aborted the dialog  
+            # an empty tuple is retured
+            # Write the info to the config reader
+            logging.debug(self.__className + '.setupProcLocation Path and Name ' + fileName[0])
+            
+            config = ConfigReader()
+            config.setProcPathName(fileName[0])
 
     def buildHelpMenu(self):
         '''

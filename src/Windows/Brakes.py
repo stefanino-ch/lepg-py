@@ -194,6 +194,9 @@ class Brakes(QMdiSubWindow):
         sortBtn = QPushButton(_('Sort by orderNum'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
+        
+        if self.brakes_M.numConfigs() > 0:
+            self.modelSizeChanged()
 
         #############################
         # Commons for all windows

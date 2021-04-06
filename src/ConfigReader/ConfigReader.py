@@ -24,7 +24,7 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__preProcDirectory  = ""
         self.__lepDirectory = ""
         self.__preProcPathName = ""
-        self.__lepPathName = ""
+        self.__procPathName = ""
         self.__parser = configparser.ConfigParser()
         
         # Detect the current application path
@@ -61,7 +61,7 @@ class ConfigReader(QObject, metaclass=Singleton):
                 self.__preProcDirectory = ""
                 
             try:
-                self.__lepDirectory = self.__parser.get('Defaults','LepDirectory')
+                self.__lepDirectory = self.__parser.get('Defaults','ProcDirectory')
             except:
                 # Value does not exist
                 self.__lepDirectory = ""
@@ -73,10 +73,10 @@ class ConfigReader(QObject, metaclass=Singleton):
                 self.__preProcPathName = ""
                 
             try:
-                self.__lepPathName = self.__parser.get('Defaults','LepPathName')
+                self.__procPathName = self.__parser.get('Defaults','ProcPathName')
             except:
                 # Value does not exist
-                self.__lepPathName = ""    
+                self.__procPathName = ""    
                 
             openFile.close()
             
@@ -90,9 +90,9 @@ class ConfigReader(QObject, metaclass=Singleton):
         cfgfile = open(self.__configFilePathName,'w')
         self.__parser.set('Defaults','Language',self.__language)
         self.__parser.set('Defaults','PreProcDirectory',self.__preProcDirectory)
-        self.__parser.set('Defaults','LepDirectory',self.__lepDirectory)
+        self.__parser.set('Defaults','ProcDirectory',self.__lepDirectory)
         self.__parser.set('Defaults','PreProcPathName',self.__preProcPathName)
-        self.__parser.set('Defaults','LepPathName',self.__lepPathName)
+        self.__parser.set('Defaults','ProcPathName',self.__procPathName)
         self.__parser.write(cfgfile)
         cfgfile.close()
         
@@ -125,13 +125,13 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__preProcDirectory = param
         self.writeConfigFileContent()
         
-    def getLepDirectory(self):
+    def getProcDirectory(self):
         '''
         :method: Returns the directory where the Procecssor resides
         '''
         return self.__lepDirectory
     
-    def setLepDirectory(self, param): 
+    def setProcDirectory(self, param): 
         '''
         :method: Set the Processor directory
         :param lang: Directory string
@@ -156,16 +156,19 @@ class ConfigReader(QObject, metaclass=Singleton):
         directory = os.path.dirname(os.path.abspath(param))
         self.setPreProcDirectory(directory)
         
-    def getLepPathName(self):
+    def getProcPathName(self):
         '''
         :method: Return the path/ and name string for the Processor
         '''
-        return self.__lepPathName
+        return self.__procPathName
     
-    def setLepPathName(self, param):    
+    def setProcPathName(self, param):    
         '''
         :method: Set the path/ and name string for the lep processor 
         :param param: Full path and name of the Processor executable
         '''
-        self.__lepPathName = param 
-        self.writeConfigFileContent()
+        self.__procPathName = param 
+        
+        # At the same time we set also the path only information        
+        directory = os.path.dirname(os.path.abspath(param))
+        self.setProcDirectory(directory)

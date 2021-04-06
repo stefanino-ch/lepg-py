@@ -1,0 +1,571 @@
+ LEPARAGLIDING PARTS. GUIDE OF INTERNAL CODE.
+
+ 0. HEADER (versions)
+
+ 1. VARIABLE NAMES
+
+ 2. VARIABLES TYPE DECLARATION
+
+ 3. INIT
+
+ 4. DATA READING
+	4.1 Basic data
+	4.2 Ribs geometry
+	4.3 Airfoil data
+	4.4 Anchor points
+	4.5 Rib 0
+	4.6 Holes
+	4.7 Skin tension
+	4.8 Sewing allowances
+	4.9 Marks
+	4.10 Calage estimation parameters
+	4.11 Lines desciption
+	4.12 Brakes
+	4.13 Ramification lengths
+	4.14 H V and HV ribs
+	4.15 Extrados colors
+	4.16 Intrados colors
+        4.17 Read aditional rib points
+        4.18 Read elastic lines corrections
+             
+             Read 19 DXF layer names
+             Read 20 marks types
+             Read 21 joncs definition
+             Read 22 nose mylars definition
+             Read 23 tab reinforcements definition
+             Read 24 general 2D DXF options
+             Read 25 general 3D DXF options
+             Read 26 general 3D DXF options
+             Read 27 Special wingtip
+             Read 28 Parameters for calage variation
+             Read 29 3D-SHAPING
+             Read 30 AIRFOIL THICKNESS MODIFICATION
+             Read 31 New skin tension
+
+	4.19 Center of gravity calculus (2D)
+        4.20 Adjust some parameters
+             Rib(i,50)
+             Rib and panel separation
+             "pc" separation
+             Lengths TE to A B C D E
+        4.21 DXF layers (project)
+
+ 5. GRAPHIC DESIGN
+
+	5.1 Planform drawing Box(1,1)
+		Ribs
+		LE
+		TE
+		Intake in
+		Intake out
+		Anchor points
+                Brake points
+                Extrados colors (right)
+                Intrados colors (left)
+                Mini-ribs and middle ribs
+
+	5.2 Canopy drawing - vault Box(1,1)
+               
+	5.3 Boxes
+
+ 6. AIRFOILS coordinates calculus
+
+        6.1 Read global points
+	6.2 Read airfoil coordinates
+	6.3 Airfoil coordinates*100
+	6.4 Airfoil escaled and displaced coordinates
+	6.5 Washin coordinates
+	6.6 Space coordinates
+	6.7 Absolute coordinates
+	6.8 Treu desplaçament rib(i,50)
+	6.9 Airfoil 0=1' assignation
+	6.10 Assignation 3D coordinates airfoil 0
+        6.10+ Compute TE-anchor lenghts along airfoil contour
+	6.11 Compute external cutt edges in airfoils
+        6.11+ Airfoils thickness
+	6.12 Airfoils drawing
+
+                Numering ribs (1,2) (2,2) (1,4)
+
+                6.12.0 Miniribs - Minicabs (draw in airfoils)
+                     Marks in 8.2.6
+
+                6.12.1 Extrados
+		Basic contour
+		Basic contour washin
+		Borders
+
+                6.12.2 Inlets
+                Case "pc"
+                Case "ds" or "ss"
+
+                6.12.3 Intrados
+
+		6.12.4 Singular points-segments
+		6.12.5 Draw holes
+                       Type 1 (elliptical)
+                       Type 3 (triangles)
+		6.12.6 Draw nylon rods - joncs
+        	6.12.7 Draw mylars
+
+	6.13 Airfoils drawing (MC mesa de corte)
+		6.13.1 Borders
+		6.13.2 Singular segments
+		6.13.3 Ellipticall holes
+
+ 5+. DRAWING REAL WING
+
+	5+.1 Drawing planform in 2D view x-y
+		Ribs
+		TE
+		LE
+		Vent in
+		Vent out
+	5+.2 Drawing real canopy in 2D view x-z
+        5+.3 Drawing real canopy in 2D view y-z
+
+ 7. PANEL DEVELOPMENT
+
+	7.1 Panel 1'-1 extrados
+        7.2 Panel 1'-1 intrados
+		7.2.1 Intrados
+		7.2.2 Vents calculus and drawing
+
+	7.3 Panels 1 to nribss-1 extrados
+	7.4 Panels 1 to nribss-1 intrados
+		7.4.1 Intrados
+		7.4.2 Vents calculus
+                7.4.3 Vents drawing (classic)
+		7.4.4 Vents drawing AD
+
+ 8. SKIN TENSION
+
+	8.1 Previous calculus
+
+		8.1.1 Extrados longitud cella extrema
+		8.1.2 Intrados longitud cella extrema
+		8.1.3 Lengths extrados
+		8.1.4 Lengths intrados
+		8.1.5 Longitud inlet
+		8.1.6 Points de calcul amples de celles
+	
+	8.2 Sobreamples extrados
+
+		8.2.1 Sobreamples esquerra extrados
+		8.2.2 Sobreamples dreta extrados
+                8.2.3 Reformat right side of the panel (optional)
+                8.2.4 Reformat panels for perfect matching
+
+                      Compute rib and panels lenghts
+                      Identify points jirl and jirr
+                      Reformat left side
+                      Reformat right side
+                      Final verification
+                      Distorsion calculus
+                      Distorsion correction
+
+                8.2.5 Calcule external points 11 12 14 15 24 25 26 27
+                      Case tangent or orthogonal
+
+		8.2.6 Draw sobreamples panels extrados (Box 1,3)
+                      Marks miniribs - minicabs
+
+		8.2.7 Draw panels AD  (Box (1,5)
+
+        8.3 Sobreamples vents
+		8.3.1 Vents sobreamples esquerra
+                8.3.2 Vents sobreamples dreta
+                8.3.3 Corners vents
+                8.3.4 Draw vents
+                
+	8.4 Sobreamples intrados
+
+		8.4.1 Sobreamples esquerra intrados
+		8.4.2 Sobreamples dreta intrados
+	        8.4.3
+                8.4.4 Reformat panels for perfect matching
+		8.4.5 Cantonades 26 i 27 intrados
+		8.4.6 Draw sobreamples panels intrados i
+		vores de costura
+                      Marks miniribs - minicabs
+		8.4.7 Draw panels AD
+
+       8.5 Draw all panels (using subroutines)
+		8.5.0 Launch 3D-shaping calculus and subrutines
+			8.5.0.1 Launch 3D-shaping calculus
+			8.5.0.2 Draw ovalized airfoils in 2D
+       		8.5.1 Extrados without vents
+		      Print panel numbers (test)
+        	8.5.2 Extrados with vents
+        	8.5.3 Vents amb vores
+        	8.5.4 Intrados without vents
+        	8.5.5 Intrados with vents
+
+       8.6 Draw all panels (with 3D cuts)
+
+                Case k29d=1 then
+
+                8.6.1 Extrados
+                Draw minirib extrados
+                Case extrados 0 cuts
+                Case extrados 1 cut
+                Case extrados 2 cuts
+
+                8.6.2 Intrados
+                Draw minirib intrados
+                Case intrados 0 cuts
+                Case intrados 1 cut
+
+ 9. SINGULAR RIB POINTS
+
+	9.1 Compute anchor points
+        9.1+  Detecta punts j a extrados propers a ancoratges
+        9.1++ Detecta punts j a intrados propers a ancoratges
+
+	9.2 Compute inlet points
+	9.3 Draw anchor points
+		9.3.1 Anchor points
+		9.3.2 Anchor points MC
+	9.4 Draw inlets
+		Draw inlets
+		Draw inlets MC
+        9.5 Aditional rib points (junquillos)
+
+
+ 9.9 MIDDLE PANEL UNLOADED RIBS
+
+        9.9.1 Define intermediate airfoil
+        9.9.2 Compute external edges
+        9.9.3 Print internal line
+        9.9.4 Print expernal line
+        9.9.5 Draw romano and itxt
+        9.9.6 Draw vents
+        9.9.7 Marks extrados
+        9.9.8 Marks intrados
+        9.9.9 Draw holes
+        9.9.10.1 Draw equidistant points extrados
+        9.9.10.2 Draw equidistant points intrados
+
+ 10. CALAGE
+
+	10.1 Basic calculus
+	10.2 Karabiners location
+	10.3 Calage drawing
+		Central airfoil
+		Chord
+		Pilot-CP and Pilot-C
+		Assiette ans AoA angles
+                Write text in dxf file
+
+ 11. CALCULE LENGTHS EXTRA INTRA EN PANELLS I PERFILS. MARKS
+
+ 	11.1 Calcula lenghts and amplification coefficients
+             - Old system
+             - New system
+	11.2 Lenght verification (no used)
+ 	11.3 Rib marks
+                11.3.1 Extrados
+                11.3.2 Intrados
+                       case "ds" or "pc"
+ 	11.4 Panel marks
+
+		11.4.1.1 Extrados
+		11.4.1.2 Extrados left
+		11.4.1.3 Extrados right
+
+		11.4.2.1 Intrados
+		11.4.2.2 Intrados left
+		11.4.2.3 Intrados right
+                11.4.2.4 Roman numbers in intrados
+                11.4.3 Anchor marks in intrados panels
+
+ 12. LINES CALCULUS
+
+	12.1 Matrix de cordes
+	12.2 Identifica cordes a calcular
+	12.3 Compute anchor points in 3D space
+	12.4 Compute singular rib points in 3D space (brakes, inlet in, inlet out)
+        12.4+ Redefine virtual anchor points in extrados for "ss"
+
+            Option to modify rib for PAMPAlike sk
+
+        12.4++ Compute load in each anchor
+	12.5 Lines d'accio of each corda
+	12.6 Points inicial i final of each corda
+             Calcula angles a girar "ss" phi0=phi1-phi2
+		12.6.1 Level 1: Risers
+	        12.6.2 Level 2
+		12.6.3 Level 3
+		12.6.4 Level 4
+	12.7 Rotate triangles in 3D, only "ss"
+
+             Option to modify rib for PAMPAlike sk
+
+	12.8 Lengths de les cordes
+        12.9 Corrections elastiques
+        12.10 Draw cordes 2D
+
+ 14. BRAKE CALCULUS
+
+	14.1 Matrix de cordes
+	14.2 Identifica cordes a calcular
+	14.3 Compute anchor points in 3D space
+	14.4 Lines d'accio of each corda
+             Recompute fractional anchors
+	14.5 Points inicial i final of each corda
+		Level 1
+		Level 2
+		Level 3
+		Level 4
+	14.6 Lengths de les cordes
+	14.7 Draw brakes 2D
+
+ 15. COLOR MARKS
+
+     15.1 Extrados marks
+     15.2 Intrados marks
+
+ 16. H V AND HV RIBS
+
+	16.1 H straps (Type 1)
+		16.1.1 Line i
+		16.1.2 Line i+1
+		16.1.3 Lines 2 and 3 transportation on the space
+		16.1.4 H-rib 2-3 in 2D model
+			Calculus
+			Drawing
+			Numering
+
+	16.2 V ribs partial (Type 2)
+
+		16.2.1 Rib i
+		16.2.2 Rib i-1
+		16.2.3 Rib i+1
+		16.2.4 Lines 1 2 3 transportation on the space
+		16.2.5 V-ribs calculus and drawing
+			V-rib 1-2 in 2D model
+			V-rib 2-3 in 2D model
+			V-ribs in 2D ribs
+
+       	16.3 V ribs full (Type 3)
+
+                16.3.1 Independent diagonal strips (Type 3)
+                       16.3.1.1 Rib i points 2,3,4 and reformat
+                       16.3.1.2 Rib i-1 points 9,10,11 and reformat
+                       16.3.1.3 Rib i+1 points 9,10,11 and reformat
+                       16.3.1.4 Lines 1 2 3 transportation to 3D espace
+                       16.3.1.5 V-rib flat calculus and drawing in 2D
+                       16.3.1.5.1 Compute and draw 1-2 rib
+                       16.3.1.5.2 Compute and draw 2-3 rib
+                       16.3.1.5.3 Drawing V-ribs marks in 2D ribs
+
+                16.3.2 Continous full diagonal ribs (Type 5)
+                       16.3.2.1 Rib i points 2,3,4 and reformat line 2
+                       16.3.2.2 Rib i-1 points 9,11 and reformat line 1
+                       16.3.2.3 Rib i+1 points 9,11 and reformat line 3
+                       16.3.2.4 Lines 1 2 3 transportation to 3D espace
+                       16.3.2.5 V-rib flat calculus and drawing in 2D
+                       16.3.2.5.1 Compute and draw 1-2 rib (blue)
+                       16.3.2.5.2 Compute and draw 2-3 rib (red)
+                       16.3.2.5.3 Drawing V-ribs marks in 2D ribs
+
+	16.4 HV ribs (Type 4)
+		16.4.1 Rib i-1
+		16.4.2 Rib i
+		16.4.3 Rib i+1
+		16.4.4 Rib i+2
+	16.4.4 Lines 1 2 3 4 transportation on the space
+	16.4.5  VH-ribs calculus and drawing in 2D and 3D
+		VH-rib 1-2 in 2D model
+		VH-rib 3-4 in 2D model
+		VH-rib 1-3 in 2D model
+		Drawing VH-ribs in 2D ribs
+
+        16.6 V ribs Type 6 "general"
+     
+                16.6.1 Rib i points 3,2,4,6,8,9,11 and reformat
+                16.6.2 Rib i+1 points 3,2,4,6,8,9,11 and reformat
+                16.6.3 Lines 2 3 transportation to 3D espace
+                16.6.4 V-rib flat calculus and drawing in 2D
+                16.6.5 Drawing V-ribs marks in 2D ribs
+                       Rib i   (tree cases)
+                       Rib i+1 (tree cases)
+                16.6.6 Drawing V-ribs Type 6 in 3D model
+
+ 17. CALAGE CALCULUS
+
+
+ 18. TXT OUTPUT lep-out.txt
+	18.1 Main
+        ADJUSTEMENT SEAM PARAMETERS
+        DISTANCES ENTRE ANCORATGES
+        18.2 Adjustement seam parameters
+	18.3 Speed and trim calculus
+		18.3.1 a) Speed system pivot in last riser
+		18.3.2 a) Speed system pivot in first riser
+		18.3.3 a) Trim system pivot in first riser
+		18.3.4 a) Trim system pivot in last riser
+                18.3.5 Draw calage variations in dxf
+	18.4 Print joncs
+        18.5 Print 3D-shaping details
+        18.6 Print extrados and intrados informative coefficients k
+        18.7 Print information about profil points
+
+
+ 19. line.txt List of lines
+
+ 20. Draw labels in 2D (in tree of lines)
+
+ 21. 3D DXF MODEL DRAWING
+
+	21.1 Extrados
+	21.2 Vents
+	21.3 Intrados
+	21.4 Trailing edge
+	21.5 Leading edge (in/out)
+	21.6 Lines 3D
+	21.7 Brakes
+	21.8 H-V-ribs 3D drawing
+		21.8.1 H-ribs
+		21.8.2 V-ribs partial
+		21.8.3 V-ribs full
+		21.8.4 VH-ribs
+        21.9 Intermediate and ovalized airfoils
+        21.10 Draw DXF tessellation in 3D model
+        21.11 Draw DXF tessellation in 3D external file
+        21.12 Draw STL tessellation in 3D external file
+
+
+ 22. TEXT NOTES IN BOXES
+
+     22.1 (Text in boxes)
+
+     22.2 Write lines in plan A, B, C, D, E, F
+
+ 23. END OF MAIN PROGRAM
+
+ 24. SUBROUTINES
+
+ SUBROUTINE POINTG
+
+ SUBROUTINE POINT
+
+ SUBROUTINE POINC (used?)
+
+ SUBROUTINE POINL (used?)
+
+ SUBROUTINE CIRCLE
+
+ SUBROUTINE MTRIANGLE
+
+ SUBROUTINE LINEVENT
+
+ SUBROUTINE SEGMENT101
+
+ SUBROUTINE LINE
+
+ SUBROUTINE LINE3D
+
+ SUBROUTINE POLY2D (not used)
+
+ SUBROUTINE ELLIPSE
+ 
+ SUBROUTINE ROMANO
+
+ SUBROUTINE TEXT
+
+ SUBROUTINE ITEXT
+
+ SUBROUTINE DXFINIT
+
+ SUBROUTINE DXFEND
+
+ SUBROUTINE VREDIS vectors redistribution
+
+ SUBROUTINE XRXS r and s lines 2D intersection
+
+ SUBROUTINE FLATT FLATTENING
+
+ SUBROUTINE axisch
+
+ SUBROUTINE angdis2 (experimental)
+
+ SUBROUTINE d3p (no imp)
+
+ SUBROUTINE extpoints extrenal points in a panel 
+
+ SUBROUTINE dpanelc
+
+ SUBROUTINE dpanelcc (with control)
+
+ SUBROUTINE arc3p
+
+ SUBROUTINE drwvent , draw vent types, with control
+
+
+
+ SUBROUTINE dpanelc1
+
+ SUBROUTINE dpanelc2
+
+ SUBROUTINE dpanelcm2
+
+ SUBROUTINE dpanelcm3
+
+ SUBROUTINE dpanelb
+
+ SUBROUTINE dpanelb1
+
+ SUBROUTINE dpanelb2
+
+ SUBROUTINE joncs
+
+ SUBROUTINE interpola(x1,y1,x2,y2,x3,y3)
+
+ SUBROUTINE interpd(x1,y1,x2,y2,x3,y3,xd)
+
+ SUBROUTINE pjoncs(i,xjonc,npo,sjo,sepx,sepy,rib,xkf)
+
+ SUBROUTINE loffset(uo,vo,npo,xo)
+
+ SUBROUTINE puntslat
+
+
+ SUBROUTINE mylars(i,u,v,sepx,sepy,rib,xmy,np,xkf,atp)
+
+ SUBROUTINE interpolyg , polyline linear interpolation
+
+ SUBROUTINE lagrangeip , polyline Lagrange interpolation
+
+ SUBROUTINE fletxa , haut of a circular segment (used?)
+ 
+ SUBROUTINE panels3d , main 3D calculus
+
+ SUBROUTINE czinf , compute zones of influence of cuts
+
+ SUBROUTINE planeby123 , plan ABCD by points 1,2,3
+
+ SUBROUTINE pointp3d , point by 0 perperdicular to plan ABCD at d
+
+ SUBROUTINE glo2loc , transform global 3d coordinates to local
+
+ SUBROUTINE print01 , print TE extrados
+
+
+ SUBROUTINE prinifp , print initial and final points r panel
+
+ SUBROUTINE prinfpv , print final points vents
+
+ SUBROUTINE llarlr , computes length alt left and right
+
+ SUBROUTINE xmarksi , marks at left and right panel
+
+ SUBROUTINE iam , intrados anchor marks
+
+ SUBROUTINE romanop , romano point in line 1-2
+
+ SUBROUTINE romanoparc , romano point in arc in a panel uf,vf
+
+
+
+

@@ -1,5 +1,3 @@
-# https://doc.qt.io/qtforpython/overviews/sql-model.html
-# https://www.datacamp.com/community/tutorials/inner-classes-python
 '''
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
@@ -10,16 +8,22 @@ https://doc.qt.io/qtforpython/overviews/sql-model.html
 
 https://www.datacamp.com/community/tutorials/inner-classes-python
 '''
+import os
 import logging
 import math
 import re
 
+from datetime import date
+
 from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
+from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Singleton.Singleton import Singleton
 from DataStores.SqlTableModel import SqlTableModel
+
+from ConfigReader.ConfigReader import ConfigReader
+from DataStores.Database import Database
 
 class ProcessorModel(QObject, metaclass=Singleton):
     '''
@@ -29,9 +33,26 @@ class ProcessorModel(QObject, metaclass=Singleton):
     
     Is implemented as a **Singleton**. Even if it is instantiated multiple times all data will be the same for all instances.
     '''
+    dataStatusUpdate = pyqtSignal(str,str)
+    '''
+    :signal:  Sent out as soon a file was opened or saved
+        The first string indicates the class name
+        The second string indicates 
+        - if a file was opened
+        - if a file was saved
+        - Filename and Path has been changed
+    '''
     __className = 'ProcessorModel'
     '''
     :attr: Does help to indicate the source of the log messages
+    '''
+    __fileNamePath = ''
+    '''
+    :attr: full path and name of the data file currently in use
+    '''
+    __fileVersion = ''
+    '''
+    :attr: version number of the file currently in use
     '''
     
     
@@ -40,17 +61,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
         :method: Constructor
         '''
         logging.debug(self.__className+ '.__init__')
-        self.fileNamePath = ''
-        self.fileVersion = ''
         
-        # open database
-        self.db = QSqlDatabase.addDatabase("QSQLITE")
-        self.db.setDatabaseName("processorModel.sqlite")
-        if not self.db.open():
-            logging.error(self.__className+ '.__init__ cannot open db')
+        self.db = Database()
+        self.db.openConnection()
         
         super().__init__()
-        # make sure tables are there
+
         self.rib_M = self.RibModel()
         self.wing_M = self.WingModel()
         self.airf_M = self.AirfoilsModel()
@@ -90,7 +106,36 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
         self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
         self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
-        
+
+    def setFileName( self, fileName ):
+        '''
+        :method: Does set the file name the data store shall work with. 
+        :param fileName: String containing full path and filename
+        '''
+        self.__fileNamePath = fileName
+        self.dataStatusUpdate.emit(self.__className, 'FileNamePath')
+            
+    def getFileName( self ):
+        '''
+        :method: Returns the name of the file name member.
+        '''
+        return self.__fileNamePath
+    
+    def setFileVersion( self, fileVersion ):
+        '''
+        :method: Does set the file version the data store shall work with. 
+        :param fileVersion: String containing the version number
+        '''
+        self.__fileVersion = fileVersion
+        self.dataStatusUpdate.emit(self.__className, 'FileVersion')
+            
+    def getFileVersion( self ):
+        '''
+        :method: Returns the version info of the data file currently in use
+        '''
+        return self.__fileVersion
+    
+    
     def isValid( self, fileName ):
         '''
         :method: Checks if a file can be opened and contains a valid title and known version number.
@@ -112,7 +157,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 4:
             line = stream.readLine()
             if line.find('3.10') >= 0:
-                self.fileVersion = '3.10'
+                self.setFileVersion('3.10')
                 versionOK = True
 
             if line.find('Input data file') >= 0:
@@ -122,29 +167,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
         inFile.close()
         
         if not ( (versionOK and titleOK) ):
-            logging.error(self.__className+ ' Result of PreProc Version check %s', versionOK)
-            logging.error(self.__className+ ' Result of PreProc Title check %s', titleOK)
+            logging.error(self.__className+ ' Result of Proc file version check %s', versionOK)
+            logging.error(self.__className+ ' Result of Proc file title check %s', titleOK)
             
             msgBox = QMessageBox()
             msgBox.setWindowTitle(_('File read error'))
-            msgBox.setText(_('File seems not to be a valid PreProc File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
+            msgBox.setText(_('File seems not to be a valid Processor File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
             
-            self.fileNamePath = ''
-            self.fileVersion = ''
+            self.setFileName('')
+            self.setFileVersion('')
 
         return versionOK and titleOK
-    
-    def setFileName( self, fileName ):
-        '''
-        :method: Does set the File Name the data store shall work with. 
-        :param fileName: String containing full path and filename
-        '''
-        logging.debug(self.__className+ '.setFileName')
-        if fileName != '':
-            self.fileNamePath= fileName
     
     def openFile(self):
         '''
@@ -167,7 +203,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
         fileName = QFileDialog.getOpenFileName(
                         None,
-                        _('Open PreProc file'),
+                        _('Open Proc file'),
                         "",
                         "Pre Proc Files (*.txt);;All Files (*)")
 
@@ -177,6 +213,49 @@ class ProcessorModel(QObject, metaclass=Singleton):
             if self.isValid(fileName[0]):
                 self.setFileName(fileName[0])
                 self.readFile()
+                
+    def saveFile(self):
+        '''
+        :method: Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.  
+        '''
+        logging.debug(self.__className+ '.saveFile')
+        
+        fileName = self.getFileName() 
+        if self.fileName != '':
+            # We do have already a valid filename
+            self.writeFile()
+        else:
+            # Ask first for the filename
+            fileName = QFileDialog.getSaveFileName(
+                        None,
+                        _('Save Processor file'),
+                        "",
+                        "Geometry Files (*.txt);;All Files (*)")
+            
+            if fileName != ('', ''):
+                # User has really selected a file, if it would have aborted the dialog  
+                # an empty tuple is retured
+                self.setFileName(fileName[0])
+                self.writeFile()
+            
+    def saveFileAs(self):
+        '''
+        :method: Asks for a new filename. Starts afterwards the writing process.  
+        '''
+        logging.debug(self.__className+ '.saveFileAs')
+        
+        # Ask first for the filename
+        fileName = QFileDialog.getSaveFileName(
+                    None,
+                    _('Save Processor file as'),
+                    "",
+                    "Geometry Files (*.txt);;All Files (*)")
+        
+        if fileName != ('', ''):
+                # User has really selected a file, if it would have aborted the dialog  
+                # an empty tuple is retured
+                self.setFileName(fileName[0])
+                self.writeFile()
     
     def readFile(self):
         '''
@@ -185,7 +264,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         logging.debug(self.__className+'.readFile')
         
-        inFile = QFile( self.fileNamePath )
+        inFile = QFile( self.getFileName() )
         inFile.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(inFile)
 
@@ -219,19 +298,16 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # Wing scale
         logging.debug(self.__className+'.readFile: Wing scale')
         line = stream.readLine()
-        # self.setSingleVal('WingScale', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.WingScaleCol), self.remTabSpace( stream.readLine() ) )
         
         # Number of cells
         logging.debug(self.__className+'.readFile: Number of cells')
         line = stream.readLine()
-        # self.setSingleVal('NumCells', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumCellsCol), self.remTabSpace( stream.readLine() ) )
         
         # Number of Ribs
         logging.debug(self.__className+'.readFile: Number of ribs')
         line = stream.readLine()
-        # self.setSingleVal('NumRibs', self.remTabSpace( stream.readLine() ) )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumRibsCol), self.remTabSpace( stream.readLine() ) )
 
         # Alpha max and parameter
@@ -297,7 +373,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for i in range( 0, numConfigs ):
             ini = int(self.remTabSpace( stream.readLine()))
             fin = int(self.remTabSpace( stream.readLine()))
-            self.lightC_M.updateConfigRow(i+1, ini, fin)
+            self.lightC_M.updateRow(i+1, ini, fin)
             
             numConfigLines = int(self.remTabSpace( stream.readLine() ))
             self.lightD_M.setNumRowsForConfig(i+1, 0 )
@@ -306,13 +382,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1
             for l in range(0, numConfigLines):
                 values =  self.splitLine( stream.readLine() )
-                self.lightD_M.updateDetRow(i+1, l+1, float(values[0]), \
-                                        float(values[1]), \
-                                        float(values[2]), \
-                                        float(values[4]), \
-                                        float(values[5]), \
-                                        float(values[6]), \
-                                        float(values[7]))
+                self.lightD_M.updateRow(i+1, l+1, values[0], \
+                                        values[1], \
+                                        values[2], \
+                                        values[3], \
+                                        values[4], \
+                                        values[5], \
+                                        values[6])
 
         ##############################
         # 5. SKIN TENSION
@@ -329,7 +405,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           
         values = self.splitLine( stream.readLine() )
         self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0] )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[0] )
+        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[1] )
         
         ##############################
         # 6. SEWING ALLOWANCES
@@ -421,7 +497,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for l in range(0, numConfigLines):
             values =  self.splitLine( stream.readLine() )
-            self.brakes_M.updateBrakeRow(1, l+1, \
+            self.brakes_M.updateRow(1, l+1, \
                                         values[0], \
                                         values[1], \
                                         values[2], \
@@ -939,7 +1015,722 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ##############################
         # Cleanup
         inFile.close() 
-       
+
+    def writeFile(self, forProc=False):
+        '''
+        :method: Writes all the values into a data file. 
+        :warning: Filename must have been set already before, unless the file shall be written for the PreProcessor.
+        :param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
+        '''
+        separator = '***************************************************\n'
+        
+        logging.debug(self.__className+'.writeFile')
+        
+        if forProc == False:
+            # Regular file write into a file specified by the user
+            outFile = QFile(self.getFileName())
+        else:
+            # Special file write into the directory where the PreProcessor resides
+            config = ConfigReader()
+            pathName = os.path.join(config.getProcDirectory(), 'leparagliding.txt')
+            
+            # Delete old file first
+            if os.path.exists(pathName):
+                logging.debug(self.__className+'.writeFile remove old file')
+                os.remove(pathName)
+            else:
+                logging.debug(self.__className+'.writeFile no Proc file in place')
+            
+            outFile = QFile(pathName)
+        
+        if not outFile.open(QFile.ReadWrite | QFile.Text):
+            logging.error(self.__className+'.writeFile '+ outFile.errorString()) 
+            
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("File save error")
+            msgBox.setText('File can not be saved: '+ outFile.errorString( ))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+            return 
+        
+        ## File is open, start writing
+        stream = QTextStream(outFile)
+        stream.setCodec('UTF-8')
+
+        stream << separator
+        stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
+        stream << '* Input data file version 3.15\n'
+        stream << separator
+        today = date.today()
+        stream << '* Version %s\n' %today.strftime("%Y-%m-%d")
+        stream << separator
+        
+        values = self.wing_M.getRow()
+        stream << '*             1. GEOMETRY\n'
+        stream << separator
+        stream << '* Brand name\n'
+        stream << '\"%s\"\n' %values(ProcessorModel.WingModel.BrandNameCol)
+        stream << '* Wing name\n'
+        stream << '\"%s\"\n' %values(ProcessorModel.WingModel.WingNameCol)
+        stream << '* Drawing scale\n'
+        stream << '%s\n' %values(ProcessorModel.WingModel.DrawScaleCol)
+        stream << '* Wing scale\n'
+        stream << '%s\n' %values(ProcessorModel.WingModel.WingScaleCol)
+        stream << '* Number of cells\n'
+        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumCellsCol)
+        stream << '* Number of ribs\n'
+        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumRibsCol)
+        stream << '* Alpha max and parameter\n'
+        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaMaxTipCol)
+        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaModeCol)
+        if values(ProcessorModel.WingModel.AlphaModeCol) == '2':
+            stream << '\t%s\n' %values(ProcessorModel.WingModel.AlphaMaxCentCol)
+        else:
+            stream << '\n'
+        
+        stream << '* Paraglider type and parameter\n'
+        stream << '\t\"%s\"' %values(ProcessorModel.WingModel.ParaTypeCol)
+        stream << '\t%s\n' %values(ProcessorModel.WingModel.ParaParamCol)
+        stream << '* Rib geometric parameters\n'
+        stream << '* Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin\n'
+        for l in range (0, self.wing_M.halfNumRibs):
+            values = self.rib_M.getRow(l+1)
+            stream << '%s' %(l+1)
+            
+            for p in range (0, 8):
+                stream << '\t%s' %values(p)
+                if p ==7:
+                    stream << '\n'
+        
+        stream << separator            
+        stream << '*             2. AIRFOILS\n'
+        stream << separator
+        stream << '* Airfoil name, intake in, intake out, open , disp. rrw\n'
+        for l in range (0, self.wing_M.halfNumRibs):
+            values = self.airf_M.getRow(l+1)
+            stream << '%s' %(l+1)
+            
+            for p in range (0, 7):
+                stream << '\t%s' %values(p)
+                if p ==6:
+                    stream << '\n'
+                    
+        stream << separator            
+        stream << '*            3. ANCHOR POINTS\n'
+        stream << separator
+        stream << '* Airf    Anch    A    B    C    D    E    F\n'
+        for l in range (0, self.wing_M.halfNumRibs):
+            values = self.anchPoints_M.getRow(l+1)
+            stream << '%s' %(l+1)
+            
+            for p in range (0, 7):
+                stream << '\t%s' %values(p)
+                if p ==6:
+                    stream << '\n'
+     
+        stream << separator            
+        stream << '*          4. AIRFOIL HOLES\n'
+        stream << separator
+        numConfigs = int( self.lightC_M.numConfigs() )
+        stream << '%s\n' %(numConfigs)
+        
+        for g in range (0, numConfigs):
+            values = self.lightC_M.getRow(g+1)
+            stream << '%s\n' %values(0)
+            stream << '%s\n' %values(1)
+
+            numLines = self.lightD_M.numRowsForConfig(g+1)
+            stream << '%s\n' %(numLines)
+            for l in range (0, numLines):
+                values = self.lightD_M.getRow(g+1, l+1)
+                for p in range (0, 7):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p ==6:
+                        stream << '\t0.\t0.\n'
+        
+        stream << separator            
+        stream << '*           5. SKIN TENSION\n'
+        stream << separator
+        stream << 'Extrados\n'
+        
+        for l in range (0,6):
+            values = self.skinTens_M.getRow(l+1)
+            
+            for p in range (0, 4):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p ==3:
+                        stream << '\n'
+            
+        values = self.skinTensParams_M.getRow()
+        stream << '%s\n' %values(0)
+        stream << '%s' %values(1)
+        stream << '\t%s\n' %values(2)
+
+        stream << separator            
+        stream << '*           6. SEWING ALLOWANCES\n'
+        stream << separator
+
+        values = self.sewAll_M.getRow(1)
+        for p in range (0, 3):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p ==2:
+                    stream << '\tupper panels (mm)\n'
+        
+        values = self.sewAll_M.getRow(2)
+        for p in range (0, 3):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p ==2:
+                    stream << '\tlower panels (mm)\n'
+                    
+        values = self.sewAll_M.getRow(3)
+        stream << '%s' %values(0)
+        stream << '\tribs (mm)\n'
+        
+        values = self.sewAll_M.getRow(4)
+        stream << '%s' %values(0)
+        stream << '\tvribs (mm)\n'
+        
+        stream << separator            
+        stream << '*           7. MARKS\n'
+        stream << separator
+        
+        values = self.marks_M.getRow()
+        stream << '%s' %values(0)
+        stream << '\t%s' %values(1)
+        stream << '\t%s\n' %values(2)       
+                
+        stream << separator            
+        stream << '*           8. Global angle of attack estimation\n'
+        stream << separator
+        values = self.globAoA_M.getRow()
+        stream << '* Finesse GR\n'
+        stream << '\t%s\n' %values(0)
+        stream << '* Center of pressure % of chord\n'
+        stream << '\t%s\n' %values(1)
+        stream << '* Calage %\n'
+        stream << '\t%s\n' %values(2)
+        stream << '* Risers lenght cm\n'
+        stream << '\t%s\n' %values(3)
+        stream << '* Line lenght cm\n'
+        stream << '\t%s\n' %values(4)
+        stream << '* Karabiners cm\n'
+        stream << '\t%s\n' %values(5)
+            
+        stream << separator            
+        stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
+        stream << separator
+        values = self.wing_M.getRow()
+        stream << '%s\n' %values(ProcessorModel.WingModel.LinesConcTypeCol)
+        
+        numConfigs = self.lines_M.numConfigs()
+        stream << '%s\n' %numConfigs
+        
+        for g in range (0, numConfigs):
+            numLines = self.lines_M.numRowsForConfig(g+1)
+            stream << '%s\n' %numLines
+            
+            for l in range (0, numLines):
+                values = self.lines_M.getRow(g+1, l+1)
+                
+                for p in range (0, 11):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p ==10:
+                        stream << '\n'
+
+        stream << separator            
+        stream << '*       10. BRAKES\n'
+        stream << separator
+        
+        values = self.wing_M.getRow()
+        stream << '%s\n' %values(ProcessorModel.WingModel.BrakeLengthCol)
+        
+        numLines = self.brakes_M.numRowsForConfig(1)
+        stream << '%s\n' %numLines
+        for l in range (0, numLines):
+            values = self.brakes_M.getRow(1, l+1)
+            
+            for p in range (0, 11):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p ==10:
+                    stream << '\n'
+        
+        stream << '* Brake distribution\n'           
+        values = self.brakeL_M.getRow()
+        
+        for p in range (0, 5):
+            if p>0:
+                stream << '\t' 
+            stream << '%s' %values(p)
+            if p ==4:
+                stream << '\n'
+        for p in range (5, 10):
+            if p>5:
+                stream << '\t' 
+            stream << '%s' %values(p)
+            if p ==9:
+                stream << '\n'
+                
+        stream << separator            
+        stream << '*       11. Ramification lengths\n'
+        stream << separator
+        
+        values = self.ramif_M.getRow(1, 1)
+        stream << '%s' %values(0)
+        stream << '\t%s\n' %values(1)
+        
+        values = self.ramif_M.getRow(1, 2)
+        stream << '%s' %values(0)
+        stream << '\t%s' %values(1)
+        stream << '\t%s\n' %values(2)
+        
+        values = self.ramif_M.getRow(1, 3)
+        stream << '%s' %values(0)
+        stream << '\t%s\n' %values(1)
+        
+        values = self.ramif_M.getRow(1, 2)
+        stream << '%s' %values(0)
+        stream << '\t%s' %values(1)
+        stream << '\t%s\n' %values(2)
+        
+        stream << separator            
+        stream << '*    12. H V and VH ribs\n'
+        stream << separator
+        numLines = self.hVvHRibs_M.numRowsForConfig(1)
+        stream << '%s\n' %numLines
+        values = self.wing_M.getRow()
+        stream << '%s' %values(ProcessorModel.WingModel.xSpacingCol)
+        stream << '\t%s\n' %values(ProcessorModel.WingModel.ySpacingCol)
+        
+        for l in range (0, numLines):
+            values = self.hVvHRibs_M.getRow(1, l+1)
+            
+            for p in range (0, 10):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+            
+            if values(1) == 6 or values(1) == 16:
+                stream << '\t%s' %values(10)
+                stream << '\t%s\n' %values(11)
+            else:
+                stream << '\n'
+                
+        stream << separator            
+        stream << '*    15. Extrados colors\n'
+        stream << separator
+        numGroups = self.extradColsConf_M.numConfigs()
+        stream << '%s\n' %numGroups
+        
+        for g in range (0, numGroups):
+            numLines = self.extradColsDet_M.numRowsForConfig(g+1)
+            
+            values = self.extradColsConf_M.getRow(g+1)
+            stream << '%s' %values(0)
+            stream << '\t%s\n' %numLines
+            
+            for l in range (0, numLines):
+                values = self.extradColsDet_M.getRow(g+1, l+1)
+                stream << '%s' %(l+1)
+                stream << '\t%s\t0.\n' %values(0)
+
+        stream << separator            
+        stream << '*    16. Intrados colors\n'
+        stream << separator   
+        numGroups = self.intradColsConf_M.numConfigs()
+        stream << '%s\n' %numGroups
+        
+        for g in range (0, numGroups):
+            numLines = self.intradColsDet_M.numRowsForConfig(g+1)
+            
+            values = self.intradColsConf_M.getRow(g+1)
+            stream << '%s' %values(0)
+            stream << '\t%s\n' %numLines
+            
+            for l in range (0, numLines):
+                values = self.intradColsDet_M.getRow(g+1, l+1)
+                stream << '%s' %(l+1)
+                stream << '\t%s\t0.\n' %values(0)  
+                
+        stream << separator            
+        stream << '*       17. Aditional rib points\n'
+        stream << separator  
+        numLines = self.addRibPts_M.numRowsForConfig(1)
+        stream << '%s\n' %numLines
+        
+        for l in range (0, numLines):
+            values = self.addRibPts_M.getRow(1, l+1)
+            stream << '%s' %values(0)
+            stream << '\t%s\n' %values(1)
+
+        stream << separator            
+        stream << '*       18. Elastic lines corrections\n'
+        stream << separator
+        values = self.elLinesCorr_M.getRow()
+        stream << '%s\n' %values(0)
+        
+        stream << '%s' %values(1)
+        stream << '\t%s\n' %values(2)
+        
+        stream << '%s' %values(3)
+        stream << '\t%s' %values(4)
+        stream << '\t%s\n' %values(5)
+        
+        stream << '%s' %values(6)
+        stream << '\t%s' %values(7)
+        stream << '\t%s' %values(8)
+        stream << '\t%s\n' %values(9)
+        
+        stream << '%s' %values(10)
+        stream << '\t%s' %values(11)
+        stream << '\t%s' %values(12)
+        stream << '\t%s' %values(13)
+        stream << '\t%s\n' %values(14)
+        
+        numLines = self.elLinesDef_M.numRowsForConfig(1)
+        for l in range (0, numLines):
+            values = self.elLinesDef_M.getRow(1, l+1)
+            
+            for p in range (0, 4):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p== 3:
+                    stream << '\n'
+                    
+        stream << separator            
+        stream << '*       19. DXF layer names\n'
+        stream << separator
+        numLines = self.dxfLayNames_M.numRowsForConfig(1)
+        stream << '%s\n' %numLines
+        
+        for l in range (0, numLines):
+            values = self.dxfLayNames_M.getRow(1, l+1)
+            
+            for p in range (0, 2):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p== 1:
+                    stream << '\n'
+        
+        
+        stream << separator            
+        stream << '*       20. Marks types\n'
+        stream << separator
+        numLines = self.marksT_M.numRowsForConfig(1)
+        stream << '%s\n' %numLines
+        
+        for l in range (0, numLines):
+            values = self.marksT_M.getRow(1, l+1)
+            
+            for p in range (0, 7):
+                if p>0:
+                    stream << '\t' 
+                stream << '%s' %values(p)
+                if p== 6:
+                    stream << '\n'    
+
+        stream << separator            
+        stream << '*       21. JONCS DEFINITION (NYLON RODS)\n'
+        stream << separator
+        numGroups = self.joncsDef_M.numConfigs()
+        if numGroups == 0:
+            stream << '0\n'
+        else:
+            stream << '2\n' # we always use scheme 2!
+            stream << '%s\n' %numGroups
+            
+            for g in range (0, numGroups):
+                numLines = self.joncsDef_M.numRowsForConfig(g+1)
+                values = self.joncsDef_M.getRow(g+1, 1)
+                scheme = values(ProcessorModel.JoncsDefModel.TypeCol)
+                
+                stream << '%s' %(g+1)
+                stream << '\t%s\n' %scheme
+                stream << '%s\n' %numLines
+
+                for  l in range (0, numLines):
+                    values = self.joncsDef_M.getRow(g+1, l+1)
+
+                    stream << '%s' %(l+1)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.FirstRibCol)
+                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.LastRibCol)
+                    
+                    # Line 1
+                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pBACol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBBCol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBCCol)
+                    if scheme == 1:
+                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBDCol)
+                    else:
+                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBDCol)
+                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBECol)
+                        
+                    # Line 2
+                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pCACol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCBCol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCCCol)   
+                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pCDCol)
+                    
+                    if scheme == 1:
+                        # Line 3
+                        stream << '%s' %values(ProcessorModel.JoncsDefModel.pDACol)
+                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDBCol)
+                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDCCol)   
+                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pDDCol)
+                        
+        stream << separator            
+        stream << '*       22. NOSE MYLARS DEFINITION\n'
+        stream << separator
+        numGroups = self.noseMylars_M.numConfigs()
+        if numGroups == 0:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            stream << '%s\n' %numGroups
+            
+            for g in range (0, numGroups):
+                numLines = self.noseMylars_M.numRowsForConfig(g+1)
+
+                for  l in range (0, numLines):
+                    values = self.noseMylars_M.getRow(g+1, l+1)
+                            
+                    stream << '%s' %(l+1)
+                    stream << '\t%s' %values(ProcessorModel.NoseMylarsModel.FirstRibCol)
+                    stream << '\t%s\n' %values(ProcessorModel.NoseMylarsModel.LastRibCol)
+                    
+                    for p in range (0,6):
+                        if p>0:
+                            stream << '\t'
+                        
+                        stream << '%s' %values(ProcessorModel.NoseMylarsModel.xOneCol+p)
+                        
+                        if p==5:
+                            stream << '\n'
+                    
+        stream << separator            
+        stream << '*       23. TAB REINFORCEMENTS\n'
+        stream << separator
+        stream << '0\n' # not yet operational
+        
+        stream << separator            
+        stream << '*       24. GENERAL 2D DXF OPTIONS\n'
+        stream << separator
+        if self.twoDDxf_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            numLines = self.twoDDxf_M.numRowsForConfig(1)
+            
+            for l in range (0, numLines):
+                values = self.twoDDxf_M.getRow(1, l+1)
+                
+                for p in range (0, 3):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p== 2:
+                        stream << '\n'  
+        
+        stream << separator            
+        stream << '*       25. GENERAL 3D DXF OPTIONS\n'
+        stream << separator
+        if self.threeDDxf_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            for l in range (0, 6):
+                values = self.threeDDxf_M.getRow(1, l+1)
+                
+                stream << '%s' %values(0)
+                stream << '\t%s' %values(2)
+                stream << '\t%s\n' %values(3)
+            
+            for l in range (6, 9):
+                values = self.threeDDxf_M.getRow(1, l+1)
+                for p in range (0, 4):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p== 3:
+                        stream << '\n'
+                        
+        stream << separator            
+        stream << '*       26. GLUE VENTS\n'
+        stream << separator
+        if self.glueVent_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            numLines = self.glueVent_M.numRowsForConfig(1)
+            
+            for l in range (0, numLines):
+                values = self.glueVent_M.getRow(1, l+1)
+                
+                for p in range (0, 2):
+                    if p>0:
+                        stream << '\t' 
+                    stream << '%s' %values(p)
+                    if p== 1:
+                        stream << '\n'
+                        
+        stream << separator            
+        stream << '*       27. SPECIAL WING TIP\n'
+        stream << separator
+        if self.specWingTyp_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            
+            values = self.specWingTyp_M.getRow(1, 1)
+            stream << 'AngleLE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleLECol)
+            stream << 'AngleTE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleTECol)
+            
+        stream << separator            
+        stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
+        stream << separator
+        if self.calageVar_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            
+            values = self.calageVar_M.getRow(1, 1)
+            stream << '%s\n' %values(ProcessorModel.CalageVarModel.NumRisersCol)
+            
+            stream << '%s' %values(ProcessorModel.CalageVarModel.PosACol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosBCol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosCCol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosDCol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosECol)
+            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.PosFCol)
+            
+            stream << '%s' %values(ProcessorModel.CalageVarModel.MaxNegAngCol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.NumNegStepsCol)
+            stream << '\t%s' %values(ProcessorModel.CalageVarModel.MaxPosAngCol)
+            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.NumPosStepsCol)
+            
+        stream << separator            
+        stream << '*       29. 3D SHAPING\n'
+        stream << separator
+        numGroups = self.threeDShConf_M.numConfigs()
+        if numGroups == 0:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            stream << '1\n'
+            stream << 'groups\t%s\n' %numGroups
+            
+            for g in range (0, numGroups):
+                values = self.threeDShConf_M.getRow(g+1, 1)
+                stream << 'group\t%s' %(g+1)
+                stream << '\t%s' %values(ProcessorModel.ThreeDShConfModel.FirstRibCol)
+                stream << '\t%s\n' %values(ProcessorModel.ThreeDShConfModel.LastRibCol)
+                
+                numLines = self.threeDShUpDet_M.numRowsForConfig(g+1)
+                stream << 'upper\t%s\t1\n' %numLines
+                
+                for l in range (0, numLines):
+                    values = self.threeDShUpDet_M.getRow(g+1, l+1)
+                    stream << '%s' %(l+1)
+                    
+                    for p in range (0, 3):
+                        stream << '\t%s' %values(p)
+                        if p== 2:
+                            stream << '\n'
+                            
+                numLines = self.threeDShLoDet_M.numRowsForConfig(g+1)
+                stream << 'lower\t%s\t1\n' %numLines
+                
+                for l in range (0, numLines):
+                    values = self.threeDShLoDet_M.getRow(g+1, l+1)
+                    stream << '%s' %(l+1)
+                    
+                    for p in range (0, 3):
+                        stream << '\t%s' %values(p)
+                        if p== 2:
+                            stream << '\n'
+
+            stream << '* Print parameters\n'
+            numLines = self.threeDShPr_M.numRowsForConfig(1)
+            for l in range (0, numLines):
+                values = self.threeDShPr_M.getRow(1, l+1)
+                
+                for p in range (0, 5):
+                    if p>0:
+                        stream << '\t'
+                    stream << '%s' %values(p)
+                    if p== 4:
+                        stream << '\n'
+        
+        stream << separator            
+        stream << '*       30. AIRFOIL THICKNESS MODIFICATION\n'
+        stream << separator
+        if self.airfThick_M.isUsed() == False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            
+            numLines = self.airfThick_M.numRowsForConfig(1)
+            for l in range (0, numLines):
+                values = self.airfThick_M.getRow(1, l+1)
+                
+                stream << '%s' %(l+1)
+                stream << '\t%s\n' %values(0)
+                
+        stream << separator            
+        stream << '*       31. NEW SKIN TENSION MODULE\n'
+        stream << separator
+        numGroups = self.newSkinTensConf_M.numConfigs()
+        if numGroups == 0:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            stream << '%s\n' %numGroups
+            
+            for g in range (0, numGroups):
+                stream << '* Skin tension group\n'
+                values = self.newSkinTensConf_M.getRow(g+1, 1)
+                numLines = self.newSkinTensDet_M.numRowsForConfig(g+1)
+                
+                stream << '%s' %(g+1)
+                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.InitialRibCol)
+                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.FinalRibCol)
+                stream << '\t%s' %numLines
+                stream << '\t1\n'
+                
+                for l in range (0, numLines):
+                    values = self.newSkinTensDet_M.getRow(g+1, l+1)
+                    
+                    stream << '%s' %(l+1)
+                    for p in range (0, 4):
+                        stream << '\t%s' %values(p)
+                        if p== 3:
+                            stream << '\n'
+        
+        stream.flush()
+        outFile.close()
+        
+        if forProc == False:
+            # Then we need to set the right file version
+            self.setFileVersion('3.10')
+        
+            # Make flags in order
+            #self.dataStatusUpdate.emit(self.__className,'Open')
+
     def remTabSpace(self, line):
         '''
         :method: Deletes all leaing and trailing edges from a string
@@ -972,6 +1763,637 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
 
+
+
+        
+    class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
+        '''
+        __className = 'AddRibPointsModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column used for ordering the individual lines of a config'''
+        XCoordCol = 1
+        ''':attr: Number of the col holding the X-Coordinate'''
+        YCoordCol = 2
+        ''':attr: Number of the col holding the Y-Coordinate'''
+        ConfigNumCol = 3
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AddRibPoints;")
+            query.exec("create table if not exists AddRibPoints ("
+                    "OrderNum INTEGER,"
+                    "XCoord REAL,"
+                    "YCoord REAL,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("AddRibPoints")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [% Chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [% Chord]"))
+        
+        def updateRow(self, configNum, orderNum, xCoord, yCoord):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE AddRibPoints SET "
+                          "XCoord= :xCoord, "
+                          "YCoord= :yCoord "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":xCoord", xCoord )
+            query.bindValue(":yCoord", yCoord )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "XCoord, "
+                            "YCoord "
+                            "FROM AddRibPoints WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+
+
+    class AirfoilsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
+        '''
+        __className = 'AirfoilsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: number of the rib number column'''
+        AirfNameCol = 1
+        ''':attr: number of the rib name column'''
+        IntakeStartCol = 2 
+        ''':attr: number of the intake start column'''
+        IntakeEndCol = 3
+        ''':attr: number of the intake end column'''
+        OpenCloseCol = 4
+        ''':attr: number of the column for the open/ close config'''
+        DisplacCol = 5
+        ''':attr: number of the column for the displacement'''
+        RelWeightCol = 6
+        ''':attr: number of the column for the relative weight '''
+        rrwCol = 7
+        ''':attr: number of the column for the rrw config'''
+        
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty anchor points table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Airfoils;")
+            query.exec("create table if not exists Airfoils ("
+                    "RibNum INTEGER,"
+                    "AirfName TEXT,"
+                    "IntakeStart REAL,"
+                    "IntakeEnd REAL,"
+                    "OpenClose INTEGER,"
+                    "Displac REAL,"
+                    "RelWeight REAL,"
+                    "rrw REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into Airfoils (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Airfoils")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Intake Start"))
+            self.setHeaderData(3, Qt.Horizontal, _("Intake End"))
+            self.setHeaderData(4, Qt.Horizontal, _("Open-close"))
+            self.setHeaderData(5, Qt.Horizontal, _("Displac"))
+            self.setHeaderData(6, Qt.Horizontal, _("Rel weight"))
+            self.setHeaderData(7, Qt.Horizontal, _("rrw"))
+            
+        def getRow(self, ribNum):
+            '''
+            :method: reads values back from the internal database for a specific rib number
+            :param ribNum: Rib number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "AirfName, "
+                            "IntakeStart, "
+                            "IntakeEnd, "
+                            "OpenClose, "
+                            "Displac, "
+                            "RelWeight, "
+                            "rrw "
+                            "FROM Airfoils WHERE (RibNum = :rib)")
+            query.bindValue(":rib", ribNum )
+            query.exec()
+            query.next()
+            return query.value
+
+    class AirfoilThicknessModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'AirfoilThicknessModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        CoeffCol = 1
+        ''':attr: Number of the col holding thickness parameter'''
+        ConfigNumCol = 2
+        ''':attr: num of column for config number (always 1)'''
+
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("AirfoilThickness")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("Airfoil num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Coeff"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AirfoilThickness;")
+            query.exec("create table if not exists AirfoilThickness ("
+                    "OrderNum INTEGER, "
+                    "Coeff REAL, "
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, coeff):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE AirfoilThickness SET "
+                          "Coeff= :coeff "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":coeff", coeff )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
+        
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Coeff "
+                            "FROM AirfoilThickness WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+
+    class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
+        '''
+        __className = 'AnchorPointsModel'
+        '''
+        :attr: Does help to indicate the source of the log messages
+        '''
+        RibNumCol = 0
+        ''':attr: Number of the rib number column'''
+        NumAnchCol = 1
+        ''':attr: Number of the column holding the number of anchors'''
+        PosACol = 2
+        ''':attr: Number the column holding Pos A'''
+        PosBCol = 3
+        ''':attr: Number the column holding Pos B'''
+        PosCCol = 4
+        ''':attr: Number the column holding Pos C'''
+        PosDCol = 5
+        ''':attr: Number the column holding Pos D'''
+        PosECol = 6
+        ''':attr: Number the column holding Pos E'''
+        PosFCol = 7
+        ''':attr: Number the column holding Pos F'''
+        
+        def createAnchorPointsTable(self):
+            '''
+            :method: Creates initially the empty anchor points table
+            ''' 
+            logging.debug(self.__className+'.createAnchorPointsTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists AnchorPoints;")
+            query.exec("create table if not exists AnchorPoints ("
+                    "RibNum INTEGER,"
+                    "NumAnchors INTEGER,"
+                    "PosA REAL,"
+                    "PosB REAL,"
+                    "PosC REAL,"
+                    "PosD REAL,"
+                    "PosE REAL,"
+                    "PosF REAL,"
+                    "ID INTEGER PRIMARY KEY);")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createAnchorPointsTable()
+            self.setTable("AnchorPoints")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Num Anchors"))
+            self.setHeaderData(2, Qt.Horizontal, _("Pos A"))
+            self.setHeaderData(3, Qt.Horizontal, _("Pos B"))
+            self.setHeaderData(4, Qt.Horizontal, _("Pos C"))
+            self.setHeaderData(5, Qt.Horizontal, _("Pos D"))
+            self.setHeaderData(6, Qt.Horizontal, _("Pos E"))
+            self.setHeaderData(7, Qt.Horizontal, _("Pos F"))
+            
+        def getRow(self, ribNum):
+            '''
+            :method: reads values back from the internal database for a specific rib number
+            :param ribNum: Rib number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "NumAnchors, "
+                            "PosA, "
+                            "PosB, "
+                            "PosC, "
+                            "PosD, "
+                            "PosE, "
+                            "PosF "
+                            "FROM AnchorPoints WHERE (RibNum = :rib)")
+            query.bindValue(":rib", ribNum )
+            query.exec()
+            query.next()
+            return query.value
+
+    class BrakesModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the lines parameters. 
+        '''
+        __className = 'BrakesModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
+        NumBranchesCol = 1
+        ''':attr: Number of the col holding the number of branches'''
+        BranchLvlOneCol = 2
+        ''':attr: Number of the col holding the branching level 1 value'''
+        OrderLvlOneCol = 3
+        ''':attr: Number of the col holding order at level 1 value'''
+        LevelOfRamTwoCol = 4
+        ''':attr: Number of the col holding level of ramification 2 value'''
+        OrderLvlTwoCol = 5
+        ''':attr: Number of the col holding order at level 2 value'''
+        LevelOfRamThreeCol = 6
+        ''':attr: Number of the col holding level of ramification 3 value'''
+        OrderLvlThreeCol = 7
+        ''':attr: Number of the col holding order at level 3 value'''
+        BranchLvlFourCol = 8
+        ''':attr: Number of the col holding branching level 4 value'''
+        OrderLvlFourCol = 9
+        ''':attr: Number of the col holding order at level 4 value'''
+        AnchorLineCol = 10
+        ''':attr: Number of the col holding the  anchor line (1 = A, 2 = B, 3 = C, 4 = c 5 = D, 6 = brake) value'''
+        AnchorRibNumCol = 11
+        ''':attr: Number of the col holding the anchor rib number value'''
+        ConfigNumCol = 12
+        ''':attr: num of column for config number'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Lines table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists Brakes;")
+            query.exec("create table if not exists Brakes ("
+                    "OrderNum INTEGER,"
+                    "NumBranches INTEGER,"
+                    "BranchLvlOne INTEGER,"
+                    "OrderLvlOne INTEGER,"
+                    "LevelOfRamTwo INTEGER,"
+                    "OrderLvlTwo INTEGER,"
+                    "LevelOfRamThree INTEGER,"
+                    "OrderLvlThree INTEGER,"
+                    "BranchLvlFour INTEGER,"
+                    "OrderLvlFour INTEGER,"
+                    "AnchorLine INTEGER,"
+                    "AnchorRibNum INTEGER,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("Brakes")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
+            self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
+            self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
+            self.setHeaderData(4, Qt.Horizontal, _("Ramif lvl2"))
+            self.setHeaderData(5, Qt.Horizontal, _("Order lvl 2"))
+            self.setHeaderData(6, Qt.Horizontal, _("Ramif lvl3"))
+            self.setHeaderData(7, Qt.Horizontal, _("Order lvl 3"))
+            self.setHeaderData(8, Qt.Horizontal, _("Branch lvl 4"))
+            self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
+            self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
+            self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
+        
+        def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Brakes SET "
+                          "NumBranches= :i1, "
+                          "BranchLvlOne= :i2, "
+                          "OrderLvlOne= :i3, "
+                          "LevelOfRamTwo= :i4, "
+                          "OrderLvlTwo= :i5, "
+                          "LevelOfRamThree= :i6, "
+                          "OrderLvlThree= :i7, "
+                          "BranchLvlFour= :i8, "
+                          "OrderLvlFour= :i9, "
+                          "AnchorLine= :i10, "
+                          "AnchorRibNum= :i11 "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":i1", i1 )
+            query.bindValue(":i2", i2 )
+            query.bindValue(":i3", i3 )
+            query.bindValue(":i4", i4 )
+            query.bindValue(":i5", i5 )
+            query.bindValue(":i6", i6 )
+            query.bindValue(":i7", i7 )
+            query.bindValue(":i8", i8 )
+            query.bindValue(":i9", i9 )
+            query.bindValue(":i10", i10 )
+            query.bindValue(":i11", i11 )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "NumBranches, "
+                            "BranchLvlOne, "
+                            "OrderLvlOne, "
+                            "LevelOfRamTwo, "
+                            "OrderLvlTwo, "
+                            "LevelOfRamThree, "
+                            "OrderLvlThree, "
+                            "BranchLvlFour, "
+                            "OrderLvlFour, "
+                            "AnchorLine, "
+                            "AnchorRibNum "
+                            "FROM Brakes WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+
+    class BrakeLengthModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the Marks parameters. 
+        '''
+        __className = 'BrakeLengthModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        
+        s1Col = 0
+        ''':attr: Number of the col holding the s1 value'''
+        s2Col = 1
+        ''':attr: Number of the col holding the s2 value'''
+        s3Col = 2
+        ''':attr: Number of the col holding the s3 value'''
+        s4Col = 3
+        ''':attr: Number of the col holding the s4 value'''
+        s5Col = 4
+        ''':attr: Number of the col holding the s5 value'''
+        d1Col = 5
+        ''':attr: Number of the col holding the d1 value'''
+        d2Col = 6
+        ''':attr: Number of the col holding the d2 value'''
+        d3Col = 7
+        ''':attr: Number of the col holding the d3 value'''
+        d4Col = 8
+        ''':attr: Number of the col holding the d4 value'''
+        d5Col = 9
+        ''':attr: Number of the col holding the d5 value'''
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty Brake length table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists BrakeLenght;")
+            query.exec("create table if not exists BrakeLenght ("
+                    "s1 INTEGER,"
+                    "s2 INTEGER,"
+                    "s3 INTEGER,"
+                    "s4 INTEGER,"
+                    "s5 INTEGER,"
+                    "d1 INTEGER,"
+                    "d2 INTEGER,"
+                    "d3 INTEGER,"
+                    "d4 INTEGER,"
+                    "d5 INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+            query.exec("INSERT into BrakeLenght (ID) Values( '1' );")
+            
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("BrakeLenght")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+                    
+            self.setHeaderData(0, Qt.Horizontal, _("s1 [%]"))
+            self.setHeaderData(1, Qt.Horizontal, _("s2 [%]"))
+            self.setHeaderData(2, Qt.Horizontal, _("s3 [%]"))
+            self.setHeaderData(3, Qt.Horizontal, _("s4 [%]"))
+            self.setHeaderData(4, Qt.Horizontal, _("s5 [%]"))
+            self.setHeaderData(5, Qt.Horizontal, _("d1 [cm]"))
+            self.setHeaderData(6, Qt.Horizontal, _("d2 [cm]"))
+            self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
+            self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
+            self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
+            
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "s1, "
+                            "s2, "
+                            "s3, "
+                            "s4, "
+                            "s5, "
+                            "d1, "
+                            "d2, "
+                            "d3, "
+                            "d4, "
+                            "d5 "
+                            "FROM BrakeLenght")
+            query.exec()
+            query.next()
+            
+            return query.value
+        
     class CalageVarModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the DXF layer names
@@ -1115,656 +2537,41 @@ class ProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.isUsed')
             return self.__isUsed
 
-
-    class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the DXF layer names
-        '''
-        __className = 'TwoDDxfModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        __isUsed = False
-        ''' :attr: Helps to remember if the section is in use or not'''
-       
-        usageUpd = pyqtSignal()
-        '''
-        :signal: emitted as soon the usage flag is changed
-        '''
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
-        LineNameCol = 1
-        ''':attr: Number of the col holding the fixed line name '''
-        ColorCodeCol = 2
-        ''':attr: Number of the col holding the color code'''
-        ColorNameCol = 3 
-        ''':attr: Number of the col holding the optional color name'''
-        ConfigNumCol = 4
-        ''':attr: num of column for config number (always 1)'''
-        
-        def __init__(self, parent=None): # @UnusedVariable
+        def getRow(self, configNum, orderNum):
             '''
-            :method: Constructor
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
             '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("TwoDDxf")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-            self.setNumRowsForConfig(1,6)
+            logging.debug(self.__className+'.getRow')
                     
-            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Color code"))
-            self.setHeaderData(3, Qt.Horizontal, _("Color name (opt)"))
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists TwoDDxf;")
-            query.exec("create table if not exists TwoDDxf ("
-                    "OrderNum INTEGER,"
-                    "LineName TEXT,"
-                    "ColorCode INTEGER,"
-                    "ColorName TEXT,"
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-
-        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
-            logging.debug(self.__className+'.updateRow')
-            
             # TODO: Add transaction
             query = QSqlQuery()
-            query.prepare("UPDATE TwoDDxf SET "
-                          "LineName= :lineName, "
-                          "ColorCode= :colorCode, "
-                          "ColorName= :colorName "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":lineName", lineName )
-            query.bindValue(":colorCode", colorCode )
-            query.bindValue(":colorName", colorName )
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "NumRisers, "
+                            "PosA, "
+                            "PosB, "
+                            "PosC, "
+                            "PosD, "
+                            "PosE, "
+                            "PosF, "
+                            "MaxNegAng, "
+                            "NumNegSteps, "
+                            "MaxPosAng, "
+                            "NumPosSteps "
+                            "FROM CalageVar WHERE (ConfigNum = :config) ORDER BY OrderNum")
             query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-        
-        def setIsUsed(self, isUsed):
-            '''
-            :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
-            '''
-            logging.debug(self.__className+'.setIsUsed')
-            self.__isUsed = isUsed
-            self.usageUpd.emit()
-        
-        def isUsed(self):
-            '''
-            :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
-            '''
-            logging.debug(self.__className+'.isUsed')
-            return self.__isUsed
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
-    class ThreeDDxfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the DXF layer names
-        '''
-        __className = 'ThreeDDxfModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        __isUsed = False
-        ''' :attr: Helps to remember if the section is in use or not'''
-       
-        usageUpd = pyqtSignal()
-        '''
-        :signal: emitted as soon the usage flag is changed
-        '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
-        LineNameCol = 1
-        ''':attr: Number of the col holding the fixed line name '''
-        UnifilarCol = 2
-        ''':attr: Number of the col holding the unifilar flag'''
-        ColorCodeCol = 3
-        ''':attr: Number of the col holding the color code'''
-        ColorNameCol = 4 
-        ''':attr: Number of the col holding the optional color name'''
-        ConfigNumCol = 5
-        ''':attr: num of column for config number (always 1)'''
-
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("ThreeDDxf")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-            self.setNumRowsForConfig(1,9)
-                    
-            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Unifilar"))
-            self.setHeaderData(3, Qt.Horizontal, _("Color code"))
-            self.setHeaderData(4, Qt.Horizontal, _("Color name (opt)"))
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists ThreeDDxf;")
-            query.exec("create table if not exists ThreeDDxf ("
-                    "OrderNum INTEGER,"
-                    "LineName TEXT,"
-                    "Unifilar INTEGER, "
-                    "ColorCode INTEGER,"
-                    "ColorName TEXT,"
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-
-        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName, unifilar=0):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
-            logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
-            query = QSqlQuery()
-            query.prepare("UPDATE ThreeDDxf SET "
-                          "LineName= :lineName, "
-                          "Unifilar= :unifilar, "
-                          "ColorCode= :colorCode, "
-                          "ColorName= :colorName "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":lineName", lineName )
-            query.bindValue(":unifilar", unifilar )
-            query.bindValue(":colorCode", colorCode )
-            query.bindValue(":colorName", colorName )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-
-        def setIsUsed(self, isUsed):
-            '''
-            :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
-            '''
-            logging.debug(self.__className+'.setIsUsed')
-            self.__isUsed = isUsed
-            self.usageUpd.emit()
-        
-        def isUsed(self):
-            '''
-            :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
-            '''
-            logging.debug(self.__className+'.isUsed')
-            return self.__isUsed
-        
-    class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
-        '''
-        __className = 'AddRibPointsModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column used for ordering the individual lines of a config'''
-        XCoordCol = 1
-        ''':attr: Number of the col holding the X-Coordinate'''
-        YCoordCol = 2
-        ''':attr: Number of the col holding the Y-Coordinate'''
-        ConfigNumCol = 3
-        ''':attr: num of column for config number'''
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists AddRibPoints;")
-            query.exec("create table if not exists AddRibPoints ("
-                    "OrderNum INTEGER,"
-                    "XCoord REAL,"
-                    "YCoord REAL,"
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("AddRibPoints")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-                    
-            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [% Chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [% Chord]"))
-        
-        def updateRow(self, configNum, orderNum, xCoord, yCoord):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
-            logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
-            query = QSqlQuery()
-            query.prepare("UPDATE AddRibPoints SET "
-                          "XCoord= :xCoord, "
-                          "YCoord= :yCoord "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":xCoord", xCoord )
-            query.bindValue(":yCoord", yCoord )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-
-
-    class AirfoilsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
-        '''
-        __className = 'AirfoilsModel'
-        '''
-        :attr: Does help to indicate the source of the log messages
-        '''
-        RibNumCol = 0
-        ''':attr: number of the rib number column'''
-        AirfNameCol = 1
-        ''':attr: number of the rib name column'''
-        IntakeStartCol = 2 
-        ''':attr: number of the intake start column'''
-        IntakeEndCol = 3
-        ''':attr: number of the intake end column'''
-        OpenCloseCol = 4
-        ''':attr: number of the column for the open/ close config'''
-        DisplacCol = 5
-        ''':attr: number of the column for the displacement'''
-        RelWeightCol = 6
-        ''':attr: number of the column for the relative weight '''
-        rrwCol = 7
-        ''':attr: number of the column for the rrw config'''
-        
-        
-        def createAirfoilsTable(self):
-            '''
-            :method: Creates initially the empty anchor points table
-            ''' 
-            logging.debug(self.__className+'.createAirfoilsTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists Airfoils;")
-            query.exec("create table if not exists Airfoils ("
-                    "RibNum INTEGER,"
-                    "AirfName TEXT,"
-                    "IntakeStart REAL,"
-                    "IntakeEnd REAL,"
-                    "OpenClose INTEGER,"
-                    "Displac REAL,"
-                    "RelWeight REAL,"
-                    "rrw REAL,"
-                    "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Airfoils (ID) Values( '1' );")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createAirfoilsTable()
-            self.setTable("Airfoils")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-
-    class AirfoilThicknessModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the DXF layer names
-        '''
-        __className = 'AirfoilThicknessModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        __isUsed = False
-        ''' :attr: Helps to remember if the section is in use or not'''
-       
-        usageUpd = pyqtSignal()
-        '''
-        :signal: emitted as soon the usage flag is changed
-        '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
-        CoeffCol = 1
-        ''':attr: Number of the col holding thickness parameter'''
-        ConfigNumCol = 2
-        ''':attr: num of column for config number (always 1)'''
-
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("AirfoilThickness")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-                    
-            self.setHeaderData(0, Qt.Horizontal, _("Airfoil num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Coeff"))
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists AirfoilThickness;")
-            query.exec("create table if not exists AirfoilThickness ("
-                    "OrderNum INTEGER, "
-                    "Coeff REAL, "
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-
-        def updateRow(self, configNum, orderNum, coeff):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
-            logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
-            query = QSqlQuery()
-            query.prepare("UPDATE AirfoilThickness SET "
-                          "Coeff= :coeff "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":coeff", coeff )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-
-        def setIsUsed(self, isUsed):
-            '''
-            :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
-            '''
-            logging.debug(self.__className+'.setIsUsed')
-            self.__isUsed = isUsed
-            self.usageUpd.emit()
-        
-        def isUsed(self):
-            '''
-            :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
-            '''
-            logging.debug(self.__className+'.isUsed')
-            return self.__isUsed
-
-    class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
-        '''
-        __className = 'AnchorPointsModel'
-        '''
-        :attr: Does help to indicate the source of the log messages
-        '''
-        RibNumCol = 0
-        ''':attr: Number of the rib number column'''
-        NumAnchCol = 1
-        ''':attr: Number of the column holding the number of anchors'''
-        PosACol = 2
-        ''':attr: Number the column holding Pos A'''
-        PosBCol = 3
-        ''':attr: Number the column holding Pos B'''
-        PosCCol = 4
-        ''':attr: Number the column holding Pos C'''
-        PosDCol = 5
-        ''':attr: Number the column holding Pos D'''
-        PosECol = 6
-        ''':attr: Number the column holding Pos E'''
-        PosFCol = 7
-        ''':attr: Number the column holding Pos F'''
-        
-        def createAnchorPointsTable(self):
-            '''
-            :method: Creates initially the empty anchor points table
-            ''' 
-            logging.debug(self.__className+'.createAnchorPointsTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists AnchorPoints;")
-            query.exec("create table if not exists AnchorPoints ("
-                    "RibNum INTEGER,"
-                    "NumAnchors INTEGER,"
-                    "PosA REAL,"
-                    "PosB REAL,"
-                    "PosC REAL,"
-                    "PosD REAL,"
-                    "PosE REAL,"
-                    "PosF REAL,"
-                    "ID INTEGER PRIMARY KEY);")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createAnchorPointsTable()
-            self.setTable("AnchorPoints")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-
-    class BrakesModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the lines parameters. 
-        '''
-        __className = 'BrakesModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
-        NumBranchesCol = 1
-        ''':attr: Number of the col holding the number of branches'''
-        BranchLvlOneCol = 2
-        ''':attr: Number of the col holding the branching level 1 value'''
-        OrderLvlOneCol = 3
-        ''':attr: Number of the col holding order at level 1 value'''
-        LevelOfRamTwoCol = 4
-        ''':attr: Number of the col holding level of ramification 2 value'''
-        OrderLvlTwoCol = 5
-        ''':attr: Number of the col holding order at level 2 value'''
-        LevelOfRamThreeCol = 6
-        ''':attr: Number of the col holding level of ramification 3 value'''
-        OrderLvlThreeCol = 7
-        ''':attr: Number of the col holding order at level 3 value'''
-        BranchLvlFourCol = 8
-        ''':attr: Number of the col holding branching level 4 value'''
-        OrderLvlFourCol = 9
-        ''':attr: Number of the col holding order at level 4 value'''
-        AnchorLineCol = 10
-        ''':attr: Number of the col holding the  anchor line (1 = A, 2 = B, 3 = C, 4 = c 5 = D, 6 = brake) value'''
-        AnchorRibNumCol = 11
-        ''':attr: Number of the col holding the anchor rib number value'''
-        ConfigNumCol = 12
-        ''':attr: num of column for config number'''
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty Lines table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists Brakes;")
-            query.exec("create table if not exists Brakes ("
-                    "OrderNum INTEGER,"
-                    "NumBranches INTEGER,"
-                    "BranchLvlOne INTEGER,"
-                    "OrderLvlOne INTEGER,"
-                    "LevelOfRamTwo INTEGER,"
-                    "OrderLvlTwo INTEGER,"
-                    "LevelOfRamThree INTEGER,"
-                    "OrderLvlThree INTEGER,"
-                    "BranchLvlFour INTEGER,"
-                    "OrderLvlFour INTEGER,"
-                    "AnchorLine INTEGER,"
-                    "AnchorRibNum INTEGER,"
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("Brakes")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-            self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
-            self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
-            self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
-            self.setHeaderData(4, Qt.Horizontal, _("Ramif lvl2"))
-            self.setHeaderData(5, Qt.Horizontal, _("Order lvl 2"))
-            self.setHeaderData(6, Qt.Horizontal, _("Ramif lvl3"))
-            self.setHeaderData(7, Qt.Horizontal, _("Order lvl 3"))
-            self.setHeaderData(8, Qt.Horizontal, _("Branch lvl 4"))
-            self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
-            self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
-            self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
-        
-        def updateBrakeRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
-            logging.debug(self.__className+'.updateLineRow')
-            
-            # TODO: Add transaction
-            query = QSqlQuery()
-            query.prepare("UPDATE Brakes SET "
-                          "NumBranches= :i1, "
-                          "BranchLvlOne= :i2, "
-                          "OrderLvlOne= :i3, "
-                          "LevelOfRamTwo= :i4, "
-                          "OrderLvlTwo= :i5, "
-                          "LevelOfRamThree= :i6, "
-                          "OrderLvlThree= :i7, "
-                          "BranchLvlFour= :i8, "
-                          "OrderLvlFour= :i9, "
-                          "AnchorLine= :i10, "
-                          "AnchorRibNum= :i11 "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":i1", i1 )
-            query.bindValue(":i2", i2 )
-            query.bindValue(":i3", i3 )
-            query.bindValue(":i4", i4 )
-            query.bindValue(":i5", i5 )
-            query.bindValue(":i6", i6 )
-            query.bindValue(":i7", i7 )
-            query.bindValue(":i8", i8 )
-            query.bindValue(":i9", i9 )
-            query.bindValue(":i10", i10 )
-            query.bindValue(":i11", i11 )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            query.exec()
-            self.select() # to a select() to assure the model is updated properly
-
-    class BrakeLengthModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the Marks parameters. 
-        '''
-        __className = 'BrakeLengthModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        s1Col = 0
-        ''':attr: Number of the col holding the s1 value'''
-        s2Col = 1
-        ''':attr: Number of the col holding the s2 value'''
-        s3Col = 2
-        ''':attr: Number of the col holding the s3 value'''
-        s4Col = 3
-        ''':attr: Number of the col holding the s4 value'''
-        s5Col = 4
-        ''':attr: Number of the col holding the s5 value'''
-        d1Col = 5
-        ''':attr: Number of the col holding the d1 value'''
-        d2Col = 6
-        ''':attr: Number of the col holding the d2 value'''
-        d3Col = 7
-        ''':attr: Number of the col holding the d3 value'''
-        d4Col = 8
-        ''':attr: Number of the col holding the d4 value'''
-        d5Col = 9
-        ''':attr: Number of the col holding the d5 value'''
-        
-        def createTable(self):
-            '''
-            :method: Creates initially the empty Brake length table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
-            query = QSqlQuery()
-                
-            query.exec("DROP TABLE if exists BrakeLenght;")
-            query.exec("create table if not exists BrakeLenght ("
-                    "s1 INTEGER,"
-                    "s2 INTEGER,"
-                    "s3 INTEGER,"
-                    "s4 INTEGER,"
-                    "s5 INTEGER,"
-                    "d1 INTEGER,"
-                    "d2 INTEGER,"
-                    "d3 INTEGER,"
-                    "d4 INTEGER,"
-                    "d5 INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into BrakeLenght (ID) Values( '1' );")
-            
-        def __init__(self, parent=None): # @UnusedVariable
-            '''
-            :method: Constructor
-            '''
-            logging.debug(self.__className+'.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("BrakeLenght")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
-                    
-            self.setHeaderData(0, Qt.Horizontal, _("s1 [%]"))
-            self.setHeaderData(1, Qt.Horizontal, _("s2 [%]"))
-            self.setHeaderData(2, Qt.Horizontal, _("s3 [%]"))
-            self.setHeaderData(3, Qt.Horizontal, _("s4 [%]"))
-            self.setHeaderData(4, Qt.Horizontal, _("s5 [%]"))
-            self.setHeaderData(5, Qt.Horizontal, _("d1 [cm]"))
-            self.setHeaderData(6, Qt.Horizontal, _("d2 [cm]"))
-            self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
-            self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
-            self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
 
     class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -1829,6 +2636,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Layer, "
+                            "Description "
+                            "FROM DxfLayerNames WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class ElasticLinesCorrModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -1906,6 +2738,36 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("ElaslticLinesCorr")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Load, "
+                            "TwoLineDistA, "
+                            "TwoLineDistB, "
+                            "ThreeLineDistA, "
+                            "ThreeLineDistB, "
+                            "ThreeLineDistC, "
+                            "FourLineDistA, "
+                            "FourLineDistB, "
+                            "FourLineDistC, "
+                            "FourLineDistD, "
+                            "FiveLineDistA, "
+                            "FiveLineDistB, "
+                            "FiveLineDistC, "
+                            "FiveLineDistD, "
+                            "FiveLineDistE "
+                            "FROM ElaslticLinesCorr")
+            query.exec()
+            query.next()
+            return query.value
 
     class ElasticLinesDefModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -1979,6 +2841,33 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "DefLow, "
+                            "DefMid, "
+                            "DefHigh "
+                            "FROM ElaslticLinesDef WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class ExtradColsConfModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2031,6 +2920,25 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":config", configNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "FirstRib "
+                            "FROM ExtradColsConf WHERE (ConfigNum = :config)")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            return query.value
 
             
     class ExtradColsDetModel(SqlTableModel, metaclass=Singleton):
@@ -2087,6 +2995,29 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "DistTe "
+                            "FROM ExtradColsDet WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
             
     class GlobAoAModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2143,6 +3074,27 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
             self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
             self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
+            
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Finesse, "
+                            "CentOfPress, "
+                            "Calage, "
+                            "Risers, "
+                            "Lines, "
+                            "Karabiners "
+                            "FROM GlobalAoA")
+            query.exec()
+            query.next()
+            return query.value
 
     class GlueVentModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2226,6 +3178,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             logging.debug(self.__className+'.isUsed')
             return self.__isUsed
+        
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "VentParam "
+                            "FROM GlueVent WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
     
     class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2352,6 +3329,40 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "RibNum, "
+                            "Type, "
+                            "IniRib, "
+                            "ParamA, "
+                            "ParamB, "
+                            "ParamC, "
+                            "ParamD, "
+                            "ParamE, "
+                            "ParamF, "
+                            "ParamG, "
+                            "ParamH, "
+                            "ParamI "
+                            "FROM HvVhRibs WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class IntradColsConfModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2404,6 +3415,25 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":config", configNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "FirstRib "
+                            "FROM IntradColsConf WHERE (ConfigNum = :config)")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            return query.value
 
             
     class IntradColsDetModel(SqlTableModel, metaclass=Singleton):
@@ -2459,6 +3489,30 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "DistTe "
+                            "FROM IntradColsDet WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
 
     class JoncsDefModel(SqlTableModel, metaclass=Singleton):
@@ -2679,6 +3733,45 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             return typeNum
             
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "FirstRib, "
+                            "LastRib, "
+                            "pBA, "
+                            "pBB, "
+                            "pBC, "
+                            "PBD, "
+                            "pBE, "
+                            "pCA, "
+                            "pCB, "
+                            "pCC, "
+                            "PCD, "
+                            "pDA, "
+                            "pDB, "
+                            "pDC, "
+                            "PDD, "
+                            "Type "
+                            "FROM JoncsDef WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
             
             
     class LightConfModel(SqlTableModel, metaclass=Singleton):
@@ -2726,8 +3819,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("LightConf")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(1, Qt.Horizontal, _("Initial Rib"))
+            self.setHeaderData(2, Qt.Horizontal, _("Final Rib"))
         
-        def updateConfigRow(self, config, initialRib, finalRib):
+        def updateRow(self, config, initialRib, finalRib):
             logging.debug(self.__className+'.setConfigRow')
             # TODO: Add transaction
             query = QSqlQuery()
@@ -2737,6 +3833,25 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":config", config )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum):
+            '''
+            :method: reads values back from the internal database for a specific config number
+            :param configNum: Configuration number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select "
+                            "InitialRib, "
+                            "FinalRib "
+                            "FROM LightConf WHERE (ConfigNum = :config)")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            return query.value
 
 
     class LightDetModel(SqlTableModel, metaclass=Singleton):
@@ -2773,11 +3888,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ConfigNumCol = 8
         ''':attr: num of column for 1..3: config number'''
 
-        def createLightDetTable(self):
+        def createTable(self):
                 '''
                 :method: Creates initially the empty lightening details table.
                 ''' 
-                logging.debug(self.__className+'.createLightDetTable')   
+                logging.debug(self.__className+'.createTable')   
                 query = QSqlQuery()
                     
                 query.exec("DROP TABLE if exists LightDet;")
@@ -2800,16 +3915,25 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createLightDetTable()
+            self.createTable()
             self.setTable("LightDet")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Light Typ"))
+            self.setHeaderData(2, Qt.Horizontal, _("Dist LE"))
+            self.setHeaderData(3, Qt.Horizontal, _("Dist chord"))
+            self.setHeaderData(4, Qt.Horizontal, _("Hor axis"))
+            self.setHeaderData(5, Qt.Horizontal, _("Vert axis"))
+            self.setHeaderData(6, Qt.Horizontal, _("Rot angle"))
+            self.setHeaderData(7, Qt.Horizontal, _("Opt "))
 
-        def updateDetRow(self, configNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1):
+        def updateRow(self, configNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className+'.updateDetRow')
+            logging.debug(self.__className+'.updateRow')
             
             # TODO: Add transaction
             query = QSqlQuery()
@@ -2829,6 +3953,36 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "LightTyp, "
+                            "DistLE, "
+                            "DisChord, "
+                            "HorAxis, "
+                            "VertAxis, "
+                            "RotAngle, "
+                            "Opt1 "
+                            "FROM LightDet WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
        
     class LinesModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -2974,6 +4128,41 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 
                 # emit the change signal
                 self.numConfigsChanged.emit( self.numConfigs() )
+                
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "NumBranches, "
+                            "BranchLvlOne, "
+                            "OrderLvlOne, "
+                            "LevelOfRamTwo, "
+                            "OrderLvlTwo, "
+                            "LevelOfRamThree, "
+                            "OrderLvlThree, "
+                            "BranchLvlFour, "
+                            "OrderLvlFour, "
+                            "AnchorLine, "
+                            "AnchorRibNum "
+                            "FROM Lines WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class MarksModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3035,6 +4224,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", 1 )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "MarksSp, "
+                            "PointRad, "
+                            "PointDispl "
+                            "FROM Marks")
+            query.exec()
+            query.next()
+            return query.value
 
     class MarksTypesModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3129,6 +4336,36 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Type, "
+                            "FormOne, "
+                            "FormOnePOne, "
+                            "FormOnePTwo, "
+                            "FormTwo, "
+                            "FormTwoPOne, "
+                            "FormTwoPTwo "
+                            "FROM MarksTypes WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3194,6 +4431,33 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":config", config )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "InitialRib, "
+                            "FinalRib, "
+                            "Type "
+                            "FROM NewSkinTensConf WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3271,6 +4535,33 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "TopDistLE, "
+                            "TopWide, "
+                            "BotDistTE, "
+                            "BotWide "
+                            "FROM NewSkinTensDet WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3372,7 +4663,38 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
-
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "FirstRib, "
+                            "LastRib, "
+                            "xOne, "
+                            "uOne, "
+                            "uTwo, "
+                            "xTwo, "
+                            "vOne, "
+                            "vTwo "
+                            "FROM NoseMylars WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class RamificationModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3445,6 +4767,28 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Rows, "
+                            "ThirdToSail,"
+                            "FourthToSail "
+                            "FROM Ramification WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            query.next()
+            return query.value
            
     class RibModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3504,7 +4848,33 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Rib")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
 
+        def getRow(self, ribNum):
+            '''
+            :method: reads values back from the internal database for a specific rib number
+            :param ribNum: Rib number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "xrib, "
+                            "yLE, "
+                            "yTE, "
+                            "xp, "
+                            "z, "
+                            "beta, "
+                            "RP, "
+                            "Washin "
+                            "FROM Rib WHERE (RibNum = :rib)")
+            query.bindValue(":rib", ribNum )
+            query.exec()
+            query.next()
+            return query.value
 
     
     class SkinTensionModel(SqlTableModel, metaclass=Singleton):
@@ -3571,6 +4941,27 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", row )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum):
+            '''
+            :method: reads values back from the internal database for a specific config number
+            :param configNum: Configuration number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select "
+                            "TopDistLE, "
+                            "TopWide, "
+                            "BottDistTE, "
+                            "BottWide "
+                            "FROM SkinTension WHERE (ID = :config)")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            return query.value
 
     class SkinTensionParamsModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3611,6 +5002,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("SkinTensionParams")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select "
+                            "StrainMiniRibs, "
+                            "NumPoints, "
+                            "Coeff "
+                            "FROM SkinTensionParams")
+            query.exec()
+            query.next()
+            return query.value
             
     class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3672,6 +5081,26 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":id", row )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum):
+            '''
+            :method: reads values back from the internal database for a specific rib number
+            :param ribNum: Rib number. Starting with 1. 
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "EdgeSeam, "
+                            "LESeem, "
+                            "TESeem "
+                            "FROM SewingAllowances WHERE (ID = :config)")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            return query.value
 
     class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3762,6 +5191,163 @@ class ProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.isUsed')
             return self.__isUsed
 
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "AngleLE, "
+                            "AngleTE "
+                            "FROM SpecWingTip WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+        
+        
+    class ThreeDDxfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'ThreeDDxfModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
+        
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        LineNameCol = 1
+        ''':attr: Number of the col holding the fixed line name '''
+        UnifilarCol = 2
+        ''':attr: Number of the col holding the unifilar flag'''
+        ColorCodeCol = 3
+        ''':attr: Number of the col holding the color code'''
+        ColorNameCol = 4 
+        ''':attr: Number of the col holding the optional color name'''
+        ConfigNumCol = 5
+        ''':attr: num of column for config number (always 1)'''
+
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("ThreeDDxf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,9)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Unifilar"))
+            self.setHeaderData(3, Qt.Horizontal, _("Color code"))
+            self.setHeaderData(4, Qt.Horizontal, _("Color name (opt)"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists ThreeDDxf;")
+            query.exec("create table if not exists ThreeDDxf ("
+                    "OrderNum INTEGER,"
+                    "LineName TEXT,"
+                    "Unifilar INTEGER, "
+                    "ColorCode INTEGER,"
+                    "ColorName TEXT,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName, unifilar=0):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE ThreeDDxf SET "
+                          "LineName= :lineName, "
+                          "Unifilar= :unifilar, "
+                          "ColorCode= :colorCode, "
+                          "ColorName= :colorName "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":lineName", lineName )
+            query.bindValue(":unifilar", unifilar )
+            query.bindValue(":colorCode", colorCode )
+            query.bindValue(":colorName", colorName )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
+        
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "LineName, "
+                            "Unifilar, "
+                            "ColorCode, "
+                            "ColorName "
+                            "FROM ThreeDDxf WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+
+
     class ThreeDShConfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the 3d Shaping configuration
@@ -3825,6 +5411,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "OrderNum, "
+                            "FirstRib, "
+                            "LastRib "
+                            "FROM ThreeDShapingConf WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class ThreeDShUpDetModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -3896,6 +5508,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
             
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "IniPoint, "
+                            "CutPoint, "
+                            "Depth "
+                            "FROM ThreeDShapingUpDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+            
     class ThreeDShLoDetModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the 3d Shaping data for the lower panels
@@ -3965,6 +5603,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "IniPoint, "
+                            "CutPoint, "
+                            "Depth "
+                            "FROM ThreeDShapingLoDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class ThreeDShPrintModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -4051,6 +5715,155 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":order", orderNum )
             query.exec()
             self.select() # to a select() to assure the model is updated properly
+            
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "Name, "
+                            "Draw, "
+                            "FirstPanel, "
+                            "LastPanel, "
+                            "Symmetric "
+                            "FROM ThreeDShapingPrint WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
+
+    class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
+        '''
+        :class: Provides a SqlTableModel holding the DXF layer names
+        '''
+        __className = 'TwoDDxfModel'
+        ''' :attr: Does help to indicate the source of the log messages. '''
+        __isUsed = False
+        ''' :attr: Helps to remember if the section is in use or not'''
+       
+        usageUpd = pyqtSignal()
+        '''
+        :signal: emitted as soon the usage flag is changed
+        '''
+        OrderNumCol = 0 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        LineNameCol = 1
+        ''':attr: Number of the col holding the fixed line name '''
+        ColorCodeCol = 2
+        ''':attr: Number of the col holding the color code'''
+        ColorNameCol = 3 
+        ''':attr: Number of the col holding the optional color name'''
+        ConfigNumCol = 4
+        ''':attr: num of column for config number (always 1)'''
+        
+        def __init__(self, parent=None): # @UnusedVariable
+            '''
+            :method: Constructor
+            '''
+            logging.debug(self.__className+'.__init__')
+            super().__init__()
+            self.createTable()
+            self.setTable("TwoDDxf")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,6)
+                    
+            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Color code"))
+            self.setHeaderData(3, Qt.Horizontal, _("Color name (opt)"))
+        
+        def createTable(self):
+            '''
+            :method: Creates initially the empty table
+            ''' 
+            logging.debug(self.__className+'.createTable')   
+            query = QSqlQuery()
+                
+            query.exec("DROP TABLE if exists TwoDDxf;")
+            query.exec("create table if not exists TwoDDxf ("
+                    "OrderNum INTEGER,"
+                    "LineName TEXT,"
+                    "ColorCode INTEGER,"
+                    "ColorName TEXT,"
+                    "ConfigNum INTEGER,"
+                    "ID INTEGER PRIMARY KEY);")
+
+        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE TwoDDxf SET "
+                          "LineName= :lineName, "
+                          "ColorCode= :colorCode, "
+                          "ColorName= :colorName "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":lineName", lineName )
+            query.bindValue(":colorCode", colorCode )
+            query.bindValue(":colorName", colorName )
+            query.bindValue(":config", configNum )
+            query.bindValue(":order", orderNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+        
+        def setIsUsed(self, isUsed):
+            '''
+            :method: Set the usage flag of the section
+            :param isUse: True if section is in use, False otherwise 
+            '''
+            logging.debug(self.__className+'.setIsUsed')
+            self.__isUsed = isUsed
+            self.usageUpd.emit()
+        
+        def isUsed(self):
+            '''
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise 
+            '''
+            logging.debug(self.__className+'.isUsed')
+            return self.__isUsed
+
+        def getRow(self, configNum, orderNum):
+            '''
+            :method: reads values back from the internal database for a specific config and order number
+            :param configNum: Configuration number. Starting with 1.
+            :param orderNum: Order number. Starting with 1.  
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "LineName, "
+                            "ColorCode, "
+                            "ColorName "
+                            "FROM TwoDDxf WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum )
+            query.exec()
+            query.next()
+            # now we are at the first row
+            i=1
+            while i < orderNum:
+                query.next()
+                i+=1
+            return query.value
 
     class WingModel(SqlTableModel, metaclass=Singleton):
         '''
@@ -4158,3 +5971,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     self.anchPoints_M.setupRibRows(self.halfNumRibs)
                     self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)
                     self.airfThick_M.setNumRowsForConfig(1, self.halfNumRibs)
+        
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
+            logging.debug(self.__className+'.getRow')
+                    
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("Select " 
+                            "BrandName, "
+                            "WingName, "
+                            "DrawScale, "
+                            "WingScale, "
+                            "NumCells, "
+                            "NumRibs, "
+                            "AlphaMode, "
+                            "AlphaMaxCent, "
+                            "AlphaMaxTip, "
+                            "ParaType, "
+                            "ParaParam, "
+                            "LinesConcType, "
+                            "Brakelength, "
+                            "xSpacing, "
+                            "ySpacing FROM Wing")
+            query.exec()
+            query.next()
+            return query.value

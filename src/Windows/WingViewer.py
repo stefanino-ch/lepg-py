@@ -8,7 +8,7 @@ from PyQt5.QtGui import QIcon, QPen, QBrush
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QGroupBox, QWidget, QSizePolicy, QGraphicsScene, QGraphicsView 
 from Windows.WindowBtnBar import WindowBtnBar
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
-from DataStores.PreProcessorStore import PreProcessorStore
+
 
 class WingViewer(QMdiSubWindow):
     '''
@@ -26,11 +26,10 @@ class WingViewer(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.__init__')
         super().__init__()
-        self.pps = PreProcessorStore()
         self.dws = DataWindowStatus()
 
         self.buildWindow()
-        self.pps.dataStatusUpdate.connect(self.updateWindow)  
+  
     
     def closeEvent(self, event):  # @UnusedVariable
         '''

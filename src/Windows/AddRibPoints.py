@@ -102,7 +102,7 @@ class AddRibPoints(QMdiSubWindow):
         ribs_T.hideColumn( self.addRibPts_M.columnCount()-2 )
         self.windowLayout.addWidget(ribs_T)
          
-        ribs_T.enableIntValidator(ProcessorModel.AddRibPointsModel.OrderNumCol, ProcessorModel.AddRibPointsModel.RibNumCol, 1, 999)
+        ribs_T.enableIntValidator(ProcessorModel.AddRibPointsModel.OrderNumCol, ProcessorModel.AddRibPointsModel.OrderNumCol, 1, 999)
         ribs_T.enableDoubleValidator(ProcessorModel.AddRibPointsModel.XCoordCol, ProcessorModel.AddRibPointsModel.YCoordCol, 1, 100, 2)
           
         ribs_T.setHelpBar(self.helpBar)

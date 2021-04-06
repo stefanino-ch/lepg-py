@@ -91,7 +91,7 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Supporting Classes</a><ul>
-<li><a class="reference internal" href="#module-DataStores.PreProcessorStore">Pre-Processor store</a></li>
+<li><a class="reference internal" href="#module-DataStores.PreProcessorModel">Pre-Processor Model</a></li>
 <li><a class="reference internal" href="#module-DataStores.SqlTableModel">SqlTableModel</a></li>
 <li><a class="reference internal" href="#module-DataStores.ProcessorModel">Processor Model</a></li>
 <li><a class="reference internal" href="#module-DataWindowStatus.DataWindowStatus">Data Window Status</a></li>
@@ -126,8 +126,8 @@
 <h1>Supporting Classes<a class="headerlink" href="#supporting-classes" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="module-DataStores.PreProcessorStore">
-<span id="pre-processor-store"></span><h2>Pre-Processor store<a class="headerlink" href="#module-DataStores.PreProcessorStore" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-DataStores.PreProcessorModel">
+<span id="pre-processor-model"></span><h2>Pre-Processor Model<a class="headerlink" href="#module-DataStores.PreProcessorModel" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
@@ -137,29 +137,57 @@
 </dd>
 </dl>
 <dl class="py class">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore">
-<em class="property">class </em><code class="sig-prename descclassname">DataStores.PreProcessorStore.</code><code class="sig-name descname">PreProcessorStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel">
+<em class="property">class </em><code class="sig-prename descclassname">DataStores.PreProcessorModel.</code><code class="sig-name descname">PreProcessorModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Does take care about the data handling for the PreProcessor.
+<dd class="field-odd"><p>Does take care about the data handling for the pre-processor.
 - Reads and writes the data files
 - Holds as a central point all temporary data during program execution</p>
 </dd>
 </dl>
 <p>Is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple times all data will be the same for all instances.</p>
-<dl class="py attribute">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.__Vault_t2_dta">
-<code class="sig-name descname">__Vault_t2_dta</code><em class="property"> = [[0, 0], [0, 0], [0, 0], [0, 0]]</em><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.__Vault_t2_dta" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel">
+<em class="property">class </em><code class="sig-name descname">CellsDistrModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Vault data handled by the class</p>
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all for cells distribution.</p>
 </dd>
 </dl>
-</dd></dl>
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.CoefCol">
+<code class="sig-name descname">CoefCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.CoefCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.__className">
-<code class="sig-name descname">__className</code><em class="property"> = 'PreProcessorStore'</em><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.__className" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.DistrTypeCol">
+<code class="sig-name descname">DistrTypeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.DistrTypeCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.NumCellsCol">
+<code class="sig-name descname">NumCellsCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.NumCellsCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.WidthCol">
+<code class="sig-name descname">WidthCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.WidthCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'CellsDistrModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -168,23 +196,593 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.__simpleData">
-<code class="sig-name descname">__simpleData</code><em class="property"> = {'CellDistCoeff': '', 'CellDistT': '', 'CellNum': '', 'FileNamePath': '', 'FileVersion': '', 'LE_a1': '', 'LE_b1': '', 'LE_c01': '', 'LE_c02': '', 'LE_ex1': '', 'LE_ex2': '', 'LE_type': '1', 'LE_x1': '', 'LE_x2': '', 'LE_xm': '', 'TE_a1': '', 'TE_b1': '', 'TE_c0': '', 'TE_exp': '', 'TE_type': '1', 'TE_x1': '', 'TE_xm': '', 'TE_y0': '', 'Vault_a1': '', 'Vault_b1': '', 'Vault_c1': '', 'Vault_type': '1', 'Vault_x1': '', 'WingName': ''}</em><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.__simpleData" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.getType">
+<code class="sig-name descname">getType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.getType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads type value back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">distrT</span></em>, <em class="sig-param"><span class="n">coef</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">numCells</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.updateType">
+<code class="sig-name descname">updateType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">distrT</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.CellsDistrModel.updateType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel">
+<em class="property">class </em><code class="sig-name descname">GenModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding the general data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.WingNameCol">
+<code class="sig-name descname">WingNameCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.WingNameCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'GenModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Variables used across the class</p>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore._instance">
-<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore._instance" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.GenModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">wingN</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.GenModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel">
+<em class="property">class </em><code class="sig-name descname">LeadingEdgeModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all data for leading edge definition</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 11</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.dataStatusUpdate">
-<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.TypeCol">
+<code class="sig-name descname">TypeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.TypeCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'LeadingEdgeModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.aOneCol">
+<code class="sig-name descname">aOneCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.aOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.bOneCol">
+<code class="sig-name descname">bOneCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.bOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.cZeroOneCol">
+<code class="sig-name descname">cZeroOneCol</code><em class="property"> = 7</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.cZeroOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.cZeroTwoCol">
+<code class="sig-name descname">cZeroTwoCol</code><em class="property"> = 9</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.cZeroTwoCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.exOneCol">
+<code class="sig-name descname">exOneCol</code><em class="property"> = 8</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.exOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.exTwoCol">
+<code class="sig-name descname">exTwoCol</code><em class="property"> = 10</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.exTwoCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">typeNum</span></em>, <em class="sig-param"><span class="n">aOne</span></em>, <em class="sig-param"><span class="n">bOne</span></em>, <em class="sig-param"><span class="n">xOne</span></em>, <em class="sig-param"><span class="n">xTwo</span></em>, <em class="sig-param"><span class="n">xm</span></em>, <em class="sig-param"><span class="n">cZeroOne</span></em>, <em class="sig-param"><span class="n">exOne</span></em>, <em class="sig-param"><span class="n">cZeroTwo</span></em>, <em class="sig-param"><span class="n">exTwo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xOneCol">
+<code class="sig-name descname">xOneCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xTwoCol">
+<code class="sig-name descname">xTwoCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xTwoCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xmCol">
+<code class="sig-name descname">xmCol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.LeadingEdgeModel.xmCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel">
+<em class="property">class </em><code class="sig-name descname">TrailingEdgeModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all data for trailing edge definition</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 9</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.TypeCol">
+<code class="sig-name descname">TypeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.TypeCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'TrailingEdgeModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.aOneCol">
+<code class="sig-name descname">aOneCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.aOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.bOneCol">
+<code class="sig-name descname">bOneCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.bOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.cZeroCol">
+<code class="sig-name descname">cZeroCol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.cZeroCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.expCol">
+<code class="sig-name descname">expCol</code><em class="property"> = 8</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.expCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">typeNum</span></em>, <em class="sig-param"><span class="n">aOne</span></em>, <em class="sig-param"><span class="n">bOne</span></em>, <em class="sig-param"><span class="n">xOne</span></em>, <em class="sig-param"><span class="n">xm</span></em>, <em class="sig-param"><span class="n">cZero</span></em>, <em class="sig-param"><span class="n">yZero</span></em>, <em class="sig-param"><span class="n">exp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.xOneCol">
+<code class="sig-name descname">xOneCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.xOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.xmCol">
+<code class="sig-name descname">xmCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.xmCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.yZeroCol">
+<code class="sig-name descname">yZeroCol</code><em class="property"> = 7</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.TrailingEdgeModel.yZeroCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel">
+<em class="property">class </em><code class="sig-name descname">VaultModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all data for the vault definition</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.ConfigNumCol">
+<code class="sig-name descname">ConfigNumCol</code><em class="property"> = 14</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.OrderNumCol">
+<code class="sig-name descname">OrderNumCol</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.TypeCol">
+<code class="sig-name descname">TypeCol</code><em class="property"> = 1</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.TypeCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'VaultModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aFouRACol">
+<code class="sig-name descname">aFouRACol</code><em class="property"> = 13</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aFouRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aOneCol">
+<code class="sig-name descname">aOneCol</code><em class="property"> = 2</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aOneRACol">
+<code class="sig-name descname">aOneRACol</code><em class="property"> = 10</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aOneRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aThrRACol">
+<code class="sig-name descname">aThrRACol</code><em class="property"> = 12</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aThrRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aTwoRACol">
+<code class="sig-name descname">aTwoRACol</code><em class="property"> = 11</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.aTwoRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.bOneCol">
+<code class="sig-name descname">bOneCol</code><em class="property"> = 3</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.bOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.cOneCol">
+<code class="sig-name descname">cOneCol</code><em class="property"> = 5</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.cOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates initially the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.getType">
+<code class="sig-name descname">getType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.getType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads type value back from the internal database for a config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Starting with 1.</p></li>
+<li><p><strong>ordergNum</strong> – Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rFouRACol">
+<code class="sig-name descname">rFouRACol</code><em class="property"> = 9</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rFouRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rOneRACol">
+<code class="sig-name descname">rOneRACol</code><em class="property"> = 6</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rOneRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rThrRACol">
+<code class="sig-name descname">rThrRACol</code><em class="property"> = 8</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rThrRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rTwoRACol">
+<code class="sig-name descname">rTwoRACol</code><em class="property"> = 7</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.rTwoRACol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">typeNum</span></em>, <em class="sig-param"><span class="n">aOne</span></em>, <em class="sig-param"><span class="n">bOne</span></em>, <em class="sig-param"><span class="n">xOne</span></em>, <em class="sig-param"><span class="n">cOne</span></em>, <em class="sig-param"><span class="n">rOneRA</span></em>, <em class="sig-param"><span class="n">rTwoRA</span></em>, <em class="sig-param"><span class="n">rThrRA</span></em>, <em class="sig-param"><span class="n">rFouRA</span></em>, <em class="sig-param"><span class="n">aOneRA</span></em>, <em class="sig-param"><span class="n">aTwoRA</span></em>, <em class="sig-param"><span class="n">aThreRA</span></em>, <em class="sig-param"><span class="n">aFouRA</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.updateType">
+<code class="sig-name descname">updateType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">typeNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.updateType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.VaultModel.xOneCol">
+<code class="sig-name descname">xOneCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.VaultModel.xOneCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'PreProcessorModel'</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.__fileNamePath">
+<code class="sig-name descname">__fileNamePath</code><em class="property"> = ''</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.__fileNamePath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>full path and name of the data file currently in use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.__fileVersion">
+<code class="sig-name descname">__fileVersion</code><em class="property"> = ''</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.__fileVersion" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>version number of the file currently in use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel._instance">
+<code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.dataStatusUpdate">
+<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Signal</dt>
 <dd class="field-odd"><p>Sent out as soon a file was opened or saved
@@ -198,8 +796,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.getFileName">
-<code class="sig-name descname">getFileName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.getFileName" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.getFileName">
+<code class="sig-name descname">getFileName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.getFileName" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Returns the name of the file name member.</p>
@@ -208,43 +806,18 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.getSingleVal">
-<code class="sig-name descname">getSingleVal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parameter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.getSingleVal" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.getFileVersion">
+<code class="sig-name descname">getFileVersion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.getFileVersion" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads a single parameter from the data store</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>parameter</strong> – Name of the parameter to be read. Refer to <em>__simpleData</em> for the valid parameter names.</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the value of the parameter, an empty string if the parameter was not found.</p>
+<dd class="field-odd"><p>Returns the version info of the data file currently in use</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.getVault_t2_dta">
-<code class="sig-name descname">getVault_t2_dta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.getVault_t2_dta" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads vault data from the data store. Data is organized in a matrix.</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>row</strong> – number of the row to be read</p></li>
-<li><p><strong>col</strong> – number of the column to be read</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the value of the parameter, an empty string if the parameter was not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.isValid">
-<code class="sig-name descname">isValid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.isValid" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.isValid">
+<code class="sig-name descname">isValid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.isValid" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and known version number.</p>
@@ -256,8 +829,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.openFile">
-<code class="sig-name descname">openFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.openFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.openFile">
+<code class="sig-name descname">openFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.openFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling.</p>
@@ -266,8 +839,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.readFile">
-<code class="sig-name descname">readFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.readFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.readFile">
+<code class="sig-name descname">readFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.readFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Reads the data file and saves the data in the internal varibles.</p>
@@ -279,8 +852,40 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.saveFile">
-<code class="sig-name descname">saveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.saveFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.remTabSpace">
+<code class="sig-name descname">remTabSpace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.remTabSpace" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Deletes all leaing and trailing edges from a string</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>cleaned string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.remTabSpaceQuot">
+<code class="sig-name descname">remTabSpaceQuot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.remTabSpaceQuot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Removes from a string all leading, trailing spaces tabs and quotations</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>cleaned string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.saveFile">
+<code class="sig-name descname">saveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.saveFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.</p>
@@ -289,8 +894,8 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.saveFileAs">
-<code class="sig-name descname">saveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.saveFileAs" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.saveFileAs">
+<code class="sig-name descname">saveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.saveFileAs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Asks for a new filename. Starts afterwards the writing process.</p>
@@ -299,11 +904,11 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.setFileName">
-<code class="sig-name descname">setFileName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.setFileName" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.setFileName">
+<code class="sig-name descname">setFileName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.setFileName" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does set the File Name the data store shall work with.</p>
+<dd class="field-odd"><p>Does set the file name the data store shall work with.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileName</strong> – String containing full path and filename</p>
@@ -312,41 +917,37 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.setSingleVal">
-<code class="sig-name descname">setSingleVal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parameter</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.setSingleVal" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.setFileVersion">
+<code class="sig-name descname">setFileVersion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileVersion</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.setFileVersion" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does set a single value in the data store.</p>
+<dd class="field-odd"><p>Does set the file version the data store shall work with.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>parameter</strong> – the name of the parameter to be set. Refer to <em>__simpleData</em> for the valid parameter names.</p></li>
-<li><p><strong>value</strong> – the value to be set.</p></li>
-</ul>
+<dd class="field-even"><p><strong>fileVersion</strong> – String containing the version number</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.setVault_t2_dta">
-<code class="sig-name descname">setVault_t2_dta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em>, <em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.setVault_t2_dta" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.splitLine">
+<code class="sig-name descname">splitLine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.splitLine" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Sets the vault data in the data store. Data is organized in a matrix.</p>
+<dd class="field-odd"><p>Splits lines with multiple values into a list of values delimiters could be spaces and tabs</p>
 </dd>
 <dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>row</strong> – number of the row to be set</p></li>
-<li><p><strong>col</strong> – number of the column to be set</p></li>
-<li><p><strong>val</strong> – the value to be set</p></li>
-</ul>
+<dd class="field-even"><p><strong>line</strong> – The line to be split</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of values</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorStore.PreProcessorStore.writeFile">
-<code class="sig-name descname">writeFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">forProc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorStore.PreProcessorStore.writeFile" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.writeFile">
+<code class="sig-name descname">writeFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">forProc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.writeFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Writes all the values into a data file.</p>
@@ -675,6 +1276,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">xCoord</span></em>, <em class="sig-param"><span class="n">yCoord</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -755,6 +1375,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.AirfoilThicknessModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AirfoilThicknessModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -901,11 +1540,27 @@ for the example about how to insert.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.createAirfoilsTable">
-<code class="sig-name descname">createAirfoilsTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.createAirfoilsTable" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.createTable" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty anchor points table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AirfoilsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific rib number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ribNum</strong> – Rib number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1035,6 +1690,22 @@ for the example about how to insert.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.AnchorPointsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AnchorPointsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific rib number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ribNum</strong> – Rib number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -1116,6 +1787,19 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Number of the col holding the d5 value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.BrakeLengthModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.BrakeLengthModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1336,8 +2020,27 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.BrakesModel.updateBrakeRow">
-<code class="sig-name descname">updateBrakeRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">i1</span></em>, <em class="sig-param"><span class="n">i2</span></em>, <em class="sig-param"><span class="n">i3</span></em>, <em class="sig-param"><span class="n">i4</span></em>, <em class="sig-param"><span class="n">i5</span></em>, <em class="sig-param"><span class="n">i6</span></em>, <em class="sig-param"><span class="n">i7</span></em>, <em class="sig-param"><span class="n">i8</span></em>, <em class="sig-param"><span class="n">i9</span></em>, <em class="sig-param"><span class="n">i10</span></em>, <em class="sig-param"><span class="n">i11</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.BrakesModel.updateBrakeRow" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.BrakesModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.BrakesModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.BrakesModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">i1</span></em>, <em class="sig-param"><span class="n">i2</span></em>, <em class="sig-param"><span class="n">i3</span></em>, <em class="sig-param"><span class="n">i4</span></em>, <em class="sig-param"><span class="n">i5</span></em>, <em class="sig-param"><span class="n">i6</span></em>, <em class="sig-param"><span class="n">i7</span></em>, <em class="sig-param"><span class="n">i8</span></em>, <em class="sig-param"><span class="n">i9</span></em>, <em class="sig-param"><span class="n">i10</span></em>, <em class="sig-param"><span class="n">i11</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.BrakesModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
@@ -1521,6 +2224,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.CalageVarModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.CalageVarModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.CalageVarModel.isUsed">
 <code class="sig-name descname">isUsed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.CalageVarModel.isUsed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1637,6 +2359,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.DxfLayerNamesModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.DxfLayerNamesModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1836,6 +2577,19 @@ for the example about how to insert.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesCorrModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesCorrModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -1922,6 +2676,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">defLow</span></em>, <em class="sig-param"><span class="n">defMid</span></em>, <em class="sig-param"><span class="n">defHigh</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ElasticLinesDefModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1997,6 +2770,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2062,6 +2854,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ExtradColsDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2166,6 +2977,19 @@ for the example about how to insert.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.GlobAoAModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.GlobAoAModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -2237,6 +3061,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.GlueVentModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.GlueVentModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2463,6 +3306,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.HvVhRibsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.HvVhRibsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.HvVhRibsModel.updateDataRow">
 <code class="sig-name descname">updateDataRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">typ</span></em>, <em class="sig-param"><span class="n">iniRib</span></em>, <em class="sig-param"><span class="n">paramA</span></em>, <em class="sig-param"><span class="n">paramB</span></em>, <em class="sig-param"><span class="n">paramC</span></em>, <em class="sig-param"><span class="n">paramD</span></em>, <em class="sig-param"><span class="n">paramE</span></em>, <em class="sig-param"><span class="n">paramF</span></em>, <em class="sig-param"><span class="n">paramG</span></em>, <em class="sig-param"><span class="n">paramH</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">paramI</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.HvVhRibsModel.updateDataRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -2538,6 +3400,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2603,6 +3484,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.IntradColsDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2693,6 +3593,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.JoncsDefModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.JoncsDefModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2954,8 +3873,24 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.updateConfigRow">
-<code class="sig-name descname">updateConfigRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">initialRib</span></em>, <em class="sig-param"><span class="n">finalRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.updateConfigRow" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>configNum</strong> – Configuration number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightConfModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">initialRib</span></em>, <em class="sig-param"><span class="n">finalRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3074,8 +4009,8 @@ for the example about how to insert.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightDetModel.createLightDetTable">
-<code class="sig-name descname">createLightDetTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightDetModel.createLightDetTable" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightDetModel.createTable">
+<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightDetModel.createTable" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty lightening details table.</p>
@@ -3084,8 +4019,27 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.LightDetModel.updateDetRow">
-<code class="sig-name descname">updateDetRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">LightTyp</span></em>, <em class="sig-param"><span class="n">DistLE</span></em>, <em class="sig-param"><span class="n">DisChord</span></em>, <em class="sig-param"><span class="n">HorAxis</span></em>, <em class="sig-param"><span class="n">VertAxis</span></em>, <em class="sig-param"><span class="n">RotAngle</span></em>, <em class="sig-param"><span class="n">Opt1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightDetModel.updateDetRow" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.LightDetModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">LightTyp</span></em>, <em class="sig-param"><span class="n">DistLE</span></em>, <em class="sig-param"><span class="n">DisChord</span></em>, <em class="sig-param"><span class="n">HorAxis</span></em>, <em class="sig-param"><span class="n">VertAxis</span></em>, <em class="sig-param"><span class="n">RotAngle</span></em>, <em class="sig-param"><span class="n">Opt1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LightDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
@@ -3259,6 +4213,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.LinesModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.LinesModel.setNumConfigs">
 <code class="sig-name descname">setNumConfigs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mustNumConfigs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.setNumConfigs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -3342,6 +4315,19 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty Marks table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.MarksModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.MarksModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3482,6 +4468,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.MarksTypesModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.MarksTypesModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.MarksTypesModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">pType</span></em>, <em class="sig-param"><span class="n">formOne</span></em>, <em class="sig-param"><span class="n">formOnePOne</span></em>, <em class="sig-param"><span class="n">formOnePTwo</span></em>, <em class="sig-param"><span class="n">formTwo</span></em>, <em class="sig-param"><span class="n">formTwoPOne</span></em>, <em class="sig-param"><span class="n">formTwoPTwo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.MarksTypesModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -3577,6 +4582,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensConfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3682,6 +4706,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">topDistLE</span></em>, <em class="sig-param"><span class="n">topWide</span></em>, <em class="sig-param"><span class="n">botDistTE</span></em>, <em class="sig-param"><span class="n">botWide</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NewSkinTensDetModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -3762,6 +4805,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.NoseMylarsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.NoseMylarsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3922,6 +4984,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RamificationModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RamificationModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.RamificationModel.updateDataRow">
 <code class="sig-name descname">updateDataRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">rows</span></em>, <em class="sig-param"><span class="n">thirdToSail</span></em>, <em class="sig-param"><span class="n">fourthToSail</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RamificationModel.updateDataRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4002,6 +5083,22 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty rib table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific rib number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ribNum</strong> – Rib number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4122,6 +5219,22 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.SewingAllowancesModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SewingAllowancesModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific rib number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ribNum</strong> – Rib number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.SewingAllowancesModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">edgeSeam</span></em>, <em class="sig-param"><span class="n">leSeem</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">teSeem</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SewingAllowancesModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4207,6 +5320,22 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.SkinTensionModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SkinTensionModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>configNum</strong> – Configuration number. Starting with 1.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.SkinTensionModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">topDistLE</span></em>, <em class="sig-param"><span class="n">topWide</span></em>, <em class="sig-param"><span class="n">bottDistTE</span></em>, <em class="sig-param"><span class="n">bottWide</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SkinTensionModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4277,6 +5406,19 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty Skin tension params table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.SkinTensionParamsModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SkinTensionParamsModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4362,6 +5504,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.SpecWingTipModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SpecWingTipModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4518,6 +5679,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.isUsed">
 <code class="sig-name descname">isUsed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.isUsed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4639,6 +5819,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">firstRib</span></em>, <em class="sig-param"><span class="n">lastRib</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShConfModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4729,6 +5928,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShLoDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4849,6 +6067,25 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.updateRow">
 <code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">draw</span></em>, <em class="sig-param"><span class="n">firstPanel</span></em>, <em class="sig-param"><span class="n">lastPanel</span></em>, <em class="sig-param"><span class="n">symmetric</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShPrintModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -4939,6 +6176,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDShUpDetModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5044,6 +6300,25 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates initially the empty table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.TwoDDxfModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configNum</span></em>, <em class="sig-param"><span class="n">orderNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.TwoDDxfModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>configNum</strong> – Configuration number. Starting with 1.</p></li>
+<li><p><strong>orderNum</strong> – Order number. Starting with 1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>specific values read from internal database</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5254,6 +6529,19 @@ for the example about how to insert.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.getRow">
+<code class="sig-name descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.getRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>reads values back from the internal database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>specific values read from internal database</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.halfNumRibs">
 <code class="sig-name descname">halfNumRibs</code><em class="property"> = 0</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.halfNumRibs" title="Permalink to this definition">¶</a></dt>
@@ -5308,9 +6596,64 @@ the NumLightConf Model must be keept in sync.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.__fileNamePath">
+<code class="sig-name descname">__fileNamePath</code><em class="property"> = ''</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.__fileNamePath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>full path and name of the data file currently in use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.__fileVersion">
+<code class="sig-name descname">__fileVersion</code><em class="property"> = ''</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.__fileVersion" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>version number of the file currently in use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel._instance">
 <code class="sig-name descname">_instance</code><em class="property"> = None</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.dataStatusUpdate">
+<code class="sig-name descname">dataStatusUpdate</code><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Signal</dt>
+<dd class="field-odd"><p>Sent out as soon a file was opened or saved
+The first string indicates the class name
+The second string indicates 
+- if a file was opened
+- if a file was saved
+- Filename and Path has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.getFileName">
+<code class="sig-name descname">getFileName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.getFileName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the name of the file name member.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.getFileVersion">
+<code class="sig-name descname">getFileVersion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.getFileVersion" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the version info of the data file currently in use</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.isValid">
@@ -5381,14 +6724,47 @@ the NumLightConf Model must be keept in sync.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.saveFile">
+<code class="sig-name descname">saveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.saveFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.saveFileAs">
+<code class="sig-name descname">saveFileAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.saveFileAs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Asks for a new filename. Starts afterwards the writing process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.setFileName">
 <code class="sig-name descname">setFileName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.setFileName" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Does set the File Name the data store shall work with.</p>
+<dd class="field-odd"><p>Does set the file name the data store shall work with.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileName</strong> – String containing full path and filename</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.setFileVersion">
+<code class="sig-name descname">setFileVersion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileVersion</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.setFileVersion" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Does set the file version the data store shall work with.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>fileVersion</strong> – String containing the version number</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5405,6 +6781,22 @@ the NumLightConf Model must be keept in sync.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>a list of values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.writeFile">
+<code class="sig-name descname">writeFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">forProc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.writeFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Writes all the values into a data file.</p>
+</dd>
+<dt class="field-even">Warning</dt>
+<dd class="field-even"><p>Filename must have been set already before, unless the file shall be written for the PreProcessor.</p>
+</dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>forProc</strong> – Set this to True if the file must be saved in the directory where the PreProcessor resides</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5617,29 +7009,63 @@ status has changed.
 </div>
 <div class="section" id="module-Processors.ProcRunner">
 <span id="proc-runner"></span><h2>Proc Runner<a class="headerlink" href="#module-Processors.ProcRunner" title="Permalink to this headline">¶</a></h2>
-<p>Does all the handling aroung the Pre-Processor</p>
-<p>&#64;author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
-&#64;license: General Public License GNU GPL 3.0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
 <dl class="py class">
 <dt id="Processors.ProcRunner.ProcRunner">
 <em class="property">class </em><code class="sig-prename descclassname">Processors.ProcRunner.</code><code class="sig-name descname">ProcRunner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">procOutW</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Processors.ProcRunner.ProcRunner" title="Permalink to this definition">¶</a></dt>
-<dd><p>classdocs</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Does take care about the data handling for the executables for processing.</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt id="Processors.ProcRunner.ProcRunner.__className">
 <code class="sig-name descname">__className</code><em class="property"> = 'ProcRunner'</em><a class="headerlink" href="#Processors.ProcRunner.ProcRunner.__className" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="Processors.ProcRunner.ProcRunner.runPreProc">
 <code class="sig-name descname">runPreProc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Processors.ProcRunner.ProcRunner.runPreProc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does all the needed setups to run the processor.</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Does all the needed setups to run the pre processor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Processors.ProcRunner.ProcRunner.runProc">
+<code class="sig-name descname">runProc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Processors.ProcRunner.ProcRunner.runProc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Does all the needed setups to run the processor.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="Processors.ProcRunner.ProcRunner.run_command">
 <code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Processors.ProcRunner.ProcRunner.run_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does finally execute all the commands to run the processor.</p>
-<p>&#64;param cmds: A list of commands to be executed</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Does finally execute all the commands to run the processor.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>cmds</strong> – A list of commands to be executed</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -5679,26 +7105,6 @@ status has changed.
 </dd></dl>
 
 <dl class="py method">
-<dt id="ConfigReader.ConfigReader.ConfigReader.getLepDirectory">
-<code class="sig-name descname">getLepDirectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLepDirectory" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Returns the directory where the Procecssor resides</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="ConfigReader.ConfigReader.ConfigReader.getLepPathName">
-<code class="sig-name descname">getLepPathName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLepPathName" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Return the path/ and name string for the Processor</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="ConfigReader.ConfigReader.ConfigReader.getPreProcDirectory">
 <code class="sig-name descname">getPreProcDirectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getPreProcDirectory" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -5714,6 +7120,26 @@ status has changed.
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Return the path/ and name string for the PreProcessor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getProcDirectory">
+<code class="sig-name descname">getProcDirectory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getProcDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the directory where the Procecssor resides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getProcPathName">
+<code class="sig-name descname">getProcPathName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getProcPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Return the path/ and name string for the Processor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5742,32 +7168,6 @@ status has changed.
 </dd></dl>
 
 <dl class="py method">
-<dt id="ConfigReader.ConfigReader.ConfigReader.setLepDirectory">
-<code class="sig-name descname">setLepDirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setLepDirectory" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Set the Processor directory</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>lang</strong> – Directory string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="ConfigReader.ConfigReader.ConfigReader.setLepPathName">
-<code class="sig-name descname">setLepPathName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setLepPathName" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Set the path/ and name string for the lep processor</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>param</strong> – Full path and name of the Processor executable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="ConfigReader.ConfigReader.ConfigReader.setPreProcDirectory">
 <code class="sig-name descname">setPreProcDirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setPreProcDirectory" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -5789,6 +7189,32 @@ status has changed.
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>param</strong> – Full path and name of the pre processor executable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setProcDirectory">
+<code class="sig-name descname">setProcDirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setProcDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the Processor directory</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>lang</strong> – Directory string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setProcPathName">
+<code class="sig-name descname">setProcPathName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setProcPathName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the path/ and name string for the lep processor</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>param</strong> – Full path and name of the Processor executable</p>
 </dd>
 </dl>
 </dd></dl>

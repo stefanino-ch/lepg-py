@@ -1,0 +1,508 @@
+lep/ contains source code and executable files
+man/ contains some help files and internal data for development
+jpg/ contains some schemes
+png/ contains captures
+pre1.6/ Pre-processor version 1.6
+
+-------------------------------------------------------------------
+VERSION 3.15 (2021-01-17)
+-------------------------------------------------------------------
+
+Section 29 simplified. IF you do not want to use "3D-shaping" just type "0" and end the section. It is not necessary to write the print parameters, which are already defined by default. This is consistent with other sections where you do not need to define data, just indicate "0".
+
+Added new pre-processor version 1.6. Updated manual in .txt format and website.  This small program is very useful for defining the geometry matrix of Section 1. It will soon have more prominence thanks to the GUI version of leparagliding which makes more intensive use of this small program.
+
+-------------------------------------------------------------------
+VERSION 3.14 (2020-12-25)
+-------------------------------------------------------------------
+
+SECTION 20 (MARKS TYPES)
+-------------------------
+
+Marks "type 9" active, allows size definition of numbers that numbers ribs and panels, and the size of Roman numerals in ribs, and in rod pockets.
+Marks "type 10" active, allows size definition of numbers that numbers VH-ribs, and the size of Roman numerals in VH-ribs.
+You can leave section 20 invariant for all projects and according to the last example. But modifying some parameters allows you to control the final presentation of the plans and better adjusted to your needs.
+
+Check that you are using the correct parameters, otherwise the size of the Roman numerals or decimals will not be appropriate. Since version 3.14 is VERY recommended to use this (or similar) invariant bloc:
+
+******************************************************
+*       20. Marks types
+******************************************************
+10
+typepoint   1  0.25  1.2     2  0.3  1.2
+typepoint2  1  0.25  1.2     2  0.2  1.2
+typepoint3  1  0.25  1.2     2  0.2  1.2
+typevent    1  10.   0.0     2  2.0  0.0
+typetab     1  10.   0.0     3  2.0  0.0
+typejonc    1  10.   0.0     2  2.0  0.0
+typeref     1  5.0   1.      1  2.0  0.0
+type8       1  0.2   5.0     1  0.0  5.0
+type9       1  0.0   7.0     1  3.2  4.5
+type10      1  0.0   6.0     1  0.0  3.33
+
+Since version 3.14 the rod pockets are numbered and the fifth parameter of the "type9" line controls the size of the roman numbers (a request from Eric (Tarnos, France)).
+
+
+SECTION 12 (VH RIBS).
+----------------------
+
+Since version 3.14, six new types of VH-ribs have been introduced.  The new types are called 11,12,13,14,15,and 16. Type 11 is the same as type 1, but absolute definitions of lengths in cm, are now made in % of the profile chord. The same for type 12 with respect to type 2, and so on until type 16, which is similar to type 6. Types 11 and 1, 12 and 2, 13 and 3, 14 and 4, cannot be combined in the same model. An auxiliary model can be made if necessary. Then all the VH-rib parameters can be set in % the chord, instead of absolute lengths in cm. It is also an improvement introduced at Eric's request.
+
+VH-rib "Type 4" finally is fully functional (and new "Type 14", of course).
+
+The presentation of the VH-ribs results in 2D and 3D as improved. Now the decimal numbers numbering the VH-ribs do not appear displaced, and size may be defined, so the plane is better understood. The roman numbers fit much better and its size may be defined in section 20.  Now the numbering of pieces Type 6 within the same rib is not done from 0 to 100 (according to position in%), from 0 to 10, to reduce the number of points.
+
+When you enter the settings to the types 1,2,3,4,5,6, the absolute lengths will be affected by the scaling factor of the wing (before this does not happen). This allows you to scale the wings more uniformly.
+
+
+SECTION 21 (NYLON RODS) 
+------------------------
+
+The drawing of the arched rods (type 2) has been revised, because in version 3.12 some particular cases they were not drawn in their correct place. Now verified, it works well in all cases.
+
+Study the sections 12,20,21 of the manual for more details.
+
+
+-------------------------------------------------------------------
+VERSION 3.12 (2020-12-15)
+-------------------------------------------------------------------
+
+> Section 21 (NYLON RODS):
+
+The definition of joncs (nylon rods) has been expanded. Now is possible to add straight, and arched joncs to any part of the profile, and to any of them individually or by groups. Concepts of "schemes", "data blocs", "rod types", and "groups" are used. Read the manual carefully, see examples, and test. The current version reads the previous version of section 21 without changes. Program draws the rods and their pockets, and calculates the individual and total lengths. This improvement has been motivated by the design of the BHL4 and BHL5 projects that have additional compression rods. Of course the rods can be drawn with CAD, but it is more comfortable to draw using the program, from the parameters!
+
+> Section 20 (MARKS TYPES):
+
+The "type8" line is fully functional, and very useful. Allows full control over Roman numerals marks with different sizes and positions. Some have asked me for display "type8" numbers in the format of "seven diode segments". Okay, but I don't see the advantage in it, although I also want to program it as an option.
+
+> The source code incorporates some subroutines for reading .dat profile files (and reformatting them in number of points) but they are not yet activated.
+
+> Other minor changes:
+
+Plotter panels numbered near trailing edge
+Size of the numbers in ribs reduced
+
+> Some external utility scripts (advanced use, read more in Laboratori d'envol software/scripts section):
+A bash/python/ezdxf script was created to make a template of paper spaces and viewports where put your blueprints ./vpm.sh
+A bash script to help in writting colors section ./alog2colors.sh
+
+
+VERSION 3.11 (2020-09-06)
+-------------------------------------------------------------------
+Section 29. 3D-shaping now accepts negative depth control values "negative 3D-shaping".
+Feature added at Pawell's request.
+Started work to read standard .dat airfoils, and reformat automatically or by specifying the number of points 
+(.dat still not functional, will be in next version).
+
+VERSION 3.10 (2020-05-02)
+-------------------------------------------------------------------
+This version involves significant improvements:
+
+Data file leparagliding.txt:
+Section 29. 3D-shaping active.
+Section 20.  Marks types, activated type8 which allows control of position and size of roman numerals
+New plans added in file leparagliding.dxf:
+Box (1,8) Intermediate and ovalized airfoils (*)
+Box (-1,3) and (-1,5) extrados panels with 3D cuts
+Box (0,3) and (0,5) intrados panels with 3D cuts
+New graphics in lep-3d.dxf: intermetiade and ovalized airfoils are draw if desired.
+New three informative sections added in lep-out.txt file:
+Section 9. 3D internal calculus values, informative (**)
+Section 10. The quotient between the lengths of the panel and ribs, for extrados and intrados.
+Section 11. Counting of points in all profiles, informative
+
+(*) Plan (1,8) shows median airfoils between rib i and i-1 and the corresponding ovalized median airfoil, including marks of the points j1,j2,j3,j4,j5,j6,j7 used in the defintion of the 3D-shaping.
+(**) Section 9, with the length ot the arch of airfoil (d1) and the arch of the ovalized airfoil (d2), 
+the differences of longitude (d2-d1) calculated automatically in each zone, and the amplitude value (f) applied consistently to each cut 
+using the values (d2-d1) of the adjacent zones and the coefficient aof depth of the 3D effect. According to theoretical study.
+
+The completion of the programming of the 3D-shaping module has been made possible thanks to the support of 
+Scott Roberts from USA (Fluid Wings https://www.fluidwings.com/ ).
+
+
+VERSION 3.02 (2020-01-26)
+-------------------------------------------------------------------
+A "bug" found in version 3.01 by Scott from Utah:
+Only sewing allowance (SECTION 6) set in upper surface make effects... and:
+LE allowance in upper surface = TE allowance in lower surface (!)
+TE allowance in upper surface = LE allowance in lower surface (!)
+Now fixed! :-) Now the sewing allowance (SECTION 6) can be set independently in the leading edge and trailing edge, of the upper and lower surfaces. Lateral sewing allowances also works correctly.
+
+SECTION 26 "Glue vents". Now is possible the definition of the following types of vents:
+0 (=open vent, but print apart for optionally design special vents)
+1 (=closed and "glued" to upper surface)
+-1 (=closed and "glued" to lower surface)
+-2 (=diagonal vent open left "glued" to lower surface)
+-3 (=diagonal vent open right "glued" to lower surface)
+Very easy to use and very effective!
+
+
+VERSION 3.01 (2020-01-12)
+-------------------------------------------------------------------
+Section 31 functional.
+
+The correct definition of the skin tension is essential for the internal solidity and the flight quality of the apparatus. For this reason, it is recommended that the designer have total control over the skin tension, with a very precise form (law of increments of width), and allowing changes in different panels along 
+the span. This is what allows the new module.
+
+The module new skin tension, functional from version 3.00, defines the additional widths of panels, to achieve the desired ovalitzation. The values applied to the extrados and intrados, for compatibility are the same as those explained in SECTION 5 (read again and notice the scheme 20181230), but there is a greater control. The number of points to define the widths is not limited to 6, now can be 
+up to 100 points (!) (to choose freely). And it is possible to choose different widths for each one of the ribs, if it is considered necessary, (defining different "groups" of widths). Of course, the number of groups can be equal to the number of ribs, and thereby define the widths of each panel individually (for example, different tension in the panels of the center panels and in the wingtip.
+
+Work continues...
+
+VERSION 2.96 (2019-05-07)
+-------------------------------------------------------------------
+
+- Solved superposition (up to 60-times!) in some mark points in extrados and intrados. Bug reported by Pawel from Poland.
+- "Roman numbers" marks in extrados and intrados, now smaller. Planned full control in size and position.
+- Revision in internal code (double precision variables).
+- Found and solved some numerical errors doing comparations in sentences "if" with numbers in double precision (!). I need look more in detail. Solved by conversion double precision (real*8) to real*4.
+- Started code section for subroutine 3D-shaping
+
+VERSION 2.90 (2019-01-13)
+-------------------------------------------------------------------
+
+- Section 22. Nose mylars now fully functional! :) Nose mylars drawn at plan 1-1-2,1-4 and 1-7, including control marks for laser. Each mylar defined by 6 parameters.
+- More text and notes in plan 2-7 including the code for the "roman" numbers
+- Fixed some graphic errors when drawing airfoil vents in case "pc" type. 
+
+VERSION 2.88 (2019-01-08)
+-------------------------------------------------------------------
+
+Correction of small error when printing the useful V-ribs "Type-6". Sometimes they were superposed. Now the position of the ribs is proportional to its position along the edge from leading edge to trailing edge. Error detected by Pawel from Poland. Thanks! 
+
+Was only been necessary to modify a line of the program. I have seen that some "roman" marking points may be left out of the piece... Next thing to solve.
+
+VERSION 2.87 (2019-01-06)
+-------------------------------------------------------------------
+
+This version (2.87+2.85) is the result of two weeks working intensively in the source code of LEparagliding :) There is a lot of invisible work in subroutines and code improvement.
+
+Improvements:
+
+- Section 26 allows the vents part to be attached automatically to the extrados or intrados at will. Already explained in version 2.85.
+
+- Section 21 Joncs definition (nylon rods), now fully functional.
+Now it is possible to define type 1 rods, which are the most used. A rod on the leading edge with small deflections at both ends, which are completely controllable in position and depth of deflection, with 8 parameters. The program calculates the rods and shapes of the pockets, which are also fully controllable in widths, with 4 parameters. It is possible to define different rods for each cell, individually or by groups.
+
+Of course, sections 26 and 21, save a lot of drawing work with CAD, and now the paraglider is almost finished from the program. 
+
+- Extension of the DXF-2D plans to an array 4 rows x of 7 columns (28 plans). Plan 1-7 used for rods. New plan 4-7 includes general text notes for constructor.
+
+The work of the division in colors, is only with a section of partial help (marks of reference). And the division in 3D panels on the leading edge and the improvement of the skin tension module, are the following works. Following my drawings, it is now possible to add one or two cuts in 3D, but it is a lot of work if the paraglider has many cells. That's why we will automate!
+
+Version 2.87 includes as example the paraglider BHL5-Bi 31 m2 "etude version", still working. The program now generates completely finished plans, ready to build and fly!
+
+Version GUI Graphical User Interface, It is also evolving, thanks to a Swiss programmer... But for now, you need to try to understand my  drawings and cryptic explanations and write the parameters directly into the text file!
+
+
+
+VERSION 2.85 (2018-12-31)
+-------------------------------------------------------------------
+
+Section 26. "Glue" vents is fully functional :)
+This section allows to automatically "glue" the air inlets (vents) into the panel of extrados, intrados, or to separate them. The vents include sewing edges. The skin tension i the vent is linear and automatically corresponds to that defined at the points correspondingin extrados and intrados.
+The vent definition is very easy and intuitive. You have to make a list of two columns. In the first column, the profile number is indicated, and in the second column the corresponding parameter:
+1 means glue the vent to the extrados (normally used in paragliders single skin type)
+0 means do not paste the glue anywhere (open air inlet). It is drawn apart to define with CAD special air intakes (circles, ellipses, ...)
+-1 means glue the vent to the intrados (usually means, closed cell)
+
+"Invisible" (but important) improvements in the source code. Creating new subroutines (extpoints, dpanelc, dpanelb, dpanelc1, dpanel2c, dpanelb1, dpanelb2) for printing the contours of the panels, and preparing the code to separate the panels in the options for 3D-shaping.
+
+
+
+VERSION 2.81 (2018-12-24)
+-------------------------------------------------------------------
+Includes pre-processor version 1.5
+
+Minor change in section 12.7.1 beacuse lines in fourth level not properly rotated in SK paragliders. Now OK.
+
+
+VERSION 2.80 (2018-10-12)
+-------------------------------------------------------------------
+
+SECTIONS 27 and 28 now fully functional!!!
+
+SECTION 27: It is used for defining wingtips with special shapes.
+(See figures).
+
+*******************************************************
+*       27. SPECIAL WING TIP
+*******************************************************
+0
+
+If section set to "0" nothing happens. Most wings can be designed with this parameter set to zero. But if set to "1" complete section with two parameters:
+
+*******************************************************
+*       27. SPECIAL WING TIP
+*******************************************************
+1
+AngleLE 45
+AngleTE -7.78
+
+"1" refers to define "type 1" wing tip modifications. It is planned to define several modifications. Type 1 is the simplest.
+
+"AngleLE" is a name not computed. It serves to remember that next you have to write the new angle in degrees between the horizontal and the leading edge in the last cell. It is usual to force the angle of the last cell, and this section allows it to be done without modifying the geometry matrix. Set 45º for example.
+
+"AngleTE" is a name not computed for the trailing edge. Set the angle as desired, -7.78º for example.
+
+
+SECTION 28:
+
+Remenber the structure:
+
+*******************************************************
+*       28. PARAMETERS FOR CALAGE VARIATION
+*******************************************************
+1
+3
+10. 30.35  60  0  0  0
+-4 4 5 10
+*******************************************************
+
+Explanation:
+
+Set to calage type "1" (first line), only type "1" available
+"3" risers to be considered
+A=10.%  B=30.35%  C=60% D=  E= F=   (set % to be considered)
+Speed angle set to -4º and compute in 4 steps
+Trim angle set to 5º and compute in 10 steps
+
+Results:
+
+1) In output file SECTION 7: lep-out.txt
+
+Tables that relate in detail the variations of angle, with the calage variations, and increments or decrements of length in each riser. It is interesting to experiment with new calages in prototypes or to define the speed or trim systems.
+
+a) Speed system pivot in last riser
+b) Speed system pivot in first riser
+c) Trimer system pivot in first riser
+d) Trimer system pivot in last riser
+
+(See figures for better understanding)
+
+
+2) Program draw a graphic in the dxf plan 2-1: Calage variations % using the speed system (cm) or trim system (cm)
+
+
+VERSION 2.78 (2018-10-06)
+--------------------------------------------------------------------
+
+It is absolutely necessary upgrade to 2.78
+In versions 2.77 and 2.75 I added some errors (!), Now solved:
+- "Roman" numbers on the intrados trailing edge, again well aligned
+-  Red circles that mark anchor brake points are drawn again
+
+Remenber put section 28 as described below in version 2.77.
+(section 28 as defined in 2.75 no longer works)
+
+
+VERSION 2.77 (2018-09-02)
+------------------------------------------------------------------------
+
+Bug correction in marks for ribs Type 5 
+
+CHANGE IN SECTION 26 Set by default to:
+
+*******************************************************
+*       28. PARAMETERS FOR CALAGE VARIATION
+*******************************************************
+1
+3
+10. 30.35  60  0  0  0
+-4 4 5 10
+
+Explanation:
+
+Calage type "1" (first line)
+"3" risers to be considered
+A=10.%  B=30.35%  C=60% D=  E= F=
+Speed angle set to -4º and compute in 4 steps
+Trim angle set to 5º and compute in 10 steps
+
+
+SECTION 27 ESPECIAL WING TIP
+Set to "0"
+
+IMPROVEMENTS INTRODUCED IN 2.75 VERSION "Baldiri" (2018-06-17 experimental)
+----------------------------------------------------------------------
+
+- Expanded data file structure (new sections). Read manual carefully.
+
+- Many of the new sections are still not functional. This version is experimental. I hope to activate soon.
+
+- Functional new sections:  19 (partial), 20 (partial), 24 (OK), 25 (OK), 30 (OK)
+
+- The unidimesional points, used for marking, now are small circles to which it is possible to modify the diameter. Soon I will activate more functions and return to the unidimensional points at will (section 20). Sorry, I have to add graphics and explanations to understand how section 20 works.
+
+- Added code in section 12.7.1 "Gir cordes en quart nivell"
+Correction of Pampa parameters if ss paraglider has 4 levels,
+by Ludovic G. (France). 
+
+- Modified algorithm to rotate triangles, according to proposed code by Ludovic G.
+
+- Equidistant points not correctlly positioned in ribs Type-5 with airfoil (version 2.60).
+Detected by Scott, tanks! Bug correction in section 16.3.2.2  "Detect first 9 and last 11 (rib i+1)" "Calcule te-11". Index error in definition of vector rib(i,105). Was "1" instead of "i"! Solved. Now works fine! Thanks for observation.
+
+- Expanded the maximum number of points for the profiles from 300 to 500. According to a proposal from David G. of Switzerland.
+
+- Now is possible switch between one-dimensional points and small circles. Mark control extended (Section 20).
+
+- Some problems are detected to run the code in Windows, by friends located in Poland and Crimea... I try to solve. It is necessary to use the most appropriate cygwin1.dll file on your computer. Or install a cygwin console. Or try to compile the code directly. Compiler Fort77 works well in my tests. I also provide the source code translated into c, using f2c (compile using gcc compiler).
+
+
+
+
+Especial thanks to Scott Roberts and Fluid Wings for supporting the new versions 2016 of the program
+
+IMPROVEMENTS INTRODUCED IN 2.60 VERSION "Les Escaules" (2016-12-12)
+---------------------------------------------------------------------
+
+1) Corrected some problems using an even number of cells
+
+When we define paragliders using an even number of cells, the central profile has a coordinate x = 0.0 along span, and program use internally a "virtual centrall cell" with a zero thickness. 
+
+This can cause some numerical errors when calculating angles or divisions by zero. The result is usually an unreadable DXF file. Now, if the central profile located at x = 0.0, the program adds internally +0.01 cm (a tenth of a millimeter) and it seems that there are no numerical errors. [Section 4.2 in source code file .f].
+
+2) Lines labels
+
+The labels of the lines now automatically written on the schematic drawing in the form of tree. This prevents errors, and had to The labels of the lines now automatically written on the schematic drawing in the form of tree. This prevents errors, and had to draw them manually.draw them manually. :) 
+
+3) Added more geometric parameters in lep-out.txt report
+
+
+
+LEparagliding 2.52++ version "Utah" (2016-08-27)
+------------------------------------------------
+
+1) Added new option in V-ribs "type-3", at request from Yuri.
+
+Diagonal rib type 3, indicated by 10 numbers.
+Previously, the columns 9 and 10, were not used. And set to "0".
+Now (in version 2.52++ and following), if the column 9 is set to "1", this means that the radius 
+defined in columns 7 "r-" and 8 "r+" , are now defined in % of the chord of the profile, not in cm.
+
+This allows definition of the diagonals widths automatically, and proportional to the profile chord.
+Thus, it is achieved a perfect match in the widths of the contiguous diagonals and chord proportionality.
+
+2) Internal fortran subroutine "vredis" (vector redistribution) improved, because in some cases 
+(when used very small widths in V-ribs) were errors in the forms of V-ribs. Now fixed.
+
+3) Version 2.52++ packs version 1.4 of the pre-processor.
+
+
+LEparagliding 2.52 version "Utah" (2016-08-18)
+----------------------------------------------
+
+Added new option. Set automatic washin angles from center airfoil to wingtip.
+At request from Yuri (Crimea).
+How to use: Below line 21 in leparagliding.txt data file:
+
+* Alpha max and parameter
+3.5   2  -1.0
+
+- First number "3.5" is the angle of attack (degres) in wingtip airfoil
+- Second number "2" is a control parameter that means case "2", ie, add new number indicating the angle of attack of the central airfoil
+- Third number "-1.0" is the angle of attack (degres) of the central airfoil
+
+The distribution angles of attack is made proportional to the wing chord (similar to case "1"). See "lep-out.txt" to view the result.
+
+LEparagliding 2.51 version "Utah" (2016-06-05)
+----------------------------------------------
+WARNING: Update 2.50 to 2.51 beacuse version 2.50 may done some errors in the lines list (!)
+
+
+LEparagliding 2.50 version "Utah" (2016-05-09)
+----------------------------------------------
+
+- MIDDLE UNLOADED RIBS: Added the possibility of using "middle unloaded ribs". Very easy to use: In section "2. AIRFOILS" at the last column use the parameter "100", means to place a complete unloaded rib in the middle of the panel, and the left corresponding rib. Similarly, as defined in the mini-ribs. But the parameter "100" activates a new specific programation. New plan numbered "1-6" with the new middle ribs numbered and marked. These ribs have been reformatted to achieve a perfect match with high precision, with the corresponding panels. In the center of the panels, are marked equidistant points in correspondence with the middle unloaded ribs. In addition, in the 2D-planform (plan "1-1"), also drawn in gray new ribs. Planned to draw in 3D (for reference) but not yet done. Important: To define holes in the ribs (elliptical or circles), add in section "4. AIRFOIL HOLES" a new hole type "11" that is defined exactly as the type "1" (hole type "1" and type "11" are exactly the same but the type "11" used exclusively by the middle unloaded ribs). In this case the initial rib number and end rib number with holes type "11" should be the same, and greater than the maximum number of ribs on one side, for example, use "50" . See the attached example "leparagliding.txt". All new programation in section 9.9 of the source code.
+
+- "Mini-ribs" are redefined, and now in section "2. AIRFOILS" at the last column, if you use the parameter "15", means to place a 15% mini-rib in the middle of the panel, and at the LEFT of the corresponding rib. Previously, mini-rib it was placed on the RIGHT. But it is better set at the left, so you can specify a minirib the center of the wing (Mini-rib specified in the left first rib). And this is consistent with the new middle unloaded ribs.
+
+- Applied little optional displacement (to the center of the wing) in the points marking the position of the miniribs. Third parameter in the line of section "7. MARKS" of the datafile. Before, this displacement was set to default to zero. 
+
+- All 2D-plans renamed whit the notation "i-j" that means row "i" and column "j".
+
+- (!) CRITICAL ERROR found :( and solved :) when using V-ribs "Type 3" and wing scale different from 1.0. Solved. Caution! because V-ribs "Type 3", defined in earlier versions may be incorrect.
+
+- A strange line, which appeared in the wingtip rib if zero thickness airfoil and wing type "pc" erased! :)
+
+- Please, see and test attached 2.50 example.
+
+
+
+
+LEparagliding 2.49 version "Utah" (2016-04-24)
+----------------------------------------------
+
+- V-rib type 6 is fully functional. Type 6 is a general diagonal. It's very simple. A trapezoidal diagonal ranging from rib number i to rib number i+1. But the rib is totally configurable in size and position. It has been designed to develop competition paragliders CCC types, which need to jump between 4 and 5 cells without lines. But it can also serve to design simplest paragliders, and replacing some of the types of diagonals described above. It is also very useful to define transverse horizontal strips located in all parts of the wing (the tapes have not necessarily coincide  with the anchor points).
+
+- In final report lep-out.txt, area and span, calculated also in ft2 and ft
+
+- Improved location of decimal numbering of all V-ribs types.
+
+- Read section 10 of the manual: (...) "i11" indicates rib number "i", where anchor the top line of the brakes. This number, usually an integer. Nevertheless, some versions ago was added an interesting and not documented feature. Is possible define a decimal which means the displacement of the anchoring point between the rib "i" and the rib and "i+1". For example, 8.4 means anchor the line in the trailing edge, between rib 8 and 9, and 40% from the rib 8. This effect is now visible in 2D and 3D
+
+
+LEparagliding 2.48 version "Utah" (2016-04-17)
+----------------------------------------------
+
+- Internal Fortran code now using DOUBLE PRECISION real variables (real*8), double precision trigonometric functions: dcos, dsin, dtan,datan, dasin, dacos,...
+- High accuracy implemented in extrados and intrados panels, including reformatting whith corrections in lenghts and distorsions (full report in the last section of lep-out.txt). 
+- Lengths differences between ribs and panels < 0.02 mm, and distorsions in leading edge < 0.1 mm :) )
+- Closed cells new graphical representation in 2D and 3D, using grey line
+- New version of pre-procesor (1.3) allows define wings using odd or even number of cells
+
+
+LEparagliding 2.47 version "Utah" (2016-03-28)
+----------------------------------------------
+
+- High accuracy: In last row of the section 5. SKIN TENSION, of the main data file leparagliding.txt, now is possible set the following parameters to achieve high accuracy: 
+1000   1.0  
+First number "1000" (integer) is only a convention than signifies force the program to use maximal precision, reformating panels to achieve accuraccy better than 0.1 mm (lengths differences beetween rib and panels at lesft and right).
+Second number is a coefficient (real) between 0.0 and 1.0 that sets the intensity of the correction. If coefficient is set to "0.0" then is no correction. If the coefficient is set to "1.0" the accuracy is maximal, aprox < 0.1 mm.
+In version 2.47 maximal accuracy still not implemented in intrados panels, but very easy to implement.
+
+- If first parameter is set to integer < 1000 (tipically 15 or 20) then program uses the old "anticorrection" method, for reformatting inner side of the right side of extrados panels. It is not recommended (old feauture). But now is possible use xndif=0.0 (not correction).
+
+- Leading edge shape of the last panels is improved (fixed an error in the calculation of angles). Now it is not necessari to correct manually! :)
+
+- Calculus of center of gravity planform, cdgx, is corrected (code error), thanks to Larry (WY), for detect it reading the code.
+
+- Resolved graphical inconsistencies when drawing open or closed cells found in 2D drawings, and in 3D model, found by Larry (WY), and now solved
+
+- WARNING: In this version, is changed the meaning and interpretation of the boolean coefficients ("0" and "1"), used to define open or closed cells (in .txt data file SECTION 2, fifth column). In versions prior to 2.46 "1" means open cell next to the rib "i" and towards the wing tip. A the 2.46 version, open cell "1" or closed "0" are defined toward the center of the wing. It is very easy and practical to do a test, and see the result. This change allows to define the central cell and resolves some inconsistencies in the previous definition.
+
+- Output file "lep-out.txt" improved with more clear and detailed information
+
+- Brake lines moved to plan number 19, next the lines list.
+
+- Lines "B" changed color from "yellow" (2) to "orange" (30), better for print
+
+- Internal code: cleaned up some unused variables
+
+- New GNU/Linux versions compiled using fort77 in Debian 8.3 "Jessie"
+
+- Window versions compiled in 32-bit system, is verified that also work in 64-bit
+
+- Versions not stopped. Working hard in more improvements...
+
+
+Improvements version 2.41 "Omsk" (2015-09-19):
+------------------------------------------------
+
+- Attachements points marks in intrados panels
+- Increased number of ribs with color marks, from 20 to 100 (per side)
+- Now possible draw color marks also in intrados panels
+- Now is possible define and draw trailing edge "miniribs" ("minicabs") in non "ss" paragliders: Simpli define minirib length (in %) in column number 8 of section "2. AIRFOILS". If column 8 values are "0" or "1", miniribs are not draw and these values used only in "ss" paragliders, according manual.
+
+Improvements version 2.40 (2015-09-04) over version 2.35
+
+- Equilibrium grafic calculus, now is OK (bug fixed, thanks to Yuri!)
+- Equidistance beetwen points in rib intrados now OK (bug fixed, thnaks to Scott)
+- V-ribs "type 3" now possible
+- V-ribs "type 5" new type "full continous diagonal rib" includes parabolic and elliptical holes (very especial thanks to Scott for supporting leparagliding developement)
+- In lep-out.txt output file added summary of ribs and panel lenghts differences
+
+Preprocessor 1.2 version "Gurzuf"
+
+- More info written in the output file (area, span)

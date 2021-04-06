@@ -5,10 +5,10 @@ Supporting Classes
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-Pre-Processor store
+   
+Pre-Processor Model
 -------------------
-.. automodule:: DataStores.PreProcessorStore
+.. automodule:: DataStores.PreProcessorModel
    :undoc-members:
    :members:
    :private-members:

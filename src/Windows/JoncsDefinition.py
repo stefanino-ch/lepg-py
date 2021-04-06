@@ -254,7 +254,7 @@ class JoncsDefinition(QMdiSubWindow):
         tabLayout.addWidget(self.table[currNumTabs])
         
 
-#         
+# TODO: enable validators
 #         branchTable.enableIntValidator(ProcessorModel.LinesModel.OrderNumCol, ProcessorModel.LinesModel.OrderNumCol, 1, 999)
 #         branchTable.enableIntValidator(ProcessorModel.LinesModel.NumBranchesCol, ProcessorModel.LinesModel.NumBranchesCol, 1, 4)
 #         branchTable.enableIntValidator(ProcessorModel.LinesModel.BranchLvlOneCol, ProcessorModel.LinesModel.OrderLvlFourCol, 1, 99)

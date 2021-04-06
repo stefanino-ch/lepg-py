@@ -133,14 +133,12 @@ class SqlTableModel(QSqlTableModel):
             if mustNumConfigs > currNumConfigs:
                 # add config lines
                 while i < diff:
-                    #self.addConfigRow()
                     self.setNumRowsForConfig(currNumConfigs+1+i, 1)
                     self.numRowsForConfigChanged.emit(currNumConfigs+1+i, 1)  # emit the change signal
                     i += 1
             else:
                 # remove config lines
                 while i < diff:
-                    #self.removeRowsByConfigNum( currNumConfigs-i )
                     self.setNumRowsForConfig(currNumConfigs-i, 0)
                     self.numRowsForConfigChanged.emit(currNumConfigs-i, 0)  # emit the change signal
                     i += 1
@@ -177,11 +175,13 @@ class SqlTableModel(QSqlTableModel):
         # TODO: Add transaction
         query = QSqlQuery()
         query.prepare("INSERT into %s (ConfigNum, OrderNum) Values( :conf, :order);" %(self.tableName()))
-        query.bindValue(":conf", str(configNum))
-        query.bindValue(":order", str(currNumRows+1))
-        query.exec()
+        query.bindValue(":conf", configNum)
+        query.bindValue(":order", currNumRows+1)
+        res = query.exec()
+        if not res:
+                logging.critical(self.__className + '.addRowsForConfig insertRecord Err type: %s' %self.lastError().type())
+                logging.critical(self.__className + '.addRowsForConfig insertRecord Err text: %s' %self.lastError().text())
         self.select() # to a select() to assure the model is updated properly
-
 
     def removeRowForConfig(self, configNum):
         '''
@@ -201,7 +201,6 @@ class SqlTableModel(QSqlTableModel):
         
         if orderNum>0:
             query.prepare("DELETE FROM %s WHERE (ConfigNum = :conf AND OrderNum = :order);" %(self.tableName()) )
-            query.bindValue(":table", self.tableName() )
             query.bindValue(":conf", str(configNum))
             query.bindValue(":order", str(orderNum))
             query.exec()

@@ -22,7 +22,7 @@ Data Status Overview
 
 Pre-Processor data edit   
 -----------------------
-.. automodule:: Windows.PreProcDataEdit
+.. automodule:: Windows.PreProcData
    :undoc-members:
    :members:
    :private-members:
@@ -36,21 +36,21 @@ Processor Basic Data
 
 Processor Geometry
 --------------------
-.. automodule:: Windows.ProcGeometry
+.. automodule:: Windows.Geometry
    :undoc-members:
    :members:
    :private-members:
 
 Processor Airfoils
 ------------------
-.. automodule:: Windows.ProcAirfoils
+.. automodule:: Windows.Airfoils
    :undoc-members:
    :members:
    :private-members:
    
 Processor Anchor Points
 -----------------------
-.. automodule:: Windows.ProcAnchorPoints
+.. automodule:: Windows.AnchorPoints
    :undoc-members:
    :members:
    :private-members:

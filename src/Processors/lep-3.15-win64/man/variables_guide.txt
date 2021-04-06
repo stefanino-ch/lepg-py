@@ -1,0 +1,432 @@
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c      VARIABLES GUIDE
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+c      ncells: number of cells
+c      nribst: total ribs
+c      nribss: in semi-wing
+c      cencell: with of central cell
+
+c      rib(i,j) rib i parameter j:
+
+c      rib(i,1) rib number
+c      rib(i,2) x_rib
+c      rib(i,3) y_LE
+c            j=4 y_TE
+c            j=5 chord
+c            j=6 x'
+c            j=7 z_rib
+c            j=8 alpha washin calulated in cases 1,2
+c            j=9 beta
+c            j=10 rotation point
+c            j=11 vent in
+c            j=12 vent out
+c            j=14 open=1 closed=0
+c            j=15 anchors number
+c            j=16 A %
+c            j=17 B %
+c            j=18 C %
+c            J=19 D %
+c            j=20 E %
+c            j=21 F % brake
+c            j=22 cell width (i to i+1)
+c            j=23 extrados length
+c            j=24 intrados width
+c            j=25 intrados length
+c            j=26 inlet length
+c            j=30 panel length to the left of rib i - extrados
+c            j=31 rib i length - extrados
+c            j=32 panel length to the right of rib i - extrados
+c            j=33 panel length to the left of rib i - intrados
+c            j=34 rib i length - intrados
+c            j=35 panel length to the right of rib i - intrados
+c            j=36,37,38,39 mark amplification coeficients
+
+c      rib(i,40) rib extrados partial length
+c      rib(i,41) rib extrados partial length
+c      rib(i,42) rib extrados partial length
+c      rib(i,43) rib left intrados partial length
+c      rib(i,44) rib intrados partial length
+c      rib(i,45) rib right intrados partial length
+
+c      rib(i,50) rib z displacement
+
+c      rib(i,51) washin angle set manually in matrix
+
+c      rib(i,56) if 0 then rib no rotation in "ss" class (Pampa)
+c                is also % of minirib in not "ss" paragliders
+
+c      jcve(i) , jcvi(i) j control miniribs extra - intra
+
+c      rib(i,60) Extrados minirib length
+c      rib(i,61) Intrados minirib length
+
+c      rib(i,66) A lenght from TE
+c      rib(i,67)
+c      rib(i,68)
+c      rib(i,69)
+c      rib(i,70) E lenght from TE
+
+c      rib(i,80) longitud zona ndif rib i
+c      rib(i,79) longitud zona ndif rib i-1
+c      rib(i,81)=rib(i,80)-rib(i,79))*xndif
+c      rib(i,82)
+
+c      rib(i,90)=rib(i,31)-rib(i,30)  left differences rib-panel extra
+c      rib(i,92)=rib(i,31)-rib(i,32)  right differences rib-panel extra
+c      rib(i,93)  intra
+c      rib(i,95)  intra
+
+c      rib(i,96) Leading egde segment unformated (extra)
+c      rib(i,97) Leading edge segment formated (extra)
+c      rib(i,98) Leading egde segment unformated (intra)
+c      rib(i,99) Leading edge segment formated (intra)
+
+
+c      rib(i,102) Length from TE to point "2" in V-ribs
+c      rib(i,104) Length from TE to point "4" in V-ribs
+c      rib(i,105) Length from TE to point "11" in V-ribs
+c      rib(i,106) Length from last "11" to equidistant point
+c      rib(i,107) Length between "j_121" and equist point
+c      rib(i,108) Lolcal length segment (j-1_121,j_121)
+
+
+c      do klz=1,rib(i,15)
+c      rib(i,110+klz) u coordinate anchor klz
+c      rib(i,120+klz) v coordinate anchor klz
+c      rib(i,130+klz) distance TE to anchor klz along rib contour
+
+
+c      rib(i,148) airfoil thickness abs
+c      rib(i,149) airfoil thickness %
+
+c      rib(i,150) Lextrados middle rib i-1 to i
+c      rib(i,151) Lvent
+c      rib(i,152) Lintrados middle rib i-1 to i
+c      rib(i,150) Lextrados panel i-1 (i-1 to i)
+c      rib(i,151) 
+c      rib(i,152) Lintrados panel i-1 (i-1 to i
+
+c      rib(i,160) Standard thickness
+c      rib(i,165) Vent glue value
+c      rib(i,166) Type-1 Jonc group in rib 1
+
+
+
+       rib(i,190) rib extra i
+       rib(i,191) panel extra left i
+       rib(i,192) rib extra i+1
+       rib(i,193) panel extra right i
+       rib(i,194) k 191/190
+       rib(i,195) k 193/192
+       rib(i,196) rib intra i
+       rib(i,197) panel intra left i
+       rib(i,198) rib intra i+1
+       rib(i,199) panel intra right i
+       rib(i,200) k 197/196
+       rib(i,201) k 199/198
+
+
+
+c      alpha: airfoil washin angle
+c      alpham: max washin
+c      beta: airfoil vertical angle
+c      calag: calage
+c      cple: center of pressure
+c      hcp: height pilote - center of pressure
+c      assiette:angle between horizontal line and chord
+c      finesse: glide ratio
+c      aoa: angle of attack AoA
+c      nomair(i): airfoil archive
+
+c      np(i,1) airfoil points number
+c      np(i,2) airfoil extrados points number 
+c      np(i,3) airfoil inlet points number 
+c      np(i,4) airfoil intrados points number
+c      np(i,5)=np(i,2)+np(i,3)-1 extrados+inlets
+c      np(i,6) j nose point (0,0) 
+
+c      u(i,j,20) v(i,j,20): airfoils coordinates
+c        K = 1 = original coordinates
+c            2 = 100*coordinates
+c            3 = scaled coordinates
+c            4 = washin coordinates
+c            5 = espace coordinates
+c            6 = singular points
+c                j=1 A anchor point 3D
+c                j=2 B anchor point 3D
+c                j=3 C anchor point 3D
+c                j=4 D anchor point 3D
+c                j=5 E anchor point 3D
+c                j=6 F anchor point - brake 3D
+c                j=7 B intake in point 3D
+c                j=8 B intake out point 3D
+                 j=10 Nose "j" number
+c            7 = overwide local left
+c            8 = overwide local right
+c            9 = coordinates overwide left
+c            10 = coordinates overwide right
+c            11 = coordinates left sewing border
+c            12 = coordinates right sewing border
+c            14 = panel extreme points left
+c            15 = panel extreme points right
+c            16 = airfoil borders
+c            17 = anchor washin coordinates
+c            18 = anchor space coordinates
+c            19 = anchor absolute coordinates
+c            24 = panel extreme corner left
+c            25 = panel extreme corner right
+c            30 =
+c            33 =
+c
+c            43 = intermediate unloaded airfoil i-1 i scaled c
+
+c            47 = space airfoil (u,v,w) in i
+c            48 = intermediate space airfoil between i-1 and i
+c            49 = ovalized intermediate space airfoil between i-1 and i
+
+       anccount(i,k)  anchor "j" count in loop J=1,np(i,1)
+
+c      x(i,j) y(i,j) z(i,j): absolute airfoil coordinates
+c      xx(1,j) yy(1,j) zz(1,j): central airfoil (or i=0)
+c      hol(100,20,20) airfoil holes properties
+c      xl(i,j) xr(i,j) panels length
+c      skin(k,j) skin tension
+c      xupp, xupple, xuppte
+c      xlow, xlowle, xlowte, xrib sewing allowances
+
+
+c      mc(ii,j,k) suspension matrix
+c           ii = line plan
+c           j = path number
+c           k = matrix column
+c               1 ramifications number of the path
+c               2 1 (ramification level 1)
+c               3 order in the level 1
+c               4 2 (ramification level 2)
+c               5 order in the level 2
+c               6 3 (ramification level 3)
+c               7 order in the level 3
+c               8 4 (ramification level 4)
+c               9 order in the level 4
+c               10 anchor line (1=A,2=B,3=C,4=c,5=D,6=freno)
+c               11 anchor rib number
+
+c               14 Final row
+c               15 Final rib
+
+c      cam(ii) paths in plan ii
+c      slp suspension line plans
+
+c      slpi(1), slpi(2), slpi(3)... inici plans
+
+c      corda(i,k) ramification properties of line i
+c           k = 1 line plan
+c           k = 2 line level (1=riser)
+c           k = 3 liner order (in the same level, and left to right)
+c           k = 4 action points associated
+c           k = 5 path ramifications
+c           k = 6 final anchor row 1=A 2=B ...
+c           k = 7 anchor rib number
+
+c      cordam nombre de línies individuals
+
+c      xcorda(i,1)  Punt de linia inicial 1
+c      ycorda(i,1)
+c      xcorda(i,1)
+c      xcorda(i,2)  Punt de linia final 2
+c      ycorda(i,2)
+c      xcorda(i,2)
+c      xcorda(i,3)  Punt de linia objectiu 3
+c      ycorda(i,3)
+c      xcorda(i,3)
+
+c       ii=corda(i,1)
+
+c      x1line(ii,2,corda(i,3))=xcorda(i,1)
+c      y1line(ii,2,corda(i,3))=ycorda(i,1)
+c      z1line(ii,2,corda(i,3))=zcorda(i,1)   
+c      x2line(ii,2,corda(i,3))=xcorda(i,2)
+c      y2line(ii,2,corda(i,3))=ycorda(i,2)
+c      z2line(ii,2,corda(i,3))=zcorda(i,2)
+
+
+c      x1line(corda(i,1),corda(i,2),corda(i,3)) line i initial x-coordinate
+c      y1line(corda(i,1),corda(i,2),corda(i,3)) line i initial y-coordinate
+c      z1line(corda(i,1),corda(i,2),corda(i,3)) line i initial z-coordinate
+c      x2line(corda(i,1),corda(i,2),corda(i,3)) line i final x-coordinate
+c      y2line(corda(i,1),corda(i,2),corda(i,3)) line i final y-coordinate
+c      z2line(corda(i,1),corda(i,2),corda(i,3)) line i final z-coordinate
+c      x3line(corda(i,1),corda(i,2),corda(i,3)) line i action point x-coordinate
+c      y3line(corda(i,1),corda(i,2),corda(i,3)) line i action point y-coordinate
+c      z3line(corda(i,1),corda(i,2),corda(i,3)) line i action point z-coordinate
+
+c      xline(i) line i length
+c      raml(i,j) ramfication lengths
+
+c	ln1 line name level
+c	ln2 line name letter (A,B,C,...)
+c	ln3 line name order or rib
+c	ln4(500) line label name
+c
+c      atp wing type "ds" "ss" "pc"
+c      
+c      kaa 1: not move nose triangle in "ss"
+c      kaa 0: rotate all triangles including nose
+c
+c      seprix: separació entre ribs X (350)
+c      sepriy: separació entre ribs y (90)
+c      xwf: wing factor scale
+c      xkf: draw factor scale
+c
+c      uextra(i,l) reformated extrados i in lmax points
+c      vextra(i,l) reformated extrados i in lmax points
+c      uintra(i,l) reformated intrados i in lmax points
+c      vintra(i,l) reformated intrados i in lmax points
+c      lmax=jcontroli-jcontrolf+2
+c      
+c      u(i,j,3) coordinate x control point in rib i
+c      v(i,j,3)
+c   
+*****************************************************************
+c      HV-ribs variables:
+***************************************************************** 
+c      hvr(k,kk) HV-rib data
+c            kk=2 rib type
+c            kk=3 rib number
+c            kk=4 row number
+c            ...
+c            kk=10 parameter
+******************************************************************
+
+       (point "k" are 2,3,4... according schema anchor point "3"
+c      ucnt(i,ii,k) coordinate "u" cinta rib i, row ii, point k
+c      vcnt(i,ii,k) coordinate "v" cinta rib i, row ii, point k
+c
+c      ucnt1(i,ii,j) coordinate local j, line 1 (left)
+c      vcnt1(i,ii,j) 
+
+c      ucnt2(i,ii,j) coordinate local j, line 2 (center)
+c      vcnt2(i,ii,j)  
+c
+c      ucnt3(i,ii,j) coordinate local j, line 3 (right)
+c      vcnt3(i,ii,j) 
+c
+c      jcon(i,ii,2)  "j" count point by interpolate "2" point
+c      jcon2(i,ii,2) "j" count point by interpolate first "2" point
+
+c      rx1(i,j,ii) coordenada linia 1 per aplanar (i-1)
+c      ry1(i,j,ii)
+c      rz1(i,j,ii)
+c      rx2(i,j,ii) coordenada linia 2 per aplanar (i)
+c      ry2(i,j,ii)
+c      rz2(i,j,ii)
+c      rx3(i,j,ii) coordenada linia 3 per aplanar (i+1)
+c      ry3(i,j,ii)
+c      rz3(i,j,ii)
+c
+c      xru(2),xrv(2) punts recta "r"
+c      xsu(2),xsv(2) punts recta "s"
+c      xtu,xtv r-s intersection (subroutine)
+c
+c      xtu2(i),xtv2(i),xtu4(i),xtv4(i)
+c      xtu9(i),xtv9(i),xtu11(i),xtv11(i) points in full diagonal ribs
+       
+       px9o(j) py9o(j) auxiliar coordinates in V-ribs full (planar)       
+       xsegment lenght of line "1-9" of V-rib leading edge
+       angle    angle to rotate V-rib 
+       angle2   angle to displace V-rib (right)
+
+       extremal lengths for V-ribs full
+       xte11(100),xte3(100),xle1(100),xle9(100)
+
+
+       rib(i,90)=rib(i,31)-rib(i,30) "cut" in left side
+       rib(i,92)=rib(i,31)-rib(i,30) "extend" in right side
+       xirl(i)
+       jirl(i) point j where init reformat in left side
+       xirr(i)
+       jirr(i) point j where init reformat in right side
+
+
+       typepoint
+                1 = euclidean point
+                2 = circle
+
+       typevent
+                1 = tree points
+                2 = two points
+                3 = segment
+                4 = double segment
+
+       typetab
+                1 = tree points
+                2 = 
+                3 = triangle
+
+       typejonc
+
+       typeref  1 = romano
+                2 = diode
+
+       lyname(1) = default
+       lyname(2) = cut_external
+       lyname(3) = sewing_line
+       lyname(4) = points
+       lyname(5) = circles
+       lyname(6) = triangles
+       lyname(7) = squares
+       lyname(8) = text
+       lyname(9) = refer
+
+       Section 20: Marks
+       gname character*50 generalname
+       marks types and parameters paper printer
+       typm1(i),typm2(i),typm3(i)
+       marks types and parameters MC/Laser
+       typm4(i),typm5(i),typm6(i) 
+
+       Section 24: 2D DXF options
+       iccolor(1) A lines
+       iccolor(5) E
+       iccolor(6) F
+
+       Section 25: 3D DXF options
+       iccolor(11) A lines
+       iccolor(15) E
+       iccolor(16) F
+       ele3d(11)  ele3dc(11)  >>> 1/0  color extrados
+       ele3d(12)  ele3dc(12)  >>> 1/0  color intrados
+       ele3d(13)  ele3dc(13)  >>> 1/0  color vents
+
+       Section 28:
+       nriser28 number of risers
+       p28(i) i=1,2,3,4,5 position % of 5 risers
+       a128 angle for max speed (negative)
+       n128 number of steps
+       a228 angle for max trim (positive)
+       n228 number of steps
+      
+       Section 30:
+       rib(i,160) thickness rib amplification
+
+       Section 31: New skin tension
+       ksk, ng, ngskt, nribini, nribfin, npoints, ntype
+       skinew(20,10), skinnew(0:100,20,10)
+
+       Section 27:
+       alc1, alc2  angles last cell in degrees clockwise
+
+
+       Section 29:
+
+       k29d  Data control
+       kgroup  Number of groups
+       ncuts(kgroup) Number of cuts
+       cutamp(kgroup) cut effect amplification
+
+       rib(i,169) group ng for 3D-shaping
+
+       yhaut: vertical distance for parts separation
+
+
