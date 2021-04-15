@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
-        self.setWindowTitle("lepg %s" %(__version__))
+        self.setWindowTitle("lepg-py %s" %(__version__))
         self.mainMenu = self.menuBar()
         
         # Build the individual menus
@@ -264,6 +264,10 @@ class MainWindow(QMainWindow):
         :method: Builds the complete Processor menu
         '''  
         # Define the actions
+        preProcImport_A = QAction(_('Import Pre-Proc output file'), self)
+        preProcImport_A.setStatusTip(_('import-pre-proc_file_desc'))
+        preProcImport_A.triggered.connect(self.preProcImport)
+        
         procOpenFile_A = QAction(_('Open Processor File'), self)
         procOpenFile_A.setStatusTip(_('open_Proc_file_desc'))
         procOpenFile_A.triggered.connect(self.procOpenFile)
@@ -377,6 +381,8 @@ class MainWindow(QMainWindow):
         
         # Build the menu
         procMenu = self.mainMenu.addMenu(_('Processor'))
+        procMenu.addAction(preProcImport_A)
+        procMenu.addSeparator()
         procMenu.addAction(procOpenFile_A) 
         procMenu.addAction(procSave_A)
         procMenu.addAction(procSaveAs_A)
@@ -416,6 +422,12 @@ class MainWindow(QMainWindow):
          
         procMenu.addSeparator()
         procMenu.addAction(procRunAct)
+        
+    def preProcImport(self):
+        '''
+        :method: Called if the user selects *Processor* -> *Import Pre-Proc File*
+        '''
+        self.pm.importPreProcFile()
         
     def procOpenFile(self):
         '''
@@ -472,7 +484,7 @@ class MainWindow(QMainWindow):
         '''
         if self.dws.windowExists('AnchorPoints') == False:
             self.anchPointsW = AnchorPoints()
-            self.dws.registerWindow('Airfoils')
+            self.dws.registerWindow('AnchorPoints')
             self.mdi.addSubWindow(self.anchPointsW)
         self.anchPointsW.show()
 

@@ -135,13 +135,54 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         return self.__fileVersion
     
-    
-    def isValid( self, fileName ):
+    def isValidPreProcFile( self, fileName ):
         '''
         :method: Checks if a file can be opened and contains a valid title and known version number.
         :param fileName: the name of the file to be checked
         '''
-        logging.debug(self.__className+ '.isValid')
+        logging.debug(self.__className+ '.isValidPreProcFile')
+        try:
+            inFile = QFile(fileName)
+            if inFile.open(QFile.ReadOnly | QFile.Text):
+                stream = QTextStream(inFile)
+        except:
+            logging.error( self.__className + 'File cannot be opened ' + fileName )
+            return False
+        
+        titleOK = False
+        versionOK = False
+        lineCounter = 0
+        
+        while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 10:
+            line = stream.readLine()
+            if line.find('1.6') >= 0:
+                versionOK = True
+
+            if line.find('Auxiliar geometry data') >= 0:
+                titleOK = True
+            lineCounter += 1
+
+        inFile.close()
+        
+        if not ( (versionOK and titleOK) ):
+            logging.error(self.__className+ ' Result of Pre-Proc out file version check %s', versionOK)
+            logging.error(self.__className+ ' Result of Pre-Proc out file title check %s', titleOK)
+            
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(_('File read error'))
+            msgBox.setText(_('File seems not to be a valid Pre-Proc output File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+
+        return versionOK and titleOK
+    
+    def isValidProcFile( self, fileName ):
+        '''
+        :method: Checks if a file can be opened and contains a valid title and known version number.
+        :param fileName: the name of the file to be checked
+        '''
+        logging.debug(self.__className+ '.isValidProcFile')
         try:
             inFile = QFile(fileName)
             if inFile.open(QFile.ReadOnly | QFile.Text):
@@ -182,6 +223,38 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
         return versionOK and titleOK
     
+    def importPreProcFile(self):
+        '''
+        :method: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling. 
+        '''
+        logging.debug(self.__className+ '.importPreProcFile')
+        # Make sure there is no unsaved/ unapplied data
+#         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
+#             # There is unsaved/ unapplied data, show a warning
+#             msgBox = QMessageBox()
+#             msgBox.setWindowTitle(_("Unsaved or unapplied data"))
+#             msgBox.setText(_("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. "))
+#             msgBox.setIcon(QMessageBox.Warning)        
+#             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+#             answer = msgBox.exec()            
+#             
+#             if answer == QMessageBox.Cancel:
+#                 # User wants to abort
+#                 return
+
+        fileName = QFileDialog.getOpenFileName(
+                        None,
+                        _('Import Pre-Proc ouptut file'),
+                        "",
+                        "Pre Proc Files (*.txt);;All Files (*)")
+
+        if fileName != ('', ''):
+            # User has really selected a file, if it would have aborted the dialog  
+            # an empty tuple is retured
+            if self.isValidPreProcFile(fileName[0]):
+                # TODO: delete already existing Processor data
+                self.readPreProcFile(fileName[0])
+     
     def openFile(self):
         '''
         :method: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling. 
@@ -210,7 +283,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         if fileName != ('', ''):
             # User has really selected a file, if it would have aborted the dialog  
             # an empty tuple is retured
-            if self.isValid(fileName[0]):
+            if self.isValidProcFile(fileName[0]):
                 self.setFileName(fileName[0])
                 self.readFile()
                 
@@ -256,10 +329,58 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 # an empty tuple is retured
                 self.setFileName(fileName[0])
                 self.writeFile()
+                
+    def readPreProcFile(self, fileName):
+        '''
+        :method: Imports the data file created by the pre-processor saves the data in the internal database.
+        :param fileName: Path and Filename in one fully qualified string.
+        '''
+        logging.debug(self.__className+'.readPreProcFile')
+        
+        inFile = QFile( fileName )
+        inFile.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(inFile)
+
+        ##############################
+        # overread file header
+        counter = 0
+        while counter < 5:
+            line = stream.readLine()
+            if line.find('***************') >= 0:
+                counter += 1
+        
+        # overread title
+        line = stream.readLine()
+        
+        # There's no idication about the number of lines
+        # We first read all into the memory 
+        lineArray = []
+        validData = True
+        
+        while validData:
+            line = stream.readLine()
+            
+            if line.find('***************') >= 0:
+                validData = False
+            else:
+                lineArray.append(line)
+        
+        # all read now
+        numLines = len(lineArray)
+        
+        self.wing_M.updateNumRibs(numLines*2)
+        
+        for l in range (0, numLines):
+            values = self.splitLine(lineArray[l])
+            self.rib_M.updateRow(l+1, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8])
+                
+        ##############################
+        # Cleanup
+        inFile.close()
     
     def readFile(self):
         '''
-        :method: Reads the data file and saves the data in the internal varibles.
+        :method: Reads the data file and saves the data in the internal database.
         :warning: Filename and Path must be set first!
         '''
         logging.debug(self.__className+'.readFile')
@@ -1901,7 +2022,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "RelWeight REAL,"
                     "rrw REAL,"
                     "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Airfoils (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
             '''
@@ -4836,7 +4956,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     "RP REAL,"
                     "Washin REAL,"
                     "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into Rib (ID) Values( '1' );")
             
         def __init__(self, parent=None): # @UnusedVariable
             '''
@@ -4850,6 +4969,36 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
+            
+        def updateRow(self, ribNum, xrib, yLE, yTE, xp, z, beta, RP, Washin):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateRow')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Rib SET "
+                          "xrib = :xrib, "
+                          "yLE = :yLE, "
+                          "yTE = :yTE, "
+                          "xp = :xp, "
+                          "z = :z, "
+                          "beta = :beta, "
+                          "RP = :RP, "
+                          "Washin = :Washin "
+                          "WHERE (RibNum = :ribNum);")
+            query.bindValue(":xrib", xrib )
+            query.bindValue(":yLE", yLE )
+            query.bindValue(":yTE", yTE )
+            query.bindValue(":xp", xp )
+            query.bindValue(":z", z )
+            query.bindValue(":beta", beta )
+            query.bindValue(":RP", RP )
+            query.bindValue(":Washin", Washin )
+            query.bindValue(":ribNum", ribNum )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
 
         def getRow(self, ribNum):
             '''
@@ -5950,27 +6099,57 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.glueVent_M = ProcessorModel.GlueVentModel()
             self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
             
-            self.dataChanged.connect(self.syncData)
-             
-        def syncData(self, q):
+            # self.dataChanged.connect(self.syncRibNumData)
+            self.dataChanged.connect(self.manDataChange)
+            
+        def manDataChange(self, q):
             '''
-            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate \
-                the current number of half ribs and calls the method to setup the model accordingly. If NumLightConf is changed \ 
-                the NumLightConf Model must be keept in sync.
+            :method: If NumRibs is changed manually we must keep halfNumRibs and Ribs table in sync.
             '''
-            logging.debug(self.__className+'.syncData')
+            logging.debug(self.__className+'.manDataChange')
             
             if q.column() == self.NumRibsCol:
-                numRibs = self.index(0, self.NumRibsCol).data()
-                if numRibs.isnumeric():
-                    self.halfNumRibs = math.ceil(float(numRibs) / 2)
-                    logging.debug(self.__className+'.syncData ' + 'halfNumRibs: ' +str(self.halfNumRibs))
+                self.syncRibNumData()
+            
+             
+        def syncRibNumData(self):
+            '''
+            :method: If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate \
+                the current number of half ribs and calls the method to setup the model accordingly.
+            '''
+            logging.debug(self.__className+'.syncRibNumData')
+            
+            numRibs = self.index(0, self.NumRibsCol).data()
+            
+            try:
+                numRibs = int(numRibs)
+                goOn = True
+            except ValueError:
+                return
+            
+            if goOn:
+                self.halfNumRibs = math.ceil(float(numRibs) / 2)
                     
-                    self.rib_M.setupRibRows(self.halfNumRibs)
-                    self.airf_M.setupRibRows(self.halfNumRibs)
-                    self.anchPoints_M.setupRibRows(self.halfNumRibs)
-                    self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)
-                    self.airfThick_M.setNumRowsForConfig(1, self.halfNumRibs)
+                self.rib_M.setupRibRows(self.halfNumRibs)
+                self.airf_M.setupRibRows(self.halfNumRibs)
+                self.anchPoints_M.setupRibRows(self.halfNumRibs)
+                self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)
+                self.airfThick_M.setNumRowsForConfig(1, self.halfNumRibs)
+                    
+        def updateNumRibs(self, numRibs):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateNumRibs')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Wing SET "
+                          "NumRibs= :numRibs; ")
+            query.bindValue(":numRibs", numRibs )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
+            self.syncRibNumData()
         
         def getRow(self):
             '''

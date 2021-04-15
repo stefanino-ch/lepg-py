@@ -5103,6 +5103,16 @@ for the example about how to insert.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.updateRow">
+<code class="sig-name descname">updateRow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ribNum</span></em>, <em class="sig-param"><span class="n">xrib</span></em>, <em class="sig-param"><span class="n">yLE</span></em>, <em class="sig-param"><span class="n">yTE</span></em>, <em class="sig-param"><span class="n">xp</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">beta</span></em>, <em class="sig-param"><span class="n">RP</span></em>, <em class="sig-param"><span class="n">Washin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.xpCol">
 <code class="sig-name descname">xpCol</code><em class="property"> = 4</em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.xpCol" title="Permalink to this definition">¶</a></dt>
@@ -6553,12 +6563,31 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.syncData">
-<code class="sig-name descname">syncData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.syncData" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.manDataChange">
+<code class="sig-name descname">manDataChange</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.manDataChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate                 the current number of half ribs and calls the method to setup the model accordingly. If NumLightConf is changed 
-the NumLightConf Model must be keept in sync.</p>
+<dd class="field-odd"><p>If NumRibs is changed manually we must keep halfNumRibs and Ribs table in sync.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.syncRibNumData">
+<code class="sig-name descname">syncRibNumData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.syncRibNumData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate                 the current number of half ribs and calls the method to setup the model accordingly.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumRibs">
+<code class="sig-name descname">updateNumRibs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numRibs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumRibs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6656,8 +6685,31 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.isValid">
-<code class="sig-name descname">isValid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.isValid" title="Permalink to this definition">¶</a></dt>
+<dt id="DataStores.ProcessorModel.ProcessorModel.importPreProcFile">
+<code class="sig-name descname">importPreProcFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.importPreProcFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.isValidPreProcFile">
+<code class="sig-name descname">isValidPreProcFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.isValidPreProcFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and known version number.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>fileName</strong> – the name of the file to be checked</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.isValidProcFile">
+<code class="sig-name descname">isValidProcFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.isValidProcFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and known version number.</p>
@@ -6683,10 +6735,23 @@ The second string indicates
 <code class="sig-name descname">readFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads the data file and saves the data in the internal varibles.</p>
+<dd class="field-odd"><p>Reads the data file and saves the data in the internal database.</p>
 </dd>
 <dt class="field-even">Warning</dt>
 <dd class="field-even"><p>Filename and Path must be set first!</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.readPreProcFile">
+<code class="sig-name descname">readPreProcFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readPreProcFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Imports the data file created by the pre-processor saves the data in the internal database.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>fileName</strong> – Path and Filename in one fully qualified string.</p>
 </dd>
 </dl>
 </dd></dl>

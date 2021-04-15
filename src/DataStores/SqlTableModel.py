@@ -64,6 +64,7 @@ class SqlTableModel(QSqlTableModel):
             numRows = self.rowCount()
             record = self.record()
             record.setValue("ID", numRows+1);
+            record.setValue("RibNum", numRows+1);
             #-1 is set to indicate that it will be added to the last row*/
             if not self.insertRecord(row+i, record):
                 logging.critical(self.__className + '.addRows insertRecord Err type: %s' %self.lastError().type())
