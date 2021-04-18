@@ -25,6 +25,7 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__lepDirectory = ""
         self.__preProcPathName = ""
         self.__procPathName = ""
+        self.__checkForUpdates = True
         self.__parser = configparser.ConfigParser()
         
         # Detect the current application path
@@ -77,6 +78,12 @@ class ConfigReader(QObject, metaclass=Singleton):
             except:
                 # Value does not exist
                 self.__procPathName = ""    
+            
+            try:
+                self.__procPathName = self.__parser.get('Defaults','CheckForUpdates')
+            except:
+                # Value does not exist
+                self.__checkForUpdates = 'True' 
                 
             openFile.close()
             
@@ -93,6 +100,7 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__parser.set('Defaults','ProcDirectory',self.__lepDirectory)
         self.__parser.set('Defaults','PreProcPathName',self.__preProcPathName)
         self.__parser.set('Defaults','ProcPathName',self.__procPathName)
+        self.__parser.set('Defaults','CheckForUpdates',self.__checkForUpdates)
         self.__parser.write(cfgfile)
         cfgfile.close()
         
@@ -172,3 +180,9 @@ class ConfigReader(QObject, metaclass=Singleton):
         # At the same time we set also the path only information        
         directory = os.path.dirname(os.path.abspath(param))
         self.setProcDirectory(directory)
+        
+    def getCheckForUpdates(self):
+        '''
+        :method: Returns the setting if we schould check for updates
+        '''
+        return self.__checkForUpdates

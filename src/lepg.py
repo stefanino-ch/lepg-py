@@ -9,11 +9,13 @@ import gettext
 import logging.config
 import sys
 import platform
+from packaging import version
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog, QMenu
 
 from __init__ import __version__
+from VersionCheck.VersionCheck import VersionCheck 
 
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorModel import PreProcessorModel
@@ -56,6 +58,8 @@ from Windows.ThreeDShaping import ThreeDShaping
 from Windows.AirfoilThickness import AirfoilThickness
 from Windows.NewSkinTension import NewSkinTension
 from Windows.PreProcCellsDistribution import PreProcCellsDistribution
+from Windows.SetupProcessors import SetupProcessors
+from Windows.SetupUpdateChecking import SetupUpdateChecking
 
 
 class MainWindow(QMainWindow):
@@ -124,6 +128,28 @@ class MainWindow(QMainWindow):
         
         # Create the status bar
         self.statusBar()
+        
+        # VersionCheck
+
+        # TODO: add setup for what branch to test
+
+        if config.getCheckForUpdates() == True:
+            versChk = VersionCheck()
+            
+            if versChk.remoteVersionFound():
+                remoteVersion = versChk.getRemoteVersion()
+                logging.debug(self.__className + ' Remote Version:   '+remoteVersion+'\n')
+                logging.debug(self.__className + ' Current Version:  '+__version__+'\n')
+                
+                if version.parse(remoteVersion) > version.parse(__version__):
+                    print('You should consider an update')
+            else:
+                logging.error(self.__className + 'Unable to get the update information.\n')
+                logging.error(self.__className + 'Error information: '+versChk.getErrorInfo()+'\n')
+        else: 
+            print('update check disabled by config file\n')
+            logging.debug(self.__className + ' Update check disabled in config file.\n')
+        
    
     def buildFileMenu(self):
         '''
@@ -862,9 +888,14 @@ class MainWindow(QMainWindow):
         setupPreProcAct.setStatusTip(_('setup Pre-Processor location'))
         setupPreProcAct.triggered.connect(self.setupPreProcLocation)
         
-        setupProcAct = QAction(_('Setup Processor'), self)
-        setupProcAct.setStatusTip(_('setup Processor location'))
-        setupProcAct.triggered.connect(self.setupProcLocation)
+        setupProcAct = QAction(_('Both Processors'), self)
+        setupProcAct.setStatusTip(_('Setup locations for both processors'))
+        setupProcAct.triggered.connect(self.setupProcessors)
+        
+        setupUpdCheckAct = QAction(_('Update checking'), self)
+        setupUpdCheckAct.setStatusTip(_('Setup if and for which version to check for updates'))
+        setupUpdCheckAct.triggered.connect(self.setupUpdateChecking)
+        
         
         # add actions
         setupMenu = self.mainMenu.addMenu(_('Setup'))
@@ -874,6 +905,8 @@ class MainWindow(QMainWindow):
         setupMenu.addSeparator()
         setupMenu.addAction(setupPreProcAct)
         setupMenu.addAction(setupProcAct)
+        setupMenu.addSeparator()
+        setupMenu.addAction(setupUpdCheckAct)
     
     def setupLangDe(self):
         '''
@@ -967,6 +1000,26 @@ class MainWindow(QMainWindow):
             
             config = ConfigReader()
             config.setProcPathName(fileName[0])
+            
+    def setupProcessors(self):
+        '''
+        :method: Called if the user selects *Setup* -> *Both processors*
+        '''
+        if self.dws.windowExists('SetupProcessors') == False:
+            self.setupProc_W = SetupProcessors()
+            self.dws.registerWindow('SetupProcessors')
+            self.mdi.addSubWindow(self.setupProc_W)
+        self.setupProc_W.show()
+        
+    def setupUpdateChecking(self):
+        '''
+        :method: Called if the user selects *Setup* -> *Update checking*
+        '''
+        if self.dws.windowExists('SetupUpdateChecking') == False:
+            self.setupUpdCheck_W = SetupUpdateChecking()
+            self.dws.registerWindow('SetupUpdateChecking')
+            self.mdi.addSubWindow(self.setupUpdCheck_W)
+        self.setupUpdCheck_W.show()
 
     def buildHelpMenu(self):
         '''

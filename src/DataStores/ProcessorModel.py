@@ -373,6 +373,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for l in range (0, numLines):
             values = self.splitLine(lineArray[l])
             self.rib_M.updateRow(l+1, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8])
+            
+        for i in range(2): # @UnusedVariable
+            line = stream.readLine()
+            
+        values = self.splitLine( stream.readLine() )
+        self.wing_M.updateNumCells(values[1])
                 
         ##############################
         # Cleanup
@@ -6135,6 +6141,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 self.anchPoints_M.setupRibRows(self.halfNumRibs)
                 self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)
                 self.airfThick_M.setNumRowsForConfig(1, self.halfNumRibs)
+
+        def updateNumCells(self, numCells):
+            '''
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            '''
+            logging.debug(self.__className+'.updateNumCells')
+            
+            # TODO: Add transaction
+            query = QSqlQuery()
+            query.prepare("UPDATE Wing SET "
+                          "NumCells= :numCells; ")
+            query.bindValue(":numCells", numCells )
+            query.exec()
+            self.select() # to a select() to assure the model is updated properly
                     
         def updateNumRibs(self, numRibs):
             '''
