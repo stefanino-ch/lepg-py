@@ -1,5 +1,7 @@
 # lepg-py
 
+latestVersion = '3.15.27'
+
 ## English
 
 ### Requirements
