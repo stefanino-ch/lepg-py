@@ -8,11 +8,10 @@ from os import path
 import gettext
 import logging.config
 import sys
-import platform
 from packaging import version
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QFileDialog, QMenu
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QMenu
 
 from __init__ import __version__
 from VersionCheck.VersionCheck import VersionCheck 
@@ -130,11 +129,9 @@ class MainWindow(QMainWindow):
         self.statusBar()
         
         # VersionCheck
-
-        # TODO: add setup for what branch to test
-
-        if config.getCheckForUpdates() == True:
+        if config.getCheckForUpdates() == 'yes':
             versChk = VersionCheck()
+            versChk.setBranch(config.getTrackBranch())
             
             if versChk.remoteVersionFound():
                 remoteVersion = versChk.getRemoteVersion()
@@ -142,7 +139,12 @@ class MainWindow(QMainWindow):
                 logging.debug(self.__className + ' Current Version:  '+__version__+'\n')
                 
                 if version.parse(remoteVersion) > version.parse(__version__):
-                    print('You should consider an update')
+                    msgBox = QMessageBox()
+                    msgBox.setWindowTitle(_('Newer version found'))
+                    msgBox.setText(_('Current Version: '+str(__version__)+ '\nVersion on remote: '+str(remoteVersion)+'\nMaybe you should consider an update from\nhttps://github.com/stefanino-ch/lepg-py'))
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setStandardButtons(QMessageBox.Ok)
+                    msgBox.exec()
             else:
                 logging.error(self.__className + 'Unable to get the update information.\n')
                 logging.error(self.__className + 'Error information: '+versChk.getErrorInfo()+'\n')
@@ -884,10 +886,6 @@ class MainWindow(QMainWindow):
         setupLangDeAct.setStatusTip('Wechselt zur deutschen Anzeige')
         setupLangDeAct.triggered.connect(self.setupLangDe)
         
-        setupPreProcAct = QAction(_('Setup Pre-Processor'), self)
-        setupPreProcAct.setStatusTip(_('setup Pre-Processor location'))
-        setupPreProcAct.triggered.connect(self.setupPreProcLocation)
-        
         setupProcAct = QAction(_('Both Processors'), self)
         setupProcAct.setStatusTip(_('Setup locations for both processors'))
         setupProcAct.triggered.connect(self.setupProcessors)
@@ -903,7 +901,6 @@ class MainWindow(QMainWindow):
         setupLangMenu.addAction(setupLangEnAct)
         setupLangMenu.addAction(setupLangDeAct)
         setupMenu.addSeparator()
-        setupMenu.addAction(setupPreProcAct)
         setupMenu.addAction(setupProcAct)
         setupMenu.addSeparator()
         setupMenu.addAction(setupUpdCheckAct)
@@ -936,71 +933,7 @@ class MainWindow(QMainWindow):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.setFixedWidth(300)
         msg.exec_()  
-        
-    def setupPreProcLocation(self): 
-        '''
-        :method: Asks the user for the location where the Pre-Processor is saved
-        '''
-        logging.debug(self.__className + '.setupPreProcLocation')
 
-        # Do platform specific if here as the PreProx extensions are different
-        if platform.system() == "Windows":
-            fileName = QFileDialog.getOpenFileName(
-                            None,
-                            _('Select Pre_Processor'),
-                            "",
-                            "Executable (*.exe)")
-        elif platform.system() == "Linux":
-            fileName = QFileDialog.getOpenFileName(
-                            None,
-                            _('Select Pre_Processor'),
-                            "",
-                            "Compiled Fortran (*.o *.out)")
-        else:
-            logging.error("Sorry, your operating system is not supported yet")
-            return
-
-        if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the dialog  
-            # an empty tuple is retured
-            # Write the info to the config reader
-            logging.debug(self.__className + '.setupPreProcLocation Path and Name ' + fileName[0])
-            
-            config = ConfigReader()
-            config.setPreProcPathName(fileName[0])
-            
-    def setupProcLocation(self): 
-        '''
-        :method: Asks the user for the location where the Processor is saved
-        '''
-        logging.debug(self.__className + '.setupProcLocation')
-
-        # Do platform specific if here as the PreProx extensions are different
-        if platform.system() == "Windows":
-            fileName = QFileDialog.getOpenFileName(
-                            None,
-                            _('Select Processor'),
-                            "",
-                            "Executable (*.exe)")
-        elif platform.system() == "Linux":
-            fileName = QFileDialog.getOpenFileName(
-                            None,
-                            _('Select Processor'),
-                            "",
-                            "Compiled Fortran (*.o *.out)")
-        else:
-            logging.error("Sorry, your operating system is not supported yet")
-            return
-
-        if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the dialog  
-            # an empty tuple is retured
-            # Write the info to the config reader
-            logging.debug(self.__className + '.setupProcLocation Path and Name ' + fileName[0])
-            
-            config = ConfigReader()
-            config.setProcPathName(fileName[0])
-            
     def setupProcessors(self):
         '''
         :method: Called if the user selects *Setup* -> *Both processors*

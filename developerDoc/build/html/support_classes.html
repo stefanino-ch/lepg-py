@@ -6583,6 +6583,16 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumCells">
+<code class="sig-name descname">updateNumCells</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numCells</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumCells" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumRibs">
 <code class="sig-name descname">updateNumRibs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numRibs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -7160,6 +7170,16 @@ status has changed.
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getCheckForUpdates">
+<code class="sig-name descname">getCheckForUpdates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getCheckForUpdates" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the setting if we schould check for updates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ConfigReader.ConfigReader.ConfigReader.getLanguage">
 <code class="sig-name descname">getLanguage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getLanguage" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -7210,11 +7230,34 @@ status has changed.
 </dd></dl>
 
 <dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.getTrackBranch">
+<code class="sig-name descname">getTrackBranch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.getTrackBranch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the name of the track branch. This could be stable or latest</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ConfigReader.ConfigReader.ConfigReader.readConfigFileContent">
 <code class="sig-name descname">readConfigFileContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.readConfigFileContent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Reads all values from the config file. Does apply hardcoded defaults if a key/ value pair does not exist in the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setCheckForUpdates">
+<code class="sig-name descname">setCheckForUpdates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setCheckForUpdates" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the check for updates flag</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>param</strong> – yes/ no handled as string.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7280,6 +7323,19 @@ status has changed.
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>param</strong> – Full path and name of the Processor executable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ConfigReader.ConfigReader.ConfigReader.setTrackBranch">
+<code class="sig-name descname">setTrackBranch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigReader.ConfigReader.ConfigReader.setTrackBranch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the name of the branch to check for updates.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>param</strong> – Branch name. Valid names are stable and latest.</p>
 </dd>
 </dl>
 </dd></dl>

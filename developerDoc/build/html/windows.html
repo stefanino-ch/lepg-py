@@ -127,6 +127,8 @@
 <li><a class="reference internal" href="#id2">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-Windows.TwoDDxf">2D DFX Options</a></li>
 <li><a class="reference internal" href="#module-Windows.ThreeDDxf">3D DFX Options</a></li>
+<li><a class="reference internal" href="#module-Windows.SetupProcessors">Setup Processors</a></li>
+<li><a class="reference internal" href="#module-Windows.SetupUpdateChecking">Setup Update Checker</a></li>
 <li><a class="reference internal" href="#module-Windows.HelpAbout">Help About</a></li>
 <li><a class="reference internal" href="#module-Windows.ProcessorOutput">ProcessorOutput</a></li>
 </ul>
@@ -700,21 +702,21 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="lepg.MainWindow.setupPreProcLocation">
-<code class="sig-name descname">setupPreProcLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupPreProcLocation" title="Permalink to this definition">¶</a></dt>
+<dt id="lepg.MainWindow.setupProcessors">
+<code class="sig-name descname">setupProcessors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupProcessors" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Asks the user for the location where the Pre-Processor is saved</p>
+<dd class="field-odd"><p>Called if the user selects <em>Setup</em> -&gt; <em>Both processors</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="lepg.MainWindow.setupProcLocation">
-<code class="sig-name descname">setupProcLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupProcLocation" title="Permalink to this definition">¶</a></dt>
+<dt id="lepg.MainWindow.setupUpdateChecking">
+<code class="sig-name descname">setupUpdateChecking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.setupUpdateChecking" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Asks the user for the location where the Processor is saved</p>
+<dd class="field-odd"><p>Called if the user selects <em>Setup</em> -&gt; <em>Update checking</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3946,6 +3948,188 @@ details equals brake line paths</p>
 #   :undoc-members:
 #   :members:
 #   :private-members:</p>
+</div>
+<div class="section" id="module-Windows.SetupProcessors">
+<span id="setup-processors"></span><h2>Setup Processors<a class="headerlink" href="#module-Windows.SetupProcessors" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.SetupProcessors.SetupProcessors">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.SetupProcessors.</code><code class="sig-name descname">SetupProcessors</code><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and setup the location where pre-proc and proc are located in the local system</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.SetupProcessors.SetupProcessors.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'SetupProcessors'</em><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupProcessors.SetupProcessors.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupProcessors.SetupProcessors.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">windowGrid</span> 
+         <span class="n">Labels</span>    <span class="o">|</span> <span class="n">Edit</span> <span class="n">fields</span>
+         <span class="o">...</span>       <span class="o">|</span> <span class="o">...</span>
+        <span class="o">-------------------------</span>
+                    <span class="o">|</span> <span class="n">helpBar</span>
+                    <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupProcessors.SetupProcessors.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupProcessors.SetupProcessors.preProcBtnPress">
+<code class="sig-name descname">preProcBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.preProcBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user select the pre-proc change button. Does prepare and execute the according file change dialog.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupProcessors.SetupProcessors.procBtnPress">
+<code class="sig-name descname">procBtnPress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupProcessors.SetupProcessors.procBtnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user select the proc change button. Does prepare and execute the according file change dialog.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Windows.SetupUpdateChecking">
+<span id="setup-update-checker"></span><h2>Setup Update Checker<a class="headerlink" href="#module-Windows.SetupUpdateChecking" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking">
+<em class="property">class </em><code class="sig-prename descclassname">Windows.SetupUpdateChecking.</code><code class="sig-name descname">SetupUpdateChecking</code><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit the Basic Data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.__className">
+<code class="sig-name descname">__className</code><em class="property"> = 'SetupUpdateChecking'</em><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.branchCbChange">
+<code class="sig-name descname">branchCbChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.branchCbChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user alters the branch combo box.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.btnPress">
+<code class="sig-name descname">btnPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.btnPress" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.buildWindow">
+<code class="sig-name descname">buildWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.buildWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span>
+    <span class="n">window_Ly</span> 
+         <span class="n">Labels</span>    <span class="o">|</span> <span class="n">Edit</span> <span class="n">fields</span>
+         <span class="o">...</span>       <span class="o">|</span> <span class="o">...</span>
+        <span class="o">-------------------------</span>
+                    <span class="o">|</span> <span class="n">helpBar</span>
+                    <span class="o">|</span> <span class="n">btnBar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Windows.SetupUpdateChecking.SetupUpdateChecking.updateChBChange">
+<code class="sig-name descname">updateChBChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Windows.SetupUpdateChecking.SetupUpdateChecking.updateChBChange" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user alters the update checkbox</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-Windows.HelpAbout">
 <span id="help-about"></span><h2>Help About<a class="headerlink" href="#module-Windows.HelpAbout" title="Permalink to this headline">¶</a></h2>

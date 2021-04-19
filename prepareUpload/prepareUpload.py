@@ -7,7 +7,7 @@ import re
 import sys
 
 # https://stackoverflow.com/questions/458550/standard-way-to-embed-version-into-python-package
-def readVersion(pathFile):
+def readOwnVersion(pathFile):
     verstrline = open(pathFile, "rt").read()
     VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
     mo = re.search(VSRE, verstrline, re.M)
@@ -25,7 +25,7 @@ def incrementVersion(ver):
     return '.'.join(ver)
 
 # https://stackoverflow.com/questions/57108712/replace-updated-version-strings-in-files-via-python
-def updateVersionString(pathFile, ver):
+def updateOwnVersion(pathFile, ver):
     version_regex = re.compile(r"(^_*?version_*?\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
     with open(pathFile, "r+") as f:
         content = f.read()
@@ -38,7 +38,20 @@ def updateVersionString(pathFile, ver):
             )
         )
         f.truncate()
-
+        
+def updateRemoteVersion(pathFile, ver):
+    version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    with open(pathFile, "r+") as f:
+        content = f.read()
+        f.seek(0)
+        f.write(
+            re.sub(
+                version_regex,
+                lambda match: "{}{}".format(match.group(1), ver),
+                content,
+            )
+        )
+        f.truncate()
 
 
 print('*****************************************************')
@@ -63,14 +76,16 @@ if answ != 'n':
 print()
 dirpath = os.path.dirname(os.path.realpath(__file__))
 versFile = os.path.join(dirpath, '../src/__init__.py')
-vers = readVersion(versFile)
+readmeFile = os.path.join(dirpath, '../readme.md')
+vers = readOwnVersion(versFile)
 print('The current version is: %s' %(vers))   
 print('Update version number [y/ n]')
 answ = input('Default= n ')
 
 if answ == 'y':
     vers = incrementVersion(vers)
-    updateVersionString(versFile, vers)
+    updateOwnVersion(versFile, vers)
+    updateRemoteVersion(readmeFile, vers)
     print('Version number updated to: %s' %(vers))
 print()
 

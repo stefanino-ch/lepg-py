@@ -11,6 +11,9 @@ class VersionCheck():
     :class: Connects to the main Github page of the project. 
                 Searches there for the *latestVersion* and reads the version info assigned.
     '''
+    __branchToCheck = ''
+    __stableBranch = 'https://github.com/stefanino-ch/lepg-py/tree/stable'
+    __latestBranch = 'https://github.com/stefanino-ch/lepg-py/tree/latest'
     
     __alreadyConnected__ = False
     ''':attr: is set to true at the moment a request to the remote was executed successfully. '''
@@ -28,14 +31,14 @@ class VersionCheck():
         '''
         :method: Constructor
         '''
-        pass
+        self.__branchToCheck = self.__stableBranch
     
     def __getVersion(self):
         '''
         :method: Executes the request to the remote page, does set the internal variables according to the result. 
         '''
         try:
-            self.req = requests.get('https://github.com/stefanino-ch/updateTester', timeout=5)
+            self.req = requests.get(self.__branchToCheck, timeout=5)
             
         except requests.ConnectionError as e:
             self.__errorInfo__ = 'Connection Error: %s' %(str(e))
@@ -56,6 +59,16 @@ class VersionCheck():
                     self.__validVersFound__ = True
                     self.__remoteVersion__ = mo.group(1) 
 
+    def setBranch(self, branch):
+        '''
+        :method: Allows to check what branch shall be checked for updates 
+        :param branch: Name of the branch. Valid names are stable and latest.
+        '''
+        if branch == 'stable':
+            self.__branchToCheck = self.__stableBranch
+        else:
+            self.__branchToCheck = self.__latestBranch
+        
     
     def remoteVersionFound(self):
         '''

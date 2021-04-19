@@ -36,3 +36,7 @@ Deutsche Anleitung
    proc/threeDShaping.rst
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
+   
+   setup/language.rst
+   setup/processors.rst
+   setup/updateCheck.rst

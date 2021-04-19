@@ -237,6 +237,20 @@ Plan Marks
 #   :undoc-members:
 #   :members:
 #   :private-members:
+
+Setup Processors
+----------------
+.. automodule:: Windows.SetupProcessors
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Setup Update Checker
+--------------------
+.. automodule:: Windows.SetupUpdateChecking
+   :undoc-members:
+   :members:
+   :private-members:
    
 Help About
 ----------

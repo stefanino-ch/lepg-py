@@ -25,7 +25,8 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__lepDirectory = ""
         self.__preProcPathName = ""
         self.__procPathName = ""
-        self.__checkForUpdates = True
+        self.__checkForUpdates = ''
+        self.__trackBranch = ''
         self.__parser = configparser.ConfigParser()
         
         # Detect the current application path
@@ -80,10 +81,16 @@ class ConfigReader(QObject, metaclass=Singleton):
                 self.__procPathName = ""    
             
             try:
-                self.__procPathName = self.__parser.get('Defaults','CheckForUpdates')
+                self.__checkForUpdates = self.__parser.get('Defaults','CheckForUpdates')
             except:
                 # Value does not exist
-                self.__checkForUpdates = 'True' 
+                self.__checkForUpdates = 'yes'
+                
+            try:
+                self.__trackBranch = self.__parser.get('Defaults','TrackBranch')
+            except:
+                # Value does not exist
+                self.__trackBranch = 'stable'
                 
             openFile.close()
             
@@ -101,6 +108,8 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__parser.set('Defaults','PreProcPathName',self.__preProcPathName)
         self.__parser.set('Defaults','ProcPathName',self.__procPathName)
         self.__parser.set('Defaults','CheckForUpdates',self.__checkForUpdates)
+        self.__parser.set('Defaults','TrackBranch',self.__trackBranch)
+        
         self.__parser.write(cfgfile)
         cfgfile.close()
         
@@ -186,3 +195,27 @@ class ConfigReader(QObject, metaclass=Singleton):
         :method: Returns the setting if we schould check for updates
         '''
         return self.__checkForUpdates
+    
+    def setCheckForUpdates(self, param):
+        '''
+        :method: Set the check for updates flag
+        :param param: yes/ no handled as string.
+        '''
+        self.__checkForUpdates = param
+        self.writeConfigFileContent()
+        
+    def getTrackBranch(self):
+        '''
+        :method: Returns the name of the track branch. This could be stable or latest
+        '''
+        return self.__trackBranch
+    
+    def setTrackBranch(self, param):
+        '''
+        :method: Set the name of the branch to check for updates.  
+        :param param: Branch name. Valid names are stable and latest.
+        '''
+        self.__trackBranch = param
+        self.writeConfigFileContent()
+        
+        
