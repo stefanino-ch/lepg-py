@@ -5,19 +5,18 @@ from sys import platform
 block_cipher = None
 
 data_files_to_add = [
-						('configFile.txt', '.'),
 						('logger.conf', '.' ),
 						('translations', 'translations' ),
 						('userHelp', 'userHelp' ),
+						('Windows\\favicon.ico', 'Windows')
 					]
 
-pre_processor_w32 = [ 	
-						('Processors\\pre1_5-w32\\*.*', 'Processors\\pre1_5-w32' ),
-						('Processors\\pre1_5-w32\\jpg\\*.*', 'Processors\\pre1_5-w32\\jpg' )
+processor_w32 = [ 	
+						('Processors\\lep-3.15-win64', 'Processors\\lep-3.15-win64' ),
 					]
 
 if platform.startswith('win'):
-	data_files_to_add += pre_processor_w32
+	data_files_to_add += processor_w32
 
 a = Analysis(['lepg.py'],
              pathex=['C:\\Users\\user\\git\\lepg-py\\src'],
