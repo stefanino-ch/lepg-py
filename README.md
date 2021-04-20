@@ -5,25 +5,24 @@ latestVersion = '3.15.27'
 ## English
 
 ### Requirements
-Python 3.7
+Python >3.7
 
 PyQt5
 
-### Limitations 
-At the moment only Pre Processor relavant data is fully supported.
-Other windows may exist, but are work in progress.... 
-
 ### Installation - Windows
-Make sure you have the follwing Software already installed you your computer:
+In the distribution/dist-W64 folder you will find a zip file. 
 
-**Python** [Download here](https://www.python.org/)
+Download this file.
 
-**PyQt5** As soon you have installed Python open a cmd line window and type "pip install pyqt5". All the needed packages should be intstalled afterwards.
+Unzip it.
 
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) download all files and folders under the directory src/. Save the files on the local disk. 
-The main file is named lepg.py, usually under Windows you can just double click it. 
+Change into the folder lepg.
+
+Execute (double click) the file lepg.exe. 
 
 ### Installation - Linux
+Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
+
 The steps below explain how to install on a Ubuntu System: 
 
 -> Open a shell
@@ -45,25 +44,24 @@ The main file is named lepg.py. Start this with
 ## Deutsch
 
 ### Anforderungen
-Python 3.7
+Python >3.7
 
 PyQt5
 
-### Limitationen
-Im Moment wird nur der Pre-Prozessor unterstützt.
-Anderer Fenster existieren, sind aber Teil der aktuellen Entwicklung.  
-
 ### Installation - Windows
-Zuerst muss Python und PyQt installiert werden. 
+Im Ordner distribution/dist-W64 findest du eine .zip Datei. 
 
-**Python** [Download](https://www.python.org/)
+Diese Datei herunterladen. 
 
-**PyQt5** Sobald Python insatlliert ist kannst Du ein Kommandozeilenfenster öffnen und die folgende Zeile eingeben: "pip install pyqt5". Die notwendigen Pakete sollten nun heruntergeladen und installiert werden. 
+Entpacken.
 
-Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) alle Dateien und Ordner welche im Verzeichnis src/ sind herunterladen und auf der lokalen Festplatte speichern. 
-Die Datei lepg.py ist die Hauptdatei, unter Windows reicht normalerweise doppelklicken. 
+In den Ordner lepg wechseln. 
+
+Die Datei lepg.exe ausführen (doppelklicken).
 
 ### Installation - Linux
+Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwendiger. 
+
 Die Anleitung gilt für ein Ubuntu System: 
 
 -> Shell öffnen
