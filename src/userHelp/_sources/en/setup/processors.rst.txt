@@ -8,24 +8,8 @@
 Configure the locations of both processors
 ******************************************
 
-There is still some work to be done...
+Before you can execute pre- and processor you must configure where they are located.  
 
- |
+ .. image:: /images/setup/setupProcessors.png
 
- |
-
- |
-
- |
-
- |
-
- |
-
- |
-
- |
-
- |
-
- |
+With the button behind the field disaplaying path and name of the processor you can start the Setup dialog. 
