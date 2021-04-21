@@ -285,7 +285,16 @@ class MainWindow(QMainWindow):
         
         # Finally run the processor
         preProcRunner = ProcRunner(self.procOutW)
-        preProcRunner.runPreProc()
+        
+        if preProcRunner.preProcConfigured() == False:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(_('Potentially missing configuration!'))
+            msgBox.setText(_('For a successful pre-processor run you must configure\nthe pre-processor in Setup->Both Processors.'))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+        else:
+            preProcRunner.runPreProc()
 
     def buildProcMenu(self):
         '''
@@ -724,7 +733,16 @@ class MainWindow(QMainWindow):
         
         # Finally run the processor
         procRunner = ProcRunner(self.procOutW)
-        procRunner.runProc()
+        
+        if procRunner.procConfigured() == False:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(_('Potentially missing configuration!'))
+            msgBox.setText(_('For a successful processor run you must configure\nthe processor in Setup->Both Processors.'))
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
+        else:
+            procRunner.runProc()
     
     def buildPlanMenu(self):
         '''

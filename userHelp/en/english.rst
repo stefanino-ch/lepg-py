@@ -36,6 +36,7 @@ English Manual
    proc/threeDShaping.rst
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
+   proc/procOutput.rst
    
    setup/language.rst
    setup/processors.rst

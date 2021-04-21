@@ -66,9 +66,10 @@ class ProcessorOutput(QMdiSubWindow):
         
         #############################
         # Rest of standard window setups
-        self.btnBar = WindowBtnBar( 0b0100 )
+        self.btnBar = WindowBtnBar( 0b0101 )
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setHelpPage('proc/procOutput.html')
         
         self.windowGrid.addWidget(self.btnBar, self.__winGridRow ,0, Qt.AlignRight)
         self.__winGridRow += 1

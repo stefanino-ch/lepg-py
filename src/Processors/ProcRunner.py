@@ -3,6 +3,7 @@
 :License: General Public License GNU GPL 3.0
 '''
 import logging
+import os
 import platform
 
 from ConfigReader.ConfigReader import ConfigReader
@@ -22,8 +23,11 @@ class ProcRunner():
         :method: Constructor
         :param procOutW: The instance of the window where the output of the processor shall be written to
         '''
-        self.userInfo = procOutW
         logging.debug(self.__className+'.__init__')
+        
+        self.userInfo = procOutW
+        self.confR = ConfigReader()
+        
         
     def runPreProc(self):
         '''
@@ -31,13 +35,30 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.runPreProc')
         
-        config = ConfigReader()
-        
-        setPath = 'cd ' + config.getPreProcDirectory()
-        cmd = config.getPreProcPathName()
+        setPath = 'cd ' + self.confR.getPreProcDirectory()
+        cmd = self.confR.getPreProcPathName()
             
         args = [setPath, cmd]
         self.run_command(args)
+        
+    def preProcConfigured(self):
+        '''
+        :method: Checks if 
+                    - the configured pre proc path name string is >0 chars
+                    - the file the configured proc path name points really to a file
+        :returns: True if both checks above are valid, False else
+        ''' 
+        logging.debug(self.__className+'.preProcConfigured')
+        
+        pathName = self.confR.getPreProcPathName()
+        
+        if len(pathName) > 0:
+            if os.path.isfile(pathName) == True:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def runProc(self):
         '''
@@ -45,13 +66,30 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.runProc')
         
-        config = ConfigReader()
-        
-        setPath = 'cd ' + config.getProcDirectory()
-        cmd = config.getProcPathName()
+        setPath = 'cd ' + self.confR.getProcDirectory()
+        cmd = self.confR.getProcPathName()
             
         args = [setPath, cmd]
         self.run_command(args)
+        
+    def procConfigured(self):
+        '''
+        :method: Checks if 
+                    - the configured proc path name string is >0 chars
+                    - the file the configured proc path name points really to a file
+        :returns: True if both checks above are valid, False else
+        ''' 
+        logging.debug(self.__className+'.procConfigured')
+        
+        pathName = self.confR.getProcPathName()
+        
+        if len(pathName) > 0:
+            if os.path.isfile(pathName) == True:
+                return True
+            else:
+                return False
+        else:
+            return False
     
     def run_command(self, cmds):
         '''
