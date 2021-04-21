@@ -200,6 +200,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
             if line.find('3.10') >= 0:
                 self.setFileVersion('3.10')
                 versionOK = True
+            elif line.find('3.15') >= 0:
+                self.setFileVersion('3.15')
+                versionOK = True
 
             if line.find('Input data file') >= 0:
                 titleOK = True
@@ -906,10 +909,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for i in range(3):
             line = stream.readLine()
             
-        data = self.remTabSpace( stream.readLine() )
+        data = int(self.remTabSpace( stream.readLine() ) )
         self.noseMylars_M.setNumConfigs(0)
         
-        if data != '0':
+        if data != 0:
             # we have data to read
             
             numConfigs = int(self.remTabSpace( stream.readLine() ) )
@@ -942,7 +945,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         self.twoDDxf_M.setIsUsed(False)
         
-        if data != '0':
+        if data != 0:
             self.twoDDxf_M.setIsUsed(True)
             self.twoDDxf_M.setNumRowsForConfig(1, 6)
             # we have data to read
@@ -960,7 +963,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         self.threeDDxf_M.setIsUsed(False)
         
-        if data != '0':
+        if data != 0:
             self.threeDDxf_M.setIsUsed(True)
             self.threeDDxf_M.setNumRowsForConfig(1, 9)
             # we have data to read
@@ -1000,7 +1003,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.specWingTyp_M.setIsUsed(False)
         self.specWingTyp_M.setNumRowsForConfig(1, 1)
         
-        if data != '0':
+        if data != 0:
             self.specWingTyp_M.setIsUsed(True)
             
             valuesA =  self.splitLine( stream.readLine() )
@@ -1019,7 +1022,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.calageVar_M.setIsUsed(False)
         self.calageVar_M.setNumRowsForConfig(1, 1)
         
-        if data != '0':
+        if data != 0:
             self.calageVar_M.setIsUsed(True)
             
             valuesA =  self.splitLine( stream.readLine() )
@@ -1043,7 +1046,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.threeDShUpDet_M.setNumConfigs(0)
         self.threeDShLoDet_M.setNumConfigs(0)
         
-        if data != '0':
+        if data != 0:
             # overread type as it is always 1
             line = stream.readLine()
             
@@ -1103,7 +1106,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         self.airfThick_M.setIsUsed(False)
         
-        if data != '0':
+        if data != 0:
             self.airfThick_M.setIsUsed(True)
             # we have data to read
             for l in range( 0, self.wing_M.halfNumRibs ):
@@ -1122,7 +1125,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.newSkinTensConf_M.setNumConfigs(0)
         self.newSkinTensDet_M.setNumConfigs(0)
         
-        if data != '0':
+        if data != 0:
             numGroups = int( self.remTabSpace( stream.readLine() ) )
             self.newSkinTensConf_M.setNumConfigs(numGroups)
             
