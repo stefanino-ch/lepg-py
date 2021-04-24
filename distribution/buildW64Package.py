@@ -31,11 +31,6 @@ if os.path.isdir(pathName):
 os.makedirs(pathName, exist_ok=True)
 
 print('Executing pyinstaller')
-# execName = os.path.join(dirpath, 'pyinstaller --noconfirm \
-                                     # --distpath dist-W64 \
-                                    # ../src/lepg.spec')
-# os.system(execName)
-print(dirpath)
 os.chdir(dirpath)
 os.system('pyinstaller --noconfirm \
             --distpath dist-W64 \
@@ -45,7 +40,26 @@ os.system('pyinstaller --noconfirm \
 versFile = os.path.join(dirpath, '../src/__init__.py')
 vers = readOwnVersion(versFile)
 
+# setup config file
+destPathName = os.path.join(dirpath, 'dist-W64/lepg/configFile.txt')
+
+print()
+print('Setup config file')
+print('Create package for which branch? ')
+print('s: stable; l: latest') 
+answ = input('Default= s ')
+
+if answ != 'l':
+    version = "stable"
+    sourcePathName = os.path.join(dirpath, 'stable-configFile.txt')
+else:
+    version = "latest"
+    sourcePathName = os.path.join(dirpath, 'latest-configFile.txt')
+    
+
+shutil.copyfile(sourcePathName, destPathName)
+print()
 print('Creating new package')
-os.system('python -m zipfile -c dist-W64/lepg-W64-V'+vers+'.zip dist-W64/lepg/')
+os.system('python -m zipfile -c dist-W64/lepg-W64-V'+vers+'-'+version+'.zip dist-W64/lepg/')
 print('done')
 print()
