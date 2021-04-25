@@ -31,10 +31,17 @@ if os.path.isdir(pathName):
 os.makedirs(pathName, exist_ok=True)
 
 print('Executing pyinstaller')
+
 os.chdir(dirpath)
 os.system('pyinstaller --noconfirm \
             --distpath dist-W64 \
             ../src/lepg.spec')
+
+# iconPathName = os.path.join(dirpath, 'paragliding.ico')
+#             --icon iconPathName \
+#             --icon=paragliding.png \
+#             --onefile \
+
 
 # reading current version number
 versFile = os.path.join(dirpath, '../src/__init__.py')
