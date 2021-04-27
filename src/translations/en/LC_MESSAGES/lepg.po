@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-04-27 17:56+0200\n"
-"PO-Revision-Date: 2021-04-27 18:07+0200\n"
+"PO-Revision-Date: 2021-04-27 19:34+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -1740,28 +1740,22 @@ msgid "4: explicit"
 msgstr ""
 
 #: Windows/PreProcCellsDistribution.py:118
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-CellNumDesc"
-msgstr "The name of the wing"
+msgstr "Number of the cell"
 
 #: Windows/PreProcCellsDistribution.py:119
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-DistrCoefDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Coefficient which will reduce the cell width\n"
+"towards the wing tip"
 
 #: Windows/PreProcCellsDistribution.py:120
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-WidthDesc"
-msgstr "The name of the wing"
+msgstr "Width of the cell in cm"
 
 #: Windows/PreProcCellsDistribution.py:121
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-NumCellsDesc"
-msgstr "The name of the wing"
+msgstr "Number of cells "
 
 #: Windows/PreProcData.py:74
 msgid "Pre-Processor data"
@@ -2344,17 +2338,15 @@ msgstr ""
 
 #: lepg.py:210
 msgid "edit_preProc_data_description"
-msgstr "Opens the edit window for the PreProcessor data"
+msgstr "Opens the  window to edit name, LE, TE and vault settings"
 
 #: lepg.py:213
 msgid "Cells distribution"
 msgstr ""
 
 #: lepg.py:214
-#, fuzzy
-#| msgid "edit_preProc_data_description"
 msgid "edit_preProc_cellsDistr_description"
-msgstr "Opens the edit window for the PreProcessor data"
+msgstr "Opens the edit window for the cell distribution configuration"
 
 #: lepg.py:217
 msgid "Run Pre-Processor"

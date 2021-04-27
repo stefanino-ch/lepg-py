@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-04-27 17:42+0200\n"
-"PO-Revision-Date: 2021-04-27 17:56+0200\n"
+"POT-Creation-Date: 2021-04-27 19:02+0200\n"
+"PO-Revision-Date: 2021-04-27 19:18+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -1178,6 +1178,10 @@ msgstr ""
 msgid "CalageVar-NumPosStepsDesc"
 msgstr ""
 
+#: Windows/DataStatusOverview.py:78
+msgid "Data Status Overview"
+msgstr "Daten-Status Übersicht"
+
 #: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:135
 msgid "Filename"
 msgstr "Dateiname"
@@ -1772,50 +1776,44 @@ msgid "NoseMylars-v2Desc"
 msgstr ""
 
 #: Windows/PreProcCellsDistribution.py:71
-#, fuzzy
-#| msgid "Cells distribution"
 msgid "Pre-Processor cells distribution"
-msgstr "Zellenverteilung"
+msgstr "Pre Prozessor Zellverteilung"
 
 #: Windows/PreProcCellsDistribution.py:76
 msgid "1: uniform "
-msgstr ""
+msgstr "1: identisch"
 
 #: Windows/PreProcCellsDistribution.py:77
 msgid "2: linear"
-msgstr ""
+msgstr "2: linear"
 
 #: Windows/PreProcCellsDistribution.py:78
 msgid "3: prop to chord"
-msgstr ""
+msgstr "3: prop zu Flügeltiefe"
 
 #: Windows/PreProcCellsDistribution.py:79
 msgid "4: explicit"
-msgstr ""
+msgstr "4: explizit"
 
 #: Windows/PreProcCellsDistribution.py:118
-#, fuzzy
-#| msgid "PreProc-cd_num_desc"
 msgid "PreProc-CellNumDesc"
-msgstr "Totale Anzahl Zellen"
+msgstr ""
+"Nummer der Zelle für die die\n"
+"Breite definiert werden soll"
 
 #: Windows/PreProcCellsDistribution.py:119
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-DistrCoefDesc"
-msgstr "Flügelname"
+msgstr ""
+"Koeffizient um den jede Zelle nach\n"
+"aussen verkleinert wird"
 
 #: Windows/PreProcCellsDistribution.py:120
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-WidthDesc"
-msgstr "Flügelname"
+msgstr "Breite der Zelle in cm"
 
 #: Windows/PreProcCellsDistribution.py:121
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-NumCellsDesc"
-msgstr "Flügelname"
+msgstr "Definiert die Anzahl Zellen des Flügels"
 
 #: Windows/PreProcData.py:74
 #, fuzzy
@@ -1832,8 +1830,6 @@ msgid "PreProc-WingNameDesc"
 msgstr "Flügelname"
 
 #: Windows/PreProcData.py:99
-#, fuzzy
-#| msgid "Leading Edge"
 msgid "Leading edge"
 msgstr "Eintrittskante"
 
@@ -1898,8 +1894,6 @@ msgid "PreProc-LE-ex2-Desc"
 msgstr "2. Krümmungsübergang Eintrittskante"
 
 #: Windows/PreProcData.py:128
-#, fuzzy
-#| msgid "Trailing Edge"
 msgid "Trailing edge"
 msgstr "Austrittskante"
 
@@ -2161,14 +2155,10 @@ msgid "SewingAllowances-V-RibsSeemDesc"
 msgstr ""
 
 #: Windows/SetupProcessors.py:70
-#, fuzzy
-#| msgid "Pre Processor"
 msgid "Setup processors"
-msgstr "Pre Prozessor"
+msgstr "Prozessoren konfigurieren"
 
 #: Windows/SetupProcessors.py:72
-#, fuzzy
-#| msgid "Pre Processor"
 msgid "Pre-Processor"
 msgstr "Pre Prozessor"
 
@@ -2420,29 +2410,24 @@ msgstr ""
 
 #: lepg.py:210
 msgid "edit_preProc_data_description"
-msgstr "Öffnet das Fester zum editieren der PreProc Daten"
+msgstr ""
+"Öffnet das Fester zum editieren von Name, Ein-Austrittskante und Krümmung"
 
 #: lepg.py:213
 msgid "Cells distribution"
 msgstr "Zellenverteilung"
 
 #: lepg.py:214
-#, fuzzy
-#| msgid "edit_preProc_data_description"
 msgid "edit_preProc_cellsDistr_description"
-msgstr "Öffnet das Fester zum editieren der PreProc Daten"
+msgstr "Öffnet das Fester zum editieren der Zellverteilung"
 
 #: lepg.py:217
-#, fuzzy
-#| msgid "Pre Processor"
 msgid "Run Pre-Processor"
-msgstr "Pre Prozessor"
+msgstr "Pre Prozessor ausführen"
 
 #: lepg.py:218
-#, fuzzy
-#| msgid "open_preProc_file_desc"
 msgid "run_preProc_des"
-msgstr "Gespeicherte Datendatei öffnen"
+msgstr "Pre Prozessor ausführen"
 
 #: lepg.py:222
 msgid "Pre Processor"
@@ -2885,9 +2870,6 @@ msgstr ""
 
 #~ msgid "File status"
 #~ msgstr "Datei-Status"
-
-#~ msgid "Data Status"
-#~ msgstr "Daten-Status"
 
 #~ msgid "PreProc-le_a1_desc"
 #~ msgstr "Ellipse der Eintrittskante"
