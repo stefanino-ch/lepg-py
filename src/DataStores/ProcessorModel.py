@@ -6111,6 +6111,22 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # self.dataChanged.connect(self.syncRibNumData)
             self.dataChanged.connect(self.manDataChange)
             
+            self.setHeaderData(0, Qt.Horizontal, _("Brand name"))
+            self.setHeaderData(1, Qt.Horizontal, _("Wing name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Draw Scale"))
+            self.setHeaderData(3, Qt.Horizontal, _("Wing Scale"))
+            self.setHeaderData(4, Qt.Horizontal, _("Num Cells"))
+            self.setHeaderData(5, Qt.Horizontal, _("Num Ribs"))
+            self.setHeaderData(6, Qt.Horizontal, _("Alpha mode"))
+            self.setHeaderData(7, Qt.Horizontal, _("Alpha max cent"))
+            self.setHeaderData(8, Qt.Horizontal, _("Alpha maxTip"))
+            self.setHeaderData(9, Qt.Horizontal, _("Para Type"))
+            self.setHeaderData(10, Qt.Horizontal, _("Para Param"))
+            self.setHeaderData(11, Qt.Horizontal, _("Lines Conc Type"))
+            self.setHeaderData(12, Qt.Horizontal, _("Brake length"))
+            self.setHeaderData(13, Qt.Horizontal, _("x-Spacing"))
+            self.setHeaderData(14, Qt.Horizontal, _("y-Spacing"))
+            
         def manDataChange(self, q):
             '''
             :method: If NumRibs is changed manually we must keep halfNumRibs and Ribs table in sync.

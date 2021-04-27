@@ -67,7 +67,7 @@ class WindowBtnBar(QWidget):
             layout.addWidget(self.cancelBtn,0,2)
         
         if buttons & 0b0001 :
-            self.helpBtn = QPushButton('Help')
+            self.helpBtn = QPushButton(_('Help'))
             self.helpBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
             self.helpBtn.clicked.connect(self.helpBtnPress)
             layout.addWidget(self.helpBtn,1,2)

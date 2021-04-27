@@ -56,7 +56,7 @@ class BasicData(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(400, 300)
@@ -118,7 +118,7 @@ class BasicData(QMdiSubWindow):
         
         scales_T.setHelpBar(self.helpBar)
         scales_T.setHelpText(ProcessorModel.WingModel.DrawScaleCol, _('Proc-DrawScaleDesc'))
-        scales_T.setHelpText(ProcessorModel.WingModel.WingScaleCol, _('Proc-WingcaleDesc'))
+        scales_T.setHelpText(ProcessorModel.WingModel.WingScaleCol, _('Proc-WingScaleDesc'))
         
         scales_T.enableDoubleValidator(ProcessorModel.WingModel.DrawScaleCol, ProcessorModel.WingModel.WingScaleCol, 0, 10, 2)
        
@@ -166,21 +166,21 @@ class BasicData(QMdiSubWindow):
         logging.debug(self.__className + '.checkNumCellsRibs')
         
         if q.column() == self.wing_M.NumRibsCol or q.column() == self.wing_M.NumCellsCol:
-            print ('do check')
-            # self.numbers_T.setData(self.numbers_T.index(0, 4), QBrush(Qt.red), Qt.BackgroundRole)
-        
-        # numCells = self.numCells_E.text()
-        # numRibs = self.numRibs_E.text()
-        #
-        # if numCells.isnumeric() and numRibs.isnumeric():
-            # diff = abs(int(numCells)-int(numRibs))
-            # if diff == 1:
-                # self.numCells_L.setStyleSheet("")
-                # self.numRibs_L.setStyleSheet("")
-            # else:
-                # self.numCells_L.setStyleSheet("background-color: red")
-                # self.numRibs_L.setStyleSheet("background-color: red")
-                
+            try:
+                numCells = int(self.wing_M.index(0, self.wing_M.NumCellsCol).data())
+                numRibs = int(self.wing_M.index(0, self.wing_M.NumRibsCol).data())
+            except:
+                return
+            
+            cells = isinstance(numCells, int)
+            ribs = isinstance(numRibs, int)
+                        
+            if cells and ribs:
+                diff = abs(numCells-numRibs)
+                if diff == 1:
+                    self.numbers_T.setStyleSheet(self.styleSheet())
+                else:
+                    self.numbers_T.setStyleSheet("border: 1px solid red")
                
     
     def btnPress(self, q):

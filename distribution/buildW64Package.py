@@ -36,12 +36,11 @@ os.chdir(dirpath)
 os.system('pyinstaller --noconfirm \
             --distpath dist-W64 \
             ../src/lepg.spec')
-
-# iconPathName = os.path.join(dirpath, 'paragliding.ico')
-#             --icon iconPathName \
-#             --icon=paragliding.png \
-#             --onefile \
-
+            
+# os.system('pyinstaller --noconfirm \
+            # --distpath dist-W64 \
+            # --clean \
+            # ../src/lepg.spec')
 
 # reading current version number
 versFile = os.path.join(dirpath, '../src/__init__.py')

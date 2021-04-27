@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
         self.dws = DataWindowStatus()
         
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg-py %s" %(__version__))

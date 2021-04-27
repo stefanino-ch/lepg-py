@@ -8,7 +8,8 @@ data_files_to_add = [
 						('logger.conf', '.' ),
 						('translations', 'translations' ),
 						('userHelp', 'userHelp' ),
-						('Windows\\favicon.ico', 'Windows')
+						('Windows\\favicon.ico', 'Windows'),
+						('Windows\\appIcon.ico', 'Windows')
 					]
 
 processor_w32 = [ 	
@@ -42,7 +43,8 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
+          console=True,
+		  icon='Windows\\appIcon.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
