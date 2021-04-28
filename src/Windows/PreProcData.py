@@ -60,7 +60,7 @@ class PreProcData(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
@@ -179,10 +179,10 @@ class PreProcData(QMdiSubWindow):
         self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rTwoRACol, _('PreProc-Vault-r2-Desc'))
         self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rThrRACol, _('PreProc-Vault-r3-Desc'))
         self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rFouRACol, _('PreProc-Vault-r4-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aOneRACol, _('PreProc-Vault-a1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aTwoRACol, _('PreProc-Vault-a2-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aThrRACol, _('PreProc-Vault-a3-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aFouRACol, _('PreProc-Vault-a4-Desc'))
+        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aOneRACol, _('PreProc-Vault-ra1-Desc'))
+        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aTwoRACol, _('PreProc-Vault-ra2-Desc'))
+        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aThrRACol, _('PreProc-Vault-ra3-Desc'))
+        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aFouRACol, _('PreProc-Vault-ra4-Desc'))
         
         self.vaultTable.enableDoubleValidator(PreProcessorModel.VaultModel.aOneCol, PreProcessorModel.VaultModel.aFouRACol, 0, 10000, 4)
         
@@ -201,7 +201,7 @@ class PreProcData(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('preproc/preproc.html')
+        self.btnBar.setHelpPage('preproc/nameLeTeVault.html')
 
         bottomLayout = QHBoxLayout()
         bottomLayout.addStretch()        

@@ -365,8 +365,8 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.error(self.__className+'.writeFile '+ outFile.errorString()) 
             
             msgBox = QMessageBox()
-            msgBox.setWindowTitle("File save error")
-            msgBox.setText('File can not be saved: '+ outFile.errorString( ))
+            msgBox.setWindowTitle(_("File save error"))
+            msgBox.setText(_('File can not be saved: ')+ outFile.errorString( ))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()

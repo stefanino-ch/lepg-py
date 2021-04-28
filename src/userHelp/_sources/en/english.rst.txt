@@ -1,3 +1,4 @@
+==============
 English Manual
 ==============
 
@@ -5,7 +6,8 @@ English Manual
    :maxdepth: 1
    :caption: English:
 
-   preproc/preproc.rst
+   preproc/nameLeTeVault.rst
+   preproc/cellDistribution.rst
    
    proc/basicData.rst
    proc/geometry.rst

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-04-27 19:02+0200\n"
-"PO-Revision-Date: 2021-04-27 19:18+0200\n"
+"POT-Creation-Date: 2021-04-28 18:14+0200\n"
+"PO-Revision-Date: 2021-04-28 18:16+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -52,6 +52,14 @@ msgstr "PrePro Datei speichern"
 #: DataStores/PreProcessorModel.py:208
 msgid "Save Pre-Processor file as"
 msgstr "PreProc Datei speichern unter"
+
+#: DataStores/PreProcessorModel.py:368
+msgid "File save error"
+msgstr "Datei kann nicht gespeichert werden"
+
+#: DataStores/PreProcessorModel.py:369
+msgid "File can not be saved: "
+msgstr "Die Datei kann nicht gespeichert werden: "
 
 #: DataStores/PreProcessorModel.py:522
 msgid "Cell Num"
@@ -1182,13 +1190,21 @@ msgstr ""
 msgid "Data Status Overview"
 msgstr "Daten-Status Übersicht"
 
-#: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:135
+#: Windows/DataStatusOverview.py:81 lepg.py:222
+msgid "Pre Processor"
+msgstr "Pre Prozessor"
+
+#: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:120
 msgid "Filename"
 msgstr "Dateiname"
 
-#: Windows/DataStatusOverview.py:100 Windows/DataStatusOverview.py:143
+#: Windows/DataStatusOverview.py:100 Windows/DataStatusOverview.py:128
 msgid "File version"
 msgstr "Dateiversion"
+
+#: Windows/DataStatusOverview.py:109 lepg.py:420
+msgid "Processor"
+msgstr "Prozessor"
 
 #: Windows/DxfLayerNames.py:71
 #, fuzzy
@@ -1816,10 +1832,8 @@ msgid "PreProc-NumCellsDesc"
 msgstr "Definiert die Anzahl Zellen des Flügels"
 
 #: Windows/PreProcData.py:74
-#, fuzzy
-#| msgid "Pre Processor data edit"
 msgid "Pre-Processor data"
-msgstr "Pre Prozessor Daten editieren"
+msgstr "Pre Prozessor Daten"
 
 #: Windows/PreProcData.py:76
 msgid "Generals"
@@ -1834,116 +1848,94 @@ msgid "Leading edge"
 msgstr "Eintrittskante"
 
 #: Windows/PreProcData.py:110
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "PreProc-LE-Type-Desc"
-msgstr "Flügelname"
+msgstr "Aktuell gibt es nur \"Typ 1\" Eintrittskanten"
 
 #: Windows/PreProcData.py:111
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-a1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Horizontale Halbachse der Einrittskante"
 
 #: Windows/PreProcData.py:112
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-b1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Vertikale Halbachse der Einrittskante"
 
 #: Windows/PreProcData.py:113
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-x1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Startpunkt der ersten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:114
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-x2-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Startpunkt der zweiten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:115
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-xm-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Halbe Spannweite der Eintrittskante"
 
 #: Windows/PreProcData.py:116
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-LE-c01-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Deflektionskoeffizient der ersten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:117
-#, fuzzy
-#| msgid "PreProc-le_x1_desc"
 msgid "PreProc-LE-ex1-Desc"
-msgstr "1. Krümmungsübergang Eintrittskante"
+msgstr ""
+"Grad der ersten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:118
-#, fuzzy
-#| msgid "PreProc-le_c02_desc"
 msgid "PreProc-LE-c02-Desc"
-msgstr "Ablenkung Eintrittskante"
+msgstr ""
+"Deflektionskoeffizient der zweiten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:119
-#, fuzzy
-#| msgid "PreProc-le_x2_desc"
 msgid "PreProc-LE-ex2-Desc"
-msgstr "2. Krümmungsübergang Eintrittskante"
+msgstr ""
+"Grad der zweiten Korrektur\n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:128
 msgid "Trailing edge"
 msgstr "Austrittskante"
 
 #: Windows/PreProcData.py:139
-#, fuzzy
-#| msgid "PreProc-le_type_desc"
 msgid "PreProc-TE-Type-Desc"
-msgstr "Aktuell gibt es nur \"Typ 1\" Eintrittskanten"
+msgstr "Aktuell gibt es nur \"Typ 1\" Austrittskanten"
 
 #: Windows/PreProcData.py:140
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-a1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Horizontale Halbachse der Austrittskante"
 
 #: Windows/PreProcData.py:141
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-b1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Vertikale Halbachse der Austrittskante"
 
 #: Windows/PreProcData.py:142
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-x1-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Startpunkt der Korrektur \n"
+"der Eintrittskante"
 
 #: Windows/PreProcData.py:143
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-xm-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Halbe Spannweite der Austrittskante"
 
 #: Windows/PreProcData.py:144
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-c0-Desc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr "Deflektionskoeffizient der Eintrittskante"
 
 #: Windows/PreProcData.py:145
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-y0-Desc"
 msgstr "Flügeltiefenreduktion Austrittskante"
 
 #: Windows/PreProcData.py:146
-#, fuzzy
-#| msgid "PreProc-te_exp_desc"
 msgid "PreProc-TE-exp-Desc"
-msgstr "_"
+msgstr "Grad der Korrektur der Eintrittskante"
 
 #: Windows/PreProcData.py:155
 msgid "Vault"
@@ -1957,71 +1949,57 @@ msgstr "Sin-Cos"
 msgid "Radius-Angle"
 msgstr "Radius-Winkel"
 
-#: Windows/PreProcData.py:174 Windows/PreProcData.py:182
-#, fuzzy
-#| msgid "PreProc-vault1_a1_desc"
+#: Windows/PreProcData.py:174
 msgid "PreProc-Vault-a1-Desc"
-msgstr "Flügelhöhe"
+msgstr "Horizontale Halbachse"
 
 #: Windows/PreProcData.py:175
-#, fuzzy
-#| msgid "PreProc-vault1_b1_desc"
 msgid "PreProc-Vault-b1-Desc"
-msgstr "Halbe Flügelspannweite"
+msgstr "Vertikale Halbachse"
 
 #: Windows/PreProcData.py:176
-#, fuzzy
-#| msgid "PreProc-vault1_x1_desc"
 msgid "PreProc-Vault-x1-Desc"
-msgstr "Krümmungsstart Flügel"
+msgstr ""
+"Horizontaler Punkt an der die \n"
+"Ellipsenmodifikation startet"
 
 #: Windows/PreProcData.py:177
-#, fuzzy
-#| msgid "PreProc-vault1_c1_desc"
 msgid "PreProc-Vault-c1-Desc"
-msgstr "Punkt an der die Ellipsenmodifikation startet"
+msgstr ""
+"Vertikaler Punkt an der die \n"
+"Ellipsenmodifikation startet"
 
 #: Windows/PreProcData.py:178
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r1-Desc"
-msgstr "Radius"
+msgstr "Radius der ersten Bogensektion"
 
 #: Windows/PreProcData.py:179
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r2-Desc"
-msgstr "Radius"
+msgstr "Radius der zweiten Bogensektion"
 
 #: Windows/PreProcData.py:180
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r3-Desc"
-msgstr "Radius"
+msgstr "Radius der dritten Bogensektion"
 
 #: Windows/PreProcData.py:181
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r4-Desc"
-msgstr "Radius"
+msgstr "Radius der vierten Bogensektion"
+
+#: Windows/PreProcData.py:182
+msgid "PreProc-Vault-ra1-Desc"
+msgstr "Winkel der ersten Bogensektion"
 
 #: Windows/PreProcData.py:183
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
-msgid "PreProc-Vault-a2-Desc"
-msgstr "Radius"
+msgid "PreProc-Vault-ra2-Desc"
+msgstr "Winkel der zweiten Bogensektion"
 
 #: Windows/PreProcData.py:184
-#, fuzzy
-#| msgid "PreProc-vault2_a_desc"
-msgid "PreProc-Vault-a3-Desc"
-msgstr "Winkel"
+msgid "PreProc-Vault-ra3-Desc"
+msgstr "Winkel der dritten Bogensektion"
 
 #: Windows/PreProcData.py:185
-#, fuzzy
-#| msgid "PreProc-vault2_a_desc"
-msgid "PreProc-Vault-a4-Desc"
-msgstr "Winkel"
+msgid "PreProc-Vault-ra4-Desc"
+msgstr "Winkel der vierten Bogensektion"
 
 #: Windows/Ramification.py:69
 msgid "Ramification"
@@ -2429,19 +2407,18 @@ msgstr "Pre Prozessor ausführen"
 msgid "run_preProc_des"
 msgstr "Pre Prozessor ausführen"
 
-#: lepg.py:222
-msgid "Pre Processor"
-msgstr "Pre Prozessor"
-
 #: lepg.py:291 lepg.py:739
 msgid "Potentially missing configuration!"
-msgstr ""
+msgstr "Möglicherweise fehlt eine Konfiguration!"
 
 #: lepg.py:292
 msgid ""
 "For a successful pre-processor run you must configure\n"
 "the pre-processor in Setup->Both Processors."
 msgstr ""
+"Damit der Pre-Prozessor gestartet werden kann muss\n"
+"erst sein Speicherort definiert werden in \n"
+"Setup->Beide Prozessoren"
 
 #: lepg.py:304
 #, fuzzy
@@ -2663,10 +2640,6 @@ msgstr "Pre Prozessor"
 msgid "run_Processor_des"
 msgstr "Pre Prozessor"
 
-#: lepg.py:420
-msgid "Processor"
-msgstr "Prozessor"
-
 #: lepg.py:444
 msgid "Colors"
 msgstr ""
@@ -2829,6 +2802,21 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#, fuzzy
+#~| msgid "PreProc-vault2_r_desc"
+#~ msgid "PreProc-Vault-a2-Desc"
+#~ msgstr "Radius"
+
+#, fuzzy
+#~| msgid "PreProc-vault2_a_desc"
+#~ msgid "PreProc-Vault-a3-Desc"
+#~ msgstr "Winkel"
+
+#, fuzzy
+#~| msgid "PreProc-vault2_a_desc"
+#~ msgid "PreProc-Vault-a4-Desc"
+#~ msgstr "Winkel"
 
 #, fuzzy
 #~| msgid "Wing name"

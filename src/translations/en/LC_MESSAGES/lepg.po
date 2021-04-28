@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-04-27 17:56+0200\n"
-"PO-Revision-Date: 2021-04-27 19:34+0200\n"
+"POT-Creation-Date: 2021-04-28 17:23+0200\n"
+"PO-Revision-Date: 2021-04-28 18:16+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -1144,12 +1144,24 @@ msgstr ""
 msgid "CalageVar-NumPosStepsDesc"
 msgstr ""
 
-#: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:135
+#: Windows/DataStatusOverview.py:78
+msgid "Data Status Overview"
+msgstr ""
+
+#: Windows/DataStatusOverview.py:81 lepg.py:222
+msgid "Pre Processor"
+msgstr ""
+
+#: Windows/DataStatusOverview.py:92 Windows/DataStatusOverview.py:120
 msgid "Filename"
 msgstr ""
 
-#: Windows/DataStatusOverview.py:100 Windows/DataStatusOverview.py:143
+#: Windows/DataStatusOverview.py:100 Windows/DataStatusOverview.py:128
 msgid "File version"
+msgstr ""
+
+#: Windows/DataStatusOverview.py:109 lepg.py:420
+msgid "Processor"
 msgstr ""
 
 #: Windows/DxfLayerNames.py:71
@@ -1774,116 +1786,88 @@ msgid "Leading edge"
 msgstr ""
 
 #: Windows/PreProcData.py:110
-#, fuzzy
-#| msgid "PreProc-le_type_desc"
 msgid "PreProc-LE-Type-Desc"
 msgstr "Currently there's only LE type 1 available"
 
 #: Windows/PreProcData.py:111
-#, fuzzy
-#| msgid "PreProc-le_a1_desc"
 msgid "PreProc-LE-a1-Desc"
-msgstr "Leading edge ellipse"
+msgstr "Leading Edge horizontal semiaxis"
 
 #: Windows/PreProcData.py:112
-#, fuzzy
-#| msgid "PreProc-le_b1_desc"
 msgid "PreProc-LE-b1-Desc"
-msgstr "Wing depth leading edge section"
+msgstr "Leading Edge vertical semiaxis"
 
 #: Windows/PreProcData.py:113
-#, fuzzy
-#| msgid "PreProc-le_x1_desc"
 msgid "PreProc-LE-x1-Desc"
 msgstr "1st curvature start leading edge"
 
 #: Windows/PreProcData.py:114
-#, fuzzy
-#| msgid "PreProc-le_x2_desc"
 msgid "PreProc-LE-x2-Desc"
 msgstr "2nd curvature start leading edge"
 
 #: Windows/PreProcData.py:115
-#, fuzzy
-#| msgid "PreProc-le_xm_desc"
 msgid "PreProc-LE-xm-Desc"
-msgstr "Leading edge half span"
+msgstr "Leading Edge half span"
 
 #: Windows/PreProcData.py:116
-#, fuzzy
-#| msgid "PreProc-le_c0_desc"
 msgid "PreProc-LE-c01-Desc"
-msgstr "Leading edge deflection"
+msgstr ""
+"Leading Edge deflection coefficient \n"
+"for 1st curvature"
 
 #: Windows/PreProcData.py:117
-#, fuzzy
-#| msgid "PreProc-le_x1_desc"
 msgid "PreProc-LE-ex1-Desc"
-msgstr "1st curvature start leading edge"
+msgstr ""
+"Leading Edge deflection variation Degree  \n"
+"for 1st curvature"
 
 #: Windows/PreProcData.py:118
-#, fuzzy
-#| msgid "PreProc-le_c02_desc"
 msgid "PreProc-LE-c02-Desc"
-msgstr "-"
+msgstr ""
+"Leading Edge deflection coefficient \n"
+"for 2nd curvature"
 
 #: Windows/PreProcData.py:119
-#, fuzzy
-#| msgid "PreProc-le_x2_desc"
 msgid "PreProc-LE-ex2-Desc"
-msgstr "2nd curvature start leading edge"
+msgstr ""
+"Leading Edge deflection variation Degree  \n"
+"for 2nd curvature"
 
 #: Windows/PreProcData.py:128
 msgid "Trailing edge"
 msgstr ""
 
 #: Windows/PreProcData.py:139
-#, fuzzy
-#| msgid "PreProc-le_type_desc"
 msgid "PreProc-TE-Type-Desc"
-msgstr "Currently there's only LE type 1 available"
+msgstr "Currently there's only TE type 1 available"
 
 #: Windows/PreProcData.py:140
-#, fuzzy
-#| msgid "PreProc-le_a1_desc"
 msgid "PreProc-TE-a1-Desc"
-msgstr "Leading edge ellipse"
+msgstr "Trailing Edge horizontal semiaxis"
 
 #: Windows/PreProcData.py:141
-#, fuzzy
-#| msgid "PreProc-le_b1_desc"
 msgid "PreProc-TE-b1-Desc"
-msgstr "Wing depth leading edge section"
+msgstr "Trailing Edge vertical semiaxis"
 
 #: Windows/PreProcData.py:142
-#, fuzzy
-#| msgid "PreProc-le_x1_desc"
 msgid "PreProc-TE-x1-Desc"
-msgstr "1st curvature start leading edge"
+msgstr "Curvature start trailing edge"
 
 #: Windows/PreProcData.py:143
-#, fuzzy
-#| msgid "PreProc-le_xm_desc"
 msgid "PreProc-TE-xm-Desc"
-msgstr "Leading edge half span"
+msgstr "Trailing Edge half span"
 
 #: Windows/PreProcData.py:144
-#, fuzzy
-#| msgid "PreProc-le_c0_desc"
 msgid "PreProc-TE-c0-Desc"
-msgstr "Leading edge deflection"
+msgstr "Trailing edge deflection coefficient"
 
 #: Windows/PreProcData.py:145
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "PreProc-TE-y0-Desc"
-msgstr "Trailing edge wing deep reduction"
+msgstr "Trailing edge wing chord reduction"
 
 #: Windows/PreProcData.py:146
-#, fuzzy
-#| msgid "PreProc-te_exp_desc"
 msgid "PreProc-TE-exp-Desc"
-msgstr "-"
+msgstr "Trailing Edge deflection variation Degree"
 
 #: Windows/PreProcData.py:155
 msgid "Vault"
@@ -1897,71 +1881,53 @@ msgstr ""
 msgid "Radius-Angle"
 msgstr ""
 
-#: Windows/PreProcData.py:174 Windows/PreProcData.py:182
-#, fuzzy
-#| msgid "PreProc-vault1_a1_desc"
+#: Windows/PreProcData.py:174
 msgid "PreProc-Vault-a1-Desc"
-msgstr "Wing height"
+msgstr "Semiaxis a (horizontal)"
 
 #: Windows/PreProcData.py:175
-#, fuzzy
-#| msgid "PreProc-vault1_b1_desc"
 msgid "PreProc-Vault-b1-Desc"
-msgstr "Wing width"
+msgstr "Semiaxis b (vertical)"
 
 #: Windows/PreProcData.py:176
-#, fuzzy
-#| msgid "PreProc-vault1_x1_desc"
 msgid "PreProc-Vault-x1-Desc"
-msgstr "Wing curvature start"
+msgstr "Wing curvature point (horizontal)"
 
 #: Windows/PreProcData.py:177
-#, fuzzy
-#| msgid "PreProc-vault1_c1_desc"
 msgid "PreProc-Vault-c1-Desc"
-msgstr "-"
+msgstr "Wing curvature point (vertical)"
 
 #: Windows/PreProcData.py:178
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r1-Desc"
-msgstr "Radius"
+msgstr "Radius of 1st angular section"
 
 #: Windows/PreProcData.py:179
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r2-Desc"
-msgstr "Radius"
+msgstr "Radius of 2nd angular section"
 
 #: Windows/PreProcData.py:180
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r3-Desc"
-msgstr "Radius"
+msgstr "Radius of 3rd angular section"
 
 #: Windows/PreProcData.py:181
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
 msgid "PreProc-Vault-r4-Desc"
-msgstr "Radius"
+msgstr "Radius of 4th angular section"
+
+#: Windows/PreProcData.py:182
+msgid "PreProc-Vault-ra1-Desc"
+msgstr "Angle of 1st angular section"
 
 #: Windows/PreProcData.py:183
-#, fuzzy
-#| msgid "PreProc-vault2_r_desc"
-msgid "PreProc-Vault-a2-Desc"
-msgstr "Radius"
+msgid "PreProc-Vault-ra2-Desc"
+msgstr "Angle of 2nd angular section"
 
 #: Windows/PreProcData.py:184
-#, fuzzy
-#| msgid "PreProc-vault2_a_desc"
-msgid "PreProc-Vault-a3-Desc"
-msgstr "Angle"
+msgid "PreProc-Vault-ra3-Desc"
+msgstr "Angle of 3rd angular section"
 
 #: Windows/PreProcData.py:185
-#, fuzzy
-#| msgid "PreProc-vault2_a_desc"
-msgid "PreProc-Vault-a4-Desc"
-msgstr "Angle"
+msgid "PreProc-Vault-ra4-Desc"
+msgstr "Angle of 4th angular section"
 
 #: Windows/Ramification.py:69
 msgid "Ramification"
@@ -2358,10 +2324,6 @@ msgstr ""
 msgid "run_preProc_des"
 msgstr "Opens a datafile from local storage"
 
-#: lepg.py:222
-msgid "Pre Processor"
-msgstr ""
-
 #: lepg.py:291 lepg.py:739
 msgid "Potentially missing configuration!"
 msgstr ""
@@ -2576,10 +2538,6 @@ msgstr ""
 msgid "run_Processor_des"
 msgstr ""
 
-#: lepg.py:420
-msgid "Processor"
-msgstr ""
-
 #: lepg.py:444
 msgid "Colors"
 msgstr ""
@@ -2701,6 +2659,15 @@ msgstr ""
 #: lepg.py:980
 msgid "Short info about the program"
 msgstr ""
+
+#~ msgid "PreProc-Vault-a2-Desc"
+#~ msgstr "Angle of 2nd angular section"
+
+#~ msgid "PreProc-Vault-a3-Desc"
+#~ msgstr "Angle of 3rd angular section"
+
+#~ msgid "PreProc-Vault-a4-Desc"
+#~ msgstr "Angle of 4thd angular section"
 
 #~ msgid "PreProc-te_ex1_desc"
 #~ msgstr "-"
