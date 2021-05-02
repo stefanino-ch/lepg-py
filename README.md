@@ -53,7 +53,6 @@ Die Dateien alle in denselben Ordner entpacken.
 In das entpakte Verzeichnis wechseln und die Datei lepg.exe starten. 
 
 WICHTIG: Bevor der Pre-Prozessor gestartet werden kann muss er erst konfiguriert werden:  [Setup]-> [Setup Pre-Processor] die .exe Datei ist in Processors\pre1_5-w32 oder ähnlich. 
-=======
 
 ### Installation - Linux
 Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwendiger. 
