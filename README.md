@@ -15,9 +15,6 @@ Unpack them all into the same folder.
 Go into the new directory and start the file lepg.exe. 
 
 IMPORTANT: to run the pre-processor you must first configure it: select [Setup]-> [Setup Pre-Processor] the .exe file you will find in Processors\pre1_5-w32 or similar. 
-=======
-Download this file.
-
 
 ### Installation - Linux
 Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
