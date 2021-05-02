@@ -1,24 +1,27 @@
 # lepg-py
 
+latestVersion = '3.15.33'
+
 ## English
 
 ### Requirements
-Python 3.7
+Python >3.7
 
 PyQt5
 
-### Limitations 
-At the moment only Pre Processor relavant data is fully supported.
-Other windows may exist, but are work in progress.... 
-
 ### Installation - Windows
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) download the .zip files. 
+From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/distribution/dist-W64) download the .zip files. 
 Unpack them all into the same folder. 
 Go into the new directory and start the file lepg.exe. 
 
 IMPORTANT: to run the pre-processor you must first configure it: select [Setup]-> [Setup Pre-Processor] the .exe file you will find in Processors\pre1_5-w32 or similar. 
+=======
+Download this file.
+
 
 ### Installation - Linux
+Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
+
 The steps below explain how to install on a Ubuntu System: 
 
 -> Open a shell
@@ -40,13 +43,9 @@ The main file is named lepg.py. Start this with
 ## Deutsch
 
 ### Anforderungen
-Python 3.7
+Python >3.7
 
 PyQt5
-
-### Limitationen
-Im Moment wird nur der Pre-Prozessor unterstützt.
-Anderer Fenster existieren, sind aber Teil der aktuellen Entwicklung.  
 
 ### Installation - Windows
 Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) alle .zip Dateien herunterladen und auf der lokalen Festplatte speichern.
@@ -54,8 +53,11 @@ Die Dateien alle in denselben Ordner entpacken.
 In das entpakte Verzeichnis wechseln und die Datei lepg.exe starten. 
 
 WICHTIG: Bevor der Pre-Prozessor gestartet werden kann muss er erst konfiguriert werden:  [Setup]-> [Setup Pre-Processor] die .exe Datei ist in Processors\pre1_5-w32 oder ähnlich. 
+=======
 
 ### Installation - Linux
+Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwendiger. 
+
 Die Anleitung gilt für ein Ubuntu System: 
 
 -> Shell öffnen

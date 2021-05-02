@@ -1,21 +1,24 @@
 # Logfiles
-src/lepg/logfile.txt
+src/logfile.txt
 
 # Config file
-src/lepg/configFile.txt
+src/configFile.txt
 
 # Intermediate files from help system
-userHelp/userHelp.mkdocs
-userHelp/userHelp.mkdocs/hello.html
-userHelp/userHelp.mkdocs/index.html
-userHelp/userHelp.mkdocs/search/search_index.json
-userHelp/userHelp.mkdocs/sitemap.xml
-userHelp/userHelp.mkdocs/sitemap.xml.gz
+userHelp/.escapecodecache
+userHelp/_build
+
+# Test files from export
 exportTestFiles/
 
-installer/build
-installer/dist-W64/lepg
+# Intermediate files from installer
+distribution/build/
+distribution/dist-W64/lepg
 
 # all Python chache files
 /__pycache__
 *.pyc
+
+# stuff from the development environment
+.pydevproject
+/preTest.txt

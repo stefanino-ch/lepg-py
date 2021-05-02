@@ -1,0 +1,4 @@
+[Defaults]
+checkforupdates = yes
+trackbranch = latest
+
