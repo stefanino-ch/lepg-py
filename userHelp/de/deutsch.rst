@@ -6,6 +6,8 @@ Deutsche Anleitung
    :maxdepth: 1
    :caption: Deutsch:
 
+   introduction.rst
+   
    preproc/nameLeTeVault.rst
    preproc/cellDistribution.rst
    

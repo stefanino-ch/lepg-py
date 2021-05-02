@@ -6,6 +6,8 @@ English Manual
    :maxdepth: 1
    :caption: English:
 
+   introduction.rst
+
    preproc/nameLeTeVault.rst
    preproc/cellDistribution.rst
    

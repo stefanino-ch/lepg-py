@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-04-28 18:14+0200\n"
-"PO-Revision-Date: 2021-04-28 18:16+0200\n"
+"POT-Creation-Date: 2021-05-02 12:00+0200\n"
+"PO-Revision-Date: 2021-05-02 12:36+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -215,12 +215,16 @@ msgid "Order Num"
 msgstr "Sortierung"
 
 #: DataStores/ProcessorModel.py:1942
-msgid "X-Coordinate [% Chord]"
-msgstr "X-Koord [% Flügelt.]"
+#, fuzzy
+#| msgid "X-Coordinate [% Chord]"
+msgid "X-Coordinate [\\u0025 Chord]"
+msgstr "X-Koord [\\u0025 Flügelt.]"
 
 #: DataStores/ProcessorModel.py:1943
-msgid "Y-Coordinate [% Chord]"
-msgstr "Y-Koord [% Flügelt.]"
+#, fuzzy
+#| msgid "Y-Coordinate [% Chord]"
+msgid "Y-Coordinate [\\u0025 Chord]"
+msgstr "Y-Koord [\\u0025 Flügelt.]"
 
 #: DataStores/ProcessorModel.py:2046 DataStores/ProcessorModel.py:2241
 #: DataStores/ProcessorModel.py:4980
@@ -249,7 +253,7 @@ msgstr "Versatz"
 
 #: DataStores/ProcessorModel.py:2052
 msgid "Rel weight"
-msgstr ""
+msgstr "Rel Gewicht"
 
 #: DataStores/ProcessorModel.py:2053
 msgid "rrw"
@@ -257,7 +261,7 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2111 DataStores/ProcessorModel.py:3260
 msgid "Airfoil num"
-msgstr ""
+msgstr "Rippen Nr"
 
 #: DataStores/ProcessorModel.py:2112
 msgid "Coeff"
@@ -342,24 +346,34 @@ msgid "An. Rib num"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2489
-msgid "s1 [%]"
-msgstr "s1 [%]"
+#, fuzzy
+#| msgid "X1 [%chord"
+msgid "s1 [\\u0025]"
+msgstr "X1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:2490
-msgid "s2 [%]"
-msgstr "s2 [%]"
+#, fuzzy
+#| msgid "U2 [%chord"
+msgid "s2 [\\u0025]"
+msgstr "U1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:2491
-msgid "s3 [%]"
-msgstr "s3 [%]"
+#, fuzzy
+#| msgid "Dist TE [% chord]"
+msgid "s3 [\\u0025]"
+msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2492
-msgid "s4 [%]"
-msgstr "s4 [%]"
+#, fuzzy
+#| msgid "Dist TE [% chord]"
+msgid "s4 [\\u0025]"
+msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2493
-msgid "s5 [%]"
-msgstr "s5 [%]"
+#, fuzzy
+#| msgid "Dist TE [% chord]"
+msgid "s5 [\\u0025]"
+msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2494
 msgid "d1 [cm]"
@@ -386,27 +400,29 @@ msgid "Num Risers"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2580
-msgid "Pos R. A [%]"
+msgid "Pos R. A [\\u0025]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2581
-msgid "Pos R. B [%]"
+msgid "Pos R. B [\\u0025]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2582
-msgid "Pos R. C [%]"
+msgid "Pos R. C [\\u0025]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2583
-msgid "Pos R. D [%]"
+msgid "Pos R. D [\\u0025]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2584
-msgid "Pos R. E [%]"
-msgstr ""
+#, fuzzy
+#| msgid "Dist TE [% chord]"
+msgid "Pos R. E [\\u0025]"
+msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2585
-msgid "Pos R. F [%]"
+msgid "Pos R. F [\\u0025]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2586
@@ -455,23 +471,20 @@ msgstr ""
 msgid "First Rib"
 msgstr "1. Rippe"
 
-#: DataStores/ProcessorModel.py:3114 DataStores/ProcessorModel.py:3609
-#, python-format
-msgid "Dist TE [% chord]"
-msgstr "Dist. Eintrittsk. [% Flügelt.] "
+#: DataStores/ProcessorModel.py:3114
+msgid "Dist TE [\\u0025  chord]"
+msgstr "Dist. Eintrittsk. [\\u0025 Flügelt.]"
 
 #: DataStores/ProcessorModel.py:3200
 msgid "Finesse [deg]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:3201
-#, python-format
-msgid "Center of Pressure [%chord]"
+msgid "Center of Pressure [\\u0025 chord]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:3202
-#, python-format
-msgid "Calage [%chord]"
+msgid "Calage [\\u0025 chord]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:3203
@@ -533,6 +546,12 @@ msgstr "Param H"
 #: DataStores/ProcessorModel.py:3420
 msgid "Param I"
 msgstr "Param I"
+
+#: DataStores/ProcessorModel.py:3609
+#, fuzzy
+#| msgid "Dist TE [% chord]"
+msgid "Dist TE [\\u0025 chord]"
+msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:3733 DataStores/ProcessorModel.py:4549
 #: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5552
@@ -686,34 +705,40 @@ msgid "Bott widening"
 msgstr "Untere Verbr."
 
 #: DataStores/ProcessorModel.py:4758
-#, python-format
-msgid "X1 [%chord"
-msgstr "X1 [% Flügelt.]"
+#, fuzzy
+#| msgid "X1 [%chord"
+msgid "X1 [\\u0025 chord"
+msgstr "X1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4759
-#, python-format
-msgid "U1 [%chord"
-msgstr "U1 [% Flügelt.]"
+#, fuzzy
+#| msgid "U1 [%chord"
+msgid "U1 [\\u0025 chord"
+msgstr "U1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4760
-#, python-format
-msgid "U2 [%chord"
-msgstr "U1 [% Flügelt.]"
+#, fuzzy
+#| msgid "U2 [%chord"
+msgid "U2 [\\u0025 chord"
+msgstr "U1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4761
-#, python-format
-msgid "X2 [%chord"
-msgstr "X2 [% Flügelt.]"
+#, fuzzy
+#| msgid "X2 [%chord"
+msgid "X2 [\\u0025 chord"
+msgstr "X2 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4762
-#, python-format
-msgid "V1 [%chord"
-msgstr "V1 [% Flügelt.]"
+#, fuzzy
+#| msgid "V1 [%chord"
+msgid "V1 [\\u0025 chord"
+msgstr "V1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4763
-#, python-format
-msgid "V2 [%chord"
-msgstr "V1 [% Flügelt.]"
+#, fuzzy
+#| msgid "V2 [%chord"
+msgid "V2 [\\u0025 chord"
+msgstr "V1 [&#37; Flügelt.]"
 
 #: DataStores/ProcessorModel.py:4873
 msgid "Rows"
@@ -764,13 +789,11 @@ msgid "Color name (opt)"
 msgstr "Farbname [opt]"
 
 #: DataStores/ProcessorModel.py:5644 DataStores/ProcessorModel.py:5740
-#, python-format
-msgid "Ini P [%chord]"
+msgid "Ini P [\\u0025 chord]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:5645 DataStores/ProcessorModel.py:5741
-#, python-format
-msgid "Cut P [%chord]"
+msgid "Cut P [\\u0025 chord]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:5646 DataStores/ProcessorModel.py:5742
@@ -876,7 +899,7 @@ msgstr ""
 msgid "Sort by orderNum"
 msgstr "Sortieren. "
 
-#: Windows/AirfoilThickness.py:69 lepg.py:407
+#: Windows/AirfoilThickness.py:69 lepg.py:415
 msgid "Airfoil thickness"
 msgstr "Flügeldicke"
 
@@ -900,9 +923,9 @@ msgstr "Flügelname"
 msgid "AirfThick-CoeffDesc"
 msgstr ""
 
-#: Windows/Airfoils.py:70 lepg.py:328
+#: Windows/Airfoils.py:70 lepg.py:336
 msgid "Airfoils"
-msgstr ""
+msgstr "Rippen"
 
 #: Windows/Airfoils.py:78 Windows/Geometry.py:80
 #, fuzzy
@@ -954,13 +977,11 @@ msgstr ""
 
 #: Windows/AnchorPoints.py:70
 msgid "Anchor points"
-msgstr "Ankerpunkte"
+msgstr "Aufhängepunkte"
 
 #: Windows/AnchorPoints.py:78
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "AnchPoints-RibNumDesc"
-msgstr "Flügelname"
+msgstr "Rippen Nr"
 
 #: Windows/AnchorPoints.py:79
 msgid "AnchPoints-NumAnchorsDesc"
@@ -1190,7 +1211,7 @@ msgstr ""
 msgid "Data Status Overview"
 msgstr "Daten-Status Übersicht"
 
-#: Windows/DataStatusOverview.py:81 lepg.py:222
+#: Windows/DataStatusOverview.py:81 lepg.py:230
 msgid "Pre Processor"
 msgstr "Pre Prozessor"
 
@@ -1202,7 +1223,7 @@ msgstr "Dateiname"
 msgid "File version"
 msgstr "Dateiversion"
 
-#: Windows/DataStatusOverview.py:109 lepg.py:420
+#: Windows/DataStatusOverview.py:109 lepg.py:428
 msgid "Processor"
 msgstr "Prozessor"
 
@@ -1224,9 +1245,9 @@ msgstr ""
 msgid "DxfLayNames-DescriptionDesc"
 msgstr ""
 
-#: Windows/ElasticLinesCorr.py:72 lepg.py:376
+#: Windows/ElasticLinesCorr.py:72 lepg.py:384
 msgid "Elastic lines correction"
-msgstr ""
+msgstr "Leinenelastizität"
 
 #: Windows/ElasticLinesCorr.py:80
 msgid "in flight load [kg]"
@@ -1244,7 +1265,7 @@ msgstr ""
 
 #: Windows/ElasticLinesCorr.py:99
 msgid "Two Lines"
-msgstr ""
+msgstr "Zwei Leinen"
 
 #: Windows/ElasticLinesCorr.py:104 Windows/ElasticLinesCorr.py:110
 msgid "ElLinesCorr-TwoLineDistDesc"
@@ -1252,7 +1273,7 @@ msgstr ""
 
 #: Windows/ElasticLinesCorr.py:119
 msgid "Three Lines"
-msgstr ""
+msgstr "Drei Leinen"
 
 #: Windows/ElasticLinesCorr.py:124 Windows/ElasticLinesCorr.py:130
 #: Windows/ElasticLinesCorr.py:136
@@ -1261,7 +1282,7 @@ msgstr ""
 
 #: Windows/ElasticLinesCorr.py:146
 msgid "Four Lines"
-msgstr ""
+msgstr "Vier Leinen"
 
 #: Windows/ElasticLinesCorr.py:151 Windows/ElasticLinesCorr.py:157
 #: Windows/ElasticLinesCorr.py:163 Windows/ElasticLinesCorr.py:169
@@ -1270,7 +1291,7 @@ msgstr ""
 
 #: Windows/ElasticLinesCorr.py:180
 msgid "Five Lines"
-msgstr ""
+msgstr "Fünf Leinen"
 
 #: Windows/ElasticLinesCorr.py:185 Windows/ElasticLinesCorr.py:191
 #: Windows/ElasticLinesCorr.py:197 Windows/ElasticLinesCorr.py:203
@@ -1294,7 +1315,7 @@ msgstr ""
 msgid "ElLinesCorr-HigColDesc"
 msgstr ""
 
-#: Windows/ExtradColors.py:80 lepg.py:364
+#: Windows/ExtradColors.py:80 lepg.py:372
 msgid "Extrados colors"
 msgstr ""
 
@@ -1311,15 +1332,15 @@ msgstr "Flügelname"
 #: Windows/ExtradColors.py:203 Windows/IntradColors.py:203
 #: Windows/NewSkinTension.py:208 Windows/RibHoles.py:205
 msgid "Number of Lines"
-msgstr ""
+msgstr "Anzahl Leinen"
 
 #: Windows/ExtradColors.py:238
 msgid "ExtradCols-DistTeDesc"
 msgstr ""
 
-#: Windows/Geometry.py:71 lepg.py:324
+#: Windows/Geometry.py:71 lepg.py:332
 msgid "Geometry"
-msgstr ""
+msgstr "Geometrie"
 
 #: Windows/Geometry.py:81
 #, fuzzy
@@ -1420,17 +1441,24 @@ msgid "lepg-py"
 msgstr ""
 
 #: Windows/HelpAbout.py:68
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "A graphical frontend to lepg\n"
+#| "Current Version \t\t\t%s"
 msgid ""
-"A graphical frontend to lepg\n"
+"A graphical frontend to lep\n"
 "Current Version \t\t\t%s"
 msgstr ""
+"Eine graphische Benutzeroberfläche zu lep\n"
+"Aktuelle Version\t\t\t%s"
 
 #: Windows/HelpAbout.py:72
 msgid ""
 "Developers: \n"
 "Stefan Feuz"
 msgstr ""
+"Entwickler:\n"
+"Stefan Feuz"
 
 #: Windows/HelpAbout.py:76
 msgid "General Public License GNU GPL 3.0"
@@ -1502,7 +1530,7 @@ msgstr ""
 msgid "HvVhRibs-ParamIDesc"
 msgstr ""
 
-#: Windows/IntradColors.py:80 lepg.py:368
+#: Windows/IntradColors.py:80 lepg.py:376
 msgid "Intrados colors"
 msgstr ""
 
@@ -1601,7 +1629,7 @@ msgstr ""
 
 #: Windows/Lines.py:83
 msgid "Edit Lines"
-msgstr ""
+msgstr "Leinen bearbeiten"
 
 #: Windows/Lines.py:88
 msgid "Lines control parameter"
@@ -1663,9 +1691,9 @@ msgstr ""
 msgid "Lines-AnchorRibNumDesc"
 msgstr ""
 
-#: Windows/Marks.py:64 lepg.py:757
+#: Windows/Marks.py:64 lepg.py:765
 msgid "Marks"
-msgstr ""
+msgstr "Markierungen"
 
 #: Windows/Marks.py:74
 msgid "Marks-MarksSpacingDesc"
@@ -1679,9 +1707,9 @@ msgstr ""
 msgid "Marks-PointsDisplacementDesc"
 msgstr ""
 
-#: Windows/MarksTypes.py:71 lepg.py:765
+#: Windows/MarksTypes.py:71 lepg.py:773
 msgid "Marks types"
-msgstr ""
+msgstr "Markierungstypen"
 
 #: Windows/MarksTypes.py:73
 msgid "Number of marks"
@@ -1715,19 +1743,17 @@ msgstr ""
 msgid "MarksTypes-FormTwoPTwoDesc"
 msgstr ""
 
-#: Windows/NewSkinTension.py:80 lepg.py:411
+#: Windows/NewSkinTension.py:80 lepg.py:419
 msgid "New skin tension"
-msgstr ""
+msgstr "Tuchspannung neu"
 
 #: Windows/NewSkinTension.py:194
 msgid "NewSkinTens-InitialRibDesc"
-msgstr ""
+msgstr "Erste Rippe"
 
 #: Windows/NewSkinTension.py:195
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "NewSkinTens-FinalRibDesc"
-msgstr "Flügelname"
+msgstr "Letzte Rippe"
 
 #: Windows/NewSkinTension.py:196
 msgid "NewSkinTens-TypeDesc"
@@ -2044,7 +2070,7 @@ msgstr ""
 
 #: Windows/RibHoles.py:80
 msgid "Edit rib holes (Rib lightening)"
-msgstr ""
+msgstr "Rippendurchbrüche bearbeiten"
 
 #: Windows/RibHoles.py:193
 msgid "Proc-InitialRibDesc"
@@ -2172,27 +2198,27 @@ msgstr "Pre Prozessor"
 
 #: Windows/SetupUpdateChecking.py:66
 msgid "Setup update checking"
-msgstr ""
+msgstr "Update Check konfigurieren"
 
 #: Windows/SetupUpdateChecking.py:68
 msgid "Perform update checks at start"
-msgstr ""
+msgstr "Update Check beim Start"
 
 #: Windows/SetupUpdateChecking.py:77
 msgid "Branch"
-msgstr ""
+msgstr "Version"
 
 #: Windows/SetupUpdateChecking.py:80
 msgid "stable"
-msgstr ""
+msgstr "stable"
 
 #: Windows/SetupUpdateChecking.py:81
 msgid "latest"
-msgstr ""
+msgstr "latest"
 
-#: Windows/SkinTension.py:66 lepg.py:340 lepg.py:433
+#: Windows/SkinTension.py:66 lepg.py:348 lepg.py:441
 msgid "Skin Tension"
-msgstr ""
+msgstr "Tuchspannung"
 
 #: Windows/SkinTension.py:91
 msgid "SkinTension-StrainMiniRibsDesc"
@@ -2308,7 +2334,7 @@ msgstr ""
 msgid "TwoDDxf-ColorNameDesc"
 msgstr ""
 
-#: Windows/WindowBtnBar.py:70 lepg.py:984
+#: Windows/WindowBtnBar.py:70 lepg.py:997
 msgid "Help"
 msgstr "Hilfe"
 
@@ -2328,90 +2354,110 @@ msgstr ""
 msgid "Top view"
 msgstr ""
 
-#: lepg.py:143
+#: lepg.py:146
 msgid "Newer version found"
-msgstr ""
+msgstr "Neue Version gefunden"
 
-#: lepg.py:144
+#: lepg.py:147
 msgid "Current Version: "
-msgstr ""
+msgstr "Aktuelle Version: "
 
-#: lepg.py:161
+#: lepg.py:148
+msgid "Version on remote: "
+msgstr "Version auf dem Server: "
+
+#: lepg.py:149
+msgid "Maybe you should consider an update from"
+msgstr "Vielleicht möchtest Du ein Update herunterladen von"
+
+#: lepg.py:151
+msgid ""
+"More info about the different versions you will find in the <br>online help: "
+"Help-> Online Help"
+msgstr ""
+"Mehr zu den verschiedenen Versionen findest du<br>in der Online Help: Hilfe-"
+"> Online Hilfe"
+
+#: lepg.py:152
+msgid "Or in Settings-> Update checking"
+msgstr "Oder in Einstellungen -> Update checking"
+
+#: lepg.py:169
 msgid "Show Data Status"
 msgstr "Daten-Status anzeigen"
 
-#: lepg.py:162
+#: lepg.py:170
 msgid "Provides an overview about what data has (not) been saved"
 msgstr ""
 "Zeigt einen Überblick welche Daten\n"
 "gespeichert sind und welche nicht"
 
-#: lepg.py:165
+#: lepg.py:173
 msgid "Exit"
 msgstr "Beenden"
 
-#: lepg.py:166
+#: lepg.py:174
 msgid "Leave the app"
 msgstr "Programm schliessen"
 
-#: lepg.py:170
+#: lepg.py:178
 msgid "File"
 msgstr "Datei"
 
-#: lepg.py:197
+#: lepg.py:205
 msgid "Open PreProc File"
 msgstr "PreProc Datei öffnen"
 
-#: lepg.py:198
+#: lepg.py:206
 msgid "open_preProc_file_desc"
 msgstr "Gespeicherte Datendatei öffnen"
 
-#: lepg.py:201
+#: lepg.py:209
 msgid "Save PreProc File"
 msgstr "PreProc Datei speichern"
 
-#: lepg.py:202
+#: lepg.py:210
 msgid "save_preProc_file_desc"
 msgstr "Aktuelle Daten speichern"
 
-#: lepg.py:205
+#: lepg.py:213
 msgid "Save PreProc File As .."
 msgstr "PreProc Datei speichern unter .."
 
-#: lepg.py:206
+#: lepg.py:214
 msgid "save_preProc_file_as_desc"
 msgstr "Aktuelle Daten unter einem neuen Namen speichern"
 
-#: lepg.py:209
+#: lepg.py:217
 msgid "Name, LE, TE, Vault"
 msgstr ""
 
-#: lepg.py:210
+#: lepg.py:218
 msgid "edit_preProc_data_description"
 msgstr ""
 "Öffnet das Fester zum editieren von Name, Ein-Austrittskante und Krümmung"
 
-#: lepg.py:213
+#: lepg.py:221
 msgid "Cells distribution"
 msgstr "Zellenverteilung"
 
-#: lepg.py:214
+#: lepg.py:222
 msgid "edit_preProc_cellsDistr_description"
 msgstr "Öffnet das Fester zum editieren der Zellverteilung"
 
-#: lepg.py:217
+#: lepg.py:225
 msgid "Run Pre-Processor"
 msgstr "Pre Prozessor ausführen"
 
-#: lepg.py:218
+#: lepg.py:226
 msgid "run_preProc_des"
 msgstr "Pre Prozessor ausführen"
 
-#: lepg.py:291 lepg.py:739
+#: lepg.py:299 lepg.py:747
 msgid "Potentially missing configuration!"
 msgstr "Möglicherweise fehlt eine Konfiguration!"
 
-#: lepg.py:292
+#: lepg.py:300
 msgid ""
 "For a successful pre-processor run you must configure\n"
 "the pre-processor in Setup->Both Processors."
@@ -2420,359 +2466,349 @@ msgstr ""
 "erst sein Speicherort definiert werden in \n"
 "Setup->Beide Prozessoren"
 
-#: lepg.py:304
-#, fuzzy
-#| msgid "Open PreProc file"
+#: lepg.py:312
 msgid "Import Pre-Proc output file"
-msgstr "PreProc Datei öffnen"
+msgstr "Pre-Proz Datei importieren"
 
-#: lepg.py:305
-#, fuzzy
-#| msgid "open_preProc_file_desc"
+#: lepg.py:313
 msgid "import-pre-proc_file_desc"
-msgstr "Gespeicherte Datendatei öffnen"
+msgstr "Importiere die vom Pre-Prozessor erzeugte Datei"
 
-#: lepg.py:308
-#, fuzzy
-#| msgid "Open PreProc File"
+#: lepg.py:316
 msgid "Open Processor File"
-msgstr "PreProc Datei öffnen"
+msgstr "Prozessor Datei öffnen"
 
-#: lepg.py:309
-#, fuzzy
-#| msgid "open_preProc_file_desc"
+#: lepg.py:317
 msgid "open_Proc_file_desc"
 msgstr "Gespeicherte Datendatei öffnen"
 
-#: lepg.py:312
-#, fuzzy
-#| msgid "Save PreProc File"
+#: lepg.py:320
 msgid "Save Processor File"
-msgstr "PreProc Datei speichern"
+msgstr "Prozessor Datei speichern"
 
-#: lepg.py:313
-#, fuzzy
-#| msgid "save_preProc_file_desc"
+#: lepg.py:321
 msgid "save_proc_file_desc"
 msgstr "Aktuelle Daten speichern"
 
-#: lepg.py:316
-#, fuzzy
-#| msgid "Save PreProc File As .."
+#: lepg.py:324
 msgid "Save Processor File As .."
-msgstr "PreProc Datei speichern unter .."
+msgstr "Prozessor Datei speichern unter .."
 
-#: lepg.py:317
-#, fuzzy
-#| msgid "save_preProc_file_as_desc"
+#: lepg.py:325
 msgid "save_proc_file_as_desc"
 msgstr "Aktuelle Daten unter einem neuen Namen speichern"
 
-#: lepg.py:320
+#: lepg.py:328
 msgid "Basic data"
 msgstr "Basisdaten"
 
-#: lepg.py:321
+#: lepg.py:329
 msgid "Editing the wing basics"
 msgstr ""
 
-#: lepg.py:325
+#: lepg.py:333
 msgid "Edit wing geometry"
 msgstr ""
 
-#: lepg.py:329
+#: lepg.py:337
 msgid "Edit airfoils geometry"
 msgstr ""
 
-#: lepg.py:332
+#: lepg.py:340
 msgid "Anchor Points"
-msgstr ""
+msgstr "Aufhängepunkte"
 
-#: lepg.py:333
+#: lepg.py:341
 msgid "Edit Anchor points data"
 msgstr ""
 
-#: lepg.py:336
-msgid "Rib Holes"
-msgstr ""
-
-#: lepg.py:337
-msgid "Edit rib holes (Rib lightening) data"
-msgstr ""
-
-#: lepg.py:341
-msgid "Edit Skin tension data"
-msgstr ""
-
 #: lepg.py:344
-msgid "Estimated general AoA"
-msgstr ""
+msgid "Rib Holes"
+msgstr "Rippendurchbrüche"
 
 #: lepg.py:345
+msgid "Edit rib holes (Rib lightening) data"
+msgstr "Rippendurchbrüche bearbeiten"
+
+#: lepg.py:349
+msgid "Edit Skin tension data"
+msgstr "Tuchspannung bearbeiten"
+
+#: lepg.py:352
+msgid "Estimated general AoA"
+msgstr "Genereller Anstellwinkel"
+
+#: lepg.py:353
 msgid "Edit global AoA data"
 msgstr ""
 
-#: lepg.py:348
+#: lepg.py:356
 msgid "Lines"
-msgstr ""
+msgstr "Leinen"
 
-#: lepg.py:349
+#: lepg.py:357
 #, fuzzy
 #| msgid "Edit PreProc Data"
 msgid "Edit Lines data"
 msgstr "PreProc Daten editieren"
 
-#: lepg.py:352
+#: lepg.py:360
 msgid "Brakes"
-msgstr ""
+msgstr "Bremsleinen"
 
-#: lepg.py:353
+#: lepg.py:361
 msgid "Edit Brake lines data"
 msgstr ""
 
-#: lepg.py:356
+#: lepg.py:364
 msgid "Ramifications length"
-msgstr ""
+msgstr "Höhe Leinenebenen"
 
-#: lepg.py:357
+#: lepg.py:365
 msgid "Edit Ramification data"
 msgstr ""
 
-#: lepg.py:360
+#: lepg.py:368
 msgid "HV and VH ribs"
-msgstr ""
+msgstr "Minirippen"
 
-#: lepg.py:361
+#: lepg.py:369
 msgid "Edit HV/ VH ribs data"
 msgstr ""
 
-#: lepg.py:365
+#: lepg.py:373
 #, fuzzy
 #| msgid "Edit PreProc Data"
 msgid "Edit extrados colors data"
 msgstr "PreProc Daten editieren"
 
-#: lepg.py:369
+#: lepg.py:377
 msgid "Edit intrados colors data"
 msgstr ""
 
-#: lepg.py:372
+#: lepg.py:380
 msgid "Additional rib points"
-msgstr ""
+msgstr "Zusätzliche Rippenpunkte"
 
-#: lepg.py:373
+#: lepg.py:381
 msgid "Edit additional rib points data"
 msgstr ""
 
-#: lepg.py:377
+#: lepg.py:385
 msgid "Edit Elastic lines correction data"
 msgstr ""
 
-#: lepg.py:380
-msgid "Joncs definitions"
-msgstr ""
-
-#: lepg.py:381
-msgid "Edit Joncs (Nylon rods) definition"
-msgstr ""
-
-#: lepg.py:384
-msgid "Nose Mylars"
-msgstr ""
-
-#: lepg.py:385
-msgid "Edit Nose mylars definition"
-msgstr ""
-
 #: lepg.py:388
+msgid "Joncs definitions"
+msgstr "Stäbchen Eintrittskante"
+
+#: lepg.py:389
+msgid "Edit Joncs (Nylon rods) definition"
+msgstr "Bearbeite die Einstellungen für die Stäbchen an der Eintrittskante"
+
+#: lepg.py:392
+msgid "Nose Mylars"
+msgstr "Versteifungen Eintrittskante"
+
+#: lepg.py:393
+msgid "Edit Nose mylars definition"
+msgstr "Bearbeite die Versteifungen an der Eintrittskante"
+
+#: lepg.py:396
 msgid "Tab reinforcements"
 msgstr ""
 
-#: lepg.py:391
-msgid "Glue vents"
-msgstr ""
-
-#: lepg.py:392
-msgid "Edit Glue vent definitions"
-msgstr ""
-
-#: lepg.py:395
-msgid "Special wingtip"
-msgstr ""
-
-#: lepg.py:396
-msgid "Edit Special wing tip definitions"
-msgstr ""
-
 #: lepg.py:399
-msgid "Calage variation"
-msgstr ""
+msgid "Glue vents"
+msgstr "Einlassöffnungen"
 
 #: lepg.py:400
-msgid "Edit parameters for calage variation study"
-msgstr ""
+msgid "Edit Glue vent definitions"
+msgstr "Bearbeite die Form der Einlassöffnungen"
 
 #: lepg.py:403
+msgid "Special wingtip"
+msgstr "Flügelenden"
+
+#: lepg.py:404
+msgid "Edit Special wing tip definitions"
+msgstr "Bearbeite die Einstellungen für die Flügelenden"
+
+#: lepg.py:407
+msgid "Calage variation"
+msgstr "Anstellwinkelveränderung"
+
+#: lepg.py:408
+msgid "Edit parameters for calage variation study"
+msgstr ""
+"Bearbeitet die Parameter für die Studienberechnungen der "
+"Anstellwinkelveränderung"
+
+#: lepg.py:411
 msgid "3D shaping"
 msgstr ""
 
-#: lepg.py:404
+#: lepg.py:412
 msgid "Edit parameters 3D shaping"
 msgstr ""
 
-#: lepg.py:408
+#: lepg.py:416
 msgid "Edit parameters for airfoil thickness"
 msgstr ""
 
-#: lepg.py:412
+#: lepg.py:420
 msgid "Edit parameters for new skin tension"
-msgstr ""
+msgstr "Parameter für die neuere Definitionsart der Tuchspannung bearbeiten"
 
-#: lepg.py:415
-#, fuzzy
-#| msgid "Pre Processor"
+#: lepg.py:423
 msgid "Run Processor"
-msgstr "Pre Prozessor"
+msgstr "Prozessor starten"
 
-#: lepg.py:416
-#, fuzzy
-#| msgid "Pre Processor"
+#: lepg.py:424
 msgid "run_Processor_des"
-msgstr "Pre Prozessor"
+msgstr "Den Prozessor ausführen um die definitive Dokumentation zu erzeugen"
 
-#: lepg.py:444
+#: lepg.py:452
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
-#: lepg.py:740
+#: lepg.py:748
 msgid ""
 "For a successful processor run you must configure\n"
 "the processor in Setup->Both Processors."
 msgstr ""
-
-#: lepg.py:753
-msgid "Seewing Allowance"
-msgstr ""
-
-#: lepg.py:754
-msgid "Edit Seewing allowances"
-msgstr ""
-
-#: lepg.py:758
-msgid "Edit the Marks parameters"
-msgstr ""
+"Damit die Prozessoren ausgeführt werden können müssen\n"
+"sie in Setup -> Beide Prozessoren konfiguriert werden."
 
 #: lepg.py:761
-msgid "DXF Layer names"
-msgstr ""
+msgid "Seewing Allowance"
+msgstr "Nahtzugaben"
 
 #: lepg.py:762
-msgid "Edit the names of the individual DXF layers"
-msgstr ""
+msgid "Edit Seewing allowances"
+msgstr "Nahtzugaben berbeiten"
 
 #: lepg.py:766
-msgid "Edit individual paramters for the marks on the plans"
-msgstr ""
+msgid "Edit the Marks parameters"
+msgstr "Markierungsparameter bearbeiten"
 
 #: lepg.py:769
-msgid "2D DXF options"
-msgstr ""
+msgid "DXF Layer names"
+msgstr "DXF Layer Namen"
 
 #: lepg.py:770
-msgid "Edit for the 2D dxf plans"
-msgstr ""
-
-#: lepg.py:773
-msgid "3D DXF options"
-msgstr ""
+msgid "Edit the names of the individual DXF layers"
+msgstr "Bearbeite die Namen der unterschiedlichen DXF Layer"
 
 #: lepg.py:774
-msgid "Edit for the 3D dxf plans"
-msgstr ""
+msgid "Edit individual paramters for the marks on the plans"
+msgstr "Individuelle Parameter für die Planmarkierungen bearbeiten"
+
+#: lepg.py:777
+msgid "2D DXF options"
+msgstr "2D DXF Optionen"
 
 #: lepg.py:778
-msgid "Plan"
-msgstr ""
+msgid "Edit for the 2D dxf plans"
+msgstr "Optionen für die 2D DXF Zeichnungen"
 
-#: lepg.py:851
+#: lepg.py:781
+msgid "3D DXF options"
+msgstr "3D DXF Optionen"
+
+#: lepg.py:782
+msgid "Edit for the 3D dxf plans"
+msgstr "Optionen für die 3D DXF Zeichnungen"
+
+#: lepg.py:786
+msgid "Plan"
+msgstr "Zeichnung"
+
+#: lepg.py:859
 msgid "Wing"
 msgstr "Flügel"
 
-#: lepg.py:852
+#: lepg.py:860
 msgid "Shows the outline of the wing"
 msgstr ""
 
-#: lepg.py:857
+#: lepg.py:865
 msgid "Cascade"
 msgstr "Hintereinander"
 
-#: lepg.py:858
+#: lepg.py:866
 msgid "Cascade all windows"
 msgstr "Alle Fenster hintereinander anzeigen"
 
-#: lepg.py:861
+#: lepg.py:869
 msgid "Tile"
 msgstr "Gekachelt"
 
-#: lepg.py:862
+#: lepg.py:870
 msgid "Tile all windows"
 msgstr "Alle Fenster gekachelt anzeigen"
 
-#: lepg.py:865
+#: lepg.py:873
 msgid "View"
 msgstr "Ansicht"
 
-#: lepg.py:907
-#, fuzzy
-#| msgid "Pre Processor"
+#: lepg.py:915
 msgid "Both Processors"
-msgstr "Pre Prozessor"
+msgstr "Beide Prozessoren"
 
-#: lepg.py:908
+#: lepg.py:916
 msgid "Setup locations for both processors"
 msgstr ""
 
-#: lepg.py:911
+#: lepg.py:919
 msgid "Update checking"
 msgstr ""
 
-#: lepg.py:912
+#: lepg.py:920
 msgid "Setup if and for which version to check for updates"
 msgstr ""
 
-#: lepg.py:917
+#: lepg.py:925
 msgid "Setup"
 msgstr "Einstellungen"
 
-#: lepg.py:918
+#: lepg.py:926
 msgid "Language"
 msgstr "Sprache"
 
-#: lepg.py:948
+#: lepg.py:956
 msgid "Switching language"
 msgstr "Anzeigesprache gewechselt"
 
-#: lepg.py:950
+#: lepg.py:958
 msgid "Please restart the application."
 msgstr "Bitte die Applikation neu starten."
 
-#: lepg.py:979
+#: lepg.py:987
+msgid "Online Help"
+msgstr "Online Hilfe"
+
+#: lepg.py:988
+msgid "Opens the online help in your browser"
+msgstr ""
+
+#: lepg.py:992
 msgid "About"
 msgstr ""
 
-#: lepg.py:980
+#: lepg.py:993
 msgid "Short info about the program"
 msgstr ""
 
-#: userHelp/_static/doctools.js:194
+#: userHelp/_static/doctools.js:199
 msgid "Permalink to this headline"
 msgstr ""
 
-#: userHelp/_static/doctools.js:200
+#: userHelp/_static/doctools.js:205
 msgid "Permalink to this definition"
 msgstr ""
 
-#: userHelp/_static/doctools.js:233
+#: userHelp/_static/doctools.js:238
 msgid "Hide Search Matches"
 msgstr ""
 
@@ -2802,6 +2838,21 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#~ msgid "s1 [%]"
+#~ msgstr "s1 [\\u0025]"
+
+#~ msgid "s2 [%]"
+#~ msgstr "s2 [\\u0025]"
+
+#~ msgid "s3 [%]"
+#~ msgstr "s3 [\\u0025]"
+
+#~ msgid "s4 [%]"
+#~ msgstr "s4 [\\u0025]"
+
+#~ msgid "s5 [%]"
+#~ msgstr "s5 [\\u0025]"
 
 #, fuzzy
 #~| msgid "PreProc-vault2_r_desc"

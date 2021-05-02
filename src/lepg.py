@@ -2,14 +2,16 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 '''
-
+import os
 from os import path
+import webbrowser
 
 import gettext
 import logging.config
 import sys
 from packaging import version
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QMenu
 
@@ -140,8 +142,15 @@ class MainWindow(QMainWindow):
                 
                 if version.parse(remoteVersion) > version.parse(__version__):
                     msgBox = QMessageBox()
+                    msgBox.setTextFormat(Qt.RichText)
                     msgBox.setWindowTitle(_('Newer version found'))
-                    msgBox.setText(_('Current Version: '+str(__version__)+ '\nVersion on remote: '+str(remoteVersion)+'\nMaybe you should consider an update from\nhttps://github.com/stefanino-ch/lepg-py'))
+                    msgBox.setText(_('Current Version: ')+str(__version__)+('<br>')+\
+                                      _('Version on remote: ')+str(remoteVersion)+('<br>')+\
+                                      _('Maybe you should consider an update from')+('<br>')+\
+                                      ('<a href="https://github.com/stefanino-ch/lepg-py/tree/stable/distribution">Github.com</a>')+('<br>')+('<br>')+\
+                                      _('More info about the different versions you will find in the <br>online help: Help-> Online Help')+('<br>')+('<br>')+
+                                      _('Or in Settings-> Update checking') )
+                    #msgBox.setText(_('<a href="https://github.com">link text</a>'))
                     msgBox.setIcon(QMessageBox.Information)
                     msgBox.setStandardButtons(QMessageBox.Ok)
                     msgBox.exec()
@@ -149,7 +158,6 @@ class MainWindow(QMainWindow):
                 logging.error(self.__className + 'Unable to get the update information.\n')
                 logging.error(self.__className + 'Error information: '+versChk.getErrorInfo()+'\n')
         else: 
-            print('update check disabled by config file\n')
             logging.debug(self.__className + ' Update check disabled in config file.\n')
         
    
@@ -976,13 +984,28 @@ class MainWindow(QMainWindow):
         '''
         :method: Builds the Help Menu
         '''
+        onlineHelpAct = QAction(_('Online Help'), self)
+        onlineHelpAct.setStatusTip(_('Opens the online help in your browser'))
+        onlineHelpAct.triggered.connect(self.onlineHelp)
+        
+        
         helpAboutAct = QAction(_('About'), self)
         helpAboutAct.setStatusTip(_('Short info about the program'))
         helpAboutAct.triggered.connect(self.helpAbout)
         
         # Build the menu
         fileMenu = self.mainMenu.addMenu(_('Help'))
+        fileMenu.addAction(onlineHelpAct)
         fileMenu.addAction(helpAboutAct)
+        
+    def onlineHelp(self):
+        '''
+        :method: Opens the online help in the browser
+        '''
+        # webbrowser.open( os.path.join(os.getcwd(), 'userHelp/contents.html' ) )
+        
+        config = ConfigReader()
+        webbrowser.open( os.path.join(os.getcwd(), 'userHelp', config.getLanguage(), 'introduction.html') )
         
     def helpAbout(self):
         '''

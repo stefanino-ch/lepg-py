@@ -1939,8 +1939,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [% Chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [% Chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [\u0025 Chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [\u0025 Chord]"))
         
         def updateRow(self, configNum, orderNum, xCoord, yCoord):
             '''
@@ -2486,11 +2486,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
-            self.setHeaderData(0, Qt.Horizontal, _("s1 [%]"))
-            self.setHeaderData(1, Qt.Horizontal, _("s2 [%]"))
-            self.setHeaderData(2, Qt.Horizontal, _("s3 [%]"))
-            self.setHeaderData(3, Qt.Horizontal, _("s4 [%]"))
-            self.setHeaderData(4, Qt.Horizontal, _("s5 [%]"))
+            self.setHeaderData(0, Qt.Horizontal, _("s1 [\u0025]"))
+            self.setHeaderData(1, Qt.Horizontal, _("s2 [\u0025]"))
+            self.setHeaderData(2, Qt.Horizontal, _("s3 [\u0025]"))
+            self.setHeaderData(3, Qt.Horizontal, _("s4 [\u0025]"))
+            self.setHeaderData(4, Qt.Horizontal, _("s5 [\u0025]"))
             self.setHeaderData(5, Qt.Horizontal, _("d1 [cm]"))
             self.setHeaderData(6, Qt.Horizontal, _("d2 [cm]"))
             self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
@@ -2577,12 +2577,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setNumRowsForConfig(1,1)
                     
             self.setHeaderData(1, Qt.Horizontal, _("Num Risers"))
-            self.setHeaderData(2, Qt.Horizontal, _("Pos R. A [%]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Pos R. B [%]"))
-            self.setHeaderData(4, Qt.Horizontal, _("Pos R. C [%]"))
-            self.setHeaderData(5, Qt.Horizontal, _("Pos R. D [%]"))
-            self.setHeaderData(6, Qt.Horizontal, _("Pos R. E [%]"))
-            self.setHeaderData(7, Qt.Horizontal, _("Pos R. F [%]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Pos R. A [\u0025]"))
+            self.setHeaderData(3, Qt.Horizontal, _("Pos R. B [\u0025]"))
+            self.setHeaderData(4, Qt.Horizontal, _("Pos R. C [\u0025]"))
+            self.setHeaderData(5, Qt.Horizontal, _("Pos R. D [\u0025]"))
+            self.setHeaderData(6, Qt.Horizontal, _("Pos R. E [\u0025]"))
+            self.setHeaderData(7, Qt.Horizontal, _("Pos R. F [\u0025]"))
             self.setHeaderData(8, Qt.Horizontal, _("Max neg ang [deg]"))
             self.setHeaderData(9, Qt.Horizontal, _("Num pos steps"))
             self.setHeaderData(10, Qt.Horizontal, _("Max pos ang [deg]"))
@@ -3111,7 +3111,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [% chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [\u0025  chord]"))
         
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className+'.updateRow')
@@ -3198,8 +3198,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
             self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [%chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Calage [%chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [\u0025 chord]"))
+            self.setHeaderData(2, Qt.Horizontal, _("Calage [\u0025 chord]"))
             self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
             self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
             self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
@@ -3606,7 +3606,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [% chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [\u0025 chord]"))
         
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className+'.updateRow')
@@ -4003,13 +4003,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         LightTypCol = 1 
         ''':attr: num of column for 1..3: hole type info'''
         DistLECol = 2
-        ''':attr: num of column for 1..3: distance from LE to hole center in% chord '''
+        ''':attr: num of column for 1..3: distance from LE to hole center in % chord '''
         DisChordCol = 3
-        ''':attr: num of column for 1..3: distance from the center of hole to the chord line in% of chord'''
+        ''':attr: num of column for 1..3: distance from the center of hole to the chord line in % of chord'''
         HorAxisCol = 4
-        ''':attr: num of column for 1..2: horizontal axis of the ellipse as% of chord; 3: traingle base as% of chord'''
+        ''':attr: num of column for 1..2: horizontal axis of the ellipse as % of chord; 3: traingle base as % of chord'''
         VertAxisCol = 5
-        ''':attr: num of column for 1..2: ellipse vertical axis as% of chord; 3: triangle heigth as% of chord'''
+        ''':attr: num of column for 1..2: ellipse vertical axis as % of chord; 3: triangle heigth as % of chord'''
         RotAngleCol = 6
         ''':attr: num of column 1..3:  for rotation angle of the ellipse'''
         Opt1Col = 7
@@ -4598,13 +4598,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         OrderNumCol = 0 
         ''':attr: num of column for ordering the individual lines of a config'''
         TopDistLECol = 1
-        ''':attr: Distance in% of chord on the leading edge of extrados'''
+        ''':attr: Distance in % of chord on the leading edge of extrados'''
         TopWideCol = 2
         ''':attr: Extrados over-wide corresponding in % of chord'''
         BottDistTECol = 3
-        ''':attr: Distance in% of chord on trailing edge'''
+        ''':attr: Distance in % of chord on trailing edge'''
         BottWideCol = 4
-        ''':attr: Intrados over-wide corresponding in% of chord'''
+        ''':attr: Intrados over-wide corresponding in % of chord'''
         ConfigNumCol = 5
         ''':attr: number of the column holding the config number'''
         
@@ -4755,12 +4755,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-            self.setHeaderData(3, Qt.Horizontal, _("X1 [%chord"))
-            self.setHeaderData(4, Qt.Horizontal, _("U1 [%chord"))
-            self.setHeaderData(5, Qt.Horizontal, _("U2 [%chord"))
-            self.setHeaderData(6, Qt.Horizontal, _("X2 [%chord"))
-            self.setHeaderData(7, Qt.Horizontal, _("V1 [%chord"))
-            self.setHeaderData(8, Qt.Horizontal, _("V2 [%chord"))
+            self.setHeaderData(3, Qt.Horizontal, _("X1 [\u0025 chord"))
+            self.setHeaderData(4, Qt.Horizontal, _("U1 [\u0025 chord"))
+            self.setHeaderData(5, Qt.Horizontal, _("U2 [\u0025 chord"))
+            self.setHeaderData(6, Qt.Horizontal, _("X2 [\u0025 chord"))
+            self.setHeaderData(7, Qt.Horizontal, _("V1 [\u0025 chord"))
+            self.setHeaderData(8, Qt.Horizontal, _("V2 [\u0025 chord"))
             
         def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
             '''
@@ -5043,13 +5043,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         
         TopDistLECol = 0
-        ''':attr: Distance in% of chord on the leading edge of extrados'''
+        ''':attr: Distance in % of chord on the leading edge of extrados'''
         TopWideCol = 1
         ''':attr: Extrados over-wide corresponding in % of chord'''
         BottDistTECol = 2
-        ''':attr: Distance in% of chord on trailing edge'''
+        ''':attr: Distance in % of chord on trailing edge'''
         BottWideCol = 3
-        ''':attr: Intrados over-wide corresponding in% of chord'''
+        ''':attr: Intrados over-wide corresponding in % of chord'''
         
         def createTable(self):
             '''
@@ -5641,8 +5641,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P [%chord]"))                    
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P [%chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P [\u0025 chord]"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P [\u0025 chord]"))
             self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
@@ -5737,8 +5737,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P [%chord]"))                    
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P [%chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P [\u0025 chord]"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P [\u0025 chord]"))
             self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
