@@ -91,6 +91,27 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basisdaten</a><ul>
+<li><a class="reference internal" href="#zeichnungsmassstab">Zeichnungsmassstab</a></li>
+<li><a class="reference internal" href="#flugelmassstab">Flügelmassstab</a></li>
+<li><a class="reference internal" href="#anzahl-zellen-und-rippen">Anzahl Zellen und Rippen</a></li>
+<li><a class="reference internal" href="#max-flugelverwindung">Max Flügelverwindung</a><ul>
+<li><a class="reference internal" href="#alpha-max-flugelende">Alpha max Flügelende</a></li>
+<li><a class="reference internal" href="#alpha-mode">Alpha mode</a></li>
+<li><a class="reference internal" href="#alpha-max-zentr">Alpha max zentr</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flugel-typ-and-parameter">Flügel Typ and Parameter</a><ul>
+<li><a class="reference internal" href="#flugel-typ">Flügel Typ</a></li>
+<li><a class="reference internal" href="#flugel-parameter">Flügel Parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../preproc/cellDistribution.html"
                         title="previous chapter">Pre-Prozessor Zellverteilung</a></p>
@@ -120,7 +141,7 @@
 <div class="section" id="basisdaten">
 <h1>Basisdaten<a class="headerlink" href="#basisdaten" title="Permalink to this headline">¶</a></h1>
 <p>Im Fenster Basisdaten wird ein Teil der Parameter aus dem ersten Abschnitt der Datendatei editiert.</p>
-<a class="reference internal image-reference" href="../../_images/basicData-de.png"><img alt="../../_images/basicData-de.png" src="../../_images/basicData-de.png" style="width: 375px; height: 258px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicData-de.png"><img alt="../../_images/basicData-de.png" src="../../_images/basicData-de.png" style="width: 351px; height: 337px;" /></a>
 <p>Rohdaten:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**************************************************************</span>
 <span class="o">*</span>             <span class="mf">1.</span> <span class="n">GEOMETRY</span>                                    <span class="o">*</span>
@@ -134,19 +155,67 @@
 <span class="o">*</span> <span class="n">Wing</span> <span class="n">scale</span>
 <span class="mf">1.</span>
 <span class="o">*</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">cells</span>
-        <span class="mi">27</span>
+  <span class="mi">27</span>
 <span class="o">*</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">ribs</span>
-        <span class="mi">28</span>
+  <span class="mi">28</span>
+<span class="o">*</span> <span class="n">Alpha</span> <span class="nb">max</span> <span class="ow">and</span> <span class="n">parameter</span>
+        <span class="mf">4.5</span>     <span class="mi">1</span>
+<span class="o">*</span> <span class="n">Paraglider</span> <span class="nb">type</span> <span class="ow">and</span> <span class="n">parameter</span>
+  <span class="s2">&quot;ds&quot;</span>  <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Ein Zeichnungsmasstab von 1 bedeutet dass die Zeichnung im Masstab 1:1 ausgegeben werden.</p>
-<p>Mit dem Flügelmasstab kann das gesamte Design verkleinert oder vergrössert werden ohne dass
-man die einzelnen Parameter anpassen muss. Ein Flügelmasstab von 1 bedeutet dass das Desing
+<div class="section" id="zeichnungsmassstab">
+<h2>Zeichnungsmassstab<a class="headerlink" href="#zeichnungsmassstab" title="Permalink to this headline">¶</a></h2>
+<p>Ein Zeichnungsmassstab von 1 bedeutet dass die Zeichnung im Masstab 1:1 ausgegeben werden.</p>
+</div>
+<div class="section" id="flugelmassstab">
+<h2>Flügelmassstab<a class="headerlink" href="#flugelmassstab" title="Permalink to this headline">¶</a></h2>
+<p>Mit dem Flügelmassstab kann das gesamte Design verkleinert oder vergrössert werden ohne dass
+man die einzelnen Parameter anpassen muss. Ein Flügelmassstab von 1 bedeutet dass das Desing
 mit den Originalwerten wie in lepg angegeben übernommen wird.</p>
+</div>
+<div class="section" id="anzahl-zellen-und-rippen">
+<h2>Anzahl Zellen und Rippen<a class="headerlink" href="#anzahl-zellen-und-rippen" title="Permalink to this headline">¶</a></h2>
 <p>Zwischen Anzahl Zellen und Rippen gibt es eine direkte Beziehung. Bei Werten welche so nicht sein können, werden die Eingabefelder rot umrandet.</p>
-<a class="reference internal image-reference" href="../../_images/basicDataError-de.png"><img alt="../../_images/basicDataError-de.png" src="../../_images/basicDataError-de.png" style="width: 375px; height: 258px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicDataError-de.png"><img alt="../../_images/basicDataError-de.png" src="../../_images/basicDataError-de.png" style="width: 351px; height: 337px;" /></a>
 <p>Abhängig von der hier konfigurierten Anzahl Rippen gibt es weitere Fenster welche angepasst werden, z.B. Geometrie und Ankerpunkte.</p>
+<p>Die maximale Anzahl Rippen ist 100 pro Seite. (200 Rippen total oder 199 Zellen)</p>
+</div>
+<div class="section" id="max-flugelverwindung">
+<h2>Max Flügelverwindung<a class="headerlink" href="#max-flugelverwindung" title="Permalink to this headline">¶</a></h2>
+<p>Definiert die Verwindung zwischen der zentralen Zelle und den Flügelenden.</p>
+<div class="section" id="alpha-max-flugelende">
+<h3>Alpha max Flügelende<a class="headerlink" href="#alpha-max-flugelende" title="Permalink to this headline">¶</a></h3>
+<p>Definiert den Verwindungswinkel am Flügelende.</p>
+</div>
+<div class="section" id="alpha-mode">
+<h3>Alpha mode<a class="headerlink" href="#alpha-mode" title="Permalink to this headline">¶</a></h3>
+<p><strong>“0”</strong> die Definition der Verwindung wird manuell gemacht, wie im Beispuelbild unten aufgezeigt</p>
+<p><strong>“1”</strong> die Verwindung wird proportional zur Flügeltiefe gemacht. Am Flügelende ist die Verwindung maximal und wird als positiver Winkel mit dem ersten Parameter definiert.</p>
+<p><strong>“2”</strong> die Verwindung wird automatisch von der zentralen Zelle zum Flügelende berechnte. Wenn der Parameter “2” gesetzt wird, dann muss im letzten Parameter der Alpha Winkel für die zentrale Zelle definiert werden.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" style="width: 400px; height: 373px;" /></a>
+</div>
+<div class="section" id="alpha-max-zentr">
+<h3>Alpha max zentr<a class="headerlink" href="#alpha-max-zentr" title="Permalink to this headline">¶</a></h3>
+<p>Wenn der Alpha mode auf “2” gesetzt wird dann Zelle definiert werden.</p>
+</div>
+</div>
+<div class="section" id="flugel-typ-and-parameter">
+<h2>Flügel Typ and Parameter<a class="headerlink" href="#flugel-typ-and-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flugel-typ">
+<h3>Flügel Typ<a class="headerlink" href="#flugel-typ" title="Permalink to this headline">¶</a></h3>
+<p><strong>“ds”</strong> Design und Kalkulation wird angepasst für die Definition von Paraglidern und Fallschirmen mit Ober- und Untersegel</p>
+<p><strong>“ss”</strong> Design und Kalkulation wird angepasst für Single Skin Paraglider und Fallschirme. Wird dieser Wert gesetzt, gilt es noch weitere Punkte zu beachten. So muss zum Beispiel bei der Definition der Eintrittskante darauf geachtet werden dass diese genau dort platziert wird wo der erste Aufhängepunkt definiert wird. Die Abdeckungen der Einlassöffnungen sind demzufolge Teil des Single Skin Profils.</p>
+<p><strong>“pc”</strong> Design und Kalkulation wird angepasst für die Definition von Fallschirmen mit Ober- und Untersegel.</p>
+</div>
+<div class="section" id="flugel-parameter">
+<h3>Flügel Parameter<a class="headerlink" href="#flugel-parameter" title="Permalink to this headline">¶</a></h3>
+<p><strong>“0”</strong> Die Aufhängungsdreiecke in der Flügelnase werden für bessere Positionierung rotiert. Der Parameter wird nur bei “ss” Flügeln ausgewertet.</p>
+<p><strong>“1”</strong> Die Aufhängungsdreiecke in der Flügelnase werden nicht rotiert. Der Parameter wird nur bei “ss” Flügeln ausgewertet.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" style="width: 403px; height: 240px;" /></a>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.1" target="_blank">Laboratori d'envol website</a>.</p>
+</div>
+</div>
 </div>
 
 

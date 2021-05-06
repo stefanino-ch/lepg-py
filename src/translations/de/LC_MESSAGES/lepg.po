@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-02 12:00+0200\n"
-"PO-Revision-Date: 2021-05-02 12:36+0200\n"
+"POT-Creation-Date: 2021-05-06 11:24+0200\n"
+"PO-Revision-Date: 2021-05-06 13:39+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -73,11 +73,12 @@ msgstr "Koeff"
 msgid "Width"
 msgstr "Breite"
 
-#: DataStores/PreProcessorModel.py:525 Windows/PreProcCellsDistribution.py:88
+#: DataStores/PreProcessorModel.py:525 DataStores/ProcessorModel.py:6120
+#: Windows/PreProcCellsDistribution.py:88
 msgid "Num cells"
 msgstr "Anz. Zellen"
 
-#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6115
+#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6117
 msgid "Wing name"
 msgstr "Flügelname"
 
@@ -215,16 +216,12 @@ msgid "Order Num"
 msgstr "Sortierung"
 
 #: DataStores/ProcessorModel.py:1942
-#, fuzzy
-#| msgid "X-Coordinate [% Chord]"
 msgid "X-Coordinate [\\u0025 Chord]"
-msgstr "X-Koord [\\u0025 Flügelt.]"
+msgstr "X-Koord [\\u0025 Flügelt]"
 
 #: DataStores/ProcessorModel.py:1943
-#, fuzzy
-#| msgid "Y-Coordinate [% Chord]"
 msgid "Y-Coordinate [\\u0025 Chord]"
-msgstr "Y-Koord [\\u0025 Flügelt.]"
+msgstr "Y-Koord [\\u0025 Flügelt]"
 
 #: DataStores/ProcessorModel.py:2046 DataStores/ProcessorModel.py:2241
 #: DataStores/ProcessorModel.py:4980
@@ -467,7 +464,7 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:3041 DataStores/ProcessorModel.py:3536
 #: DataStores/ProcessorModel.py:3732 DataStores/ProcessorModel.py:4548
-#: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5551
+#: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5553
 msgid "First Rib"
 msgstr "1. Rippe"
 
@@ -554,7 +551,7 @@ msgid "Dist TE [\\u0025 chord]"
 msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:3733 DataStores/ProcessorModel.py:4549
-#: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5552
+#: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5554
 msgid "Last Rib"
 msgstr "Letzte Rippe"
 
@@ -688,19 +685,19 @@ msgstr ""
 msgid "Form 2 2nd param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4640 DataStores/ProcessorModel.py:5081
+#: DataStores/ProcessorModel.py:4640 DataStores/ProcessorModel.py:5083
 msgid "Top dist LE"
 msgstr "Obere Dist. Eintrittsk."
 
-#: DataStores/ProcessorModel.py:4641 DataStores/ProcessorModel.py:5082
+#: DataStores/ProcessorModel.py:4641 DataStores/ProcessorModel.py:5084
 msgid "Top widening"
 msgstr "Obere Verbr."
 
-#: DataStores/ProcessorModel.py:4642 DataStores/ProcessorModel.py:5083
+#: DataStores/ProcessorModel.py:4642 DataStores/ProcessorModel.py:5085
 msgid "Bott dist TE"
 msgstr "Untere Dist Austrittsk. "
 
-#: DataStores/ProcessorModel.py:4643 DataStores/ProcessorModel.py:5084
+#: DataStores/ProcessorModel.py:4643 DataStores/ProcessorModel.py:5086
 msgid "Bott widening"
 msgstr "Untere Verbr."
 
@@ -752,111 +749,111 @@ msgstr "3. Ebene zu  Segel [cm]"
 msgid "Fourth to sail [cm]"
 msgstr "4. Ebene zu  Segel [cm]"
 
-#: DataStores/ProcessorModel.py:5221
+#: DataStores/ProcessorModel.py:4981
+msgid "RP"
+msgstr "rot Pt"
+
+#: DataStores/ProcessorModel.py:4982
+msgid "Washin"
+msgstr "Verwindung"
+
+#: DataStores/ProcessorModel.py:5223
 msgid "Edge seem [mm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5222
+#: DataStores/ProcessorModel.py:5224
 msgid "LE seem [mm]"
 msgstr "Saum Eintrittsk. [mm]"
 
-#: DataStores/ProcessorModel.py:5223
+#: DataStores/ProcessorModel.py:5225
 msgid "TE seem [mm]"
 msgstr "Saum Austrittsk. [mm]"
 
-#: DataStores/ProcessorModel.py:5294
+#: DataStores/ProcessorModel.py:5296
 msgid "LE Angle [deg]"
 msgstr "Winkel Eintrittsk. [Grad]"
 
-#: DataStores/ProcessorModel.py:5295
+#: DataStores/ProcessorModel.py:5297
 msgid "TE Angle [deg]"
 msgstr "Winkel Austrittsk. [Grad]"
 
-#: DataStores/ProcessorModel.py:5419 DataStores/ProcessorModel.py:5942
+#: DataStores/ProcessorModel.py:5421 DataStores/ProcessorModel.py:5944
 msgid "Line Name"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5420
+#: DataStores/ProcessorModel.py:5422
 msgid "Unifilar"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5421 DataStores/ProcessorModel.py:5943
+#: DataStores/ProcessorModel.py:5423 DataStores/ProcessorModel.py:5945
 msgid "Color code"
 msgstr "Farbcode"
 
-#: DataStores/ProcessorModel.py:5422 DataStores/ProcessorModel.py:5944
+#: DataStores/ProcessorModel.py:5424 DataStores/ProcessorModel.py:5946
 msgid "Color name (opt)"
 msgstr "Farbname [opt]"
 
-#: DataStores/ProcessorModel.py:5644 DataStores/ProcessorModel.py:5740
+#: DataStores/ProcessorModel.py:5646 DataStores/ProcessorModel.py:5742
 msgid "Ini P [\\u0025 chord]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5645 DataStores/ProcessorModel.py:5741
+#: DataStores/ProcessorModel.py:5647 DataStores/ProcessorModel.py:5743
 msgid "Cut P [\\u0025 chord]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5646 DataStores/ProcessorModel.py:5742
+#: DataStores/ProcessorModel.py:5648 DataStores/ProcessorModel.py:5744
 msgid "Depth [Coef]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6114
+#: DataStores/ProcessorModel.py:6116
 msgid "Brand name"
 msgstr "Herstellername"
 
-#: DataStores/ProcessorModel.py:6116
-msgid "Draw Scale"
+#: DataStores/ProcessorModel.py:6118
+msgid "Draw scale"
 msgstr "Zeichnungsmassstab"
 
-#: DataStores/ProcessorModel.py:6117
-msgid "Wing Scale"
+#: DataStores/ProcessorModel.py:6119
+msgid "Wing scale"
 msgstr "Flügel-Massstab"
 
-#: DataStores/ProcessorModel.py:6118
-msgid "Num Cells"
-msgstr "Anz. Zellen"
-
-#: DataStores/ProcessorModel.py:6119
+#: DataStores/ProcessorModel.py:6121
 msgid "Num Ribs"
 msgstr "Anzahl Rippen"
 
-#: DataStores/ProcessorModel.py:6120
-msgid "Alpha mode"
-msgstr ""
-
-#: DataStores/ProcessorModel.py:6121
-msgid "Alpha max cent"
-msgstr ""
-
 #: DataStores/ProcessorModel.py:6122
-msgid "Alpha maxTip"
-msgstr ""
+msgid "Alpha max tip"
+msgstr "Alpha max Flügelende"
 
 #: DataStores/ProcessorModel.py:6123
-#, fuzzy
-#| msgid "Param A"
-msgid "Para Type"
-msgstr "Param A"
+msgid "Alpha mode"
+msgstr "Alpha mode"
 
 #: DataStores/ProcessorModel.py:6124
-msgid "Para Param"
-msgstr ""
+msgid "Alpha max cent"
+msgstr "Alpha max zentr"
 
 #: DataStores/ProcessorModel.py:6125
+msgid "Para type"
+msgstr "Flügel Typ"
+
+#: DataStores/ProcessorModel.py:6126
+msgid "Para param"
+msgstr "Flügel Param"
+
+#: DataStores/ProcessorModel.py:6127
 msgid "Lines Conc Type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6126
-#, fuzzy
-#| msgid "Brake lenght [cm]"
+#: DataStores/ProcessorModel.py:6128
 msgid "Brake length"
 msgstr "Länge Bremsl. [cm]"
 
-#: DataStores/ProcessorModel.py:6127
+#: DataStores/ProcessorModel.py:6129
 msgid "x-Spacing"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6128
+#: DataStores/ProcessorModel.py:6130
 msgid "y-Spacing"
 msgstr ""
 
@@ -928,10 +925,8 @@ msgid "Airfoils"
 msgstr "Rippen"
 
 #: Windows/Airfoils.py:78 Windows/Geometry.py:80
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-RibNumDesc"
-msgstr "Flügelname"
+msgstr "Rippen Nummer"
 
 #: Windows/Airfoils.py:79
 #, fuzzy
@@ -973,7 +968,7 @@ msgstr ""
 
 #: Windows/Airfoils.py:96 Windows/AnchorPoints.py:93 Windows/Geometry.py:101
 msgid "Sort by Rib Number"
-msgstr ""
+msgstr "Nach Rippen Nr sortieren"
 
 #: Windows/AnchorPoints.py:70
 msgid "Anchor points"
@@ -1011,39 +1006,71 @@ msgstr ""
 msgid "AnchPoints-PosFDesc"
 msgstr ""
 
-#: Windows/BasicData.py:70
+#: Windows/BasicData.py:68
 msgid "Basic Data"
 msgstr "Basisdaten"
 
-#: Windows/BasicData.py:83
+#: Windows/BasicData.py:81
 msgid "Proc-BrandNameDesc"
 msgstr "Name des Herstellers oder Designers"
 
-#: Windows/BasicData.py:101
+#: Windows/BasicData.py:99
 msgid "Proc-WingNameDesc"
 msgstr "Name des Flügels"
 
-#: Windows/BasicData.py:120
+#: Windows/BasicData.py:118
 msgid "Proc-DrawScaleDesc"
 msgstr "Massstab der Zeichnung"
 
-#: Windows/BasicData.py:121
+#: Windows/BasicData.py:119
 msgid "Proc-WingScaleDesc"
 msgstr ""
 "Koeffizient zur Vergrösserung oder \n"
 "Verkleinerung des Designs"
 
-#: Windows/BasicData.py:140
+#: Windows/BasicData.py:138
 msgid "Proc-NumCellsDesc"
 msgstr ""
 "Definiert die Anzahl Zellen\n"
 "des Flügels"
 
-#: Windows/BasicData.py:141
+#: Windows/BasicData.py:139
 msgid "Proc-NumRibsDesc"
 msgstr ""
 "Definiert die Anzahl\n"
 "Rippen des Flügels"
+
+#: Windows/BasicData.py:158
+msgid "Proc-AlphaModeDesc"
+msgstr ""
+"0: manuelle Definition\n"
+"1: proportional to Flügeltiefe\n"
+"2: automatisch Zentrum-> Flügelende"
+
+#: Windows/BasicData.py:159
+msgid "Proc-AlphaMaxCentDesc"
+msgstr ""
+"Flügelverwindung in der\n"
+"Flügelmitte"
+
+#: Windows/BasicData.py:160
+msgid "Proc-AlphaMaxTipDesc"
+msgstr ""
+"Flügelverwindung am\n"
+"Flügelende"
+
+#: Windows/BasicData.py:181
+msgid "Proc-ParaTypeDesc"
+msgstr ""
+"ds: double skin\n"
+"ss: single skin\n"
+"pc: Fallschirm"
+
+#: Windows/BasicData.py:182
+msgid "Proc-ParaParamDesc"
+msgstr ""
+"0: Dreiecke in Eintrittskante werden rotiert\n"
+"1: Dreiecke in Eintrittskante werden nicht rotiert"
 
 #: Windows/Brakes.py:79
 msgid "Edit Brake lines"
@@ -1343,50 +1370,48 @@ msgid "Geometry"
 msgstr "Geometrie"
 
 #: Windows/Geometry.py:81
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-xribDesc"
-msgstr "Flügelname"
+msgstr ""
+"Distanz auf x-Achse\n"
+"des flach ausgelegten Flügels"
 
 #: Windows/Geometry.py:82
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "Proc-yLEDesc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Position Eintrittskante auf y Achse\n"
+"(Tiefe)"
 
 #: Windows/Geometry.py:83
-#, fuzzy
-#| msgid "PreProc-te_y0_desc"
 msgid "Proc-yTEDesc"
-msgstr "Flügeltiefenreduktion Austrittskante"
+msgstr ""
+"Position Austrittskante auf y Achse\n"
+"(Tiefe)"
 
 #: Windows/Geometry.py:84
-#, fuzzy
-#| msgid "PreProc-te_exp_desc"
 msgid "Proc-xpDesc"
-msgstr "_"
+msgstr ""
+"Definitive Distanz auf der x-Achse\n"
+"des gewölbten Flügels. "
 
 #: Windows/Geometry.py:85
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-zDesc"
-msgstr "Flügelname"
+msgstr ""
+"Position auf der z-Achse\n"
+"(Höhe)"
 
 #: Windows/Geometry.py:86
-#, fuzzy
-#| msgid "PreProc-le_a1_desc"
 msgid "Proc-betaDesc"
-msgstr "Ellipse der Eintrittskante"
+msgstr "Seitliche Neigung der Rippen"
 
 #: Windows/Geometry.py:87
 msgid "Proc-RPDesc"
 msgstr ""
+"Drehpunkt der Rippen\n"
+"für die Flügelverwindung"
 
 #: Windows/Geometry.py:88
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-WashinDesc"
-msgstr "Flügelname"
+msgstr "Winkel für die Flügelverwindung"
 
 #: Windows/GlobalAoA.py:65
 msgid "Global AoA"
@@ -2838,6 +2863,9 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#~ msgid "Num Cells"
+#~ msgstr "Anz. Zellen"
 
 #~ msgid "s1 [%]"
 #~ msgstr "s1 [\\u0025]"

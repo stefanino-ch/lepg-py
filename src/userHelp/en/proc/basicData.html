@@ -91,6 +91,27 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basic data</a><ul>
+<li><a class="reference internal" href="#drawing-scale">Drawing scale</a></li>
+<li><a class="reference internal" href="#wing-scale">Wing scale</a></li>
+<li><a class="reference internal" href="#number-of-cells-and-ribs">Number of cells and ribs</a></li>
+<li><a class="reference internal" href="#max-torsion-angle">Max torsion angle</a><ul>
+<li><a class="reference internal" href="#alpha-max-tip">Alpha max tip</a></li>
+<li><a class="reference internal" href="#alpha-mode">Alpha mode</a></li>
+<li><a class="reference internal" href="#alpha-max-cent">Alpha max cent</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#paraglider-type-and-parameter">Paraglider type and parameter</a><ul>
+<li><a class="reference internal" href="#para-type">Para type</a></li>
+<li><a class="reference internal" href="#para-parameter">Para parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../preproc/cellDistribution.html"
                         title="previous chapter">Pre-Processor cells distribution</a></p>
@@ -120,7 +141,7 @@
 <div class="section" id="basic-data">
 <h1>Basic data<a class="headerlink" href="#basic-data" title="Permalink to this headline">¶</a></h1>
 <p>In the Basic data window you can edit a subset of the parameters from the first section in the lep file.</p>
-<a class="reference internal image-reference" href="../../_images/basicData.png"><img alt="../../_images/basicData.png" src="../../_images/basicData.png" style="width: 375px; height: 258px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicData-en.png"><img alt="../../_images/basicData-en.png" src="../../_images/basicData-en.png" style="width: 351px; height: 337px;" /></a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**************************************************************</span>
 <span class="o">*</span>             <span class="mf">1.</span> <span class="n">GEOMETRY</span>                                    <span class="o">*</span>
@@ -134,18 +155,66 @@
 <span class="o">*</span> <span class="n">Wing</span> <span class="n">scale</span>
 <span class="mf">1.</span>
 <span class="o">*</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">cells</span>
-        <span class="mi">27</span>
+  <span class="mi">27</span>
 <span class="o">*</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">ribs</span>
-        <span class="mi">28</span>
+  <span class="mi">28</span>
+<span class="o">*</span> <span class="n">Alpha</span> <span class="nb">max</span> <span class="ow">and</span> <span class="n">parameter</span>
+        <span class="mf">4.5</span>     <span class="mi">1</span>
+<span class="o">*</span> <span class="n">Paraglider</span> <span class="nb">type</span> <span class="ow">and</span> <span class="n">parameter</span>
+  <span class="s2">&quot;ds&quot;</span>  <span class="mi">1</span>
 </pre></div>
 </div>
+<div class="section" id="drawing-scale">
+<h2>Drawing scale<a class="headerlink" href="#drawing-scale" title="Permalink to this headline">¶</a></h2>
 <p>A drawing scale of 1 means that the drawings will be created in a scale of 1:1.</p>
+</div>
+<div class="section" id="wing-scale">
+<h2>Wing scale<a class="headerlink" href="#wing-scale" title="Permalink to this headline">¶</a></h2>
 <p>With the wing scale you can scale the whole design in once without chaning every single parameter.
 A Wing scale of 1 means that the whole design is created with the original values as edited in the GUI.</p>
+</div>
+<div class="section" id="number-of-cells-and-ribs">
+<h2>Number of cells and ribs<a class="headerlink" href="#number-of-cells-and-ribs" title="Permalink to this headline">¶</a></h2>
 <p>There’s a direct connection between the number of ribs and cells. If there are values which can not be achieved pyhisically the input fields will be marked in red.</p>
-<a class="reference internal image-reference" href="../../_images/basicDataError-de.png"><img alt="../../_images/basicDataError-de.png" src="../../_images/basicDataError-de.png" style="width: 375px; height: 258px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicDataError-en.png"><img alt="../../_images/basicDataError-en.png" src="../../_images/basicDataError-en.png" style="width: 351px; height: 337px;" /></a>
 <p>Depending of the setting for the ribs other windows (e.g. Geometry and Anchor points) will be adapted as well.</p>
+<p>Maximun allowed number of ribs is 100 per side (200 ribs or 199 cells).</p>
+</div>
+<div class="section" id="max-torsion-angle">
+<h2>Max torsion angle<a class="headerlink" href="#max-torsion-angle" title="Permalink to this headline">¶</a></h2>
+<p>Maximum torsion angle (washin) between central airfoil and tips.</p>
+<div class="section" id="alpha-max-tip">
+<h3>Alpha max tip<a class="headerlink" href="#alpha-max-tip" title="Permalink to this headline">¶</a></h3>
+<p>Defines the max torsion angle in the wing tip.</p>
+</div>
+<div class="section" id="alpha-mode">
+<h3>Alpha mode<a class="headerlink" href="#alpha-mode" title="Permalink to this headline">¶</a></h3>
+<p><strong>“0”</strong> the washin will be done manually as shown in the figure below</p>
+<p><strong>“1”</strong> then washin will be done proportinal to the chord, being maximun and positive at the tip, based on the first parameter.</p>
+<p><strong>“2”</strong> then automatic washin angles are set from center airfoil to wingtip. If you set “2” then you have to define a 3rd parameter the washin in the central airfoil must be defined additionally.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" style="width: 400px; height: 373px;" /></a>
+</div>
+<div class="section" id="alpha-max-cent">
+<h3>Alpha max cent<a class="headerlink" href="#alpha-max-cent" title="Permalink to this headline">¶</a></h3>
+<p>If Alpha mode ist set to “2” then you must define in here the wasin angle for the central airfoil.</p>
+</div>
+</div>
+<div class="section" id="paraglider-type-and-parameter">
+<h2>Paraglider type and parameter<a class="headerlink" href="#paraglider-type-and-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="para-type">
+<h3>Para type<a class="headerlink" href="#para-type" title="Permalink to this headline">¶</a></h3>
+<p><strong>“ds”</strong> the design and calculation parameters are adjusted to create paragliders and parachute of double surface airfoils (intrados and extrados)</p>
+<p><strong>“ss”</strong> the design and calculation parameters are adjusted to create single skin paragliders and parachutes, surfaces corresponding to the intrados are not draw. But it is not enough to indicate this parameter to create single skin paraglider. It is necessary to define an special intrados sawtooth profile (or parabolic shaped), so that the vertices of the triangles are located exactly at the point where is defined the anchor points. As a general rule, we use covers of the air intakes, as part of the sigle skin profile.</p>
+<p><strong>“pc”</strong> the design and calculation parameters are adjusted to create parachutes using double surface airfoils (intrados and extrados).</p>
+</div>
+<div class="section" id="para-parameter">
+<h3>Para parameter<a class="headerlink" href="#para-parameter" title="Permalink to this headline">¶</a></h3>
+<p><strong>“0”</strong> leading edge triangles will be rotated. This parameter applies to “ss” wings only.</p>
+<p><strong>“1”</strong> leading edge triangles will be not rotated. This parameter applies to “ss” wings only.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" style="width: 403px; height: 240px;" /></a>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.1" target="_blank">Laboratori d'envol website</a>.</p>
+</div>
+</div>
 </div>
 
 

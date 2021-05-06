@@ -1,6 +1,6 @@
 # lepg-py
 
-latestVersion = '3.15.33'
+latestVersion = '3.15.34'
 
 ## English
 
