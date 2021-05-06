@@ -3,12 +3,10 @@
 :License: General Public License GNU GPL 3.0
 '''
 import logging
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QStandardItemModel, QBrush
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QDataWidgetMapper,\
-    QVBoxLayout, QHeaderView, QHBoxLayout
+
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,  QVBoxLayout, QHeaderView, QHBoxLayout
 from Windows.TableView import TableView
-from Windows.LineEdit import LineEdit
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
@@ -130,7 +128,7 @@ class BasicData(QMdiSubWindow):
         
         for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.WingScaleCol+1 ):
             self.numbers_T.hideColumn(i)
-        for i in range (ProcessorModel.WingModel.AlphaModeCol, self.wing_M.columnCount() ):
+        for i in range (ProcessorModel.WingModel.AlphaMaxTipCol, self.wing_M.columnCount() ):
             self.numbers_T.hideColumn(i)
         self.numbers_T.verticalHeader().setVisible(False)
         self.numbers_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -143,6 +141,50 @@ class BasicData(QMdiSubWindow):
         self.numbers_T.enableIntValidator(ProcessorModel.WingModel.NumCellsCol, ProcessorModel.WingModel.NumRibsCol, 1, 999)
        
         self.window_Ly.addWidget(self.numbers_T)
+
+        # alpha max and param
+        self.alpha_T = TableView()
+        self.alpha_T.setModel( self.wing_M )
+        
+        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.NumRibsCol+1 ):
+            self.alpha_T.hideColumn(i)
+        for i in range (ProcessorModel.WingModel.ParaTypeCol, self.wing_M.columnCount() ):
+            self.alpha_T.hideColumn(i)
+        self.alpha_T.verticalHeader().setVisible(False)
+        self.alpha_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.alpha_T.setFixedHeight(2 + self.alpha_T.horizontalHeader().height() + self.alpha_T.rowHeight(0))
+        
+        self.alpha_T.setHelpBar(self.helpBar)
+        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaModeCol, _('Proc-AlphaModeDesc'))
+        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaMaxCentCol, _('Proc-AlphaMaxCentDesc'))
+        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaMaxTipCol, _('Proc-AlphaMaxTipDesc'))
+        
+        self.alpha_T.enableDoubleValidator(ProcessorModel.WingModel.AlphaMaxTipCol, ProcessorModel.WingModel.AlphaMaxTipCol, -10, -10, 1)
+        self.alpha_T.enableIntValidator(ProcessorModel.WingModel.AlphaModeCol, ProcessorModel.WingModel.ParaParamCol, 0, 2)
+        self.alpha_T.enableDoubleValidator(ProcessorModel.WingModel.AlphaMaxCentCol, ProcessorModel.WingModel.AlphaMaxCentCol, -10, -10, 1)
+        
+        self.window_Ly.addWidget(self.alpha_T)
+        
+        # para type and param
+        self.type_T = TableView()
+        self.type_T.setModel( self.wing_M )
+        
+        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.AlphaMaxCentCol+1 ):
+            self.type_T.hideColumn(i)
+        for i in range (ProcessorModel.WingModel.LinesConcTypeCol, self.wing_M.columnCount() ):
+            self.type_T.hideColumn(i)
+        self.type_T.verticalHeader().setVisible(False)
+        self.type_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.type_T.setFixedHeight(2 + self.type_T.horizontalHeader().height() + self.type_T.rowHeight(0))
+        
+        self.type_T.setHelpBar(self.helpBar)
+        self.type_T.setHelpText(ProcessorModel.WingModel.ParaTypeCol, _('Proc-ParaTypeDesc'))
+        self.type_T.setHelpText(ProcessorModel.WingModel.ParaParamCol, _('Proc-ParaParamDesc'))
+        
+        self.type_T.enableRegExpValidator(ProcessorModel.WingModel.ParaTypeCol, ProcessorModel.WingModel.ParaTypeCol, "(.|\s)*\S(.|\s)*")
+        self.type_T.enableIntValidator(ProcessorModel.WingModel.ParaParamCol, ProcessorModel.WingModel.ParaParamCol, 0, 1)
+       
+        self.window_Ly.addWidget(self.type_T)
                    
         #############################
         # Commons for all windows
