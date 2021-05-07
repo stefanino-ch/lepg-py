@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 11:24+0200\n"
-"PO-Revision-Date: 2021-05-06 13:39+0200\n"
+"PO-Revision-Date: 2021-05-07 09:59+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -246,7 +246,7 @@ msgstr "Offen/ geschl."
 
 #: DataStores/ProcessorModel.py:2051
 msgid "Displac"
-msgstr "Versatz"
+msgstr "vert Versatz"
 
 #: DataStores/ProcessorModel.py:2052
 msgid "Rel weight"
@@ -922,49 +922,55 @@ msgstr ""
 
 #: Windows/Airfoils.py:70 lepg.py:336
 msgid "Airfoils"
-msgstr "Rippen"
+msgstr "Zellen"
 
 #: Windows/Airfoils.py:78 Windows/Geometry.py:80
 msgid "Proc-RibNumDesc"
 msgstr "Rippen Nummer"
 
 #: Windows/Airfoils.py:79
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-AirfoilNameDesc"
-msgstr "Flügelname"
+msgstr ""
+"Name der Datei in welcher das Profil der Rippe gespeichert ist.\n"
+"Die Datei muss vor dem Start des Prozessors in dasselbe\n"
+"Verzeichnis in dem auch der Prozessor gespeichert ist\n"
+"gespeichert werden. "
 
 #: Windows/Airfoils.py:80
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeStartDesc"
-msgstr "Flügelname"
+msgstr "Start der Einlassöffnung [% chord]"
 
 #: Windows/Airfoils.py:81
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeEnDesc"
-msgstr "Flügelname"
+msgstr "Ende der Einlassöffnung [% chord]"
 
 #: Windows/Airfoils.py:82
 msgid "Proc-OpenCloseDesc"
 msgstr ""
+"Definiert die Form der Zelle zur Linken der Rippe\n"
+"\"0\" geschlossene Zelle\n"
+"\"1\" offene Zelle"
 
 #: Windows/Airfoils.py:83
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-DisplacDesc"
-msgstr "Flügelname"
+msgstr ""
+"Vertikale Verschiebung der Rippe in [cm]\n"
+"Der Wert ist normalerweise 0"
 
 #: Windows/Airfoils.py:84
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-RelWeightDesc"
-msgstr "Flügelname"
+msgstr ""
+"Relatives Gewicht im Vergleich zur Belastung\n"
+"Der Wert ist normalerweise 1"
 
 #: Windows/Airfoils.py:85
 msgid "Proc-rrwDesc"
 msgstr ""
+"Bei Single Skin Flügeln:\n"
+"\"0\" Dreiecke werden nicht rotiert\n"
+"\"1\" Dreiecke werden korrespondieren zum Profil rotiert\n"
+"Double Skin Flügel:\n"
+"Wert > 1 => länge der Mini Ribs in [% chord]"
 
 #: Windows/Airfoils.py:96 Windows/AnchorPoints.py:93 Windows/Geometry.py:101
 msgid "Sort by Rib Number"
@@ -1391,7 +1397,7 @@ msgstr ""
 msgid "Proc-xpDesc"
 msgstr ""
 "Definitive Distanz auf der x-Achse\n"
-"des gewölbten Flügels. "
+"des gewölbten Flügels"
 
 #: Windows/Geometry.py:85
 msgid "Proc-zDesc"
@@ -2529,15 +2535,15 @@ msgstr "Basisdaten"
 
 #: lepg.py:329
 msgid "Editing the wing basics"
-msgstr ""
+msgstr "Die Basisdaten des Flügels können hier verändert werden"
 
 #: lepg.py:333
 msgid "Edit wing geometry"
-msgstr ""
+msgstr "Bearbeiten der Geometriedaten des Flügels"
 
 #: lepg.py:337
 msgid "Edit airfoils geometry"
-msgstr ""
+msgstr "Bearbeiten der einzelnen Zellen"
 
 #: lepg.py:340
 msgid "Anchor Points"
@@ -2545,7 +2551,7 @@ msgstr "Aufhängepunkte"
 
 #: lepg.py:341
 msgid "Edit Anchor points data"
-msgstr ""
+msgstr "Bearbeiten der einzelnen Aufhängepunkte"
 
 #: lepg.py:344
 msgid "Rib Holes"

@@ -91,6 +91,24 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Airfoils</a><ul>
+<li><a class="reference internal" href="#airfoil-name">Airfoil name</a></li>
+<li><a class="reference internal" href="#intake-start">Intake start</a></li>
+<li><a class="reference internal" href="#intake-end">Intake end</a></li>
+<li><a class="reference internal" href="#open-close">Open close</a></li>
+<li><a class="reference internal" href="#vert-displacement">vert Displacement</a></li>
+<li><a class="reference internal" href="#rel-weight">Rel weight</a></li>
+<li><a class="reference internal" href="#rrw">rrw</a><ul>
+<li><a class="reference internal" href="#single-skin-wings">Single skin wings</a></li>
+<li><a class="reference internal" href="#double-skin-wings">Double skin wings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="geometry.html"
                         title="previous chapter">Geometry</a></p>
@@ -119,40 +137,73 @@
 <div></div></blockquote>
 <div class="section" id="airfoils">
 <h1>Airfoils<a class="headerlink" href="#airfoils" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<p>All details you will find on Peres website <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.2" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>In the Airfoils window you can define the parameters from the 2nd section of the lep file.</p>
+<a class="reference internal image-reference" href="../../_images/airfoils-en.png"><img alt="../../_images/airfoils-en.png" src="../../_images/airfoils-en.png" style="width: 602px; height: 225px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**************************************************************</span>
+<span class="o">*</span>             <span class="mf">2.</span> <span class="n">AIRFOILS</span>                                    <span class="o">*</span>
+<span class="o">**************************************************************</span>
+<span class="o">*</span> <span class="n">Airfoil</span> <span class="n">name</span><span class="p">,</span> <span class="n">intake</span> <span class="ow">in</span><span class="p">,</span> <span class="n">intake</span> <span class="n">out</span><span class="p">,</span> <span class="nb">open</span> <span class="p">,</span> <span class="n">disp</span><span class="o">.</span> <span class="n">rrw</span>
+<span class="mi">1</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">2</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">3</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">4</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">5</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">6</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">7</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">8</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">9</span>       <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">10</span>      <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">11</span>      <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">1</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">12</span>      <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">13</span>      <span class="n">gnua</span><span class="o">.</span><span class="n">txt</span>        <span class="mf">1.6</span>     <span class="mf">6.3</span>     <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">15</span>
+<span class="mi">14</span>      <span class="n">gnuat</span><span class="o">.</span><span class="n">txt</span>       <span class="mf">0.0</span>     <span class="mf">6.3</span>     <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">1</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="airfoil-name">
+<h2>Airfoil name<a class="headerlink" href="#airfoil-name" title="Permalink to this headline">¶</a></h2>
+<p>Name of the file containing the rib profile used for this cell. Before processing finally the wing you must assure the file is saved in the same directory also the processor is placed.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="intake-start">
+<h2>Intake start<a class="headerlink" href="#intake-start" title="Permalink to this headline">¶</a></h2>
+<p>Percentage of chord where the start of the air inlet shall be placed.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="intake-end">
+<h2>Intake end<a class="headerlink" href="#intake-end" title="Permalink to this headline">¶</a></h2>
+<p>Percentage of chord where the end of the air inlet shall be placed.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="open-close">
+<h2>Open close<a class="headerlink" href="#open-close" title="Permalink to this headline">¶</a></h2>
+<p>Value 1 or 0 to create open or closed cells, at the left of rib.</p>
+<p><strong>“0”</strong> indicates closed cell</p>
+<p><strong>“1”</strong> indicates an open cell</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="vert-displacement">
+<h2>vert Displacement<a class="headerlink" href="#vert-displacement" title="Permalink to this headline">¶</a></h2>
+<p>Displacement in [cm] of the rib perpendicular to the chord, and in the plane of the rib itself. Serves to improve the position of the ribs without suspension lines. Value is usually 0.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" style="width: 532px; height: 375px;" /></a>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="rel-weight">
+<h2>Rel weight<a class="headerlink" href="#rel-weight" title="Permalink to this headline">¶</a></h2>
+<p>Relative weight of the chord, in relation to the load. Value is usually 1.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="rrw">
+<h2>rrw<a class="headerlink" href="#rrw" title="Permalink to this headline">¶</a></h2>
+<p>Depending of the wing type there are two different properties which can be defined.</p>
+<div class="section" id="single-skin-wings">
+<h3>Single skin wings<a class="headerlink" href="#single-skin-wings" title="Permalink to this headline">¶</a></h3>
+<p><strong>“0”</strong> means that the triangles are not rotated, but they are set according to the angle “beta” specified in Geometry.</p>
+<p><strong>“1”</strong> means that the triangles are rotated automatically in the corresponding profile.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="double-skin-wings">
+<h3>Double skin wings<a class="headerlink" href="#double-skin-wings" title="Permalink to this headline">¶</a></h3>
+<p>If the numerical value greater than 1.0 is possible define and draw trailing edge “miniribs” in non “ss” paragliders: The value, simply define the minirib length (in % chord).</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" style="width: 294px; height: 416px;" /></a>
+<p>The button <strong>Sort by Rib Number</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the rib numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
+<p><strong>ATTENTION</strong> you have to order the lines in a way that the wing is defined from the middle to the tip.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.2" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-</div></blockquote>
 </div>
 
 

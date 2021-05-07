@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-06 13:39+0200\n"
+"PO-Revision-Date: 2021-05-07 10:10+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -232,19 +232,19 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2048
 msgid "Intake Start"
-msgstr ""
+msgstr "Intake start"
 
 #: DataStores/ProcessorModel.py:2049
 msgid "Intake End"
-msgstr ""
+msgstr "Intake end"
 
 #: DataStores/ProcessorModel.py:2050
 msgid "Open-close"
-msgstr ""
+msgstr "Open close"
 
 #: DataStores/ProcessorModel.py:2051
 msgid "Displac"
-msgstr ""
+msgstr "vert Displacement"
 
 #: DataStores/ProcessorModel.py:2052
 msgid "Rel weight"
@@ -894,39 +894,46 @@ msgstr "Rib number"
 
 #: Windows/Airfoils.py:79
 msgid "Proc-AirfoilNameDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Name of the file in which defines the profile of the rib.\n"
+"This file must be saved prior the processing in the same\n"
+"folder where the processor is saved."
 
 #: Windows/Airfoils.py:80
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeStartDesc"
-msgstr "The name of the wing"
+msgstr "Start of the air inlet in [% chord]"
 
 #: Windows/Airfoils.py:81
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeEnDesc"
-msgstr "The name of the wing"
+msgstr "End of the air inlet in [% chord]"
 
 #: Windows/Airfoils.py:82
 msgid "Proc-OpenCloseDesc"
 msgstr ""
+"Defines the form of the cell left of the rib\n"
+"\"0\" indicates closed-cell \n"
+"\"1\" open cell)"
 
 #: Windows/Airfoils.py:83
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-DisplacDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Vertical displacement of the rib in [cm]\n"
+"Usually the value is 0"
 
 #: Windows/Airfoils.py:84
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-RelWeightDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Relative weight of the chord, in relation to the load \n"
+"Value is usually 1"
 
 #: Windows/Airfoils.py:85
 msgid "Proc-rrwDesc"
 msgstr ""
+"Single Skin wings:\n"
+"\"0\" Triangles will not be rotated\n"
+"\"1\" Triangles will be rotated corresponding to profile\n"
+"Double Skin Wings:\n"
+"Value > 1 => Lenght of mini ribs in [% chord]"
 
 #: Windows/Airfoils.py:96 Windows/AnchorPoints.py:93 Windows/Geometry.py:101
 msgid "Sort by Rib Number"
@@ -1799,7 +1806,7 @@ msgstr "Width of the cell in cm"
 
 #: Windows/PreProcCellsDistribution.py:121
 msgid "PreProc-NumCellsDesc"
-msgstr "Number of cells "
+msgstr "Number of cells"
 
 #: Windows/PreProcData.py:74
 msgid "Pre-Processor data"
@@ -2354,7 +2361,7 @@ msgstr ""
 
 #: lepg.py:218
 msgid "edit_preProc_data_description"
-msgstr "Opens the  window to edit name, LE, TE and vault settings"
+msgstr "Opens the window to edit name, LE, TE and vault settings"
 
 #: lepg.py:221
 msgid "Cells distribution"
