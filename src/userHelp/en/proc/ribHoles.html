@@ -91,6 +91,30 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rib holes</a><ul>
+<li><a class="reference internal" href="#number-of-configurations">Number of configurations</a><ul>
+<li><a class="reference internal" href="#initial-rib">Initial rib</a></li>
+<li><a class="reference internal" href="#final-rib">Final rib</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#number-of-configuration-lines">Number of configuration lines</a><ul>
+<li><a class="reference internal" href="#order-num">Order Num</a></li>
+<li><a class="reference internal" href="#light-type">Light type</a></li>
+<li><a class="reference internal" href="#hor-dist">Hor dist</a></li>
+<li><a class="reference internal" href="#vert-dist">Vert dist</a></li>
+<li><a class="reference internal" href="#hor-axis">Hor axis</a></li>
+<li><a class="reference internal" href="#vert-axis">Vert axis</a></li>
+<li><a class="reference internal" href="#rot-angle">Rot angle</a></li>
+<li><a class="reference internal" href="#opt">Opt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="anchorPoints.html"
                         title="previous chapter">Anchor Points</a></p>
@@ -119,40 +143,94 @@
 <div></div></blockquote>
 <div class="section" id="rib-holes">
 <h1>Rib holes<a class="headerlink" href="#rib-holes" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<p>All details you will find on Peres website <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.4" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>In the Rib Holes window you can define the parameters from the 4th section of the lep file.</p>
+<a class="reference internal image-reference" href="../../_images/ribHoles-en.png"><img alt="../../_images/ribHoles-en.png" src="../../_images/ribHoles-en.png" style="width: 603px; height: 286px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*************************************************************</span>
+<span class="o">*</span>          <span class="mf">4.</span> <span class="n">AIRFOIL</span> <span class="n">HOLES</span>                                 <span class="o">*</span>
+<span class="o">*************************************************************</span>
+<span class="mi">2</span>
+<span class="mi">1</span>
+<span class="mi">12</span>
+<span class="mi">9</span>
+<span class="mi">1</span> <span class="mf">14.59</span> <span class="mf">2.79</span>    <span class="mf">2.735</span>   <span class="mf">6.72</span>    <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">22.18</span> <span class="mf">2.61</span>    <span class="mf">2.375</span>   <span class="mf">6.72</span>    <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">33.36</span> <span class="mf">1.64</span>    <span class="mf">2.5</span>     <span class="mf">5.9</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">40.32</span> <span class="mf">1.46</span>    <span class="mf">2.4</span>     <span class="mf">5.8</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">47.41</span> <span class="mf">1.34</span>    <span class="mf">2.23</span>    <span class="mf">5.7</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">59.17</span> <span class="mf">1.27</span>    <span class="mf">1.84</span>    <span class="mf">3.4</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">65.23</span> <span class="mf">1.33</span>    <span class="mf">1.7</span>     <span class="mf">3.2</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">71.21</span> <span class="mf">1.18</span>    <span class="mf">1.6</span>     <span class="mf">3.0</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">81.87</span> <span class="mf">0.89</span>    <span class="mf">1.6</span>     <span class="mf">1.6</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">13</span>
+<span class="mi">13</span>
+<span class="mi">3</span>
+<span class="mi">1</span> <span class="mf">23.5</span>  <span class="mf">2.5</span>     <span class="mf">6.5</span>     <span class="mf">6.5</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">55.0</span>  <span class="mf">1.92</span>    <span class="mf">4.3</span>     <span class="mf">4.3</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+<span class="mi">1</span> <span class="mf">81.</span>   <span class="mf">1.1</span>     <span class="mf">1.7</span>     <span class="mf">1.7</span>     <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>      <span class="mf">0.</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="number-of-configurations">
+<h2>Number of configurations<a class="headerlink" href="#number-of-configurations" title="Permalink to this headline">¶</a></h2>
+<p>In a configuration you can bundle the settings for a group of ribs. For all ribs within the same configuration the same settings apply.</p>
+<div class="section" id="initial-rib">
+<h3>Initial rib<a class="headerlink" href="#initial-rib" title="Permalink to this headline">¶</a></h3>
+<p>The number of the first rib for which the configuration applies.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="final-rib">
+<h3>Final rib<a class="headerlink" href="#final-rib" title="Permalink to this headline">¶</a></h3>
+<p>The number of the last rib for which the configuration applies.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="number-of-configuration-lines">
+<h2>Number of configuration lines<a class="headerlink" href="#number-of-configuration-lines" title="Permalink to this headline">¶</a></h2>
+<p>Within a configuration you can define several configuration lines. Basically each line defines one rib hole.</p>
+<div class="section" id="order-num">
+<h3>Order Num<a class="headerlink" href="#order-num" title="Permalink to this headline">¶</a></h3>
+<p>A number only used by Lepg allowing to reorder the lines during edit.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="light-type">
+<h3>Light type<a class="headerlink" href="#light-type" title="Permalink to this headline">¶</a></h3>
+<p>The type of rib hole defined in this line:</p>
+<p><strong>“1”</strong> ellipse or circle</p>
+<p><strong>“2”</strong> ellipse or circle with center strip</p>
+<p><strong>“3”</strong> triangle</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole1_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole1_p.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole2_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole2_p.jpg" />
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole3_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole3_p.jpg" />
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="hor-dist">
+<h3>Hor dist<a class="headerlink" href="#hor-dist" title="Permalink to this headline">¶</a></h3>
+<p>The horizontal distance from the LE to the rib hole in [% chord].</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="vert-dist">
+<h3>Vert dist<a class="headerlink" href="#vert-dist" title="Permalink to this headline">¶</a></h3>
+<p>The vertical distance from the chord line to the rib hole in [% chord].</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="hor-axis">
+<h3>Hor axis<a class="headerlink" href="#hor-axis" title="Permalink to this headline">¶</a></h3>
+<p>The lengt of the horizontal axis of the hole in [% chord]. Basically the width.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="vert-axis">
+<h3>Vert axis<a class="headerlink" href="#vert-axis" title="Permalink to this headline">¶</a></h3>
+<p>The lengt of the vertical axis of the hole in [% chord]. Basically the height.</p>
 </div>
-</div></blockquote>
+<div class="section" id="rot-angle">
+<h3>Rot angle<a class="headerlink" href="#rot-angle" title="Permalink to this headline">¶</a></h3>
+<p>The angle of which the hole shall be rotated in [deg].</p>
+</div>
+<div class="section" id="opt">
+<h3>Opt<a class="headerlink" href="#opt" title="Permalink to this headline">¶</a></h3>
+<p>For type <strong>“1”</strong> holes set this value 0</p>
+<p>For type <strong>“2”</strong> holes this value defines the width of the strip in [cm]</p>
+<p>For type <strong>“3”</strong> holes the radius of the corners in [cm]</p>
+</div>
+</div>
+<div class="section" id="sort-by-order-num">
+<h2>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this headline">¶</a></h2>
+<p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.4" target="_blank">Laboratori d'envol website</a>.</p>
+</div>
 </div>
 
 

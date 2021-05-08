@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-08 10:52+0200\n"
+"PO-Revision-Date: 2021-05-08 13:10+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -593,23 +593,23 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:3952
 msgid "Initial Rib"
-msgstr ""
+msgstr "Initial rib"
 
 #: DataStores/ProcessorModel.py:3953
 msgid "Final Rib"
-msgstr ""
+msgstr "Final rib"
 
 #: DataStores/ProcessorModel.py:4053
 msgid "Light Typ"
-msgstr ""
+msgstr "Light type"
 
 #: DataStores/ProcessorModel.py:4054
 msgid "Dist LE"
-msgstr ""
+msgstr "Hor dist"
 
 #: DataStores/ProcessorModel.py:4055
 msgid "Dist chord"
-msgstr ""
+msgstr "Vert dist"
 
 #: DataStores/ProcessorModel.py:4056
 msgid "Hor axis"
@@ -845,6 +845,8 @@ msgstr ""
 #: Windows/Lines.py:254 Windows/NoseMylars.py:109 Windows/RibHoles.py:242
 msgid "OrderNumDesc"
 msgstr ""
+"Number which will be used to order the lines\n"
+"during edit or file saving"
 
 #: Windows/AddRibPoints.py:110
 msgid "AddRibPts-XCoordDesc"
@@ -2040,30 +2042,43 @@ msgstr "The name of the wing"
 #: Windows/RibHoles.py:243
 msgid "RibHoles-LigthTypeDesc"
 msgstr ""
+"Typ of lightening configuration\n"
+"1: Ellipse/ circle\n"
+"2: Ellipse/ circle with strip\n"
+"3: Triangle"
 
 #: Windows/RibHoles.py:244
 msgid "RibHoles-DistLEDesc"
-msgstr ""
+msgstr "Hor distance from LE [% chord]"
 
 #: Windows/RibHoles.py:245
 msgid "RibHoles-DisChordDesc"
 msgstr ""
+"Vert distance from chord line\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:246
 msgid "RibHoles-HorAxisDesc"
 msgstr ""
+"Length of the hor axis of the hole\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:247
 msgid "RibHoles-VertAxisDesc"
 msgstr ""
+"Length of the vert axis of the hole\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:248
 msgid "RibHoles-RotAngleDesc"
-msgstr ""
+msgstr "Rotation angle in [deg]"
 
 #: Windows/RibHoles.py:249
 msgid "RibHoles-Opt1Desc"
 msgstr ""
+"Type 1: always 0\n"
+"Type 2: Width of strip in  [cm]\n"
+"Type 3: Radius of corners in [cm]"
 
 #: Windows/SeewingAllowances.py:70
 msgid "Sewing allowances"

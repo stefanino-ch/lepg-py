@@ -77,6 +77,9 @@ class MainWindow(QMainWindow):
         '''
         :method: Constructor
         '''
+        # Delete old log file
+        self.deleteLogfile()
+        
         # Setup the logger
         # Additional code needed due to pyinstaller. Check doc there. 
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
@@ -1030,7 +1033,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('HelpAbout')
             self.mdi.addSubWindow(self.helpAboutW)
         self.helpAboutW.show()
+    
+    def deleteLogfile(self):
+        '''
+        :method: Deletes the log file if there's one
+        '''
+        dirpath = os.path.dirname(os.path.realpath(__file__))
+        logPathName = os.path.join(dirpath, 'logfile.txt')
         
+        if os.path.isfile(logPathName):
+            os.remove(logPathName)
         
 def main():
     app = QApplication(sys.argv)

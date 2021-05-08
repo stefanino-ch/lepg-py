@@ -5,7 +5,6 @@
 -------------
 Anchor Points
 -------------
-
 In the Airfoils window you can define the parameters from the 3rd section of the lep file.
 
 .. image:: /images/proc/anchorPoints-en.png

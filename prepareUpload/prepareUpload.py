@@ -41,5 +41,4 @@ answ = input('Default= n ')
 if answ == 'y':
     if platform.system() == "Windows":
         os.system('python ../distribution/buildW64Package.py')
-# TODO: add code to prepare the complete executable
     
