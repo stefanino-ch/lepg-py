@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-07 10:10+0200\n"
+"PO-Revision-Date: 2021-05-08 10:52+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -288,7 +288,7 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2248
 msgid "Pos F"
-msgstr ""
+msgstr "Brake lines"
 
 #: DataStores/ProcessorModel.py:2344 DataStores/ProcessorModel.py:3408
 #: DataStores/ProcessorModel.py:3731 DataStores/ProcessorModel.py:4185
@@ -945,35 +945,49 @@ msgstr ""
 
 #: Windows/AnchorPoints.py:78
 msgid "AnchPoints-RibNumDesc"
-msgstr ""
+msgstr "Rib number"
 
 #: Windows/AnchorPoints.py:79
 msgid "AnchPoints-NumAnchorsDesc"
 msgstr ""
+"Number of anchors (A...E) defined on the line\n"
+"Must not include brake lines"
 
 #: Windows/AnchorPoints.py:80
 msgid "AnchPoints-PosADesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:81
 msgid "AnchPoints-PosBDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:82
 msgid "AnchPoints-PosCDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:83
 msgid "AnchPoints-PosDDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:84
 msgid "AnchPoints-PosEDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:85
 msgid "AnchPoints-PosFDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/BasicData.py:68
 msgid "Basic Data"

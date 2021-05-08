@@ -91,6 +91,22 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Aufhängepunkte</a><ul>
+<li><a class="reference internal" href="#rippen-nr">Rippen Nr</a></li>
+<li><a class="reference internal" href="#anz-auf">Anz Auf</a></li>
+<li><a class="reference internal" href="#pos-a">Pos A</a></li>
+<li><a class="reference internal" href="#pos-b">Pos B</a></li>
+<li><a class="reference internal" href="#pos-c">Pos C</a></li>
+<li><a class="reference internal" href="#pos-d">Pos D</a></li>
+<li><a class="reference internal" href="#pos-e">Pos E</a></li>
+<li><a class="reference internal" href="#bremsleinen">Bremsleinen</a></li>
+<li><a class="reference internal" href="#nach-rippen-nr-sortieren">Nach Rippen Nr sortieren</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="airfoils.html"
                         title="previous chapter">Zellen</a></p>
@@ -119,40 +135,73 @@
 <div></div></blockquote>
 <div class="section" id="aufhangepunkte">
 <h1>Aufhängepunkte<a class="headerlink" href="#aufhangepunkte" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<p>Eine detaillierte Beschreibung findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.3" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Im Fenster Zellen editieren wir die Parameter aus dem 3. Abschnitt der lep Datei.</p>
+<a class="reference internal image-reference" href="../../_images/anchorPoints-de.png"><img alt="../../_images/anchorPoints-de.png" src="../../_images/anchorPoints-de.png" style="width: 602px; height: 225px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*************************************************************</span>
+<span class="o">*</span>            <span class="mf">3.</span> <span class="n">ANCHOR</span> <span class="n">POINTS</span>                               <span class="o">*</span>
+<span class="o">*************************************************************</span>
+<span class="o">*</span> <span class="n">Airf</span>  <span class="n">Anch</span>  <span class="n">A</span>    <span class="n">B</span>      <span class="n">C</span>    <span class="n">D</span>    <span class="n">E</span>    <span class="n">F</span>
+<span class="mi">1</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">2</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">3</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">4</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">5</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">6</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">7</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">8</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">9</span>       <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">10</span>      <span class="mi">4</span>     <span class="mf">8.5</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">11</span>      <span class="mi">4</span>     <span class="mf">8.6</span>   <span class="mf">27.5</span>  <span class="mi">53</span>   <span class="mi">77</span>   <span class="mi">0</span>    <span class="mi">100</span>
+<span class="mi">12</span>      <span class="mi">3</span>     <span class="mf">9.0</span>   <span class="mf">40.0</span>  <span class="mi">75</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">100</span>
+<span class="mi">13</span>      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">100</span>
+<span class="mi">14</span>      <span class="mi">4</span>     <span class="mf">0.0</span>   <span class="mi">30</span>    <span class="mi">60</span>   <span class="mi">90</span>   <span class="mi">0</span>    <span class="mi">0</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="rippen-nr">
+<h2>Rippen Nr<a class="headerlink" href="#rippen-nr" title="Permalink to this headline">¶</a></h2>
+<p>Rippennummer für die auf der Zeile die Aufhängepunkte definiert werden.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anz-auf">
+<h2>Anz Auf<a class="headerlink" href="#anz-auf" title="Permalink to this headline">¶</a></h2>
+<p>Anzahl der Aufhängepunkte (A…E) die während dem Berechnen berücksichtigt werden müssen. Die Bremsleinen müssen nicht mit eingerechnet werden.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="pos-a">
+<h2>Pos A<a class="headerlink" href="#pos-a" title="Permalink to this headline">¶</a></h2>
+<p>Position des Aufhängepunktes der A-Leinen [% Flügeltiefe].
+0 eingeben wenn der Aufhängepunkt nicht verwendet werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="pos-b">
+<h2>Pos B<a class="headerlink" href="#pos-b" title="Permalink to this headline">¶</a></h2>
+<p>Position des Aufhängepunktes der B-Leinen [% Flügeltiefe].
+0 eingeben wenn der Aufhängepunkt nicht verwendet werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="pos-c">
+<h2>Pos C<a class="headerlink" href="#pos-c" title="Permalink to this headline">¶</a></h2>
+<p>Position des Aufhängepunktes der C-Leinen [% Flügeltiefe].
+0 eingeben wenn der Aufhängepunkt nicht verwendet werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="pos-d">
+<h2>Pos D<a class="headerlink" href="#pos-d" title="Permalink to this headline">¶</a></h2>
+<p>Position des Aufhängepunktes der D-Leinen [% Flügeltiefe].
+0 eingeben wenn der Aufhängepunkt nicht verwendet werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="pos-e">
+<h2>Pos E<a class="headerlink" href="#pos-e" title="Permalink to this headline">¶</a></h2>
+<p>Position des Aufhängepunktes der E-Leinen [% Flügeltiefe].
+0 eingeben wenn der Aufhängepunkt nicht verwendet werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="bremsleinen">
+<h2>Bremsleinen<a class="headerlink" href="#bremsleinen" title="Permalink to this headline">¶</a></h2>
+<p>Position of the brake lines anchor point in [% chord].
+0 eingeben wenn keine Bremsleinen vorhanden sind.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="nach-rippen-nr-sortieren">
+<h2>Nach Rippen Nr sortieren<a class="headerlink" href="#nach-rippen-nr-sortieren" title="Permalink to this headline">¶</a></h2>
+<p>Mit der Schaltfläche <strong>Nach Rippen Nr sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Rippen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
+<p><strong>BEACHTE</strong> die Zeilen müssen die Flügeldefinition von der Mitte nach aussen definieren?</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.3" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-</div></blockquote>
 </div>
 
 

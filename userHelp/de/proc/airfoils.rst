@@ -84,6 +84,8 @@ Wenn der Wert grösser als 1 ist dann definiert er die Länge der Mini-Ribs. Die
    :width: 294
    :height: 416
 
+Nach Rippen Nr sortieren
+------------------------
 Mit der Schaltfläche **Nach Rippen Nr sortieren** können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Rippen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren. 
 
 **BEACHTE** die Zeilen müssen die Flügeldefinition von der Mitte nach aussen definieren?

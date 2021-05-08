@@ -81,7 +81,9 @@ If the numerical value greater than 1.0 is possible define and draw trailing edg
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg
    :width: 294
    :height: 416
-	
+
+Sort by Rib Number
+------------------
 The button **Sort by Rib Number** can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the rib numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you've choosen. 
 
 **ATTENTION** you have to order the lines in a way that the wing is defined from the middle to the tip. 
