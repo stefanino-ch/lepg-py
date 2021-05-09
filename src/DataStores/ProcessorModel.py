@@ -5163,6 +5163,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
+            self.setHeaderData(0, Qt.Horizontal, _("Strain mini ribs"))
+            self.setHeaderData(1, Qt.Horizontal, _("Num points"))
+            self.setHeaderData(2, Qt.Horizontal, _("Coeff"))
+            
         def getRow(self):
             '''
             :method: reads values back from the internal database

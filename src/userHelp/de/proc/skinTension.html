@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Segelspannung &#8212; lepg 3.15.x documentation</title>
+    <title>Tuchspannung &#8212; lepg 3.15.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -86,11 +86,24 @@
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Segelspannung</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Tuchspannung</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tuchspannung</a><ul>
+<li><a class="reference internal" href="#obere-dist-eintrittskante">Obere Dist Eintrittskante</a></li>
+<li><a class="reference internal" href="#obere-verbr">Obere Verbr</a></li>
+<li><a class="reference internal" href="#untere-dist-austrittskante">Untere Dist Austrittskante</a></li>
+<li><a class="reference internal" href="#untere-verbr">Untere Verbr</a></li>
+<li><a class="reference internal" href="#spann-mini-ribs">Spann mini ribs</a></li>
+<li><a class="reference internal" href="#anzahl-punkte-und-koeff">Anzahl Punkte und Koeff</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="ribHoles.html"
                         title="previous chapter">Rippendurchbrüche</a></p>
@@ -117,42 +130,60 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="segelspannung">
-<h1>Segelspannung<a class="headerlink" href="#segelspannung" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<p>Eine detaillierte Beschreibung findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.5" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="tuchspannung">
+<h1>Tuchspannung<a class="headerlink" href="#tuchspannung" title="Permalink to this headline">¶</a></h1>
+<p>Im Fenster Tuchspannung editieren wir die Parameter aus dem 5. Abschnitt der lep Datei.</p>
+<a class="reference internal image-reference" href="../../_images/skinTension-de.png"><img alt="../../_images/skinTension-de.png" src="../../_images/skinTension-de.png" style="width: 602px; height: 286px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*************************************************************</span>
+<span class="o">*</span>           <span class="mf">5.</span> <span class="n">SKIN</span> <span class="n">TENSION</span>                                 <span class="o">*</span>
+<span class="o">*************************************************************</span>
+<span class="n">Extrados</span>
+<span class="mf">0.</span>              <span class="mf">0.</span>      <span class="mf">0.</span>              <span class="mf">0.</span>
+<span class="mf">7.5</span>             <span class="mf">1.3</span>     <span class="mf">10.</span>             <span class="mf">1.33</span>
+<span class="mf">15.</span>             <span class="mf">2.5</span>     <span class="mf">20.</span>             <span class="mf">2.5</span>
+<span class="mf">80.</span>             <span class="mf">2.5</span>     <span class="mf">80.</span>             <span class="mf">2.5</span>
+<span class="mf">90.</span>             <span class="mf">1.33</span>    <span class="mf">90.</span>             <span class="mf">1.33</span>
+<span class="mf">100.</span>            <span class="mf">0.0</span>     <span class="mf">100.</span>            <span class="mf">0.</span>
+<span class="mf">0.0114</span>
+<span class="mi">1000</span>    <span class="mf">1.0</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Die Spannung von Ober- und Untersegel kann durch die Definition von zusätzlichen Verbreiterungen verändert werden. In der Basisversion können je 6 Punke definiert werden. Der Übergang zwischen den Punkten wird linear berechnet.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" />
+<div class="section" id="obere-dist-eintrittskante">
+<h2>Obere Dist Eintrittskante<a class="headerlink" href="#obere-dist-eintrittskante" title="Permalink to this headline">¶</a></h2>
+<p>Distanz von der Eintrittskante in [% Flügeltiefe]</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="obere-verbr">
+<h2>Obere Verbr<a class="headerlink" href="#obere-verbr" title="Permalink to this headline">¶</a></h2>
+<p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="untere-dist-austrittskante">
+<h2>Untere Dist Austrittskante<a class="headerlink" href="#untere-dist-austrittskante" title="Permalink to this headline">¶</a></h2>
+<p>Distanz von der Austrittskante in [% Flügeltiefe]</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="untere-verbr">
+<h2>Untere Verbr<a class="headerlink" href="#untere-verbr" title="Permalink to this headline">¶</a></h2>
+<p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="spann-mini-ribs">
+<h2>Spann mini ribs<a class="headerlink" href="#spann-mini-ribs" title="Permalink to this headline">¶</a></h2>
+<p>Hier geht es darum die Dehnung des Tuches zu korrigieren.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" />
+<p>Im Zweifelsfall setze hier den Standardwert von <strong>0.0114</strong></p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anzahl-punkte-und-koeff">
+<h2>Anzahl Punkte und Koeff<a class="headerlink" href="#anzahl-punkte-und-koeff" title="Permalink to this headline">¶</a></h2>
+<p>Prinzipiell gibt es zwei verschiedene Interpretationen der beiden Werte. Beschrieben wird hier nur der empfohlene Anwendungsfall.</p>
+<p>Setze die Parameter auf die Werte:</p>
+<p><strong>1000     1.0</strong></p>
+<p>Die erste Zahl <strong>“1000”</strong> sagt dem Programm die maximal mögliche Präzision bei der Längenberechnung von Rippen und Panels zu benutzen. Typischerweise werden Werte besser 0.1 mm erreicht.</p>
+<p>Der zweite Wert beeinflusst noch einmal die Berechnung. Der Wert kann zwischen 0.0 und 1.0 verändert werden.</p>
+<p>“0.0” es werden keine Korrekturen berechnet, der erste Wert wird ausgehebelt.</p>
+<p><strong>“1.0”</strong> es wird mit maximaler Genauigkeit gerechnet.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.5" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
 </div>
 
 
@@ -179,12 +210,12 @@
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Segelspannung</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Tuchspannung</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
   </body>
 </html>

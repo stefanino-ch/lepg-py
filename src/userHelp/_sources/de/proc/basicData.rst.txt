@@ -35,7 +35,7 @@ Rohdaten::
 	  "ds" 	1
 
 Zeichnungsmassstab
-------------------  
+------------------
 Ein Zeichnungsmassstab von 1 bedeutet dass die Zeichnung im Masstab 1:1 ausgegeben werden. 
 
 Flügelmassstab
@@ -45,7 +45,7 @@ man die einzelnen Parameter anpassen muss. Ein Flügelmassstab von 1 bedeutet da
 mit den Originalwerten wie in lepg angegeben übernommen wird. 
 
 Anzahl Zellen und Rippen
-------------------------  
+------------------------
 Zwischen Anzahl Zellen und Rippen gibt es eine direkte Beziehung. Bei Werten welche so nicht sein können, werden die Eingabefelder rot umrandet. 
  
 .. image:: /images/proc/basicDataError-de.png
@@ -77,13 +77,13 @@ Alpha mode
    :height: 373
 
 Alpha max zentr
-''''''''''''''
+'''''''''''''''
 Wenn der Alpha mode auf "2" gesetzt wird dann Zelle definiert werden. 
 
 Flügel Typ and Parameter
 ------------------------
 Flügel Typ
-'''''''''
+''''''''''
 **"ds"** Design und Kalkulation wird angepasst für die Definition von Paraglidern und Fallschirmen mit Ober- und Untersegel
 
 **"ss"** Design und Kalkulation wird angepasst für Single Skin Paraglider und Fallschirme. Wird dieser Wert gesetzt, gilt es noch weitere Punkte zu beachten. So muss zum Beispiel bei der Definition der Eintrittskante darauf geachtet werden dass diese genau dort platziert wird wo der erste Aufhängepunkt definiert wird. Die Abdeckungen der Einlassöffnungen sind demzufolge Teil des Single Skin Profils. 

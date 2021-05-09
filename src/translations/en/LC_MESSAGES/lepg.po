@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-08 13:10+0200\n"
+"PO-Revision-Date: 2021-05-09 09:33+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -1736,19 +1736,19 @@ msgstr ""
 
 #: Windows/NewSkinTension.py:240 Windows/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"
-msgstr ""
+msgstr "Distance from Leading Edge in [% chord]"
 
 #: Windows/NewSkinTension.py:241 Windows/SkinTension.py:76
 msgid "SkinTension-TopOverWideDesc"
-msgstr ""
+msgstr "Over widening in [% chord]"
 
 #: Windows/NewSkinTension.py:242 Windows/SkinTension.py:77
 msgid "SkinTension-BottDistTEDesc"
-msgstr ""
+msgstr "Distance from Trailing Edge in [% chord]"
 
 #: Windows/NewSkinTension.py:243 Windows/SkinTension.py:78
 msgid "SkinTension-BottOverWideDesc"
-msgstr ""
+msgstr "Over widening in [% chord]"
 
 #: Windows/NoseMylars.py:71
 msgid "Nose mylars"
@@ -2183,14 +2183,21 @@ msgstr ""
 #: Windows/SkinTension.py:91
 msgid "SkinTension-StrainMiniRibsDesc"
 msgstr ""
+"Compensation of canvas elasticity.\n"
+"Default is 0,0114"
 
 #: Windows/SkinTension.py:92
 msgid "SkinTension-NumPointsDesc"
 msgstr ""
+"Num correction points\n"
+"Default 1000"
 
 #: Windows/SkinTension.py:93
 msgid "SkinTension-CoeffDesc"
 msgstr ""
+"Intensity of the correction\n"
+"0.0 None\n"
+"1.0 maximal"
 
 #: Windows/SpecWingTip.py:69
 msgid "Special wing tip"

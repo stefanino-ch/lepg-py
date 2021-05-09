@@ -52,7 +52,7 @@ class SkinTension(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)

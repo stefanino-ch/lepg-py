@@ -110,4 +110,3 @@ A more detailed description you can find here |pere_link|.
 .. |pere_link| raw:: html
 
 	<a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.4" target="_blank">Laboratori d'envol website</a>
-	
