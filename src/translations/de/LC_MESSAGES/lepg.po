@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-09 09:01+0200\n"
-"PO-Revision-Date: 2021-05-09 09:28+0200\n"
+"PO-Revision-Date: 2021-05-10 13:12+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -466,7 +466,7 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3732 DataStores/ProcessorModel.py:4548
 #: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5557
 msgid "First Rib"
-msgstr "1. Rippe"
+msgstr "Erste Rippe"
 
 #: DataStores/ProcessorModel.py:3114
 msgid "Dist TE [\\u0025  chord]"
@@ -884,7 +884,7 @@ msgstr "Anz Konfigurationen"
 msgid "OrderNumDesc"
 msgstr ""
 "Zeilen können mit der Taste Sortieren\n"
-"aufgrund der Sortierreihenfolge geordnet werden."
+"aufgrund der Sortierreihenfolge geordnet werden"
 
 #: Windows/AddRibPoints.py:110
 msgid "AddRibPts-XCoordDesc"
@@ -1613,7 +1613,7 @@ msgstr ""
 #: Windows/JoncsDefinition.py:229 Windows/NewSkinTension.py:82
 #: Windows/ThreeDShaping.py:93
 msgid "Number of groups"
-msgstr ""
+msgstr "Anzahl der Konfigurationen"
 
 #: Windows/JoncsDefinition.py:266
 #, fuzzy
@@ -1808,12 +1808,14 @@ msgstr "Letzte Rippe"
 #: Windows/NewSkinTension.py:196
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
+"Berechnungstyp\n"
+"Wert ist immer 1"
 
 #: Windows/NewSkinTension.py:239
-#, fuzzy
-#| msgid "PreProc-cd_num_desc"
 msgid "SkinTension-OrderNumDesc"
-msgstr "Totale Anzahl Zellen"
+msgstr ""
+"Zeilen können mit der Taste Sortieren\n"
+"aufgrund der Sortierreihenfolge geordnet werden"
 
 #: Windows/NewSkinTension.py:240 Windows/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"

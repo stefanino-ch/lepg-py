@@ -66,7 +66,7 @@ class NewSkinTension(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
@@ -177,6 +177,7 @@ class NewSkinTension(QMdiSubWindow):
         
         # Configuration 
         confTable = TableView()
+        # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[currNumTabs].setSourceModel(self.newSkinTensConf_M)
         self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.NewSkinTensConfModel.ConfigNumCol)

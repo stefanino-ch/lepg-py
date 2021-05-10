@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-09 09:33+0200\n"
+"PO-Revision-Date: 2021-05-10 13:12+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -452,7 +452,7 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3732 DataStores/ProcessorModel.py:4548
 #: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5553
 msgid "First Rib"
-msgstr ""
+msgstr "First rib"
 
 #: DataStores/ProcessorModel.py:3114
 msgid "Dist TE [\\u0025  chord]"
@@ -537,7 +537,7 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3733 DataStores/ProcessorModel.py:4549
 #: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5554
 msgid "Last Rib"
-msgstr ""
+msgstr "Last rib"
 
 #: DataStores/ProcessorModel.py:3734
 msgid "Row 2 A"
@@ -1720,19 +1720,23 @@ msgstr ""
 
 #: Windows/NewSkinTension.py:194
 msgid "NewSkinTens-InitialRibDesc"
-msgstr ""
+msgstr "Number of the first rib in the group"
 
 #: Windows/NewSkinTension.py:195
 msgid "NewSkinTens-FinalRibDesc"
-msgstr ""
+msgstr "Number of the last rib in the group"
 
 #: Windows/NewSkinTension.py:196
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
+"Calculation type\n"
+"The only allowed value is currently 1"
 
 #: Windows/NewSkinTension.py:239
 msgid "SkinTension-OrderNumDesc"
 msgstr ""
+"Number which will be used to order the lines\n"
+"during edit or file saving"
 
 #: Windows/NewSkinTension.py:240 Windows/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"
