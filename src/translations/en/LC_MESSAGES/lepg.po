@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-06 13:16+0200\n"
-"PO-Revision-Date: 2021-05-06 13:39+0200\n"
+"PO-Revision-Date: 2021-05-10 13:12+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -232,19 +232,19 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2048
 msgid "Intake Start"
-msgstr ""
+msgstr "Intake start"
 
 #: DataStores/ProcessorModel.py:2049
 msgid "Intake End"
-msgstr ""
+msgstr "Intake end"
 
 #: DataStores/ProcessorModel.py:2050
 msgid "Open-close"
-msgstr ""
+msgstr "Open close"
 
 #: DataStores/ProcessorModel.py:2051
 msgid "Displac"
-msgstr ""
+msgstr "vert Displacement"
 
 #: DataStores/ProcessorModel.py:2052
 msgid "Rel weight"
@@ -288,7 +288,7 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2248
 msgid "Pos F"
-msgstr ""
+msgstr "Brake lines"
 
 #: DataStores/ProcessorModel.py:2344 DataStores/ProcessorModel.py:3408
 #: DataStores/ProcessorModel.py:3731 DataStores/ProcessorModel.py:4185
@@ -452,7 +452,7 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3732 DataStores/ProcessorModel.py:4548
 #: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5553
 msgid "First Rib"
-msgstr ""
+msgstr "First rib"
 
 #: DataStores/ProcessorModel.py:3114
 msgid "Dist TE [\\u0025  chord]"
@@ -537,7 +537,7 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3733 DataStores/ProcessorModel.py:4549
 #: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5554
 msgid "Last Rib"
-msgstr ""
+msgstr "Last rib"
 
 #: DataStores/ProcessorModel.py:3734
 msgid "Row 2 A"
@@ -593,23 +593,23 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:3952
 msgid "Initial Rib"
-msgstr ""
+msgstr "Initial rib"
 
 #: DataStores/ProcessorModel.py:3953
 msgid "Final Rib"
-msgstr ""
+msgstr "Final rib"
 
 #: DataStores/ProcessorModel.py:4053
 msgid "Light Typ"
-msgstr ""
+msgstr "Light type"
 
 #: DataStores/ProcessorModel.py:4054
 msgid "Dist LE"
-msgstr ""
+msgstr "Hor dist"
 
 #: DataStores/ProcessorModel.py:4055
 msgid "Dist chord"
-msgstr ""
+msgstr "Vert dist"
 
 #: DataStores/ProcessorModel.py:4056
 msgid "Hor axis"
@@ -845,6 +845,8 @@ msgstr ""
 #: Windows/Lines.py:254 Windows/NoseMylars.py:109 Windows/RibHoles.py:242
 msgid "OrderNumDesc"
 msgstr ""
+"Number which will be used to order the lines\n"
+"during edit or file saving"
 
 #: Windows/AddRibPoints.py:110
 msgid "AddRibPts-XCoordDesc"
@@ -894,39 +896,46 @@ msgstr "Rib number"
 
 #: Windows/Airfoils.py:79
 msgid "Proc-AirfoilNameDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Name of the file in which defines the profile of the rib.\n"
+"This file must be saved prior the processing in the same\n"
+"folder where the processor is saved."
 
 #: Windows/Airfoils.py:80
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeStartDesc"
-msgstr "The name of the wing"
+msgstr "Start of the air inlet in [% chord]"
 
 #: Windows/Airfoils.py:81
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-IntakeEnDesc"
-msgstr "The name of the wing"
+msgstr "End of the air inlet in [% chord]"
 
 #: Windows/Airfoils.py:82
 msgid "Proc-OpenCloseDesc"
 msgstr ""
+"Defines the form of the cell left of the rib\n"
+"\"0\" indicates closed-cell \n"
+"\"1\" open cell)"
 
 #: Windows/Airfoils.py:83
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-DisplacDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Vertical displacement of the rib in [cm]\n"
+"Usually the value is 0"
 
 #: Windows/Airfoils.py:84
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Proc-RelWeightDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Relative weight of the chord, in relation to the load \n"
+"Value is usually 1"
 
 #: Windows/Airfoils.py:85
 msgid "Proc-rrwDesc"
 msgstr ""
+"Single Skin wings:\n"
+"\"0\" Triangles will not be rotated\n"
+"\"1\" Triangles will be rotated corresponding to profile\n"
+"Double Skin Wings:\n"
+"Value > 1 => Lenght of mini ribs in [% chord]"
 
 #: Windows/Airfoils.py:96 Windows/AnchorPoints.py:93 Windows/Geometry.py:101
 msgid "Sort by Rib Number"
@@ -938,35 +947,49 @@ msgstr ""
 
 #: Windows/AnchorPoints.py:78
 msgid "AnchPoints-RibNumDesc"
-msgstr ""
+msgstr "Rib number"
 
 #: Windows/AnchorPoints.py:79
 msgid "AnchPoints-NumAnchorsDesc"
 msgstr ""
+"Number of anchors (A...E) defined on the line\n"
+"Must not include brake lines"
 
 #: Windows/AnchorPoints.py:80
 msgid "AnchPoints-PosADesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:81
 msgid "AnchPoints-PosBDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:82
 msgid "AnchPoints-PosCDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:83
 msgid "AnchPoints-PosDDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:84
 msgid "AnchPoints-PosEDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/AnchorPoints.py:85
 msgid "AnchPoints-PosFDesc"
 msgstr ""
+"Position in [% chord]\n"
+"Insert 0 if not used"
 
 #: Windows/BasicData.py:68
 msgid "Basic Data"
@@ -1697,35 +1720,39 @@ msgstr ""
 
 #: Windows/NewSkinTension.py:194
 msgid "NewSkinTens-InitialRibDesc"
-msgstr ""
+msgstr "Number of the first rib in the group"
 
 #: Windows/NewSkinTension.py:195
 msgid "NewSkinTens-FinalRibDesc"
-msgstr ""
+msgstr "Number of the last rib in the group"
 
 #: Windows/NewSkinTension.py:196
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
+"Calculation type\n"
+"The only allowed value is currently 1"
 
 #: Windows/NewSkinTension.py:239
 msgid "SkinTension-OrderNumDesc"
 msgstr ""
+"Number which will be used to order the lines\n"
+"during edit or file saving"
 
 #: Windows/NewSkinTension.py:240 Windows/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"
-msgstr ""
+msgstr "Distance from Leading Edge in [% chord]"
 
 #: Windows/NewSkinTension.py:241 Windows/SkinTension.py:76
 msgid "SkinTension-TopOverWideDesc"
-msgstr ""
+msgstr "Over widening in [% chord]"
 
 #: Windows/NewSkinTension.py:242 Windows/SkinTension.py:77
 msgid "SkinTension-BottDistTEDesc"
-msgstr ""
+msgstr "Distance from Trailing Edge in [% chord]"
 
 #: Windows/NewSkinTension.py:243 Windows/SkinTension.py:78
 msgid "SkinTension-BottOverWideDesc"
-msgstr ""
+msgstr "Over widening in [% chord]"
 
 #: Windows/NoseMylars.py:71
 msgid "Nose mylars"
@@ -1799,7 +1826,7 @@ msgstr "Width of the cell in cm"
 
 #: Windows/PreProcCellsDistribution.py:121
 msgid "PreProc-NumCellsDesc"
-msgstr "Number of cells "
+msgstr "Number of cells"
 
 #: Windows/PreProcData.py:74
 msgid "Pre-Processor data"
@@ -2019,30 +2046,43 @@ msgstr "The name of the wing"
 #: Windows/RibHoles.py:243
 msgid "RibHoles-LigthTypeDesc"
 msgstr ""
+"Typ of lightening configuration\n"
+"1: Ellipse/ circle\n"
+"2: Ellipse/ circle with strip\n"
+"3: Triangle"
 
 #: Windows/RibHoles.py:244
 msgid "RibHoles-DistLEDesc"
-msgstr ""
+msgstr "Hor distance from LE [% chord]"
 
 #: Windows/RibHoles.py:245
 msgid "RibHoles-DisChordDesc"
 msgstr ""
+"Vert distance from chord line\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:246
 msgid "RibHoles-HorAxisDesc"
 msgstr ""
+"Length of the hor axis of the hole\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:247
 msgid "RibHoles-VertAxisDesc"
 msgstr ""
+"Length of the vert axis of the hole\n"
+"in [% chord]"
 
 #: Windows/RibHoles.py:248
 msgid "RibHoles-RotAngleDesc"
-msgstr ""
+msgstr "Rotation angle in [deg]"
 
 #: Windows/RibHoles.py:249
 msgid "RibHoles-Opt1Desc"
 msgstr ""
+"Type 1: always 0\n"
+"Type 2: Width of strip in  [cm]\n"
+"Type 3: Radius of corners in [cm]"
 
 #: Windows/SeewingAllowances.py:70
 msgid "Sewing allowances"
@@ -2147,14 +2187,21 @@ msgstr ""
 #: Windows/SkinTension.py:91
 msgid "SkinTension-StrainMiniRibsDesc"
 msgstr ""
+"Compensation of canvas elasticity.\n"
+"Default is 0,0114"
 
 #: Windows/SkinTension.py:92
 msgid "SkinTension-NumPointsDesc"
 msgstr ""
+"Num correction points\n"
+"Default 1000"
 
 #: Windows/SkinTension.py:93
 msgid "SkinTension-CoeffDesc"
 msgstr ""
+"Intensity of the correction\n"
+"0.0 None\n"
+"1.0 maximal"
 
 #: Windows/SpecWingTip.py:69
 msgid "Special wing tip"
@@ -2354,7 +2401,7 @@ msgstr ""
 
 #: lepg.py:218
 msgid "edit_preProc_data_description"
-msgstr "Opens the  window to edit name, LE, TE and vault settings"
+msgstr "Opens the window to edit name, LE, TE and vault settings"
 
 #: lepg.py:221
 msgid "Cells distribution"

@@ -66,7 +66,7 @@ class RibHoles(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
@@ -103,7 +103,7 @@ class RibHoles(QMdiSubWindow):
         if self.lightC_M.numConfigs() > 0:
             self.modelNumConfigsChanged() 
         
-        sortBtn = QPushButton(_('Sort by orderNum'))
+        sortBtn = QPushButton(_('Sort by Order Num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
 
@@ -202,7 +202,7 @@ class RibHoles(QMdiSubWindow):
         tabLayout.addLayout(confLayout)
         
         # Data lines
-        numDet_L = QLabel(_('Number of Lines'))
+        numDet_L = QLabel(_('Number of configuration lines'))
         numDet_L.setAlignment(Qt.AlignRight)
         numDet_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         tabLayout.addWidget(numDet_L)

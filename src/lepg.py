@@ -77,6 +77,9 @@ class MainWindow(QMainWindow):
         '''
         :method: Constructor
         '''
+        # Delete old log file
+        self.deleteLogfile()
+        
         # Setup the logger
         # Additional code needed due to pyinstaller. Check doc there. 
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
@@ -170,6 +173,11 @@ class MainWindow(QMainWindow):
         fileDataStatusAct.setStatusTip(_('Provides an overview about what data has (not) been saved'))
         fileDataStatusAct.triggered.connect(self.fileDataStatus)
         
+        fileRestartAct = QAction(_('Restart'), self)
+        fileRestartAct.setStatusTip(_('Restart the app'))
+        fileRestartAct.triggered.connect(self.fileRestart)
+        
+        
         fileExitAct = QAction(_('Exit'), self)
         fileExitAct.setStatusTip(_('Leave the app'))
         fileExitAct.triggered.connect(self.fileExit)
@@ -178,15 +186,10 @@ class MainWindow(QMainWindow):
         fileMenu = self.mainMenu.addMenu(_('File'))
         fileMenu.addAction(fileDataStatusAct)
         fileMenu.addSeparator()
+        fileMenu.addAction(fileRestartAct)
+        fileMenu.addSeparator()
         fileMenu.addAction(fileExitAct)
     
-    def fileExit(self):
-        ''' 
-        :method: Does all the work to close properly the application. 
-        '''
-        logging.debug(self.__className + '.fileExit')
-        sys.exit()  
-        
     def fileDataStatus(self):
         '''
         :method: Opens the File Data Status overview window.
@@ -195,7 +198,21 @@ class MainWindow(QMainWindow):
             self.fileDataStatusW = DataStatusOverview()
             self.dws.registerWindow('DataStatusOverview')
             self.mdi.addSubWindow(self.fileDataStatusW)
-        self.fileDataStatusW.show() 
+        self.fileDataStatusW.show()
+        
+    def fileRestart(self):
+        ''' 
+        :method: Restarts the application.
+            Thanks to: https://blog.petrzemek.net/2014/03/23/restarting-a-python-script-within-itself/
+        '''
+        os.execv(sys.executable, ['python'] + sys.argv)
+    
+    def fileExit(self):
+        ''' 
+        :method: Does all the work to close properly the application. 
+        '''
+        logging.debug(self.__className + '.fileExit')
+        sys.exit()  
     
     def buildPreProcMenu(self):
         '''
@@ -1016,7 +1033,16 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('HelpAbout')
             self.mdi.addSubWindow(self.helpAboutW)
         self.helpAboutW.show()
+    
+    def deleteLogfile(self):
+        '''
+        :method: Deletes the log file if there's one
+        '''
+        dirpath = os.path.dirname(os.path.realpath(__file__))
+        logPathName = os.path.join(dirpath, 'logfile.txt')
         
+        if os.path.isfile(logPathName):
+            os.remove(logPathName)
         
 def main():
     app = QApplication(sys.argv)

@@ -96,6 +96,7 @@ class PreProcData(QMdiSubWindow):
         self.windowLayout.addLayout(gen_Ly)
         
         # Leading Edge
+        # TODO: remove type as the only allowed value is 1
         le_L = QLabel(_("Leading edge"))
         leTable = TableView()
         leTable.setModel( self.leadingE_M )
@@ -125,6 +126,7 @@ class PreProcData(QMdiSubWindow):
         self.windowLayout.addWidget(leTable)
 
         # Trailing Edge
+        # TODO: remove type as the only allowed value is 1
         te_L = QLabel(_("Trailing edge"))
         teTable = TableView()
         teTable.setModel( self.trailingE_M )

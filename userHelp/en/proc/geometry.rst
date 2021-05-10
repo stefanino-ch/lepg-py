@@ -46,6 +46,8 @@ The 2nd last column defines the percentage to be taken into account if washing p
 
 The last column defines the torsion angle for each single rib. You have to specify these values if you select **Alpha mode** **"0"** in the Basic data window. 
 
+Sort by Rib Number
+------------------
 The button **Sort by Rib Number** can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the rib numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you've choosen. 
 
 **ATTENTION** you have to order the lines in a way that the wing is defined from the middle to the tip. 
