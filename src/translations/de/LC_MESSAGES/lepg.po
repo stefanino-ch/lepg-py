@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-09 09:01+0200\n"
-"PO-Revision-Date: 2021-05-10 13:12+0200\n"
+"POT-Creation-Date: 2021-05-10 19:21+0200\n"
+"PO-Revision-Date: 2021-05-11 13:07+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -86,7 +86,7 @@ msgstr "Flügelname"
 #: DataStores/ProcessorModel.py:3410 DataStores/ProcessorModel.py:4550
 #: Windows/AirfoilThickness.py:71 Windows/CalageVar.py:73
 #: Windows/GlueVent.py:71 Windows/JoncsDefinition.py:218
-#: Windows/PreProcCellsDistribution.py:73 Windows/PreProcData.py:156
+#: Windows/PreProcCellsDistribution.py:73 Windows/PreProcData.py:158
 #: Windows/SpecWingTip.py:71 Windows/ThreeDDxf.py:71 Windows/TwoDDxf.py:72
 msgid "Type"
 msgstr "Typ"
@@ -298,47 +298,47 @@ msgstr "Bremsleinen"
 msgid "Order num"
 msgstr "Sortierung"
 
-#: DataStores/ProcessorModel.py:2345 DataStores/ProcessorModel.py:4186
+#: DataStores/ProcessorModel.py:2345
 msgid "num Branches"
-msgstr ""
+msgstr "Anz Ebenen"
 
-#: DataStores/ProcessorModel.py:2346 DataStores/ProcessorModel.py:4187
+#: DataStores/ProcessorModel.py:2346
 msgid "Branch lvl 1"
-msgstr ""
+msgstr "Verzw 1"
 
-#: DataStores/ProcessorModel.py:2347 DataStores/ProcessorModel.py:4188
+#: DataStores/ProcessorModel.py:2347
 msgid "Order lvl 1"
-msgstr ""
+msgstr "Knoten Verzw 1"
 
-#: DataStores/ProcessorModel.py:2348 DataStores/ProcessorModel.py:4189
+#: DataStores/ProcessorModel.py:2348
 msgid "Ramif lvl2"
-msgstr ""
+msgstr "Verzw 2"
 
-#: DataStores/ProcessorModel.py:2349 DataStores/ProcessorModel.py:4190
+#: DataStores/ProcessorModel.py:2349
 msgid "Order lvl 2"
-msgstr ""
+msgstr "Knoten Verzw 2"
 
-#: DataStores/ProcessorModel.py:2350 DataStores/ProcessorModel.py:4191
+#: DataStores/ProcessorModel.py:2350
 msgid "Ramif lvl3"
-msgstr ""
+msgstr "Verzw 3"
 
-#: DataStores/ProcessorModel.py:2351 DataStores/ProcessorModel.py:4192
+#: DataStores/ProcessorModel.py:2351
 msgid "Order lvl 3"
-msgstr ""
+msgstr "Knoten Verzw 3"
 
-#: DataStores/ProcessorModel.py:2352 DataStores/ProcessorModel.py:4193
+#: DataStores/ProcessorModel.py:2352
 msgid "Branch lvl 4"
-msgstr ""
+msgstr "Verzw 4"
 
-#: DataStores/ProcessorModel.py:2353 DataStores/ProcessorModel.py:4194
+#: DataStores/ProcessorModel.py:2353
 msgid "Order lvl 4"
-msgstr ""
+msgstr "Knoten Verzw 4"
 
 #: DataStores/ProcessorModel.py:2354 DataStores/ProcessorModel.py:4195
 msgid "Anchor"
-msgstr "Anker"
+msgstr "Aufhängept"
 
-#: DataStores/ProcessorModel.py:2355 DataStores/ProcessorModel.py:4196
+#: DataStores/ProcessorModel.py:2355
 msgid "An. Rib num"
 msgstr ""
 
@@ -474,15 +474,15 @@ msgstr "Dist. Eintrittsk. [\\u0025 Flügelt.]"
 
 #: DataStores/ProcessorModel.py:3200
 msgid "Finesse [deg]"
-msgstr ""
+msgstr "Gleitwinkel [Grad]"
 
 #: DataStores/ProcessorModel.py:3201
-msgid "Center of Pressure [\\u0025 chord]"
-msgstr ""
+msgid "Center of Pressure"
+msgstr "Druckmittelpt [% Flügeltiefe]"
 
 #: DataStores/ProcessorModel.py:3202
-msgid "Calage [\\u0025 chord]"
-msgstr ""
+msgid "Calage"
+msgstr "Calage [% Flügeltiefe]"
 
 #: DataStores/ProcessorModel.py:3203
 msgid "Risers [cm]"
@@ -500,9 +500,9 @@ msgstr "Karabiner [cm]"
 msgid "Vent param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3409
+#: DataStores/ProcessorModel.py:3409 DataStores/ProcessorModel.py:4196
 msgid "Rib num"
-msgstr ""
+msgstr "Rippen Nr"
 
 #: DataStores/ProcessorModel.py:3411
 msgid "Ini Rib"
@@ -642,6 +642,42 @@ msgstr "Drehwinkel"
 #: DataStores/ProcessorModel.py:4059
 msgid "Opt "
 msgstr ""
+
+#: DataStores/ProcessorModel.py:4186
+msgid "Num branches"
+msgstr "Anz Ebenen"
+
+#: DataStores/ProcessorModel.py:4187
+msgid "Ramif 1"
+msgstr "Verzw 1"
+
+#: DataStores/ProcessorModel.py:4188
+msgid "Node 1"
+msgstr "Knoten Verzw 1"
+
+#: DataStores/ProcessorModel.py:4189
+msgid "Ramif 2"
+msgstr "Verzw 2"
+
+#: DataStores/ProcessorModel.py:4190
+msgid "Node 2"
+msgstr "Knoten Verzw 2"
+
+#: DataStores/ProcessorModel.py:4191
+msgid "Ramif 3"
+msgstr "Verzw 3"
+
+#: DataStores/ProcessorModel.py:4192
+msgid "Node 3"
+msgstr "Knoten Verzw 3"
+
+#: DataStores/ProcessorModel.py:4193
+msgid "Ramif 4"
+msgstr "Verzw 4"
+
+#: DataStores/ProcessorModel.py:4194
+msgid "Node 4"
+msgstr "Knoten Verzw 4"
 
 #: DataStores/ProcessorModel.py:4335
 msgid "Marks Spacing [cm]"
@@ -1107,105 +1143,144 @@ msgstr "Länge Bremsl. [cm]"
 
 #: Windows/Brakes.py:90
 msgid "Brakes-LineLengthDesc"
-msgstr ""
-"Definition der Länge der\n"
-"Bremsleinen"
+msgstr "Länge der Hauptbremsleine in [cm]"
 
 #: Windows/Brakes.py:102
 msgid "Number of Brake paths"
-msgstr ""
+msgstr "Anzahl Leinenpfade"
 
 #: Windows/Brakes.py:139
 msgid "Brakes-NumBranchesDesc"
 msgstr ""
+"Anzahl der Ebenen über\n"
+"die der Pfad dieser Zeile läuft"
 
 #: Windows/Brakes.py:140
 msgid "Brakes-BranchLvlOneDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Brakes.py:141
 msgid "Brakes-OrderLvlOneDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Brakes.py:142
 msgid "Brakes-LevelOfRamTwoDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Brakes.py:143
 msgid "Brakes-OrderLvlTwoDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Brakes.py:144
 msgid "Brakes-LevelOfRamThreeDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Brakes.py:145
 msgid "Brakes-OrderLvlThreeDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Brakes.py:146
 msgid "Brakes-BranchLvlFourDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Brakes.py:147
-#, fuzzy
-#| msgid "PreProc-cd_num_desc"
 msgid "Brakes-OrderLvlFourDesc"
-msgstr "Totale Anzahl Zellen"
+msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Brakes.py:148
 msgid "Brakes-AnchorLineDesc"
 msgstr ""
+"Nummer des Aufhängepunktes\n"
+"A= 1\n"
+"B= 2\n"
+"..."
 
 #: Windows/Brakes.py:149
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "Brakes-AnchorRibNumDesc"
-msgstr "Flügelname"
+msgstr ""
+"Rippen Nummer\n"
+"Mit einer Kommastelle können die Leinen \n"
+"zwischen den Rippen platziert werden"
 
 #: Windows/Brakes.py:166
 msgid "Brakes-s1Desc"
 msgstr ""
+"Distanz dem Flügel entlang\n"
+"ausgehend vom Zentrum [% Spannw]"
 
 #: Windows/Brakes.py:167
 msgid "Brakes-s2Desc"
 msgstr ""
+"Distanz dem Flügel entlang\n"
+"ausgehend vom Zentrum [% Spannw]"
 
 #: Windows/Brakes.py:168
 msgid "Brakes-s3Desc"
 msgstr ""
+"Distanz dem Flügel entlang\n"
+"ausgehend vom Zentrum [% Spannw]"
 
 #: Windows/Brakes.py:169
 msgid "Brakes-s4Desc"
 msgstr ""
+"Distanz dem Flügel entlang\n"
+"ausgehend vom Zentrum [% Spannw]"
 
 #: Windows/Brakes.py:170
 msgid "Brakes-s5Desc"
 msgstr ""
+"Distanz dem Flügel entlang\n"
+"ausgehend vom Zentrum [% Spannw]"
 
 #: Windows/Brakes.py:188
 msgid "Brakes-d1Desc"
 msgstr ""
+"Verlängerung der \n"
+"Bremsleine in [cm]"
 
 #: Windows/Brakes.py:189
 msgid "Brakes-d2Desc"
 msgstr ""
+"Verlängerung der \n"
+"Bremsleine in [cm]"
 
 #: Windows/Brakes.py:190
 msgid "Brakes-d3Desc"
 msgstr ""
+"Verlängerung der \n"
+"Bremsleine in [cm]"
 
 #: Windows/Brakes.py:191
 msgid "Brakes-d4Desc"
 msgstr ""
+"Verlängerung der \n"
+"Bremsleine in [cm]"
 
 #: Windows/Brakes.py:192
 msgid "Brakes-d5Desc"
 msgstr ""
+"Verlängerung der \n"
+"Bremsleine in [cm]"
 
 #: Windows/CalageVar.py:71
 msgid "Calage variation "
-msgstr ""
+msgstr "Schwerpunktverschiebung"
 
 #: Windows/CalageVar.py:76 Windows/SpecWingTip.py:74
 #, fuzzy
@@ -1382,7 +1457,7 @@ msgid "ExtradCols-FirstRibDesc"
 msgstr "Flügelname"
 
 #: Windows/ExtradColors.py:203 Windows/IntradColors.py:203
-#: Windows/NewSkinTension.py:208
+#: Windows/NewSkinTension.py:209
 msgid "Number of Lines"
 msgstr "Anzahl Leinen"
 
@@ -1444,27 +1519,32 @@ msgstr ""
 
 #: Windows/GlobalAoA.py:78
 msgid "GlobalAoA-FinesseDesc"
-msgstr ""
+msgstr "Angestrebter Gleitwinkel"
 
 #: Windows/GlobalAoA.py:79
 msgid "GlobalAoA-CenterOfPressureDesc"
-msgstr ""
+msgstr "Angestrebte Position des Druckzentrums"
 
 #: Windows/GlobalAoA.py:80
 msgid "GlobalAoA-CalageDesc"
 msgstr ""
+"Distanz von der Eintrittskante zur\n"
+"Pilotenposition rechtwinklig unter der\n"
+"Profilsehne"
 
 #: Windows/GlobalAoA.py:101
 msgid "GlobalAoA-RisersDesc"
-msgstr ""
+msgstr "Länge der Gurten"
 
 #: Windows/GlobalAoA.py:102
 msgid "GlobalAoA-LinesDesc"
 msgstr ""
+"Länge der Leinen \n"
+"Karabiner-Schirm"
 
 #: Windows/GlobalAoA.py:103
 msgid "GlobalAoA-KarabinersDesc"
-msgstr ""
+msgstr "Distanz zwischen den Karabinern"
 
 #: Windows/GlueVent.py:69
 msgid "Glue vent"
@@ -1683,7 +1763,7 @@ msgstr "Leinen bearbeiten"
 
 #: Windows/Lines.py:88
 msgid "Lines control parameter"
-msgstr ""
+msgstr "Leinen-Kontrollparameter"
 
 #: Windows/Lines.py:94
 msgid "Lines-LinesControlParamDesc"
@@ -1691,55 +1771,77 @@ msgstr ""
 
 #: Windows/Lines.py:104
 msgid "Number of Line plans"
-msgstr ""
+msgstr "Anzahl Leinenpläne"
 
 #: Windows/Lines.py:220
 msgid "Number of Line paths"
-msgstr ""
+msgstr "Anzahl Leinenpfade"
 
 #: Windows/Lines.py:255
 msgid "Lines-NumBranchesDesc"
 msgstr ""
+"Anzahl der Ebenen über\n"
+"die der Pfad dieser Zeile läuft"
 
 #: Windows/Lines.py:256
 msgid "Lines-BranchLvlOneDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Lines.py:257
 msgid "Lines-OrderLvlOneDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Lines.py:258
 msgid "Lines-LevelOfRamTwoDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Lines.py:259
 msgid "Lines-OrderLvlTwoDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Lines.py:260
 msgid "Lines-LevelOfRamThreeDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Lines.py:261
 msgid "Lines-OrderLvlThreeDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Lines.py:262
 msgid "Lines-BranchLvlFourDesc"
 msgstr ""
+"Ebenennummer für diesen \n"
+"Pfadabschnitt"
 
 #: Windows/Lines.py:263
 msgid "Lines-OrderLvlFourDesc"
 msgstr ""
+"Knoten Nummer des Endes\n"
+"des Pfad Abschnittes"
 
 #: Windows/Lines.py:264
 msgid "Lines-AnchorLineDesc"
 msgstr ""
+"Nummer des Aufhängepunktes\n"
+"A= 1\n"
+"B= 2\n"
+"..."
 
 #: Windows/Lines.py:265
 msgid "Lines-AnchorRibNumDesc"
-msgstr ""
+msgstr "Rippen Nummer"
 
 #: Windows/Marks.py:64 lepg.py:782
 msgid "Marks"
@@ -1797,39 +1899,39 @@ msgstr ""
 msgid "New skin tension"
 msgstr "Tuchspannung neu"
 
-#: Windows/NewSkinTension.py:194
+#: Windows/NewSkinTension.py:195
 msgid "NewSkinTens-InitialRibDesc"
 msgstr "Erste Rippe"
 
-#: Windows/NewSkinTension.py:195
+#: Windows/NewSkinTension.py:196
 msgid "NewSkinTens-FinalRibDesc"
 msgstr "Letzte Rippe"
 
-#: Windows/NewSkinTension.py:196
+#: Windows/NewSkinTension.py:197
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
 "Berechnungstyp\n"
 "Wert ist immer 1"
 
-#: Windows/NewSkinTension.py:239
+#: Windows/NewSkinTension.py:240
 msgid "SkinTension-OrderNumDesc"
 msgstr ""
 "Zeilen können mit der Taste Sortieren\n"
 "aufgrund der Sortierreihenfolge geordnet werden"
 
-#: Windows/NewSkinTension.py:240 Windows/SkinTension.py:75
+#: Windows/NewSkinTension.py:241 Windows/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"
 msgstr "Distanz von der Eintrittskante in [% Flügeltiefe]"
 
-#: Windows/NewSkinTension.py:241 Windows/SkinTension.py:76
+#: Windows/NewSkinTension.py:242 Windows/SkinTension.py:76
 msgid "SkinTension-TopOverWideDesc"
 msgstr "Grösse der Verbreiterung in [% Flügeltiefe]"
 
-#: Windows/NewSkinTension.py:242 Windows/SkinTension.py:77
+#: Windows/NewSkinTension.py:243 Windows/SkinTension.py:77
 msgid "SkinTension-BottDistTEDesc"
 msgstr "Distanz von der Austrittskante in [% Flügeltiefe]"
 
-#: Windows/NewSkinTension.py:243 Windows/SkinTension.py:78
+#: Windows/NewSkinTension.py:244 Windows/SkinTension.py:78
 msgid "SkinTension-BottOverWideDesc"
 msgstr "Grösse der Verbreiterung in [% Flügeltiefe]"
 
@@ -1921,161 +2023,161 @@ msgstr ""
 msgid "PreProc-WingNameDesc"
 msgstr "Flügelname"
 
-#: Windows/PreProcData.py:99
+#: Windows/PreProcData.py:100
 msgid "Leading edge"
 msgstr "Eintrittskante"
 
-#: Windows/PreProcData.py:110
+#: Windows/PreProcData.py:111
 msgid "PreProc-LE-Type-Desc"
 msgstr "Aktuell gibt es nur \"Typ 1\" Eintrittskanten"
 
-#: Windows/PreProcData.py:111
+#: Windows/PreProcData.py:112
 msgid "PreProc-LE-a1-Desc"
 msgstr "Horizontale Halbachse der Einrittskante"
 
-#: Windows/PreProcData.py:112
+#: Windows/PreProcData.py:113
 msgid "PreProc-LE-b1-Desc"
 msgstr "Vertikale Halbachse der Einrittskante"
 
-#: Windows/PreProcData.py:113
+#: Windows/PreProcData.py:114
 msgid "PreProc-LE-x1-Desc"
 msgstr ""
 "Startpunkt der ersten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:114
+#: Windows/PreProcData.py:115
 msgid "PreProc-LE-x2-Desc"
 msgstr ""
 "Startpunkt der zweiten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:115
+#: Windows/PreProcData.py:116
 msgid "PreProc-LE-xm-Desc"
 msgstr "Halbe Spannweite der Eintrittskante"
 
-#: Windows/PreProcData.py:116
+#: Windows/PreProcData.py:117
 msgid "PreProc-LE-c01-Desc"
 msgstr ""
 "Deflektionskoeffizient der ersten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:117
+#: Windows/PreProcData.py:118
 msgid "PreProc-LE-ex1-Desc"
 msgstr ""
 "Grad der ersten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:118
+#: Windows/PreProcData.py:119
 msgid "PreProc-LE-c02-Desc"
 msgstr ""
 "Deflektionskoeffizient der zweiten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:119
+#: Windows/PreProcData.py:120
 msgid "PreProc-LE-ex2-Desc"
 msgstr ""
 "Grad der zweiten Korrektur\n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:128
+#: Windows/PreProcData.py:130
 msgid "Trailing edge"
 msgstr "Austrittskante"
 
-#: Windows/PreProcData.py:139
+#: Windows/PreProcData.py:141
 msgid "PreProc-TE-Type-Desc"
 msgstr "Aktuell gibt es nur \"Typ 1\" Austrittskanten"
 
-#: Windows/PreProcData.py:140
+#: Windows/PreProcData.py:142
 msgid "PreProc-TE-a1-Desc"
 msgstr "Horizontale Halbachse der Austrittskante"
 
-#: Windows/PreProcData.py:141
+#: Windows/PreProcData.py:143
 msgid "PreProc-TE-b1-Desc"
 msgstr "Vertikale Halbachse der Austrittskante"
 
-#: Windows/PreProcData.py:142
+#: Windows/PreProcData.py:144
 msgid "PreProc-TE-x1-Desc"
 msgstr ""
 "Startpunkt der Korrektur \n"
 "der Eintrittskante"
 
-#: Windows/PreProcData.py:143
+#: Windows/PreProcData.py:145
 msgid "PreProc-TE-xm-Desc"
 msgstr "Halbe Spannweite der Austrittskante"
 
-#: Windows/PreProcData.py:144
+#: Windows/PreProcData.py:146
 msgid "PreProc-TE-c0-Desc"
 msgstr "Deflektionskoeffizient der Eintrittskante"
 
-#: Windows/PreProcData.py:145
+#: Windows/PreProcData.py:147
 msgid "PreProc-TE-y0-Desc"
 msgstr "Flügeltiefenreduktion Austrittskante"
 
-#: Windows/PreProcData.py:146
+#: Windows/PreProcData.py:148
 msgid "PreProc-TE-exp-Desc"
 msgstr "Grad der Korrektur der Eintrittskante"
 
-#: Windows/PreProcData.py:155
+#: Windows/PreProcData.py:157
 msgid "Vault"
 msgstr "Krümmung"
 
-#: Windows/PreProcData.py:159
+#: Windows/PreProcData.py:161
 msgid "Sin-Cos"
 msgstr "Sin-Cos"
 
-#: Windows/PreProcData.py:160
+#: Windows/PreProcData.py:162
 msgid "Radius-Angle"
 msgstr "Radius-Winkel"
 
-#: Windows/PreProcData.py:174
+#: Windows/PreProcData.py:176
 msgid "PreProc-Vault-a1-Desc"
 msgstr "Horizontale Halbachse"
 
-#: Windows/PreProcData.py:175
+#: Windows/PreProcData.py:177
 msgid "PreProc-Vault-b1-Desc"
 msgstr "Vertikale Halbachse"
 
-#: Windows/PreProcData.py:176
+#: Windows/PreProcData.py:178
 msgid "PreProc-Vault-x1-Desc"
 msgstr ""
 "Horizontaler Punkt an der die \n"
 "Ellipsenmodifikation startet"
 
-#: Windows/PreProcData.py:177
+#: Windows/PreProcData.py:179
 msgid "PreProc-Vault-c1-Desc"
 msgstr ""
 "Vertikaler Punkt an der die \n"
 "Ellipsenmodifikation startet"
 
-#: Windows/PreProcData.py:178
+#: Windows/PreProcData.py:180
 msgid "PreProc-Vault-r1-Desc"
 msgstr "Radius der ersten Bogensektion"
 
-#: Windows/PreProcData.py:179
+#: Windows/PreProcData.py:181
 msgid "PreProc-Vault-r2-Desc"
 msgstr "Radius der zweiten Bogensektion"
 
-#: Windows/PreProcData.py:180
+#: Windows/PreProcData.py:182
 msgid "PreProc-Vault-r3-Desc"
 msgstr "Radius der dritten Bogensektion"
 
-#: Windows/PreProcData.py:181
+#: Windows/PreProcData.py:183
 msgid "PreProc-Vault-r4-Desc"
 msgstr "Radius der vierten Bogensektion"
 
-#: Windows/PreProcData.py:182
+#: Windows/PreProcData.py:184
 msgid "PreProc-Vault-ra1-Desc"
 msgstr "Winkel der ersten Bogensektion"
 
-#: Windows/PreProcData.py:183
+#: Windows/PreProcData.py:185
 msgid "PreProc-Vault-ra2-Desc"
 msgstr "Winkel der zweiten Bogensektion"
 
-#: Windows/PreProcData.py:184
+#: Windows/PreProcData.py:186
 msgid "PreProc-Vault-ra3-Desc"
 msgstr "Winkel der dritten Bogensektion"
 
-#: Windows/PreProcData.py:185
+#: Windows/PreProcData.py:187
 msgid "PreProc-Vault-ra4-Desc"
 msgstr "Winkel der vierten Bogensektion"
 
@@ -2624,17 +2726,15 @@ msgstr "Genereller Anstellwinkel"
 
 #: lepg.py:370
 msgid "Edit global AoA data"
-msgstr ""
+msgstr "Die Rahmenparameter für den Angle of Attack festlegen"
 
 #: lepg.py:373
 msgid "Lines"
 msgstr "Leinen"
 
 #: lepg.py:374
-#, fuzzy
-#| msgid "Edit PreProc Data"
 msgid "Edit Lines data"
-msgstr "PreProc Daten editieren"
+msgstr "Definiere hier den Leinenplan"
 
 #: lepg.py:377
 msgid "Brakes"
@@ -2642,7 +2742,7 @@ msgstr "Bremsleinen"
 
 #: lepg.py:378
 msgid "Edit Brake lines data"
-msgstr ""
+msgstr "Editiere hier den Leinenplan für die Bremsleinen"
 
 #: lepg.py:381
 msgid "Ramifications length"
@@ -2922,6 +3022,14 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#, fuzzy
+#~| msgid "Branch"
+#~ msgid "Branch 4"
+#~ msgstr "Version"
+
+#~ msgid "Calage [\\u0025 chord]"
+#~ msgstr "Schwerpunkt [\\u0025 Flügeltiefe]"
 
 #~ msgid "Num Cells"
 #~ msgstr "Anz. Zellen"

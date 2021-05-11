@@ -91,6 +91,20 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bremsleinen</a><ul>
+<li><a class="reference internal" href="#was-du-sonst-noch-wissen-musst">Was Du sonst noch wissen musst</a></li>
+<li><a class="reference internal" href="#verlangerung-der-bremsleinen">Verlängerung der Bremsleinen</a><ul>
+<li><a class="reference internal" href="#s-1-2-3-4-5">s 1, 2, 3, 4, 5</a></li>
+<li><a class="reference internal" href="#d-1-2-3-4-5">d 1, 2, 3, 4, 5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sortieren">Sortieren</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="lines.html"
                         title="previous chapter">Leinen</a></p>
@@ -119,40 +133,59 @@
 <div></div></blockquote>
 <div class="section" id="bremsleinen">
 <h1>Bremsleinen<a class="headerlink" href="#bremsleinen" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<p>Eine detaillierte Beschreibung findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.10" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Im Fenster Bremsleinen können die Parameter aus dem 10. Abschnitt der lep Datei bearbeitet werden, die Bremsleinen.</p>
+<a class="reference internal image-reference" href="../../_images/brakes-de.png"><img alt="../../_images/brakes-de.png" src="../../_images/brakes-de.png" style="width: 736px; height: 340px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
+<span class="o">*</span>       <span class="mf">10.</span> <span class="n">BRAKES</span>
+<span class="o">***************************************************</span>
+<span class="mi">270</span>
+<span class="mi">12</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">1</span>  <span class="mi">6</span> <span class="mi">2</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">2</span>  <span class="mi">6</span> <span class="mi">3</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">3</span>  <span class="mi">6</span> <span class="mi">4</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">4</span>  <span class="mi">6</span> <span class="mi">5</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>  <span class="mi">6</span> <span class="mi">6</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">6</span>  <span class="mi">6</span> <span class="mi">7</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">7</span>  <span class="mi">6</span> <span class="mi">8</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">8</span>  <span class="mi">6</span> <span class="mi">9</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">9</span>  <span class="mi">6</span> <span class="mi">10</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">10</span> <span class="mi">6</span> <span class="mi">11</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">11</span> <span class="mi">6</span> <span class="mi">12</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">12</span> <span class="mi">6</span> <span class="mi">13</span>
+<span class="o">*</span> <span class="n">Brake</span> <span class="n">distribution</span>
+<span class="mi">0</span>   <span class="mi">25</span>   <span class="mi">55</span>   <span class="mi">70</span>   <span class="mi">100</span>
+<span class="mi">0</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Die Definition der Bremsleinen erfolgt nach demselben Schema wie für die Hauptleinen.</p>
+<p><a class="reference internal" href="lines.html#lines-configuration-de"><span class="std std-ref">Mehr zur Konfiguration der Hauptleinen findest Du hier.</span></a></p>
+<div class="section" id="was-du-sonst-noch-wissen-musst">
+<h2>Was Du sonst noch wissen musst<a class="headerlink" href="#was-du-sonst-noch-wissen-musst" title="Permalink to this headline">¶</a></h2>
+<p>Die Hauptbremsleine ist fix Ebene 1 zugeordnet.</p>
+<p>Die Hauptleinen können nur an die Aufhängepunkte der Rippen verbunden werden.
+Die Bremsleinen können auch zwischen den Rippen platziert werden.
+Dazu definierts Du die Rippennummer mit einer Kommastelle.</p>
+<p>Beispiel: 8.4 bedeutet dass die Bremsleine zwischen Rippe 8 und 9, auf 40% der Distanz zwischen den Rippen platziert werden soll.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="verlangerung-der-bremsleinen">
+<h2>Verlängerung der Bremsleinen<a class="headerlink" href="#verlangerung-der-bremsleinen" title="Permalink to this headline">¶</a></h2>
+<p>Wenn notwendig können die Bremsleinen verlängert werden. Dazu können mit 5 Eckpunkten Verlängerungszonen entlang des Schirmes definiert werden.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S10_Brake_distribution_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S10_Brake_distribution_p.jpg" />
+<div class="section" id="s-1-2-3-4-5">
+<h3>s 1, 2, 3, 4, 5<a class="headerlink" href="#s-1-2-3-4-5" title="Permalink to this headline">¶</a></h3>
+<p>Die Position des Eckpunktes entlang des Flügels ausgehend von der Flügelmitte. Definiert wird die Distanz in [% Flügelspannweite].</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="d-1-2-3-4-5">
+<h3>d 1, 2, 3, 4, 5<a class="headerlink" href="#d-1-2-3-4-5" title="Permalink to this headline">¶</a></h3>
+<p>Die Verlängerung der Bremsleinen für diesen Punkt.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="sortieren">
+<h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this headline">¶</a></h2>
+<p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.10" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
 </div>
 
 

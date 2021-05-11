@@ -2,9 +2,9 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-*************************
+-------------------------
 Pre- and processor output
-*************************
+-------------------------
 
 There is still some work to be done...
 

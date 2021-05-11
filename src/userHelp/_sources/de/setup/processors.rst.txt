@@ -4,9 +4,9 @@
  
  .. _Processor_configuration_de:
  
-************************************
+------------------------------------
 Konfiguration der beiden Prozessoren
-************************************
+------------------------------------
 
 Bevor die Pre- und Prozessor ausgeführt werden können muss lepg wissen wo sie sind. 
 

@@ -4,9 +4,9 @@
 
  .. _Processor_configuration_en:
   
-******************************************
+------------------------------------------
 Configure the locations of both processors
-******************************************
+------------------------------------------
 
 Before you can execute pre- and processor you must configure where they are located.  
 

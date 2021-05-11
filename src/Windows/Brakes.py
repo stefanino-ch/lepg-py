@@ -65,7 +65,7 @@ class Brakes(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
@@ -132,7 +132,8 @@ class Brakes(QMdiSubWindow):
         brakes_T.enableIntValidator(ProcessorModel.BrakesModel.NumBranchesCol, ProcessorModel.BrakesModel.NumBranchesCol, 1, 4)
         brakes_T.enableIntValidator(ProcessorModel.BrakesModel.BranchLvlOneCol, ProcessorModel.BrakesModel.OrderLvlFourCol, 1, 99)
         brakes_T.enableIntValidator(ProcessorModel.BrakesModel.AnchorLineCol, ProcessorModel.BrakesModel.AnchorLineCol, 1, 6)
-        brakes_T.enableIntValidator(ProcessorModel.BrakesModel.AnchorRibNumCol, ProcessorModel.BrakesModel.AnchorRibNumCol, 1, 999)
+        # TODO: updata max num ribs
+        brakes_T.enableDoubleValidator(ProcessorModel.BrakesModel.AnchorRibNumCol, ProcessorModel.BrakesModel.AnchorRibNumCol, 1, 999, 1)
          
         brakes_T.setHelpBar(self.helpBar)
         brakes_T.setHelpText(ProcessorModel.BrakesModel.OrderNumCol, _('OrderNumDesc'))

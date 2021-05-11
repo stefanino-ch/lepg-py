@@ -3198,8 +3198,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
             self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure [\u0025 chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Calage [\u0025 chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure"))
+            self.setHeaderData(2, Qt.Horizontal, _("Calage"))
             self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
             self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
             self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
@@ -4183,17 +4183,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-            self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
-            self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
-            self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
-            self.setHeaderData(4, Qt.Horizontal, _("Ramif lvl2"))
-            self.setHeaderData(5, Qt.Horizontal, _("Order lvl 2"))
-            self.setHeaderData(6, Qt.Horizontal, _("Ramif lvl3"))
-            self.setHeaderData(7, Qt.Horizontal, _("Order lvl 3"))
-            self.setHeaderData(8, Qt.Horizontal, _("Branch lvl 4"))
-            self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
+            self.setHeaderData(1, Qt.Horizontal, _("Num branches"))
+            self.setHeaderData(2, Qt.Horizontal, _("Ramif 1"))
+            self.setHeaderData(3, Qt.Horizontal, _("Node 1"))
+            self.setHeaderData(4, Qt.Horizontal, _("Ramif 2"))
+            self.setHeaderData(5, Qt.Horizontal, _("Node 2"))
+            self.setHeaderData(6, Qt.Horizontal, _("Ramif 3"))
+            self.setHeaderData(7, Qt.Horizontal, _("Node 3"))
+            self.setHeaderData(8, Qt.Horizontal, _("Ramif 4"))
+            self.setHeaderData(9, Qt.Horizontal, _("Node 4"))
             self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
-            self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
+            self.setHeaderData(11, Qt.Horizontal, _("Rib num"))
         
         def updateLineRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11):
             '''

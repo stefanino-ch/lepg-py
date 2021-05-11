@@ -91,6 +91,20 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Leinen</a><ul>
+<li><a class="reference internal" href="#prinzipielle-regeln">Prinzipielle Regeln</a></li>
+<li><a class="reference internal" href="#leinen-kontrollparameter">Leinen-Kontrollparameter</a></li>
+<li><a class="reference internal" href="#anzahl-leinenplane">Anzahl Leinenpläne</a></li>
+<li><a class="reference internal" href="#anzahl-ebenen">Anzahl Ebenen</a></li>
+<li><a class="reference internal" href="#verzw-1-2-3-4">Verzw 1, 2, 3, 4</a></li>
+<li><a class="reference internal" href="#knoten-verzw-1-2-3-4">Knoten Verzw 1, 2, 3, 4</a></li>
+<li><a class="reference internal" href="#sortieren">Sortieren</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="globalAoA.html"
                         title="previous chapter">Anstellwinkel</a></p>
@@ -118,41 +132,89 @@
   <blockquote>
 <div></div></blockquote>
 <div class="section" id="leinen">
-<h1>Leinen<a class="headerlink" href="#leinen" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<p>Eine detaillierte Beschreibung findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<span id="lines-configuration-de"></span><h1>Leinen<a class="headerlink" href="#leinen" title="Permalink to this headline">¶</a></h1>
+<p>Im Fenster Leinen definieren wir den detaillierten Leinenplan unseres Flügels (ohne Bremsleinen):</p>
+<a class="reference internal image-reference" href="../../_images/lines-de.png"><img alt="../../_images/lines-de.png" src="../../_images/lines-de.png" style="width: 737px; height: 307px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
+<span class="o">*</span>          <span class="mf">9.</span> <span class="n">SUSPENSION</span> <span class="n">LINES</span> <span class="n">DESCRIPTION</span>
+<span class="o">***************************************************</span>
+<span class="mi">0</span>
+<span class="mi">3</span>
+<span class="mi">12</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">3</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">3</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">4</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">5</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">6</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">6</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">7</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">7</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">8</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">8</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">9</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">9</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">10</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">11</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">11</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">12</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">12</span>
+<span class="mi">16</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">1</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span>
+<span class="o">.......</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Stelle Dir vor Du schaust von hinten oder vorne auf die Leinen deines Flügels.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" />
+<p>Ein Pfad kann maximal über 4 Ebenen definiert werden. Für jede Ebene definierst Du die Nummer des Knotens in welchem die Leine endet.</p>
+<p>Um das ein wenig detaillierter zu erklären schauen wir auf die erste Zeile in der Zeichnung oben:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>    <span class="mi">1</span> <span class="mi">1</span>    <span class="mi">2</span> <span class="mi">1</span>    <span class="mi">3</span> <span class="mi">1</span>    <span class="mi">4</span> <span class="mi">1</span>    <span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="mi">1</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Das erste Paar <strong>1 1</strong> beschreibt das ende des Pfades auf Ebene 1 (die unterste) Knoten 1</p>
+<p><strong>2 1</strong> der Pfad geht über Ebene 2 und endet in Knoten 1</p>
+<p><strong>3 1</strong> der Pfad geht über Ebene 3 und endet in Knoten 1</p>
+<p><strong>4 1</strong> der Pfad geht über Ebene 4 und endet in Knoten 1</p>
+<p><strong>(A=1) 1</strong> jetzt müssen wir nur noch das Ende des Pfades mit dem Aufhängepunkt 1 (derjenige am nächsten zur Eintrittskante) von Rippe 1 verbinden</p>
+<p>Die zweite Zeile</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>    <span class="mi">1</span> <span class="mi">1</span>    <span class="mi">2</span> <span class="mi">1</span>    <span class="mi">3</span> <span class="mi">1</span>    <span class="mi">4</span> <span class="mi">2</span>    <span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Das erste Paar <strong>1 1</strong> beschreibt das ende des Pfades auf Ebene 1 (die unterste) Knoten 1</p>
+<p><strong>2 1</strong> der Pfad geht über Ebene 2 und endet in Knoten 1</p>
+<p><strong>3 1</strong> der Pfad geht über Ebene 3 und endet in Knoten 1</p>
+<p>Bis hier sind beide Pfade identisch.</p>
+<p><strong>4 2</strong> der Pfad geht über Ebene 4 und endet in Knoten 2
+Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2. Leine übersetzt</p>
+<p><strong>(A=1) 2</strong> dieser Pfad wird jetzt mit dem Aufhängepunkt 1 von Rippe 2 verbunden</p>
+<div class="section" id="prinzipielle-regeln">
+<h2>Prinzipielle Regeln<a class="headerlink" href="#prinzipielle-regeln" title="Permalink to this headline">¶</a></h2>
+<p><strong>Für jeden Gurt musst Du einen eigenen Leinenplan definieren</strong></p>
+<p><strong>Wenn Du eine Ebene nicht verwenden willst musst Du für das Definitionspaar dieser Ebene 0 einsetzen.</strong></p>
+<p>Die Zeile unten zeigt einen Pfad der nur über 3 Ebenen geht.</p>
+<p><strong>3</strong>   1 1 2 3 3 17 <strong>0 0</strong> 3 9</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="leinen-kontrollparameter">
+<h2>Leinen-Kontrollparameter<a class="headerlink" href="#leinen-kontrollparameter" title="Permalink to this headline">¶</a></h2>
+<p>Bisher ist nur eine Art die Leinen zu definieren vollständig implementiert. Der Wert muss immer auf <strong>0</strong> gesetzt werden.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anzahl-leinenplane">
+<h2>Anzahl Leinenpläne<a class="headerlink" href="#anzahl-leinenplane" title="Permalink to this headline">¶</a></h2>
+<p>Für jeden Gurt musst Du einen eigenen Leinenplan definieren</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anzahl-ebenen">
+<h2>Anzahl Ebenen<a class="headerlink" href="#anzahl-ebenen" title="Permalink to this headline">¶</a></h2>
+<p>Hier definierst Du wie viele Ebenen ein Pfad beinhaltet.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="verzw-1-2-3-4">
+<h2>Verzw 1, 2, 3, 4<a class="headerlink" href="#verzw-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<p>Definiert die Ebenennummer für eine bestimmte Verzweigung.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="knoten-verzw-1-2-3-4">
+<h2>Knoten Verzw 1, 2, 3, 4<a class="headerlink" href="#knoten-verzw-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<p>Die Knotennummer eines Pfades auf einer bestimmten Ebene.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="sortieren">
+<h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this headline">¶</a></h2>
+<p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-</div></blockquote>
 </div>
 
 

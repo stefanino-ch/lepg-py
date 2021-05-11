@@ -2,9 +2,9 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-*********************************
+---------------------------------
 Konfiguration des Update Checkers
-*********************************
+---------------------------------
 
 Während dem Start überprüft lepg ob eine neuere Version heruntergeladen werden könnte. 
 
@@ -21,7 +21,7 @@ Folgende Konfigurationsmöglichkeiten stehen zur Verfügung:
   * latest: die neueste und aktuellste Version. Aber Achtung hier fliessen die Entwicklungen zusammen, es kann viele Updates geben und teilweise nicht komplett fertig implementiert Funktionen. 
   
 Herunterladen von neuen Versionen
-*********************************
+---------------------------------
 
 Neue Versionen könnten von |github_link| heruntergeladen werden. 
 
@@ -38,7 +38,7 @@ Zuerst auswählen welche Version man haben möchte, stable oder latest.
 Dann im Ordner "distribution" das entsprechende . zip Paket herunterladen. 
 
 Nach dem Herunterladen
-**********************
+----------------------
 
 Das .zip Paket kann an einem beliebigen Ort entpackt werden. 
 
