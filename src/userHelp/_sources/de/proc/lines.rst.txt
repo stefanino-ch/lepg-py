@@ -7,7 +7,7 @@
 ------
 Leinen
 ------
-Im Fenster Leinen definieren wir den detaillierten Leinenplan unseres Flügels (ohne Bremsleinen):
+Im Fenster *Leinen* definieren wir den detaillierten Leinenplan unseres Flügels (ohne Bremsleinen):
 
 .. image:: /images/proc/lines-de.png
    :width: 737

@@ -2,13 +2,19 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-**********
-3D Shaping
-**********
+----------
+3D shaping
+----------
 
 There is still some work to be done...
 
-All details you will find on Peres website |pere_link|.
+ |
+
+Number of groups
+----------------
+*3D shaping* is an **optional section**. 
+
+If you do not want to define/ use these parameters set the **Number of groups** value to **0**.
 
  |
 
@@ -24,11 +30,7 @@ All details you will find on Peres website |pere_link|.
 
  |
 
- |
-
- |
-
- |
+A more detailed description you can find here |pere_link|.
 
 .. |pere_link| raw:: html
 

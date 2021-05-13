@@ -77,7 +77,7 @@ class RibHoles(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Edit rib holes (Rib lightening)"))
+        self.setWindowTitle(_("Edit rib holes (rib lightening)"))
         
         numConf_L = QLabel(_('Number of configurations'))
         numConf_L.setAlignment(Qt.AlignRight)

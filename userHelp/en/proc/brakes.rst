@@ -5,7 +5,7 @@
 ------
 Brakes
 ------
-In the Brakes window you can define the parameters from the 10 th section of the lep file, the line paths for the brake lines.
+In the *Brakes* window you can define the parameters from the 10 th section of the lep file, the line paths for the brake lines.
 
 .. image:: /images/proc/brakes-en.png
    :width: 736
@@ -40,7 +40,6 @@ Basically the definition of the line plan for the brake lines does follow the sa
 
 Need to know
 ------------
-
 The main brake lines are defined in level 1.
 
 For the main lines the rib number is an integer, you can only attach main lines to the ribs itself.

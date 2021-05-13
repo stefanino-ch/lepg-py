@@ -77,9 +77,9 @@ class ExtradColors(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Extrados colors"))
+        self.setWindowTitle(_("Colors upper sail"))
         
-        numConf_L = QLabel(_('Number of configurations'))
+        numConf_L = QLabel(_('Number of configs'))
         numConf_L.setAlignment(Qt.AlignRight)
         numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.numConf_S = QSpinBox()

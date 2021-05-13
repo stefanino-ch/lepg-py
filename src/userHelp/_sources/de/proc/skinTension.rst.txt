@@ -5,7 +5,7 @@
 ------------
 Tuchspannung
 ------------
-Im Fenster Tuchspannung editieren wir die Parameter aus dem 5. Abschnitt der lep Datei. 
+Im Fenster *Tuchspannung* editieren wir die Parameter aus dem 5. Abschnitt der lep Datei. 
 
 .. image:: /images/proc/skinTension-de.png
    :width: 602

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-10 19:21+0200\n"
-"PO-Revision-Date: 2021-05-11 13:07+0200\n"
+"POT-Creation-Date: 2021-05-13 11:40+0200\n"
+"PO-Revision-Date: 2021-05-13 12:12+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -909,14 +909,15 @@ msgstr ""
 msgid "Additional Rib points"
 msgstr "Zus. Rippenpunkte"
 
-#: Windows/AddRibPoints.py:76 Windows/HvVhRibs.py:113 Windows/NoseMylars.py:76
+#: Windows/AddRibPoints.py:76 Windows/ExtradColors.py:82
+#: Windows/HvVhRibs.py:113 Windows/IntradColors.py:82 Windows/NoseMylars.py:76
 msgid "Number of configs"
 msgstr "Anz Konfigurationen"
 
-#: Windows/AddRibPoints.py:109 Windows/Brakes.py:138
+#: Windows/AddRibPoints.py:109 Windows/Brakes.py:139
 #: Windows/ExtradColors.py:237 Windows/HvVhRibs.py:150
 #: Windows/IntradColors.py:237 Windows/JoncsDefinition.py:265
-#: Windows/Lines.py:254 Windows/NoseMylars.py:109 Windows/RibHoles.py:242
+#: Windows/Lines.py:255 Windows/NoseMylars.py:109 Windows/RibHoles.py:242
 msgid "OrderNumDesc"
 msgstr ""
 "Zeilen können mit der Taste Sortieren\n"
@@ -930,10 +931,10 @@ msgstr ""
 msgid "AddRibPts-YCorodDesc"
 msgstr ""
 
-#: Windows/AddRibPoints.py:113 Windows/Brakes.py:194
+#: Windows/AddRibPoints.py:113 Windows/Brakes.py:195
 #: Windows/ExtradColors.py:106 Windows/HvVhRibs.py:164
 #: Windows/IntradColors.py:106 Windows/JoncsDefinition.py:111
-#: Windows/Lines.py:130 Windows/NewSkinTension.py:106 Windows/NoseMylars.py:119
+#: Windows/Lines.py:131 Windows/NewSkinTension.py:106 Windows/NoseMylars.py:119
 msgid "Sort by orderNum"
 msgstr "Sortieren. "
 
@@ -1017,7 +1018,7 @@ msgstr ""
 msgid "Sort by Rib Number"
 msgstr "Nach Rippen Nr sortieren"
 
-#: Windows/AnchorPoints.py:70
+#: Windows/AnchorPoints.py:70 lepg.py:357
 msgid "Anchor points"
 msgstr "Aufhängepunkte"
 
@@ -1149,61 +1150,61 @@ msgstr "Länge der Hauptbremsleine in [cm]"
 msgid "Number of Brake paths"
 msgstr "Anzahl Leinenpfade"
 
-#: Windows/Brakes.py:139
+#: Windows/Brakes.py:140
 msgid "Brakes-NumBranchesDesc"
 msgstr ""
 "Anzahl der Ebenen über\n"
 "die der Pfad dieser Zeile läuft"
 
-#: Windows/Brakes.py:140
+#: Windows/Brakes.py:141
 msgid "Brakes-BranchLvlOneDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Brakes.py:141
+#: Windows/Brakes.py:142
 msgid "Brakes-OrderLvlOneDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Brakes.py:142
+#: Windows/Brakes.py:143
 msgid "Brakes-LevelOfRamTwoDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Brakes.py:143
+#: Windows/Brakes.py:144
 msgid "Brakes-OrderLvlTwoDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Brakes.py:144
+#: Windows/Brakes.py:145
 msgid "Brakes-LevelOfRamThreeDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Brakes.py:145
+#: Windows/Brakes.py:146
 msgid "Brakes-OrderLvlThreeDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Brakes.py:146
+#: Windows/Brakes.py:147
 msgid "Brakes-BranchLvlFourDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Brakes.py:147
+#: Windows/Brakes.py:148
 msgid "Brakes-OrderLvlFourDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Brakes.py:148
+#: Windows/Brakes.py:149
 msgid "Brakes-AnchorLineDesc"
 msgstr ""
 "Nummer des Aufhängepunktes\n"
@@ -1211,68 +1212,68 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: Windows/Brakes.py:149
+#: Windows/Brakes.py:150
 msgid "Brakes-AnchorRibNumDesc"
 msgstr ""
 "Rippen Nummer\n"
 "Mit einer Kommastelle können die Leinen \n"
 "zwischen den Rippen platziert werden"
 
-#: Windows/Brakes.py:166
+#: Windows/Brakes.py:167
 msgid "Brakes-s1Desc"
 msgstr ""
 "Distanz dem Flügel entlang\n"
 "ausgehend vom Zentrum [% Spannw]"
 
-#: Windows/Brakes.py:167
+#: Windows/Brakes.py:168
 msgid "Brakes-s2Desc"
 msgstr ""
 "Distanz dem Flügel entlang\n"
 "ausgehend vom Zentrum [% Spannw]"
 
-#: Windows/Brakes.py:168
+#: Windows/Brakes.py:169
 msgid "Brakes-s3Desc"
 msgstr ""
 "Distanz dem Flügel entlang\n"
 "ausgehend vom Zentrum [% Spannw]"
 
-#: Windows/Brakes.py:169
+#: Windows/Brakes.py:170
 msgid "Brakes-s4Desc"
 msgstr ""
 "Distanz dem Flügel entlang\n"
 "ausgehend vom Zentrum [% Spannw]"
 
-#: Windows/Brakes.py:170
+#: Windows/Brakes.py:171
 msgid "Brakes-s5Desc"
 msgstr ""
 "Distanz dem Flügel entlang\n"
 "ausgehend vom Zentrum [% Spannw]"
 
-#: Windows/Brakes.py:188
+#: Windows/Brakes.py:189
 msgid "Brakes-d1Desc"
 msgstr ""
 "Verlängerung der \n"
 "Bremsleine in [cm]"
 
-#: Windows/Brakes.py:189
+#: Windows/Brakes.py:190
 msgid "Brakes-d2Desc"
 msgstr ""
 "Verlängerung der \n"
 "Bremsleine in [cm]"
 
-#: Windows/Brakes.py:190
+#: Windows/Brakes.py:191
 msgid "Brakes-d3Desc"
 msgstr ""
 "Verlängerung der \n"
 "Bremsleine in [cm]"
 
-#: Windows/Brakes.py:191
+#: Windows/Brakes.py:192
 msgid "Brakes-d4Desc"
 msgstr ""
 "Verlängerung der \n"
 "Bremsleine in [cm]"
 
-#: Windows/Brakes.py:192
+#: Windows/Brakes.py:193
 msgid "Brakes-d5Desc"
 msgstr ""
 "Verlängerung der \n"
@@ -1443,12 +1444,8 @@ msgid "ElLinesCorr-HigColDesc"
 msgstr ""
 
 #: Windows/ExtradColors.py:80 lepg.py:389
-msgid "Extrados colors"
-msgstr ""
-
-#: Windows/ExtradColors.py:82 Windows/IntradColors.py:82 Windows/RibHoles.py:82
-msgid "Number of configurations"
-msgstr "Anzahl der Konfigurationen"
+msgid "Colors upper sail"
+msgstr "Farben Obersegel"
 
 #: Windows/ExtradColors.py:193
 #, fuzzy
@@ -1661,8 +1658,8 @@ msgid "HvVhRibs-ParamIDesc"
 msgstr ""
 
 #: Windows/IntradColors.py:80 lepg.py:393
-msgid "Intrados colors"
-msgstr ""
+msgid "Colors lower sail"
+msgstr "Farben Untersegel"
 
 #: Windows/IntradColors.py:193
 #, fuzzy
@@ -1757,81 +1754,81 @@ msgstr ""
 msgid "JoncsDef-pDDDesc"
 msgstr ""
 
-#: Windows/Lines.py:83
+#: Windows/Lines.py:84
 msgid "Edit Lines"
 msgstr "Leinen bearbeiten"
 
-#: Windows/Lines.py:88
+#: Windows/Lines.py:89
 msgid "Lines control parameter"
 msgstr "Leinen-Kontrollparameter"
 
-#: Windows/Lines.py:94
+#: Windows/Lines.py:95
 msgid "Lines-LinesControlParamDesc"
 msgstr ""
 
-#: Windows/Lines.py:104
+#: Windows/Lines.py:105
 msgid "Number of Line plans"
 msgstr "Anzahl Leinenpläne"
 
-#: Windows/Lines.py:220
+#: Windows/Lines.py:221
 msgid "Number of Line paths"
 msgstr "Anzahl Leinenpfade"
 
-#: Windows/Lines.py:255
+#: Windows/Lines.py:256
 msgid "Lines-NumBranchesDesc"
 msgstr ""
 "Anzahl der Ebenen über\n"
 "die der Pfad dieser Zeile läuft"
 
-#: Windows/Lines.py:256
+#: Windows/Lines.py:257
 msgid "Lines-BranchLvlOneDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Lines.py:257
+#: Windows/Lines.py:258
 msgid "Lines-OrderLvlOneDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Lines.py:258
+#: Windows/Lines.py:259
 msgid "Lines-LevelOfRamTwoDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Lines.py:259
+#: Windows/Lines.py:260
 msgid "Lines-OrderLvlTwoDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Lines.py:260
+#: Windows/Lines.py:261
 msgid "Lines-LevelOfRamThreeDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Lines.py:261
+#: Windows/Lines.py:262
 msgid "Lines-OrderLvlThreeDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Lines.py:262
+#: Windows/Lines.py:263
 msgid "Lines-BranchLvlFourDesc"
 msgstr ""
 "Ebenennummer für diesen \n"
 "Pfadabschnitt"
 
-#: Windows/Lines.py:263
+#: Windows/Lines.py:264
 msgid "Lines-OrderLvlFourDesc"
 msgstr ""
 "Knoten Nummer des Endes\n"
 "des Pfad Abschnittes"
 
-#: Windows/Lines.py:264
+#: Windows/Lines.py:265
 msgid "Lines-AnchorLineDesc"
 msgstr ""
 "Nummer des Aufhängepunktes\n"
@@ -1839,7 +1836,7 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: Windows/Lines.py:265
+#: Windows/Lines.py:266
 msgid "Lines-AnchorRibNumDesc"
 msgstr "Rippen Nummer"
 
@@ -2183,48 +2180,67 @@ msgstr "Winkel der vierten Bogensektion"
 
 #: Windows/Ramification.py:69
 msgid "Ramification"
-msgstr ""
+msgstr "Höhe Leinenebenen"
 
 #: Windows/Ramification.py:74
 msgid "3 Line rows"
-msgstr ""
+msgstr "3 Leinenebenen"
 
-#: Windows/Ramification.py:90 Windows/Ramification.py:120
-#: Windows/Ramification.py:152 Windows/Ramification.py:182
-msgid "Ramification-RowsDesc"
+#: Windows/Ramification.py:93
+msgid "Ramification-3L-ThirdLineToSailDesc"
 msgstr ""
+"Distanz Unterkante 3. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l2)"
 
-#: Windows/Ramification.py:91 Windows/Ramification.py:121
-msgid "Ramification-ThirdLineToSailDesc"
-msgstr ""
-
-#: Windows/Ramification.py:105
+#: Windows/Ramification.py:107
 msgid "4 Line rows"
-msgstr ""
+msgstr "4 Leinenebenen"
 
-#: Windows/Ramification.py:122
-msgid "Ramification-FourthLineToSailDesc"
+#: Windows/Ramification.py:125
+msgid "Ramification-4L-ThirdLineToSailDesc"
 msgstr ""
+"Distanz Unterkante 3. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l3)"
 
-#: Windows/Ramification.py:136
+#: Windows/Ramification.py:126
+msgid "Ramification-4L-FourthLineToSailDesc"
+msgstr ""
+"Distanz Unterkante 4. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l2)"
+
+#: Windows/Ramification.py:140
 msgid "3 Brake rows"
-msgstr ""
+msgstr "3 Brems-Leinenebenen"
 
-#: Windows/Ramification.py:153 Windows/Ramification.py:183
-msgid "Ramification-ThirdBrakeToSailDesc"
+#: Windows/Ramification.py:158
+msgid "Ramification-3L-ThirdBrakeToSailDesc"
 msgstr ""
+"Distanz Unterkante 3. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l2)"
 
-#: Windows/Ramification.py:167
+#: Windows/Ramification.py:172
 msgid "4 Brake rows"
-msgstr ""
+msgstr "4 Brems-Leinenebenen"
 
-#: Windows/Ramification.py:184
-msgid "Ramification-FourthBrakeToSailDesc"
+#: Windows/Ramification.py:189
+msgid "Ramification-4L-ThirdBrakeToSailDesc"
 msgstr ""
+"Distanz Unterkante 3. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l3)"
+
+#: Windows/Ramification.py:190
+msgid "Ramification-4L-FourthBrakeToSailDesc"
+msgstr ""
+"Distanz Unterkante 4. Leinenebene - Segel\n"
+"(Bild im Hilfetext: l2)"
 
 #: Windows/RibHoles.py:80
-msgid "Edit rib holes (Rib lightening)"
+msgid "Edit rib holes (rib lightening)"
 msgstr "Rippendurchbrüche bearbeiten"
+
+#: Windows/RibHoles.py:82
+msgid "Number of configurations"
+msgstr "Anzahl der Konfigurationen"
 
 #: Windows/RibHoles.py:106
 msgid "Sort by Order Num"
@@ -2388,7 +2404,7 @@ msgid "latest"
 msgstr "latest"
 
 #: Windows/SkinTension.py:66 lepg.py:365 lepg.py:458
-msgid "Skin Tension"
+msgid "Skin tension"
 msgstr "Tuchspannung"
 
 #: Windows/SkinTension.py:91
@@ -2700,24 +2716,20 @@ msgstr "Bearbeiten der Geometriedaten des Flügels"
 msgid "Edit airfoils geometry"
 msgstr "Bearbeiten der einzelnen Zellen"
 
-#: lepg.py:357
-msgid "Anchor Points"
-msgstr "Aufhängepunkte"
-
 #: lepg.py:358
 msgid "Edit Anchor points data"
 msgstr "Bearbeiten der einzelnen Aufhängepunkte"
 
 #: lepg.py:361
-msgid "Rib Holes"
+msgid "Rib holes"
 msgstr "Rippendurchbrüche"
 
 #: lepg.py:362
-msgid "Edit rib holes (Rib lightening) data"
+msgid "Edit rib holes (rib lightening) data"
 msgstr "Rippendurchbrüche bearbeiten"
 
 #: lepg.py:366
-msgid "Edit Skin tension data"
+msgid "Edit skin tension data"
 msgstr "Tuchspannung bearbeiten"
 
 #: lepg.py:369
@@ -2761,14 +2773,12 @@ msgid "Edit HV/ VH ribs data"
 msgstr ""
 
 #: lepg.py:390
-#, fuzzy
-#| msgid "Edit PreProc Data"
-msgid "Edit extrados colors data"
-msgstr "PreProc Daten editieren"
+msgid "Edit the color settings of the upper sail"
+msgstr "Farbgebung des Obersegels bearbeiten"
 
 #: lepg.py:394
-msgid "Edit intrados colors data"
-msgstr ""
+msgid "Edit the color settings of the lower sail"
+msgstr "Farbgebung des Untersegels bearbeiten"
 
 #: lepg.py:397
 msgid "Additional rib points"
@@ -3022,6 +3032,17 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#, fuzzy
+#~| msgid "Edit PreProc Data"
+#~ msgid "Edit extrados colors data"
+#~ msgstr "PreProc Daten editieren"
+
+#~ msgid "Skin Tension"
+#~ msgstr "Tuchspannung"
+
+#~ msgid "Anchor Points"
+#~ msgstr "Aufhängepunkte"
 
 #, fuzzy
 #~| msgid "Branch"

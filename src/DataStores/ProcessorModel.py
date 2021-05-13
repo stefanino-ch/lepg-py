@@ -1418,20 +1418,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.ramif_M.getRow(1, 1)
-        stream << '%s' %values(0)
+        stream << '3'
         stream << '\t%s\n' %values(1)
         
         values = self.ramif_M.getRow(1, 2)
-        stream << '%s' %values(0)
+        stream << '4' 
         stream << '\t%s' %values(1)
         stream << '\t%s\n' %values(2)
         
         values = self.ramif_M.getRow(1, 3)
-        stream << '%s' %values(0)
+        stream << '3' 
         stream << '\t%s\n' %values(1)
         
         values = self.ramif_M.getRow(1, 2)
-        stream << '%s' %values(0)
+        stream << '4' 
         stream << '\t%s' %values(1)
         stream << '\t%s\n' %values(2)
         

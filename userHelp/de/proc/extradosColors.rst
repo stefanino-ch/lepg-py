@@ -2,13 +2,19 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-*********************
-Farben Eintrittskante
-*********************
+----------------
+Farben Obersegel
+----------------
 
 Da fehlt noch was... 
 
-Eine detaillierte Beschreibung findest Du auf der |pere_link|.
+ |
+
+Number of configs
+-----------------
+Colors upper sail is an **optional section**. 
+
+If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
 
  |
 
@@ -24,11 +30,12 @@ Eine detaillierte Beschreibung findest Du auf der |pere_link|.
 
  |
 
- |
+Sortieren
+---------
+Mit der Schaltfläche **Sortieren** können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren. 
 
- |
 
- |
+Eine detaillierte Beschreibung in englisch findest Du auf der |pere_link|.
 
 .. |pere_link| raw:: html
 

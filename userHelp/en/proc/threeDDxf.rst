@@ -2,13 +2,19 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-**************
-3D DXF Options
-**************
+--------------
+3D DXF options
+--------------
 
 There is still some work to be done...
 
-All details you will find on Peres website |pere_link|.
+ |
+
+Type
+----
+*3D DXF options* is an **optional section**. 
+
+If you do not want to define/ use these parameters set the Type to **Defaults**.
 
  |
 
@@ -24,11 +30,7 @@ All details you will find on Peres website |pere_link|.
 
  |
 
- |
-
- |
-
- |
+A more detailed description you can find here |pere_link|.
 
 .. |pere_link| raw:: html
 

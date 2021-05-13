@@ -5,7 +5,7 @@
 -----------------
 Rippendurchbrüche
 -----------------
-Im Fenster Rippendurchbrüche editieren wir die Parameter aus dem 4. Abschnitt der lep Datei. 
+Im Fenster *Rippendurchbrüche* editieren wir die Parameter aus dem 4. Abschnitt der lep Datei. 
 
 .. image:: /images/proc/ribHoles-de.png
    :width: 603
@@ -35,7 +35,7 @@ Rohdaten::
 	1 23.5	2.5	6.5	6.5	0.	0.	0.	0.
 	1 55.0	1.92	4.3	4.3	0.	0.	0.	0.
 	1 81.	1.1	1.7	1.7	0.	0.	0.	0.
-	
+
 Anzahl der Konfigurationen
 --------------------------
 In einer Konfiguration werden die Werte für eine Gruppe von Rippen zusammengefasst. Für alle Rippen innerhalb derselben Gruppe gelten dieselben Werte. 

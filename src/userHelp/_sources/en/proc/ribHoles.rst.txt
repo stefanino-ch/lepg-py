@@ -5,7 +5,7 @@
 ---------
 Rib holes
 ---------
-In the Rib Holes window you can define the parameters from the 4th section of the lep file.
+In the *Rib holes* window you can define the parameters from the 4th section of the lep file.
 
 .. image:: /images/proc/ribHoles-en.png
    :width: 603

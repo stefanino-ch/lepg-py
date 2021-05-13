@@ -5,7 +5,7 @@
 ------------
 Skin tension
 ------------
-In the Skin tension window you can define the parameters from the 5th section of the lep file.
+In the *Skin tension* window you can define the parameters from the 5th section of the lep file.
 
 .. image:: /images/proc/skinTension-en.png
    :width: 602

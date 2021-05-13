@@ -5,7 +5,7 @@
 --------------
 Aufhängepunkte
 --------------
-Im Fenster Zellen editieren wir die Parameter aus dem 3. Abschnitt der lep Datei. 
+Im Fenster *Aufhängepunkte* bearbeiten wir die Parameter aus dem 3. Abschnitt der lep Datei. 
 
 .. image:: /images/proc/anchorPoints-de.png
    :width: 602
@@ -67,7 +67,7 @@ Position des Aufhängepunktes der E-Leinen [% Flügeltiefe].
 
 Bremsleinen
 -----------
-Position of the brake lines anchor point in [% chord].
+Position des Aufhängepunktes für die Bremsleinen [% chord].
 0 eingeben wenn keine Bremsleinen vorhanden sind. 
 
 Nach Rippen Nr sortieren

@@ -55,7 +55,7 @@ class Ramification(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(450, 400)
@@ -80,17 +80,19 @@ class Ramification(QMdiSubWindow):
         threeLineRows_T.hideRow(2)
         threeLineRows_T.hideRow(3)
         
+        threeLineRows_T.hideColumn( 0 ) # hide the OrderNum column
+        threeLineRows_T.hideColumn( 1 ) # hide the Rows column
         threeLineRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
         threeLineRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
         threeLineRows_T.hideColumn(self.ramif_M.columnCount() -3 ) # hide the Config column
-        threeLineRows_T.hideColumn( 0 ) # hide the OrderNum column
+        
         threeLineRows_T.verticalHeader().setVisible(False)
         threeLineRows_T.setHelpBar(self.helpBar)
         
-        threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-ThirdLineToSailDesc'))
+        #threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdLineToSailDesc'))
 
-        threeLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
+        #threeLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
         threeLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
         
         threeLineRows_T.setFixedHeight(2 + threeLineRows_T.horizontalHeader().height() + threeLineRows_T.rowHeight(0))
@@ -111,17 +113,19 @@ class Ramification(QMdiSubWindow):
         fourLineRows_T.hideRow(2)
         fourLineRows_T.hideRow(3)
         
+        fourLineRows_T.hideColumn( 0 ) # hide the OrderNum column
+        fourLineRows_T.hideColumn( 1 ) # hide the Rows column
         fourLineRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
         fourLineRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        fourLineRows_T.hideColumn( 0 ) # hide the OrderNum column
+        
         fourLineRows_T.verticalHeader().setVisible(False)
         fourLineRows_T.setHelpBar(self.helpBar)
         
-        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-ThirdLineToSailDesc'))
-        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-FourthLineToSailDesc'))
+        # fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdLineToSailDesc'))
+        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthLineToSailDesc'))
 
-        fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
+        # fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
         fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
         fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.FourthToSailCol, ProcessorModel.RamificationModel.FourthToSailCol, 1, 2000)
         
@@ -142,17 +146,18 @@ class Ramification(QMdiSubWindow):
         threeBrakeRows_T.hideRow(1)
         threeBrakeRows_T.hideRow(3)
         
+        threeBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
+        threeBrakeRows_T.hideColumn( 1 ) # hide the Rows column
         threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
         threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
         threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -3 ) # hide the Config column
-        threeBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
         threeBrakeRows_T.verticalHeader().setVisible(False)
         threeBrakeRows_T.setHelpBar(self.helpBar)
         
-        threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-ThirdBrakeToSailDesc'))
+        # threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdBrakeToSailDesc'))
 
-        threeBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
+        # threeBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
         threeBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
         
         threeBrakeRows_T.setFixedHeight(2 + threeBrakeRows_T.horizontalHeader().height() + threeBrakeRows_T.rowHeight(2))
@@ -173,17 +178,18 @@ class Ramification(QMdiSubWindow):
         fourBrakeRows_T.hideRow(1)
         fourBrakeRows_T.hideRow(2)
         
+        fourBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
+        fourBrakeRows_T.hideColumn( 1 ) # hide the Rows column
         fourBrakeRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
         fourBrakeRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        fourBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
         fourBrakeRows_T.verticalHeader().setVisible(False)
         fourBrakeRows_T.setHelpBar(self.helpBar)
         
-        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-ThirdBrakeToSailDesc'))
-        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-FourthBrakeToSailDesc'))
+        # fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdBrakeToSailDesc'))
+        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthBrakeToSailDesc'))
 
-        fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
+        # fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
         fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
         fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.FourthToSailCol, ProcessorModel.RamificationModel.FourthToSailCol, 1, 2000)
         

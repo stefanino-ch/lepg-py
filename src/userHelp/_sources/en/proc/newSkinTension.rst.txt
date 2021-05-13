@@ -5,7 +5,7 @@
 ----------------
 New skin tension
 ----------------
-In the New skin tension window you can define the parameters from the 31st section of the lep file.
+In the *New skin tension* window you can define the parameters from the 31st section of the lep file.
 New skin tension does follow the same definitions as the original skin tension with the exception you can define more than 6 configuration lines. 
 
 .. image:: /images/proc/newSkinTension-en.png
@@ -35,7 +35,11 @@ The tension of the top surface and lower surface panels is achieved by creating 
 Number of groups
 ----------------
 In a group you can bundle the settings for a group of ribs. For all ribs within the same group the same settings apply. 
-New skin tension is an optional section. If you do not want to define/ use these parameters set the Number of Groups value to 0.
+
+
+New skin tension is an **optional section**. 
+
+If you do not want to define/ use these parameters set the **Number of Groups** value to **0**.
 
 First rib
 ---------
@@ -67,7 +71,7 @@ Over widening in [% chord]
 
 Strain mini ribs
 ----------------
-New skin tension uses the same settings for Strain mini ribs as the original section does. Therefore you must define the correct values in the Skin Tension window!
+*New skin tension* uses the same settings for Strain mini ribs as the original section does. Therefore you must define the correct values in the Skin Tension window!
 
 The background here is to deal with the extension of the canvas. 
 
@@ -77,7 +81,7 @@ In case of doubt put the default value of **0.0114**
 
 Num Points and Coeff
 --------------------
-New skin tension uses the same settings for Num Points and Cooeff as the original section does. Therefore you must define the correct values in the Skin Tension window!
+*New skin tension* uses the same settings for Num Points and Cooeff as the original section does. Therefore you must define the correct values in the Skin Tension window!
 
 There are two different inperpretations of these parameters. Recommended for all designs is the setup described below. 
 

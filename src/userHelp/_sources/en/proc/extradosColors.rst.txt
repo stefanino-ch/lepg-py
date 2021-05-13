@@ -2,13 +2,19 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-***************
-Extrados colors
-***************
+-----------------
+Colors upper sail
+-----------------
 
 There is still some work to be done...
 
-All details you will find on Peres website |pere_link|.
+ |
+
+Number of configs
+-----------------
+Colors upper sail is an **optional section**. 
+
+If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
 
  |
 
@@ -23,12 +29,11 @@ All details you will find on Peres website |pere_link|.
  |
 
  |
+Sort by Order Num
+-----------------
+The button **Sort by Order Num** can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you've choosen. 
 
- |
-
- |
-
- |
+A more detailed description you can find here |pere_link|.
 
 .. |pere_link| raw:: html
 

@@ -5,7 +5,7 @@
 -----------
 Bremsleinen
 -----------
-Im Fenster Bremsleinen können die Parameter aus dem 10. Abschnitt der lep Datei bearbeitet werden, die Bremsleinen.
+Im Fenster *Bremsleinen* können die Parameter aus dem 10. Abschnitt der lep Datei bearbeitet werden, die Bremsleinen.
 
 .. image:: /images/proc/brakes-de.png
    :width: 736

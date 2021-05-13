@@ -77,9 +77,9 @@ class IntradColors(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Intrados colors"))
+        self.setWindowTitle(_("Colors lower sail"))
         
-        numConf_L = QLabel(_('Number of configurations'))
+        numConf_L = QLabel(_('Number of configs'))
         numConf_L.setAlignment(Qt.AlignRight)
         numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.numConf_S = QSpinBox()

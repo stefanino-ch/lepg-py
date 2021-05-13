@@ -3,9 +3,9 @@
  .. Copyright: General Public License GNU GPL 3.0
 
 -------------
-Anchor Points
+Anchor points
 -------------
-In the Airfoils window you can define the parameters from the 3rd section of the lep file.
+In the *Anchor points* window you can define the parameters from the 3rd section of the lep file.
 
 .. image:: /images/proc/anchorPoints-en.png
    :width: 602

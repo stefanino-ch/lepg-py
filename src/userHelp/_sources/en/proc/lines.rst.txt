@@ -7,7 +7,7 @@
 -----
 Lines
 -----
-In the Lines window you can define the parameters from the 9th section of the lep file. Here you create the detailed line plan. 
+In the *Lines* window you can define the parameters from the 9th section of the lep file. Here you create the detailed line plan. 
 The brake lines will be defined in a 2nd window. 
 
 .. image:: /images/proc/lines-en.png
