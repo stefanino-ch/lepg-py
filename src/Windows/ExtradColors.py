@@ -66,7 +66,7 @@ class ExtradColors(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(400, 400)
@@ -77,9 +77,9 @@ class ExtradColors(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Extrados colors"))
+        self.setWindowTitle(_("Colors upper sail"))
         
-        numConf_L = QLabel(_('Number of configurations'))
+        numConf_L = QLabel(_('Number of configs'))
         numConf_L.setAlignment(Qt.AlignRight)
         numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.numConf_S = QSpinBox()
@@ -200,7 +200,7 @@ class ExtradColors(QMdiSubWindow):
         tabLayout.addLayout(confLayout)
         
         # Data lines
-        numDet_L = QLabel(_('Number of Lines'))
+        numDet_L = QLabel(_('Number of config lines'))
         numDet_L.setAlignment(Qt.AlignRight)
         numDet_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         tabLayout.addWidget(numDet_L)

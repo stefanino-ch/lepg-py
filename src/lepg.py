@@ -354,16 +354,16 @@ class MainWindow(QMainWindow):
         procAirfoils_A.setStatusTip(_('Edit airfoils geometry'))
         procAirfoils_A.triggered.connect(self.procAirfoilsEdit)
         
-        procAnchPoints_A = QAction(_('Anchor Points'), self)
+        procAnchPoints_A = QAction(_('Anchor points'), self)
         procAnchPoints_A.setStatusTip(_('Edit Anchor points data'))
         procAnchPoints_A.triggered.connect(self.procAnchorPointsEdit)
         
-        procRibHoles_A = QAction(_('Rib Holes'), self)
-        procRibHoles_A.setStatusTip(_('Edit rib holes (Rib lightening) data'))
+        procRibHoles_A = QAction(_('Rib holes'), self)
+        procRibHoles_A.setStatusTip(_('Edit rib holes (rib lightening) data'))
         procRibHoles_A.triggered.connect(self.procRibHolesEdit)
         
-        procSkinTension_A = QAction(_('Skin Tension'), self)
-        procSkinTension_A.setStatusTip(_('Edit Skin tension data'))
+        procSkinTension_A = QAction(_('Skin tension'), self)
+        procSkinTension_A.setStatusTip(_('Edit skin tension data'))
         procSkinTension_A.triggered.connect(self.procSkinTensionEdit)
         
         procGenAoA_A = QAction(_('Estimated general AoA'), self)
@@ -386,12 +386,12 @@ class MainWindow(QMainWindow):
         procHvvHRibs_A.setStatusTip(_('Edit HV/ VH ribs data'))
         procHvvHRibs_A.triggered.connect(self.procHvVhEdit)
         
-        procExtradColors_A = QAction(_('Extrados colors'), self)
-        procExtradColors_A.setStatusTip(_('Edit extrados colors data'))
+        procExtradColors_A = QAction(_('Colors upper sail'), self)
+        procExtradColors_A.setStatusTip(_('Edit the color settings of the upper sail'))
         procExtradColors_A.triggered.connect(self.procExtradColorsEdit)
         
-        procIntradColors_A = QAction(_('Intrados colors'), self)
-        procIntradColors_A.setStatusTip(_('Edit intrados colors data'))
+        procIntradColors_A = QAction(_('Colors lower sail'), self)
+        procIntradColors_A.setStatusTip(_('Edit the color settings of the lower sail'))
         procIntradColors_A.triggered.connect(self.procIntradColorsEdit)
         
         procAddRibPts_A = QAction(_('Additional rib points'), self)
@@ -399,7 +399,7 @@ class MainWindow(QMainWindow):
         procAddRibPts_A.triggered.connect(self.procAddRibPtsEdit)
         
         procElLinesCorr_A = QAction(_('Elastic lines correction'), self)
-        procElLinesCorr_A.setStatusTip(_('Edit Elastic lines correction data'))
+        procElLinesCorr_A.setStatusTip(_('Edit elastic lines correction data'))
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
         
         procJoncsDef_A = QAction(_('Joncs definitions'), self)
@@ -455,7 +455,7 @@ class MainWindow(QMainWindow):
         procMenu.addAction(procAnchPoints_A)
         procMenu.addAction(procRibHoles_A)
         
-        skinTensMenu = QMenu(_('Skin Tension'),self)
+        skinTensMenu = QMenu(_('Skin tension'),self)
         skinTensMenu.addAction(procSkinTension_A)
         skinTensMenu.addAction(procNewSkinTens_A)
         procMenu.addMenu(skinTensMenu)
@@ -562,7 +562,7 @@ class MainWindow(QMainWindow):
     
     def procSkinTensionEdit(self):
         '''
-        :method: Called if the user selects *Processor* -> *Skin Tension*
+        :method: Called if the user selects *Processor* -> *Skin tension*
         '''
         if self.dws.windowExists('SkinTension') == False:
             self.skinTensionW = SkinTension()
@@ -622,7 +622,7 @@ class MainWindow(QMainWindow):
 
     def procExtradColorsEdit(self):
         '''
-        :method: Called if the user selects *Processor* -> *Extrados colors*
+        :method: Called if the user selects *Processor* -> *Colors upper sail*
         '''
         if self.dws.windowExists('ExtradosColors') == False:
             self.extradColors_W = ExtradColors()
@@ -632,7 +632,7 @@ class MainWindow(QMainWindow):
 
     def procIntradColorsEdit(self):
         '''
-        :method: Called if the user selects *Processor* -> *Intrados colors*
+        :method: Called if the user selects *Processor* -> *Colors lower sail*
         '''
         if self.dws.windowExists('IntradosColors') == False:
             self.intradColors_W = IntradColors()

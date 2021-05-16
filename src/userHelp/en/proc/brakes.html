@@ -91,6 +91,20 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Brakes</a><ul>
+<li><a class="reference internal" href="#need-to-know">Need to know</a></li>
+<li><a class="reference internal" href="#length-increments-to-brake-lines">Length increments to brake lines</a><ul>
+<li><a class="reference internal" href="#s-1-2-3-4-5">s 1, 2, 3, 4, 5</a></li>
+<li><a class="reference internal" href="#d-1-2-3-4-5">d 1, 2, 3, 4, 5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="lines.html"
                         title="previous chapter">Lines</a></p>
@@ -119,40 +133,59 @@
 <div></div></blockquote>
 <div class="section" id="brakes">
 <h1>Brakes<a class="headerlink" href="#brakes" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<p>All details you will find on Peres website <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.10" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>In the <em>Brakes</em> window you can define the parameters from the 10 th section of the lep file, the line paths for the brake lines.</p>
+<a class="reference internal image-reference" href="../../_images/brakes-en.png"><img alt="../../_images/brakes-en.png" src="../../_images/brakes-en.png" style="width: 736px; height: 340px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
+<span class="o">*</span>       <span class="mf">10.</span> <span class="n">BRAKES</span>
+<span class="o">***************************************************</span>
+<span class="mi">270</span>
+<span class="mi">12</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">1</span>  <span class="mi">6</span> <span class="mi">2</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">2</span>  <span class="mi">6</span> <span class="mi">3</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">3</span>  <span class="mi">6</span> <span class="mi">4</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">4</span>  <span class="mi">6</span> <span class="mi">5</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>  <span class="mi">6</span> <span class="mi">6</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">6</span>  <span class="mi">6</span> <span class="mi">7</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">7</span>  <span class="mi">6</span> <span class="mi">8</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">8</span>  <span class="mi">6</span> <span class="mi">9</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">9</span>  <span class="mi">6</span> <span class="mi">10</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">10</span> <span class="mi">6</span> <span class="mi">11</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">11</span> <span class="mi">6</span> <span class="mi">12</span>
+<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">12</span> <span class="mi">6</span> <span class="mi">13</span>
+<span class="o">*</span> <span class="n">Brake</span> <span class="n">distribution</span>
+<span class="mi">0</span>   <span class="mi">25</span>   <span class="mi">55</span>   <span class="mi">70</span>   <span class="mi">100</span>
+<span class="mi">0</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<p>Basically the definition of the line plan for the brake lines does follow the same scheme as the lines itself.</p>
+<p><a class="reference internal" href="lines.html#lines-configuration-en"><span class="std std-ref">More about the Lines configuration you find here.</span></a></p>
+<div class="section" id="need-to-know">
+<h2>Need to know<a class="headerlink" href="#need-to-know" title="Permalink to this headline">¶</a></h2>
+<p>The main brake lines are defined in level 1.</p>
+<p>For the main lines the rib number is an integer, you can only attach main lines to the ribs itself.
+It is possible to attache the break lines somewhere between the ribs.
+To do so add a decimal to the rib number.</p>
+<p>For example, 8.4 means anchor the line in the trailing edge, between rib 8 and 9, and 40% from the rib 8.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="length-increments-to-brake-lines">
+<h2>Length increments to brake lines<a class="headerlink" href="#length-increments-to-brake-lines" title="Permalink to this headline">¶</a></h2>
+<p>If needed you can increase the lenght of your brake lines. Therefore you can define 5 correction points along the wing vault.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S10_Brake_distribution_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S10_Brake_distribution_p.jpg" />
+<div class="section" id="s-1-2-3-4-5">
+<h3>s 1, 2, 3, 4, 5<a class="headerlink" href="#s-1-2-3-4-5" title="Permalink to this headline">¶</a></h3>
+<p>Length along vault based on wing center.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="d-1-2-3-4-5">
+<h3>d 1, 2, 3, 4, 5<a class="headerlink" href="#d-1-2-3-4-5" title="Permalink to this headline">¶</a></h3>
+<p>Lengths increments in brake line.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="sort-by-order-num">
+<h2>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this headline">¶</a></h2>
+<p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.10" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
 </div>
 
 

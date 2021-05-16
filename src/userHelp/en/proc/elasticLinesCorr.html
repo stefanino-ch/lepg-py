@@ -91,6 +91,16 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Elastic lines correction</a><ul>
+<li><a class="reference internal" href="#in-flight-load">In flight load</a></li>
+<li><a class="reference internal" href="#load-distribution">Load distribution</a></li>
+<li><a class="reference internal" href="#line-deformation">Line deformation</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="addRibPoints.html"
                         title="previous chapter">Additional rib points</a></p>
@@ -119,40 +129,40 @@
 <div></div></blockquote>
 <div class="section" id="elastic-lines-correction">
 <h1>Elastic lines correction<a class="headerlink" href="#elastic-lines-correction" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<p>All details you will find on Peres website <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Option to estimate the elastic elongation of the lines in normal flight configuration.
+These elongations are subtracted from strictly geometric length, so that in flight,
+are the exact lengths of project.</p>
+<p>To calculate the elongation, we take into account the loads on each line, and the rigidly coefficient of each line, the elongation estimated by Hook’s law: F = k·dx</p>
+<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-en.png"><img alt="../../_images/elasticLinesCorr-en.png" src="../../_images/elasticLinesCorr-en.png" style="width: 566px; height: 310px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*****************************************************</span>
+<span class="o">*</span>       <span class="mf">18.</span> <span class="n">Elastic</span> <span class="n">lines</span> <span class="n">corrections</span>
+<span class="o">*****************************************************</span>
+<span class="mi">100</span>
+<span class="mi">75</span>   <span class="mi">25</span>
+<span class="mi">40</span>   <span class="mi">40</span>    <span class="mi">20</span>
+<span class="mi">35</span>   <span class="mi">35</span>    <span class="mi">20</span>   <span class="mi">10</span>
+<span class="mi">35</span>   <span class="mi">35</span>    <span class="mi">15</span>   <span class="mi">10</span>   <span class="mi">5</span>
+<span class="mi">1</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">2</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">3</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">4</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">5</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="in-flight-load">
+<h2>In flight load<a class="headerlink" href="#in-flight-load" title="Permalink to this headline">¶</a></h2>
+<p>The total in flight load in [kg] without the wing itself.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="load-distribution">
+<h2>Load distribution<a class="headerlink" href="#load-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Here you define the load distribution across the individual anchors based on the number of anchors used per rib.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="line-deformation">
+<h2>Line deformation<a class="headerlink" href="#line-deformation" title="Permalink to this headline">¶</a></h2>
+<p>Depending of the number of anchors and the line level you setup here the rigidly coefficient of the lines.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
 </div>
 
 

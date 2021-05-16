@@ -57,7 +57,7 @@ class AddRibPoints(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(550, 400)
@@ -68,7 +68,7 @@ class AddRibPoints(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Additional Rib points"))
+        self.setWindowTitle(_("Additional rib points"))
         
         self.wrapper = QDataWidgetMapper()
         self.wrapper.setModel(self.addRibPts_M)

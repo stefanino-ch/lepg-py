@@ -2,9 +2,9 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-****************************
+----------------------------
 Configure the update checker
-****************************
+----------------------------
 
 During startup lepg checks if there is a new version available.  
 
@@ -21,7 +21,7 @@ You have the following configuration possibilities:
   * latest: latest and greatest version. Be careful, here all the development starts, you might get functionality which is not yet fully implemend and buggy. 
 
 Download of newer versions
-**************************
+--------------------------
 
 New versions you can download from |github_link|.  
 
@@ -38,7 +38,7 @@ First select which version you want, stable oder latest.
 Afterwards download from the folder "distribution" dthe . zip package. 
 
 After the download
-******************
+------------------
 
 You can extract the .zip pakage in a folder of your choice. 
 

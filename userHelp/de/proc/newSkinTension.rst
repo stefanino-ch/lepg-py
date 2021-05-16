@@ -5,7 +5,7 @@
 ------------------
 Tuchspannung - neu
 ------------------
-Im Fenster Tuchspannung - neu editieren wir die Parameter aus dem 31. Abschnitt der lep Datei. 
+Im Fenster *Tuchspannung - neu* editieren wir die Parameter aus dem 31. Abschnitt der lep Datei. 
 Prinzipiell handelt es sich hier um dieselben Definitionen und Parameter wie im originalen Tuchspannungs-Abschnitt mit dem Unterschied dass mehr als 6 Korrekturpunkte definiert werden können. 
 
 .. image:: /images/proc/newSkinTension-de.png
@@ -67,7 +67,7 @@ Grösse der Verbreiterung in [% Flügeltiefe]
 
 Spann mini ribs
 ---------------
-Tuchspannung - neu verwendet denselben Konfigurationswert für Spann mini ribs wie die originale Definition. Damit die Berechnung korrekt funktioniert muss deshalb im Fenster Tuchspannung der Werte eingegeben werden. 
+*Tuchspannung - neu* verwendet denselben Konfigurationswert für Spann mini ribs wie die originale Definition. Damit die Berechnung korrekt funktioniert muss deshalb im Fenster Tuchspannung der Werte eingegeben werden. 
 
 Hier geht es darum die Dehnung des Tuches zu korrigieren. 
 
@@ -77,7 +77,7 @@ Im Zweifelsfall setze hier den Standardwert von **0.0114**
 
 Anzahl Punkte und Koeff
 -----------------------
-Tuchspannung - neu verwendet dieselben Konfigurationswerte für Anzahl Punkte und Koeff wie die originale Definition. Damit die Berechnung korrekt funktioniert müssen deshalb im Fenster Tuchspannung die Werte eingestellt werden. 
+*Tuchspannung - neu* verwendet dieselben Konfigurationswerte für Anzahl Punkte und Koeff wie die originale Definition. Damit die Berechnung korrekt funktioniert müssen deshalb im Fenster Tuchspannung die Werte eingestellt werden. 
 
 Prinzipiell gibt es zwei verschiedene Interpretationen der beiden Werte. Beschrieben wird hier nur der empfohlene Anwendungsfall. 
 

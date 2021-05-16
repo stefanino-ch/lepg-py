@@ -31,6 +31,7 @@ class Lines(QMdiSubWindow):
         super().__init__()
         
         self.wing_M = ProcessorModel.WingModel()
+        self.wing_M.dataChanged.connect( self.wingModelDataChange )
         
         self.lines_M = ProcessorModel.LinesModel()
         self.lines_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
@@ -69,7 +70,7 @@ class Lines(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
@@ -82,21 +83,21 @@ class Lines(QMdiSubWindow):
         # Add window specifics here
         self.setWindowTitle(_("Edit Lines"))
         
-        wrapper = QDataWidgetMapper()
-        wrapper.setModel(self.wing_M)
+        self.wrapper = QDataWidgetMapper()
+        self.wrapper.setModel(self.wing_M)
         
         contr_L = QLabel(_('Lines control parameter'))
         contr_L.setAlignment(Qt.AlignRight)
-        contr_E = LineEdit()
-        contr_E.setFixedWidth(40)
-        wrapper.addMapping(contr_E, ProcessorModel.WingModel.LinesConcTypeCol)
-        contr_E.enableIntValidator(0, 2)
-        contr_E.setHelpText(_('Lines-LinesControlParamDesc'))
-        contr_E.setHelpBar(self.helpBar)
+        self.contr_E = LineEdit()
+        self.contr_E.setFixedWidth(40)
+        self.wrapper.addMapping(self.contr_E, ProcessorModel.WingModel.LinesConcTypeCol)
+        self.contr_E.enableIntValidator(0, 2)
+        self.contr_E.setHelpText(_('Lines-LinesControlParamDesc'))
+        self.contr_E.setHelpBar(self.helpBar)
         
         contrLayout = QHBoxLayout()
         contrLayout.addWidget(contr_L)
-        contrLayout.addWidget(contr_E)
+        contrLayout.addWidget(self.contr_E)
         contrLayout.addStretch()
         
         self.windowLayout.addLayout(contrLayout)
@@ -131,7 +132,7 @@ class Lines(QMdiSubWindow):
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
 
-        wrapper.toFirst()
+        self.wrapper.toFirst()
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
@@ -286,6 +287,12 @@ class Lines(QMdiSubWindow):
         '''           
         logging.debug(self.__className+'.numLinesChange')
         self.lines_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numLines_S[self.tabs.currentIndex()].value() )
+        
+    def wingModelDataChange(self):
+        '''
+        :method: Called if data in wing model changes. As mappings are lost upon the use of select we have potentially to re establish the mapping again.  
+        '''
+        self.wrapper.addMapping(self.contr_E, ProcessorModel.WingModel.LinesConcTypeCol)
 
     def sortBtnPress(self):
         '''

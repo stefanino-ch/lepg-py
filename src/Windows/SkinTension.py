@@ -63,7 +63,7 @@ class SkinTension(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Skin Tension"))
+        self.setWindowTitle(_("Skin tension"))
         
         table = TableView()
         table.setModel( self.skinTens_M )

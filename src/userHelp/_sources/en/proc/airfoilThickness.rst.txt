@@ -2,13 +2,19 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-*****************
+-----------------
 Airfoil thickness
-*****************
+-----------------
 
 There is still some work to be done...
 
-All details you will find on Peres website |pere_link|.
+ |
+
+Type
+----
+*Airfoil thickness* is an **optional section**. 
+
+If you do not want to define/ use these parameters set the Type to **None**.
 
  |
 
@@ -24,12 +30,8 @@ All details you will find on Peres website |pere_link|.
 
  |
 
- |
+A more detailed description you can find here |pere_link|.
 
- |
-
- |
- 
 .. |pere_link| raw:: html
 
 	<a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.30" target="_blank">Laboratori d'envol website</a>

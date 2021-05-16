@@ -63,7 +63,7 @@ class HvVhRibs(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
@@ -93,7 +93,7 @@ class HvVhRibs(QMdiSubWindow):
         xSpLayout.addStretch()
         self.windowLayout.addLayout(xSpLayout)
 
-        ySp_L = QLabel(_('x Spacing'))
+        ySp_L = QLabel(_('y Spacing'))
         ySp_L.setAlignment(Qt.AlignRight)
         ySp_E = LineEdit()
         ySp_E.setFixedWidth(40)
@@ -139,7 +139,6 @@ class HvVhRibs(QMdiSubWindow):
         ribs_T.hideColumn( self.ribs_M.columnCount()-2 )
         self.windowLayout.addWidget(ribs_T)
          
-        ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.OrderNumCol, ProcessorModel.HvVhRibsModel.RibNumCol, 1, 999)
         ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.TypeCol, ProcessorModel.HvVhRibsModel.TypeCol, 1, 16)
         ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.IniRibCol, ProcessorModel.HvVhRibsModel.IniRibCol, 1, 999)
         ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.ParamACol, ProcessorModel.HvVhRibsModel.ParamACol, 1, 6)
@@ -148,7 +147,6 @@ class HvVhRibs(QMdiSubWindow):
           
         ribs_T.setHelpBar(self.helpBar)
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.OrderNumCol, _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.RibNumCol, _('HvVhRibs-RibNumDesc'))
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.TypeCol , _('HvVhRibs-TypeDesc'))
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.IniRibCol , _('HvVhRibs-IniRibDesc'))
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamACol , _('HvVhRibs-ParamADesc'))
