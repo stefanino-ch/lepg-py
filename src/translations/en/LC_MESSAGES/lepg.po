@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-13 11:41+0200\n"
-"PO-Revision-Date: 2021-05-13 11:44+0200\n"
+"POT-Creation-Date: 2021-05-16 10:25+0200\n"
+"PO-Revision-Date: 2021-05-16 11:16+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -40,10 +40,8 @@ msgid ""
 msgstr ""
 
 #: DataStores/PreProcessorModel.py:164
-#, fuzzy
-#| msgid "open_preProc_file_desc"
 msgid "Open Pre-Proc file"
-msgstr "Opens a datafile from local storage"
+msgstr ""
 
 #: DataStores/PreProcessorModel.py:189
 msgid "Save Pre-Processor file"
@@ -73,17 +71,17 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: DataStores/PreProcessorModel.py:525 DataStores/ProcessorModel.py:6124
+#: DataStores/PreProcessorModel.py:525 DataStores/ProcessorModel.py:6117
 #: Windows/PreProcCellsDistribution.py:88
 msgid "Num cells"
 msgstr ""
 
-#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6121
+#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6114
 msgid "Wing name"
 msgstr ""
 
 #: DataStores/PreProcessorModel.py:745 DataStores/PreProcessorModel.py:876
-#: DataStores/ProcessorModel.py:3410 DataStores/ProcessorModel.py:4550
+#: DataStores/ProcessorModel.py:3406 DataStores/ProcessorModel.py:4543
 #: Windows/AirfoilThickness.py:71 Windows/CalageVar.py:73
 #: Windows/GlueVent.py:71 Windows/JoncsDefinition.py:218
 #: Windows/PreProcCellsDistribution.py:73 Windows/PreProcData.py:158
@@ -209,20 +207,20 @@ msgid "Save Processor file as"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:1941 DataStores/ProcessorModel.py:3113
-#: DataStores/ProcessorModel.py:3608 DataStores/ProcessorModel.py:4052
+#: DataStores/ProcessorModel.py:3601 DataStores/ProcessorModel.py:4045
 msgid "Order Num"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:1942
-msgid "X-Coordinate [\\u0025 Chord]"
-msgstr ""
+msgid "X-Coordinate"
+msgstr "Hor position [% chord]"
 
 #: DataStores/ProcessorModel.py:1943
-msgid "Y-Coordinate [\\u0025 Chord]"
-msgstr ""
+msgid "Y-Coordinate"
+msgstr "Vert position [% chord]"
 
 #: DataStores/ProcessorModel.py:2046 DataStores/ProcessorModel.py:2241
-#: DataStores/ProcessorModel.py:4980
+#: DataStores/ProcessorModel.py:4973
 msgid "Rib Num"
 msgstr ""
 
@@ -258,7 +256,7 @@ msgstr ""
 msgid "Airfoil num"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:2112 DataStores/ProcessorModel.py:5168
+#: DataStores/ProcessorModel.py:2112 DataStores/ProcessorModel.py:5161
 msgid "Coeff"
 msgstr ""
 
@@ -290,9 +288,9 @@ msgstr ""
 msgid "Pos F"
 msgstr "Brake lines"
 
-#: DataStores/ProcessorModel.py:2344 DataStores/ProcessorModel.py:3408
-#: DataStores/ProcessorModel.py:3731 DataStores/ProcessorModel.py:4185
-#: DataStores/ProcessorModel.py:4639 DataStores/ProcessorModel.py:4755
+#: DataStores/ProcessorModel.py:2344 DataStores/ProcessorModel.py:3405
+#: DataStores/ProcessorModel.py:3724 DataStores/ProcessorModel.py:4178
+#: DataStores/ProcessorModel.py:4632 DataStores/ProcessorModel.py:4748
 msgid "Order num"
 msgstr ""
 
@@ -332,7 +330,7 @@ msgstr ""
 msgid "Order lvl 4"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:2354 DataStores/ProcessorModel.py:4195
+#: DataStores/ProcessorModel.py:2354 DataStores/ProcessorModel.py:4188
 msgid "Anchor"
 msgstr ""
 
@@ -448,15 +446,14 @@ msgstr ""
 msgid "Def in higher level"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3041 DataStores/ProcessorModel.py:3536
-#: DataStores/ProcessorModel.py:3732 DataStores/ProcessorModel.py:4548
-#: DataStores/ProcessorModel.py:4756 DataStores/ProcessorModel.py:5557
-msgid "First Rib"
-msgstr "First rib"
-
-#: DataStores/ProcessorModel.py:3114
-msgid "Dist TE [\\u0025  chord]"
+#: DataStores/ProcessorModel.py:3041 DataStores/ProcessorModel.py:3529
+#: DataStores/ProcessorModel.py:4189
+msgid "Rib num"
 msgstr ""
+
+#: DataStores/ProcessorModel.py:3114 DataStores/ProcessorModel.py:3602
+msgid "Dist TE"
+msgstr "Dist TE [% chord]"
 
 #: DataStores/ProcessorModel.py:3200
 msgid "Finesse [deg]"
@@ -490,390 +487,387 @@ msgstr "Carabiners [cm]"
 msgid "Vent param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3409 DataStores/ProcessorModel.py:4196
-msgid "Rib num"
-msgstr ""
-
-#: DataStores/ProcessorModel.py:3411
+#: DataStores/ProcessorModel.py:3407
 msgid "Ini Rib"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3412
+#: DataStores/ProcessorModel.py:3408
 msgid "Param A"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3413
+#: DataStores/ProcessorModel.py:3409
 msgid "Param B"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3414
+#: DataStores/ProcessorModel.py:3410
 msgid "Param C"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3415
+#: DataStores/ProcessorModel.py:3411
 msgid "Param D"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3416
+#: DataStores/ProcessorModel.py:3412
 msgid "Param E"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3417
+#: DataStores/ProcessorModel.py:3413
 msgid "Param F"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3418
+#: DataStores/ProcessorModel.py:3414
 msgid "Param G"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3419
+#: DataStores/ProcessorModel.py:3415
 msgid "Param H"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3420
+#: DataStores/ProcessorModel.py:3416
 msgid "Param I"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3609
-msgid "Dist TE [\\u0025 chord]"
-msgstr ""
+#: DataStores/ProcessorModel.py:3725 DataStores/ProcessorModel.py:4541
+#: DataStores/ProcessorModel.py:4749 DataStores/ProcessorModel.py:5550
+msgid "First Rib"
+msgstr "First rib"
 
-#: DataStores/ProcessorModel.py:3733 DataStores/ProcessorModel.py:4549
-#: DataStores/ProcessorModel.py:4757 DataStores/ProcessorModel.py:5558
+#: DataStores/ProcessorModel.py:3726 DataStores/ProcessorModel.py:4542
+#: DataStores/ProcessorModel.py:4750 DataStores/ProcessorModel.py:5551
 msgid "Last Rib"
 msgstr "Last rib"
 
-#: DataStores/ProcessorModel.py:3734
+#: DataStores/ProcessorModel.py:3727
 msgid "Row 2 A"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3735
+#: DataStores/ProcessorModel.py:3728
 msgid "Row 2 B"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3736
+#: DataStores/ProcessorModel.py:3729
 msgid "Row 2 C"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3737
+#: DataStores/ProcessorModel.py:3730
 msgid "Row 2 D"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3738
+#: DataStores/ProcessorModel.py:3731
 msgid "Row 2 E"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3739
+#: DataStores/ProcessorModel.py:3732
 msgid "Row 3 A"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3740
+#: DataStores/ProcessorModel.py:3733
 msgid "Row 3 B"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3741
+#: DataStores/ProcessorModel.py:3734
 msgid "Row 3 C"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3742
+#: DataStores/ProcessorModel.py:3735
 msgid "Row 3 D"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3743
+#: DataStores/ProcessorModel.py:3736
 msgid "Row 4 A"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3744
+#: DataStores/ProcessorModel.py:3737
 msgid "Row 4 B"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3745
+#: DataStores/ProcessorModel.py:3738
 msgid "Row 4 C"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3746
+#: DataStores/ProcessorModel.py:3739
 msgid "Row 4 D"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3952
+#: DataStores/ProcessorModel.py:3945
 msgid "Initial Rib"
 msgstr "Initial rib"
 
-#: DataStores/ProcessorModel.py:3953
+#: DataStores/ProcessorModel.py:3946
 msgid "Final Rib"
 msgstr "Final rib"
 
-#: DataStores/ProcessorModel.py:4053
+#: DataStores/ProcessorModel.py:4046
 msgid "Light Typ"
 msgstr "Light type"
 
-#: DataStores/ProcessorModel.py:4054
+#: DataStores/ProcessorModel.py:4047
 msgid "Dist LE"
 msgstr "Hor dist"
 
-#: DataStores/ProcessorModel.py:4055
+#: DataStores/ProcessorModel.py:4048
 msgid "Dist chord"
 msgstr "Vert dist"
 
-#: DataStores/ProcessorModel.py:4056
+#: DataStores/ProcessorModel.py:4049
 msgid "Hor axis"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4057
+#: DataStores/ProcessorModel.py:4050
 msgid "Vert axis"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4058
+#: DataStores/ProcessorModel.py:4051
 msgid "Rot angle"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4059
+#: DataStores/ProcessorModel.py:4052
 msgid "Opt "
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4186
+#: DataStores/ProcessorModel.py:4179
 #, fuzzy
 #| msgid "num Branches"
 msgid "Num branches"
 msgstr "Num branches"
 
-#: DataStores/ProcessorModel.py:4187
+#: DataStores/ProcessorModel.py:4180
 msgid "Ramif 1"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4188
+#: DataStores/ProcessorModel.py:4181
 msgid "Node 1"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4189
+#: DataStores/ProcessorModel.py:4182
 msgid "Ramif 2"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4190
+#: DataStores/ProcessorModel.py:4183
 msgid "Node 2"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4191
+#: DataStores/ProcessorModel.py:4184
 msgid "Ramif 3"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4192
+#: DataStores/ProcessorModel.py:4185
 msgid "Node 3"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4193
+#: DataStores/ProcessorModel.py:4186
 msgid "Ramif 4"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4194
+#: DataStores/ProcessorModel.py:4187
 msgid "Node 4"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4335
+#: DataStores/ProcessorModel.py:4328
 msgid "Marks Spacing [cm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4336
+#: DataStores/ProcessorModel.py:4329
 msgid "Point Radius [cm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4337
+#: DataStores/ProcessorModel.py:4330
 msgid "Point Displacement [cm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4432
+#: DataStores/ProcessorModel.py:4425
 msgid "Marks type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4433
+#: DataStores/ProcessorModel.py:4426
 msgid "Form 1"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4434
+#: DataStores/ProcessorModel.py:4427
 msgid "Form 1 1st param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4435
+#: DataStores/ProcessorModel.py:4428
 msgid "Form 1 2nd param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4436
+#: DataStores/ProcessorModel.py:4429
 msgid "Form 2"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4437
+#: DataStores/ProcessorModel.py:4430
 msgid "Form 2 1st param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4438
+#: DataStores/ProcessorModel.py:4431
 msgid "Form 2 2nd param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4640 DataStores/ProcessorModel.py:5083
+#: DataStores/ProcessorModel.py:4633 DataStores/ProcessorModel.py:5076
 msgid "Top dist LE"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4641 DataStores/ProcessorModel.py:5084
+#: DataStores/ProcessorModel.py:4634 DataStores/ProcessorModel.py:5077
 msgid "Top widening"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4642 DataStores/ProcessorModel.py:5085
+#: DataStores/ProcessorModel.py:4635 DataStores/ProcessorModel.py:5078
 msgid "Bott dist TE"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4643 DataStores/ProcessorModel.py:5086
+#: DataStores/ProcessorModel.py:4636 DataStores/ProcessorModel.py:5079
 msgid "Bott widening"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4758
+#: DataStores/ProcessorModel.py:4751
 msgid "X1 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4759
+#: DataStores/ProcessorModel.py:4752
 msgid "U1 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4760
+#: DataStores/ProcessorModel.py:4753
 msgid "U2 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4761
+#: DataStores/ProcessorModel.py:4754
 msgid "X2 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4762
+#: DataStores/ProcessorModel.py:4755
 msgid "V1 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4763
+#: DataStores/ProcessorModel.py:4756
 msgid "V2 [\\u0025 chord"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4873
+#: DataStores/ProcessorModel.py:4866
 msgid "Rows"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4874
+#: DataStores/ProcessorModel.py:4867
 msgid "Third to sail [cm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4875
+#: DataStores/ProcessorModel.py:4868
 msgid "Fourth to sail [cm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4981
+#: DataStores/ProcessorModel.py:4974
 msgid "RP"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:4982
+#: DataStores/ProcessorModel.py:4975
 msgid "Washin"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5166
+#: DataStores/ProcessorModel.py:5159
 msgid "Strain mini ribs"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5167
+#: DataStores/ProcessorModel.py:5160
 msgid "Num points"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5227
+#: DataStores/ProcessorModel.py:5220
 msgid "Edge seem [mm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5228
+#: DataStores/ProcessorModel.py:5221
 msgid "LE seem [mm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5229
+#: DataStores/ProcessorModel.py:5222
 msgid "TE seem [mm]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5300
+#: DataStores/ProcessorModel.py:5293
 msgid "LE Angle [deg]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5301
+#: DataStores/ProcessorModel.py:5294
 msgid "TE Angle [deg]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5425 DataStores/ProcessorModel.py:5948
+#: DataStores/ProcessorModel.py:5418 DataStores/ProcessorModel.py:5941
 msgid "Line Name"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5426
+#: DataStores/ProcessorModel.py:5419
 msgid "Unifilar"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5427 DataStores/ProcessorModel.py:5949
+#: DataStores/ProcessorModel.py:5420 DataStores/ProcessorModel.py:5942
 msgid "Color code"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5428 DataStores/ProcessorModel.py:5950
+#: DataStores/ProcessorModel.py:5421 DataStores/ProcessorModel.py:5943
 msgid "Color name (opt)"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5650 DataStores/ProcessorModel.py:5746
+#: DataStores/ProcessorModel.py:5643 DataStores/ProcessorModel.py:5739
 msgid "Ini P [\\u0025 chord]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5651 DataStores/ProcessorModel.py:5747
+#: DataStores/ProcessorModel.py:5644 DataStores/ProcessorModel.py:5740
 msgid "Cut P [\\u0025 chord]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5652 DataStores/ProcessorModel.py:5748
+#: DataStores/ProcessorModel.py:5645 DataStores/ProcessorModel.py:5741
 msgid "Depth [Coef]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6120
+#: DataStores/ProcessorModel.py:6113
 msgid "Brand name"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6122
+#: DataStores/ProcessorModel.py:6115
 msgid "Draw scale"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6123
+#: DataStores/ProcessorModel.py:6116
 msgid "Wing scale"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6125
+#: DataStores/ProcessorModel.py:6118
 msgid "Num Ribs"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6126
+#: DataStores/ProcessorModel.py:6119
 msgid "Alpha max tip"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6127
+#: DataStores/ProcessorModel.py:6120
 msgid "Alpha mode"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6128
+#: DataStores/ProcessorModel.py:6121
 msgid "Alpha max cent"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6129
+#: DataStores/ProcessorModel.py:6122
 msgid "Para type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6130
+#: DataStores/ProcessorModel.py:6123
 msgid "Para param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6131
+#: DataStores/ProcessorModel.py:6124
 msgid "Lines Conc Type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6132
+#: DataStores/ProcessorModel.py:6125
 msgid "Brake length"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6133
+#: DataStores/ProcessorModel.py:6126
 msgid "x-Spacing"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6134
+#: DataStores/ProcessorModel.py:6127
 msgid "y-Spacing"
 msgstr ""
 
@@ -881,8 +875,8 @@ msgstr ""
 msgid "proc_terminating_msg"
 msgstr ""
 
-#: Windows/AddRibPoints.py:71
-msgid "Additional Rib points"
+#: Windows/AddRibPoints.py:71 lepg.py:397
+msgid "Additional rib points"
 msgstr ""
 
 #: Windows/AddRibPoints.py:76 Windows/ExtradColors.py:82
@@ -891,7 +885,7 @@ msgid "Number of configs"
 msgstr ""
 
 #: Windows/AddRibPoints.py:109 Windows/Brakes.py:139
-#: Windows/ExtradColors.py:237 Windows/HvVhRibs.py:150
+#: Windows/ExtradColors.py:237 Windows/HvVhRibs.py:149
 #: Windows/IntradColors.py:237 Windows/JoncsDefinition.py:265
 #: Windows/Lines.py:255 Windows/NoseMylars.py:109 Windows/RibHoles.py:242
 msgid "OrderNumDesc"
@@ -901,14 +895,14 @@ msgstr ""
 
 #: Windows/AddRibPoints.py:110
 msgid "AddRibPts-XCoordDesc"
-msgstr ""
+msgstr "Hor distance from LE in [% chord]"
 
 #: Windows/AddRibPoints.py:111
 msgid "AddRibPts-YCorodDesc"
-msgstr ""
+msgstr "Vert positon in [% chord]"
 
 #: Windows/AddRibPoints.py:113 Windows/Brakes.py:195
-#: Windows/ExtradColors.py:106 Windows/HvVhRibs.py:164
+#: Windows/ExtradColors.py:106 Windows/HvVhRibs.py:162
 #: Windows/IntradColors.py:106 Windows/JoncsDefinition.py:111
 #: Windows/Lines.py:131 Windows/NewSkinTension.py:106 Windows/NoseMylars.py:119
 msgid "Sort by orderNum"
@@ -1326,22 +1320,27 @@ msgstr ""
 #: Windows/DxfLayerNames.py:103
 msgid "DxfLayNames-LayerDesc"
 msgstr ""
+"Original layer names as used inside lep\n"
+"A complete list is given on the help page"
 
 #: Windows/DxfLayerNames.py:104
 msgid "DxfLayNames-DescriptionDesc"
 msgstr ""
+"The name of the layer which can bee freely chosen\n"
+"and later on indicated in the DXF file"
 
 #: Windows/ElasticLinesCorr.py:72 lepg.py:401
 msgid "Elastic lines correction"
 msgstr ""
 
 #: Windows/ElasticLinesCorr.py:80
-msgid "in flight load [kg]"
+#| msgid "in flight load [kg]"
+msgid "In flight load [kg]"
 msgstr ""
 
 #: Windows/ElasticLinesCorr.py:85
 msgid "ElLinesCorr-LoadDesc"
-msgstr ""
+msgstr "Total in flight load of the wing in [kg]"
 
 #: Windows/ElasticLinesCorr.py:91 Windows/ElasticLinesCorr.py:92
 #: Windows/ElasticLinesCorr.py:93 Windows/ElasticLinesCorr.py:94
@@ -1356,6 +1355,8 @@ msgstr ""
 #: Windows/ElasticLinesCorr.py:104 Windows/ElasticLinesCorr.py:110
 msgid "ElLinesCorr-TwoLineDistDesc"
 msgstr ""
+"Load distribution across the 2 anchors\n"
+"in a 2 line configuration"
 
 #: Windows/ElasticLinesCorr.py:119
 msgid "Three Lines"
@@ -1365,6 +1366,8 @@ msgstr ""
 #: Windows/ElasticLinesCorr.py:136
 msgid "ElLinesCorr-ThreeLineDistDesc"
 msgstr ""
+"Load distribution across the 3 anchors\n"
+"in a 3 line configuration"
 
 #: Windows/ElasticLinesCorr.py:146
 msgid "Four Lines"
@@ -1374,6 +1377,8 @@ msgstr ""
 #: Windows/ElasticLinesCorr.py:163 Windows/ElasticLinesCorr.py:169
 msgid "ElLinesCorr-FourLineDistDesc"
 msgstr ""
+"Load distribution across the 4 anchors\n"
+"in a 4 line configuration"
 
 #: Windows/ElasticLinesCorr.py:180
 msgid "Five Lines"
@@ -1384,22 +1389,32 @@ msgstr ""
 #: Windows/ElasticLinesCorr.py:209
 msgid "ElLinesCorr-FiveLineDistDesc"
 msgstr ""
+"Load distribution across the 5 anchors\n"
+"in a 5 line configuration"
 
 #: Windows/ElasticLinesCorr.py:235
 msgid "ElLinesCorr-NumOfLinesDesc"
 msgstr ""
+"Number of lines per rib\n"
+"Values 1...5, one value per line"
 
 #: Windows/ElasticLinesCorr.py:236
 msgid "ElLinesCorr-LowColDesc"
 msgstr ""
+"Deformation coefficient for lower \n"
+"line level with 10 kg load"
 
 #: Windows/ElasticLinesCorr.py:237
 msgid "ElLinesCorr-MidColDesc"
 msgstr ""
+"Deformation coefficient for middle \n"
+"line level with 10 kg load"
 
 #: Windows/ElasticLinesCorr.py:238
 msgid "ElLinesCorr-HigColDesc"
 msgstr ""
+"Deformation coefficient for high \n"
+"line level with 10 kg load"
 
 #: Windows/ExtradColors.py:80 lepg.py:389
 msgid "Colors upper sail"
@@ -1408,15 +1423,20 @@ msgstr ""
 #: Windows/ExtradColors.py:193
 msgid "ExtradCols-FirstRibDesc"
 msgstr ""
+"Number of the rib currently \n"
+"for which the configuration applies"
 
 #: Windows/ExtradColors.py:203 Windows/IntradColors.py:203
-#: Windows/NewSkinTension.py:209
-msgid "Number of Lines"
-msgstr ""
+#, fuzzy
+#| msgid "Number of Line plans"
+msgid "Number of config lines"
+msgstr "Number of line plans"
 
 #: Windows/ExtradColors.py:238
 msgid "ExtradCols-DistTeDesc"
 msgstr ""
+"Distance from TE \n"
+"in [% chord]"
 
 #: Windows/Geometry.py:71 lepg.py:349
 msgid "Geometry"
@@ -1540,67 +1560,93 @@ msgstr ""
 
 #: Windows/HvVhRibs.py:77
 msgid "HV VH Ribs"
-msgstr ""
+msgstr "Diagonal ribs"
 
-#: Windows/HvVhRibs.py:82 Windows/HvVhRibs.py:96
+#: Windows/HvVhRibs.py:82
 msgid "x Spacing"
 msgstr ""
 
 #: Windows/HvVhRibs.py:88
 msgid "HvVhRibs-xSpacingDesc"
 msgstr ""
+"Horizontal distance in [cm] between\n"
+"the ribs on the final drawing"
+
+#: Windows/HvVhRibs.py:96
+msgid "y Spacing"
+msgstr ""
 
 #: Windows/HvVhRibs.py:102
 msgid "HvVhRibs-ySpacingDesc"
 msgstr ""
+"Vertical distance in [cm] between\n"
+"the ribs on the final drawing"
 
-#: Windows/HvVhRibs.py:151
-msgid "HvVhRibs-RibNumDesc"
-msgstr ""
-
-#: Windows/HvVhRibs.py:152
+#: Windows/HvVhRibs.py:150
 msgid "HvVhRibs-TypeDesc"
 msgstr ""
+"Number of the rib type defined \n"
+"on this line"
 
-#: Windows/HvVhRibs.py:153
+#: Windows/HvVhRibs.py:151
 msgid "HvVhRibs-IniRibDesc"
 msgstr ""
+"Number of the initial rib for\n"
+"which this line applies"
 
-#: Windows/HvVhRibs.py:154
+#: Windows/HvVhRibs.py:152
 msgid "HvVhRibs-ParamADesc"
 msgstr ""
+"Parameter A of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:155
+#: Windows/HvVhRibs.py:153
 msgid "HvVhRibs-ParamBDesc"
 msgstr ""
+"Parameter B of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:156
+#: Windows/HvVhRibs.py:154
 msgid "HvVhRibs-ParamCDesc"
 msgstr ""
+"Parameter C of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:157
+#: Windows/HvVhRibs.py:155
 msgid "HvVhRibs-ParamDDesc"
 msgstr ""
+"Parameter D of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:158
+#: Windows/HvVhRibs.py:156
 msgid "HvVhRibs-ParamEDesc"
 msgstr ""
+"Parameter E of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:159
+#: Windows/HvVhRibs.py:157
 msgid "HvVhRibs-ParamFDesc"
 msgstr ""
+"Parameter F of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:160
+#: Windows/HvVhRibs.py:158
 msgid "HvVhRibs-ParamGDesc"
 msgstr ""
+"Parameter G of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:161
+#: Windows/HvVhRibs.py:159
 msgid "HvVhRibs-ParamHDesc"
 msgstr ""
+"Parameter H of this configuration\n"
+"Please check the online help for the detailed explanation"
 
-#: Windows/HvVhRibs.py:162
+#: Windows/HvVhRibs.py:160
 msgid "HvVhRibs-ParamIDesc"
 msgstr ""
+"Parameter I of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/IntradColors.py:80 lepg.py:393
 msgid "Colors lower sail"
@@ -1609,10 +1655,14 @@ msgstr ""
 #: Windows/IntradColors.py:193
 msgid "IntradCols-FirstRibDesc"
 msgstr ""
+"Number of the rib currently \n"
+"for which the configuration applies"
 
 #: Windows/IntradColors.py:238
 msgid "IntradCols-DistTeDesc"
 msgstr ""
+"Distance from TE \n"
+"in [% chord]"
 
 #: Windows/JoncsDefinition.py:83
 msgid "Joncs definition (Nylon rods)"
@@ -1850,6 +1900,10 @@ msgid "NewSkinTens-TypeDesc"
 msgstr ""
 "Calculation type\n"
 "The only allowed value is currently 1"
+
+#: Windows/NewSkinTension.py:209
+msgid "Number of Lines"
+msgstr ""
 
 #: Windows/NewSkinTension.py:240
 msgid "SkinTension-OrderNumDesc"
@@ -2698,7 +2752,7 @@ msgstr ""
 
 #: lepg.py:385
 msgid "HV and VH ribs"
-msgstr ""
+msgstr "Diagonal ribs"
 
 #: lepg.py:386
 msgid "Edit HV/ VH ribs data"
@@ -2710,10 +2764,6 @@ msgstr ""
 
 #: lepg.py:394
 msgid "Edit the color settings of the lower sail"
-msgstr ""
-
-#: lepg.py:397
-msgid "Additional rib points"
 msgstr ""
 
 #: lepg.py:398

@@ -6,29 +6,41 @@
 DXF Layer Namen
 ---------------
 
-Da fehlt noch was... 
+.. image:: /images/proc/dxfLayerNames-de.png
+   :width: 373
+   :height: 286
+   
+Rohdaten::
 
- |
+	******************************************************
+	*       19. DXF layer names
+	******************************************************
+	10
+	general         default
+	line-external   cutexternal
+	line-sewing     cutinternal
+	points          points
+	circles         circles
+	triangles       triangle
+	square          square
+	text            text
+	reference       refer
+	notes           notes
 
-Number of layers
+Anzahl der Layer
 ----------------
-*DXF layer names* is an **optional section**. 
+*DXF Layer Namen* ist eine **optionale Konfiguration**. 
 
-If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
+Wenn Du den Abschnitt nicht verwenden möchtest, dann setze den Wert von **Anz der Layer** auf **0**.
 
- |
+Layer Name
+----------
+Der Name des Layers wir er intern verwendet wird. Bitte genau die Bezeichnungen hier einsetzen welche oben in *Rohdaten* in der ersten Spalte aufgeführt sind. 
 
- |
+Beschreibung
+------------
+Die eigene Beschreibung welche später in der DXF Datei ausgegeben werden soll. 
 
- |
-
- |
-
- |
-
- |
-
- |
 
 Eine detaillierte Beschreibung in englisch findest Du auf der |pere_link|.
 

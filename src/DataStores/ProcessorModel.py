@@ -687,7 +687,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             if (values[1] == '6') or (values[1] == '16'):
                 self.hVvHRibs_M.updateDataRow(1, l+1, \
-                                        values[0], \
                                         values[1], \
                                         values[2], \
                                         values[3], \
@@ -701,7 +700,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
                                         values[11])
             else:
                 self.hVvHRibs_M.updateDataRow(1, l+1, \
-                                        values[0], \
                                         values[1], \
                                         values[2], \
                                         values[3], \
@@ -1447,14 +1445,16 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for l in range (0, numLines):
             values = self.hVvHRibs_M.getRow(1, l+1)
             
-            for p in range (0, 10):
+            for p in range (0, 9):
+                if p==0:
+                    stream << '%s\t' %(l+1)
                 if p>0:
                     stream << '\t' 
                 stream << '%s' %values(p)
             
-            if values(1) == 6 or values(1) == 16:
-                stream << '\t%s' %values(10)
-                stream << '\t%s\n' %values(11)
+            if values(0) == 6 or values(0) == 16:
+                stream << '\t%s' %values(9)
+                stream << '\t%s\n' %values(10)
             else:
                 stream << '\n'
                 
@@ -1939,8 +1939,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate [\u0025 Chord]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate [\u0025 Chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate"))
+            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate"))
         
         def updateRow(self, configNum, orderNum, xCoord, yCoord):
             '''
@@ -3038,7 +3038,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+            self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
         
         def updateRow(self, configNum, firstRib):
             logging.debug(self.__className+'.updateRow')
@@ -3111,7 +3111,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [\u0025  chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
         
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className+'.updateRow')
@@ -3342,31 +3342,29 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         OrderNumCol = 0 
         ''':attr: num of column for 1..3: ordering the individual lines of a config'''
-        RibNumCol = 1
-        ''':attr: Number of the col holding the rib num for which the setup is valid'''
-        TypeCol = 2
+        TypeCol = 1
         ''':attr: Number of the col holding the rib type info'''
-        IniRibCol = 3
+        IniRibCol = 2
         ''':attr: Number of the col holding initial rib of the configuration'''
-        ParamACol = 4
+        ParamACol = 3
         ''':attr: Number of the col holding param A'''
-        ParamBCol = 5
+        ParamBCol = 4
         ''':attr: Number of the col holding param B'''
-        ParamCCol = 6
+        ParamCCol = 5
         ''':attr: Number of the col holding param C'''
-        ParamDCol = 7
+        ParamDCol = 6
         ''':attr: Number of the col holding param D'''
-        ParamECol = 8
+        ParamECol = 7
         ''':attr: Number of the col holding param E'''
-        ParamFCol = 9
+        ParamFCol = 8
         ''':attr: Number of the col holding param F'''
-        ParamGCol = 10
+        ParamGCol = 9
         ''':attr: Number of the col holding param G'''
-        ParamHCol = 11
+        ParamHCol = 10
         ''':attr: Number of the col holding param H'''
-        ParamICol = 12
+        ParamICol = 11
         ''':attr: Number of the col holding param I'''
-        ConfigNumCol = 13
+        ConfigNumCol = 12
         ''':attr: num of column for config number'''
         
         def createTable(self):
@@ -3379,7 +3377,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec("DROP TABLE if exists HvVhRibs;")
             query.exec("create table if not exists HvVhRibs ("
                     "OrderNum INTEGER,"
-                    "RibNum INTEGER,"
                     "Type INTEGER,"
                     "IniRib INTEGER,"
                     "ParamA INTEGER,"
@@ -3405,21 +3402,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-            self.setHeaderData(1, Qt.Horizontal, _("Rib num"))
-            self.setHeaderData(2, Qt.Horizontal, _("Type"))
-            self.setHeaderData(3, Qt.Horizontal, _("Ini Rib"))
-            self.setHeaderData(4, Qt.Horizontal, _("Param A"))
-            self.setHeaderData(5, Qt.Horizontal, _("Param B"))
-            self.setHeaderData(6, Qt.Horizontal, _("Param C"))
-            self.setHeaderData(7, Qt.Horizontal, _("Param D"))
-            self.setHeaderData(8, Qt.Horizontal, _("Param E"))
-            self.setHeaderData(9, Qt.Horizontal, _("Param F"))
-            self.setHeaderData(10, Qt.Horizontal, _("Param G"))
-            self.setHeaderData(11, Qt.Horizontal, _("Param H"))
-            self.setHeaderData(12, Qt.Horizontal, _("Param I"))
+            self.setHeaderData(self.OrderNumCol, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(self.TypeCol, Qt.Horizontal, _("Type"))
+            self.setHeaderData(self.IniRibCol, Qt.Horizontal, _("Ini Rib"))
+            self.setHeaderData(self.ParamACol, Qt.Horizontal, _("Param A"))
+            self.setHeaderData(self.ParamBCol, Qt.Horizontal, _("Param B"))
+            self.setHeaderData(self.ParamCCol, Qt.Horizontal, _("Param C"))
+            self.setHeaderData(self.ParamDCol, Qt.Horizontal, _("Param D"))
+            self.setHeaderData(self.ParamECol, Qt.Horizontal, _("Param E"))
+            self.setHeaderData(self.ParamFCol, Qt.Horizontal, _("Param F"))
+            self.setHeaderData(self.ParamGCol, Qt.Horizontal, _("Param G"))
+            self.setHeaderData(self.ParamHCol, Qt.Horizontal, _("Param H"))
+            self.setHeaderData(self.ParamICol, Qt.Horizontal, _("Param I"))
         
-        def updateDataRow(self, configNum, orderNum, ribNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF, paramG, paramH=0, paramI=0):
+        def updateDataRow(self, configNum, orderNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF, paramG, paramH=0, paramI=0):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
@@ -3428,7 +3424,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # TODO: Add transaction
             query = QSqlQuery()
             query.prepare("UPDATE HvVhRibs SET "
-                          "RibNum= :ribNum, "
                           "Type= :typ, "
                           "IniRib= :iniRib, "
                           "ParamA= :paramA, "
@@ -3441,7 +3436,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           "ParamH= :paramH, "
                           "ParamI= :paramI "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":ribNum", ribNum )
             query.bindValue(":typ", typ )
             query.bindValue(":iniRib", iniRib )
             query.bindValue(":paramA", paramA )
@@ -3470,7 +3464,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # TODO: Add transaction
             query = QSqlQuery()
             query.prepare("Select " 
-                            "RibNum, "
                             "Type, "
                             "IniRib, "
                             "ParamA, "
@@ -3533,7 +3526,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
+            self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
         
         def updateRow(self, configNum, firstRib):
             logging.debug(self.__className+'.updateRow')
@@ -3606,7 +3599,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
             
             self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE [\u0025 chord]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
         
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className+'.updateRow')

@@ -1,34 +1,53 @@
  .. Author: Stefan Feuz; http://www.laboratoridenvol.com
 
  .. Copyright: General Public License GNU GPL 3.0
+ 
+ .. _extrados_colors_de:
 
 ----------------
 Farben Obersegel
 ----------------
+Wenn Du verschiedene Farben im Obersegel verwenden willst, kannst Du hier Schnittmarken definieren.
 
-Da fehlt noch was... 
+.. image:: /images/proc/extradosColors-de.png
+   :width: 403
+   :height: 286
 
- |
+Rohdaten::
 
-Number of configs
------------------
-Colors upper sail is an **optional section**. 
+	*****************************************************
+	*	15. Extrados colors
+	*****************************************************
+	3
+	1   1
+	1   40.1   0.
+	2   1
+	1   20.15   0.
+	3   1
+	1   0.0   0.
 
-If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
+.. figure:: http://laboratoridenvol.com/leparagliding/lep2images/S15_Extrados_colors_p.jpg
 
- |
+   Definition der Farbmarkierungen
 
- |
+.. figure:: /images/proc/extradosColors-plan.png
 
- |
+   Und die Markierungen auf dem Plan
 
- |
+Anz Konfigurationen
+-------------------
+*Farben Obersegel* ist eine **optionale Konfiguration**.
 
- |
+Wenn Du keine Farbmarkierungen verwenden möchtest, dann setze den Wert von **Anz Konfigurationen** auf **0**.
 
- |
+Rippen Nummer
+-------------
+Die Rippen Nummer für die aktuelle Konfiguration.
 
- |
+Dist Austrittskante
+-------------------
+Die Distanz der Markierung von der Austrittskante in [% Flügeltiefe].
+
 
 Sortieren
 ---------

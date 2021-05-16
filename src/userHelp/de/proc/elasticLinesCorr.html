@@ -15,8 +15,8 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Namen der DXF Layer" href="dxfLayerNames.html" />
-    <link rel="prev" title="Zusätzliche Markierungspunkte" href="addRibPoints.html" />
+    <link rel="next" title="DXF Layer Namen" href="dxfLayerNames.html" />
+    <link rel="prev" title="Zusätzliche Rippenpunkte" href="addRibPoints.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
  
@@ -76,10 +76,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="dxfLayerNames.html" title="Namen der DXF Layer"
+          <a href="dxfLayerNames.html" title="DXF Layer Namen"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="addRibPoints.html" title="Zusätzliche Markierungspunkte"
+          <a href="addRibPoints.html" title="Zusätzliche Rippenpunkte"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
@@ -91,12 +91,22 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Korrektur Leinenelastizität</a><ul>
+<li><a class="reference internal" href="#zuladung-des-flugels">Zuladung des Flügels</a></li>
+<li><a class="reference internal" href="#lastverteilung">Lastverteilung</a></li>
+<li><a class="reference internal" href="#leinendeformation">Leinendeformation</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="addRibPoints.html"
-                        title="previous chapter">Zusätzliche Markierungspunkte</a></p>
+                        title="previous chapter">Zusätzliche Rippenpunkte</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="dxfLayerNames.html"
-                        title="next chapter">Namen der DXF Layer</a></p>
+                        title="next chapter">DXF Layer Namen</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -119,40 +129,40 @@
 <div></div></blockquote>
 <div class="section" id="korrektur-leinenelastizitat">
 <h1>Korrektur Leinenelastizität<a class="headerlink" href="#korrektur-leinenelastizitat" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<p>Eine detaillierte Beschreibung findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Hier kannst Du die Korrekturparameter für die Leinenelastizität eingeben.
+Die Leinenverlängerung unter Last wird von der geometrischen Länge abgezogen so dass die
+Geometrie möglichst den geplanten Werten entspricht.</p>
+<p>Zum Berechnen verwenden wir die Last der einzelnen Leinen und den Dehnungskoeffizient. Die Berechnung bastiert auf Hook’s Gesetz: F = k·dx</p>
+<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-de.png"><img alt="../../_images/elasticLinesCorr-de.png" src="../../_images/elasticLinesCorr-de.png" style="width: 566px; height: 310px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*****************************************************</span>
+<span class="o">*</span>       <span class="mf">18.</span> <span class="n">Elastic</span> <span class="n">lines</span> <span class="n">corrections</span>
+<span class="o">*****************************************************</span>
+<span class="mi">100</span>
+<span class="mi">75</span>   <span class="mi">25</span>
+<span class="mi">40</span>   <span class="mi">40</span>    <span class="mi">20</span>
+<span class="mi">35</span>   <span class="mi">35</span>    <span class="mi">20</span>   <span class="mi">10</span>
+<span class="mi">35</span>   <span class="mi">35</span>    <span class="mi">15</span>   <span class="mi">10</span>   <span class="mi">5</span>
+<span class="mi">1</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">2</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">3</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">4</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+<span class="mi">5</span>    <span class="mf">0.08</span>  <span class="mf">0.2</span>  <span class="mf">0.2</span>
+</pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="zuladung-des-flugels">
+<h2>Zuladung des Flügels<a class="headerlink" href="#zuladung-des-flugels" title="Permalink to this headline">¶</a></h2>
+<p>Die Zuladung des Flügels in [kg]. Das Flügelgewicht selber nicht einrechnen.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="lastverteilung">
+<h2>Lastverteilung<a class="headerlink" href="#lastverteilung" title="Permalink to this headline">¶</a></h2>
+<p>Hier wird abhängig von der Anzahl Aufhängepunkte die Lastverteilung der einzelnen Aufhängepunkte eingegeben.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="leinendeformation">
+<h2>Leinendeformation<a class="headerlink" href="#leinendeformation" title="Permalink to this headline">¶</a></h2>
+<p>Abhängig von der Anzahl Aufhängepunkte und der Leinenebenen werden hier die Deformationkoeffizienten der Leinen festgelegt.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
 </div>
 
 
@@ -169,10 +179,10 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="dxfLayerNames.html" title="Namen der DXF Layer"
+          <a href="dxfLayerNames.html" title="DXF Layer Namen"
              >next</a> |</li>
         <li class="right" >
-          <a href="addRibPoints.html" title="Zusätzliche Markierungspunkte"
+          <a href="addRibPoints.html" title="Zusätzliche Rippenpunkte"
              >previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>

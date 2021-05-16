@@ -57,7 +57,7 @@ class DxfLayerNames(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(550, 400)
@@ -70,7 +70,7 @@ class DxfLayerNames(QMdiSubWindow):
         # Add window specifics here
         self.setWindowTitle(_("DXF layer names"))
         
-        numLines_L = QLabel(_('Number of Layers'))
+        numLines_L = QLabel(_('Number of layers'))
         numLines_L.setAlignment(Qt.AlignRight)
         numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         

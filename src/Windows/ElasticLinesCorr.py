@@ -57,7 +57,7 @@ class ElasticLinesCorr(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(300, 300)
@@ -77,7 +77,7 @@ class ElasticLinesCorr(QMdiSubWindow):
         self.wrapper = QDataWidgetMapper()
         self.wrapper.setModel(self.elLinesCorr_M)
         
-        load_L = QLabel(_('in flight load [kg]'))
+        load_L = QLabel(_('In flight load [kg]'))
         load_L.setAlignment(Qt.AlignRight)
         self.load_E = LineEdit()
         self.wrapper.addMapping(self.load_E, ProcessorModel.ElasticLinesCorrModel.LoadCol)

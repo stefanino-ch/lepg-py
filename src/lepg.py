@@ -399,7 +399,7 @@ class MainWindow(QMainWindow):
         procAddRibPts_A.triggered.connect(self.procAddRibPtsEdit)
         
         procElLinesCorr_A = QAction(_('Elastic lines correction'), self)
-        procElLinesCorr_A.setStatusTip(_('Edit Elastic lines correction data'))
+        procElLinesCorr_A.setStatusTip(_('Edit elastic lines correction data'))
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
         
         procJoncsDef_A = QAction(_('Joncs definitions'), self)

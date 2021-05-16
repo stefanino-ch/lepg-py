@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HV VH Ribs &#8212; lepg 3.15.x documentation</title>
+    <title>Diagonal ribs &#8212; lepg 3.15.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -86,15 +86,22 @@
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">HV VH Ribs</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Diagonal ribs</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">HV VH Ribs</a><ul>
+<li><a class="reference internal" href="#">Diagonal ribs</a><ul>
+<li><a class="reference internal" href="#x-and-y-spacing">x and y Spacing</a></li>
 <li><a class="reference internal" href="#number-of-configs">Number of configs</a></li>
+<li><a class="reference internal" href="#type-1-11-horizontal-strap-between-rib-i1-and-rib-i2">Type 1/ 11: Horizontal strap between rib i1 and rib i2</a></li>
+<li><a class="reference internal" href="#type-2-12-diagonal-partial-v-rib-centered-in-rib-i">Type 2/ 12: Diagonal partial V-rib centered in rib i</a></li>
+<li><a class="reference internal" href="#type-3-13-diagonal-full-v-rib-centered-in-rib-i">Type 3/ 13: Diagonal full V-rib centered in rib i</a></li>
+<li><a class="reference internal" href="#type-4-14-vh-rib-between-rib-i-1-to-i-2">Type 4/ 14: “VH-rib” between rib i-1 to i+2</a></li>
+<li><a class="reference internal" href="#type-5-15-full-continous-vh-rib-centered-in-rib-i">Type 5/ 15: full continous VH-rib centered in rib i</a></li>
+<li><a class="reference internal" href="#type-6-16-general-diagonal-vh-rib-between-rib-i-and-rib-i-1">Type 6/ 16: general diagonal “VH-rib” between rib i and rib i+1</a></li>
 <li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
 </ul>
 </li>
@@ -126,41 +133,418 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="hv-vh-ribs">
-<h1>HV VH Ribs<a class="headerlink" href="#hv-vh-ribs" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
+<div class="section" id="diagonal-ribs">
+<h1>Diagonal ribs<a class="headerlink" href="#diagonal-ribs" title="Permalink to this headline">¶</a></h1>
+<p>The <em>Diagonal ribs</em> is maybe the one with the most complex parameter set.</p>
+<p>There are 6 different types of Diagonal ribs, each of the types with it’s own set of parameters.</p>
+<p><strong>IMPORTANT</strong></p>
 <blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
-</div>
+<div><p>single digit types (x: 1…6) do use absolut measurings in [cm] which will be scaled with the scaling factor of the wing</p>
+<p>double digit types (xx: 11…16) are set in [% of the profile chord]</p>
 </div></blockquote>
+<p><strong>IMPORTANT</strong></p>
+<blockquote>
+<div><p>DO NOT merge single or double digit types withing the same configuration. Use just either one!</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/hVvHribs-en.png"><img alt="../../_images/hVvHribs-en.png" src="../../_images/hVvHribs-en.png" style="width: 736px; height: 286px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
+<span class="o">*</span>       <span class="mf">12.</span> <span class="n">H</span> <span class="n">V</span> <span class="ow">and</span> <span class="n">VH</span> <span class="n">ribs</span>
+<span class="o">***************************************************</span>
+<span class="mi">12</span>
+<span class="mi">80</span>  <span class="mi">150</span>
+<span class="mi">1</span>   <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">1</span>  <span class="mi">1</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">2</span>   <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">3</span>   <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">3</span>  <span class="mi">1</span>  <span class="mi">3</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">4</span>   <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">4</span>  <span class="mi">1</span>  <span class="mi">4</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">5</span>   <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">1</span>  <span class="mi">5</span>  <span class="mi">1</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">6</span>   <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">2</span>  <span class="mi">5</span>  <span class="mi">2</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">7</span>   <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">3</span>  <span class="mi">5</span>  <span class="mi">3</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">8</span>   <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">4</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">9</span>   <span class="mi">1</span>  <span class="mi">8</span>  <span class="mi">1</span>  <span class="mi">9</span>  <span class="mi">1</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">10</span>  <span class="mi">1</span>  <span class="mi">8</span>  <span class="mi">2</span>  <span class="mi">9</span>  <span class="mi">2</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">11</span>  <span class="mi">1</span>  <span class="mi">8</span>  <span class="mi">3</span>  <span class="mi">9</span>  <span class="mi">3</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mi">12</span>  <span class="mi">6</span>  <span class="mi">8</span>  <span class="mi">4</span>  <span class="mi">9</span>  <span class="mi">4</span>  <span class="mf">6.0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">11</span>  <span class="mi">12</span>
+</pre></div>
+</div>
+<div class="section" id="x-and-y-spacing">
+<h2>x and y Spacing<a class="headerlink" href="#x-and-y-spacing" title="Permalink to this headline">¶</a></h2>
+<p>X and y Spacing” is the horizontal/ vertical separation distance between V-ribs drawn in box 2-4. The distance in cm will be multiplied by the scale of the drawing. So if “x-spacing” = 80.0 cm and “drawing scale” = 1.5 total distance is 80.0 x 1.5</p>
+<a class="reference internal image-reference" href="../../_images/hVvHribsSpacing.png"><img alt="../../_images/hVvHribsSpacing.png" src="../../_images/hVvHribsSpacing.png" style="width: 370px; height: 380px;" /></a>
+</div>
 <div class="section" id="number-of-configs">
 <h2>Number of configs<a class="headerlink" href="#number-of-configs" title="Permalink to this headline">¶</a></h2>
-<p>Extrados colors is an <strong>optional section</strong>.</p>
+<p><em>Diagonal ribs</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the <strong>Number of configs</strong> value to <strong>0</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="type-1-11-horizontal-strap-between-rib-i1-and-rib-i2">
+<h2>Type 1/ 11: Horizontal strap between rib i1 and rib i2<a class="headerlink" href="#type-1-11-horizontal-strap-between-rib-i1-and-rib-i2" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib1_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib1_p.jpg" />
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>1/ 11</p></td>
+<td><p>from rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id1">1</a></p></td>
+<td><p>to rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id2">1</a></p></td>
+<td><p>width <a class="footnote-reference brackets" href="#id5" id="id3">2</a></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id6">3</a>,<a href="#id19">4</a>,<a href="#id24">5</a>,<a href="#id31">6</a>)</span></dt>
+<dd><p>here anchor rows are used again: row 1=A, row 2=B, ….</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>type x: strap witdh in [cm]</p>
+<p>type xx: strap witdh in [% chord]</p>
+</dd>
+</dl>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="type-2-12-diagonal-partial-v-rib-centered-in-rib-i">
+<h2>Type 2/ 12: Diagonal partial V-rib centered in rib i<a class="headerlink" href="#type-2-12-diagonal-partial-v-rib-centered-in-rib-i" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib2_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib2_p.jpg" />
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>2/ 12</p></td>
+<td><p>rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id6">1</a></p></td>
+<td><p>left <a class="footnote-reference brackets" href="#id13" id="id7">3</a></p></td>
+<td><p>right <a class="footnote-reference brackets" href="#id14" id="id8">4</a></p></td>
+<td><p>r- <a class="footnote-reference brackets" href="#id15" id="id9">5</a></p></td>
+<td><p>r+ <a class="footnote-reference brackets" href="#id16" id="id10">6</a></p></td>
+<td><p>height <a class="footnote-reference brackets" href="#id17" id="id11">7</a></p></td>
+<td><p>beta <a class="footnote-reference brackets" href="#id18" id="id12">8</a></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id13"><span class="brackets">3</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id20">2</a>,<a href="#id25">3</a>,<a href="#id32">4</a>)</span></dt>
+<dd><p>left</p>
+<p>“0”: no left diagonal rib will be created</p>
+<p>“1”: a digonal rib to the left will be created</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets">4</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id21">2</a>,<a href="#id26">3</a>,<a href="#id33">4</a>)</span></dt>
+<dd><p>right</p>
+<p>“0”: no right diagonal rib will be created</p>
+<p>“1”: a digonal rib to the right will be created</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets">5</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id22">2</a>,<a href="#id27">3</a>)</span></dt>
+<dd><p>lower rib width</p>
+<p>type 1: in [cm]</p>
+<p>type 2: in [% chord]</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets">6</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id23">2</a>,<a href="#id28">3</a>)</span></dt>
+<dd><p>upper rib width</p>
+<p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+<dt class="label" id="id17"><span class="brackets">7</span><span class="fn-backref">(<a href="#id11">1</a>,<a href="#id29">2</a>)</span></dt>
+<dd><p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets">8</span><span class="fn-backref">(<a href="#id12">1</a>,<a href="#id30">2</a>)</span></dt>
+<dd><p>beta</p>
+<p>angle of the upper end</p>
+</dd>
+</dl>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="type-3-13-diagonal-full-v-rib-centered-in-rib-i">
+<h2>Type 3/ 13: Diagonal full V-rib centered in rib i<a class="headerlink" href="#type-3-13-diagonal-full-v-rib-centered-in-rib-i" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib3_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib3_p.jpg" />
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>3/13</p></td>
+<td><p>rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id19">1</a></p></td>
+<td><p>left <a class="footnote-reference brackets" href="#id13" id="id20">3</a></p></td>
+<td><p>right <a class="footnote-reference brackets" href="#id14" id="id21">4</a></p></td>
+<td><p>r- <a class="footnote-reference brackets" href="#id15" id="id22">5</a></p></td>
+<td><p>r+ <a class="footnote-reference brackets" href="#id16" id="id23">6</a></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div></blockquote>
+<div class="section" id="type-4-14-vh-rib-between-rib-i-1-to-i-2">
+<h2>Type 4/ 14: “VH-rib” between rib i-1 to i+2<a class="headerlink" href="#type-4-14-vh-rib-between-rib-i-1-to-i-2" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib4_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_Minirib4_p.jpg" />
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>4/ 14</p></td>
+<td><p>rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id24">1</a></p></td>
+<td><p>left <a class="footnote-reference brackets" href="#id13" id="id25">3</a></p></td>
+<td><p>right <a class="footnote-reference brackets" href="#id14" id="id26">4</a></p></td>
+<td><p>r- <a class="footnote-reference brackets" href="#id15" id="id27">5</a></p></td>
+<td><p>r+ <a class="footnote-reference brackets" href="#id16" id="id28">6</a></p></td>
+<td><p>height <a class="footnote-reference brackets" href="#id17" id="id29">7</a></p></td>
+<td><p>beta <a class="footnote-reference brackets" href="#id18" id="id30">8</a></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="type-5-15-full-continous-vh-rib-centered-in-rib-i">
+<h2>Type 5/ 15: full continous VH-rib centered in rib i<a class="headerlink" href="#type-5-15-full-continous-vh-rib-centered-in-rib-i" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default" id="id50">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_VRF-p.p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_VRF-p.p.jpg" />
+<p class="caption"><span class="caption-text">Full continous V-ribs type 5 using parabolic holes (if height &lt; 100%)</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id51">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_VRF-e.p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_VRF-e.p.jpg" />
+<p class="caption"><span class="caption-text">Full continous V-ribs type 5 using elliptical holes (if heigth &gt; 100%)</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>5/ 15</p></td>
+<td><p>rib</p></td>
+<td><p>row <a class="footnote-reference brackets" href="#id4" id="id31">1</a></p></td>
+<td><p>left <a class="footnote-reference brackets" href="#id13" id="id32">3</a></p></td>
+<td><p>right <a class="footnote-reference brackets" href="#id14" id="id33">4</a></p></td>
+<td><p>alpha1 (LE)</p></td>
+<td><p>alpha2 (TE)</p></td>
+<td><p>height <a class="footnote-reference brackets" href="#id36" id="id34">9</a></p></td>
+<td><p>r <a class="footnote-reference brackets" href="#id37" id="id35">10</a></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id36"><span class="brackets"><a class="fn-backref" href="#id34">9</a></span></dt>
+<dd><p>height &lt; 100[%]: parabolic hole</p>
+<p>height &gt; 100[%]: elliptical hole</p>
+</dd>
+<dt class="label" id="id37"><span class="brackets"><a class="fn-backref" href="#id35">10</a></span></dt>
+<dd><p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>IMPORTANT</strong></dt><dd><p>When using type 5/ 15 ribs keep in mind the following:</p>
+<ul class="simple">
+<li><p>The number of anchorages on the rib “i” must be equal to the number of anchors on the right and left, even if they are not used (they can be virtual, ie without lines)</p></li>
+<li><p>To define the Type 5 rib, use a number of lines equal to the number of anchors.</p></li>
+</ul>
+<p>Example for 4 anchor points:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">5</span>       <span class="mi">5</span> <span class="mi">1</span>     <span class="mi">1</span> <span class="mi">1</span>    <span class="mf">60.0</span>    <span class="mf">60.0</span>    <span class="mf">80.</span>     <span class="mf">7.</span>
+<span class="mi">5</span>       <span class="mi">5</span> <span class="mi">2</span>     <span class="mi">1</span> <span class="mi">1</span>    <span class="mf">60.0</span>    <span class="mf">60.0</span>    <span class="mf">80.</span>     <span class="mf">7.</span>
+<span class="mi">5</span>       <span class="mi">5</span> <span class="mi">3</span>     <span class="mi">1</span> <span class="mi">1</span>    <span class="mf">60.0</span>    <span class="mf">60.0</span>    <span class="mf">80.</span>     <span class="mf">7.</span>
+<span class="mi">5</span>       <span class="mi">5</span> <span class="mi">4</span>     <span class="mi">1</span> <span class="mi">1</span>    <span class="mf">60.0</span>    <span class="mf">60.0</span>    <span class="mf">80.</span>     <span class="mf">7.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="type-6-16-general-diagonal-vh-rib-between-rib-i-and-rib-i-1">
+<h2>Type 6/ 16: general diagonal “VH-rib” between rib i and rib i+1<a class="headerlink" href="#type-6-16-general-diagonal-vh-rib-between-rib-i-and-rib-i-1" title="Permalink to this headline">¶</a></h2>
+<p>Type 6/ 16 is a general diagonal. It’s very simple. A trapezoidal diagonal ranging from rib number i to rib number i+1. But the rib is totally configurable in size and position. It has been designed to develop competition paragliders CCC types, which need to jump between 4 and 5 cells without lines. But it can also serve to design simplest paragliders, and replacing some of the types of diagonals described above. It is also very useful to define transverse horizontal strips located in all parts of the wing (the tapes have not necessarily coincide with the anchor points).</p>
+<div class="figure align-default">
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S12_V-ribtype6.p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S12_V-ribtype6.p.jpg" />
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Ini Rib</p></td>
+<td><p>Param A</p></td>
+<td><p>Param B</p></td>
+<td><p>Param C</p></td>
+<td><p>Param D</p></td>
+<td><p>Param E</p></td>
+<td><p>Param F</p></td>
+<td><p>Param G</p></td>
+<td><p>Param H</p></td>
+<td><p>Param I</p></td>
+</tr>
+<tr class="row-even"><td><p>6/ 16</p></td>
+<td><p>rib i</p></td>
+<td><p>pos <a class="footnote-reference brackets" href="#id46" id="id38">11</a></p></td>
+<td><p>height <a class="footnote-reference brackets" href="#id47" id="id39">12</a></p></td>
+<td><p>r+ <a class="footnote-reference brackets" href="#id48" id="id40">13</a></p></td>
+<td><p>r- <a class="footnote-reference brackets" href="#id49" id="id41">14</a></p></td>
+<td><p>rib i+1</p></td>
+<td><p>pos <a class="footnote-reference brackets" href="#id46" id="id42">11</a></p></td>
+<td><p>height <a class="footnote-reference brackets" href="#id47" id="id43">12</a></p></td>
+<td><p>r+ <a class="footnote-reference brackets" href="#id48" id="id44">13</a></p></td>
+<td><p>r- <a class="footnote-reference brackets" href="#id49" id="id45">14</a></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id46"><span class="brackets">11</span><span class="fn-backref">(<a href="#id38">1</a>,<a href="#id42">2</a>)</span></dt>
+<dd><p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+<dt class="label" id="id47"><span class="brackets">12</span><span class="fn-backref">(<a href="#id39">1</a>,<a href="#id43">2</a>)</span></dt>
+<dd><p>[% chord]</p>
+</dd>
+<dt class="label" id="id48"><span class="brackets">13</span><span class="fn-backref">(<a href="#id40">1</a>,<a href="#id44">2</a>)</span></dt>
+<dd><p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+<dt class="label" id="id49"><span class="brackets">14</span><span class="fn-backref">(<a href="#id41">1</a>,<a href="#id45">2</a>)</span></dt>
+<dd><p>type x: in [cm]</p>
+<p>type xx: in [% chord]</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="sort-by-order-num">
 <h2>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this headline">¶</a></h2>
@@ -193,7 +577,7 @@
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../english.html" >English Manual</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">HV VH Ribs</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Diagonal ribs</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

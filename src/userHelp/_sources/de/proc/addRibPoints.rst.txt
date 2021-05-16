@@ -2,33 +2,39 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
------------------------------
-Zusätzliche Markierungspunkte
------------------------------
+------------------------
+Zusätzliche Rippenpunkte
+------------------------
+Mit diesen Einstellungen können zusätzliche Markierungspunkte auf die Rippen platziert werden. 
+Typischerweise um Verstärkungen oder Stäbchen zu positionieren. 
 
-Da fehlt noch was... 
+.. image:: /images/proc/addRibPoints-de.png
+   :width: 403
+   :height: 284
 
- |
- 
-Number of configs
------------------
-Additional rib points is an **optional section**. 
+Rohdaten::
 
-If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
+	*****************************************************
+	*       17. Aditional rib points
+	*****************************************************
+	2
+	10.8   10.62
+	10.8   -4.76
 
- |
+Anz Konfigurationen
+-------------------
+*Zusätzliche Rippenpunkte* ist eine **optionale Konfiguration**.
 
- |
+Wenn Du diese Einstellungen nicht verwenden möchtest, dann setze den Wert von **Anz Konfigurationen** auf **0**.
 
- |
+Hor Position
+------------
+Horizontale Position der Markierung in [% Flügeltiefe].
 
- |
+Vert Position
+-------------
+Vertikale Position der Markierung in [% Profiltiefe].
 
- |
-
- |
-
- |
 
 Sortieren
 ---------
