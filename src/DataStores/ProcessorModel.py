@@ -1608,19 +1608,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     else:
                         stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBDCol)
                         stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBECol)
-                        
-                    # Line 2
-                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pCACol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCBCol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCCCol)   
-                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pCDCol)
                     
                     if scheme == 1:
-                        # Line 3
-                        stream << '%s' %values(ProcessorModel.JoncsDefModel.pDACol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDBCol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDCCol)   
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pDDCol)
+                        # Line 2
+                        stream << '%s' %values(ProcessorModel.JoncsDefModel.pCACol)
+                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCBCol)
+                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCCCol)   
+                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pCDCol)
+                    
+                    # s values    
+                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pDACol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDBCol)
+                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDCCol)   
+                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pDDCol)
                         
         stream << separator            
         stream << '*       22. NOSE MYLARS DEFINITION\n'
@@ -3783,7 +3783,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             self.select() # to a select() to assure the model is updated properly
 
-        def updateTypeTwoRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pBE ,pCA, pCB, pCC, pCD):
+        def updateTypeTwoRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pBE ,pDA, pDB, pDC, pDD):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
@@ -3799,10 +3799,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           "pBC= :pBC, "
                           "pBD= :pBD, "
                           "pBE= :pBE, "
-                          "pCA= :pCA, "
-                          "pCB= :pCB, "
-                          "pCC= :pCC, "
-                          "pCD= :pCD, "
+                          "pDA= :pDA, "
+                          "pDB= :pDB, "
+                          "pDC= :pDC, "
+                          "pDD= :pDD, "
                           "Type= 2 "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.bindValue(":firstRib", firstRib )
@@ -3812,10 +3812,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.bindValue(":pBC", pBC )
             query.bindValue(":pBD", pBD )
             query.bindValue(":pBE", pBE )
-            query.bindValue(":pCA", pCA )
-            query.bindValue(":pCB", pCB )
-            query.bindValue(":pCC", pCC )
-            query.bindValue(":pCD", pCD )
+            query.bindValue(":pDA", pDA )
+            query.bindValue(":pDB", pDB )
+            query.bindValue(":pDC", pDC )
+            query.bindValue(":pDD", pDD )
             query.bindValue(":config", configNum )
             query.bindValue(":order", orderNum )
             query.exec()

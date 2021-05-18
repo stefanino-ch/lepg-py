@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-05-16 10:25+0200\n"
-"PO-Revision-Date: 2021-05-16 11:16+0200\n"
+"PO-Revision-Date: 2021-05-18 19:56+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -539,55 +539,55 @@ msgstr "Last rib"
 
 #: DataStores/ProcessorModel.py:3727
 msgid "Row 2 A"
-msgstr ""
+msgstr "Param A"
 
 #: DataStores/ProcessorModel.py:3728
 msgid "Row 2 B"
-msgstr ""
+msgstr "Param B"
 
 #: DataStores/ProcessorModel.py:3729
 msgid "Row 2 C"
-msgstr ""
+msgstr "Param C"
 
 #: DataStores/ProcessorModel.py:3730
 msgid "Row 2 D"
-msgstr ""
+msgstr "Param D"
 
 #: DataStores/ProcessorModel.py:3731
 msgid "Row 2 E"
-msgstr ""
+msgstr "Param E"
 
 #: DataStores/ProcessorModel.py:3732
 msgid "Row 3 A"
-msgstr ""
+msgstr "Param F"
 
 #: DataStores/ProcessorModel.py:3733
 msgid "Row 3 B"
-msgstr ""
+msgstr "Param G"
 
 #: DataStores/ProcessorModel.py:3734
 msgid "Row 3 C"
-msgstr ""
+msgstr "Param H"
 
 #: DataStores/ProcessorModel.py:3735
 msgid "Row 3 D"
-msgstr ""
+msgstr "Param I"
 
 #: DataStores/ProcessorModel.py:3736
 msgid "Row 4 A"
-msgstr ""
+msgstr "S1"
 
 #: DataStores/ProcessorModel.py:3737
 msgid "Row 4 B"
-msgstr ""
+msgstr "S2"
 
 #: DataStores/ProcessorModel.py:3738
 msgid "Row 4 C"
-msgstr ""
+msgstr "S3"
 
 #: DataStores/ProcessorModel.py:3739
 msgid "Row 4 D"
-msgstr ""
+msgstr "S4"
 
 #: DataStores/ProcessorModel.py:3945
 msgid "Initial Rib"
@@ -1688,62 +1688,92 @@ msgstr ""
 #: Windows/JoncsDefinition.py:266
 msgid "JoncsDef-FirstRibDesc"
 msgstr ""
+"Number of the initial rib for\n"
+"which this line applies"
 
 #: Windows/JoncsDefinition.py:267
 msgid "JoncsDef-LastRibDesc"
 msgstr ""
+"Number of the last rib for\n"
+"which this line applies"
 
 #: Windows/JoncsDefinition.py:268
 msgid "JoncsDef-pBADesc"
 msgstr ""
+"Parameter A of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:269
 msgid "JoncsDef-pBBDesc"
 msgstr ""
+"Parameter B of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:270
 msgid "JoncsDef-pBCDesc"
 msgstr ""
+"Parameter C of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:271
 msgid "JoncsDef-pBDDesc"
 msgstr ""
+"Parameter D of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:272
 msgid "JoncsDef-pBEDesc"
 msgstr ""
+"Parameter E of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:273
 msgid "JoncsDef-pCADesc"
 msgstr ""
+"Parameter F of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:274
 msgid "JoncsDef-pCBDesc"
 msgstr ""
+"Parameter G of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:275
 msgid "JoncsDef-pCCDesc"
 msgstr ""
+"Parameter H of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:276
 msgid "JoncsDef-pCDDesc"
 msgstr ""
+"Parameter I of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:277
 msgid "JoncsDef-pDADesc"
 msgstr ""
+"Parameter S1 of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:278
 msgid "JoncsDef-pDBDesc"
 msgstr ""
+"Parameter S2 of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:279
 msgid "JoncsDef-pDCDesc"
 msgstr ""
+"Parameter S3 of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/JoncsDefinition.py:280
 msgid "JoncsDef-pDDDesc"
 msgstr ""
+"Parameter S4 of this configuration\n"
+"Please check the online help for the detailed explanation"
 
 #: Windows/Lines.py:84
 msgid "Edit Lines"

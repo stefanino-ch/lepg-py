@@ -403,7 +403,7 @@ class MainWindow(QMainWindow):
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
         
         procJoncsDef_A = QAction(_('Joncs definitions'), self)
-        procJoncsDef_A.setStatusTip(_('Edit Joncs (Nylon rods) definition'))
+        procJoncsDef_A.setStatusTip(_('Edit Joncs (nylon rods) definition'))
         procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
         
         procNoseMylars_A = QAction(_('Nose Mylars'), self)

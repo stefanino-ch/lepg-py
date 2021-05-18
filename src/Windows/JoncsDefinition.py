@@ -69,7 +69,7 @@ class JoncsDefinition(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
@@ -344,7 +344,7 @@ class JoncsDefinition(QMdiSubWindow):
             
         else:
             # show rows for type 2
-            self.setTypeOneColumns()
+            self.setTypeTwoColumns()
             self.joncsDef_M.setType(currTab+1, 2)  
     
     def setTypeOneColumns(self): 
@@ -354,10 +354,10 @@ class JoncsDefinition(QMdiSubWindow):
         currTab = self.tabs.currentIndex()     
         self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pBECol )
 
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pDACol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pDBCol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pDCCol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pDDCol)
+        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCACol)
+        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCBCol)
+        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCCCol)
+        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCDCol)
         self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.TypeCol)
         
     def setTypeTwoColumns(self):
@@ -367,10 +367,10 @@ class JoncsDefinition(QMdiSubWindow):
         currTab = self.tabs.currentIndex()
         self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pBECol)
 
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pDACol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pDBCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pDCCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pDDCol)
+        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCACol)
+        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCBCol)
+        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCCCol)
+        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCDCol)
         self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.TypeCol)  
 
     def sortBtnPress(self):
