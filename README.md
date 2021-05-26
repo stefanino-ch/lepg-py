@@ -4,23 +4,19 @@ latestVersion = '3.15.39'
 
 ## English
 
-### Requirements
-Python >3.7
-
-PyQt5
-
 ### Installation - Windows
-In the distribution/dist-W64 folder you will find a zip file. 
+From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/distribution/dist-W64) download the .zip files. 
+Unpack them all into the same folder. 
+Go into the new directory and start the file lepg.exe. 
 
-Download this file.
-
-Unzip it.
-
-Change into the folder lepg.
-
-Execute (double click) the file lepg.exe. 
+IMPORTANT: to run the pre-processor you must first configure it: select [Setup]-> [Setup Pre-Processor] the .exe file you will find in Processors\pre1_5-w32 or similar. 
 
 ### Installation - Linux
+
+#### Requirements
+Python >3.7
+PyQt5
+
 Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
 
 The steps below explain how to install on a Ubuntu System: 
@@ -35,7 +31,7 @@ The steps below explain how to install on a Ubuntu System:
 
 -> pip3 install PyQt5
 
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) download all files and folders under the directory src/. Save the files on the local disk. 
+From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable) download all files and folders under the directory src/. Save the files on the local disk. 
 
 The main file is named lepg.py. Start this with
 
@@ -43,23 +39,19 @@ The main file is named lepg.py. Start this with
 
 ## Deutsch
 
-### Anforderungen
-Python >3.7
-
-PyQt5
-
 ### Installation - Windows
-Im Ordner distribution/dist-W64 findest du eine .zip Datei. 
+Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) alle .zip Dateien herunterladen und auf der lokalen Festplatte speichern.
+Die Dateien alle in denselben Ordner entpacken. 
+In das entpakte Verzeichnis wechseln und die Datei lepg.exe starten. 
 
-Diese Datei herunterladen. 
-
-Entpacken.
-
-In den Ordner lepg wechseln. 
-
-Die Datei lepg.exe ausführen (doppelklicken).
+WICHTIG: Bevor der Pre-Prozessor gestartet werden kann muss er erst konfiguriert werden:  [Setup]-> [Setup Pre-Processor] die .exe Datei ist in Processors\pre1_5-w32 oder ähnlich. 
 
 ### Installation - Linux
+
+#### Anforderungen
+Python >3.7
+PyQt5
+
 Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwendiger. 
 
 Die Anleitung gilt für ein Ubuntu System: 
@@ -74,7 +66,7 @@ Die Anleitung gilt für ein Ubuntu System:
 
 -> pip3 install PyQt5
 
-Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) alle Dateien und Ordner welche im Verzeichnis src/ sind herunterladen und auf der lokalen Festplatte speichern. 
+Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable) alle Dateien und Ordner welche im Verzeichnis src/ sind herunterladen und auf der lokalen Festplatte speichern. 
 
 Die Hauptdatei heisst lepg.py. Das Programm wird gestartet mit:
 
