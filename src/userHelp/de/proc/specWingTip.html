@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spezielle Flügelenden &#8212; lepg 3.15.x documentation</title>
+    <title>Flügelenden &#8212; lepg 3.15.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Calage variation" href="calageVar.html" />
-    <link rel="prev" title="Nasenventile" href="glueVent.html" />
+    <link rel="prev" title="Einlassöffnungen" href="glueVent.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
  
@@ -79,29 +79,31 @@
           <a href="calageVar.html" title="Calage variation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="glueVent.html" title="Nasenventile"
+          <a href="glueVent.html" title="Einlassöffnungen"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Spezielle Flügelenden</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Flügelenden</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Spezielle Flügelenden</a><ul>
-<li><a class="reference internal" href="#type">Type</a></li>
+<li><a class="reference internal" href="#">Flügelenden</a><ul>
+<li><a class="reference internal" href="#typ">Typ</a></li>
+<li><a class="reference internal" href="#winkel-eintrittsk">Winkel Eintrittsk</a></li>
+<li><a class="reference internal" href="#winkel-austrittsk">Winkel Austrittsk</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="glueVent.html"
-                        title="previous chapter">Nasenventile</a></p>
+                        title="previous chapter">Einlassöffnungen</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="calageVar.html"
                         title="next chapter">Calage variation</a></p>
@@ -125,41 +127,34 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="spezielle-flugelenden">
-<h1>Spezielle Flügelenden<a class="headerlink" href="#spezielle-flugelenden" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="flugelenden">
+<h1>Flügelenden<a class="headerlink" href="#flugelenden" title="Permalink to this headline">¶</a></h1>
+<p>In diesem Fenster können die Winkel von Ein- und Austrittskante der letzten Zelle angepasst werden.</p>
+<a class="reference internal image-reference" href="../../_images/specWingTyp-de.png"><img alt="../../_images/specWingTyp-de.png" src="../../_images/specWingTyp-de.png" style="width: 350px; height: 154px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">27.</span> <span class="n">SPECIAL</span> <span class="n">WING</span> <span class="n">TIP</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="n">AngleLE</span> <span class="mi">45</span>
+<span class="n">AngleTE</span> <span class="o">-</span><span class="mf">7.78</span>
+</pre></div>
 </div>
-</div></blockquote>
-<div class="section" id="type">
-<h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
-<p><em>Special wing tip</em> is an <strong>optional section</strong>.</p>
-<p>If you do not want to define/ use these parameters set the Type to <strong>None</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="typ">
+<h2>Typ<a class="headerlink" href="#typ" title="Permalink to this headline">¶</a></h2>
+<p><em>Flügelenden</em> ist eine <strong>optionale Konfiguration</strong>.</p>
+<p>Wenn Du keine speziellen Konfigurationen machen möchtest, dann setze den Wert von <strong>Typ</strong> auf <strong>Keine</strong>.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S27.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S27.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S27.jpg" style="width: 462px; height: 462px;" /></a>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="winkel-eintrittsk">
+<h2>Winkel Eintrittsk<a class="headerlink" href="#winkel-eintrittsk" title="Permalink to this headline">¶</a></h2>
+<p>Winkel zwischen der Horizontalen und der Eintrittskante in der äussersten Zelle in [Grad].</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
+<div class="section" id="winkel-austrittsk">
+<h2>Winkel Austrittsk<a class="headerlink" href="#winkel-austrittsk" title="Permalink to this headline">¶</a></h2>
+<p>Winkel zwischen der Horizontalen und der Eintrittskante in der äussersten Zelle in [Grad].</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.27" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>
@@ -181,14 +176,14 @@
           <a href="calageVar.html" title="Calage variation"
              >next</a> |</li>
         <li class="right" >
-          <a href="glueVent.html" title="Nasenventile"
+          <a href="glueVent.html" title="Einlassöffnungen"
              >previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Spezielle Flügelenden</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Flügelenden</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

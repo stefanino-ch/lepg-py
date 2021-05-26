@@ -5,10 +5,21 @@
 -----------
 Nose mylars
 -----------
+In the *Nose mylars* window you configure nose mylars as needed by your design.
 
-There is still some work to be done...
+.. image:: /images/proc/noseMylars-en.png
+   :width: 514
+   :height: 286
+   
+Raw data::
 
- |
+	*******************************************************
+	*       22. NOSE MYLARS DEFINITION
+	*******************************************************
+	1
+	1
+	1    1    22
+	2.   3.0   1.0   13.5   3.   1.
 
 Number of configs
 -----------------
@@ -16,19 +27,12 @@ Nose mylars is an **optional section**.
 
 If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
 
- |
+Parameter definition
+--------------------
 
- |
-
- |
-
- |
-
- |
-
- |
-
- |
+.. figure:: http://laboratoridenvol.com/leparagliding/lep2images/S22.jpg
+   :width: 462
+   :height: 523
 
 Sort by Order Num
 -----------------

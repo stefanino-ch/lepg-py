@@ -43,7 +43,7 @@ class HelpAbout(QMdiSubWindow):
                     
                     btnBar
         '''
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
                 
@@ -52,7 +52,7 @@ class HelpAbout(QMdiSubWindow):
 
         #############################
         # Add window specifics here
-        self.setWindowTitle("Help about")
+        self.setWindowTitle(_("About lepg-py"))
         
         self.helpAboutTitleL = QLabel(_('lepg-py'))
         #set font

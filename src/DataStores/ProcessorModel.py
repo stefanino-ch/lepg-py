@@ -2576,17 +2576,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             self.setNumRowsForConfig(1,1)
                     
-            self.setHeaderData(1, Qt.Horizontal, _("Num Risers"))
-            self.setHeaderData(2, Qt.Horizontal, _("Pos R. A [\u0025]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Pos R. B [\u0025]"))
-            self.setHeaderData(4, Qt.Horizontal, _("Pos R. C [\u0025]"))
-            self.setHeaderData(5, Qt.Horizontal, _("Pos R. D [\u0025]"))
-            self.setHeaderData(6, Qt.Horizontal, _("Pos R. E [\u0025]"))
-            self.setHeaderData(7, Qt.Horizontal, _("Pos R. F [\u0025]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Num risers"))
+            self.setHeaderData(2, Qt.Horizontal, _("Pos r A"))
+            self.setHeaderData(3, Qt.Horizontal, _("Pos r B"))
+            self.setHeaderData(4, Qt.Horizontal, _("Pos r C"))
+            self.setHeaderData(5, Qt.Horizontal, _("Pos r D"))
+            self.setHeaderData(6, Qt.Horizontal, _("Pos r E"))
+            self.setHeaderData(7, Qt.Horizontal, _("Pos r F"))
             self.setHeaderData(8, Qt.Horizontal, _("Max neg ang [deg]"))
-            self.setHeaderData(9, Qt.Horizontal, _("Num pos steps"))
+            self.setHeaderData(9, Qt.Horizontal, _("Num neg steps"))
             self.setHeaderData(10, Qt.Horizontal, _("Max pos ang [deg]"))
-            self.setHeaderData(11, Qt.Horizontal, _("Num neg steps"))
+            self.setHeaderData(11, Qt.Horizontal, _("Num pos steps"))
         
         def createTable(self):
             '''
@@ -4748,12 +4748,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-            self.setHeaderData(3, Qt.Horizontal, _("X1 [\u0025 chord"))
-            self.setHeaderData(4, Qt.Horizontal, _("U1 [\u0025 chord"))
-            self.setHeaderData(5, Qt.Horizontal, _("U2 [\u0025 chord"))
-            self.setHeaderData(6, Qt.Horizontal, _("X2 [\u0025 chord"))
-            self.setHeaderData(7, Qt.Horizontal, _("V1 [\u0025 chord"))
-            self.setHeaderData(8, Qt.Horizontal, _("V2 [\u0025 chord"))
+            self.setHeaderData(3, Qt.Horizontal, _("X1"))
+            self.setHeaderData(4, Qt.Horizontal, _("U1"))
+            self.setHeaderData(5, Qt.Horizontal, _("U2"))
+            self.setHeaderData(6, Qt.Horizontal, _("X2"))
+            self.setHeaderData(7, Qt.Horizontal, _("V1"))
+            self.setHeaderData(8, Qt.Horizontal, _("V2"))
             
         def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
             '''

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-16 10:25+0200\n"
-"PO-Revision-Date: 2021-05-18 19:56+0200\n"
+"POT-Creation-Date: 2021-05-26 18:10+0200\n"
+"PO-Revision-Date: 2021-05-26 18:12+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -379,39 +379,39 @@ msgid "d5 [cm]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2579
-msgid "Num Risers"
-msgstr ""
+msgid "Num risers"
+msgstr "Num risers"
 
 #: DataStores/ProcessorModel.py:2580
-msgid "Pos R. A [\\u0025]"
-msgstr ""
+msgid "Pos r A"
+msgstr "Pos r A [% chord]"
 
 #: DataStores/ProcessorModel.py:2581
-msgid "Pos R. B [\\u0025]"
-msgstr ""
+msgid "Pos r B"
+msgstr "Pos r B [% chord]"
 
 #: DataStores/ProcessorModel.py:2582
-msgid "Pos R. C [\\u0025]"
-msgstr ""
+msgid "Pos r C"
+msgstr "Pos r C [% chord]"
 
 #: DataStores/ProcessorModel.py:2583
-msgid "Pos R. D [\\u0025]"
-msgstr ""
+msgid "Pos r D"
+msgstr "Pos r D [% chord]"
 
 #: DataStores/ProcessorModel.py:2584
-msgid "Pos R. E [\\u0025]"
-msgstr ""
+msgid "Pos r E"
+msgstr "Pos r E [% chord]"
 
 #: DataStores/ProcessorModel.py:2585
-msgid "Pos R. F [\\u0025]"
-msgstr ""
+msgid "Pos r F"
+msgstr "Pos r F [% chord]"
 
 #: DataStores/ProcessorModel.py:2586
 msgid "Max neg ang [deg]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2587
-msgid "Num pos steps"
+msgid "Num neg steps"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2588
@@ -419,7 +419,7 @@ msgid "Max pos ang [deg]"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2589
-msgid "Num neg steps"
+msgid "Num pos steps"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2747
@@ -720,28 +720,28 @@ msgid "Bott widening"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:4751
-msgid "X1 [\\u0025 chord"
-msgstr ""
+msgid "X1"
+msgstr "X1 [% chord]"
 
 #: DataStores/ProcessorModel.py:4752
-msgid "U1 [\\u0025 chord"
-msgstr ""
+msgid "U1"
+msgstr "U1 [% chord]"
 
 #: DataStores/ProcessorModel.py:4753
-msgid "U2 [\\u0025 chord"
-msgstr ""
+msgid "U2"
+msgstr "U1 [% chord]"
 
 #: DataStores/ProcessorModel.py:4754
-msgid "X2 [\\u0025 chord"
-msgstr ""
+msgid "X2"
+msgstr "X2 [% chord]"
 
 #: DataStores/ProcessorModel.py:4755
-msgid "V1 [\\u0025 chord"
-msgstr ""
+msgid "V1"
+msgstr "V1 [% chord]"
 
 #: DataStores/ProcessorModel.py:4756
-msgid "V2 [\\u0025 chord"
-msgstr ""
+msgid "V2"
+msgstr "V2 [% chord]"
 
 #: DataStores/ProcessorModel.py:4866
 msgid "Rows"
@@ -1247,47 +1247,67 @@ msgstr ""
 
 #: Windows/CalageVar.py:105
 msgid "CalageVar-NumRisersDesc"
-msgstr ""
+msgstr "Number of risers to calculate"
 
 #: Windows/CalageVar.py:126
 msgid "CalageVar-PosADesc"
 msgstr ""
+"Dist from LE to riser A [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:127
 msgid "CalageVar-PosBDesc"
 msgstr ""
+"Dist from LE to riser B [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:128
 msgid "CalageVar-PosCDesc"
 msgstr ""
+"Dist from LE to riser C [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:129
 msgid "CalageVar-PosDDesc"
 msgstr ""
+"Dist from LE to riser D [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:130
 msgid "CalageVar-PosEDesc"
 msgstr ""
+"Dist from LE to riser E [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:131
 msgid "CalageVar-PosFDesc"
 msgstr ""
+"Dist from LE to riser F [% chord]\n"
+"It is not necessary to match anchor position"
 
 #: Windows/CalageVar.py:153
 msgid "CalageVar-MaxNegAngDesc"
 msgstr ""
+"Max negative angle to calculate for \n"
+"speed system study"
 
 #: Windows/CalageVar.py:154
 msgid "CalageVar-NumNegStepsDesc"
 msgstr ""
+"Number of steps to calculate for speed\n"
+"system study"
 
 #: Windows/CalageVar.py:155
 msgid "CalageVar-MaxPosAngDesc"
 msgstr ""
+"Max positive angle to calculate for \n"
+"trim system study"
 
 #: Windows/CalageVar.py:156
 msgid "CalageVar-NumPosStepsDesc"
 msgstr ""
+"Number of steps to calculate for trim\n"
+"system study"
 
 #: Windows/DataStatusOverview.py:78
 msgid "Data Status Overview"
@@ -1314,8 +1334,10 @@ msgid "DXF layer names"
 msgstr ""
 
 #: Windows/DxfLayerNames.py:73
-msgid "Number of Layers"
-msgstr ""
+#, fuzzy
+#| msgid "Number of Line plans"
+msgid "Number of layers"
+msgstr "Number of line plans"
 
 #: Windows/DxfLayerNames.py:103
 msgid "DxfLayNames-LayerDesc"
@@ -1334,7 +1356,6 @@ msgid "Elastic lines correction"
 msgstr ""
 
 #: Windows/ElasticLinesCorr.py:80
-#| msgid "in flight load [kg]"
 msgid "In flight load [kg]"
 msgstr ""
 
@@ -1531,10 +1552,19 @@ msgstr ""
 
 #: Windows/GlueVent.py:95
 msgid "GlueVent-AirfoilNumDesc"
-msgstr ""
+msgstr "Number of the airfoil (cell) to configure"
 
 #: Windows/GlueVent.py:96
 msgid "GlueVent-VentParamDesc"
+msgstr ""
+"1 glue vent to upper sail (single skin wings)\n"
+"0 not glue anywhere (open air inlet)\n"
+"-1 glue vent to lower sail (usually means closed cell)\n"
+"-2 diagonal vent 100% open left, glued to lower sail\n"
+"-3 diagonal vent 100% open right, glued to lower sail"
+
+#: Windows/HelpAbout.py:55
+msgid "About lepg-py"
 msgstr ""
 
 #: Windows/HelpAbout.py:57
@@ -1957,41 +1987,45 @@ msgstr "Distance from Trailing Edge in [% chord]"
 msgid "SkinTension-BottOverWideDesc"
 msgstr "Over widening in [% chord]"
 
-#: Windows/NoseMylars.py:71
+#: Windows/NoseMylars.py:71 lepg.py:409
 msgid "Nose mylars"
 msgstr ""
 
 #: Windows/NoseMylars.py:110
 msgid "NoseMylars-FirstRibDesc"
 msgstr ""
+"Number of the initial rib for\n"
+"which this line applies"
 
 #: Windows/NoseMylars.py:111
 msgid "NoseMylars-LastRibDesc"
 msgstr ""
+"Number of the last rib for\n"
+"which this line applies"
 
 #: Windows/NoseMylars.py:112
 msgid "NoseMylars-x1Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/NoseMylars.py:113
 msgid "NoseMylars-u1Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/NoseMylars.py:114
 msgid "NoseMylars-u2Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/NoseMylars.py:115
 msgid "NoseMylars-x2Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/NoseMylars.py:116
 msgid "NoseMylars-v1Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/NoseMylars.py:117
 msgid "NoseMylars-v2Desc"
-msgstr ""
+msgstr "Please check the online help for a detailed explanation"
 
 #: Windows/PreProcCellsDistribution.py:71
 msgid "Pre-Processor cells distribution"
@@ -2444,9 +2478,17 @@ msgstr ""
 msgid "Special wing tip"
 msgstr ""
 
-#: Windows/SpecWingTip.py:96 Windows/SpecWingTip.py:97
+#: Windows/SpecWingTip.py:96
 msgid "SpecWingTyp-AngleLEDesc"
 msgstr ""
+"Angle in [deg] of the leading edge \n"
+"in the last cell"
+
+#: Windows/SpecWingTip.py:97
+msgid "SpecWingTyp-AngleTEDesc"
+msgstr ""
+"Angle in [deg] of the trailing edge \n"
+"in the last cell"
 
 #: Windows/ThreeDDxf.py:69
 msgid "3D DXF Options"
@@ -2801,7 +2843,7 @@ msgid "Edit additional rib points data"
 msgstr ""
 
 #: lepg.py:402
-msgid "Edit Elastic lines correction data"
+msgid "Edit elastic lines correction data"
 msgstr ""
 
 #: lepg.py:405
@@ -2809,15 +2851,11 @@ msgid "Joncs definitions"
 msgstr ""
 
 #: lepg.py:406
-msgid "Edit Joncs (Nylon rods) definition"
-msgstr ""
-
-#: lepg.py:409
-msgid "Nose Mylars"
+msgid "Edit joncs (nylon rods) definition"
 msgstr ""
 
 #: lepg.py:410
-msgid "Edit Nose mylars definition"
+msgid "Edit nose mylars definition"
 msgstr ""
 
 #: lepg.py:413
@@ -2829,7 +2867,7 @@ msgid "Glue vents"
 msgstr ""
 
 #: lepg.py:417
-msgid "Edit Glue vent definitions"
+msgid "Edit glue vent definitions"
 msgstr ""
 
 #: lepg.py:420

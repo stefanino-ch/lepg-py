@@ -5,30 +5,34 @@
 ----------------
 Nasenversteifung
 ----------------
+Im Fenster *Nasenversteifungen* definierst Du die entsprechdenen Parameter wie in Deinem Design benötigt. 
 
-Da fehlt noch was... 
+.. image:: /images/proc/noseMylars-de.png
+   :width: 514
+   :height: 286
+   
+Rohdaten::
 
- |
+	*******************************************************
+	*       22. NOSE MYLARS DEFINITION
+	*******************************************************
+	1
+	1
+	1    1    22
+	2.   3.0   1.0   13.5   3.   1.
 
 Number of configs
 -----------------
-Nose mylars is an **optional section**. 
+*Nasenversteifung* ist eine **optionale Konfiguration**.
 
-If you do not want to define/ use these parameters set the **Number of configs** value to **0**.
+Wenn Du keine Versteifungen verwenden möchtest, dann setze den Wert von **Anz Konfigurationen** auf **0**.
 
- |
+Parameter Definition
+--------------------
 
- |
-
- |
-
- |
-
- |
-
- |
-
- |
+.. figure:: http://laboratoridenvol.com/leparagliding/lep2images/S22.jpg
+   :width: 462
+   :height: 523
 
 Sortieren
 ---------

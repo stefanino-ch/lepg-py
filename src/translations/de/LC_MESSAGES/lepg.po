@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-18 19:43+0200\n"
-"PO-Revision-Date: 2021-05-18 19:56+0200\n"
+"POT-Creation-Date: 2021-05-26 18:00+0200\n"
+"PO-Revision-Date: 2021-05-26 18:08+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -258,7 +258,7 @@ msgstr ""
 
 #: DataStores/ProcessorModel.py:2111 DataStores/ProcessorModel.py:3260
 msgid "Airfoil num"
-msgstr "Rippen Nr"
+msgstr "Zellen Nr"
 
 #: DataStores/ProcessorModel.py:2112 DataStores/ProcessorModel.py:5161
 msgid "Coeff"
@@ -343,32 +343,22 @@ msgid "An. Rib num"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2489
-#, fuzzy
-#| msgid "X1 [%chord"
 msgid "s1 [\\u0025]"
-msgstr "X1 [&#37; Flügelt.]"
+msgstr ""
 
 #: DataStores/ProcessorModel.py:2490
-#, fuzzy
-#| msgid "U2 [%chord"
 msgid "s2 [\\u0025]"
-msgstr "U1 [&#37; Flügelt.]"
+msgstr ""
 
 #: DataStores/ProcessorModel.py:2491
-#, fuzzy
-#| msgid "Dist TE [% chord]"
 msgid "s3 [\\u0025]"
 msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2492
-#, fuzzy
-#| msgid "Dist TE [% chord]"
 msgid "s4 [\\u0025]"
 msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
 #: DataStores/ProcessorModel.py:2493
-#, fuzzy
-#| msgid "Dist TE [% chord]"
 msgid "s5 [\\u0025]"
 msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
 
@@ -393,50 +383,48 @@ msgid "d5 [cm]"
 msgstr "d5 [cm]"
 
 #: DataStores/ProcessorModel.py:2579
-msgid "Num Risers"
-msgstr ""
+msgid "Num risers"
+msgstr "Anz Aufhängepunkte"
 
 #: DataStores/ProcessorModel.py:2580
-msgid "Pos R. A [\\u0025]"
-msgstr ""
+msgid "Pos r A"
+msgstr "Pos A [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2581
-msgid "Pos R. B [\\u0025]"
-msgstr ""
+msgid "Pos r B"
+msgstr "Pos B [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2582
-msgid "Pos R. C [\\u0025]"
-msgstr ""
+msgid "Pos r C"
+msgstr "Pos C [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2583
-msgid "Pos R. D [\\u0025]"
-msgstr ""
+msgid "Pos r D"
+msgstr "Pos D [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2584
-#, fuzzy
-#| msgid "Dist TE [% chord]"
-msgid "Pos R. E [\\u0025]"
-msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
+msgid "Pos r E"
+msgstr "Pos E [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2585
-msgid "Pos R. F [\\u0025]"
-msgstr ""
+msgid "Pos r F"
+msgstr "Pos F [% Flügelt]"
 
 #: DataStores/ProcessorModel.py:2586
 msgid "Max neg ang [deg]"
-msgstr "Max - Winkel [Grad]"
+msgstr "Max neg Winkel [Grad]"
 
 #: DataStores/ProcessorModel.py:2587
-msgid "Num pos steps"
-msgstr "Num +Schritte"
+msgid "Num neg steps"
+msgstr "Anz neg Schritte"
 
 #: DataStores/ProcessorModel.py:2588
 msgid "Max pos ang [deg]"
-msgstr "Num - Schritte"
+msgstr "Max pos Winkel [Grad]"
 
 #: DataStores/ProcessorModel.py:2589
-msgid "Num neg steps"
-msgstr "Anz -Schritte"
+msgid "Num pos steps"
+msgstr "Anz pos Schritte"
 
 #: DataStores/ProcessorModel.py:2747
 msgid "Layer name"
@@ -497,7 +485,7 @@ msgstr "Karabiner [cm]"
 
 #: DataStores/ProcessorModel.py:3261
 msgid "Vent param"
-msgstr ""
+msgstr "Einl Parameter"
 
 #: DataStores/ProcessorModel.py:3407
 msgid "Ini Rib"
@@ -730,40 +718,28 @@ msgid "Bott widening"
 msgstr "Untere Verbr"
 
 #: DataStores/ProcessorModel.py:4751
-#, fuzzy
-#| msgid "X1 [%chord"
-msgid "X1 [\\u0025 chord"
-msgstr "X1 [&#37; Flügelt.]"
+msgid "X1"
+msgstr "X1[% Flügelt]"
 
 #: DataStores/ProcessorModel.py:4752
-#, fuzzy
-#| msgid "U1 [%chord"
-msgid "U1 [\\u0025 chord"
-msgstr "U1 [&#37; Flügelt.]"
+msgid "U1"
+msgstr "X1[% Flügelt]"
 
 #: DataStores/ProcessorModel.py:4753
-#, fuzzy
-#| msgid "U2 [%chord"
-msgid "U2 [\\u0025 chord"
-msgstr "U1 [&#37; Flügelt.]"
+msgid "U2"
+msgstr "X1[% Flügelt]"
 
 #: DataStores/ProcessorModel.py:4754
-#, fuzzy
-#| msgid "X2 [%chord"
-msgid "X2 [\\u0025 chord"
-msgstr "X2 [&#37; Flügelt.]"
+msgid "X2"
+msgstr "X1[% Flügelt]"
 
 #: DataStores/ProcessorModel.py:4755
-#, fuzzy
-#| msgid "V1 [%chord"
-msgid "V1 [\\u0025 chord"
-msgstr "V1 [&#37; Flügelt.]"
+msgid "V1"
+msgstr "X1[% Profilt]"
 
 #: DataStores/ProcessorModel.py:4756
-#, fuzzy
-#| msgid "V2 [%chord"
-msgid "V2 [\\u0025 chord"
-msgstr "V1 [&#37; Flügelt.]"
+msgid "V2"
+msgstr "X1[% Flügelt]"
 
 #: DataStores/ProcessorModel.py:4866
 msgid "Rows"
@@ -1277,59 +1253,83 @@ msgstr ""
 
 #: Windows/CalageVar.py:71
 msgid "Calage variation "
-msgstr "Schwerpunktverschiebung"
+msgstr "Calage Variation"
 
 #: Windows/CalageVar.py:76 Windows/SpecWingTip.py:74
-#, fuzzy
-#| msgid "Type"
 msgid "Type 1"
-msgstr "Typ"
+msgstr "Typ 1"
 
 #: Windows/CalageVar.py:105
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "CalageVar-NumRisersDesc"
-msgstr "Flügelname"
+msgstr ""
+"Anzahl Aufhängepunkte für die \n"
+"gerechnet werden soll"
 
 #: Windows/CalageVar.py:126
 msgid "CalageVar-PosADesc"
 msgstr ""
+"Position des Aufhängepunktes A\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:127
 msgid "CalageVar-PosBDesc"
 msgstr ""
+"Position des Aufhängepunktes B\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:128
 msgid "CalageVar-PosCDesc"
 msgstr ""
+"Position des Aufhängepunktes C\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:129
 msgid "CalageVar-PosDDesc"
 msgstr ""
+"Position des Aufhängepunktes D\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:130
 msgid "CalageVar-PosEDesc"
 msgstr ""
+"Position des Aufhängepunktes E\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:131
 msgid "CalageVar-PosFDesc"
 msgstr ""
+"Position des Aufhängepunktes F\n"
+"Hier muss nicht die exakte Position des \n"
+"Aufhängepunktes verwendet werden"
 
 #: Windows/CalageVar.py:153
 msgid "CalageVar-MaxNegAngDesc"
 msgstr ""
+"Max negativer Winkel für die Berechnung\n"
+"der Speed System Studienparameter"
 
 #: Windows/CalageVar.py:154
 msgid "CalageVar-NumNegStepsDesc"
 msgstr ""
+"Anzahl Schritte für die Berechnung der\n"
+"Speed System Studienparameter"
 
 #: Windows/CalageVar.py:155
 msgid "CalageVar-MaxPosAngDesc"
 msgstr ""
+"Max positiver Winkel für die Berechnung\n"
+"der Trimm System Studienparameter"
 
 #: Windows/CalageVar.py:156
 msgid "CalageVar-NumPosStepsDesc"
 msgstr ""
+"Anzahl Schritte für die Berechnung der\n"
+"Trimm System Studienparameter"
 
 #: Windows/DataStatusOverview.py:78
 msgid "Data Status Overview"
@@ -1558,33 +1558,35 @@ msgstr "Distanz zwischen den Karabinern"
 
 #: Windows/GlueVent.py:69
 msgid "Glue vent"
-msgstr ""
+msgstr "Einlassöffnungen"
 
 #: Windows/GlueVent.py:73 Windows/ThreeDDxf.py:73 Windows/TwoDDxf.py:74
-#, fuzzy
-#| msgid "Vault"
 msgid "Defaults"
-msgstr "Krümmung"
+msgstr "Standard"
 
 #: Windows/GlueVent.py:95
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "GlueVent-AirfoilNumDesc"
-msgstr "Flügelname"
+msgstr "Nummer der Zelle"
 
 #: Windows/GlueVent.py:96
 msgid "GlueVent-VentParamDesc"
 msgstr ""
+"1 Teil des Obersegels (Single Skin Flügel)\n"
+"0 nicht verbunden (offene Zelle)\n"
+"-1 Teil des Untersegels (normalerweise bei geschl Zellen)\n"
+"-2 diag Öffn, links 100% offen, Teil des Untersegels\n"
+"-3 diag Öffn, rechts 100% offen, Teil des Untersegels"
+
+#: Windows/HelpAbout.py:55
+msgid "About lepg-py"
+msgstr "Über lepg-py"
 
 #: Windows/HelpAbout.py:57
 msgid "lepg-py"
 msgstr ""
 
 #: Windows/HelpAbout.py:68
-#, fuzzy, python-format
-#| msgid ""
-#| "A graphical frontend to lepg\n"
-#| "Current Version \t\t\t%s"
+#, python-format
 msgid ""
 "A graphical frontend to lep\n"
 "Current Version \t\t\t%s"
@@ -1997,9 +1999,9 @@ msgstr "Distanz von der Austrittskante in [% Flügeltiefe]"
 msgid "SkinTension-BottOverWideDesc"
 msgstr "Grösse der Verbreiterung in [% Flügeltiefe]"
 
-#: Windows/NoseMylars.py:71
+#: Windows/NoseMylars.py:71 lepg.py:409
 msgid "Nose mylars"
-msgstr ""
+msgstr "Versteifungen Eintrittskante"
 
 #: Windows/NoseMylars.py:110
 msgid "NoseMylars-FirstRibDesc"
@@ -2007,31 +2009,31 @@ msgstr "Erste Rippe der aktuellen Konfiguration"
 
 #: Windows/NoseMylars.py:111
 msgid "NoseMylars-LastRibDesc"
-msgstr ""
+msgstr "Letzte Rippe der aktuellen Konfiguration"
 
 #: Windows/NoseMylars.py:112
 msgid "NoseMylars-x1Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/NoseMylars.py:113
 msgid "NoseMylars-u1Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/NoseMylars.py:114
 msgid "NoseMylars-u2Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/NoseMylars.py:115
 msgid "NoseMylars-x2Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/NoseMylars.py:116
 msgid "NoseMylars-v1Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/NoseMylars.py:117
 msgid "NoseMylars-v2Desc"
-msgstr ""
+msgstr "Orientiere Dich bitte auf der Hilfeseite zur genauen Definition"
 
 #: Windows/PreProcCellsDistribution.py:71
 msgid "Pre-Processor cells distribution"
@@ -2493,11 +2495,15 @@ msgstr ""
 
 #: Windows/SpecWingTip.py:69
 msgid "Special wing tip"
-msgstr ""
+msgstr "Flügelenden"
 
-#: Windows/SpecWingTip.py:96 Windows/SpecWingTip.py:97
+#: Windows/SpecWingTip.py:96
 msgid "SpecWingTyp-AngleLEDesc"
-msgstr ""
+msgstr "Winkel an der Eintrittskante [Grad]"
+
+#: Windows/SpecWingTip.py:97
+msgid "SpecWingTyp-AngleTEDesc"
+msgstr "Winkel an der Austrittskante [Grad]"
 
 #: Windows/ThreeDDxf.py:69
 msgid "3D DXF Options"
@@ -2858,15 +2864,11 @@ msgid "Joncs definitions"
 msgstr "Stäbchen Eintrittskante"
 
 #: lepg.py:406
-msgid "Edit Joncs (nylon rods) definition"
+msgid "Edit joncs (nylon rods) definition"
 msgstr "Bearbeite die Einstellungen für die Stäbchen an der Eintrittskante"
 
-#: lepg.py:409
-msgid "Nose Mylars"
-msgstr "Versteifungen Eintrittskante"
-
 #: lepg.py:410
-msgid "Edit Nose mylars definition"
+msgid "Edit nose mylars definition"
 msgstr "Bearbeite die Versteifungen an der Eintrittskante"
 
 #: lepg.py:413
@@ -2878,7 +2880,7 @@ msgid "Glue vents"
 msgstr "Einlassöffnungen"
 
 #: lepg.py:417
-msgid "Edit Glue vent definitions"
+msgid "Edit glue vent definitions"
 msgstr "Bearbeite die Form der Einlassöffnungen"
 
 #: lepg.py:420
@@ -2891,13 +2893,11 @@ msgstr "Bearbeite die Einstellungen für die Flügelenden"
 
 #: lepg.py:424
 msgid "Calage variation"
-msgstr "Anstellwinkelveränderung"
+msgstr "Calage Variation"
 
 #: lepg.py:425
 msgid "Edit parameters for calage variation study"
-msgstr ""
-"Bearbeitet die Parameter für die Studienberechnungen der "
-"Anstellwinkelveränderung"
+msgstr "Bearbeitet die Parameter für die Variation der Calage Position"
 
 #: lepg.py:428
 msgid "3D shaping"
@@ -3049,7 +3049,7 @@ msgstr ""
 
 #: lepg.py:1009
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: lepg.py:1010
 msgid "Short info about the program"
@@ -3093,6 +3093,44 @@ msgstr ""
 #: userHelp/_static/searchtools.js:361
 msgid ", in "
 msgstr ""
+
+#, fuzzy
+#~| msgid "Dist TE [% chord]"
+#~ msgid "Pos R. E [\\u0025]"
+#~ msgstr "Dist. Eintrittsk. [&#37; Flügelt.] "
+
+#~ msgid "Nose Mylars"
+#~ msgstr "Versteifungen Eintrittskante"
+
+#, fuzzy
+#~| msgid "X1 [%chord"
+#~ msgid "X1 [\\u0025 chord"
+#~ msgstr "X1 [&#37; Flügelt.]"
+
+#, fuzzy
+#~| msgid "U1 [%chord"
+#~ msgid "U1 [\\u0025 chord"
+#~ msgstr "U1 [&#37; Flügelt.]"
+
+#, fuzzy
+#~| msgid "U2 [%chord"
+#~ msgid "U2 [\\u0025 chord"
+#~ msgstr "U1 [&#37; Flügelt.]"
+
+#, fuzzy
+#~| msgid "X2 [%chord"
+#~ msgid "X2 [\\u0025 chord"
+#~ msgstr "X2 [&#37; Flügelt.]"
+
+#, fuzzy
+#~| msgid "V1 [%chord"
+#~ msgid "V1 [\\u0025 chord"
+#~ msgstr "V1 [&#37; Flügelt.]"
+
+#, fuzzy
+#~| msgid "V2 [%chord"
+#~ msgid "V2 [\\u0025 chord"
+#~ msgstr "V1 [&#37; Flügelt.]"
 
 #~ msgid "Additional Rib points"
 #~ msgstr "Zus. Rippenpunkte"

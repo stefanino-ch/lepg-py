@@ -57,10 +57,10 @@ class CalageVar(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(450, 200)
+        self.win.setMinimumSize(600, 200)
 
         self.windowLayout = QVBoxLayout()
         

@@ -403,18 +403,18 @@ class MainWindow(QMainWindow):
         procElLinesCorr_A.triggered.connect(self.procElLinesCorrEdit)
         
         procJoncsDef_A = QAction(_('Joncs definitions'), self)
-        procJoncsDef_A.setStatusTip(_('Edit Joncs (nylon rods) definition'))
+        procJoncsDef_A.setStatusTip(_('Edit joncs (nylon rods) definition'))
         procJoncsDef_A.triggered.connect(self.procJoncsDefEdit)
         
-        procNoseMylars_A = QAction(_('Nose Mylars'), self)
-        procNoseMylars_A.setStatusTip(_('Edit Nose mylars definition'))
+        procNoseMylars_A = QAction(_('Nose mylars'), self)
+        procNoseMylars_A.setStatusTip(_('Edit nose mylars definition'))
         procNoseMylars_A.triggered.connect(self.procNoseMylarsEdit)
         
         procEditTabReinf_A = QAction(_('Tab reinforcements'), self)
         procEditTabReinf_A.setEnabled(False)
         
         procGlueVents_A = QAction(_('Glue vents'), self)
-        procGlueVents_A.setStatusTip(_('Edit Glue vent definitions'))
+        procGlueVents_A.setStatusTip(_('Edit glue vent definitions'))
         procGlueVents_A.triggered.connect(self.procGlueVentEdit)
         
         procSpecWingTip_A = QAction(_('Special wingtip'), self)

@@ -55,7 +55,7 @@ class SpecWingTip(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(450, 200)
@@ -94,7 +94,7 @@ class SpecWingTip(QMdiSubWindow):
           
         one_T.setHelpBar(self.helpBar)
         one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleLECol, _('SpecWingTyp-AngleLEDesc'))
-        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleTECol, _('SpecWingTyp-AngleLEDesc'))
+        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleTECol, _('SpecWingTyp-AngleTEDesc'))
 
         self.usageUpdate()
         
