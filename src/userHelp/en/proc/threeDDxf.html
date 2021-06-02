@@ -95,6 +95,10 @@
   <ul>
 <li><a class="reference internal" href="#">3D DXF options</a><ul>
 <li><a class="reference internal" href="#type">Type</a></li>
+<li><a class="reference internal" href="#line-name">Line name</a></li>
+<li><a class="reference internal" href="#color-code">Color code</a></li>
+<li><a class="reference internal" href="#color-name">Color name</a></li>
+<li><a class="reference internal" href="#unifilar">Unifilar</a></li>
 </ul>
 </li>
 </ul>
@@ -127,39 +131,66 @@
 <div></div></blockquote>
 <div class="section" id="d-dxf-options">
 <h1>3D DXF options<a class="headerlink" href="#d-dxf-options" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>With the <em>3D DXF</em> options you define the colors for the different lines in the final drawings.</p>
+<a class="reference internal image-reference" href="../../_images/threeDDxf-en.png"><img alt="../../_images/threeDDxf-en.png" src="../../_images/threeDDxf-en.png" style="width: 350px; height: 331px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">25.</span> <span class="n">GENERAL</span> <span class="mi">3</span><span class="n">D</span> <span class="n">DXF</span> <span class="n">OPTIONS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="n">A_lines_color</span>   <span class="mi">1</span>         <span class="n">red</span>
+<span class="n">B_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">C_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">D_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">E_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">F_lines_color</span>   <span class="mi">30</span>        <span class="n">orange</span>
+<span class="n">Extrados</span>        <span class="mi">1</span>     <span class="mi">5</span>   <span class="n">blue</span>
+<span class="n">Vents</span>           <span class="mi">0</span>     <span class="mi">1</span>   <span class="n">red</span>
+<span class="n">Intrados</span>        <span class="mi">0</span>     <span class="mi">3</span>   <span class="n">green</span>
+</pre></div>
 </div>
-</div></blockquote>
 <div class="section" id="type">
 <h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
 <p><em>3D DXF options</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the Type to <strong>Defaults</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="line-name">
+<h2>Line name<a class="headerlink" href="#line-name" title="Permalink to this headline">¶</a></h2>
+<p>The line names are fix and must be entered as shown below.</p>
+<ul class="simple">
+<li><p>A_lines_color</p></li>
+<li><p>B_lines_color</p></li>
+<li><p>C_lines_color</p></li>
+<li><p>D_lines_color</p></li>
+<li><p>E_lines_color</p></li>
+<li><p>F_lines_color</p></li>
+<li><p>Extrados <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></li>
+<li><p>Vents</p></li>
+<li><p>Intrados <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p></li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Upper sail</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Lower sail</p>
+</dd>
+</dl>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="color-code">
+<h2>Color code<a class="headerlink" href="#color-code" title="Permalink to this headline">¶</a></h2>
+<p>Usual color index numbers for CAD systems:
+1= red, 2=yellow, 3=green, 4=cyan, 5=blue, 6=magenta 7=white 8=dark grey 9= grey,… up to 255 depending on your color palette.</p>
+<p>It is preferable not to use colors with more than two digits.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="color-name">
+<h2>Color name<a class="headerlink" href="#color-name" title="Permalink to this headline">¶</a></h2>
+<p>A free description of the color you have setup.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
+<div class="section" id="unifilar">
+<h2>Unifilar<a class="headerlink" href="#unifilar" title="Permalink to this headline">¶</a></h2>
+<p>0= ovalized visualisation of the surfaces
+1= unifilar visualisation</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.25" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>

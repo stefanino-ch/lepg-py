@@ -2,10 +2,10 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
-----------------
-Nasenversteifung
-----------------
-Im Fenster *Nasenversteifungen* definierst Du die entsprechdenen Parameter wie in Deinem Design benötigt. 
+----------------------------
+Versteifungen Eintrittskante
+----------------------------
+Im Fenster *Versteifungen Eintrittskante* definierst Du die entsprechdenen Parameter wie in Deinem Design benötigt. 
 
 .. image:: /images/proc/noseMylars-de.png
    :width: 514
@@ -23,7 +23,7 @@ Rohdaten::
 
 Number of configs
 -----------------
-*Nasenversteifung* ist eine **optionale Konfiguration**.
+*Versteifungen Eintrittskante* ist eine **optionale Konfiguration**.
 
 Wenn Du keine Versteifungen verwenden möchtest, dann setze den Wert von **Anz Konfigurationen** auf **0**.
 

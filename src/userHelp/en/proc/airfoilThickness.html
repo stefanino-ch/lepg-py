@@ -95,6 +95,8 @@
   <ul>
 <li><a class="reference internal" href="#">Airfoil thickness</a><ul>
 <li><a class="reference internal" href="#type">Type</a></li>
+<li><a class="reference internal" href="#rib-num">Rib num</a></li>
+<li><a class="reference internal" href="#coef">Coef</a></li>
 </ul>
 </li>
 </ul>
@@ -127,39 +129,46 @@
 <div></div></blockquote>
 <div class="section" id="airfoil-thickness">
 <h1>Airfoil thickness<a class="headerlink" href="#airfoil-thickness" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Coefficients of amplification or reduction of the thickness of the cells.
+Normally defined as “1.0”, or “0.0” in the wingtip.</p>
+<a class="reference internal image-reference" href="../../_images/airfoilThickness-en.png"><img alt="../../_images/airfoilThickness-en.png" src="../../_images/airfoilThickness-en.png" style="width: 350px; height: 286px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">30.</span> <span class="n">AIRFOIL</span> <span class="n">THICKNESS</span> <span class="n">MODIFICATION</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">1</span>    <span class="mf">1.0</span>
+<span class="mi">2</span>    <span class="mf">1.0</span>
+<span class="mi">3</span>    <span class="mf">1.0</span>
+<span class="mi">4</span>    <span class="mf">1.0</span>
+<span class="mi">5</span>    <span class="mf">1.0</span>
+<span class="mi">6</span>    <span class="mf">1.0</span>
+<span class="mi">7</span>    <span class="mf">1.0</span>
+<span class="mi">8</span>    <span class="mf">1.0</span>
+<span class="mi">9</span>    <span class="mf">1.0</span>
+<span class="mi">10</span>   <span class="mf">1.0</span>
+<span class="mi">11</span>   <span class="mf">1.0</span>
+<span class="mi">12</span>   <span class="mf">1.0</span>
+<span class="mi">13</span>   <span class="mf">1.0</span>
+<span class="mi">14</span>   <span class="mf">0.0</span>
+</pre></div>
 </div>
-</div></blockquote>
 <div class="section" id="type">
 <h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
 <p><em>Airfoil thickness</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the Type to <strong>None</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="rib-num">
+<h2>Rib num<a class="headerlink" href="#rib-num" title="Permalink to this headline">¶</a></h2>
+<p>Rib num for which the coefficient is defined.</p>
+<p>The lines are configured automatically and based on <strong>Number of Ribs</strong> in the <em>Basic data*</em> window.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
+<div class="section" id="coef">
+<h2>Coef<a class="headerlink" href="#coef" title="Permalink to this headline">¶</a></h2>
+<p>Coefficient describing the thickness modification</p>
+<p><strong>0.0</strong>: thickness equals 0 (typical for wingtip)</p>
+<p><strong>1.0</strong>: thickness equally to definition in profile file</p>
+<p><strong>&gt;1</strong>: increased thickness compared to the definition in the profile file</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.30" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>

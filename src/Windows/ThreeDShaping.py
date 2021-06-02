@@ -77,7 +77,7 @@ class ThreeDShaping(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.buildWindow')
         
-        self.setWindowIcon(QIcon('Windows\\favicon.ico'))
+        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(750, 600)
@@ -88,7 +88,7 @@ class ThreeDShaping(QMdiSubWindow):
         
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("3D Shaping"))
+        self.setWindowTitle(_("3D shaping"))
         
         numConf_L = QLabel(_('Number of groups'))
         numConf_L.setAlignment(Qt.AlignRight)
@@ -121,6 +121,7 @@ class ThreeDShaping(QMdiSubWindow):
         printTable.hideColumn(self.threeDShPr_M.columnCount() -2 )
         printTable.hideColumn(self.threeDShPr_M.columnCount() -1 )
         
+        # TODO: remove currently not supported rows
         printTable.setHelpBar(self.helpBar)
         printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.NameCol, _('3DShPrint-NameDesc'))
         printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.DrawCol, _('3DShPrint-DrawDesc'))

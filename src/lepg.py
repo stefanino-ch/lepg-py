@@ -62,6 +62,7 @@ from Windows.PreProcCellsDistribution import PreProcCellsDistribution
 from Windows.SetupProcessors import SetupProcessors
 from Windows.SetupUpdateChecking import SetupUpdateChecking
 
+# TODO: bring windows to front if they are called
 
 class MainWindow(QMainWindow):
     '''
@@ -426,7 +427,7 @@ class MainWindow(QMainWindow):
         procCalageVar_A.triggered.connect(self.procCalageVarEdit)
         
         procThreeDShaping_A = QAction(_('3D shaping'), self)
-        procThreeDShaping_A.setStatusTip(_('Edit parameters 3D shaping'))
+        procThreeDShaping_A.setStatusTip(_('Enable and edit parameters for 3D shaping'))
         procThreeDShaping_A.triggered.connect(self.procThreeDShapingEdit)
         
         procAirfoilThick_A = QAction(_('Airfoil thickness'), self)

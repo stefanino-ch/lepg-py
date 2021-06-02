@@ -2108,8 +2108,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
                     
-            self.setHeaderData(0, Qt.Horizontal, _("Airfoil num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Coeff"))
+            self.setHeaderData(0, Qt.Horizontal, _("Rib num"))
+            self.setHeaderData(1, Qt.Horizontal, _("Coef"))
         
         def createTable(self):
             '''
@@ -5640,9 +5640,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P [\u0025 chord]"))                    
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P [\u0025 chord]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P"))
+            self.setHeaderData(3, Qt.Horizontal, _("Depth"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             '''
@@ -5736,9 +5736,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P [\u0025 chord]"))                    
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P [\u0025 chord]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Depth [Coef]"))
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))                    
+            self.setHeaderData(2, Qt.Horizontal, _("Cut P"))
+            self.setHeaderData(3, Qt.Horizontal, _("Depth"))
             
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             '''
@@ -5841,12 +5841,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setNumConfigs(1)
             self.setNumRowsForConfig(1, 5)
 
-#             self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
-#             self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-#             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-#             self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
-#             self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
-#             self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
+            self.setHeaderData(1, Qt.Horizontal, _("Name"))
+            self.setHeaderData(2, Qt.Horizontal, _("Draw"))
+            self.setHeaderData(3, Qt.Horizontal, _("First panel"))
+            self.setHeaderData(4, Qt.Horizontal, _("Last panel"))
+            self.setHeaderData(5, Qt.Horizontal, _("Symmetric"))
             
         def updateRow(self, configNum, orderNum, name, draw, firstPanel, lastPanel, symmetric):
             '''
@@ -5938,9 +5937,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             self.setNumRowsForConfig(1,6)
                     
-            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
+            self.setHeaderData(1, Qt.Horizontal, _("Line name"))
             self.setHeaderData(2, Qt.Horizontal, _("Color code"))
-            self.setHeaderData(3, Qt.Horizontal, _("Color name (opt)"))
+            self.setHeaderData(3, Qt.Horizontal, _("Color name"))
+            
+            # TODO Color name is optional, reader does not take this into account currently
+            # TODO prefill table with correct names.
         
         def createTable(self):
             '''

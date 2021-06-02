@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2021-05-26 18:10+0200\n"
-"PO-Revision-Date: 2021-05-26 18:12+0200\n"
+"POT-Creation-Date: 2021-06-01 16:45+0200\n"
+"PO-Revision-Date: 2021-06-02 11:34+0200\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -71,12 +71,12 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: DataStores/PreProcessorModel.py:525 DataStores/ProcessorModel.py:6117
+#: DataStores/PreProcessorModel.py:525 DataStores/ProcessorModel.py:6116
 #: Windows/PreProcCellsDistribution.py:88
 msgid "Num cells"
 msgstr ""
 
-#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6114
+#: DataStores/PreProcessorModel.py:656 DataStores/ProcessorModel.py:6113
 msgid "Wing name"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgstr "Vert position [% chord]"
 msgid "Rib Num"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:2047
+#: DataStores/ProcessorModel.py:2047 DataStores/ProcessorModel.py:5844
 msgid "Name"
 msgstr ""
 
@@ -252,8 +252,9 @@ msgstr ""
 msgid "rrw"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:2111 DataStores/ProcessorModel.py:3260
-msgid "Airfoil num"
+#: DataStores/ProcessorModel.py:2111 DataStores/ProcessorModel.py:3041
+#: DataStores/ProcessorModel.py:3529 DataStores/ProcessorModel.py:4189
+msgid "Rib num"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:2112 DataStores/ProcessorModel.py:5161
@@ -446,11 +447,6 @@ msgstr ""
 msgid "Def in higher level"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:3041 DataStores/ProcessorModel.py:3529
-#: DataStores/ProcessorModel.py:4189
-msgid "Rib num"
-msgstr ""
-
 #: DataStores/ProcessorModel.py:3114 DataStores/ProcessorModel.py:3602
 msgid "Dist TE"
 msgstr "Dist TE [% chord]"
@@ -482,6 +478,10 @@ msgstr ""
 #: DataStores/ProcessorModel.py:3205
 msgid "Karabiners [cm]"
 msgstr "Carabiners [cm]"
+
+#: DataStores/ProcessorModel.py:3260
+msgid "Airfoil num"
+msgstr ""
 
 #: DataStores/ProcessorModel.py:3261
 msgid "Vent param"
@@ -791,7 +791,7 @@ msgstr ""
 msgid "TE Angle [deg]"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5418 DataStores/ProcessorModel.py:5941
+#: DataStores/ProcessorModel.py:5418 DataStores/ProcessorModel.py:5940
 msgid "Line Name"
 msgstr ""
 
@@ -799,75 +799,91 @@ msgstr ""
 msgid "Unifilar"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5420 DataStores/ProcessorModel.py:5942
+#: DataStores/ProcessorModel.py:5420 DataStores/ProcessorModel.py:5941
 msgid "Color code"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:5421 DataStores/ProcessorModel.py:5943
+#: DataStores/ProcessorModel.py:5421 DataStores/ProcessorModel.py:5942
 msgid "Color name (opt)"
 msgstr ""
 
 #: DataStores/ProcessorModel.py:5643 DataStores/ProcessorModel.py:5739
-msgid "Ini P [\\u0025 chord]"
-msgstr ""
+msgid "Ini P"
+msgstr "Ini P [% chord]"
 
 #: DataStores/ProcessorModel.py:5644 DataStores/ProcessorModel.py:5740
-msgid "Cut P [\\u0025 chord]"
-msgstr ""
+msgid "Cut P"
+msgstr "Cut P [% chord]"
 
 #: DataStores/ProcessorModel.py:5645 DataStores/ProcessorModel.py:5741
-msgid "Depth [Coef]"
+msgid "Depth"
+msgstr "Depth [Coef]"
+
+#: DataStores/ProcessorModel.py:5845
+msgid "Draw"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6113
+#: DataStores/ProcessorModel.py:5846
+msgid "First panel"
+msgstr ""
+
+#: DataStores/ProcessorModel.py:5847
+msgid "Last panel"
+msgstr ""
+
+#: DataStores/ProcessorModel.py:5848
+msgid "Symmetric"
+msgstr ""
+
+#: DataStores/ProcessorModel.py:6112
 msgid "Brand name"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6115
+#: DataStores/ProcessorModel.py:6114
 msgid "Draw scale"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6116
+#: DataStores/ProcessorModel.py:6115
 msgid "Wing scale"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6118
+#: DataStores/ProcessorModel.py:6117
 msgid "Num Ribs"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6119
+#: DataStores/ProcessorModel.py:6118
 msgid "Alpha max tip"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6120
+#: DataStores/ProcessorModel.py:6119
 msgid "Alpha mode"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6121
+#: DataStores/ProcessorModel.py:6120
 msgid "Alpha max cent"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6122
+#: DataStores/ProcessorModel.py:6121
 msgid "Para type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6123
+#: DataStores/ProcessorModel.py:6122
 msgid "Para param"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6124
+#: DataStores/ProcessorModel.py:6123
 msgid "Lines Conc Type"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6125
+#: DataStores/ProcessorModel.py:6124
 msgid "Brake length"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6126
+#: DataStores/ProcessorModel.py:6125
 msgid "x-Spacing"
 msgstr ""
 
-#: DataStores/ProcessorModel.py:6127
+#: DataStores/ProcessorModel.py:6126
 msgid "y-Spacing"
 msgstr ""
 
@@ -925,10 +941,15 @@ msgstr ""
 #: Windows/AirfoilThickness.py:95
 msgid "AirfThick-RibNumDesc"
 msgstr ""
+"Rib num for which the coefficient\n"
+"is defined"
 
 #: Windows/AirfoilThickness.py:96
 msgid "AirfThick-CoeffDesc"
 msgstr ""
+"Coefficient describing the thickness modification\n"
+"0.0 = thickness equals 0 (typical for wingtip)\n"
+"1.0 = thickness equally to definition in profile file"
 
 #: Windows/Airfoils.py:70 lepg.py:353
 msgid "Airfoils"
@@ -1918,30 +1939,45 @@ msgstr ""
 #: Windows/MarksTypes.py:107
 msgid "MarksTypes-TypeDesc"
 msgstr ""
+"Name of the setting\n"
+"The valid names you find in\n"
+"the online help"
 
 #: Windows/MarksTypes.py:108
 msgid "MarksTypes-FormOneDesc"
 msgstr ""
+"Form 1\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/MarksTypes.py:109
 msgid "MarksTypes-FormOnePOneDesc"
 msgstr ""
+"First param for Form 1\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/MarksTypes.py:110
 msgid "MarksTypes-FormOnePTwoDesc"
 msgstr ""
+"Second param for Form 1\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/MarksTypes.py:111
 msgid "MarksTypes-FormTwoDesc"
 msgstr ""
+"Form 2\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/MarksTypes.py:112
 msgid "MarksTypes-FormTwoPOneDesc"
 msgstr ""
+"First param for Form 2\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/MarksTypes.py:113
 msgid "MarksTypes-FormTwoPTwoDesc"
 msgstr ""
+"Second param for Form 2\n"
+"Please check the online help for a detailed explanation"
 
 #: Windows/NewSkinTension.py:80 lepg.py:436
 msgid "New skin tension"
@@ -2495,94 +2531,122 @@ msgid "3D DXF Options"
 msgstr ""
 
 #: Windows/ThreeDDxf.py:101 Windows/ThreeDDxf.py:123
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "ThreeDDxf-LineNameDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Name of the layer\n"
+"The valid descriptors you find in\n"
+"the online help"
 
 #: Windows/ThreeDDxf.py:102 Windows/ThreeDDxf.py:125
 msgid "ThreeDDxf-ColorCodeDesc"
 msgstr ""
+"1= red, 2=yellow, 3=green, 4=cyan, \n"
+"5=blue, 6=magenta, 7=white, 8=dark grey,\n"
+"9= grey,... up to 255"
 
 #: Windows/ThreeDDxf.py:103 Windows/ThreeDDxf.py:126
 msgid "ThreeDDxf-ColorNameDesc"
-msgstr ""
+msgstr "The Name of the Color as text"
 
 #: Windows/ThreeDDxf.py:124
 msgid "ThreeDDxf-UnifilarDesc"
 msgstr ""
+"0= ovalized visualisation of the surfaces\n"
+"1= unifilar visualisation"
 
-#: Windows/ThreeDShaping.py:91
-msgid "3D Shaping"
+#: Windows/ThreeDShaping.py:91 lepg.py:428
+msgid "3D shaping"
 msgstr ""
-
-#: Windows/ThreeDShaping.py:125
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
-msgid "3DShPrint-NameDesc"
-msgstr "The name of the wing"
 
 #: Windows/ThreeDShaping.py:126
-msgid "3DShPrint-DrawDesc"
+msgid "3DShPrint-NameDesc"
 msgstr ""
+"Name of the setting\n"
+"The valid names you find in\n"
+"the online help"
 
 #: Windows/ThreeDShaping.py:127
-msgid "3DShPrint-FirstPanelDesc"
+msgid "3DShPrint-DrawDesc"
 msgstr ""
+"Controls if it will be drawn or not\n"
+"0 = don't draw\n"
+"1 = draw"
 
 #: Windows/ThreeDShaping.py:128
-msgid "3DShPrint-LastPanelDesc"
-msgstr ""
+msgid "3DShPrint-FirstPanelDesc"
+msgstr "First panel for the setting"
 
 #: Windows/ThreeDShaping.py:129
+msgid "3DShPrint-LastPanelDesc"
+msgstr "Last panel for the setting"
+
+#: Windows/ThreeDShaping.py:130
 msgid "3DShPrint-SymmetricDesc"
 msgstr ""
-
-#: Windows/ThreeDShaping.py:213
-msgid "3DSh-FirstRibDesc"
-msgstr ""
+"Controls if it shall be drawn symetrical\n"
+"0 = draw with symmetry\n"
+"1 = only one side"
 
 #: Windows/ThreeDShaping.py:214
+msgid "3DSh-FirstRibDesc"
+msgstr ""
+"Number of the initial rib for\n"
+"which this configuration applies"
+
+#: Windows/ThreeDShaping.py:215
 msgid "3DSh-LastRibDesc"
 msgstr ""
+"Number of the last rib for\n"
+"which this configuration applies"
 
-#: Windows/ThreeDShaping.py:225
+#: Windows/ThreeDShaping.py:226
 msgid "Number of upper cuts"
 msgstr ""
 
-#: Windows/ThreeDShaping.py:257 Windows/ThreeDShaping.py:301
+#: Windows/ThreeDShaping.py:258 Windows/ThreeDShaping.py:302
 msgid "3DSh-IniPointDesc"
 msgstr ""
-
-#: Windows/ThreeDShaping.py:258 Windows/ThreeDShaping.py:302
-msgid "3DSh-CutPointDesc"
-msgstr ""
+"Starting point of the \n"
+"3D shaping panel"
 
 #: Windows/ThreeDShaping.py:259 Windows/ThreeDShaping.py:303
+msgid "3DSh-CutPointDesc"
+msgstr ""
+"Point (position) at which the  cut for the \n"
+"3D shaping will be applied"
+
+#: Windows/ThreeDShaping.py:260 Windows/ThreeDShaping.py:304
 msgid "3DSh-DepthDesc"
 msgstr ""
+"Depth (intensity) of the shaping\n"
+"Coef -1.0 ….+1.0\n"
+"0.0 no effect"
 
-#: Windows/ThreeDShaping.py:269
+#: Windows/ThreeDShaping.py:270
 msgid "Number of lower cuts"
-msgstr ""
+msgstr "Number of cuts in the lower sail"
 
 #: Windows/TwoDDxf.py:70
 msgid "2D DXF Options"
 msgstr ""
 
 #: Windows/TwoDDxf.py:99
-#, fuzzy
-#| msgid "PreProc-WingNameDesc"
 msgid "TwoDDxf-LineNameDesc"
-msgstr "The name of the wing"
+msgstr ""
+"Name of the layer\n"
+"The valid descriptors you find in\n"
+"the online help"
 
 #: Windows/TwoDDxf.py:100
 msgid "TwoDDxf-ColorCodeDesc"
 msgstr ""
+"1= red, 2=yellow, 3=green, 4=cyan, \n"
+"5=blue, 6=magenta, 7=white, 8=dark grey,\n"
+"9= grey,... up to 255"
 
 #: Windows/TwoDDxf.py:101
 msgid "TwoDDxf-ColorNameDesc"
-msgstr ""
+msgstr "The Name of the Color as text"
 
 #: Windows/WindowBtnBar.py:70 lepg.py:1014
 msgid "Help"
@@ -2886,12 +2950,8 @@ msgstr ""
 msgid "Edit parameters for calage variation study"
 msgstr ""
 
-#: lepg.py:428
-msgid "3D shaping"
-msgstr ""
-
 #: lepg.py:429
-msgid "Edit parameters 3D shaping"
+msgid "Enable and edit parameters for 3D shaping"
 msgstr ""
 
 #: lepg.py:433

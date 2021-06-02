@@ -95,6 +95,9 @@
   <ul>
 <li><a class="reference internal" href="#">3D DXF Optionen</a><ul>
 <li><a class="reference internal" href="#type">Type</a></li>
+<li><a class="reference internal" href="#linienname">Linienname</a></li>
+<li><a class="reference internal" href="#farbcode">Farbcode</a></li>
+<li><a class="reference internal" href="#farbname">Farbname</a></li>
 </ul>
 </li>
 </ul>
@@ -127,39 +130,64 @@
 <div></div></blockquote>
 <div class="section" id="d-dxf-optionen">
 <h1>3D DXF Optionen<a class="headerlink" href="#d-dxf-optionen" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>Hier definierst Du die Farben der Linien in den DXF Zeichnungen.</p>
+<a class="reference internal image-reference" href="../../_images/threeDDxf-de.png"><img alt="../../_images/threeDDxf-de.png" src="../../_images/threeDDxf-de.png" style="width: 350px; height: 331px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">25.</span> <span class="n">GENERAL</span> <span class="mi">3</span><span class="n">D</span> <span class="n">DXF</span> <span class="n">OPTIONS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="n">A_lines_color</span>   <span class="mi">1</span>         <span class="n">red</span>
+<span class="n">B_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">C_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">D_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">E_lines_color</span>   <span class="mi">8</span>         <span class="n">grey</span>
+<span class="n">F_lines_color</span>   <span class="mi">30</span>        <span class="n">orange</span>
+<span class="n">Extrados</span>        <span class="mi">1</span>     <span class="mi">5</span>   <span class="n">blue</span>
+<span class="n">Vents</span>           <span class="mi">0</span>     <span class="mi">1</span>   <span class="n">red</span>
+<span class="n">Intrados</span>        <span class="mi">0</span>     <span class="mi">3</span>   <span class="n">green</span>
+</pre></div>
 </div>
-</div></blockquote>
 <div class="section" id="type">
 <h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
-<p><em>3D DXF options</em> is an <strong>optional section</strong>.</p>
-<p>If you do not want to define/ use these parameters set the Type to <strong>Defaults</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p><em>3D DXF Optionen</em> ist eine <strong>optionale Konfiguration</strong>.</p>
+<p>Wenn Du diese Werte nicht speziell definieren willst, dann setze <strong>Typ</strong> auf <strong>Standard</strong>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="linienname">
+<h2>Linienname<a class="headerlink" href="#linienname" title="Permalink to this headline">¶</a></h2>
+<p>Die Namen sind fix definiert und müssen genau so eingegeben werden.</p>
+<ul class="simple">
+<li><p>A_lines_color</p></li>
+<li><p>B_lines_color</p></li>
+<li><p>C_lines_color</p></li>
+<li><p>D_lines_color</p></li>
+<li><p>E_lines_color</p></li>
+<li><p>F_lines_color</p></li>
+<li><p>Extrados <a class="footnote-reference brackets" href="#id4" id="id1">1</a></p></li>
+<li><p>Vents <a class="footnote-reference brackets" href="#id5" id="id2">2</a></p></li>
+<li><p>Intrados <a class="footnote-reference brackets" href="#id6" id="id3">3</a></p></li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Einstellungen für die Panels des Obersegels</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Einstellungen für die Einlassöffnungen</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Einstellungen für die Panels des Untersegels</p>
+</dd>
+</dl>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="farbcode">
+<h2>Farbcode<a class="headerlink" href="#farbcode" title="Permalink to this headline">¶</a></h2>
+<p>Standard Farbnummer für CAD Systeme:
+1=rot, 2=gelb, 3=grün, 4=cyan, 5=blau, 6=magenta, 7=weiss, 8=dunkelgrau, 9= grau,… bis 255</p>
+<p>Es wird empfohlen nur 2-stellige Farbnummern zu verwenden.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
+<div class="section" id="farbname">
+<h2>Farbname<a class="headerlink" href="#farbname" title="Permalink to this headline">¶</a></h2>
+<p>Deine eigene Beschreibung der gewählten Farbe.</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.25" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>

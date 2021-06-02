@@ -95,6 +95,17 @@
   <ul>
 <li><a class="reference internal" href="#">3D shaping</a><ul>
 <li><a class="reference internal" href="#number-of-groups">Number of groups</a></li>
+<li><a class="reference internal" href="#first-and-last-rib">First and last rib</a></li>
+<li><a class="reference internal" href="#number-of-upper-cuts">Number of upper cuts</a></li>
+<li><a class="reference internal" href="#ini-p">Ini P</a></li>
+<li><a class="reference internal" href="#cut-p">Cut P</a></li>
+<li><a class="reference internal" href="#depth">Depth</a></li>
+<li><a class="reference internal" href="#number-of-cuts-in-the-lower-sail">Number of cuts in the lower sail</a></li>
+<li><a class="reference internal" href="#name">Name</a></li>
+<li><a class="reference internal" href="#draw">Draw</a></li>
+<li><a class="reference internal" href="#first-panel">First panel</a></li>
+<li><a class="reference internal" href="#last-panel">Last panel</a></li>
+<li><a class="reference internal" href="#symmetric">Symmetric</a></li>
 </ul>
 </li>
 </ul>
@@ -127,39 +138,104 @@
 <div></div></blockquote>
 <div class="section" id="d-shaping">
 <h1>3D shaping<a class="headerlink" href="#d-shaping" title="Permalink to this headline">¶</a></h1>
-<p>There is still some work to be done…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>The model of 3-Shaping proposed by the Laboratori, consists in making one or two transverse cuts in the
+upper surface, near the leading edge, and another optional cut on the bottom surface.</p>
+<p>The edges of the transverse cuts will be modified from the straight line into an arc of a circle.
+In this way, we can “add fabric” lengthwise and we can control the ovalization and the tension in
+this direction.</p>
+<p>Ovalization in transverse direction is achieved via the <em>Skin tension</em>.</p>
+<p>In summary, we can control the amount of tissue and tension in transverse and in longitudinal direction
+near the nose, where the curvatures are greatest.</p>
+<a class="reference internal image-reference" href="../../_images/threeDShaping-en.png"><img alt="../../_images/threeDShaping-en.png" src="../../_images/threeDShaping-en.png" style="width: 504px; height: 418px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">1</span>
+<span class="n">groups</span>   <span class="mi">2</span>
+<span class="n">group</span>    <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">12</span>
+<span class="n">upper</span>    <span class="mi">2</span>   <span class="mi">1</span>
+<span class="mi">1</span>   <span class="mi">25</span>   <span class="mi">33</span>  <span class="mf">1.0</span>
+<span class="mi">2</span>   <span class="mi">33</span>   <span class="mi">44</span>  <span class="mf">1.0</span>
+<span class="n">lower</span>    <span class="mi">0</span>   <span class="mi">1</span>
+<span class="n">group</span>    <span class="mi">2</span>   <span class="mi">13</span>   <span class="mi">14</span>
+<span class="n">upper</span>    <span class="mi">1</span>   <span class="mi">1</span>
+<span class="mi">1</span>   <span class="mi">30</span>   <span class="mi">40</span>  <span class="mf">1.0</span>
+<span class="n">lower</span>    <span class="mi">0</span>   <span class="mi">1</span>
+<span class="o">*</span> <span class="n">Print</span> <span class="n">parameters</span>
+<span class="n">Inter3D</span>  <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">10</span>   <span class="mi">1</span>
+<span class="n">Ovali3D</span>  <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">tesse3D</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">exteDXF</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">exteSTL</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+</pre></div>
 </div>
-</div></blockquote>
 <div class="section" id="number-of-groups">
 <h2>Number of groups<a class="headerlink" href="#number-of-groups" title="Permalink to this headline">¶</a></h2>
 <p><em>3D shaping</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the <strong>Number of groups</strong> value to <strong>0</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="first-and-last-rib">
+<h2>First and last rib<a class="headerlink" href="#first-and-last-rib" title="Permalink to this headline">¶</a></h2>
+<p>You can define several groups with individual 3D shaping parameters. With the first and last rib parameters
+you define where in the wing the settings must be applied.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" style="width: 442px; height: 625px;" /></a>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="number-of-upper-cuts">
+<h2>Number of upper cuts<a class="headerlink" href="#number-of-upper-cuts" title="Permalink to this headline">¶</a></h2>
+<p>You can define max two cuts in the upper sail. Number and position of cuts do control the 3D shaping.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="ini-p">
+<h2>Ini P<a class="headerlink" href="#ini-p" title="Permalink to this headline">¶</a></h2>
+<p>The wing profile is defined by a number of x,y coordinates defining each a point on the profile edge.
+The Ini P is the number of the point where the <em>Zone of influence</em> starts. To derive the point number
+open the profile file either with a CAD or a text editor. To count the respective points you start at
+the trailing edge and then you must follow first the upper sail towards the leading edge.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="cut-p">
+<h2>Cut P<a class="headerlink" href="#cut-p" title="Permalink to this headline">¶</a></h2>
+<p>The cut point is the next point in the definition. Again here it is defined in the number of points
+of the profile definition starting from the trailing edge.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="depth">
+<h2>Depth<a class="headerlink" href="#depth" title="Permalink to this headline">¶</a></h2>
+<p>With the depth coefficient you control how much fabric is added or removed.</p>
+<p>The coefficient range starts at -1.0 and runs until +1.0.</p>
+<p>A value of 0.0 means no fabric is added or removed.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="number-of-cuts-in-the-lower-sail">
+<h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Permalink to this headline">¶</a></h2>
+<p>There’s a maximum of one cut in the lower sail you can define.</p>
+<p>The definition of the three values <em>Ini P</em>, <em>Cut P</em> and <em>Depth</em> depth is identical to the values of the upper sail.</p>
 </div>
-</div></blockquote>
+<div class="section" id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>The names are fix, do not alter them!</p>
+<p><strong>Inter3D</strong>: representation of the intermediate airfoils in 3D lep-3d.dxf</p>
+<p><strong>Ovali3D</strong>: representation of the intermediate ovalized airfoils in 3D lep-3d.dxf</p>
+<p><strong>tesse3D</strong>: representation of panel tessellation in 3D lep-3d.dxf</p>
+<p><strong>exteDXF</strong>: representation of panels tessellation in 3D in a new external DXF file (possible use in CFD analysis)</p>
+<p><strong>exteSTL</strong>: representation of panels tessellation in 3D in a new external STL file (used with programs of 3D modelling as OpenSCAD or FreeCAD)</p>
+<p><strong>NOTE</strong>: only the first line is fully implemented in lep until now. The following four lines do not
+have an effect yet, but you must define them for compatibility reasons!</p>
+<p>For each of the data lines you must define the parameters as described below.</p>
+<p>In the following section you define if an how the 3D Shaping data should be printed.</p>
+</div>
+<div class="section" id="draw">
+<h2>Draw<a class="headerlink" href="#draw" title="Permalink to this headline">¶</a></h2>
+<p><strong>0</strong>: do not draw</p>
+<p><strong>1</strong>: draw</p>
+</div>
+<div class="section" id="first-panel">
+<h2>First panel<a class="headerlink" href="#first-panel" title="Permalink to this headline">¶</a></h2>
+<p>Number of the first airfoil to draw</p>
+</div>
+<div class="section" id="last-panel">
+<h2>Last panel<a class="headerlink" href="#last-panel" title="Permalink to this headline">¶</a></h2>
+<p>Number of the last airfoil to draw</p>
+</div>
+<div class="section" id="symmetric">
+<h2>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h2>
+<p><strong>0</strong>: it indicates to draw with symmetry</p>
+<p><strong>1</strong>: draw only one side</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.29" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>

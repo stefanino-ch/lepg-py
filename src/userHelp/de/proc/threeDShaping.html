@@ -15,7 +15,7 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Profildicke" href="airfoilThickness.html" />
+    <link rel="next" title="Flügeldicke" href="airfoilThickness.html" />
     <link rel="prev" title="Calage variation" href="calageVar.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
@@ -76,7 +76,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="airfoilThickness.html" title="Profildicke"
+          <a href="airfoilThickness.html" title="Flügeldicke"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="calageVar.html" title="Calage variation"
@@ -94,7 +94,18 @@
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">3D Shaping</a><ul>
-<li><a class="reference internal" href="#number-of-groups">Number of groups</a></li>
+<li><a class="reference internal" href="#anzahl-der-konfigurationen">Anzahl der Konfigurationen</a></li>
+<li><a class="reference internal" href="#erste-und-letzte-rippe">Erste und letzte  Rippe</a></li>
+<li><a class="reference internal" href="#anzahl-schnitte-im-obersegel">Anzahl Schnitte im Obersegel</a></li>
+<li><a class="reference internal" href="#ini-pt">Ini Pt</a></li>
+<li><a class="reference internal" href="#schnitt-pt">Schnitt Pt</a></li>
+<li><a class="reference internal" href="#tiefe">Tiefe</a></li>
+<li><a class="reference internal" href="#number-of-cuts-in-the-lower-sail">Number of cuts in the lower sail</a></li>
+<li><a class="reference internal" href="#name">Name</a></li>
+<li><a class="reference internal" href="#zeichnen">Zeichnen</a></li>
+<li><a class="reference internal" href="#erstes-panel">Erstes Panel</a></li>
+<li><a class="reference internal" href="#letztes-panel">Letztes Panel</a></li>
+<li><a class="reference internal" href="#symmetrisch">Symmetrisch</a></li>
 </ul>
 </li>
 </ul>
@@ -104,7 +115,7 @@
                         title="previous chapter">Calage variation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="airfoilThickness.html"
-                        title="next chapter">Profildicke</a></p>
+                        title="next chapter">Flügeldicke</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -127,40 +138,106 @@
 <div></div></blockquote>
 <div class="section" id="d-shaping">
 <h1>3D Shaping<a class="headerlink" href="#d-shaping" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<p>3D Shapin in lep ist so umgesetzt dass nahe der Eintrittskante im Obersegel zwei und im Untersegel ein Bereich
+definiert werden können die “aufgeschnitten” und angepasst werden können.</p>
+<p>Durch Veränderungen in der Länge der einzelnen Teile kann die Segelspannung und Form in der Längsrichtung angepasst
+werden.</p>
+<p>Veränderungen Quer zum Flügel können mit der Veränderung der Parameter für die <em>Tuchspannung</em> erreicht werden.</p>
+<a class="reference internal image-reference" href="../../_images/threeDShaping-de.png"><img alt="../../_images/threeDShaping-de.png" src="../../_images/threeDShaping-de.png" style="width: 504px; height: 418px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">1</span>
+<span class="n">groups</span>   <span class="mi">2</span>
+<span class="n">group</span>    <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">12</span>
+<span class="n">upper</span>    <span class="mi">2</span>   <span class="mi">1</span>
+<span class="mi">1</span>   <span class="mi">25</span>   <span class="mi">33</span>  <span class="mf">1.0</span>
+<span class="mi">2</span>   <span class="mi">33</span>   <span class="mi">44</span>  <span class="mf">1.0</span>
+<span class="n">lower</span>    <span class="mi">0</span>   <span class="mi">1</span>
+<span class="n">group</span>    <span class="mi">2</span>   <span class="mi">13</span>   <span class="mi">14</span>
+<span class="n">upper</span>    <span class="mi">1</span>   <span class="mi">1</span>
+<span class="mi">1</span>   <span class="mi">30</span>   <span class="mi">40</span>  <span class="mf">1.0</span>
+<span class="n">lower</span>    <span class="mi">0</span>   <span class="mi">1</span>
+<span class="o">*</span> <span class="n">Print</span> <span class="n">parameters</span>
+<span class="n">Inter3D</span>  <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">10</span>   <span class="mi">1</span>
+<span class="n">Ovali3D</span>  <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">tesse3D</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">exteDXF</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+<span class="n">exteSTL</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
+</pre></div>
 </div>
-</div></blockquote>
-<div class="section" id="number-of-groups">
-<h2>Number of groups<a class="headerlink" href="#number-of-groups" title="Permalink to this headline">¶</a></h2>
-<p><em>3D shaping</em> is an <strong>optional section</strong>.</p>
-<p>If you do not want to define/ use these parameters set the <strong>Number of groups</strong> value to <strong>0</strong>.</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anzahl-der-konfigurationen">
+<h2>Anzahl der Konfigurationen<a class="headerlink" href="#anzahl-der-konfigurationen" title="Permalink to this headline">¶</a></h2>
+<p><em>3D Shaping</em> ist eine <strong>optionale Konfiguration</strong>.</p>
+<p>Wenn Du diese Funktion nicht verwenden willst, dann setzte den Wert für <strong>Anzahl der Konfigurationen</strong> auf <strong>0</strong>.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="erste-und-letzte-rippe">
+<h2>Erste und letzte  Rippe<a class="headerlink" href="#erste-und-letzte-rippe" title="Permalink to this headline">¶</a></h2>
+<p>Es ist möglich mehrere Gruppen mit verschiedenen 3D Shaping Parametern zu definieren.
+Mit diesen beiden Parametern bestimmst Du in welchem Flügelbereich die Parameter angewendet werden.</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" style="width: 442px; height: 625px;" /></a>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="anzahl-schnitte-im-obersegel">
+<h2>Anzahl Schnitte im Obersegel<a class="headerlink" href="#anzahl-schnitte-im-obersegel" title="Permalink to this headline">¶</a></h2>
+<p>Es können im Obersegel maximal zwei Schnitte definiert werden. Die Anzahl und Position der Schnitte
+beeinflussen die definitive Flügelform.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="ini-pt">
+<h2>Ini Pt<a class="headerlink" href="#ini-pt" title="Permalink to this headline">¶</a></h2>
+<p>Das Flügelprofil ist definiert durch eine Anzahl Koordinatenpaare in x und y Richtung. Die Positionen von
+Ini und Schnitt Pt werden definiert durch die Nummer eines der Koordinatenpaare.</p>
+<p>Um die Nummer zu ermitteln musst Du entweder die Profildatei in einem CAD System oder einem Texteditor öffnen.
+Dann zählst Du ausgehend von der Flügelhinterkante, entlang des Obersegels die Punkte bis Du an der richtigen
+Profilposition angekommen bist.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="schnitt-pt">
+<h2>Schnitt Pt<a class="headerlink" href="#schnitt-pt" title="Permalink to this headline">¶</a></h2>
+<p>Die Position des Schnitt Pt wird analog der Position des Ini Pt definiert.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="tiefe">
+<h2>Tiefe<a class="headerlink" href="#tiefe" title="Permalink to this headline">¶</a></h2>
+<p>Mit diesem Parameter definierts Du wie viel Stoff in der Längsrichtung hinzugefügt wird.
+Der Koeffizient hat einen Bereich von -1.0 bis +1.0.
+Wenn Du 0.0 eingibst findet keine Längenveränderung statt.</p>
+<p>Die Längenveränderung passiert wie folgt: an der Kante des Panels wird die Originallänge beibehalten.
+Basierend auf dem Tiefenkoeffizient wird die Panellänge in der Mitte entsprechend verlängert oder
+verkürzt. Die beiden Eckpunkte sowie der (verlängerte) Punkt in der Mitte werden mit einem Kreissegment verbunden.</p>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="section" id="number-of-cuts-in-the-lower-sail">
+<h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Permalink to this headline">¶</a></h2>
+<p>Im Untersegel kann maximal ein Bereich mit 3D Shaping definiert werden.</p>
+<p>Die Definition von <em>Ini Pt</em>, <em>Schnitt Pt</em> und <em>Tiefe</em> erfolgt analog dem Obersegel.</p>
+<p>Im folgenden Abschnitt wird definiert wie die 3D Shaping Daten ausgegeben werden sollen.</p>
 </div>
+<div class="section" id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>Die Namen sind fix definiert und dürfen nicht verändert werden!</p>
+<p><strong>Inter3D</strong>: Darstellung der Zwischenpanels in 3D lep-3d.dxf</p>
+<p><strong>Ovali3D</strong>: Darstellung der ovalisierten Zwischenpanels in 3D lep-3d.dxf</p>
+<p><strong>tesse3D</strong>: Darstellung der Panel Runding in 3D lep-3d.dxf</p>
+<p><strong>exteDXF</strong>: Darstellung der Panel Rundung in 3D in einer neuen, separaten DXF Datei. (Möglichkeit zur Nutzung für Strömungsanalysen)</p>
+<p><strong>exteSTL</strong>: Darstellund der Panel Rundung in 3D in einer neuen, separaten STL Datei. (Darstellung in einem 3D CAD wie OpenSCAD oder FreeCAD)</p>
+<p><strong>Bemerkung</strong>: Nur die erste Zeile ist in lep vollständig implementiert. An der Berechnung der Daten
+für die weiteren Zeilen wird aktuell noch gearbeitet, trotzdem müssen sie hier schon definiert werden.</p>
+<p>Für jede Zeile können folgende Werte definiert werden.</p>
+</div>
+<div class="section" id="zeichnen">
+<h2>Zeichnen<a class="headerlink" href="#zeichnen" title="Permalink to this headline">¶</a></h2>
+<p><strong>0</strong>: nicht zeichnen</p>
+<p><strong>1</strong>: zeichnen</p>
+</div>
+<div class="section" id="erstes-panel">
+<h2>Erstes Panel<a class="headerlink" href="#erstes-panel" title="Permalink to this headline">¶</a></h2>
+<p>Nummer des ersten Panels für welches die Daten gezeichnet werden sollen.</p>
+</div>
+<div class="section" id="letztes-panel">
+<h2>Letztes Panel<a class="headerlink" href="#letztes-panel" title="Permalink to this headline">¶</a></h2>
+<p>Nummer des letzten Panels für welches die Daten gezeichnet werden sollen.</p>
+</div>
+<div class="section" id="symmetrisch">
+<h2>Symmetrisch<a class="headerlink" href="#symmetrisch" title="Permalink to this headline">¶</a></h2>
+<p><strong>0</strong>: die Panels werden symmetrisch gezeichnet</p>
+<p><strong>1</strong>: die Panels werden nur einseitig gezeichnet</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.29" target="_blank">Laboratori d'envol website</a>.</p>
-</div></blockquote>
 </div>
 </div>
 
@@ -178,7 +255,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="airfoilThickness.html" title="Profildicke"
+          <a href="airfoilThickness.html" title="Flügeldicke"
              >next</a> |</li>
         <li class="right" >
           <a href="calageVar.html" title="Calage variation"

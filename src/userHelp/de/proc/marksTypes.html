@@ -94,7 +94,7 @@
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Planmarken</a><ul>
-<li><a class="reference internal" href="#number-of-marks">Number of marks</a></li>
+<li><a class="reference internal" href="#anzahl-konfigurationen">Anzahl Konfigurationen</a></li>
 </ul>
 </li>
 </ul>
@@ -127,39 +127,243 @@
 <div></div></blockquote>
 <div class="section" id="planmarken">
 <h1>Planmarken<a class="headerlink" href="#planmarken" title="Permalink to this headline">¶</a></h1>
-<p>Da fehlt noch was…</p>
+<p>In diesem Fenster können die Symbole in den DXF Dateien definiert werden. Es stehen verschiedene Formen
+zur Verfügung (Punkte, Kreise, Dreiecke, ….).</p>
+<p>Hilfreich können eigene Symboldefinitionen sein wenn zum Beispiel Laser Plotter für das Ausschneiden
+der Einzelteile verwendet werden.</p>
+<p>Leparagliding kreiert zwei verschiedene Plantypen, einen für die verwendung mit normalen Druckern (print),
+und einen andern für die Verwendung mit Schneideplottern (laser).</p>
+<a class="reference internal image-reference" href="../../_images/marksTypes-de.png"><img alt="../../_images/marksTypes-de.png" src="../../_images/marksTypes-de.png" style="width: 603px; height: 286px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">******************************************************</span>
+<span class="o">*</span>       <span class="mf">20.</span> <span class="n">Marks</span> <span class="n">types</span>
+<span class="o">******************************************************</span>
+<span class="mi">10</span>
+<span class="n">typepoint</span>   <span class="mi">1</span>  <span class="mf">0.25</span>  <span class="mf">1.2</span>     <span class="mi">2</span>  <span class="mf">0.3</span>  <span class="mf">1.2</span>
+<span class="n">typepoint2</span>  <span class="mi">1</span>  <span class="mf">0.25</span>  <span class="mf">1.2</span>     <span class="mi">2</span>  <span class="mf">0.2</span>  <span class="mf">1.2</span>
+<span class="n">typepoint3</span>  <span class="mi">1</span>  <span class="mf">0.25</span>  <span class="mf">1.2</span>     <span class="mi">2</span>  <span class="mf">0.2</span>  <span class="mf">1.2</span>
+<span class="n">typevent</span>    <span class="mi">1</span>  <span class="mf">10.</span>   <span class="mf">0.0</span>     <span class="mi">2</span>  <span class="mf">2.0</span>  <span class="mf">0.0</span>
+<span class="n">typetab</span>     <span class="mi">1</span>  <span class="mf">10.</span>   <span class="mf">0.0</span>     <span class="mi">3</span>  <span class="mf">2.0</span>  <span class="mf">0.0</span>
+<span class="n">typejonc</span>    <span class="mi">1</span>  <span class="mf">10.</span>   <span class="mf">0.0</span>     <span class="mi">2</span>  <span class="mf">2.0</span>  <span class="mf">0.0</span>
+<span class="n">typeref</span>     <span class="mi">1</span>  <span class="mf">5.</span>    <span class="mf">1.</span>      <span class="mi">1</span>  <span class="mf">2.0</span>  <span class="mf">0.0</span>
+<span class="n">type8</span>       <span class="mi">1</span>  <span class="mf">0.2</span>   <span class="mf">4.0</span>     <span class="mi">1</span>  <span class="mf">0.0</span>  <span class="mf">4.0</span>
+<span class="n">type9</span>       <span class="mi">1</span>  <span class="mf">0.25</span>  <span class="mf">1.2</span>     <span class="mi">2</span>  <span class="mf">0.2</span>  <span class="mf">1.2</span>
+<span class="n">type10</span>      <span class="mi">1</span>  <span class="mf">0.25</span>  <span class="mf">1.2</span>     <span class="mi">2</span>  <span class="mf">0.2</span>  <span class="mf">1.2</span>
+</pre></div>
+</div>
+<div class="section" id="anzahl-konfigurationen">
+<h2>Anzahl Konfigurationen<a class="headerlink" href="#anzahl-konfigurationen" title="Permalink to this headline">¶</a></h2>
+<p><em>Planmarken</em> ist eine <strong>optionale Konfiguration</strong>.</p>
+<p>Wenn Du keine speziellen Planmarken definieren willst setze den Wert von <strong>Anzahl Konfigurationen</strong> auf <strong>0</strong>.</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line"><br /></div>
 </div>
 </div></blockquote>
-<div class="section" id="number-of-marks">
-<h2>Number of marks<a class="headerlink" href="#number-of-marks" title="Permalink to this headline">¶</a></h2>
-<p><em>Mark types</em> is an <strong>optional section</strong>.</p>
-<p>If you do not want to define/ use these parameters set the <strong>Number of configs</strong> value to <strong>0</strong>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 30%" />
+<col style="width: 24%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Markierungstyp</p></td>
+<td><p><strong>Print</strong>
+Form 1</p></td>
+<td><p><strong>Print</strong>
+Form 1 1. Wert</p></td>
+<td><p><strong>Print</strong>
+Form 1 2. Wert</p></td>
+</tr>
+<tr class="row-even"><td><p>typepoint <a class="footnote-reference brackets" href="#id23" id="id1">1</a></p></td>
+<td><p>1=Kreis/ Kreuz
+2=Kreis</p></td>
+<td><p>Kreisradius  [mm]</p></td>
+<td><p>Offset [mm]</p></td>
+</tr>
+<tr class="row-odd"><td><p>typepoint2 <a class="footnote-reference brackets" href="#id24" id="id2">2</a></p></td>
+<td><p>1</p></td>
+<td><p>0.25</p></td>
+<td><p>1.2</p></td>
+</tr>
+<tr class="row-even"><td><p>typepoint3 <a class="footnote-reference brackets" href="#id24" id="id3">2</a></p></td>
+<td><p>1</p></td>
+<td><p>0.25</p></td>
+<td><p>1.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>typevent</p></td>
+<td><p>1=zwei grüne Punkte
+2=Segment
+3=Doppel-Segment</p></td>
+<td><p>Punktdistanz oder
+Segment-Länge [mm]</p></td>
+<td><p>Offset [mm]</p></td>
+</tr>
+<tr class="row-even"><td><p>typetab</p></td>
+<td><p>1=Drei orange Punkte
+2=Drei orange “full control”
+3=Dreieck</p></td>
+<td><p>Punktdistanz oder
+Dreiecks-Höhe [mm]</p></td>
+<td><p>offset [mm]</p></td>
+</tr>
+<tr class="row-odd"><td><p>typejonc   <a class="footnote-reference brackets" href="#id24" id="id4">2</a></p></td>
+<td><p>1</p></td>
+<td><ol class="arabic simple" start="10">
+<li></li>
+</ol>
+</td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>typeref    <a class="footnote-reference brackets" href="#id24" id="id5">2</a></p></td>
+<td><p>1</p></td>
+<td><p>5.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>type8 <a class="footnote-reference brackets" href="#id25" id="id6">3</a></p></td>
+<td><p>1</p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id7">6</a> Pos römische Nr
+0.0 ganz links
+1.0 ganz rechts
+empfohlen 0.2 or 0.5</p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id8">6</a> Vertikaler Offset [mm]
+zur Basislinie</p></td>
+</tr>
+<tr class="row-even"><td><p>type9 <a class="footnote-reference brackets" href="#id26" id="id9">4</a></p></td>
+<td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p>Zahlengrösse [cm]
+Ein-Austrittskante
+Rippen, Panels Eintrittsk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>type10 <a class="footnote-reference brackets" href="#id27" id="id10">5</a></p></td>
+<td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p>Zahlengrösse [cm]
+Diagonalrippen</p></td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <div><div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 </div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 26%" />
+<col style="width: 30%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Markierungstyp</p></td>
+<td><p><strong>Laser</strong>
+Form 2</p></td>
+<td><p><strong>Laser</strong>
+Form 2 1. Wert</p></td>
+<td><p><strong>Laser</strong>
+Form 2 2. Wert</p></td>
+</tr>
+<tr class="row-even"><td><p>typepoint <a class="footnote-reference brackets" href="#id23" id="id11">1</a></p></td>
+<td><p>1=Punkt
+2=Kreis</p></td>
+<td><p>Kreisradius [mm]</p></td>
+<td><p>Offset [mm]</p></td>
+</tr>
+<tr class="row-odd"><td><p>typepoint2 <a class="footnote-reference brackets" href="#id24" id="id12">2</a></p></td>
+<td><p>2</p></td>
+<td><p>0.2</p></td>
+<td><p>1.2</p></td>
+</tr>
+<tr class="row-even"><td><p>typepoint3 <a class="footnote-reference brackets" href="#id24" id="id13">2</a></p></td>
+<td><p>2</p></td>
+<td><p>0.2</p></td>
+<td><p>1.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>typevent</p></td>
+<td><p>1=zwei grüne Punkte
+2=Segment
+3=Doppel-Segment</p></td>
+<td><p>Punktdistanz oder
+Segment-Länge [mm]</p></td>
+<td><p>Offset [mm]</p></td>
+</tr>
+<tr class="row-even"><td><p>typetab</p></td>
+<td><p>1=Drei orange Punkte
+2=Drei orange “full control”
+3=Dreieck</p></td>
+<td><p>Punktdistanz oder
+Dreiecks-Höhe [mm]</p></td>
+<td><p>Offset [mm]</p></td>
+</tr>
+<tr class="row-odd"><td><p>typejonc   <a class="footnote-reference brackets" href="#id24" id="id14">2</a></p></td>
+<td><p>2</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>typeref    <a class="footnote-reference brackets" href="#id24" id="id15">2</a></p></td>
+<td><p>1</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>type8 <a class="footnote-reference brackets" href="#id25" id="id16">3</a></p></td>
+<td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id17">6</a> Dist zwischen Punkten der
+römischen Nr [mm]. (Beeinflusst
+die Zahlengrösse).</p></td>
+</tr>
+<tr class="row-even"><td><p>type9 <a class="footnote-reference brackets" href="#id26" id="id18">4</a></p></td>
+<td><p>1</p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id19">6</a> Dist zwischen Punkten der
+römischen Nr [mm]. (Beeinflusst
+die Zahlengrösse). Für <strong>Stäbchen
+Eintrittskante</strong></p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id20">6</a> Dist zwischen Punkten der
+römischen Nr [mm]. (Beeinflusst
+die Zahlengrösse). Für
+<strong>Rippen</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>type10 <a class="footnote-reference brackets" href="#id27" id="id21">5</a></p></td>
+<td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p><a class="footnote-reference brackets" href="#id28" id="id22">6</a> Dist zwischen Punkten der
+römischen Nr [mm]. (Beeinflusst
+die Zahlengrösse). Für
+<strong>Diagonalrippen</strong></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id23"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>typepoint allgemein verwendete Markierung</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id4">3</a>,<a href="#id5">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>,<a href="#id14">7</a>,<a href="#id15">8</a>)</span></dt>
+<dd><p>noch nicht fertig implementiert, verwende die angegebenen Standard-Werte</p>
+</dd>
+<dt class="label" id="id25"><span class="brackets">3</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id16">2</a>)</span></dt>
+<dd><p>römische Nummern in Panels welche mit 3D Shaping definiert werden</p>
+</dd>
+<dt class="label" id="id26"><span class="brackets">4</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id18">2</a>)</span></dt>
+<dd><p>Nummerngrösse und Grösse der römischen Nummern in den Rippen</p>
+</dd>
+<dt class="label" id="id27"><span class="brackets">5</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id21">2</a>)</span></dt>
+<dd><p>Nummerngrösse in Diagonalrippen</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets">6</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>,<a href="#id17">3</a>,<a href="#id19">4</a>,<a href="#id20">5</a>,<a href="#id22">6</a>)</span></dt>
+<dd><p>gilt für print and laser Version</p>
+</dd>
+</dl>
+<div class="figure align-default" id="id29">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S20.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S20.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S20.jpg" style="width: 462px; height: 660px;" /></a>
+<p class="caption"><span class="caption-text">Typen 1,2,3,4,5,8,9,10 sind nun vollständig implementiert</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id30">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S20-romanop-position.p.png"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S20-romanop-position.p.png" src="http://laboratoridenvol.com/leparagliding/lep2images/S20-romanop-position.p.png" style="width: 462px; height: 435px;" /></a>
+<p class="caption"><span class="caption-text">Type8 Definition</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.20" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>
