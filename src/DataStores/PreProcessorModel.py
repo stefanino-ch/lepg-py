@@ -179,7 +179,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         logging.debug(self.__className+ '.saveFile')
         
         fileName = self.getFileName() 
-        if self.fileName != '':
+        if len(fileName) != 0:
             # We do have already a valid filename
             self.writeFile()
         else:
@@ -344,9 +344,15 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         
         logging.debug(self.__className+'.writeFile')
         
+        # check if the file already exists
+        filePathName = self.getFileName()
+        if os.path.isfile(filePathName):
+            # file exists -> delete it
+            os.remove(filePathName)
+        
         if forProc == False:
             # Regular file write into a file specified by the user
-            outFile = QFile(self.getFileName())
+            outFile = QFile(filePathName)
         else:
             # Special file write into the directory where the PreProcessor resides
             config = ConfigReader()
@@ -382,73 +388,83 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.gen_M.getRow(1, 1)
-        stream << '%s\n' %values(0)
+        stream << '%s\n' %(self.chkStr(values(0),''))
         
         stream << separator
         stream << '* 1. Leading edge parameters\n'
         stream << separator
         values = self.leadingE_M.getRow(1, 1)
-        stream << '%s\n' %values(0)
-        stream << 'a1= %s\n' %values(1)
-        stream << 'b1= %s\n' %values(2)
-        stream << 'x1= %s\n' %values(3)
-        stream << 'x2= %s\n' %values(4)
-        stream << 'xm= %s\n' %values(5)
-        stream << 'c0= %s\n' %values(6)
-        stream << 'ex1= %s\n' %values(7)
-        stream << 'c02= %s\n' %values(8)
-        stream << 'ex2= %s\n' %values(9)
+        stream << '%s\n'        %(self.chkNum(values(0),1))
+        stream << 'a1= %s\n'    %(self.chkNum(values(1)))
+        stream << 'b1= %s\n'    %(self.chkNum(values(2)))
+        stream << 'x1= %s\n'    %(self.chkNum(values(3)))
+        stream << 'x2= %s\n'    %(self.chkNum(values(4)))
+        stream << 'xm= %s\n'    %(self.chkNum(values(5)))
+        stream << 'c0= %s\n'    %(self.chkNum(values(6)))
+        stream << 'ex1= %s\n'   %(self.chkNum(values(7)))
+        stream << 'c02= %s\n'   %(self.chkNum(values(8)))
+        stream << 'ex2= %s\n'   %(self.chkNum(values(9)))
         
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
         stream << separator
         values = self.trailingE_M.getRow(1, 1)
-        stream << '%s\n' %values(0)
-        stream << 'a1= %s\n' %values(1)
-        stream << 'b1= %s\n' %values(2)
-        stream << 'x1= %s\n' %values(3)
-        stream << 'xm= %s\n' %values(4)
-        stream << 'c0= %s\n' %values(5)
-        stream << 'y0= %s\n' %values(6)
-        stream << 'exp= %s\n' %values(7)
+        stream << '%s\n'        %(self.chkNum(values(0),1))
+        stream << 'a1= %s\n'    %(self.chkNum(values(1)))
+        stream << 'b1= %s\n'    %(self.chkNum(values(2)))
+        stream << 'x1= %s\n'    %(self.chkNum(values(3)))
+        stream << 'xm= %s\n'    %(self.chkNum(values(4)))
+        stream << 'c0= %s\n'    %(self.chkNum(values(5)))
+        stream << 'y0= %s\n'    %(self.chkNum(values(6)))
+        stream << 'exp= %s\n'   %(self.chkNum(values(7)))
 
         stream << separator
         stream << '* 3. Vault\n'
         stream << separator
         
         values = self.vault_M.getRow(1, 1)
-        stream << '%s\n' %values(0)
-        
-        if int( values(0) ) ==1:
-            stream << 'a1= %s\n' %values(1)
-            stream << 'b1= %s\n' %values(2)
-            stream << 'x1= %s\n' %values(3)
-            stream << 'c1= %s\n' %values(4)
-        else:
-            stream << '%s\t%s\n' %(values(5), values(9))
-            stream << '%s\t%s\n' %(values(6), values(10))
-            stream << '%s\t%s\n' %(values(7), values(11))
-            stream << '%s\t%s\n' %(values(8), values(12))
+        stream << '%s\n' %(self.chkNum(values(0),1))
+
+        try:
+            if int( values(0) ) ==1:
+                stream << 'a1= %s\n' %values(1)
+                stream << 'b1= %s\n' %values(2)
+                stream << 'x1= %s\n' %values(3)
+                stream << 'c1= %s\n' %values(4)
+            else:
+                stream << '%s\t%s\n' %(values(5), values(9))
+                stream << '%s\t%s\n' %(values(6), values(10))
+                stream << '%s\t%s\n' %(values(7), values(11))
+                stream << '%s\t%s\n' %(values(8), values(12))
+        except:
+            stream << 'a1= 0\n'
+            stream << 'b1= 0\n'
+            stream << 'x1= 0\n'
+            stream << 'c1= 0\n'
+            
         
         stream << separator
         stream << '* 4. Cells distribution\n'
         stream << separator
         values = self.cellsDistr_M.getRow(1, 1)
-        stream << '%s\n' %values(0)
+        stream << '%s\n' %(self.chkNum(values(0),1))
         
-        if int( values(0) ) ==1:
-            stream << '%s\n' %values(3)
+        try:
+            if int( values(0) ) ==1:
+                stream << '%s\n' %values(3)
+                
+            elif int( values(0) ) ==2 or int( values(0) ) ==3:
+                stream << '%s\n' %values(1)
+                stream << '%s\n' %values(3)
             
-        elif int( values(0) ) ==2 or int( values(0) ) ==3:
-            stream << '%s\n' %values(1)
-            stream << '%s\n' %values(3)
-        
-        elif int( values(0) ) ==4:
-            stream << '%s\n' %values(3)
-            
-            for l in range (0, int(values(3))):
-                values = self.cellsDistr_M.getRow(1, l+1)
-                stream << '%s\t%s\n' %(l+1, values(2))
+            elif int( values(0) ) ==4:
+                stream << '%s\n' %values(3)
+                
+                for l in range (0, int(values(3))):
+                    values = self.cellsDistr_M.getRow(1, l+1)
+                    stream << '%s\t%s\n' %(l+1, values(2))
+        except:
+            stream << '0\n'
         
         stream.flush()
         outFile.close()
@@ -492,6 +508,31 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
     
+    def chkNum(self, val, ret=0):
+        '''
+        :method: Checks if a value is integer, float or a string containing a numerical value
+        :param val: The value to check
+        :param ret: Optional parameter defining what must be returned if val is not numerical
+        :returns: If val is numerical: val, else  0 or ret 
+        '''
+        if isinstance(val, int) or isinstance(val, float):
+            return val
+        elif val.isnumeric():
+            return val
+        else:
+            return ret
+        
+    def chkStr(self, val, ret='x'):
+        '''
+        :method: Checks if a value is string and the lentth is > 0
+        :param val: The value to check
+        :param ret: Optional parameter defining what must be returned if val is not string or empty
+        :returns: If val is non empty string: val, else  x or ret 
+        '''
+        if isinstance(val, str) and len(val)>0:
+            return val
+        else:
+            return ret
     
     class CellsDistrModel(SqlTableModel, metaclass=Singleton):
         '''

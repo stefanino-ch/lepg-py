@@ -780,6 +780,44 @@
 <code class="sig-name descname"><span class="pre">_instance</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.chkNum">
+<code class="sig-name descname"><span class="pre">chkNum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.chkNum" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a value is integer, float or a string containing a numerical value</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>val</strong> – The value to check</p></li>
+<li><p><strong>ret</strong> – Optional parameter defining what must be returned if val is not numerical</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If val is numerical: val, else  0 or ret</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.PreProcessorModel.PreProcessorModel.chkStr">
+<code class="sig-name descname"><span class="pre">chkStr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.chkStr" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a value is string and the lentth is &gt; 0</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>val</strong> – The value to check</p></li>
+<li><p><strong>ret</strong> – Optional parameter defining what must be returned if val is not string or empty</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If val is non empty string: val, else  x or ret</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt id="DataStores.PreProcessorModel.PreProcessorModel.dataStatusUpdate">
 <code class="sig-name descname"><span class="pre">dataStatusUpdate</span></code><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.dataStatusUpdate" title="Permalink to this definition">¶</a></dt>
@@ -6653,6 +6691,44 @@ for the example about how to insert.</p>
 <dt id="DataStores.ProcessorModel.ProcessorModel._instance">
 <code class="sig-name descname"><span class="pre">_instance</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.chkNum">
+<code class="sig-name descname"><span class="pre">chkNum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.chkNum" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a value is integer, float or a string containing a numerical value</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>val</strong> – The value to check</p></li>
+<li><p><strong>ret</strong> – Optional parameter defining what must be returned if val is not numerical</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If val is numerical: val, else  0 or ret</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataStores.ProcessorModel.ProcessorModel.chkStr">
+<code class="sig-name descname"><span class="pre">chkStr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.chkStr" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks if a value is string and the lentth is &gt; 0</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>val</strong> – The value to check</p></li>
+<li><p><strong>ret</strong> – Optional parameter defining what must be returned if val is not string or empty</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If val is non empty string: val, else  x or ret</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.dataStatusUpdate">

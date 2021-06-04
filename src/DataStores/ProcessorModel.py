@@ -297,7 +297,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         logging.debug(self.__className+ '.saveFile')
         
         fileName = self.getFileName() 
-        if self.fileName != '':
+        if len(fileName) > 0:
             # We do have already a valid filename
             self.writeFile()
         else:
@@ -445,7 +445,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = stream.readLine()
         values =  self.splitLine( stream.readLine() )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxTipCol), values[0] )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaModeCol), values[1] )
+        try:
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaModeCol), values[1] )
+        except:
+            # in case of an empty file values[1] is missing
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaModeCol), '' )
+            logging.error(self.__className+'.readFile: AlphaMode missing')
+            
         if len(values) > 2: 
             self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxCentCol), values[2] )
         else:
@@ -456,7 +462,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
         line = stream.readLine()
         values =  self.splitLine( stream.readLine() )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaTypeCol), self.remTabSpaceQuot( values[0]) )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaParamCol), values[1])
+        try:
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaParamCol), values[1])
+        except:
+            # in case of an empty file values[1] is missing
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaParamCol), '')
+            logging.error(self.__className+'.readFile: ParaParam missing')
         
         # Rib geometric parameters
         logging.debug(self.__className+'.readFile: Rib geometric parameters')
@@ -528,7 +539,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for l in range(0, 6 ):
             values =  self.splitLine( stream.readLine() )
-            self.skinTens_M.updateRow(l+1, values[0], values[1], values[2], values[3])
+            try:
+                self.skinTens_M.updateRow(l+1, values[0], values[1], values[2], values[3])
+            except:
+                # in case of an empty file values[1...3] are missing
+                self.skinTens_M.updateRow(l+1, 0, 0, 0, 0)
+                logging.error(self.__className+'.readFile: Skin tension params missing')
+                
 
         val = self.remTabSpace( stream.readLine() )
         self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val )        
@@ -545,13 +562,28 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
         for l in range(0, 2 ):
                 values =  self.splitLine( stream.readLine() )
-                self.sewAll_M.updateRow(l+1, values[0], values[1], values[2])
+                if len(values) > 3:
+                    self.sewAll_M.updateRow(l+1, values[0], values[1], values[2])
+                else:
+                    # in case of an empty file
+                    self.sewAll_M.updateRow(l+1, 15, 25, 25)
+                    logging.error(self.__className+'.readFile: Seewing allowances for panels missing')
+                    
         
         values = self.splitLine( stream.readLine() )
-        self.sewAll_M.updateRow(3, values[0])
+        if len(values)>2:
+            self.sewAll_M.updateRow(3, values[0])
+        else:
+            self.sewAll_M.updateRow(3, 15)
+            logging.error(self.__className+'.readFile: Seewing allowances for ribs missing')
+            
         values = self.splitLine( stream.readLine() )
-        self.sewAll_M.updateRow(4, values[0])
-        
+        if len(values)>2:
+            self.sewAll_M.updateRow(4, values[0])
+        else:
+            self.sewAll_M.updateRow(4, 15)
+            logging.error(self.__className+'.readFile: Seewing allowances for v-ribs missing')
+            
         ##############################
         # 7. MARKS
         logging.debug(self.__className+'.readFile: Marks')
@@ -559,7 +591,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
             line = stream.readLine()
             
         values = self.splitLine( stream.readLine() )
-        self.marks_M.updateRow(values[0], values[1], values[1])
+        try:
+            self.marks_M.updateRow(values[0], values[1], values[2])
+        except:
+            # in case of an empty file values[1...2] are missing
+            self.marks_M.updateRow(25, 0.5, 0.15)
+            logging.error(self.__className+'.readFile: Marks missing')
         
         ##############################
         # 8. Global angle of attack estimation
@@ -627,18 +664,33 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for l in range(0, numConfigLines):
             values =  self.splitLine( stream.readLine() )
-            self.brakes_M.updateRow(1, l+1, \
-                                        values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9], \
-                                        values[10] )   
+            try:
+                self.brakes_M.updateRow(1, l+1, \
+                                            values[0], \
+                                            values[1], \
+                                            values[2], \
+                                            values[3], \
+                                            values[4], \
+                                            values[5], \
+                                            values[6], \
+                                            values[7], \
+                                            values[8], \
+                                            values[9], \
+                                            values[10] )
+            except:
+                self.brakes_M.updateRow(1, l+1, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0, \
+                                            0 )
+                logging.error(self.__className+'.readFile: Brake lines data missing')
         
         line = stream.readLine()
         
@@ -646,7 +698,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             values =  self.splitLine( stream.readLine() )
             
             for p in range (0, 5):
-                self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
+                try:
+                    self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
+                except:
+                    self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), 0 )
+                    logging.error(self.__className+'.readFile: Brake distribution data missing')
 
         ##############################
         # 11. Ramification lengths
@@ -655,16 +711,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
             line = stream.readLine()
         
         values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 1, values[0], values[1], 0)
+        try:
+            self.ramif_M.updateDataRow(1, 1, values[0], values[1], 0)
+        except:
+            self.ramif_M.updateDataRow(1, 1, 0, 0, 0)
+            logging.error(self.__className+'.readFile: Ramification data missing')
         
         values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 2, values[0], values[1], values[2])
+        try:
+            self.ramif_M.updateDataRow(1, 2, values[0], values[1], values[2])
+        except:
+            self.ramif_M.updateDataRow(1, 2, 0, 0, 0)
+            logging.error(self.__className+'.readFile: Ramification data missing')
                     
         values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1,3, values[0], values[1], 0)
+        try:
+            self.ramif_M.updateDataRow(1,3, values[0], values[1], 0)
+        except:
+            self.ramif_M.updateDataRow(1,3, 0, 0, 0)
+            logging.error(self.__className+'.readFile: Ramification data missing')
             
         values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 4, values[0], values[1], values[2])
+        try:
+            self.ramif_M.updateDataRow(1, 4, values[0], values[1], values[2])
+        except:
+            self.ramif_M.updateDataRow(1, 4, 0, 0, 0)
+            logging.error(self.__className+'.readFile: Ramification data missing')
 
         ##############################
         # 12. H V and VH ribs (Mini Ribs)
@@ -676,7 +748,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         values =  self.splitLine( stream.readLine() )
         self.wing_M.setData(self.wing_M.index(0, self.WingModel.xSpacingCol ), values[0] )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ySpacingCol ), values[1] )
+        try:
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.ySpacingCol ), values[1] )
+        except:
+            self.wing_M.setData(self.wing_M.index(0, self.WingModel.ySpacingCol ), 0 )
+            logging.error(self.__className+'.readFile: H V and VH ribs data missing')
         
         # delete existing data
         self.hVvHRibs_M.setNumRowsForConfig(1, 0 )
@@ -778,29 +854,73 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         values =  self.splitLine( stream.readLine() )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistBCol), values[1] )
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistBCol), values[1] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistBCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
         
         values =  self.splitLine( stream.readLine() )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistCCol), values[2] )
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistBCol), values[1] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistBCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistCCol), values[2] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistCCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
 
         values =  self.splitLine( stream.readLine() )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistCCol), values[2] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistDCol), values[3] )
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistBCol), values[1] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistBCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistCCol), values[2] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistCCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistDCol), values[3] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistDCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
         
         values =  self.splitLine( stream.readLine() )
         self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), values[2] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), values[3] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), values[4] )
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistBCol), values[1] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistBCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), values[2] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), values[3] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
+        try:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), values[4] )
+        except:
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), 0 )
+            logging.error(self.__className+'.readFile: Elastic lines corr data missing')
 
         for l in range (0,5):
             values =  self.splitLine( stream.readLine() )
-            self.elLinesDef_M.updateRow(1, l+1, values[1], values[2], values[3])
+            try:
+                self.elLinesDef_M.updateRow(1, l+1, values[1], values[2], values[3])
+            except:
+                self.elLinesDef_M.updateRow(1, l+1, 0, 0, 0)
+                logging.error(self.__className+'.readFile: Elastic lines corr data missing')
             
         ##############################
         # 19. DXF layer names
@@ -817,7 +937,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             
             self.dxfLayNames_M.updateRow(1, l+1, values[0], values[1])
             
-                ##############################
+        ##############################
         # 20. Marks types
         logging.debug(self.__className+'.readFile: Marks types')
         for i in range(3):
@@ -983,7 +1103,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         self.glueVent_M.setIsUsed(False)
         
-        if data != '0':
+        if data != 0:
             self.glueVent_M.setIsUsed(True)
             # we have data to read
             for l in range( 0, self.wing_M.halfNumRibs ):
@@ -1154,9 +1274,15 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         logging.debug(self.__className+'.writeFile')
         
+        # check if the file already exists
+        filePathName = self.getFileName()
+        if os.path.isfile(filePathName):
+            # file exists -> delete it
+            os.remove(filePathName)
+        
         if forProc == False:
             # Regular file write into a file specified by the user
-            outFile = QFile(self.getFileName())
+            outFile = QFile(filePathName)
         else:
             # Special file write into the directory where the PreProcessor resides
             config = ConfigReader()
@@ -1202,24 +1328,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '* Wing name\n'
         stream << '\"%s\"\n' %values(ProcessorModel.WingModel.WingNameCol)
         stream << '* Drawing scale\n'
-        stream << '%s\n' %values(ProcessorModel.WingModel.DrawScaleCol)
+        stream << '%s\n' %self.chkNum(values(ProcessorModel.WingModel.DrawScaleCol),1)
         stream << '* Wing scale\n'
-        stream << '%s\n' %values(ProcessorModel.WingModel.WingScaleCol)
+        stream << '%s\n' %self.chkNum(values(ProcessorModel.WingModel.WingScaleCol),1)
         stream << '* Number of cells\n'
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumCellsCol)
+        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.WingModel.NumCellsCol))
         stream << '* Number of ribs\n'
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumRibsCol)
+        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.WingModel.NumRibsCol))
         stream << '* Alpha max and parameter\n'
-        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaMaxTipCol)
-        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaModeCol)
+        stream << '\t%s' %self.chkNum(values(ProcessorModel.WingModel.AlphaMaxTipCol))
+        stream << '\t%s' %self.chkNum(values(ProcessorModel.WingModel.AlphaModeCol),1)
         if values(ProcessorModel.WingModel.AlphaModeCol) == '2':
             stream << '\t%s\n' %values(ProcessorModel.WingModel.AlphaMaxCentCol)
         else:
             stream << '\n'
         
         stream << '* Paraglider type and parameter\n'
-        stream << '\t\"%s\"' %values(ProcessorModel.WingModel.ParaTypeCol)
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.ParaParamCol)
+        stream << '\t\"%s\"' %self.chkStr(values(ProcessorModel.WingModel.ParaTypeCol),'ds')
+        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.WingModel.ParaParamCol),1)
         stream << '* Rib geometric parameters\n'
         stream << '* Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin\n'
         for l in range (0, self.wing_M.halfNumRibs):
@@ -1227,7 +1353,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 8):
-                stream << '\t%s' %values(p)
+                stream << '\t%s' %self.chkNum(values(p))
                 if p ==7:
                     stream << '\n'
         
@@ -1240,7 +1366,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 7):
-                stream << '\t%s' %values(p)
+                if p==0:
+                    stream << '\t%s' %self.chkStr(values(p))
+                else:
+                    stream << '\t%s' %self.chkNum(values(p))
                 if p ==6:
                     stream << '\n'
                     
@@ -1253,7 +1382,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 7):
-                stream << '\t%s' %values(p)
+                stream << '\t%s' %self.chkNum(values(p))
                 if p ==6:
                     stream << '\n'
      
@@ -1265,8 +1394,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for g in range (0, numConfigs):
             values = self.lightC_M.getRow(g+1)
-            stream << '%s\n' %values(0)
-            stream << '%s\n' %values(1)
+            stream << '%s\n' %self.chkNum(values(0))
+            stream << '%s\n' %self.chkNum(values(1))
 
             numLines = self.lightD_M.numRowsForConfig(g+1)
             stream << '%s\n' %(numLines)
@@ -1275,7 +1404,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 7):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.chkNum(values(p))
                     if p ==6:
                         stream << '\t0.\t0.\n'
         
@@ -1290,14 +1419,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 4):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.chkNum(values(p))
                     if p ==3:
                         stream << '\n'
             
         values = self.skinTensParams_M.getRow()
-        stream << '%s\n' %values(0)
-        stream << '%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '%s\n' %self.chkNum(values(0))
+        stream << '%s' %self.chkNum(values(1))
+        stream << '\t%s\n' %self.chkNum(values(2))
 
         stream << separator            
         stream << '*           6. SEWING ALLOWANCES\n'
@@ -1307,7 +1436,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for p in range (0, 3):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkNum(values(p))
                 if p ==2:
                     stream << '\tupper panels (mm)\n'
         
@@ -1315,16 +1444,16 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for p in range (0, 3):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkNum(values(p))
                 if p ==2:
                     stream << '\tlower panels (mm)\n'
                     
         values = self.sewAll_M.getRow(3)
-        stream << '%s' %values(0)
+        stream << '%s' %self.chkNum(values(0))
         stream << '\tribs (mm)\n'
         
         values = self.sewAll_M.getRow(4)
-        stream << '%s' %values(0)
+        stream << '%s' %self.chkNum(values(0))
         stream << '\tvribs (mm)\n'
         
         stream << separator            
@@ -1332,32 +1461,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.marks_M.getRow()
-        stream << '%s' %values(0)
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)       
+        stream << '%s' %self.chkNum(values(0))
+        stream << '\t%s' %self.chkNum(values(1))
+        stream << '\t%s\n' %self.chkNum(values(2))       
                 
         stream << separator            
         stream << '*           8. Global angle of attack estimation\n'
         stream << separator
         values = self.globAoA_M.getRow()
         stream << '* Finesse GR\n'
-        stream << '\t%s\n' %values(0)
+        stream << '\t%s\n' %self.chkNum(values(0))
         stream << '* Center of pressure % of chord\n'
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.chkNum(values(1))
         stream << '* Calage %\n'
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s\n' %self.chkNum(values(2))
         stream << '* Risers lenght cm\n'
-        stream << '\t%s\n' %values(3)
+        stream << '\t%s\n' %self.chkNum(values(3))
         stream << '* Line lenght cm\n'
-        stream << '\t%s\n' %values(4)
+        stream << '\t%s\n' %self.chkNum(values(4))
         stream << '* Karabiners cm\n'
-        stream << '\t%s\n' %values(5)
+        stream << '\t%s\n' %self.chkNum(values(5))
             
         stream << separator            
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
         values = self.wing_M.getRow()
-        stream << '%s\n' %values(ProcessorModel.WingModel.LinesConcTypeCol)
+        stream << '%s\n' %self.chkNum(values(ProcessorModel.WingModel.LinesConcTypeCol))
         
         numConfigs = self.lines_M.numConfigs()
         stream << '%s\n' %numConfigs
@@ -1372,7 +1501,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 11):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.chkNum(values(p))
                     if p ==10:
                         stream << '\n'
 
@@ -1381,7 +1510,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.wing_M.getRow()
-        stream << '%s\n' %values(ProcessorModel.WingModel.BrakeLengthCol)
+        stream << '%s\n' %self.chkNum(values(ProcessorModel.WingModel.BrakeLengthCol))
         
         numLines = self.brakes_M.numRowsForConfig(1)
         stream << '%s\n' %numLines
@@ -1391,23 +1520,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 11):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkNum(values(p))
                 if p ==10:
                     stream << '\n'
         
-        stream << '* Brake distribution\n'           
+        stream << '* Brake distribution\n'
         values = self.brakeL_M.getRow()
         
         for p in range (0, 5):
             if p>0:
                 stream << '\t' 
-            stream << '%s' %values(p)
+            stream << '%s' %self.chkNum(values(p))
             if p ==4:
                 stream << '\n'
         for p in range (5, 10):
             if p>5:
                 stream << '\t' 
-            stream << '%s' %values(p)
+            stream << '%s' %self.chkNum(values(p))
             if p ==9:
                 stream << '\n'
                 
@@ -1417,21 +1546,21 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         values = self.ramif_M.getRow(1, 1)
         stream << '3'
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.chkNum(values(1))
         
         values = self.ramif_M.getRow(1, 2)
         stream << '4' 
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s' %self.chkNum(values(1))
+        stream << '\t%s\n' %self.chkNum(values(2))
         
         values = self.ramif_M.getRow(1, 3)
         stream << '3' 
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.chkNum(values(1))
         
         values = self.ramif_M.getRow(1, 2)
         stream << '4' 
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s' %self.chkNum(values(1))
+        stream << '\t%s\n' %self.chkNum(values(2))
         
         stream << separator            
         stream << '*    12. H V and VH ribs\n'
@@ -1439,8 +1568,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         numLines = self.hVvHRibs_M.numRowsForConfig(1)
         stream << '%s\n' %numLines
         values = self.wing_M.getRow()
-        stream << '%s' %values(ProcessorModel.WingModel.xSpacingCol)
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.ySpacingCol)
+        stream << '%s' %self.chkNum(values(ProcessorModel.WingModel.xSpacingCol))
+        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.WingModel.ySpacingCol))
         
         for l in range (0, numLines):
             values = self.hVvHRibs_M.getRow(1, l+1)
@@ -1450,11 +1579,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s\t' %(l+1)
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkNum(values(p))
             
             if values(0) == 6 or values(0) == 16:
-                stream << '\t%s' %values(9)
-                stream << '\t%s\n' %values(10)
+                stream << '\t%s' %self.chkNum(values(9))
+                stream << '\t%s\n' %self.chkNum(values(10))
             else:
                 stream << '\n'
                 
@@ -1474,7 +1603,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, numLines):
                 values = self.extradColsDet_M.getRow(g+1, l+1)
                 stream << '%s' %(l+1)
-                stream << '\t%s\t0.\n' %values(0)
+                stream << '\t%s\t0.\n' %self.chkNum(values(0))
 
         stream << separator            
         stream << '*    16. Intrados colors\n'
@@ -1492,7 +1621,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, numLines):
                 values = self.intradColsDet_M.getRow(g+1, l+1)
                 stream << '%s' %(l+1)
-                stream << '\t%s\t0.\n' %values(0)  
+                stream << '\t%s\t0.\n' %self.chkNum(values(0))  
                 
         stream << separator            
         stream << '*       17. Aditional rib points\n'
@@ -1502,32 +1631,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for l in range (0, numLines):
             values = self.addRibPts_M.getRow(1, l+1)
-            stream << '%s' %values(0)
-            stream << '\t%s\n' %values(1)
+            stream << '%s' %self.chkNum(values(0))
+            stream << '\t%s\n' %self.chkNum(values(1))
 
         stream << separator            
         stream << '*       18. Elastic lines corrections\n'
         stream << separator
         values = self.elLinesCorr_M.getRow()
-        stream << '%s\n' %values(0)
+        stream << '%s\n' %self.chkNum(values(0))
         
-        stream << '%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '%s' %self.chkNum(values(1))
+        stream << '\t%s\n' %self.chkNum(values(2))
         
-        stream << '%s' %values(3)
-        stream << '\t%s' %values(4)
-        stream << '\t%s\n' %values(5)
+        stream << '%s' %self.chkNum(values(3))
+        stream << '\t%s' %self.chkNum(values(4))
+        stream << '\t%s\n' %self.chkNum(values(5))
         
-        stream << '%s' %values(6)
-        stream << '\t%s' %values(7)
-        stream << '\t%s' %values(8)
-        stream << '\t%s\n' %values(9)
+        stream << '%s' %self.chkNum(values(6))
+        stream << '\t%s' %self.chkNum(values(7))
+        stream << '\t%s' %self.chkNum(values(8))
+        stream << '\t%s\n' %self.chkNum(values(9))
         
-        stream << '%s' %values(10)
-        stream << '\t%s' %values(11)
-        stream << '\t%s' %values(12)
-        stream << '\t%s' %values(13)
-        stream << '\t%s\n' %values(14)
+        stream << '%s' %self.chkNum(values(10))
+        stream << '\t%s' %self.chkNum(values(11))
+        stream << '\t%s' %self.chkNum(values(12))
+        stream << '\t%s' %self.chkNum(values(13))
+        stream << '\t%s\n' %self.chkNum(values(14))
         
         numLines = self.elLinesDef_M.numRowsForConfig(1)
         for l in range (0, numLines):
@@ -1536,7 +1665,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 4):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkNum(values(p))
                 if p== 3:
                     stream << '\n'
                     
@@ -1552,7 +1681,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 2):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.chkStr(values(p))
                 if p== 1:
                     stream << '\n'
         
@@ -1569,7 +1698,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 7):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                if p==0:
+                    stream << '%s' %self.chkStr(values(p))
+                else:
+                    stream << '%s' %self.chkNum(values(p))
                 if p== 6:
                     stream << '\n'    
 
@@ -1596,31 +1728,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     values = self.joncsDef_M.getRow(g+1, l+1)
 
                     stream << '%s' %(l+1)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.FirstRibCol)
-                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.LastRibCol)
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.FirstRibCol))
+                    stream << '\t%s\n' %self.chkNum(values(ProcessorModel.JoncsDefModel.LastRibCol))
                     
                     # Line 1
-                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pBACol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBBCol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBCCol)
+                    stream << '%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBACol))
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBBCol))
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBCCol))
                     if scheme == 1:
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBDCol)
+                        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
                     else:
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBDCol)
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBECol)
+                        stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.JoncsDefModel.pBECol))
                     
                     if scheme == 1:
                         # Line 2
-                        stream << '%s' %values(ProcessorModel.JoncsDefModel.pCACol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCBCol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCCCol)   
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pCDCol)
+                        stream << '%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pCACol))
+                        stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pCBCol))
+                        stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pCCCol))
+                        stream << '\t%s\n' %self.chkNum(values(ProcessorModel.JoncsDefModel.pCDCol))
                     
                     # s values    
-                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pDACol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDBCol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDCCol)   
-                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pDDCol)
+                    stream << '%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pDACol))
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pDBCol))
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.JoncsDefModel.pDCCol))
+                    stream << '\t%s\n' %self.chkNum(values(ProcessorModel.JoncsDefModel.pDDCol))
                         
         stream << separator            
         stream << '*       22. NOSE MYLARS DEFINITION\n'
@@ -1639,14 +1771,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     values = self.noseMylars_M.getRow(g+1, l+1)
                             
                     stream << '%s' %(l+1)
-                    stream << '\t%s' %values(ProcessorModel.NoseMylarsModel.FirstRibCol)
-                    stream << '\t%s\n' %values(ProcessorModel.NoseMylarsModel.LastRibCol)
+                    stream << '\t%s' %self.chkNum(values(ProcessorModel.NoseMylarsModel.FirstRibCol))
+                    stream << '\t%s\n' %self.chkNum(values(ProcessorModel.NoseMylarsModel.LastRibCol))
                     
                     for p in range (0,6):
                         if p>0:
                             stream << '\t'
                         
-                        stream << '%s' %values(ProcessorModel.NoseMylarsModel.xOneCol+p)
+                        stream << '%s' %self.chkNum(values(ProcessorModel.NoseMylarsModel.xOneCol+p))
                         
                         if p==5:
                             stream << '\n'
@@ -1671,7 +1803,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 3):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    if p==1:
+                        stream << '%s' %self.chkNum(values(p))
+                    else:
+                        stream << '%s' %self.chkStr(values(p))
                     if p== 2:
                         stream << '\n'  
         
@@ -1685,16 +1820,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, 6):
                 values = self.threeDDxf_M.getRow(1, l+1)
                 
-                stream << '%s' %values(0)
-                stream << '\t%s' %values(2)
-                stream << '\t%s\n' %values(3)
+                stream << '%s' %self.chkStr(values(0))
+                stream << '\t%s' %self.chkNum(values(2))
+                stream << '\t%s\n' %self.chkStr(values(3))
             
             for l in range (6, 9):
                 values = self.threeDDxf_M.getRow(1, l+1)
                 for p in range (0, 4):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    if p==1 or p==2:
+                        stream << '%s' %self.chkNum(values(p))
+                    else:
+                        stream << '%s' %self.chkStr(values(p))
                     if p== 3:
                         stream << '\n'
                         
@@ -1713,7 +1851,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 2):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.chkNum(values(p))
                     if p== 1:
                         stream << '\n'
                         
@@ -1726,8 +1864,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '1\n'
             
             values = self.specWingTyp_M.getRow(1, 1)
-            stream << 'AngleLE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleLECol)
-            stream << 'AngleTE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleTECol)
+            stream << 'AngleLE\t%s\n' %self.chkNum(values(ProcessorModel.SpecWingTipModel.AngleLECol))
+            stream << 'AngleTE\t%s\n' %self.chkNum(values(ProcessorModel.SpecWingTipModel.AngleTECol))
             
         stream << separator            
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
@@ -1738,19 +1876,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '1\n'
             
             values = self.calageVar_M.getRow(1, 1)
-            stream << '%s\n' %values(ProcessorModel.CalageVarModel.NumRisersCol)
+            stream << '%s\n' %self.chkNum(values(ProcessorModel.CalageVarModel.NumRisersCol))
             
-            stream << '%s' %values(ProcessorModel.CalageVarModel.PosACol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosBCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosCCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosDCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosECol)
-            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.PosFCol)
+            stream << '%s' %self.chkNum(values(ProcessorModel.CalageVarModel.PosACol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.PosBCol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.PosCCol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.PosDCol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.PosECol))
+            stream << '\t%s\n' %self.chkNum(values(ProcessorModel.CalageVarModel.PosFCol))
             
-            stream << '%s' %values(ProcessorModel.CalageVarModel.MaxNegAngCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.NumNegStepsCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.MaxPosAngCol)
-            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.NumPosStepsCol)
+            stream << '%s' %self.chkNum(values(ProcessorModel.CalageVarModel.MaxNegAngCol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.NumNegStepsCol))
+            stream << '\t%s' %self.chkNum(values(ProcessorModel.CalageVarModel.MaxPosAngCol))
+            stream << '\t%s\n' %self.chkNum(values(ProcessorModel.CalageVarModel.NumPosStepsCol))
             
         stream << separator            
         stream << '*       29. 3D SHAPING\n'
@@ -1767,8 +1905,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for g in range (0, numGroups):
                 values = self.threeDShConf_M.getRow(g+1, 1)
                 stream << 'group\t%s' %(g+1)
-                stream << '\t%s' %values(ProcessorModel.ThreeDShConfModel.FirstRibCol)
-                stream << '\t%s\n' %values(ProcessorModel.ThreeDShConfModel.LastRibCol)
+                stream << '\t%s' %self.chkNum(values(ProcessorModel.ThreeDShConfModel.FirstRibCol))
+                stream << '\t%s\n' %self.chkNum(values(ProcessorModel.ThreeDShConfModel.LastRibCol))
                 
                 numLines = self.threeDShUpDet_M.numRowsForConfig(g+1)
                 stream << 'upper\t%s\t1\n' %numLines
@@ -1778,7 +1916,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s' %(l+1)
                     
                     for p in range (0, 3):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.chkNum(values(p))
                         if p== 2:
                             stream << '\n'
                             
@@ -1790,7 +1928,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s' %(l+1)
                     
                     for p in range (0, 3):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.chkNum(values(p))
                         if p== 2:
                             stream << '\n'
 
@@ -1802,7 +1940,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 5):
                     if p>0:
                         stream << '\t'
-                    stream << '%s' %values(p)
+                    if p==0:
+                        stream << '%s' %self.chkStr(values(p))
+                    else:
+                        stream << '%s' %self.chkNum(values(p))
                     if p== 4:
                         stream << '\n'
         
@@ -1819,7 +1960,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 values = self.airfThick_M.getRow(1, l+1)
                 
                 stream << '%s' %(l+1)
-                stream << '\t%s\n' %values(0)
+                stream << '\t%s\n' %self.chkNum(values(0))
                 
         stream << separator            
         stream << '*       31. NEW SKIN TENSION MODULE\n'
@@ -1837,8 +1978,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 numLines = self.newSkinTensDet_M.numRowsForConfig(g+1)
                 
                 stream << '%s' %(g+1)
-                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.InitialRibCol)
-                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.FinalRibCol)
+                stream << '\t%s' %self.chkNum(values(ProcessorModel.NewSkinTensConfModel.InitialRibCol))
+                stream << '\t%s' %self.chkNum(values(ProcessorModel.NewSkinTensConfModel.FinalRibCol))
                 stream << '\t%s' %numLines
                 stream << '\t1\n'
                 
@@ -1847,7 +1988,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     
                     stream << '%s' %(l+1)
                     for p in range (0, 4):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.chkNum(values(p))
                         if p== 3:
                             stream << '\n'
         
@@ -1893,7 +2034,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
         values = re.split(r'[\t\s]\s*', line)
         return values
 
-
+    def chkNum(self, val, ret=0):
+        '''
+        :method: Checks if a value is integer, float or a string containing a numerical value
+        :param val: The value to check
+        :param ret: Optional parameter defining what must be returned if val is not numerical
+        :returns: If val is numerical: val, else  0 or ret 
+        '''
+        if isinstance(val, int) or isinstance(val, float):
+            return val
+        elif val.isnumeric():
+            return val
+        else:
+            return ret
+        
+    def chkStr(self, val, ret='x'):
+        '''
+        :method: Checks if a value is string and the lentth is > 0
+        :param val: The value to check
+        :param ret: Optional parameter defining what must be returned if val is not string or empty
+        :returns: If val is non empty string: val, else  x or ret 
+        '''
+        if isinstance(val, str) and len(val)>0:
+            return val
+        else:
+            return ret
 
         
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
