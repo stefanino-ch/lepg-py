@@ -852,38 +852,6 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.PreProcessorModel.PreProcessorModel.remTabSpace">
-<code class="sig-name descname"><span class="pre">remTabSpace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.remTabSpace" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Deletes all leaing and trailing edges from a string</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>cleaned string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.PreProcessorModel.PreProcessorModel.remTabSpaceQuot">
-<code class="sig-name descname"><span class="pre">remTabSpaceQuot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.remTabSpaceQuot" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Removes from a string all leading, trailing spaces tabs and quotations</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>cleaned string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="DataStores.PreProcessorModel.PreProcessorModel.saveFile">
 <code class="sig-name descname"><span class="pre">saveFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.saveFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -925,22 +893,6 @@ The second string indicates
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileVersion</strong> – String containing the version number</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.PreProcessorModel.PreProcessorModel.splitLine">
-<code class="sig-name descname"><span class="pre">splitLine</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.PreProcessorModel.PreProcessorModel.splitLine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Splits lines with multiple values into a list of values delimiters could be spaces and tabs</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>line</strong> – The line to be split</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a list of values</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6430,6 +6382,16 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.ConfigNumCol">
+<code class="sig-name descname"><span class="pre">ConfigNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.ConfigNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for config number (always 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.DrawScaleCol">
 <code class="sig-name descname"><span class="pre">DrawScaleCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.DrawScaleCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -6465,6 +6427,16 @@ for the example about how to insert.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>number of the number of ribs column</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.WingModel.OrderNumCol">
+<code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">15</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6650,6 +6622,16 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.__statusBar">
+<code class="sig-name descname"><span class="pre">__statusBar</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.__statusBar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Reference to the main window needed for status bar update</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel._instance">
 <code class="sig-name descname"><span class="pre">_instance</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel._instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -6736,19 +6718,6 @@ The second string indicates
 </dd></dl>
 
 <dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.readFile">
-<code class="sig-name descname"><span class="pre">readFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readFile" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads the data file and saves the data in the internal database.</p>
-</dd>
-<dt class="field-even">Warning</dt>
-<dd class="field-even"><p>Filename and Path must be set first!</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.readPreProcFile">
 <code class="sig-name descname"><span class="pre">readPreProcFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readPreProcFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -6757,38 +6726,6 @@ The second string indicates
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileName</strong> – Path and Filename in one fully qualified string.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.remTabSpace">
-<code class="sig-name descname"><span class="pre">remTabSpace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.remTabSpace" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Deletes all leaing and trailing edges from a string</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>cleaned string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.remTabSpaceQuot">
-<code class="sig-name descname"><span class="pre">remTabSpaceQuot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.remTabSpaceQuot" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Removes from a string all leading, trailing spaces tabs and quotations</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>Line</strong> – The string to be cleaned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>cleaned string</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6835,22 +6772,6 @@ The second string indicates
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileVersion</strong> – String containing the version number</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="DataStores.ProcessorModel.ProcessorModel.splitLine">
-<code class="sig-name descname"><span class="pre">splitLine</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.splitLine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Splits lines with multiple values into a list of values delimiters could be spaces and tabs</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>line</strong> – The line to be split</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a list of values</p>
 </dd>
 </dl>
 </dd></dl>

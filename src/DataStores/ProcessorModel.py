@@ -11,7 +11,6 @@ https://www.datacamp.com/community/tutorials/inner-classes-python
 import os
 import logging
 import math
-import re
 
 from datetime import date
 
@@ -24,6 +23,8 @@ from DataStores.SqlTableModel import SqlTableModel
 
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.Database import Database
+
+from DataStores.FileHelpers import FileHelpers
 
 class ProcessorModel(QObject, metaclass=Singleton):
     '''
@@ -42,6 +43,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         - if a file was saved
         - Filename and Path has been changed
     '''
+    
     __className = 'ProcessorModel'
     '''
     :attr: Does help to indicate the source of the log messages
@@ -54,7 +56,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
     '''
     :attr: version number of the file currently in use
     '''
-    
+    __statusBar = ''
+    '''
+    :attr: Reference to the main window needed for status bar update
+    '''
     
     def __init__(self, parent=None): # @UnusedVariable
         '''
@@ -66,6 +71,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.db.openConnection()
         
         super().__init__()
+        
+        self.fh = FileHelpers()
 
         self.rib_M = self.RibModel()
         self.wing_M = self.WingModel()
@@ -106,6 +113,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
         self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
         self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
+        
+        self.fileReader = ProcFileReader()        
 
     def setFileName( self, fileName ):
         '''
@@ -263,7 +272,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         :method: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling. 
         '''
         logging.debug(self.__className+ '.openFile')
-        # Make sure there is no unsaved/ unapplied data
+        # TODO: Make sure there is no unsaved/ unapplied data
 #         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
 #             # There is unsaved/ unapplied data, show a warning
 #             msgBox = QMessageBox()
@@ -288,7 +297,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # an empty tuple is retured
             if self.isValidProcFile(fileName[0]):
                 self.setFileName(fileName[0])
-                self.readFile()
+                
+                self.fileReader.setFilePathName(fileName[0])
+                self.fileReader.readFile()
+
                 
     def saveFile(self):
         '''
@@ -297,7 +309,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         logging.debug(self.__className+ '.saveFile')
         
         fileName = self.getFileName() 
-        if self.fileName != '':
+        if len(fileName) > 0:
             # We do have already a valid filename
             self.writeFile()
         else:
@@ -387,763 +399,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # Cleanup
         inFile.close()
     
-    def readFile(self):
-        '''
-        :method: Reads the data file and saves the data in the internal database.
-        :warning: Filename and Path must be set first!
-        '''
-        logging.debug(self.__className+'.readFile')
-        
-        inFile = QFile( self.getFileName() )
-        inFile.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(inFile)
-
-        ##############################
-        # 1. Geometry
-        # Overread file header
-        counter = 0
-        while counter < 4:
-            line = stream.readLine()
-            if line.find('***************') >= 0:
-                counter += 1
-        
-        # Brand name
-        logging.debug(self.__className+'.readFile: Brand name')
-        line = stream.readLine()
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.BrandNameCol ), self.remTabSpaceQuot(line) )
-
-        # Wing name
-        logging.debug(self.__className+'.readFile: Wing name')
-        line = stream.readLine()
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.WingNameCol), self.remTabSpaceQuot(line) )
-        
-        # Draw scale
-        logging.debug(self.__className+'.readFile: Draw scale')
-        line = stream.readLine()
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.DrawScaleCol), self.remTabSpace( line ) )
-        
-        # Wing scale
-        logging.debug(self.__className+'.readFile: Wing scale')
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.WingScaleCol), self.remTabSpace( stream.readLine() ) )
-        
-        # Number of cells
-        logging.debug(self.__className+'.readFile: Number of cells')
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumCellsCol), self.remTabSpace( stream.readLine() ) )
-        
-        # Number of Ribs
-        logging.debug(self.__className+'.readFile: Number of ribs')
-        line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.NumRibsCol), self.remTabSpace( stream.readLine() ) )
-
-        # Alpha max and parameter
-        logging.debug(self.__className+'.readFile: Alpha max and parameter')
-        line = stream.readLine()
-        values =  self.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxTipCol), values[0] )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaModeCol), values[1] )
-        if len(values) > 2: 
-            self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxCentCol), values[2] )
-        else:
-            self.wing_M.setData(self.wing_M.index(0, self.WingModel.AlphaMaxCentCol), '' )
-        
-        # Paraglider type and parameter
-        logging.debug(self.__className+'.readFile: Paraglider type and parameter')
-        line = stream.readLine()
-        values =  self.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaTypeCol), self.remTabSpaceQuot( values[0]) )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ParaParamCol), values[1])
-        
-        # Rib geometric parameters
-        logging.debug(self.__className+'.readFile: Rib geometric parameters')
-        # Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin
-        line = stream.readLine()
-        line = stream.readLine()
-
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.splitLine( stream.readLine() )
-            for y in range(0, 9):
-                self.rib_M.setData(self.rib_M.index(i, y), values[y] )
-        
-        ##############################
-        # 2. AIRFOILS
-        logging.debug(self.__className+'.readFile: Airfoils')
-        for i in range(4):
-            line = stream.readLine()
-        
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.splitLine( stream.readLine() )
-            for y in range(0, 8):
-                self.airf_M.setData(self.airf_M.index(i, y), values[y] )
-        
-        ##############################
-        # 3. ANCHOR POINTS
-        logging.debug(self.__className+'.readFile: Anchor points')
-        # Just overreading the lines for temporary testing
-        for i in range(4):
-            line = stream.readLine()
-            
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.splitLine( stream.readLine() )
-            for y in range(0, 8):
-                self.anchPoints_M.setData(self.anchPoints_M.index(i, y), values[y] )
-            
-        ##############################
-        # 4. RIB HOLES
-        logging.debug(self.__className+'.readFile: Rib holes')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int(self.remTabSpace( stream.readLine() ))
-        self.lightC_M.setNumConfigs( numConfigs )
-        for i in range( 0, numConfigs ):
-            ini = int(self.remTabSpace( stream.readLine()))
-            fin = int(self.remTabSpace( stream.readLine()))
-            self.lightC_M.updateRow(i+1, ini, fin)
-            
-            numConfigLines = int(self.remTabSpace( stream.readLine() ))
-            self.lightD_M.setNumRowsForConfig(i+1, 0 )
-            self.lightD_M.setNumRowsForConfig(i+1, numConfigLines )
-            
-            # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1
-            for l in range(0, numConfigLines):
-                values =  self.splitLine( stream.readLine() )
-                self.lightD_M.updateRow(i+1, l+1, values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6])
-
-        ##############################
-        # 5. SKIN TENSION
-        logging.debug(self.__className+'.readFile: Skin tension')
-        for i in range(4):
-            line = stream.readLine()
-        
-        for l in range(0, 6 ):
-            values =  self.splitLine( stream.readLine() )
-            self.skinTens_M.updateRow(l+1, values[0], values[1], values[2], values[3])
-
-        val = self.remTabSpace( stream.readLine() )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val )        
-                          
-        values = self.splitLine( stream.readLine() )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0] )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[1] )
-        
-        ##############################
-        # 6. SEWING ALLOWANCES
-        logging.debug(self.__className+'.readFile: Seewing allowances')
-        for i in range(3):
-            line = stream.readLine()
-            
-        for l in range(0, 2 ):
-                values =  self.splitLine( stream.readLine() )
-                self.sewAll_M.updateRow(l+1, values[0], values[1], values[2])
-        
-        values = self.splitLine( stream.readLine() )
-        self.sewAll_M.updateRow(3, values[0])
-        values = self.splitLine( stream.readLine() )
-        self.sewAll_M.updateRow(4, values[0])
-        
-        ##############################
-        # 7. MARKS
-        logging.debug(self.__className+'.readFile: Marks')
-        for i in range(3):
-            line = stream.readLine()
-            
-        values = self.splitLine( stream.readLine() )
-        self.marks_M.updateRow(values[0], values[1], values[1])
-        
-        ##############################
-        # 8. Global angle of attack estimation
-        logging.debug(self.__className+'.readFile: Global AoA')
-        for i in range(3):
-            line = stream.readLine()
-            
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.FinesseCol), self.remTabSpace( stream.readLine() ) )
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.CentOfPressCol), self.remTabSpace( stream.readLine() ) )
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.CalageCol), self.remTabSpace( stream.readLine() ) )
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.RisersCol), self.remTabSpace( stream.readLine() ) )
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.LinesCol), self.remTabSpace( stream.readLine() ) )
-        line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, self.GlobAoAModel.KarabinersCol), self.remTabSpace( stream.readLine() ) )
-        
-        ##############################
-        # 9. SUSPENSION LINES DESCRIPTION
-        logging.debug(self.__className+'.readFile: Lines')
-        for i in range(3):
-            line = stream.readLine()
-        
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.LinesConcTypeCol ), self.remTabSpace( stream.readLine() ) )
-        
-        numConfigs = int(self.remTabSpace( stream.readLine()))
-        
-        for i in range( 0, numConfigs ):
-            numConfigLines = int( self.remTabSpace( stream.readLine() ) )
-            self.lines_M.setNumRowsForConfig(i+1, 0 )
-            self.lines_M.setNumRowsForConfig(i+1, numConfigLines )
-             
-            for l in range(0, numConfigLines):
-                values =  self.splitLine( stream.readLine() )
-                self.lines_M.updateLineRow(i+1, l+1, \
-                                        values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9], \
-                                        values[10] )
-        
-        ##############################
-        # 10. BRAKES
-        logging.debug(self.__className+'.readFile: Brakes')
-        for i in range(3):
-            line = stream.readLine()
-        
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.BrakeLengthCol ), self.remTabSpace( stream.readLine() ) )
-        
-        # delete existing data
-        self.brakes_M.setNumRowsForConfig(1, 0 )
-        
-        # read new data
-        numConfigLines = int( self.remTabSpace( stream.readLine() ) )
-        self.brakes_M.setNumRowsForConfig(1, numConfigLines )
-        
-        for l in range(0, numConfigLines):
-            values =  self.splitLine( stream.readLine() )
-            self.brakes_M.updateRow(1, l+1, \
-                                        values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9], \
-                                        values[10] )   
-        
-        line = stream.readLine()
-        
-        for c in range(0, 2):
-            values =  self.splitLine( stream.readLine() )
-            
-            for p in range (0, 5):
-                self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
-
-        ##############################
-        # 11. Ramification lengths
-        logging.debug(self.__className+'.readFile: Ramification')
-        for i in range(3):
-            line = stream.readLine()
-        
-        values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 1, values[0], values[1], 0)
-        
-        values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 2, values[0], values[1], values[2])
-                    
-        values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1,3, values[0], values[1], 0)
-            
-        values =  self.splitLine( stream.readLine() )
-        self.ramif_M.updateDataRow(1, 4, values[0], values[1], values[2])
-
-        ##############################
-        # 12. H V and VH ribs (Mini Ribs)
-        logging.debug(self.__className+'.readFile: H V and VH ribs (Mini Ribs)')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigLines = int(self.remTabSpace( stream.readLine() ) )
-        
-        values =  self.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.xSpacingCol ), values[0] )
-        self.wing_M.setData(self.wing_M.index(0, self.WingModel.ySpacingCol ), values[1] )
-        
-        # delete existing data
-        self.hVvHRibs_M.setNumRowsForConfig(1, 0 )
-        # read new data
-        self.hVvHRibs_M.setNumRowsForConfig(1, numConfigLines )
-        
-        for l in range(0, numConfigLines):
-            values =  self.splitLine( stream.readLine() )
-            if (values[1] == '6') or (values[1] == '16'):
-                self.hVvHRibs_M.updateDataRow(1, l+1, \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9], \
-                                        values[10], \
-                                        values[11])
-            else:
-                self.hVvHRibs_M.updateDataRow(1, l+1, \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9])
-
-        ##############################
-        # 15. Extrados colors
-        logging.debug(self.__className+'.readFile: Extrados colors')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int(self.remTabSpace( stream.readLine() ) )
-        self.extradColsConf_M.setNumConfigs(numConfigs)
-        
-        for configCounter in range(0, numConfigs):
-            values =  self.splitLine( stream.readLine() )
-            
-            self.extradColsConf_M.updateRow(configCounter+1, values[0])
-            
-            numConfigLines = int(values[1])
-            self.extradColsDet_M.setNumRowsForConfig(configCounter+1, numConfigLines)
-                   
-            for l in range(0, numConfigLines):
-                values =  self.splitLine( stream.readLine() )
-                self.extradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
-            
-        ##############################
-        # 16. Intrados colors
-        logging.debug(self.__className+'.readFile: Intrados colors')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int(self.remTabSpace( stream.readLine() ) )
-        self.intradColsConf_M.setNumConfigs(numConfigs)
-        
-        for configCounter in range(0, numConfigs):
-            values =  self.splitLine( stream.readLine() )
-            
-            self.intradColsConf_M.updateRow(configCounter+1, values[0])
-            
-            numConfigLines = int(values[1])
-            self.intradColsDet_M.setNumRowsForConfig(configCounter+1, numConfigLines)
-                   
-            for l in range(0, numConfigLines):
-                values =  self.splitLine( stream.readLine() )
-                self.intradColsDet_M.updateRow(configCounter+1, l+1, values[1] )
-        
-        
-        ##############################
-        # 17. Aditional rib points
-        logging.debug(self.__className+'.readFile: Additional rib points')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int(self.remTabSpace( stream.readLine() ) )
-        self.addRibPts_M.setNumRowsForConfig(1, 0)
-        self.addRibPts_M.setNumRowsForConfig(1, numConfigs)
-        
-        for l in range(0, numConfigs):
-            values =  self.splitLine( stream.readLine() )
-            
-            self.addRibPts_M.updateRow(1, l+1, values[0], values[1])
-
-        ##############################
-        # 18. Elastic lines corrections
-        logging.debug(self.__className+'.readFile: Elastic Lines correction')
-        for i in range(3):
-            line = stream.readLine()
-        
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.LoadCol), self.remTabSpace( stream.readLine() ) )
-        
-        values =  self.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.TwoLineDistBCol), values[1] )
-        
-        values =  self.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.ThreeLineDistCCol), values[2] )
-
-        values =  self.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistCCol), values[2] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FourLineDistDCol), values[3] )
-        
-        values =  self.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistACol), values[0] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistBCol), values[1] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistCCol), values[2] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistDCol), values[3] )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, self.elLinesCorr_M.FiveLineDistECol), values[4] )
-
-        for l in range (0,5):
-            values =  self.splitLine( stream.readLine() )
-            self.elLinesDef_M.updateRow(1, l+1, values[1], values[2], values[3])
-            
-        ##############################
-        # 19. DXF layer names
-        logging.debug(self.__className+'.readFile: DXF layer names')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int( self.remTabSpace( stream.readLine() ) )
-        self.dxfLayNames_M.setNumRowsForConfig(1,0)
-        self.dxfLayNames_M.setNumRowsForConfig(1, numConfigs)
-        
-        for l in range(0, numConfigs):
-            values =  self.splitLine( stream.readLine() )
-            
-            self.dxfLayNames_M.updateRow(1, l+1, values[0], values[1])
-            
-                ##############################
-        # 20. Marks types
-        logging.debug(self.__className+'.readFile: Marks types')
-        for i in range(3):
-            line = stream.readLine()
-        
-        numConfigs = int( self.remTabSpace( stream.readLine() ) )
-        self.marksT_M.setNumRowsForConfig(1,0)
-        self.marksT_M.setNumRowsForConfig(1, numConfigs)
-        
-        for l in range(0, numConfigs):
-            values =  self.splitLine( stream.readLine() )
-            
-            self.marksT_M.updateRow(1, l+1, values[0], \
-                                    values[1], values[2], values[3], \
-                                    values[4], values[5], values[6])
-            
-        ##############################
-        # 21. JONCS DEFINITION (NYLON RODS)
-        logging.debug(self.__className+'.readFile: Joncs definition')
-        for i in range(3):
-            line = stream.readLine()
-        
-        # delete all what is there
-        self.joncsDef_M.setNumConfigs(0)
-            
-        scheme = int( self.remTabSpace( stream.readLine() ) )
-            
-        if scheme == 1:
-            # in scheme 1 config num is always 1
-            configNum = 1
-            
-            numGroups =  int( self.remTabSpace( stream.readLine() ) )
-            self.joncsDef_M.setNumRowsForConfig(configNum, numGroups)
-            
-            for g in range (0, numGroups):
-                valuesA = self.splitLine( stream.readLine() )
-                valuesB = self.splitLine( stream.readLine() )
-                valuesC = self.splitLine( stream.readLine() )
-                valuesD = self.splitLine( stream.readLine() )
-                self.joncsDef_M.updateTypeOneRow(configNum, g+1, \
-                                                 valuesA[1], valuesA[2], \
-                                                 valuesB[0], valuesB[1], valuesB[2], valuesB[3], \
-                                                 valuesC[0], valuesC[1], valuesC[2], valuesC[3], \
-                                                 valuesD[0], valuesD[1], valuesD[2], valuesD[3] )
-        
-        elif scheme == 2:
-            numBlocs =  int( self.remTabSpace( stream.readLine() ) )
-            
-            for b in range (0,numBlocs):
-                values = self.splitLine( stream.readLine() )
-                
-                blocType = int(values[1])
-                if blocType == 1:
-                    numGroups =  int( self.remTabSpace( stream.readLine() ) )
-                    self.joncsDef_M.setNumRowsForConfig(b+1, numGroups)
-                    
-                    for g in range (0, numGroups):
-                        valuesA = self.splitLine( stream.readLine() )
-                        valuesB = self.splitLine( stream.readLine() )
-                        valuesC = self.splitLine( stream.readLine() )
-                        valuesD = self.splitLine( stream.readLine() )
-                        self.joncsDef_M.updateTypeOneRow(b+1, g+1, \
-                                                         valuesA[1], valuesA[2], \
-                                                         valuesB[0], valuesB[1], valuesB[2], valuesB[3], \
-                                                         valuesC[0], valuesC[1], valuesC[2], valuesC[3], \
-                                                         valuesD[0], valuesD[1], valuesD[2], valuesD[3] )
-
-                else:
-                    numGroups =  int( self.remTabSpace( stream.readLine() ) )
-                    self.joncsDef_M.setNumRowsForConfig(b+1, numGroups)
-                    
-                    for g in range (0, numGroups):
-                        valuesA = self.splitLine( stream.readLine() )
-                        valuesB = self.splitLine( stream.readLine() )
-                        valuesC = self.splitLine( stream.readLine() )
-                        self.joncsDef_M.updateTypeTwoRow(b+1, g+1, \
-                                                         valuesA[1], valuesA[2], \
-                                                         valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], \
-                                                         valuesC[0], valuesC[1], valuesC[2], valuesC[3])
-        # Little bad hack. Some of the GUI depends on data within the rows set above. 
-        # To get teh GUI updated properly we fake here a model update to force an update in the GUI.  
-        self.joncsDef_M.numRowsForConfigChanged.emit(0, 0)
-
-        ##############################
-        # 22. NOSE MYLARS DEFINITION
-        logging.debug(self.__className+'.readFile: Nose mylars')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int(self.remTabSpace( stream.readLine() ) )
-        self.noseMylars_M.setNumConfigs(0)
-        
-        if data != 0:
-            # we have data to read
-            
-            numConfigs = int(self.remTabSpace( stream.readLine() ) )
-            self.noseMylars_M.setNumRowsForConfig(1, numConfigs)
-        
-            for c in range(0, numConfigs):
-                valuesA = self.splitLine( stream.readLine() )
-                valuesB = self.splitLine( stream.readLine() )
-                
-                self.noseMylars_M.updateRow(1, c+1, \
-                                            valuesA[1], valuesA[2], \
-                                            valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5])  
-       
-        ##############################
-        # 23. TAB REINFORCEMENTS
-        logging.debug(self.__className+'.readFile: Jump over Tab reinforcements')
-                
-        counter = 0
-        while counter < 4:
-            line = stream.readLine()
-            if line.find('***************') >= 0:
-                counter += 1
-        
-        ##############################
-        # 24. GENERAL 2D DXF OPTIONS
-        # be carefull: previous code has already read both **** lines of header        
-        logging.debug(self.__className+'.readFile: General 2D DXF options')
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.twoDDxf_M.setIsUsed(False)
-        
-        if data != 0:
-            self.twoDDxf_M.setIsUsed(True)
-            self.twoDDxf_M.setNumRowsForConfig(1, 6)
-            # we have data to read
-            for l in range(0, 6 ):
-                values =  self.splitLine( stream.readLine() )
-                self.twoDDxf_M.updateRow(1, l+1, values[0], values[1], values[2])    
-            
-        ##############################
-        # 25. GENERAL 3D DXF OPTIONS
-        logging.debug(self.__className+'.readFile: General 3D DXF options')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.threeDDxf_M.setIsUsed(False)
-        
-        if data != 0:
-            self.threeDDxf_M.setIsUsed(True)
-            self.threeDDxf_M.setNumRowsForConfig(1, 9)
-            # we have data to read
-            for l in range(0, 6 ):
-                values =  self.splitLine( stream.readLine() )
-                self.threeDDxf_M.updateRow(1, l+1, values[0], values[1], values[2])
-                
-            for l in range(0, 3 ):
-                values =  self.splitLine( stream.readLine() )
-                self.threeDDxf_M.updateRow(1, l+1+6, values[0], values[2], values[3], values[1])
-        
-        ##############################
-        # 26. GLUE VENTS
-        logging.debug(self.__className+'.readFile: Glue vents')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.glueVent_M.setIsUsed(False)
-        
-        if data != '0':
-            self.glueVent_M.setIsUsed(True)
-            # we have data to read
-            for l in range( 0, self.wing_M.halfNumRibs ):
-                values =  self.splitLine( stream.readLine() )
-                self.glueVent_M.updateRow(1, l+1, values[1])
-        
-        ##############################
-        # 26. SPECIAL WING TIP
-        logging.debug(self.__className+'.readFile: Special wing tip')
-        for i in range(3):
-            line = stream.readLine()
-        
-        data = int( self.remTabSpace( stream.readLine() ) )   
-        
-        self.specWingTyp_M.setIsUsed(False)
-        self.specWingTyp_M.setNumRowsForConfig(1, 1)
-        
-        if data != 0:
-            self.specWingTyp_M.setIsUsed(True)
-            
-            valuesA =  self.splitLine( stream.readLine() )
-            valuesB =  self.splitLine( stream.readLine() )
-            
-            self.specWingTyp_M.updateRow(1, 1, valuesA[1], valuesB[1])
-            
-        ##############################
-        # 28. PARAMETERS FOR CALAGE VARIATION
-        logging.debug(self.__className+'.readFile: Calage variation')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )   
-        
-        self.calageVar_M.setIsUsed(False)
-        self.calageVar_M.setNumRowsForConfig(1, 1)
-        
-        if data != 0:
-            self.calageVar_M.setIsUsed(True)
-            
-            valuesA =  self.splitLine( stream.readLine() )
-            valuesB =  self.splitLine( stream.readLine() )
-            valuesC =  self.splitLine( stream.readLine() )
-            
-            self.calageVar_M.updateRow(1, 1, \
-                                       valuesA[0], \
-                                       valuesB[0], valuesB[1], valuesB[2], valuesB[3], valuesB[4], valuesB[5], \
-                                       valuesC[0], valuesC[1], valuesC[2], valuesC[3])
-        
-        ##############################
-        # 29. 3D SHAPING
-        logging.debug(self.__className+'.readFile: 3D Shaping')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.threeDShConf_M.setNumConfigs(0)
-        self.threeDShUpDet_M.setNumConfigs(0)
-        self.threeDShLoDet_M.setNumConfigs(0)
-        
-        if data != 0:
-            # overread type as it is always 1
-            line = stream.readLine()
-            
-            values =  self.splitLine( stream.readLine() )
-            numGroups = int (values[1])
-            self.threeDShConf_M.setNumConfigs(numGroups)
-            
-            for g in range(0, numGroups):
-                # ribs and so
-                values = self.splitLine( stream.readLine() )
-                
-                self.threeDShConf_M.updateRow(g+1, 1, values[2], values[3])
-                
-                # upper config
-                values = self.splitLine( stream.readLine() )
-                numUpCuts = int (values[1] )
-                if numUpCuts == 1:
-                    self.threeDShUpDet_M.setNumRowsForConfig(g+1, numUpCuts)
-                    
-                    values = self.splitLine( stream.readLine() )
-                    self.threeDShUpDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
-                    
-                elif numUpCuts == 2:
-                    self.threeDShUpDet_M.setNumRowsForConfig(g+1, numUpCuts)
-                    
-                    values = self.splitLine( stream.readLine() )
-                    self.threeDShUpDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
-                    
-                    values = self.splitLine( stream.readLine() )
-                    self.threeDShUpDet_M.updateRow(g+1, 2, values[1], values[2], values[3])
-                    
-                # lower config
-                values = self.splitLine( stream.readLine() )
-                numLoCuts = int (values[1] )
-                if numLoCuts == 1:
-                    self.threeDShLoDet_M.setNumRowsForConfig(g+1, numUpCuts)
-                    
-                    values = self.splitLine( stream.readLine() )
-                    self.threeDShLoDet_M.updateRow(g+1, 1, values[1], values[2], values[3])
-            
-            line = stream.readLine()
-            
-            self.threeDShPr_M.setNumRowsForConfig(1, 0)
-            self.threeDShPr_M.setNumRowsForConfig(1, 5)
-            
-            for l in range(0,5):
-                values = self.splitLine( stream.readLine() )
-                self.threeDShPr_M.updateRow(1, l+1, values[0], values[1], values[2], values[3], values[4])
-                
-        ##############################
-        # 30. AIRFOIL THICKNESS
-        logging.debug(self.__className+'.readFile: Airfoil thickness')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.airfThick_M.setIsUsed(False)
-        
-        if data != 0:
-            self.airfThick_M.setIsUsed(True)
-            # we have data to read
-            for l in range( 0, self.wing_M.halfNumRibs ):
-                values =  self.splitLine( stream.readLine() )
-                self.airfThick_M.updateRow(1, l+1, values[1])
-        
-        
-        ##############################
-        # 31. NEW SKIN TENSION
-        logging.debug(self.__className+'.readFile: New skin tension')
-        for i in range(3):
-            line = stream.readLine()
-            
-        data = int( self.remTabSpace( stream.readLine() ) )
-        
-        self.newSkinTensConf_M.setNumConfigs(0)
-        self.newSkinTensDet_M.setNumConfigs(0)
-        
-        if data != 0:
-            numGroups = int( self.remTabSpace( stream.readLine() ) )
-            self.newSkinTensConf_M.setNumConfigs(numGroups)
-            
-            for g in range (0, numGroups):
-                # comment line
-                line = stream.readLine()
-                
-                values = self.splitLine( stream.readLine() )
-                self.newSkinTensConf_M.updateRow(g+1, values[1], values[2], values[4])
-                
-                numLines = int(values[3])
-                self.newSkinTensDet_M.setNumRowsForConfig(g+1, numLines)
-                for l in range (0, numLines):
-                    values = self.splitLine( stream.readLine() )
-                    self.newSkinTensDet_M.updateRow(g+1, l+1, values[1], values[2], values[3], values[4])
-            
-        ##############################
-        # Cleanup
-        inFile.close() 
-
     def writeFile(self, forProc=False):
         '''
         :method: Writes all the values into a data file. 
@@ -1154,9 +409,15 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         logging.debug(self.__className+'.writeFile')
         
+        # check if the file already exists
+        filePathName = self.getFileName()
+        if os.path.isfile(filePathName):
+            # file exists -> delete it
+            os.remove(filePathName)
+        
         if forProc == False:
             # Regular file write into a file specified by the user
-            outFile = QFile(self.getFileName())
+            outFile = QFile(filePathName)
         else:
             # Special file write into the directory where the PreProcessor resides
             config = ConfigReader()
@@ -1202,24 +463,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '* Wing name\n'
         stream << '\"%s\"\n' %values(ProcessorModel.WingModel.WingNameCol)
         stream << '* Drawing scale\n'
-        stream << '%s\n' %values(ProcessorModel.WingModel.DrawScaleCol)
+        stream << '%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.DrawScaleCol),1)
         stream << '* Wing scale\n'
-        stream << '%s\n' %values(ProcessorModel.WingModel.WingScaleCol)
+        stream << '%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.WingScaleCol),1)
         stream << '* Number of cells\n'
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumCellsCol)
+        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.NumCellsCol))
         stream << '* Number of ribs\n'
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.NumRibsCol)
+        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.NumRibsCol))
         stream << '* Alpha max and parameter\n'
-        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaMaxTipCol)
-        stream << '\t%s' %values(ProcessorModel.WingModel.AlphaModeCol)
+        stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.WingModel.AlphaMaxTipCol))
+        stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.WingModel.AlphaModeCol),1)
         if values(ProcessorModel.WingModel.AlphaModeCol) == '2':
             stream << '\t%s\n' %values(ProcessorModel.WingModel.AlphaMaxCentCol)
         else:
             stream << '\n'
         
         stream << '* Paraglider type and parameter\n'
-        stream << '\t\"%s\"' %values(ProcessorModel.WingModel.ParaTypeCol)
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.ParaParamCol)
+        stream << '\t\"%s\"' %self.fh.chkStr(values(ProcessorModel.WingModel.ParaTypeCol),'ds')
+        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.ParaParamCol),1)
         stream << '* Rib geometric parameters\n'
         stream << '* Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin\n'
         for l in range (0, self.wing_M.halfNumRibs):
@@ -1227,7 +488,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 8):
-                stream << '\t%s' %values(p)
+                stream << '\t%s' %self.fh.chkNum(values(p))
                 if p ==7:
                     stream << '\n'
         
@@ -1240,7 +501,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 7):
-                stream << '\t%s' %values(p)
+                if p==0:
+                    stream << '\t%s' %self.fh.chkStr(values(p))
+                else:
+                    stream << '\t%s' %self.fh.chkNum(values(p))
                 if p ==6:
                     stream << '\n'
                     
@@ -1253,7 +517,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s' %(l+1)
             
             for p in range (0, 7):
-                stream << '\t%s' %values(p)
+                stream << '\t%s' %self.fh.chkNum(values(p))
                 if p ==6:
                     stream << '\n'
      
@@ -1265,8 +529,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for g in range (0, numConfigs):
             values = self.lightC_M.getRow(g+1)
-            stream << '%s\n' %values(0)
-            stream << '%s\n' %values(1)
+            stream << '%s\n' %self.fh.chkNum(values(0))
+            stream << '%s\n' %self.fh.chkNum(values(1))
 
             numLines = self.lightD_M.numRowsForConfig(g+1)
             stream << '%s\n' %(numLines)
@@ -1275,7 +539,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 7):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.fh.chkNum(values(p))
                     if p ==6:
                         stream << '\t0.\t0.\n'
         
@@ -1290,14 +554,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 4):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.fh.chkNum(values(p))
                     if p ==3:
                         stream << '\n'
             
         values = self.skinTensParams_M.getRow()
-        stream << '%s\n' %values(0)
-        stream << '%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '%s\n' %self.fh.chkNum(values(0))
+        stream << '%s' %self.fh.chkNum(values(1))
+        stream << '\t%s\n' %self.fh.chkNum(values(2))
 
         stream << separator            
         stream << '*           6. SEWING ALLOWANCES\n'
@@ -1307,7 +571,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for p in range (0, 3):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkNum(values(p))
                 if p ==2:
                     stream << '\tupper panels (mm)\n'
         
@@ -1315,16 +579,16 @@ class ProcessorModel(QObject, metaclass=Singleton):
         for p in range (0, 3):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkNum(values(p))
                 if p ==2:
                     stream << '\tlower panels (mm)\n'
                     
         values = self.sewAll_M.getRow(3)
-        stream << '%s' %values(0)
+        stream << '%s' %self.fh.chkNum(values(0))
         stream << '\tribs (mm)\n'
         
         values = self.sewAll_M.getRow(4)
-        stream << '%s' %values(0)
+        stream << '%s' %self.fh.chkNum(values(0))
         stream << '\tvribs (mm)\n'
         
         stream << separator            
@@ -1332,32 +596,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.marks_M.getRow()
-        stream << '%s' %values(0)
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)       
+        stream << '%s' %self.fh.chkNum(values(0))
+        stream << '\t%s' %self.fh.chkNum(values(1))
+        stream << '\t%s\n' %self.fh.chkNum(values(2))       
                 
         stream << separator            
         stream << '*           8. Global angle of attack estimation\n'
         stream << separator
         values = self.globAoA_M.getRow()
         stream << '* Finesse GR\n'
-        stream << '\t%s\n' %values(0)
+        stream << '\t%s\n' %self.fh.chkNum(values(0))
         stream << '* Center of pressure % of chord\n'
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.fh.chkNum(values(1))
         stream << '* Calage %\n'
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s\n' %self.fh.chkNum(values(2))
         stream << '* Risers lenght cm\n'
-        stream << '\t%s\n' %values(3)
+        stream << '\t%s\n' %self.fh.chkNum(values(3))
         stream << '* Line lenght cm\n'
-        stream << '\t%s\n' %values(4)
+        stream << '\t%s\n' %self.fh.chkNum(values(4))
         stream << '* Karabiners cm\n'
-        stream << '\t%s\n' %values(5)
+        stream << '\t%s\n' %self.fh.chkNum(values(5))
             
         stream << separator            
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
         values = self.wing_M.getRow()
-        stream << '%s\n' %values(ProcessorModel.WingModel.LinesConcTypeCol)
+        stream << '%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.LinesConcTypeCol))
         
         numConfigs = self.lines_M.numConfigs()
         stream << '%s\n' %numConfigs
@@ -1372,7 +636,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 11):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.fh.chkNum(values(p))
                     if p ==10:
                         stream << '\n'
 
@@ -1381,7 +645,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.wing_M.getRow()
-        stream << '%s\n' %values(ProcessorModel.WingModel.BrakeLengthCol)
+        stream << '%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.BrakeLengthCol))
         
         numLines = self.brakes_M.numRowsForConfig(1)
         stream << '%s\n' %numLines
@@ -1391,23 +655,23 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 11):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkNum(values(p))
                 if p ==10:
                     stream << '\n'
         
-        stream << '* Brake distribution\n'           
+        stream << '* Brake distribution\n'
         values = self.brakeL_M.getRow()
         
         for p in range (0, 5):
             if p>0:
                 stream << '\t' 
-            stream << '%s' %values(p)
+            stream << '%s' %self.fh.chkNum(values(p))
             if p ==4:
                 stream << '\n'
         for p in range (5, 10):
             if p>5:
                 stream << '\t' 
-            stream << '%s' %values(p)
+            stream << '%s' %self.fh.chkNum(values(p))
             if p ==9:
                 stream << '\n'
                 
@@ -1417,21 +681,21 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         values = self.ramif_M.getRow(1, 1)
         stream << '3'
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.fh.chkNum(values(1))
         
         values = self.ramif_M.getRow(1, 2)
         stream << '4' 
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s' %self.fh.chkNum(values(1))
+        stream << '\t%s\n' %self.fh.chkNum(values(2))
         
         values = self.ramif_M.getRow(1, 3)
         stream << '3' 
-        stream << '\t%s\n' %values(1)
+        stream << '\t%s\n' %self.fh.chkNum(values(1))
         
-        values = self.ramif_M.getRow(1, 2)
+        values = self.ramif_M.getRow(1, 4)
         stream << '4' 
-        stream << '\t%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '\t%s' %self.fh.chkNum(values(1))
+        stream << '\t%s\n' %self.fh.chkNum(values(2))
         
         stream << separator            
         stream << '*    12. H V and VH ribs\n'
@@ -1439,8 +703,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         numLines = self.hVvHRibs_M.numRowsForConfig(1)
         stream << '%s\n' %numLines
         values = self.wing_M.getRow()
-        stream << '%s' %values(ProcessorModel.WingModel.xSpacingCol)
-        stream << '\t%s\n' %values(ProcessorModel.WingModel.ySpacingCol)
+        stream << '%s' %self.fh.chkNum(values(ProcessorModel.WingModel.xSpacingCol))
+        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.WingModel.ySpacingCol))
         
         for l in range (0, numLines):
             values = self.hVvHRibs_M.getRow(1, l+1)
@@ -1450,11 +714,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s\t' %(l+1)
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkNum(values(p))
             
             if values(0) == 6 or values(0) == 16:
-                stream << '\t%s' %values(9)
-                stream << '\t%s\n' %values(10)
+                stream << '\t%s' %self.fh.chkNum(values(9))
+                stream << '\t%s\n' %self.fh.chkNum(values(10))
             else:
                 stream << '\n'
                 
@@ -1474,7 +738,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, numLines):
                 values = self.extradColsDet_M.getRow(g+1, l+1)
                 stream << '%s' %(l+1)
-                stream << '\t%s\t0.\n' %values(0)
+                stream << '\t%s\t0.\n' %self.fh.chkNum(values(0))
 
         stream << separator            
         stream << '*    16. Intrados colors\n'
@@ -1492,7 +756,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, numLines):
                 values = self.intradColsDet_M.getRow(g+1, l+1)
                 stream << '%s' %(l+1)
-                stream << '\t%s\t0.\n' %values(0)  
+                stream << '\t%s\t0.\n' %self.fh.chkNum(values(0))  
                 
         stream << separator            
         stream << '*       17. Aditional rib points\n'
@@ -1502,32 +766,32 @@ class ProcessorModel(QObject, metaclass=Singleton):
         
         for l in range (0, numLines):
             values = self.addRibPts_M.getRow(1, l+1)
-            stream << '%s' %values(0)
-            stream << '\t%s\n' %values(1)
+            stream << '%s' %self.fh.chkNum(values(0))
+            stream << '\t%s\n' %self.fh.chkNum(values(1))
 
         stream << separator            
         stream << '*       18. Elastic lines corrections\n'
         stream << separator
         values = self.elLinesCorr_M.getRow()
-        stream << '%s\n' %values(0)
+        stream << '%s\n' %self.fh.chkNum(values(0))
         
-        stream << '%s' %values(1)
-        stream << '\t%s\n' %values(2)
+        stream << '%s' %self.fh.chkNum(values(1))
+        stream << '\t%s\n' %self.fh.chkNum(values(2))
         
-        stream << '%s' %values(3)
-        stream << '\t%s' %values(4)
-        stream << '\t%s\n' %values(5)
+        stream << '%s' %self.fh.chkNum(values(3))
+        stream << '\t%s' %self.fh.chkNum(values(4))
+        stream << '\t%s\n' %self.fh.chkNum(values(5))
         
-        stream << '%s' %values(6)
-        stream << '\t%s' %values(7)
-        stream << '\t%s' %values(8)
-        stream << '\t%s\n' %values(9)
+        stream << '%s' %self.fh.chkNum(values(6))
+        stream << '\t%s' %self.fh.chkNum(values(7))
+        stream << '\t%s' %self.fh.chkNum(values(8))
+        stream << '\t%s\n' %self.fh.chkNum(values(9))
         
-        stream << '%s' %values(10)
-        stream << '\t%s' %values(11)
-        stream << '\t%s' %values(12)
-        stream << '\t%s' %values(13)
-        stream << '\t%s\n' %values(14)
+        stream << '%s' %self.fh.chkNum(values(10))
+        stream << '\t%s' %self.fh.chkNum(values(11))
+        stream << '\t%s' %self.fh.chkNum(values(12))
+        stream << '\t%s' %self.fh.chkNum(values(13))
+        stream << '\t%s\n' %self.fh.chkNum(values(14))
         
         numLines = self.elLinesDef_M.numRowsForConfig(1)
         for l in range (0, numLines):
@@ -1536,7 +800,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 4):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkNum(values(p))
                 if p== 3:
                     stream << '\n'
                     
@@ -1552,7 +816,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 2):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                stream << '%s' %self.fh.chkStr(values(p))
                 if p== 1:
                     stream << '\n'
         
@@ -1569,7 +833,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for p in range (0, 7):
                 if p>0:
                     stream << '\t' 
-                stream << '%s' %values(p)
+                if p==0:
+                    stream << '%s' %self.fh.chkStr(values(p))
+                else:
+                    stream << '%s' %self.fh.chkNum(values(p))
                 if p== 6:
                     stream << '\n'    
 
@@ -1596,31 +863,31 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     values = self.joncsDef_M.getRow(g+1, l+1)
 
                     stream << '%s' %(l+1)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.FirstRibCol)
-                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.LastRibCol)
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.FirstRibCol))
+                    stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.LastRibCol))
                     
                     # Line 1
-                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pBACol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBBCol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBCCol)
+                    stream << '%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBACol))
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBBCol))
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBCCol))
                     if scheme == 1:
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBDCol)
+                        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
                     else:
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pBDCol)
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pBECol)
+                        stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBECol))
                     
                     if scheme == 1:
                         # Line 2
-                        stream << '%s' %values(ProcessorModel.JoncsDefModel.pCACol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCBCol)
-                        stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pCCCol)   
-                        stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pCDCol)
+                        stream << '%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCACol))
+                        stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCBCol))
+                        stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCCCol))
+                        stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCDCol))
                     
                     # s values    
-                    stream << '%s' %values(ProcessorModel.JoncsDefModel.pDACol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDBCol)
-                    stream << '\t%s' %values(ProcessorModel.JoncsDefModel.pDCCol)   
-                    stream << '\t%s\n' %values(ProcessorModel.JoncsDefModel.pDDCol)
+                    stream << '%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDACol))
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDBCol))
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDCCol))
+                    stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDDCol))
                         
         stream << separator            
         stream << '*       22. NOSE MYLARS DEFINITION\n'
@@ -1639,14 +906,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     values = self.noseMylars_M.getRow(g+1, l+1)
                             
                     stream << '%s' %(l+1)
-                    stream << '\t%s' %values(ProcessorModel.NoseMylarsModel.FirstRibCol)
-                    stream << '\t%s\n' %values(ProcessorModel.NoseMylarsModel.LastRibCol)
+                    stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.FirstRibCol))
+                    stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.LastRibCol))
                     
                     for p in range (0,6):
                         if p>0:
                             stream << '\t'
                         
-                        stream << '%s' %values(ProcessorModel.NoseMylarsModel.xOneCol+p)
+                        stream << '%s' %self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.xOneCol+p))
                         
                         if p==5:
                             stream << '\n'
@@ -1671,7 +938,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 3):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    if p==1:
+                        stream << '%s' %self.fh.chkNum(values(p))
+                    else:
+                        stream << '%s' %self.fh.chkStr(values(p))
                     if p== 2:
                         stream << '\n'  
         
@@ -1685,16 +955,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for l in range (0, 6):
                 values = self.threeDDxf_M.getRow(1, l+1)
                 
-                stream << '%s' %values(0)
-                stream << '\t%s' %values(2)
-                stream << '\t%s\n' %values(3)
+                stream << '%s' %self.fh.chkStr(values(0))
+                stream << '\t%s' %self.fh.chkNum(values(2))
+                stream << '\t%s\n' %self.fh.chkStr(values(3))
             
             for l in range (6, 9):
                 values = self.threeDDxf_M.getRow(1, l+1)
                 for p in range (0, 4):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    if p==1 or p==2:
+                        stream << '%s' %self.fh.chkNum(values(p))
+                    else:
+                        stream << '%s' %self.fh.chkStr(values(p))
                     if p== 3:
                         stream << '\n'
                         
@@ -1713,7 +986,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 2):
                     if p>0:
                         stream << '\t' 
-                    stream << '%s' %values(p)
+                    stream << '%s' %self.fh.chkNum(values(p))
                     if p== 1:
                         stream << '\n'
                         
@@ -1726,8 +999,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '1\n'
             
             values = self.specWingTyp_M.getRow(1, 1)
-            stream << 'AngleLE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleLECol)
-            stream << 'AngleTE\t%s\n' %values(ProcessorModel.SpecWingTipModel.AngleTECol)
+            stream << 'AngleLE\t%s\n' %self.fh.chkNum(values(ProcessorModel.SpecWingTipModel.AngleLECol))
+            stream << 'AngleTE\t%s\n' %self.fh.chkNum(values(ProcessorModel.SpecWingTipModel.AngleTECol))
             
         stream << separator            
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
@@ -1738,19 +1011,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '1\n'
             
             values = self.calageVar_M.getRow(1, 1)
-            stream << '%s\n' %values(ProcessorModel.CalageVarModel.NumRisersCol)
+            stream << '%s\n' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumRisersCol))
             
-            stream << '%s' %values(ProcessorModel.CalageVarModel.PosACol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosBCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosCCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosDCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.PosECol)
-            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.PosFCol)
+            stream << '%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosACol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosBCol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosCCol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosDCol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosECol))
+            stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosFCol))
             
-            stream << '%s' %values(ProcessorModel.CalageVarModel.MaxNegAngCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.NumNegStepsCol)
-            stream << '\t%s' %values(ProcessorModel.CalageVarModel.MaxPosAngCol)
-            stream << '\t%s\n' %values(ProcessorModel.CalageVarModel.NumPosStepsCol)
+            stream << '%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.MaxNegAngCol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumNegStepsCol))
+            stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.MaxPosAngCol))
+            stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumPosStepsCol))
             
         stream << separator            
         stream << '*       29. 3D SHAPING\n'
@@ -1767,8 +1040,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             for g in range (0, numGroups):
                 values = self.threeDShConf_M.getRow(g+1, 1)
                 stream << 'group\t%s' %(g+1)
-                stream << '\t%s' %values(ProcessorModel.ThreeDShConfModel.FirstRibCol)
-                stream << '\t%s\n' %values(ProcessorModel.ThreeDShConfModel.LastRibCol)
+                stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.ThreeDShConfModel.FirstRibCol))
+                stream << '\t%s\n' %self.fh.chkNum(values(ProcessorModel.ThreeDShConfModel.LastRibCol))
                 
                 numLines = self.threeDShUpDet_M.numRowsForConfig(g+1)
                 stream << 'upper\t%s\t1\n' %numLines
@@ -1778,7 +1051,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s' %(l+1)
                     
                     for p in range (0, 3):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.fh.chkNum(values(p))
                         if p== 2:
                             stream << '\n'
                             
@@ -1790,7 +1063,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '%s' %(l+1)
                     
                     for p in range (0, 3):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.fh.chkNum(values(p))
                         if p== 2:
                             stream << '\n'
 
@@ -1802,7 +1075,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 for p in range (0, 5):
                     if p>0:
                         stream << '\t'
-                    stream << '%s' %values(p)
+                    if p==0:
+                        stream << '%s' %self.fh.chkStr(values(p))
+                    else:
+                        stream << '%s' %self.fh.chkNum(values(p))
                     if p== 4:
                         stream << '\n'
         
@@ -1819,7 +1095,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 values = self.airfThick_M.getRow(1, l+1)
                 
                 stream << '%s' %(l+1)
-                stream << '\t%s\n' %values(0)
+                stream << '\t%s\n' %self.fh.chkNum(values(0))
                 
         stream << separator            
         stream << '*       31. NEW SKIN TENSION MODULE\n'
@@ -1837,8 +1113,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 numLines = self.newSkinTensDet_M.numRowsForConfig(g+1)
                 
                 stream << '%s' %(g+1)
-                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.InitialRibCol)
-                stream << '\t%s' %values(ProcessorModel.NewSkinTensConfModel.FinalRibCol)
+                stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.NewSkinTensConfModel.InitialRibCol))
+                stream << '\t%s' %self.fh.chkNum(values(ProcessorModel.NewSkinTensConfModel.FinalRibCol))
                 stream << '\t%s' %numLines
                 stream << '\t1\n'
                 
@@ -1847,7 +1123,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     
                     stream << '%s' %(l+1)
                     for p in range (0, 4):
-                        stream << '\t%s' %values(p)
+                        stream << '\t%s' %self.fh.chkNum(values(p))
                         if p== 3:
                             stream << '\n'
         
@@ -1861,41 +1137,6 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # Make flags in order
             #self.dataStatusUpdate.emit(self.__className,'Open')
 
-    def remTabSpace(self, line):
-        '''
-        :method: Deletes all leaing and trailing edges from a string
-        :param Line: The string to be cleaned
-        :returns: cleaned string 
-        '''
-        logging.debug(self.__className+'.remTabSpace')
-        value = re.sub(r'^\s+|\s+$', '', line ) 
-        return value
-    
-    def remTabSpaceQuot(self, line):
-        '''
-        :method: Removes from a string all leading, trailing spaces tabs and quotations
-        :param Line: The string to be cleaned
-        :returns: cleaned string 
-        '''
-        logging.debug(self.__className+'.remTabSpaceQuot')
-        line = self.remTabSpace(line)
-        line = re.sub(r'^\"+|\"+$', '', line )
-        return line
-    
-    def splitLine(self, line):
-        '''
-        :method: Splits lines with multiple values into a list of values delimiters could be spaces and tabs
-        :param line: The line to be split
-        :returns: a list of values 
-        '''
-        logging.debug(self.__className+'.splitLine')
-        line = self.remTabSpace(line) # remove leadind and trailing waste
-        values = re.split(r'[\t\s]\s*', line)
-        return values
-
-
-
-        
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
@@ -6060,6 +5301,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding xSpacing for the HvVh Ribs'''
         ySpacingCol = 14
         ''':attr: number of the column holding ySpacing for the HvVh Ribs'''
+        OrderNumCol = 15 
+        ''':attr: num of column for ordering the individual lines of a config'''
+        ConfigNumCol = 16
+        ''':attr: num of column for config number (always 1)'''
         halfNumRibs = 0
         ''':attr: the number of different ribs needed to build the wing. This is more or less the half number of total ribs.'''
 
@@ -6072,24 +5317,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query = QSqlQuery()
             query.exec("DROP TABLE if exists Wing;")
             query.exec("create table if not exists Wing ("
-                    "BrandName TEXT,"
-                    "WingName TEXT,"
-                    "DrawScale REAL,"
-                    "WingScale REAL,"
-                    "NumCells INTEGER,"
-                    "NumRibs INTEGER,"
-                    "AlphaMaxTip REAL,"
-                    "AlphaMode INTEGER,"
-                    "AlphaMaxCent REAL,"
-                    "ParaType TEXT,"
-                    "ParaParam INTEGER,"
-                    "LinesConcType INTEGER,"
-                    "Brakelength INTEGER,"
-                    "xSpacing REAL,"
+                    "BrandName TEXT, "
+                    "WingName TEXT, "
+                    "DrawScale REAL, "
+                    "WingScale REAL, "
+                    "NumCells INTEGER, "
+                    "NumRibs INTEGER, "
+                    "AlphaMaxTip REAL, "
+                    "AlphaMode INTEGER, "
+                    "AlphaMaxCent REAL, "
+                    "ParaType TEXT, "
+                    "ParaParam INTEGER, "
+                    "LinesConcType INTEGER, "
+                    "Brakelength INTEGER, "
+                    "xSpacing REAL, "
                     "ySpacing REAL, "
+                    "OrderNum INTEGER,"
+                    "ConfigNum INTEGER,"
                     "ID INTEGER PRIMARY KEY);")
-            
-            query.exec("INSERT into Wing (ID) Values( '1' );")
 
         def __init__(self, parent=None): # @UnusedVariable
             '''
@@ -6101,6 +5346,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Wing")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            
+            self.setNumRowsForConfig(1,1)
             
             self.rib_M = ProcessorModel.RibModel()
             self.anchPoints_M = ProcessorModel.AnchorPointsModel()
@@ -6117,7 +5364,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Draw scale"))
             self.setHeaderData(3, Qt.Horizontal, _("Wing scale"))
             self.setHeaderData(4, Qt.Horizontal, _("Num cells"))
-            self.setHeaderData(5, Qt.Horizontal, _("Num Ribs"))
+            self.setHeaderData(5, Qt.Horizontal, _("Num ribs"))
             self.setHeaderData(6, Qt.Horizontal, _("Alpha max tip"))
             self.setHeaderData(7, Qt.Horizontal, _("Alpha mode"))
             self.setHeaderData(8, Qt.Horizontal, _("Alpha max cent"))
@@ -6171,9 +5418,16 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # TODO: Add transaction
             query = QSqlQuery()
             query.prepare("UPDATE Wing SET "
-                          "NumCells= :numCells; ")
+                          "NumCells= :numCells ")
             query.bindValue(":numCells", numCells )
             query.exec()
+            
+            # TODO: Testcode
+            val = query.lastQuery()
+            if not val: 
+                print('Err type: %s' %self.lastError().type())
+                print('Err text: %s' %self.lastError().text())
+                
             self.select() # to a select() to assure the model is updated properly
                     
         def updateNumRibs(self, numRibs):
@@ -6219,3 +5473,5 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.exec()
             query.next()
             return query.value
+        
+from DataStores.ProcFileReader import ProcFileReader

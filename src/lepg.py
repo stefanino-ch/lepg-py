@@ -61,6 +61,7 @@ from Windows.NewSkinTension import NewSkinTension
 from Windows.PreProcCellsDistribution import PreProcCellsDistribution
 from Windows.SetupProcessors import SetupProcessors
 from Windows.SetupUpdateChecking import SetupUpdateChecking
+from PyQt5.Qt import QStatusBar
 
 # TODO: bring windows to front if they are called
 
@@ -109,8 +110,8 @@ class MainWindow(QMainWindow):
             lang_en = gettext.translation ('lepg', locale_path, languages=['en'] )
             lang_en.install()
         
-        #self.pps = PreProcessorStore()
         self.ppm = PreProcessorModel()
+        
         self.pm = ProcessorModel()
         
         self.dws = DataWindowStatus()
@@ -132,7 +133,8 @@ class MainWindow(QMainWindow):
         self.buildHelpMenu()
         
         # Create the status bar
-        self.statusBar()
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
         
         # VersionCheck
         if config.getCheckForUpdates() == 'yes':
