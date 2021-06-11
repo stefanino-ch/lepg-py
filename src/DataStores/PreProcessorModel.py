@@ -4,7 +4,6 @@
 '''
 import os
 import logging
-import re
 
 from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
@@ -15,6 +14,8 @@ from DataStores.SqlTableModel import SqlTableModel
 
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.Database import Database
+
+from DataStores.FileHelpers import FileHelpers
 
 class PreProcessorModel(QObject, metaclass=Singleton):
     '''
@@ -56,6 +57,8 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         self.db.openConnection()
         
         super().__init__()
+        
+        self.fh = FileHelpers()
 
         self.leadingE_M = self.LeadingEdgeModel()
         self.trailingE_M = self.TrailingEdgeModel()
@@ -248,16 +251,16 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
             
-        one = self.remTabSpaceQuot(stream.readLine())
-        two = self.splitLine( stream.readLine() )
-        thr = self.splitLine( stream.readLine() )
-        fou = self.splitLine( stream.readLine() )
-        fiv = self.splitLine( stream.readLine() )
-        six = self.splitLine( stream.readLine() )
-        sev = self.splitLine( stream.readLine() )
-        eig = self.splitLine( stream.readLine() )
-        nin = self.splitLine( stream.readLine() )
-        ten = self.splitLine( stream.readLine() )
+        one = self.fh.remTabSpaceQuot(stream.readLine())
+        two = self.fh.splitLine( stream.readLine() )
+        thr = self.fh.splitLine( stream.readLine() )
+        fou = self.fh.splitLine( stream.readLine() )
+        fiv = self.fh.splitLine( stream.readLine() )
+        six = self.fh.splitLine( stream.readLine() )
+        sev = self.fh.splitLine( stream.readLine() )
+        eig = self.fh.splitLine( stream.readLine() )
+        nin = self.fh.splitLine( stream.readLine() )
+        ten = self.fh.splitLine( stream.readLine() )
         
         self.leadingE_M.setNumConfigs(0)
         self.leadingE_M.setNumConfigs(1)
@@ -268,14 +271,14 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
             
-        one = self.remTabSpaceQuot(stream.readLine())
-        two = self.splitLine( stream.readLine() )
-        thr = self.splitLine( stream.readLine() )
-        fou = self.splitLine( stream.readLine() )
-        fiv = self.splitLine( stream.readLine() )
-        six = self.splitLine( stream.readLine() )
-        sev = self.splitLine( stream.readLine() )
-        eig = self.splitLine( stream.readLine() )
+        one = self.fh.remTabSpaceQuot(stream.readLine())
+        two = self.fh.splitLine( stream.readLine() )
+        thr = self.fh.splitLine( stream.readLine() )
+        fou = self.fh.splitLine( stream.readLine() )
+        fiv = self.fh.splitLine( stream.readLine() )
+        six = self.fh.splitLine( stream.readLine() )
+        sev = self.fh.splitLine( stream.readLine() )
+        eig = self.fh.splitLine( stream.readLine() )
         
         self.trailingE_M.setNumConfigs(0)
         self.trailingE_M.setNumConfigs(1)
@@ -288,12 +291,12 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             
         self.vault_M.setNumConfigs(0)
         self.vault_M.setNumConfigs(1)
-        vtype = int( self.remTabSpaceQuot(stream.readLine()) )
+        vtype = int( self.fh.remTabSpaceQuot(stream.readLine()) )
         
-        one = self.splitLine( stream.readLine() )
-        two = self.splitLine( stream.readLine() )
-        thr = self.splitLine( stream.readLine() )
-        fou = self.splitLine( stream.readLine() )
+        one = self.fh.splitLine( stream.readLine() )
+        two = self.fh.splitLine( stream.readLine() )
+        thr = self.fh.splitLine( stream.readLine() )
+        fou = self.fh.splitLine( stream.readLine() )
         
         if vtype == 1:
             self.vault_M.updateRow(1, 1, vtype, one[1], two[1], thr[1], fou[1], 0, 0, 0, 0, 0, 0, 0, 0)
@@ -308,25 +311,25 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         
         self.cellsDistr_M.setNumConfigs(0)
         
-        distrT = int( self.remTabSpaceQuot(stream.readLine()) )
+        distrT = int( self.fh.remTabSpaceQuot(stream.readLine()) )
                 
         if distrT == 1:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            numCells = self.remTabSpaceQuot(stream.readLine())
+            numCells = self.fh.remTabSpaceQuot(stream.readLine())
             self.cellsDistr_M.updateRow(1, 1, distrT, 0, 0, numCells)
             
         elif (distrT  == 2) or (distrT == 3):
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            coef = self.remTabSpaceQuot(stream.readLine())
-            numCells = self.remTabSpaceQuot(stream.readLine())
+            coef = self.fh.remTabSpaceQuot(stream.readLine())
+            numCells = self.fh.remTabSpaceQuot(stream.readLine())
             self.cellsDistr_M.updateRow(1, 1, distrT, coef, 0, numCells)
             
         elif distrT == 4:
-            numCells = int( self.remTabSpaceQuot(stream.readLine()) )
+            numCells = int( self.fh.remTabSpaceQuot(stream.readLine()) )
             self.cellsDistr_M.setNumRowsForConfig(1, numCells)
             
             for l in range (0, numCells):
-                width = self.splitLine(stream.readLine())
+                width = self.fh.splitLine(stream.readLine())
                 self.cellsDistr_M.updateRow(1, l+1, distrT, 0, width[1], numCells)
             
         ##############################
@@ -388,42 +391,42 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         
         values = self.gen_M.getRow(1, 1)
-        stream << '%s\n' %(self.chkStr(values(0),''))
+        stream << '%s\n' %(self.fh.chkStr(values(0),''))
         
         stream << separator
         stream << '* 1. Leading edge parameters\n'
         stream << separator
         values = self.leadingE_M.getRow(1, 1)
-        stream << '%s\n'        %(self.chkNum(values(0),1))
-        stream << 'a1= %s\n'    %(self.chkNum(values(1)))
-        stream << 'b1= %s\n'    %(self.chkNum(values(2)))
-        stream << 'x1= %s\n'    %(self.chkNum(values(3)))
-        stream << 'x2= %s\n'    %(self.chkNum(values(4)))
-        stream << 'xm= %s\n'    %(self.chkNum(values(5)))
-        stream << 'c0= %s\n'    %(self.chkNum(values(6)))
-        stream << 'ex1= %s\n'   %(self.chkNum(values(7)))
-        stream << 'c02= %s\n'   %(self.chkNum(values(8)))
-        stream << 'ex2= %s\n'   %(self.chkNum(values(9)))
+        stream << '%s\n'        %(self.fh.chkNum(values(0),1))
+        stream << 'a1= %s\n'    %(self.fh.chkNum(values(1)))
+        stream << 'b1= %s\n'    %(self.fh.chkNum(values(2)))
+        stream << 'x1= %s\n'    %(self.fh.chkNum(values(3)))
+        stream << 'x2= %s\n'    %(self.fh.chkNum(values(4)))
+        stream << 'xm= %s\n'    %(self.fh.chkNum(values(5)))
+        stream << 'c0= %s\n'    %(self.fh.chkNum(values(6)))
+        stream << 'ex1= %s\n'   %(self.fh.chkNum(values(7)))
+        stream << 'c02= %s\n'   %(self.fh.chkNum(values(8)))
+        stream << 'ex2= %s\n'   %(self.fh.chkNum(values(9)))
         
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
         stream << separator
         values = self.trailingE_M.getRow(1, 1)
-        stream << '%s\n'        %(self.chkNum(values(0),1))
-        stream << 'a1= %s\n'    %(self.chkNum(values(1)))
-        stream << 'b1= %s\n'    %(self.chkNum(values(2)))
-        stream << 'x1= %s\n'    %(self.chkNum(values(3)))
-        stream << 'xm= %s\n'    %(self.chkNum(values(4)))
-        stream << 'c0= %s\n'    %(self.chkNum(values(5)))
-        stream << 'y0= %s\n'    %(self.chkNum(values(6)))
-        stream << 'exp= %s\n'   %(self.chkNum(values(7)))
+        stream << '%s\n'        %(self.fh.chkNum(values(0),1))
+        stream << 'a1= %s\n'    %(self.fh.chkNum(values(1)))
+        stream << 'b1= %s\n'    %(self.fh.chkNum(values(2)))
+        stream << 'x1= %s\n'    %(self.fh.chkNum(values(3)))
+        stream << 'xm= %s\n'    %(self.fh.chkNum(values(4)))
+        stream << 'c0= %s\n'    %(self.fh.chkNum(values(5)))
+        stream << 'y0= %s\n'    %(self.fh.chkNum(values(6)))
+        stream << 'exp= %s\n'   %(self.fh.chkNum(values(7)))
 
         stream << separator
         stream << '* 3. Vault\n'
         stream << separator
         
         values = self.vault_M.getRow(1, 1)
-        stream << '%s\n' %(self.chkNum(values(0),1))
+        stream << '%s\n' %(self.fh.chkNum(values(0),1))
 
         try:
             if int( values(0) ) ==1:
@@ -447,7 +450,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         stream << '* 4. Cells distribution\n'
         stream << separator
         values = self.cellsDistr_M.getRow(1, 1)
-        stream << '%s\n' %(self.chkNum(values(0),1))
+        stream << '%s\n' %(self.fh.chkNum(values(0),1))
         
         try:
             if int( values(0) ) ==1:
@@ -475,65 +478,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         
             # Make flags in order
             #self.dataStatusUpdate.emit(self.__className,'Open')
-
-    def remTabSpace(self, line):
-        '''
-        :method: Deletes all leaing and trailing edges from a string
-        :param Line: The string to be cleaned
-        :returns: cleaned string 
-        '''
-        logging.debug(self.__className+'.remTabSpace')
-        value = re.sub(r'^\s+|\s+$', '', line ) 
-        return value
-    
-    def remTabSpaceQuot(self, line):
-        '''
-        :method: Removes from a string all leading, trailing spaces tabs and quotations
-        :param Line: The string to be cleaned
-        :returns: cleaned string 
-        '''
-        logging.debug(self.__className+'.remTabSpaceQuot')
-        line = self.remTabSpace(line)
-        line = re.sub(r'^\"+|\"+$', '', line )
-        return line
-    
-    def splitLine(self, line):
-        '''
-        :method: Splits lines with multiple values into a list of values delimiters could be spaces and tabs
-        :param line: The line to be split
-        :returns: a list of values 
-        '''
-        logging.debug(self.__className+'.splitLine')
-        line = self.remTabSpace(line) # remove leadind and trailing waste
-        values = re.split(r'[\t\s]\s*', line)
-        return values
-    
-    def chkNum(self, val, ret=0):
-        '''
-        :method: Checks if a value is integer, float or a string containing a numerical value
-        :param val: The value to check
-        :param ret: Optional parameter defining what must be returned if val is not numerical
-        :returns: If val is numerical: val, else  0 or ret 
-        '''
-        if isinstance(val, int) or isinstance(val, float):
-            return val
-        elif val.isnumeric():
-            return val
-        else:
-            return ret
-        
-    def chkStr(self, val, ret='x'):
-        '''
-        :method: Checks if a value is string and the lentth is > 0
-        :param val: The value to check
-        :param ret: Optional parameter defining what must be returned if val is not string or empty
-        :returns: If val is non empty string: val, else  x or ret 
-        '''
-        if isinstance(val, str) and len(val)>0:
-            return val
-        else:
-            return ret
-    
+     
     class CellsDistrModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding all for cells distribution.
