@@ -13,7 +13,7 @@ data_files_to_add = [
 					]
 
 processor_w32 = [ 	
-						('Processors\\lep-3.15-win64', 'Processors\\lep-3.15-win64' ),
+						('Processors\\lep-3.16-win64', 'Processors\\lep-3.16-win64' ),
 					]
 
 if platform.startswith('win'):

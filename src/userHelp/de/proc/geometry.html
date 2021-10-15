@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flügelgeometrie &#8212; lepg 3.15.x documentation</title>
+    <title>Flügelgeometrie &#8212; lepg 3.16.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -130,22 +130,15 @@
 <p>Im Fenster Geometrie wird der zweite Teil der Daten aus dem ersten Abschnitt der lep Datei definiert.</p>
 <a class="reference internal image-reference" href="../../_images/geometry-en.png"><img alt="../../_images/geometry-en.png" src="../../_images/geometry-en.png" style="width: 458px; height: 171px;" /></a>
 <p>Rohdaten:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Rib</span> <span class="n">geometric</span> <span class="n">parameters</span>
-<span class="o">*</span> <span class="n">Rib</span>   <span class="n">x</span><span class="o">-</span><span class="n">rib</span>     <span class="n">y</span><span class="o">-</span><span class="n">LE</span>    <span class="n">y</span><span class="o">-</span><span class="n">TE</span>      <span class="n">xp</span>        <span class="n">z</span>          <span class="n">beta</span>      <span class="n">RP</span>         <span class="n">Washin</span>
- <span class="mi">1</span>     <span class="mf">24.37</span>      <span class="mf">0.18</span>    <span class="mf">309.24</span>     <span class="mf">24.36</span>      <span class="mf">0.46</span>      <span class="mf">2.16</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">2</span>     <span class="mf">72.86</span>      <span class="mf">1.60</span>    <span class="mf">308.49</span>     <span class="mf">72.71</span>      <span class="mf">4.08</span>      <span class="mf">6.48</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">3</span>    <span class="mf">120.88</span>      <span class="mf">4.44</span>    <span class="mf">307.00</span>    <span class="mf">120.18</span>     <span class="mf">11.21</span>     <span class="mf">10.59</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">4</span>    <span class="mf">168.18</span>      <span class="mf">8.68</span>    <span class="mf">304.79</span>    <span class="mf">166.31</span>     <span class="mf">21.64</span>     <span class="mf">14.90</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">5</span>    <span class="mf">214.54</span>     <span class="mf">14.30</span>    <span class="mf">301.85</span>    <span class="mf">210.67</span>     <span class="mf">35.08</span>     <span class="mf">18.81</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">6</span>    <span class="mf">259.73</span>     <span class="mf">21.30</span>    <span class="mf">298.21</span>    <span class="mf">252.79</span>     <span class="mf">51.40</span>     <span class="mf">23.70</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">7</span>    <span class="mf">303.50</span>     <span class="mf">29.77</span>    <span class="mf">293.87</span>    <span class="mf">292.02</span>     <span class="mf">70.79</span>     <span class="mf">28.88</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">8</span>    <span class="mf">345.46</span>     <span class="mf">41.26</span>    <span class="mf">288.87</span>    <span class="mf">327.84</span>     <span class="mf">92.61</span>     <span class="mf">33.84</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
- <span class="mi">9</span>    <span class="mf">385.16</span>     <span class="mf">56.00</span>    <span class="mf">283.16</span>    <span class="mf">359.89</span>    <span class="mf">116.02</span>     <span class="mf">38.37</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
-<span class="mi">10</span>    <span class="mf">422.21</span>     <span class="mf">73.45</span>    <span class="mf">276.64</span>    <span class="mf">387.92</span>    <span class="mf">140.23</span>     <span class="mf">44.11</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
-<span class="mi">11</span>    <span class="mf">456.31</span>     <span class="mf">93.04</span>    <span class="mf">269.45</span>    <span class="mf">410.61</span>    <span class="mf">165.64</span>     <span class="mf">52.52</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
-<span class="mi">12</span>    <span class="mf">487.22</span>    <span class="mf">114.20</span>    <span class="mf">261.78</span>    <span class="mf">427.78</span>    <span class="mf">191.33</span>     <span class="mf">59.97</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
-<span class="mi">13</span>    <span class="mf">514.81</span>    <span class="mf">136.38</span>    <span class="mf">253.80</span>    <span class="mf">438.47</span>    <span class="mf">216.67</span>     <span class="mf">74.82</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
-<span class="mi">14</span>    <span class="mf">539.00</span>    <span class="mf">159.09</span>    <span class="mf">245.71</span>    <span class="mf">441.90</span>    <span class="mf">240.55</span>     <span class="mf">88.56</span>     <span class="mf">33.33</span>      <span class="mf">0.00</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Rib</span>   <span class="n">x</span><span class="o">-</span><span class="n">rib</span>       <span class="n">y</span><span class="o">-</span><span class="n">LE</span>       <span class="n">y</span><span class="o">-</span><span class="n">TE</span>         <span class="n">xp</span>          <span class="n">z</span>       <span class="n">beta</span>         <span class="n">RP</span>       <span class="n">Washin</span>    <span class="n">Rot_z</span>  <span class="n">Pos_z</span>
+ <span class="mi">1</span>      <span class="mf">41.72</span>       <span class="mf">0.42</span>     <span class="mf">270.76</span>      <span class="mf">41.69</span>       <span class="mf">1.16</span>       <span class="mf">0.00</span>      <span class="mf">33.33</span>       <span class="mf">0.00</span>      <span class="mf">0.00</span>   <span class="mf">50.0</span>
+ <span class="mi">2</span>     <span class="mf">124.64</span>       <span class="mf">3.78</span>     <span class="mf">268.69</span>     <span class="mf">124.07</span>      <span class="mf">10.33</span>      <span class="mf">10.00</span>      <span class="mf">33.33</span>       <span class="mf">3.00</span>      <span class="mf">1.95</span>   <span class="mf">50.0</span>
+ <span class="mi">3</span>     <span class="mf">206.57</span>      <span class="mf">10.51</span>     <span class="mf">264.57</span>     <span class="mf">203.97</span>      <span class="mf">28.27</span>      <span class="mf">15.00</span>      <span class="mf">33.33</span>       <span class="mf">6.00</span>      <span class="mf">2.91</span>   <span class="mf">50.0</span>
+ <span class="mi">4</span>     <span class="mf">286.98</span>      <span class="mf">20.74</span>     <span class="mf">258.41</span>     <span class="mf">279.31</span>      <span class="mf">56.16</span>      <span class="mf">25.00</span>      <span class="mf">33.33</span>       <span class="mf">10.00</span>     <span class="mf">4.75</span>   <span class="mf">50.0</span>
+ <span class="mi">5</span>     <span class="mf">365.35</span>      <span class="mf">34.64</span>     <span class="mf">250.23</span>     <span class="mf">347.87</span>      <span class="mf">93.98</span>      <span class="mf">30.00</span>      <span class="mf">33.33</span>       <span class="mf">15.00</span>     <span class="mf">5.63</span>   <span class="mf">50.0</span>
+ <span class="mi">6</span>     <span class="mf">440.64</span>      <span class="mf">57.63</span>     <span class="mf">239.83</span>     <span class="mf">407.14</span>     <span class="mf">140.22</span>      <span class="mf">45.00</span>      <span class="mf">33.33</span>       <span class="mf">20.00</span>     <span class="mf">7.97</span>   <span class="mf">50.0</span>
+ <span class="mi">7</span>     <span class="mf">511.15</span>      <span class="mf">96.61</span>     <span class="mf">227.18</span>     <span class="mf">453.42</span>     <span class="mf">193.28</span>      <span class="mf">50.00</span>      <span class="mf">33.33</span>       <span class="mf">25.00</span>     <span class="mf">8.64</span>   <span class="mf">50.0</span>
+ <span class="mi">8</span>     <span class="mf">575.50</span>     <span class="mf">148.95</span>     <span class="mf">212.80</span>     <span class="mf">473.45</span>     <span class="mf">254.62</span>      <span class="mf">90.00</span>      <span class="mf">33.33</span>       <span class="mf">30.00</span>     <span class="mf">11.31</span>  <span class="mf">50.0</span>
 </pre></div>
 </div>
 <p>Diese Parameter können nur mit der Hilfe einer zusätzlichen Geometrischen Betrachtung (am besten mit Hilfe eines CAD Programmes) erzeugt werden.</p>
@@ -191,7 +184,7 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Stefan Feuz.
+        &#169; Copyright 2021, Stefan Feuz.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>

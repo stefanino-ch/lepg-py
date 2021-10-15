@@ -38,6 +38,26 @@ Rohdaten::
 	3	1 1 2 1 3 2  0 0 2 2
 	.......
 
+Leinen-Kontrollparameter
+========================
+
+Der erste Parameter **Leinen-Kontrollparameter** definiert wie die Leinenlänge berechnet wird. 
+
+Erlaubte Werte sind 0..4:
+
+* 0 = strikte geometrisch Berechnung der unteren Leinen
+
+* 1 = Gewichtungstyp 1 der unteren Leinen
+
+* 2 = Gewichtungstyp 2 der unteren Leinen
+
+* 3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe). Eine genaue Beschreibung (in Englisch) findest Du hier |manual_link|.
+
+Parameter **3** ist die aktuell empfohlene Berechnungsart für neue Entwürfe. Die Lastverteilung sollte gegenüber den anderen Varianten besser werden und der Schirm dadurch stabiler.
+
+Leinenplan
+==========
+
 Stelle Dir vor Du schaust von hinten oder vorne auf die Leinen deines Flügels. 
 
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg
@@ -117,3 +137,7 @@ Eine detaillierte Beschreibung in englisch findest Du auf der |pere_link|.
 .. |pere_link| raw:: html
 
 	<a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>
+
+.. |manual_link| raw:: html
+
+	<a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>

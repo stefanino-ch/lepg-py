@@ -1,15 +1,19 @@
 # lepg-py
 
-latestVersion = '3.15.41'
+latestVersion = '3.16.0'
 
 ## English
 
 ### Installation - Windows
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/distribution/dist-W64) download the .zip files. 
-Unpack them all into the same folder. 
-Go into the new directory and start the file lepg.exe. 
+In the distribution/dist-W64 folder you will find a zip file. 
 
-IMPORTANT: to run the pre-processor you must first configure it: select [Setup]-> [Setup Pre-Processor] the .exe file you will find in Processors\pre1_5-w32 or similar. 
+Download this file.
+
+Unzip it.
+
+Change into the folder lepg.
+
+Execute (double click) the file lepg.exe. 
 
 ### Installation - Linux
 
@@ -19,6 +23,7 @@ PyQt5
 
 Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
 
+#### Installation
 The steps below explain how to install on a Ubuntu System: 
 
 -> Open a shell
@@ -40,11 +45,15 @@ The main file is named lepg.py. Start this with
 ## Deutsch
 
 ### Installation - Windows
-Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/stable/installer/dist-W64) alle .zip Dateien herunterladen und auf der lokalen Festplatte speichern.
-Die Dateien alle in denselben Ordner entpacken. 
-In das entpakte Verzeichnis wechseln und die Datei lepg.exe starten. 
+Im Ordner distribution/dist-W64 findest du eine .zip Datei. 
 
-WICHTIG: Bevor der Pre-Prozessor gestartet werden kann muss er erst konfiguriert werden:  [Setup]-> [Setup Pre-Processor] die .exe Datei ist in Processors\pre1_5-w32 oder ähnlich. 
+Diese Datei herunterladen. 
+
+Entpacken.
+
+In den Ordner lepg wechseln. 
+
+Die Datei lepg.exe ausführen (doppelklicken).
 
 ### Installation - Linux
 

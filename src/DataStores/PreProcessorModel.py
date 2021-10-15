@@ -534,8 +534,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
             logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE PreProcCellsDistr SET "
                             "DistrType = :distrT, "
@@ -561,8 +560,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "DistrType, "
@@ -578,8 +576,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         
         def updateType(self, configNum, orderNum, distrT):
             logging.debug(self.__className+'.updateType')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE PreProcCellsDistr SET "
                             "DistrType= :typeN "
@@ -599,8 +596,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: type value
             '''
             logging.debug(self.__className+'.getType')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "DistrType "
@@ -662,8 +658,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
             logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE PreProcGen SET "
                             "WingN = :wingN "
@@ -683,8 +678,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "WingN "
@@ -769,8 +763,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
             logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE LeadingEdge SET "
                             "Type= :typeN, "
@@ -807,8 +800,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "Type, "
@@ -896,8 +888,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
             logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE TrailingEdge SET "
                             "Type= :typeN, "
@@ -930,8 +921,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "Type, "
@@ -1031,8 +1021,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
             logging.debug(self.__className+'.updateRow')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE Vault SET "
                             "Type= :typeN, "
@@ -1078,8 +1067,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "Type, "
@@ -1104,8 +1092,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         
         def updateType(self, configNum, orderNum, typeNum):
             logging.debug(self.__className+'.updateType')
-            
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("UPDATE Vault SET "
                             "Type= :typeN "
@@ -1125,8 +1112,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             :return: type value
             '''
             logging.debug(self.__className+'.getType')
-                    
-            # TODO: Add transaction
+
             query = QSqlQuery()
             query.prepare("Select " 
                             "Type "

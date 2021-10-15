@@ -13,10 +13,11 @@ from packaging import version
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, QMessageBox, QMenu
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction,\
+                            QMessageBox, QMenu
 
 from __init__ import __version__
-from VersionCheck.VersionCheck import VersionCheck 
+from VersionCheck.VersionCheck import VersionCheck
 
 from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorModel import PreProcessorModel
@@ -65,11 +66,12 @@ from PyQt5.Qt import QStatusBar
 
 # TODO: bring windows to front if they are called
 
+
 class MainWindow(QMainWindow):
     '''
     :class: Creates the main window of the application
     '''
-    
+
     __className = 'MainWindow'
     '''
     :attr: Does help to indicate the source of the log messages
@@ -487,13 +489,14 @@ class MainWindow(QMainWindow):
          
         procMenu.addSeparator()
         procMenu.addAction(procRunAct)
-        
+
     def preProcImport(self):
         '''
-        :method: Called if the user selects *Processor* -> *Import Pre-Proc File*
+        :method: Called if the user selects *Processor* ->
+                 *Import Pre-Proc File*
         '''
         self.pm.importPreProcFile()
-        
+
     def procOpenFile(self):
         '''
         :method: Called if the user selects *Processor* -> *Open Processor File*
