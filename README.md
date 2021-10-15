@@ -1,13 +1,8 @@
 # lepg-py
 
-latestVersion = '3.15.41'
+latestVersion = '3.16.0'
 
 ## English
-
-### Requirements
-Python >3.7
-
-PyQt5
 
 ### Installation - Windows
 In the distribution/dist-W64 folder you will find a zip file. 
@@ -21,8 +16,14 @@ Change into the folder lepg.
 Execute (double click) the file lepg.exe. 
 
 ### Installation - Linux
+
+#### Requirements
+Python >3.7
+
+PyQt5
 Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
 
+#### Installation
 The steps below explain how to install on a Ubuntu System: 
 
 -> Open a shell
@@ -43,11 +44,6 @@ The main file is named lepg.py. Start this with
 
 ## Deutsch
 
-### Anforderungen
-Python >3.7
-
-PyQt5
-
 ### Installation - Windows
 Im Ordner distribution/dist-W64 findest du eine .zip Datei. 
 
@@ -60,7 +56,14 @@ In den Ordner lepg wechseln.
 Die Datei lepg.exe ausführen (doppelklicken).
 
 ### Installation - Linux
-Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwendiger. 
+
+#### Anforderungen
+Python >3.7
+
+PyQt5
+
+#### Installation
+Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwändiger. 
 
 Die Anleitung gilt für ein Ubuntu System: 
 

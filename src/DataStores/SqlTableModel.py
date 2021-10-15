@@ -144,22 +144,21 @@ class SqlTableModel(QSqlTableModel):
                     self.numRowsForConfigChanged.emit(currNumConfigs-i, 0)  # emit the change signal
                     i += 1
 
-
     def numConfigs(self):
         '''
-        :method: reads from a table how many different configurations are saved.
+        :method: reads from a table how many different configurations
+                 are saved.
         :return: number of different configs
         '''
         logging.debug(self.__className+'.numConfigs')
-                
-        # TODO: Add transaction
+
         query = QSqlQuery()
         query.prepare("Select ConfigNum FROM %s ORDER BY ConfigNum ASC" %(self.tableName()) )
         query.exec()
         orderNum = 0
         while (query.next()):
             orderNum = query.value(0)
-        
+
         return orderNum
 
 
@@ -172,8 +171,7 @@ class SqlTableModel(QSqlTableModel):
         logging.debug(self.__className+'.addRowForConfig')
 
         currNumRows = self.numRowsForConfig(configNum)
-        
-        # TODO: Add transaction
+
         query = QSqlQuery()
         query.prepare("INSERT into %s (ConfigNum, OrderNum) Values( :conf, :order);" %(self.tableName()))
         query.bindValue(":conf", configNum)
@@ -190,8 +188,7 @@ class SqlTableModel(QSqlTableModel):
         :param configNum: Number of the config for which the row must be deleted.  
         '''
         logging.debug(self.__className+'.removeRowForConfig')
-        
-        # TODO: Add transaction
+
         query = QSqlQuery()
         query.prepare("Select ConfigNum, OrderNum FROM %s WHERE ConfigNum = :conf ORDER BY OrderNum ASC" %(self.tableName()) )
         query.bindValue(":conf", str(configNum))
@@ -199,8 +196,8 @@ class SqlTableModel(QSqlTableModel):
         orderNum = 0
         while (query.next()):
             orderNum = query.value(1)
-        
-        if orderNum>0:
+
+        if orderNum > 0:
             query.prepare("DELETE FROM %s WHERE (ConfigNum = :conf AND OrderNum = :order);" %(self.tableName()) )
             query.bindValue(":conf", str(configNum))
             query.bindValue(":order", str(orderNum))

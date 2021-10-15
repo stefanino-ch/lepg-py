@@ -4,18 +4,22 @@
 '''
 import logging
 
-from PyQt5.Qt   import Qt
+from PyQt5.Qt import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, QFile, QTextStream
 from PyQt5.QtWidgets import QTextEdit
-                         
+
 from DataStores.ProcessorModel import ProcessorModel
 from DataStores.FileHelpers import FileHelpers
 
+
 class WaitWindow(QTextEdit):
     '''
-    :class: Builds a minimalized window to inform the user that file reading does take some time. 
-            all infomation is shown in the window title due to this discussion: https://stackoverflow.com/questions/67934352/window-opened-from-a-class-is-not-displaying-correctly/67937507#67937507 
+    :class: Builds a minimalized window to inform the user that file reading
+            does take some time.
+            All infomation is shown in the window title due to this discussion:
+            https://stackoverflow.com/questions/67934352/window-opened-from-a-
+            class-is-not-displaying-correctly/67937507#67937507
     '''
     def __init__(self):
         super(WaitWindow, self).__init__()
@@ -26,17 +30,19 @@ class WaitWindow(QTextEdit):
         self.setMaximumSize(450, 0)
         self.setMinimumSize(450, 25)
         self.setWindowTitle(_("Please wait.. reading might take some time"))
-        
+
+
 class ProcFileReader(QObject):
     '''
-    :class: Covers the operations to read a processor file and write the data into the according models. 
+    :class: Covers the operations to read a processor file and write the data
+            into the according models.
     '''
 
     __className = 'ProcFileReader'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
-    
+
     __fileNamePath = ''
 
     def __init__(self):
@@ -44,9 +50,9 @@ class ProcFileReader(QObject):
         Constructor
         '''
         super().__init__()
-        
+
         self.fh = FileHelpers()
-        
+
         self.rib_M = ProcessorModel.RibModel()
         self.wing_M = ProcessorModel.WingModel()
         self.airf_M = ProcessorModel.AirfoilsModel()
@@ -86,24 +92,25 @@ class ProcFileReader(QObject):
         self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
         self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
         self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
-    
+
     def setFilePathName(self, fileNamePath):
         '''
         :method: Used to set the full path and filename to be read
         '''
         self.__fileNamePath = fileNamePath
-        
+
     def readFile(self):
         '''
-        :method: Reads the data file and saves the data in the internal database.
+        :method: Reads the data file and saves the data in the internal
+                 database.
         :warning: Filename and Path must be set first!
         '''
         logging.debug(self.__className+'.readFile')
-        
+
         self.waitInfo = WaitWindow()
         self.waitInfo.show()
-        
-        inFile = QFile( self.__fileNamePath )
+
+        inFile = QFile(self.__fileNamePath)
         inFile.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(inFile)
 
@@ -111,309 +118,384 @@ class ProcFileReader(QObject):
         # 1. GEOMETRY
         # Overread file header
         logging.debug(self.__className+'.readFile: 1. GEOMETRY')
-        
+
         counter = 0
         while counter < 4:
             line = stream.readLine()
             if line.find('***************') >= 0:
                 counter += 1
-        
+
         # Brand name
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.BrandNameCol ), self.fh.remTabSpaceQuot(line))
-        
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.BrandNameCol),
+                self.fh.remTabSpaceQuot(line))
+
         # Wing name
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.WingNameCol), self.fh.remTabSpaceQuot(line))
-        
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.WingNameCol),
+                self.fh.remTabSpaceQuot(line))
+
         # Draw scale
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.DrawScaleCol), self.fh.remTabSpace(line))
-        
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.DrawScaleCol),
+                self.fh.remTabSpace(line))
+
         # Wing scale
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.WingScaleCol), self.fh.remTabSpace(line))
-        
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.WingScaleCol),
+                self.fh.remTabSpace(line))
+
         # Number of cells
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.NumCellsCol), self.fh.remTabSpace(line))
-        
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.NumCellsCol),
+                self.fh.remTabSpace(line))
+
         # Number of Ribs
         line = stream.readLine()
         line = stream.readLine()
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.NumRibsCol), self.fh.remTabSpace(line))
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.NumRibsCol),
+                self.fh.remTabSpace(line))
 
         # Alpha max and parameter
         line = stream.readLine()
-        values =  self.fh.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxTipCol), values[0] )
+        values = self.fh.splitLine(stream.readLine())
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxTipCol),
+                values[0])
         try:
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol), values[1] )
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol),
+                values[1])
         except:
             # in case of an empty file values[1] is missing
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol), '' )
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol),
+                '')
             logging.error(self.__className+'.readFile: AlphaMode missing')
-            
-        if len(values) > 2: 
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol), values[2] )
+
+        if len(values) > 2:
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol),
+                values[2])
         else:
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol), '' )
-        
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol),
+                '')
+
         # Paraglider type and parameter
         line = stream.readLine()
-        values =  self.fh.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.ParaTypeCol), self.fh.remTabSpaceQuot( values[0]) )
+        values = self.fh.splitLine(stream.readLine())
+        self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.ParaTypeCol),
+                self.fh.remTabSpaceQuot(values[0]))
         try:
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol), values[1])
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol),
+                values[1])
         except:
             # in case of an empty file values[1] is missing
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol), '')
+            self.wing_M.setData(
+                self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol),
+                '')
             logging.error(self.__className+'.readFile: ParaParam missing')
-        
+
         # Rib geometric parameters
-        # Rib    x-rib    y-LE    y-TE    xp    z    beta    RP    Washin
+        # Rib  x-rib  y-LE  y-TE  xp  z  beta  RP  Washin Rot_z  Pos_z
         line = stream.readLine()
         line = stream.readLine()
 
-        self.wing_M.halfNumRibs
-
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.fh.splitLine( stream.readLine() )
+        for i in range(0, self.wing_M.halfNumRibs):
+            values = self.fh.splitLine(stream.readLine())
             for y in range(0, 9):
-                self.rib_M.setData(self.rib_M.index(i, y), values[y] )
-        
+                self.rib_M.setData(self.rib_M.index(i, y), values[y])
+            # with 3.16 two additional params was added
+            if len(values) <= 9:
+                # old data file
+                self.rib_M.setData(self.rib_M.index(i, 9), 0)
+                self.rib_M.setData(self.rib_M.index(i, 10), 50)
+            else:
+                # new file
+                self.rib_M.setData(self.rib_M.index(i, 9), values[9])
+                self.rib_M.setData(self.rib_M.index(i, 10), values[10])
+
         ##############################
         # 2. AIRFOILS
         logging.debug(self.__className+'.readFile: 2. AIRFOILS')
-        
+
         for i in range(4):
             line = stream.readLine()
-        
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.fh.splitLine( stream.readLine() )
+
+        for i in range(0, self.wing_M.halfNumRibs):
+            values = self.fh.splitLine(stream.readLine())
             for y in range(0, 8):
-                self.airf_M.setData(self.airf_M.index(i, y), values[y] )
-        
+                self.airf_M.setData(self.airf_M.index(i, y), values[y])
+
         ##############################
         # 3. ANCHOR POINTS
         logging.debug(self.__className+'.readFile: 3. ANCHOR POINTS')
-        
+
         # Just overreading the lines for temporary testing
         for i in range(4):
             line = stream.readLine()
-            
-        for i in range( 0, self.wing_M.halfNumRibs ):
-            values =  self.fh.splitLine( stream.readLine() )
+
+        for i in range(0, self.wing_M.halfNumRibs):
+            values = self.fh.splitLine(stream.readLine())
             for y in range(0, 8):
-                self.anchPoints_M.setData(self.anchPoints_M.index(i, y), values[y] )
-            
+                self.anchPoints_M.setData(self.anchPoints_M.index(i, y),
+                                          values[y])
+
         ##############################
         # 4. RIB HOLES
         logging.debug(self.__className+'.readFile: 4. RIB HOLES')
-        
+
         for i in range(3):
             line = stream.readLine()
-        
-        numConfigs = int(self.fh.remTabSpace( stream.readLine() ))
-        self.lightC_M.setNumConfigs( numConfigs )
-        for i in range( 0, numConfigs ):
-            ini = int(self.fh.remTabSpace( stream.readLine()))
-            fin = int(self.fh.remTabSpace( stream.readLine()))
+
+        numConfigs = int(self.fh.remTabSpace(stream.readLine()))
+        self.lightC_M.setNumConfigs(numConfigs)
+        for i in range(0, numConfigs):
+            ini = int(self.fh.remTabSpace(stream.readLine()))
+            fin = int(self.fh.remTabSpace(stream.readLine()))
             self.lightC_M.updateRow(i+1, ini, fin)
-            
-            numConfigLines = int(self.fh.remTabSpace( stream.readLine() ))
-            self.lightD_M.setNumRowsForConfig(i+1, 0 )
-            self.lightD_M.setNumRowsForConfig(i+1, numConfigLines )
-            
-            # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1
+
+            numConfigLines = int(self.fh.remTabSpace(stream.readLine()))
+            self.lightD_M.setNumRowsForConfig(i+1, 0)
+            self.lightD_M.setNumRowsForConfig(i+1, numConfigLines)
+
+            # ConfigNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, 
+            # VertAxis, RotAngle, Opt1
             for l in range(0, numConfigLines):
-                values =  self.fh.splitLine( stream.readLine() )
-                self.lightD_M.updateRow(i+1, l+1, values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
+                values = self.fh.splitLine(stream.readLine())
+                self.lightD_M.updateRow(i+1, l+1, values[0],
+                                        values[1],
+                                        values[2],
+                                        values[3],
+                                        values[4],
+                                        values[5],
                                         values[6])
 
         ##############################
         # 5. SKIN TENSION
         logging.debug(self.__className+'.readFile: 5. SKIN TENSION')
-        
+
         for i in range(4):
             line = stream.readLine()
-        
-        for l in range(0, 6 ):
-            values =  self.fh.splitLine( stream.readLine() )
+
+        for l in range(0, 6):
+            values = self.fh.splitLine(stream.readLine())
             try:
-                self.skinTens_M.updateRow(l+1, values[0], values[1], values[2], values[3])
+                self.skinTens_M.updateRow(l+1, values[0], values[1],
+                                          values[2], values[3])
             except:
                 # in case of an empty file values[1...3] are missing
                 self.skinTens_M.updateRow(l+1, 0, 0, 0, 0)
                 logging.error(self.__className+'.readFile: Skin tension params missing')
-                
 
-        val = self.fh.remTabSpace( stream.readLine() )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val )        
-                          
-        values = self.fh.splitLine( stream.readLine() )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0] )
-        self.skinTensParams_M.setData(self.skinTensParams_M.index(0, ProcessorModel.SkinTensionParamsModel.CoeffCol), values[1] )
-        
+        val = self.fh.remTabSpace(stream.readLine())
+        self.skinTensParams_M.setData(
+            self.skinTensParams_M.index(
+                0,
+                ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val)
+
+        values = self.fh.splitLine(stream.readLine())
+        self.skinTensParams_M.setData(
+            self.skinTensParams_M.index(
+                0,
+                ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0])
+        self.skinTensParams_M.setData(
+            self.skinTensParams_M.index(
+                0,
+                ProcessorModel.SkinTensionParamsModel.CoeffCol), values[1])
+
         ##############################
         # 6. SEWING ALLOWANCES
         logging.debug(self.__className+'.readFile: 6. SEWING ALLOWANCES')
-        
+
         for i in range(3):
             line = stream.readLine()
-            
-        for l in range(0, 2 ):
-                values =  self.fh.splitLine( stream.readLine() )
-                if len(values) > 3:
-                    self.sewAll_M.updateRow(l+1, values[0], values[1], values[2])
-                else:
-                    # in case of an empty file
-                    self.sewAll_M.updateRow(l+1, 15, 25, 25)
-                    logging.error(self.__className+'.readFile: Seewing allowances for panels missing')
-                    
-        
-        values = self.fh.splitLine( stream.readLine() )
-        if len(values)>2:
+
+        for l in range(0, 2):
+            values = self.fh.splitLine(stream.readLine())
+            if len(values) > 3:
+                self.sewAll_M.updateRow(l+1, values[0],
+                                        values[1], values[2])
+            else:
+                # in case of an empty file
+                self.sewAll_M.updateRow(l+1, 15, 25, 25)
+                logging.error(self.__className+'.readFile: Seewing allowances for panels missing')
+
+        values = self.fh.splitLine(stream.readLine())
+        if len(values) > 2:
             self.sewAll_M.updateRow(3, values[0])
         else:
             self.sewAll_M.updateRow(3, 15)
             logging.error(self.__className+'.readFile: Seewing allowances for ribs missing')
-            
-        values = self.fh.splitLine( stream.readLine() )
-        if len(values)>2:
+
+        values = self.fh.splitLine(stream.readLine())
+        if len(values) > 2:
             self.sewAll_M.updateRow(4, values[0])
         else:
             self.sewAll_M.updateRow(4, 15)
             logging.error(self.__className+'.readFile: Seewing allowances for v-ribs missing')
-            
+
         ##############################
         # 7. MARKS
         logging.debug(self.__className+'.readFile: 7. MARKS')
-        
+
         for i in range(3):
             line = stream.readLine()
-            
-        values = self.fh.splitLine( stream.readLine() )
+
+        values = self.fh.splitLine(stream.readLine())
         try:
             self.marks_M.updateRow(values[0], values[1], values[2])
         except:
             # in case of an empty file values[1...2] are missing
             self.marks_M.updateRow(25, 0.5, 0.15)
             logging.error(self.__className+'.readFile: Marks missing')
-        
+
         ##############################
         # 8. GLOBAL ANGLE OF ATTACK ESTIMATION
         logging.debug(self.__className+'.readFile: 8. GLOBAL ANGLE OF ATTACK ESTIMATION')
-        
+
         for i in range(3):
             line = stream.readLine()
-            
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.FinesseCol), self.fh.remTabSpace( stream.readLine() ) )
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.FinesseCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.CentOfPressCol), self.fh.remTabSpace( stream.readLine() ) )
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.CentOfPressCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.CalageCol), self.fh.remTabSpace( stream.readLine() ) )
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.CalageCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.RisersCol), self.fh.remTabSpace( stream.readLine() ) )
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.RisersCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.LinesCol), self.fh.remTabSpace( stream.readLine() ) )
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.LinesCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         line = stream.readLine()
-        self.globAoA_M.setData(self.globAoA_M.index(0, ProcessorModel.GlobAoAModel.KarabinersCol), self.fh.remTabSpace( stream.readLine() ) )
-        
+        self.globAoA_M.setData(
+            self.globAoA_M.index(0,
+                                 ProcessorModel.GlobAoAModel.KarabinersCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         ##############################
         # 9. SUSPENSION LINES DESCRIPTION
         logging.debug(self.__className+'.readFile: 9. SUSPENSION LINES DESCRIPTION')
-        
+
         for i in range(3):
             line = stream.readLine()
-        
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.LinesConcTypeCol ), self.fh.remTabSpace( stream.readLine() ) )
-        
-        numConfigs = int(self.fh.remTabSpace( stream.readLine()))
-        
-        for i in range( 0, numConfigs ):
-            numConfigLines = int( self.fh.remTabSpace( stream.readLine() ) )
-            self.lines_M.setNumRowsForConfig(i+1, 0 )
-            self.lines_M.setNumRowsForConfig(i+1, numConfigLines )
-             
+
+        self.wing_M.setData(
+            self.wing_M.index(0,
+                              ProcessorModel.WingModel.LinesConcTypeCol),
+            self.fh.remTabSpace(stream.readLine()))
+
+        numConfigs = int(self.fh.remTabSpace(stream.readLine()))
+
+        for i in range(0, numConfigs):
+            numConfigLines = int(self.fh.remTabSpace(stream.readLine()))
+            self.lines_M.setNumRowsForConfig(i+1, 0)
+            self.lines_M.setNumRowsForConfig(i+1, numConfigLines)
+
             for l in range(0, numConfigLines):
-                values =  self.fh.splitLine( stream.readLine() )
-                self.lines_M.updateLineRow(i+1, l+1, \
-                                        values[0], \
-                                        values[1], \
-                                        values[2], \
-                                        values[3], \
-                                        values[4], \
-                                        values[5], \
-                                        values[6], \
-                                        values[7], \
-                                        values[8], \
-                                        values[9], \
-                                        values[10] )
-        
+                values = self.fh.splitLine(stream.readLine())
+                self.lines_M.updateLineRow(i+1, l+1,
+                                           values[0],
+                                           values[1],
+                                           values[2],
+                                           values[3],
+                                           values[4],
+                                           values[5],
+                                           values[6],
+                                           values[7],
+                                           values[8],
+                                           values[9],
+                                           values[10])
+
         ##############################
         # 10. BRAKES
         logging.debug(self.__className+'.readFile: 10. BRAKES')
-        
+
         for i in range(3):
             line = stream.readLine()
-        
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.BrakeLengthCol ), self.fh.remTabSpace( stream.readLine() ) )
-        
+
+        self.wing_M.setData(
+            self.wing_M.index(0,
+                              ProcessorModel.WingModel.BrakeLengthCol),
+            self.fh.remTabSpace(stream.readLine()))
+
         # delete existing data
-        self.brakes_M.setNumRowsForConfig(1, 0 )
-        
+        self.brakes_M.setNumRowsForConfig(1, 0)
+
         # read new data
-        numConfigLines = int( self.fh.remTabSpace( stream.readLine() ) )
-        self.brakes_M.setNumRowsForConfig(1, numConfigLines )
-        
+        numConfigLines = int(self.fh.remTabSpace(stream.readLine()))
+        self.brakes_M.setNumRowsForConfig(1, numConfigLines)
+
         for l in range(0, numConfigLines):
-            values =  self.fh.splitLine( stream.readLine() )
+            values = self.fh.splitLine(stream.readLine())
             try:
-                self.brakes_M.updateRow(1, l+1, \
-                                            values[0], \
-                                            values[1], \
-                                            values[2], \
-                                            values[3], \
-                                            values[4], \
-                                            values[5], \
-                                            values[6], \
-                                            values[7], \
-                                            values[8], \
-                                            values[9], \
-                                            values[10] )
+                self.brakes_M.updateRow(1, l+1,
+                                        values[0],
+                                        values[1],
+                                        values[2],
+                                        values[3],
+                                        values[4],
+                                        values[5],
+                                        values[6],
+                                        values[7],
+                                        values[8],
+                                        values[9],
+                                        values[10])
             except:
-                self.brakes_M.updateRow(1, l+1, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0, \
-                                            0 )
+                self.brakes_M.updateRow(1, l+1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0)
                 logging.error(self.__className+'.readFile: Brake lines data missing')
-        
+
         line = stream.readLine()
-        
+
         for c in range(0, 2):
-            values =  self.fh.splitLine( stream.readLine() )
-            
-            for p in range (0, 5):
+            values = self.fh.splitLine(stream.readLine())
+
+            for p in range(0, 5):
                 try:
                     self.brakeL_M.setData(self.brakeL_M.index(0, p + (c*5) ), values[p] )
                 except:

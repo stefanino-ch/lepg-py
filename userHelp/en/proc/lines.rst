@@ -39,6 +39,25 @@ Raw data::
 	3	1 1 2 1 3 2  0 0 2 2
 	.......
 
+Lines control parameter
+=======================
+
+The first parameter **Lines control parameter** defines how the individual lengts of the lines will be calculated afterwards.
+
+Values allowed are 0..4:
+* 0 = lower branches lined only by geometric mean of the anchor points
+
+* 1 = lower branches lined by weighting type 1
+
+* 2 = lower branches lined by weighting type 2
+
+* 3 = lower branches lined by weighting type 3 (spanwise and chordwise optimization). Read more details |manual_link|.
+
+Parameter **3** is what is recommend for all new designs. The distribution of loads on the lines will be much better. Possibly the paraglider will be more solid.
+
+Line plans
+==========
+
 Imagine you look from the front/ rear of the wing towards the lines.
 
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg
@@ -117,3 +136,7 @@ A more detailed description you can find here |pere_link|.
 .. |pere_link| raw:: html
 
 	<a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>
+
+.. |manual_link| raw:: html
+
+	<a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>

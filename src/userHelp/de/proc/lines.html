@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leinen &#8212; lepg 3.15.x documentation</title>
+    <title>Leinen &#8212; lepg 3.16.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -94,13 +94,17 @@
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Leinen</a><ul>
-<li><a class="reference internal" href="#prinzipielle-regeln">Prinzipielle Regeln</a></li>
 <li><a class="reference internal" href="#leinen-kontrollparameter">Leinen-Kontrollparameter</a></li>
+<li><a class="reference internal" href="#leinenplan">Leinenplan</a><ul>
+<li><a class="reference internal" href="#prinzipielle-regeln">Prinzipielle Regeln</a></li>
+<li><a class="reference internal" href="#id1">Leinen-Kontrollparameter</a></li>
 <li><a class="reference internal" href="#anzahl-leinenplane">Anzahl Leinenpläne</a></li>
 <li><a class="reference internal" href="#anzahl-ebenen">Anzahl Ebenen</a></li>
 <li><a class="reference internal" href="#verzw-1-2-3-4">Verzw 1, 2, 3, 4</a></li>
 <li><a class="reference internal" href="#knoten-verzw-1-2-3-4">Knoten Verzw 1, 2, 3, 4</a></li>
 <li><a class="reference internal" href="#sortieren">Sortieren</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -160,6 +164,20 @@
 <span class="o">.......</span>
 </pre></div>
 </div>
+<div class="section" id="leinen-kontrollparameter">
+<h2>Leinen-Kontrollparameter<a class="headerlink" href="#leinen-kontrollparameter" title="Permalink to this headline">¶</a></h2>
+<p>Der erste Parameter <strong>Leinen-Kontrollparameter</strong> definiert wie die Leinenlänge berechnet wird.</p>
+<p>Erlaubte Werte sind 0..4:</p>
+<ul class="simple">
+<li><p>0 = strikte geometrisch Berechnung der unteren Leinen</p></li>
+<li><p>1 = Gewichtungstyp 1 der unteren Leinen</p></li>
+<li><p>2 = Gewichtungstyp 2 der unteren Leinen</p></li>
+<li><p>3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe). Eine genaue Beschreibung (in Englisch) findest Du hier <a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>.</p></li>
+</ul>
+<p>Parameter <strong>3</strong> ist die aktuell empfohlene Berechnungsart für neue Entwürfe. Die Lastverteilung sollte gegenüber den anderen Varianten besser werden und der Schirm dadurch stabiler.</p>
+</div>
+<div class="section" id="leinenplan">
+<h2>Leinenplan<a class="headerlink" href="#leinenplan" title="Permalink to this headline">¶</a></h2>
 <p>Stelle Dir vor Du schaust von hinten oder vorne auf die Leinen deines Flügels.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" />
 <p>Ein Pfad kann maximal über 4 Ebenen definiert werden. Für jede Ebene definierst Du die Nummer des Knotens in welchem die Leine endet.</p>
@@ -184,36 +202,37 @@
 Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2. Leine übersetzt</p>
 <p><strong>(A=1) 2</strong> dieser Pfad wird jetzt mit dem Aufhängepunkt 1 von Rippe 2 verbunden</p>
 <div class="section" id="prinzipielle-regeln">
-<h2>Prinzipielle Regeln<a class="headerlink" href="#prinzipielle-regeln" title="Permalink to this headline">¶</a></h2>
+<h3>Prinzipielle Regeln<a class="headerlink" href="#prinzipielle-regeln" title="Permalink to this headline">¶</a></h3>
 <p><strong>Für jeden Gurt musst Du einen eigenen Leinenplan definieren</strong></p>
 <p><strong>Wenn Du eine Ebene nicht verwenden willst musst Du für das Definitionspaar dieser Ebene 0 einsetzen.</strong></p>
 <p>Die Zeile unten zeigt einen Pfad der nur über 3 Ebenen geht.</p>
 <p><strong>3</strong>   1 1 2 3 3 17 <strong>0 0</strong> 3 9</p>
 </div>
-<div class="section" id="leinen-kontrollparameter">
-<h2>Leinen-Kontrollparameter<a class="headerlink" href="#leinen-kontrollparameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Leinen-Kontrollparameter<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Bisher ist nur eine Art die Leinen zu definieren vollständig implementiert. Der Wert muss immer auf <strong>0</strong> gesetzt werden.</p>
 </div>
 <div class="section" id="anzahl-leinenplane">
-<h2>Anzahl Leinenpläne<a class="headerlink" href="#anzahl-leinenplane" title="Permalink to this headline">¶</a></h2>
+<h3>Anzahl Leinenpläne<a class="headerlink" href="#anzahl-leinenplane" title="Permalink to this headline">¶</a></h3>
 <p>Für jeden Gurt musst Du einen eigenen Leinenplan definieren</p>
 </div>
 <div class="section" id="anzahl-ebenen">
-<h2>Anzahl Ebenen<a class="headerlink" href="#anzahl-ebenen" title="Permalink to this headline">¶</a></h2>
+<h3>Anzahl Ebenen<a class="headerlink" href="#anzahl-ebenen" title="Permalink to this headline">¶</a></h3>
 <p>Hier definierst Du wie viele Ebenen ein Pfad beinhaltet.</p>
 </div>
 <div class="section" id="verzw-1-2-3-4">
-<h2>Verzw 1, 2, 3, 4<a class="headerlink" href="#verzw-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<h3>Verzw 1, 2, 3, 4<a class="headerlink" href="#verzw-1-2-3-4" title="Permalink to this headline">¶</a></h3>
 <p>Definiert die Ebenennummer für eine bestimmte Verzweigung.</p>
 </div>
 <div class="section" id="knoten-verzw-1-2-3-4">
-<h2>Knoten Verzw 1, 2, 3, 4<a class="headerlink" href="#knoten-verzw-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<h3>Knoten Verzw 1, 2, 3, 4<a class="headerlink" href="#knoten-verzw-1-2-3-4" title="Permalink to this headline">¶</a></h3>
 <p>Die Knotennummer eines Pfades auf einer bestimmten Ebene.</p>
 </div>
 <div class="section" id="sortieren">
-<h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this headline">¶</a></h2>
+<h3>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this headline">¶</a></h3>
 <p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</div>
 </div>
 </div>
 
@@ -245,7 +264,7 @@ Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Stefan Feuz.
+        &#169; Copyright 2021, Stefan Feuz.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>

@@ -993,7 +993,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">numConfigs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.SqlTableModel.SqlTableModel.numConfigs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>reads from a table how many different configurations are saved.</p>
+<dd class="field-odd"><p>reads from a table how many different configurations
+are saved.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>number of different configs</p>
@@ -1153,7 +1154,8 @@ for the example about how to insert.</p>
 - Holds as a central point all temporary data during program execution</p>
 </dd>
 </dl>
-<p>Is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple times all data will be the same for all instances.</p>
+<p>Is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple
+times all data will be the same for all instances.</p>
 <dl class="py class">
 <dt id="DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">AddRibPointsModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.AddRibPointsModel" title="Permalink to this definition">¶</a></dt>
@@ -4004,7 +4006,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">AnchorLineCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.AnchorLineCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Number of the col holding the  anchor line (1 = A, 2 = B, 3 = C, 4 = c 5 = D, 6 = brake) value</p>
+<dd class="field-odd"><p>Number of the col holding the  anchor line (
+1 = A, 2 = B, 3 = C, 4 = D, 5 = E, 6 = brake) value</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4124,7 +4127,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines of a config</p>
+<dd class="field-odd"><p>num of column for 1..3: ordering the individual lines
+of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4159,7 +4163,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">getRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.getRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+<dd class="field-odd"><p>reads values back from the internal database for a
+specific config and order number</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><ul class="simple">
@@ -4178,7 +4183,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">setNumConfigs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mustNumConfigs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.setNumConfigs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Assures the model will be setup to hold the correct number of configs based on parameters passed.</p>
+<dd class="field-odd"><p>Assures the model will be setup to hold the correct
+number of configs based on parameters passed.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>mustNumConfigs</strong> – Number of configs the model must provide.</p>
@@ -4191,7 +4197,9 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">updateLineRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.LinesModel.updateLineRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here
+as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4961,15 +4969,28 @@ for the example about how to insert.</p>
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">RibModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Provides a SqlTableModel holding all data related to the individual ribs.</p>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all data related to the
+individual ribs.</p>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.PosZCol">
+<code class="sig-name descname"><span class="pre">PosZCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.PosZCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column holding the position of the z-axis
+rotation point</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.RPCol">
 <code class="sig-name descname"><span class="pre">RPCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">7</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.RPCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing RP percentage of chord to be held on the relative torsion of the airfoils</p>
+<dd class="field-odd"><p>number of the column providing RP percentage of chord to
+be held on the relative torsion of the airfoils</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4985,11 +5006,23 @@ for the example about how to insert.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.RotZCol">
+<code class="sig-name descname"><span class="pre">RotZCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">9</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.RotZCol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>number of the column providing the rotation angle in z
+axis.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.WashinCol">
 <code class="sig-name descname"><span class="pre">WashinCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.WashinCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing washin in degrees defined manually (if parameter is set to “0”)</p>
+<dd class="field-odd"><p>number of the column providing washin in degrees defined
+manually (if parameter is set to “0”)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5014,7 +5047,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">betaCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.betaCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing the angle “beta” of the rib to the vertical (degres)</p>
+<dd class="field-odd"><p>number of the column providing the angle “beta” of the
+rib to the vertical (degres)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5034,7 +5068,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">getRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ribNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.getRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>reads values back from the internal database for a specific rib number</p>
+<dd class="field-odd"><p>reads values back from the internal database for a
+specific rib number</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>ribNum</strong> – Rib number. Starting with 1.</p>
@@ -5047,10 +5082,12 @@ for the example about how to insert.</p>
 
 <dl class="py method">
 <dt id="DataStores.ProcessorModel.ProcessorModel.RibModel.updateRow">
-<code class="sig-name descname"><span class="pre">updateRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ribNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xrib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yLE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yTE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Washin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.updateRow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updateRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ribNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xrib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yLE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yTE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Washin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotZ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posZ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here as
+they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5060,7 +5097,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">xpCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.xpCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing X’ coordinate of the rib in its final position in space</p>
+<dd class="field-odd"><p>number of the column providing X’ coordinate of the rib
+in its final position in space</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5080,7 +5118,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">yLECol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.yLECol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing Y coordinate of the leading edge</p>
+<dd class="field-odd"><p>number of the column providing Y coordinate of the
+leading edge</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5090,7 +5129,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">yTECol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.yTECol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing Y coordinate of the trailing edge</p>
+<dd class="field-odd"><p>number of the column providing Y coordinate of the
+trailing edge</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5100,7 +5140,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">zCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.RibModel.zCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column providing Z coordinate of the rib in its final position in space</p>
+<dd class="field-odd"><p>number of the column providing Z coordinate of the rib in
+its final position in space</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5420,7 +5461,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SpecWingTipModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+<dd class="field-odd"><p>num of column for ordering the individual lines
+of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5465,7 +5507,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">getRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SpecWingTipModel.getRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+<dd class="field-odd"><p>reads values back from the internal database for a
+specific config and order number</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><ul class="simple">
@@ -5510,7 +5553,9 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">updateRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angleLE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angleTE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.SpecWingTipModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here as
+they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5580,7 +5625,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+<dd class="field-odd"><p>num of column for ordering the individual lines
+of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5635,7 +5681,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">getRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.getRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>reads values back from the internal database for a specific config and order number</p>
+<dd class="field-odd"><p>reads values back from the internal database for a
+specific config and order number</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><ul class="simple">
@@ -5680,7 +5727,9 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">updateRow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unifilar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.ThreeDDxfModel.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here
+as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6328,7 +6377,8 @@ for the example about how to insert.</p>
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">WingModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Provides a SqlTableModel holding all data related to the wing itself.</p>
+<dd class="field-odd"><p>Provides a SqlTableModel holding all data related to the
+wing itself.</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -6436,7 +6486,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">OrderNumCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">15</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.OrderNumCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>num of column for ordering the individual lines of a config</p>
+<dd class="field-odd"><p>num of column for ordering the individual lines
+of a config</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6446,7 +6497,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">ParaParamCol</span></code><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.ParaParamCol" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>number of the column holding the parameter attached to paraglider type</p>
+<dd class="field-odd"><p>number of the column holding the parameter attached to
+paraglider type</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6524,7 +6576,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">halfNumRibs</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.halfNumRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>the number of different ribs needed to build the wing. This is more or less the half number of total ribs.</p>
+<dd class="field-odd"><p>the number of different ribs needed to build the wing.
+This is more or less the half number of total ribs.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6534,7 +6587,8 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">manDataChange</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.manDataChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>If NumRibs is changed manually we must keep halfNumRibs and Ribs table in sync.</p>
+<dd class="field-odd"><p>If NumRibs is changed manually we must keep halfNumRibs
+and Ribs table in sync.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6544,7 +6598,10 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">syncRibNumData</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.syncRibNumData" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>If NumRibs is changed we must keep halfNumRibs and Ribs table in sync. This method will calculate                 the current number of half ribs and calls the method to setup the model accordingly.</p>
+<dd class="field-odd"><p>If NumRibs is changed we must keep halfNumRibs and Ribs
+table in sync. This method will calculate the current
+number of half ribs and calls the method to setup the
+model accordingly.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6554,7 +6611,9 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">updateNumCells</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numCells</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumCells" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here
+as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6564,7 +6623,9 @@ for the example about how to insert.</p>
 <code class="sig-name descname"><span class="pre">updateNumRibs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numRibs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.WingModel.updateNumRibs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known.</p>
+<dd class="field-odd"><p>Updates a specific row in the database with the values
+passed. Parameters are not explicitely explained here
+as they should be well known.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6643,7 +6704,7 @@ for the example about how to insert.</p>
 <dt class="field-odd">Signal</dt>
 <dd class="field-odd"><p>Sent out as soon a file was opened or saved
 The first string indicates the class name
-The second string indicates 
+The second string indicates
 - if a file was opened
 - if a file was saved
 - Filename and Path has been changed</p>
@@ -6676,7 +6737,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">importPreProcFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.importPreProcFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling.</p>
+<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling.
+Does the File Open dialog handling.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6699,7 +6761,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">isValidProcFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.isValidProcFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and known version number.</p>
+<dd class="field-odd"><p>Checks if a file can be opened and contains a valid title and
+known version number.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileName</strong> – the name of the file to be checked</p>
@@ -6712,7 +6775,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">openFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.openFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling.</p>
+<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling.
+Does the File Open dialog handling.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6722,7 +6786,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">readPreProcFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.readPreProcFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Imports the data file created by the pre-processor saves the data in the internal database.</p>
+<dd class="field-odd"><p>Imports the data file created by the pre-processor saves the
+data in the internal database.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>fileName</strong> – Path and Filename in one fully qualified string.</p>
@@ -6735,7 +6800,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">saveFile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.saveFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.</p>
+<dd class="field-odd"><p>Checks if there is already a valid file name, if not it
+asks for it. Starts afterwards the writing process.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6745,7 +6811,8 @@ The second string indicates
 <code class="sig-name descname"><span class="pre">saveFileAs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataStores.ProcessorModel.ProcessorModel.saveFileAs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Asks for a new filename. Starts afterwards the writing process.</p>
+<dd class="field-odd"><p>Asks for a new filename. Starts afterwards the
+writing process.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -6784,10 +6851,12 @@ The second string indicates
 <dd class="field-odd"><p>Writes all the values into a data file.</p>
 </dd>
 <dt class="field-even">Warning</dt>
-<dd class="field-even"><p>Filename must have been set already before, unless the file shall be written for the PreProcessor.</p>
+<dd class="field-even"><p>Filename must have been set already before, unless the file
+shall be written for the PreProcessor.</p>
 </dd>
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>forProc</strong> – Set this to True if the file must be saved in the directory where the PreProcessor resides</p>
+<dd class="field-odd"><p><strong>forProc</strong> – Set this to True if the file must be saved in the
+directory where the PreProcessor resides</p>
 </dd>
 </dl>
 </dd></dl>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lines &#8212; lepg 3.15.x documentation</title>
+    <title>Lines &#8212; lepg 3.16.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -94,13 +94,17 @@
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Lines</a><ul>
-<li><a class="reference internal" href="#general-rules">General rules</a></li>
 <li><a class="reference internal" href="#lines-control-parameter">Lines control parameter</a></li>
+<li><a class="reference internal" href="#line-plans">Line plans</a><ul>
+<li><a class="reference internal" href="#general-rules">General rules</a></li>
+<li><a class="reference internal" href="#id1">Lines control parameter</a></li>
 <li><a class="reference internal" href="#number-of-line-plans">Number of line plans</a></li>
 <li><a class="reference internal" href="#num-branches">Num branches</a></li>
 <li><a class="reference internal" href="#ramif-1-2-3-4">Ramif 1, 2, 3, 4</a></li>
 <li><a class="reference internal" href="#node-1-2-3-4">Node 1, 2, 3, 4</a></li>
 <li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -161,6 +165,20 @@ The brake lines will be defined in a 2nd window.</p>
 <span class="o">.......</span>
 </pre></div>
 </div>
+<div class="section" id="lines-control-parameter">
+<h2>Lines control parameter<a class="headerlink" href="#lines-control-parameter" title="Permalink to this headline">¶</a></h2>
+<p>The first parameter <strong>Lines control parameter</strong> defines how the individual lengts of the lines will be calculated afterwards.</p>
+<p>Values allowed are 0..4:
+* 0 = lower branches lined only by geometric mean of the anchor points</p>
+<ul class="simple">
+<li><p>1 = lower branches lined by weighting type 1</p></li>
+<li><p>2 = lower branches lined by weighting type 2</p></li>
+<li><p>3 = lower branches lined by weighting type 3 (spanwise and chordwise optimization). Read more details <a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>.</p></li>
+</ul>
+<p>Parameter <strong>3</strong> is what is recommend for all new designs. The distribution of loads on the lines will be much better. Possibly the paraglider will be more solid.</p>
+</div>
+<div class="section" id="line-plans">
+<h2>Line plans<a class="headerlink" href="#line-plans" title="Permalink to this headline">¶</a></h2>
 <p>Imagine you look from the front/ rear of the wing towards the lines.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" />
 <p>A line path can go in max across 4 levels. For each path you define the number of the node on which it ends at the end of the level.</p>
@@ -185,36 +203,37 @@ The brake lines will be defined in a 2nd window.</p>
 Here the paths split. On level 4 we have a new target node.</p>
 <p><strong>(A=1) 2</strong> This new node we connect again to anchor A but now on rib 2.</p>
 <div class="section" id="general-rules">
-<h2>General rules<a class="headerlink" href="#general-rules" title="Permalink to this headline">¶</a></h2>
+<h3>General rules<a class="headerlink" href="#general-rules" title="Permalink to this headline">¶</a></h3>
 <p><strong>For each riser you will need to create a line plan.</strong></p>
 <p><strong>If you do not want to use a level you have to fill 0 for the definition pair of this level.</strong></p>
 <p>The line below shows a path which needs only 3 levels for it’s definition.</p>
 <p><strong>3</strong>   1 1 2 3 3 17 <strong>0 0</strong> 3 9</p>
 </div>
-<div class="section" id="lines-control-parameter">
-<h2>Lines control parameter<a class="headerlink" href="#lines-control-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Lines control parameter<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Standard value is always <strong>0</strong> as this is currently the only valid description for lines.</p>
 </div>
 <div class="section" id="number-of-line-plans">
-<h2>Number of line plans<a class="headerlink" href="#number-of-line-plans" title="Permalink to this headline">¶</a></h2>
+<h3>Number of line plans<a class="headerlink" href="#number-of-line-plans" title="Permalink to this headline">¶</a></h3>
 <p>Will be considered as many plans as risers.</p>
 </div>
 <div class="section" id="num-branches">
-<h2>Num branches<a class="headerlink" href="#num-branches" title="Permalink to this headline">¶</a></h2>
+<h3>Num branches<a class="headerlink" href="#num-branches" title="Permalink to this headline">¶</a></h3>
 <p>Defines how many branches (or levels) you have defined on this specific line.</p>
 </div>
 <div class="section" id="ramif-1-2-3-4">
-<h2>Ramif 1, 2, 3, 4<a class="headerlink" href="#ramif-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<h3>Ramif 1, 2, 3, 4<a class="headerlink" href="#ramif-1-2-3-4" title="Permalink to this headline">¶</a></h3>
 <p>Describes the level for which you define the according node.</p>
 </div>
 <div class="section" id="node-1-2-3-4">
-<h2>Node 1, 2, 3, 4<a class="headerlink" href="#node-1-2-3-4" title="Permalink to this headline">¶</a></h2>
+<h3>Node 1, 2, 3, 4<a class="headerlink" href="#node-1-2-3-4" title="Permalink to this headline">¶</a></h3>
 <p>Node number on which a specific path ends on a specific Ramif level.</p>
 </div>
 <div class="section" id="sort-by-order-num">
-<h2>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this headline">¶</a></h2>
+<h3>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this headline">¶</a></h3>
 <p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</div>
 </div>
 </div>
 
@@ -246,7 +265,7 @@ Here the paths split. On level 4 we have a new target node.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Stefan Feuz.
+        &#169; Copyright 2021, Stefan Feuz.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>
