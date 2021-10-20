@@ -1,0 +1,6 @@
+You need:
+python 3
+PyQt5
+
+packaging
+

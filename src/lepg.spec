@@ -1,6 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 from sys import platform
+import os
+
+dirpath = os.path.dirname(os.path.abspath("__file__"))
+pathex_path = [os.path.join(dirpath, '..','src')]
 
 block_cipher = None
 
@@ -8,19 +12,30 @@ data_files_to_add = [
 						('logger.conf', '.' ),
 						('translations', 'translations' ),
 						('userHelp', 'userHelp' ),
-						('Windows\\favicon.ico', 'Windows'),
-						('Windows\\appIcon.ico', 'Windows')
+						(os.path.join('Windows','appIcon.ico'), 'Windows')
 					]
 
-processor_w32 = [ 	
-						('Processors\\lep-3.16-win64', 'Processors\\lep-3.16-win64' ),
+processor_w64 = [ 	
+						(os.path.join('Processors',
+						              'lep-3.16-win64'),
+						 os.path.join('Processors',
+						              'lep-3.16-win64' ))
+					]
+					
+processor_lin64 = [ 	
+						(os.path.join('Processors',
+						              'lep-3.16-lin64'),
+						 os.path.join('Processors',
+						              'lep-3.16-lin64' ))
 					]
 
 if platform.startswith('win'):
-	data_files_to_add += processor_w32
+	data_files_to_add += processor_w64
+elif platform.startswith('linux'):
+	data_files_to_add += processor_lin64
 
 a = Analysis(['lepg.py'],
-             pathex=['C:\\Users\\user\\git\\lepg-py\\src'],
+             pathex=pathex_path,
              binaries=[],
              datas= data_files_to_add,
              hiddenimports=[],
@@ -44,7 +59,8 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=True,
-		  icon='Windows\\appIcon.ico')
+		  icon= os.path.join('Windows', 'appIcon.ico'))
+
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -53,3 +69,4 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='lepg')
+
