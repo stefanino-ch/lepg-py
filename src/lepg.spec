@@ -12,12 +12,18 @@ data_files_to_add = [
 						('Windows\\appIcon.ico', 'Windows')
 					]
 
-processor_w32 = [ 	
+processor_w64 = [ 	
 						('Processors\\lep-3.16-win64', 'Processors\\lep-3.16-win64' ),
+					]
+					
+processor_lin64 = [ 	
+						('Processors\\lep-3.16-lin64', 'Processors\\lep-3.16-lin64' ),
 					]
 
 if platform.startswith('win'):
-	data_files_to_add += processor_w32
+	data_files_to_add += processor_w64
+elif platform.startswith('linux'):
+	data_files_to_add += processor_lin64
 
 a = Analysis(['lepg.py'],
              pathex=['C:\\Users\\user\\git\\lepg-py\\src'],
