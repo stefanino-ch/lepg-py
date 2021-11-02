@@ -1612,7 +1612,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))                    
+            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
             self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
             self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
             self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
@@ -1624,10 +1624,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
             self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
             self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
-        
-        def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11):
+
+        def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
+                      i7, i8, i9, i10, i11):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
