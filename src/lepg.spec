@@ -18,21 +18,21 @@ data_files_to_add = [
 processor_w64 = [
 			    (os.path.join('Processors',
 				'lep-3.16-win64'),
-				(os.path.join('Processors',
+				os.path.join('Processors',
 			    'lep-3.16-win64'))
 				]
 					
 processor_lin64 = [ 	
 				  (os.path.join('Processors',
 				  'lep-3.16-lin64'),
-				  (os.path.join('Processors',
+				  os.path.join('Processors',
 			      'lep-3.16-lin64'))
 				  ]
 					
 processor_osx = [	
 				(os.path.join('Processors',
 				'lep-3.16-osx'),
-				(os.path.join('Processors',
+				os.path.join('Processors',
 				'lep-3.16-osx'))
 				] 
 
@@ -41,7 +41,7 @@ if platform.startswith('win'):
 elif platform.startswith('linux'):
 	data_files_to_add += processor_lin64
 elif platform.startswith('darwin'):
-	data_files_to_add += processor_lin64
+	data_files_to_add += processor_osx
 	
 a = Analysis(['lepg.py'],
              pathex=pathex_path,
