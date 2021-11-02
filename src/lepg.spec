@@ -9,31 +9,40 @@ pathex_path = [os.path.join(dirpath, '..','src')]
 block_cipher = None
 
 data_files_to_add = [
-						('logger.conf', '.' ),
-						('translations', 'translations' ),
-						('userHelp', 'userHelp' ),
-						(os.path.join('Windows','appIcon.ico'), 'Windows')
+					('logger.conf', '.' ),
+					('translations', 'translations' ),
+					('userHelp', 'userHelp' ),
+					(os.path.join('Windows','appIcon.ico'), 'Windows')
 					]
 
-processor_w64 = [ 	
-						(os.path.join('Processors',
-						              'lep-3.16-win64'),
-						 os.path.join('Processors',
-						              'lep-3.16-win64' ))
-					]
+processor_w64 = [
+			    (os.path.join('Processors',
+				'lep-3.16-win64'),
+				(os.path.join('Processors',
+			    'lep-3.16-win64'))
+				]
 					
 processor_lin64 = [ 	
-						(os.path.join('Processors',
-						              'lep-3.16-lin64'),
-						 os.path.join('Processors',
-						              'lep-3.16-lin64' ))
-					]
+				  (os.path.join('Processors',
+				  'lep-3.16-lin64'),
+				  (os.path.join('Processors',
+			      'lep-3.16-lin64'))
+				  ]
+					
+processor_osx = [	
+				(os.path.join('Processors',
+				'lep-3.16-osx'),
+				(os.path.join('Processors',
+				'lep-3.16-osx'))
+				] 
 
 if platform.startswith('win'):
 	data_files_to_add += processor_w64
 elif platform.startswith('linux'):
 	data_files_to_add += processor_lin64
-
+elif platform.startswith('darwin'):
+	data_files_to_add += processor_lin64
+	
 a = Analysis(['lepg.py'],
              pathex=pathex_path,
              binaries=[],
@@ -69,4 +78,3 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='lepg')
-
