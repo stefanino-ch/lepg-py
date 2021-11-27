@@ -5,6 +5,8 @@
 import os
 import shutil
 
+import platform
+
 print()
 print('******************')
 print('Building User help')
@@ -13,8 +15,10 @@ print()
 print('Removing already existing html files to force a new build...')
 
 dirpath = os.path.dirname(os.path.realpath(__file__))
+
 pathName = os.path.join(dirpath, '_build/doctrees')
 srcPath = os.path.join(dirpath, '_build/html')
+staticPath = os.path.join(dirpath, '_static')
 
 print('Delete old doc to force a complete build? [y/ n]')
 answ = input('Default= n ')
@@ -26,10 +30,20 @@ if answ == 'y':
     if os.path.isdir(srcPath):
         shutil.rmtree(srcPath)
 
+# Check if _static dir ist there
+if not os.path.isdir(staticPath):
+    os.mkdir(staticPath)
+
 print()
 print('...starting Sphinx...')
-pathName = os.path.join(dirpath, 'make.bat html')
-os.system(pathName)
+if platform.system() == "Windows":
+    pathName = os.path.join(dirpath, 'make.bat html')
+    os.system(pathName)
+elif platform.system() == 'Linux':
+    os.chdir(dirpath)
+    os.system('python ./make.py')
+else:
+    print('OS not supported currently.')
 
 print()
 print('...removing old help files in source tree...')

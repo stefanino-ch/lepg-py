@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2021-11-02 16:01+0100\n"
-"PO-Revision-Date: 2021-11-02 16:02+0100\n"
+"PO-Revision-Date: 2021-11-27 15:53+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -902,6 +902,9 @@ msgstr ""
 #: Processors/ProcRunner.py:121
 msgid "proc_terminating_msg"
 msgstr ""
+"Processing done.\n"
+"The generated files are saved in the same directory as the\n"
+"according processor is located."
 
 #: Windows/AddRibPoints.py:71 lepg.py:440
 msgid "Additional rib points"

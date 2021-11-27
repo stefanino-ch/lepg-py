@@ -41,4 +41,7 @@ answ = input('Default= n ')
 if answ == 'y':
     if platform.system() == "Windows":
         os.system('python ../distribution/buildW64Package.py')
-    
+    elif platform.system() == ('Linux'):
+        os.system('python ../distribution/buildLinuxPackage.py')
+    else:
+        print('OS not supported currently.')
