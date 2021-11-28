@@ -66,7 +66,14 @@ else:
 shutil.copyfile(sourcePathName, destPathName)
 print()
 print('Creating new package')
-os.system('python -m zipfile -c dist-W64/lepg-W64-V'+vers+'-'+version+'.zip dist-W64/lepg/*')
+os.system('python -m zipfile -c dist-W64/lepg-W64-V'
+          +vers+'-'+version+'.zip dist-W64/lepg/.')
+
+print()
+print('Cleanup')
+pathName = os.path.join(dirpath, 'dist-W64/lepg/')
+if os.path.isdir(pathName):
+    shutil.rmtree(pathName)
 
 print('done')
 print()
