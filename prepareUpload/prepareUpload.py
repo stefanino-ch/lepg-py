@@ -27,7 +27,7 @@ if answ != 'n':
     
 print()
 print('*****************************************************')
-print('Setup ersion number')
+print('Setup version number')
 os.system('python ./prepareVersionNumbers.py')
 
 print()
