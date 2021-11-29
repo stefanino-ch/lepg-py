@@ -27,11 +27,8 @@ if answ != 'n':
     
 print()
 print('*****************************************************')
-print('Update version number? [y/ n]')
-answ = input('Default= n ')
-
-if answ == 'y':
-    os.system('python ./prepareVersionNumbers.py')
+print('Setup version number')
+os.system('python ./prepareVersionNumbers.py')
 
 print()
 print('*****************************************************')
@@ -41,4 +38,7 @@ answ = input('Default= n ')
 if answ == 'y':
     if platform.system() == "Windows":
         os.system('python ../distribution/buildW64Package.py')
-    
+    elif platform.system() == ('Linux'):
+        os.system('python ../distribution/buildLinuxPackage.py')
+    else:
+        print('OS not supported currently.')
