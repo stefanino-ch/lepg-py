@@ -3,6 +3,7 @@
 :License: General Public License GNU GPL 3.0
 '''
 
+import platform
 import requests
 import re
 
@@ -11,9 +12,10 @@ class VersionCheck():
     :class: Connects to the main Github page of the project. 
                 Searches there for the *latestVersion* and reads the version info assigned.
     '''
+    # https://stackoverflow.com/questions/14120502/how-to-download-and-write-a-file-from-github-using-requests
     __branchToCheck = ''
-    __stableBranch = 'https://github.com/stefanino-ch/lepg-py/tree/stable'
-    __latestBranch = 'https://github.com/stefanino-ch/lepg-py/tree/latest'
+    __stableBranch = 'https://raw.githubusercontent.com/stefanino-ch/lepg-py/stable/README.md'
+    __latestBranch = 'https://raw.githubusercontent.com/stefanino-ch/lepg-py/latest/README.md'
     
     __alreadyConnected__ = False
     ''':attr: is set to true at the moment a request to the remote was executed successfully. '''
@@ -53,7 +55,12 @@ class VersionCheck():
                 self.__alreadyConnected__ = True
                 
                 remoteVersline = self.req.text
-                VSRE = r"latestVersion = ['\"]([^'\"]*)['\"]"
+                
+                if platform.system() == "Windows":
+                    VSRE = r"Latest_Windows_Version = ['\"]([^'\"]*)['\"]"
+                elif platform.system() == ('Linux'):
+                    VSRE = r"Latest_Linux_Version = ['\"]([^'\"]*)['\"]"
+                
                 mo = re.search(VSRE, remoteVersline)
                 if mo:
                     self.__validVersFound__ = True

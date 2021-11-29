@@ -1,10 +1,12 @@
 # lepg-py
 
-latestVersion = '3.16.01'
+Latest_Windows_Version = '3.16.0'
+
+Latest_Linux_Version = '3.16.1'
 
 ## English
 ### Installation - Windows
-In the folder distribution/dist-W64 you will find a zip file. 
+In the folder distribution/dist-W64 you will find a zip file.
 
 Download this file.
 

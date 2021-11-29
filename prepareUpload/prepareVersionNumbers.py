@@ -3,6 +3,7 @@
 :License: General Public License GNU GPL 3.0
 '''
 import os
+import platform
 import re
 import sys
 
@@ -27,6 +28,7 @@ def incrementVersion(ver):
 # https://stackoverflow.com/questions/57108712/replace-updated-version-strings-in-files-via-python
 def updateOwnVersion(pathFile, ver):
     version_regex = re.compile(r"(^_*?version_*?\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    
     with open(pathFile, "r+") as f:
         content = f.read()
         f.seek(0)
@@ -40,7 +42,11 @@ def updateOwnVersion(pathFile, ver):
         f.truncate()
         
 def updateRemoteVersion(pathFile, ver):
-    version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    # version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    if platform.system() == "Windows":
+        version_regex = re.compile(r"(Latest_Windows_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    elif platform.system() == ('Linux'):
+        version_regex = re.compile(r"(Latest_Linux_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
     with open(pathFile, "r+") as f:
         content = f.read()
         f.seek(0)
@@ -56,11 +62,18 @@ def updateRemoteVersion(pathFile, ver):
 print()
 dirpath = os.path.dirname(os.path.realpath(__file__))
 versFile = os.path.join(dirpath, '../src/__init__.py')
-readmeFile = os.path.join(dirpath, '../readme.md')
+readmeFile = os.path.join(dirpath, '../README.md')
+
 vers = readOwnVersion(versFile)
+
 print('The current version is: %s' %(vers))   
-vers = incrementVersion(vers)
-updateOwnVersion(versFile, vers)
+print('Update version number? [y/ n]')
+answ = input('Default= n ')
+if answ == 'y':
+    vers = incrementVersion(vers)
+    updateOwnVersion(versFile, vers)
+
 updateRemoteVersion(readmeFile, vers)
-print('Version number updated to: %s' %(vers))
+
+print('Version is now: %s' %(vers))
 print()

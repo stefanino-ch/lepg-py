@@ -27,11 +27,8 @@ if answ != 'n':
     
 print()
 print('*****************************************************')
-print('Update version number? [y/ n]')
-answ = input('Default= n ')
-
-if answ == 'y':
-    os.system('python ./prepareVersionNumbers.py')
+print('Setup ersion number')
+os.system('python ./prepareVersionNumbers.py')
 
 print()
 print('*****************************************************')
