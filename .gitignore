@@ -31,6 +31,7 @@ lines.txt
 
 # stuff from the development environment
 .pydevproject
+.pydevproject.bak
 /preTest.txt
 
 # MAC specifics

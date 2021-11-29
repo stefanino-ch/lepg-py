@@ -79,6 +79,10 @@ os.system('mv dist-Lin64/lepg1.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-1
 os.system('mv dist-Lin64/lepg2.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-2.zip')
 
 print()
+print('Copy howto')
+os.system('cp Linux-installation-howto.txt dist-Lin64/Linux-installation-howto.txt')
+
+print()
 print('Cleanup')
 os.system('rm -f dist-Lin64/lepg.zip')
 os.system('rm -rf dist-Lin64/lepg/')
