@@ -47,6 +47,9 @@ def updateRemoteVersion(pathFile, ver):
         version_regex = re.compile(r"(Latest_Windows_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
     elif platform.system() == ('Linux'):
         version_regex = re.compile(r"(Latest_Linux_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    elif platform.system() == ('Darwin'):
+        version_regex = re.compile(r"(Latest_Mac_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+
     with open(pathFile, "r+") as f:
         content = f.read()
         f.seek(0)

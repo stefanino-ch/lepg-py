@@ -45,6 +45,8 @@ class VersionCheck():
         :method: Executes the request to the remote page, does set the
                  internal variables according to the result.
         '''
+        VSRE = ''
+
         try:
             self.req = requests.get(self.__branchToCheck, timeout=5)
 
@@ -66,6 +68,8 @@ class VersionCheck():
                     VSRE = r"Latest_Windows_Version = ['\"]([^'\"]*)['\"]"
                 elif platform.system() == ('Linux'):
                     VSRE = r"Latest_Linux_Version = ['\"]([^'\"]*)['\"]"
+                elif platform.system() == ('Darwin'):
+                    VSRE = r"Latest_Mac_Version = ['\"]([^'\"]*)['\"]"
 
                 mo = re.search(VSRE, remoteVersline)
                 if mo:

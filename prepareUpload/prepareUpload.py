@@ -40,5 +40,7 @@ if answ == 'y':
         os.system('python ../distribution/buildW64Package.py')
     elif platform.system() == ('Linux'):
         os.system('python ../distribution/buildLinuxPackage.py')
+    elif platform.system() == ('Darwin'):
+        os.system('python ../distribution/buildOsxPackage.py')
     else:
         print('OS not supported currently.')

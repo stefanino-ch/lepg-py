@@ -4,6 +4,9 @@ Latest_Windows_Version = '3.16.1'
 
 Latest_Linux_Version = '3.16.1'
 
+Latest_Mac_Version = '3.16.1'
+
+
 ## English
 ### Installation - Windows
 In the folder distribution/dist-W64 you will find a zip file.

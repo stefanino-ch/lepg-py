@@ -1,0 +1,199 @@
+LABORATORI D'ENVOL PARAGLIDING
+GEOMETRY PRE-PROCESSOR
+Version 1.6 "Canigó" (2021-01-17)
+
+NOTE: Last updated version of this manual, including graphics, notes and examples in 
+http://www.laboratoridenvol.com/leparagliding/pre.en.html
+
+FAST MANUAL:
+
+1) DESCRIPTION OF THE pre-data.txt STRUCTURE
+
+The leading edge section looks like:
+
+**********************************
+* 1. Leading edge parameters
+**********************************
+1
+a1= 641.92
+b1= 194.02
+x1= 340
+x2= 490
+xm= 527
+c01= 28
+ex1= 2.8
+c02= 12
+ex2= 4.0
+
+Explanation: The first "1" means defining a leading edge type 1. The leading edge is defined by an ellipse (x*x/(a1*a1))+(y*y/(b1*b1))=1 of horizontal semiaxis a1 and vertical semiaxis b1. Ellipse centered at the point (0,0), and xm is half span. Is possible to modify the ellipse shape with two exponetial corrections. The first correction begins at the point x1 and allows a deflection c01, according the formula y=k1*(x-x1)^ex1 where (k1=c01/((xm-x1)^ex1).The second correction begins at the point x2 and allows a deflection c02, according the formula y=k2*(x-x2)^ex2 where (k2=c02/((xm-x2)^ex2). 
+
+The trailig edge section:
+
+**********************************
+* 2. Trailing edge parameters
+**********************************
+1
+a1= 643.28
+b1= 140.5
+x1= 180
+xm= 527
+c0= -8.9
+y0= 88.06
+exp= 1.5
+
+Explanation: The first "1" means defining a trailing edge type 1. The trailing edge is defined by an ellipse (x*x/(a1*a1))+(y*y/(b1*b1))=1 of horizontal semiaxis a1 and vertical semiaxis b1. Ellipse centered at the point (0,y0), and xm is half span. Is possible to modify the ellipse shape with one exponetial correction. The correction begins at the point x1 and allows a deflection c0, according the formula y=k*(x-x1)^ex1 where (k=c0/((xm-x1)^exp).
+
+The vault section (type 1):
+
+**********************************
+* 3. Vault
+**********************************
+1
+a1= 414.2901
+b1= 237.4300
+x1= 265.3489
+c1= 28.22
+
+Explanation: The first "1" means defining a vault type 1. The vault of the wing is defined by means of an ellipse, of horizontal semiaxis a1 and vertical semiaxis b1, with a cosenoidal modification starting from the point x1, which allows a positive or negative horizontal deflection c. The formula is a bit tricky, but it works! :) See diagrams and formula in the website manual.
+
+The vault section (type 2):
+
+**********************************
+* 3. Vault
+**********************************
+2
+640.56    20.35
+480.47    21.367
+229.50    18.925
+99.26    28.349
+
+Explanation: The first "2" means defining a trailing edge type 2. This type is more intuitive. It consists of defining the shape of the vault by means of 4 arcs of circle, tangent to each other. Each of the four lines listed below defines the radius of the arc and its angle with respect to its center, starting from the center toward the wingtip. The program ensures that the 4 arcs are tangent to each other. See website figures to better understand.
+
+The general scale of the vault type 1 or type 2 does not matter, since the program is in charge internally to adjust the development of the arc, so that it matches exactly with the wingspan 2*xm.
+
+
+The cells distribution section (4 cases):
+
+Cells distribution type 1:
+
+**********************************
+* 4. Cells distribution
+**********************************
+1
+45
+
+If first number is "1", put below the total number of cells, and an uniform cells distribution is set (all cells have same width: 2*xm/numcells).
+
+Cells distribution type 2:
+
+**********************************
+* 4. Cells distribution
+**********************************
+2
+0.7
+40
+
+If first number is "2" then a linear cells distribution is set. Put below a coefficient between "0.0" and "1.0", and below the total number of cells. Cells width are linearly reduced according distance from center tot wingtip. If coeeficient is set to 1.0, then the distribuition is uniform, is set to 0.0 the width of last cell is minimum.
+
+
+Cells distribution type 3:
+
+**********************************
+* 4. Cells distribution
+**********************************
+3
+0.3
+33
+
+If first number "3" indicates cell width proportional to chord. Second number is a coefficient between "0.0" and "1.0". If coefficient is "0" then cell width is estrictly proportional to the local chord. If coefficient is set to "1.0", then cell width is uniform. Use intermediate values as you need. Third number is the total cells number.
+
+Cells distribution type 4:
+
+**********************************
+* 4. Cells distribution
+**********************************
+4
+17
+1	38
+2	38
+3	38
+4	38
+5	38
+6	37
+7	37
+8	37
+9	36
+10	35
+11	35
+12	30
+13	28
+14	27
+15	25
+16	24
+17	20.2
+
+If first number is "4" then we use explicit width of each cell (cm), with automatic adjustement. If the total widts sum not match the span, the widts are autoatically scaled to match te total wingspan 2*xm. The second number is the "total ribs number in half-wing". We define the widths of each cell only half-wing, counting ribs from the center to the wingtip. If the total number of cells is odd, the central cell will be the number 1, the next the 2, and so on until the wingtip, we will indicate the widths in cm. If the total number of cells in our wing is even, we will consider a central virtual cell of zero width, so the first line of the list will be will be "1  0.0". It is necessary for the program logic to detect that it is a paraglider with a total number of cells even. In the example above we have defined a 33 cells paraglider. In the example below we have defined a 18 cells paraglider.
+
+**********************************
+* 4. Cells distribution
+**********************************
+4
+10
+1	0.0
+2	38
+3	38
+4	38
+5	38
+6	37
+7	37
+8	37
+9	36
+10	35
+
+In general, if the "total ribs number in half-wing" is RHW, then:
+
+If total cells is odd, the total cells: TCELLS = 2*RHW - 1
+If total cells is even, the total cells: TCELLS = (RHW - 1)*2
+
+General notes:
+It is mandatory to use at least one space between the sign "=" and the parameter.
+Recommended units cm and degrees (0-360º).
+
+
+2) RUN THE PROGRAM
+
+If you use a precompiled version, you don't need to do anything special. If you want to compile the fortran file yourself you need install the gfortran compiler and write in a console:
+
+gfortran pre-processor.f
+
+Be sure you have the data-pre.txt data file in the same folder as the pre-processor executable.
+
+Linux:
+------
+
+If the name of your executable file is pre-1.6-lin64.out (or similar names like a.out pre-1.6.out ...) then run in a console like:  
+
+./pre-1.6-lin64.out
+
+Windows:
+--------
+
+Be sure you have the corrects cygwin dll's in the same worwing folder, or if you have compiled yourself, have removed all cygwins dll's. Then:
+
+Double click on pre-1.6-win64.exe
+or type in your cywin console ./pre-1.6-win64.exe 
+
+3) RESULTS
+
+Nothing spectacular happens! :) 
+
+But in your working directory, the following files should appear:
+
+geometry.dxf --> DXF containig planform, vault, and cells distribution
+
+geometry-out --> TXT file containig matrix of geometry for use with LEparagliding input file leparagliding.txt section 1. GEOMETRY. 
+
+ltv.txt --> list of leading edge, trailing edge, and vault coordinates (optional file, nou used).
+
+
+
