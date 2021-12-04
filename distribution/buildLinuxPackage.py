@@ -66,6 +66,27 @@ else:
 shutil.copyfile(sourcePathName, destPathName)
 print()
 print('Creating new package')
-os.system('python -m zipfile -c dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'.zip dist-Lin64/lepg/')
+# os.system('python -m zipfile -c dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'.zip dist-Lin64/lepg/*')
+os.system('python -m zipfile -c dist-Lin64/lepg.zip dist-Lin64/lepg/*')
+
+print()
+print('Splitting .zip file')
+os.system('zipsplit -n $((70*1024*1024)) dist-Lin64/lepg.zip -b dist-Lin64/')
+
+print()
+print('Renaming .zip files')
+os.system('mv dist-Lin64/lepg1.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-1.zip')
+os.system('mv dist-Lin64/lepg2.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-2.zip')
+
+print()
+print('Copy howto')
+os.system('cp Linux-installation-howto.txt dist-Lin64/Linux-installation-howto.txt')
+
+print()
+print('Cleanup')
+os.system('rm -f dist-Lin64/lepg.zip')
+os.system('rm -rf dist-Lin64/lepg/')
+
+print()
 print('done')
 print()

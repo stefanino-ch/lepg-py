@@ -1,5 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+# https://www.zacoding.com/en/post/pyinstaller-create-multiple-executables/
+
 from sys import platform
 import os
 
@@ -43,7 +45,7 @@ elif platform.startswith('linux'):
 elif platform.startswith('darwin'):
 	data_files_to_add += processor_osx
 	
-a = Analysis(['lepg.py'],
+main_a = Analysis(['lepg.py'],
              pathex=pathex_path,
              binaries=[],
              datas= data_files_to_add,
@@ -55,26 +57,73 @@ a = Analysis(['lepg.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
-exe = EXE(pyz,
-          a.scripts,
-          [],
-          exclude_binaries=True,
-          name='lepg',
-          debug=False,
-          bootloader_ignore_signals=False,
-          strip=False,
-          upx=True,
-          console=True,
-		  icon= os.path.join('Windows', 'appIcon.ico'))
-
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
+             
+main_pyz = PYZ(main_a.pure,
+               main_a.zipped_data,
+               cipher=block_cipher)
+          
+main_exe = EXE(main_pyz,
+               main_a.scripts,
+               [],
+               exclude_binaries=True,
+               name='lepg',
+               debug=False,
+               bootloader_ignore_signals=False,
                strip=False,
                upx=True,
-               upx_exclude=[],
-               name='lepg')
+               console=True,
+		       icon= os.path.join('Windows', 'appIcon.ico'))
+
+if platform.startswith('win'):
+    coll = COLLECT(main_exe,
+                   main_a.binaries,
+                   main_a.zipfiles,
+                   main_a.datas,
+                   strip=False,
+                   upx=True,
+                   upx_exclude=[],
+                   name='lepg')
+
+if platform.startswith('linux'):
+    lin_a = Analysis(['lepgWayland.py'],
+                     pathex=pathex_path,
+                     binaries=[],
+                     datas= [],
+                     hiddenimports=[],
+                     hookspath=[],
+                     runtime_hooks=[],
+                     excludes=[],
+                     win_no_prefer_redirects=False,
+                     win_private_assemblies=False,
+                     cipher=block_cipher,
+                     noarchive=False)
+   
+    lin_pyz = PYZ(lin_a.pure,
+                  lin_a.zipped_data,
+                  cipher=block_cipher)
+    
+    lin_exe = EXE(lin_pyz,
+                   lin_a.scripts,
+                   [],
+                   exclude_binaries=True,
+                   name='lepgWayland',
+                   debug=False,
+                   bootloader_ignore_signals=False,
+                   strip=False,
+                   upx=True,
+                   console=True)
+
+
+    coll = COLLECT(main_exe,
+                   main_a.binaries,
+                   main_a.zipfiles,
+                   main_a.datas,
+                   lin_exe,
+                   lin_a.binaries,
+                   lin_a.zipfiles,
+                   lin_a.datas,
+                   strip=False,
+                   upx=True,
+                   upx_exclude=[],
+                   name='lepg')
+

@@ -1,84 +1,60 @@
 # lepg-py
 
-latestVersion = '3.16.0'
+Latest_Windows_Version = '3.16.1'
+
+Latest_Linux_Version = '3.16.1'
 
 ## English
-
 ### Installation - Windows
-In the distribution/dist-W64 folder you will find a zip file. 
+In the folder distribution/dist-W64 you will find a zip file.
 
 Download this file.
 
 Unzip it.
 
-Change into the folder lepg.
+Change into the unzipped folder.
 
-Execute (double click) the file lepg.exe. 
+Execute (double click) the file lepg.exe.
 
 ### Installation - Linux
+In the folder distribution/dist-Lin64 you will find two zip files.
 
-#### Requirements
-Python >3.7
+Download these files.
 
-PyQt5
-Unfortunately there's not yet a installation package, the installation is a little bit more tricky: 
+Unzip them.
 
-#### Installation
-The steps below explain how to install on a Ubuntu System: 
+Copy or move the content of both unzipped files into the same folder. The name of the folder does not matter.
 
--> Open a shell
+Change into the folder containing all files.
 
--> sudo apt-get update
+If you have a system running X11: Execute (double click) the file lepg.
 
--> sudo apt-get install python3 
+If you have a system running Wayland (e.g. Fedora or Ubuntu) or you have no idea about Wayland or X11: Execute (double click) the file lepgWayland.
 
--> sudo apt-get install python3-pip
-
--> pip3 install PyQt5
-
-From the [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) download all files and folders under the directory src/. Save the files on the local disk. 
-
-The main file is named lepg.py. Start this with
-
--> python3 lepg.py
 
 ## Deutsch
-
 ### Installation - Windows
-Im Ordner distribution/dist-W64 findest du eine .zip Datei. 
+Im Ordner distribution/dist-W64 findest du eine .zip Datei.
 
-Diese Datei herunterladen. 
+Diese Datei herunterladen.
 
 Entpacken.
 
-In den Ordner lepg wechseln. 
+In den entpackten Ordner wechseln.
 
 Die Datei lepg.exe ausführen (doppelklicken).
 
 ### Installation - Linux
+Im Ordner distribution/dist-W64 findest du zwei .zip Dateien.
 
-#### Anforderungen
-Python >3.7
+Diese Dateien herunterladen.
 
-PyQt5
+Beide entpacken.
 
-#### Installation
-Leider gibt es noch kein Installationspaket, die Installation ist ein wenig aufwändiger. 
+Kopiere/ verschiebe nun den Inhalt der beiden neuen Ordner in einen einzigen Ordner. Der Name dieses Ordners spielt keine Rolle. 
 
-Die Anleitung gilt für ein Ubuntu System: 
+In den gemeinsamen Ordner wechseln.
 
--> Shell öffnen
+Wenn du ein Linux System mit X11 verwendest: starte (Doppelclick) die Datei lepg.
 
--> sudo apt-get update
-
--> sudo apt-get install python3 
-
--> sudo apt-get install python3-pip
-
--> pip3 install PyQt5
-
-Aus dem [Repository](https://github.com/stefanino-ch/lepg-py/tree/latest) alle Dateien und Ordner welche im Verzeichnis src/ sind herunterladen und auf der lokalen Festplatte speichern. 
-
-Die Hauptdatei heisst lepg.py. Das Programm wird gestartet mit:
-
--> python3 lepg.py
+Wenn du ein System verwendest mit Wayland (z.B. Fedora oder Ubuntu) oder keine Ahnung hast welche Oberfläche du verwendest: starte (Doppelclick) die Datei lepgWayland.
