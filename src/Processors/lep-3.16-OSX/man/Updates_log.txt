@@ -5,8 +5,18 @@ png/ contains captures
 pre1.6/ Pre-processor version 1.6
 
 -------------------------------------------------------------------
-Version 3.16 compiled for MAC OSX by Julien Caquineau en 2021-10-18
+VERSION 3.16+ (2021-11-27)
 -------------------------------------------------------------------
+
+Fixed an unintentionally bug added in all previous "Z" versions: All VH-ribs between ribs "0" and "1" had incorrect geometry (!) Due to not putting the negative sign at the angles "beta" and " rot_z "on the rib number" 0 "(the symmetrical rib on the" 1 ". Affects exclusively the VH tapes located inside the central vane. Fixed already in this version 3.16+
+
+I found yet another error in defining type 1 horizontal straps. Their width is TWICE multiplied by the overall scale factor of the wing. In this version, this is not modified, to be able to more easily update the wings calculated with 3.16.
+
+All projects calculated with LEP-3.16 or LEP-3.15z, need to be updated with LEP-3.16+. While it only affects a few horizontal straps on the center panel. If you have any 2.15z or 3.16 project under construction, you need update all central straps (!!!).
+
+Version 3.17 is close to release, and already incorporates these corrections and some new utilities... 
+
+
 -------------------------------------------------------------------
 VERSION 3.16 (2021-08-29)
 -------------------------------------------------------------------

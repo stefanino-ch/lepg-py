@@ -50,6 +50,7 @@ c      Version 3.12: 2020-12-15 "Pirineus"
 c      Version 3.14: 2020-12-25 "Pirineus"
 c      Version 3.15: 2021-01-17 "Canigó"
 c      Version 3.16: 2021-08-29 "Z"
+c      Version 3.16+: 2021-11-27 "Z"
 c      FORTRAN fort77/gfortran (GNU/Linux)
 c      GNU General Public License 3.0 (http://www.gnu.org)
 c
@@ -549,8 +550,8 @@ c      common typepoint
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c      Basic LEparagliding data version
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-       lepv="3.16"            ! Version
-       lepd="2021-08-29"      ! Date
+       lepv="3.16+"            ! Version
+       lepd="2021-11-27"      ! Date
        lepc='"Z"'             ! Code name
        lepuser="GENERAL"  
        ich=0
@@ -2071,6 +2072,12 @@ c     y separation for panels parts
 c     Some parameters for internal marks (subroutine xmarsi)
       xini=0.0d0
       xfin=0.0d0
+
+c     UPDATE 2021-11-27
+c     Adjust beta rotation in rib 0
+      rib(0,9)=-rib(1,9)
+c     Adjust rot_z rotation in rib 0
+      rib(0,250)=-rib(1,250)
 
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c     4.21 DXF layers  (project)
