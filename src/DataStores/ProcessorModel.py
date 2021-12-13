@@ -1274,7 +1274,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''':attr: number of the rib number column'''
         AirfNameCol = 1
         ''':attr: number of the rib name column'''
-        IntakeStartCol = 2 
+        IntakeStartCol = 2
         ''':attr: number of the intake start column'''
         IntakeEndCol = 3
         ''':attr: number of the intake end column'''
@@ -4989,42 +4989,46 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 query.next()
                 i+=1
             return query.value
-            
+
     class ThreeDShLoDetModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding the 3d Shaping data for the lower panels
+        :class: Provides a SqlTableModel holding the 3d Shaping data for
+                the lower panels
         '''
         __className = 'ThreeDShLoDetModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
-        IniPointCol = 1 
-        ''':attr: Number of the col holding initial point of the zone of influence'''
+
+        OrderNumCol = 0
+        ''':attr: Num of column for ordering the individual lines
+                  of a config'''
+        IniPointCol = 1
+        ''':attr: Number of the col holding initial point of the zone
+                  of influence'''
         CutPointCol = 2
-        ''':attr: Number of the col holding position of the point where the cut is set'''
+        ''':attr: Number of the col holding position of the point where the
+                  cut is set'''
         DepthCol = 3
         ''':attr: Number of the col holding the shaping depth'''
         ConfigNumCol = 4
         ''':attr: num of column for config number'''
-        
+
         def createTable(self):
             '''
             :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists ThreeDShapingLoDetail;")
             query.exec("create table if not exists ThreeDShapingLoDetail ("
-                    "OrderNum INTEGER, "
-                    "IniPoint INTEGER, "
-                    "CutPoint INTEGER, "
-                    "Depth REAL, "
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            
-        def __init__(self, parent=None): # @UnusedVariable
+                       "OrderNum INTEGER, "
+                       "IniPoint INTEGER, "
+                       "CutPoint INTEGER, "
+                       "Depth REAL, "
+                       "ConfigNum INTEGER,"
+                       "ID INTEGER PRIMARY KEY);")
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -5035,13 +5039,15 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))                    
+            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))
             self.setHeaderData(2, Qt.Horizontal, _("Cut P"))
             self.setHeaderData(3, Qt.Horizontal, _("Depth"))
-            
+
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here
+                     as they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
@@ -5051,37 +5057,39 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           "CutPoint= :cutPoint, "
                           "Depth= :depth "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":iniPoint", iniPoint )
-            query.bindValue(":cutPoint", cutPoint )
-            query.bindValue(":depth", depth )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.bindValue(":iniPoint", iniPoint)
+            query.bindValue(":cutPoint", cutPoint)
+            query.bindValue(":depth", depth)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a specific config and order number
+            :method: Reads values back from the internal database for a
+                     specific config and order number
             :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "IniPoint, "
-                            "CutPoint, "
-                            "Depth "
-                            "FROM ThreeDShapingLoDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum )
+            query.prepare("Select "
+                          "IniPoint, "
+                          "CutPoint, "
+                          "Depth "
+                          "FROM ThreeDShapingLoDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum)
             query.exec()
             query.next()
             # now we are at the first row
-            i=1
+            i = 1
             while i < orderNum:
                 query.next()
-                i+=1
+                i += 1
             return query.value
 
     class ThreeDShPrintModel(SqlTableModel, metaclass=Singleton):
@@ -5090,41 +5098,45 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         __className = 'ThreeDShPrintModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
-        
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
+
+        OrderNumCol = 0
+        ''':attr: Num of column for ordering the individual lines
+                  of a config'''
         NameCol = 1
         ''':attr: Number of the col holding the layer name'''
         DrawCol = 2
-        ''':attr: Number of the col holding the info if the layer shall be drawn'''
-        FirstPanelCol = 3 
-        ''':attr: Number of the col holding the number of the first panel to print'''
+        ''':attr: Number of the col holding the info if the layer shall
+                  be drawn'''
+        FirstPanelCol = 3
+        ''':attr: Number of the col holding the number of the first panel
+                  to print'''
         LastPanelCol = 4
-        ''':attr: Number of the col holding the number of the last panel to print'''
+        ''':attr: Number of the col holding the number of the last panel
+                  to print'''
         SymmetricCol = 5
         ''':attr: Number of the col holding the symmetric information'''
         ConfigNumCol = 6
         ''':attr: num of column for config number'''
-        
+
         def createTable(self):
             '''
             :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists ThreeDShapingPrint;")
             query.exec("create table if not exists ThreeDShapingPrint ("
-                    "OrderNum INTEGER, "
-                    "Name TEXT, "
-                    "Draw INTEGER, "
-                    "FirstPanel INTEGER, "
-                    "LastPanel INTEGER, "
-                    "Symmetric INTEGER, "
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
-            
-        def __init__(self, parent=None): # @UnusedVariable
+                       "OrderNum INTEGER, "
+                       "Name TEXT, "
+                       "Draw INTEGER, "
+                       "FirstPanel INTEGER, "
+                       "LastPanel INTEGER, "
+                       "Symmetric INTEGER, "
+                       "ConfigNum INTEGER,"
+                       "ID INTEGER PRIMARY KEY);")
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -5134,7 +5146,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("ThreeDShapingPrint")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setNumConfigs(1)
             self.setNumRowsForConfig(1, 5)
 
@@ -5143,10 +5155,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("First panel"))
             self.setHeaderData(4, Qt.Horizontal, _("Last panel"))
             self.setHeaderData(5, Qt.Horizontal, _("Symmetric"))
-            
-        def updateRow(self, configNum, orderNum, name, draw, firstPanel, lastPanel, symmetric):
+
+        def updateRow(self, configNum, orderNum, name, draw,
+                      firstPanel, lastPanel, symmetric):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here
+                     as they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
@@ -5158,41 +5173,43 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           "LastPanel= :lastPanel, "
                           "Symmetric= :symmetric "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":name", name )
-            query.bindValue(":draw", draw )
-            query.bindValue(":firstPanel", firstPanel )
-            query.bindValue(":lastPanel", lastPanel )
-            query.bindValue(":symmetric", symmetric )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.bindValue(":name", name)
+            query.bindValue(":draw", draw)
+            query.bindValue(":firstPanel", firstPanel)
+            query.bindValue(":lastPanel", lastPanel)
+            query.bindValue(":symmetric", symmetric)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a specific config and order number
+            :method: Reads values back from the internal database for a
+                     specific config and order number
             :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "Name, "
-                            "Draw, "
-                            "FirstPanel, "
-                            "LastPanel, "
-                            "Symmetric "
-                            "FROM ThreeDShapingPrint WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum )
+            query.prepare("Select "
+                          "Name, "
+                          "Draw, "
+                          "FirstPanel, "
+                          "LastPanel, "
+                          "Symmetric "
+                          "FROM ThreeDShapingPrint WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum)
             query.exec()
             query.next()
             # now we are at the first row
-            i=1
+            i = 1
             while i < orderNum:
                 query.next()
-                i+=1
+                i += 1
             return query.value
 
     class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
@@ -5203,23 +5220,24 @@ class ProcessorModel(QObject, metaclass=Singleton):
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
         ''' :attr: Helps to remember if the section is in use or not'''
-       
+
         usageUpd = pyqtSignal()
         '''
         :signal: emitted as soon the usage flag is changed
         '''
-        OrderNumCol = 0 
-        ''':attr: num of column for ordering the individual lines of a config'''
+        OrderNumCol = 0
+        ''':attr: Num of column for ordering the individual
+                  lines of a config'''
         LineNameCol = 1
         ''':attr: Number of the col holding the fixed line name '''
         ColorCodeCol = 2
         ''':attr: Number of the col holding the color code'''
-        ColorNameCol = 3 
+        ColorNameCol = 3
         ''':attr: Number of the col holding the optional color name'''
         ConfigNumCol = 4
         ''':attr: num of column for config number (always 1)'''
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -5229,35 +5247,39 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setTable("TwoDDxf")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
-            self.setNumRowsForConfig(1,6)
-                    
+
+            self.setNumRowsForConfig(1, 6)
+
             self.setHeaderData(1, Qt.Horizontal, _("Line name"))
             self.setHeaderData(2, Qt.Horizontal, _("Color code"))
             self.setHeaderData(3, Qt.Horizontal, _("Color name"))
-            
-            # TODO Color name is optional, reader does not take this into account currently
+
+            # TODO Color name is optional, reader does not take this
+            #      into account currently
             # TODO prefill table with correct names.
-        
+
         def createTable(self):
             '''
             :method: Creates initially the empty table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists TwoDDxf;")
             query.exec("create table if not exists TwoDDxf ("
-                    "OrderNum INTEGER,"
-                    "LineName TEXT,"
-                    "ColorCode INTEGER,"
-                    "ColorName TEXT,"
-                    "ConfigNum INTEGER,"
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER,"
+                       "LineName TEXT,"
+                       "ColorCode INTEGER,"
+                       "ColorName TEXT,"
+                       "ConfigNum INTEGER,"
+                       "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, lineName, colorCode, colorName):
+        def updateRow(self, configNum, orderNum, lineName,
+                      colorCode, colorName):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
@@ -5267,54 +5289,56 @@ class ProcessorModel(QObject, metaclass=Singleton):
                           "ColorCode= :colorCode, "
                           "ColorName= :colorName "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":lineName", lineName )
-            query.bindValue(":colorCode", colorCode )
-            query.bindValue(":colorName", colorName )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.bindValue(":lineName", lineName)
+            query.bindValue(":colorCode", colorCode)
+            query.bindValue(":colorName", colorName)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-        
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def setIsUsed(self, isUsed):
             '''
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
+            :param isUse: True if section is in use, False otherwise.
             '''
             logging.debug(self.__className+'.setIsUsed')
             self.__isUsed = isUsed
             self.usageUpd.emit()
-        
+
         def isUsed(self):
             '''
             :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
+            :returns: True if section is in use, false otherwise
             '''
             logging.debug(self.__className+'.isUsed')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a specific config and order number
+            :method: Reads values back from the internal database for
+                     a specific config and order number
             :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "LineName, "
-                            "ColorCode, "
-                            "ColorName "
-                            "FROM TwoDDxf WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum )
+            query.prepare("Select "
+                          "LineName, "
+                          "ColorCode, "
+                          "ColorName "
+                          "FROM TwoDDxf WHERE (ConfigNum = :config) ORDER BY OrderNum")
+            query.bindValue(":config", configNum)
             query.exec()
             query.next()
             # now we are at the first row
-            i=1
+            i = 1
             while i < orderNum:
                 query.next()
-                i+=1
+                i += 1
             return query.value
 
     class WingModel(SqlTableModel, metaclass=Singleton):

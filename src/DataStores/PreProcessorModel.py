@@ -17,19 +17,21 @@ from DataStores.Database import Database
 
 from DataStores.FileHelpers import FileHelpers
 
+
 class PreProcessorModel(QObject, metaclass=Singleton):
     '''
     :class: Does take care about the data handling for the pre-processor.
         - Reads and writes the data files
         - Holds as a central point all temporary data during program execution
-    
-    Is implemented as a **Singleton**. Even if it is instantiated multiple times all data will be the same for all instances.
+
+    Is implemented as a **Singleton**. Even if it is instantiated multiple
+    times all data will be the same for all instances.
     '''
-    dataStatusUpdate = pyqtSignal(str,str)
+    dataStatusUpdate = pyqtSignal(str, str)
     '''
     :signal:  Sent out as soon a file was opened or saved
         The first string indicates the class name
-        The second string indicates 
+        The second string indicates
         - if a file was opened
         - if a file was saved
         - Filename and Path has been changed
@@ -46,18 +48,18 @@ class PreProcessorModel(QObject, metaclass=Singleton):
     '''
     :attr: version number of the file currently in use
     '''
-    
-    def __init__(self, parent=None): # @UnusedVariable
+
+    def __init__(self, parent=None):  # @UnusedVariable
         '''
         :method: Constructor
         '''
-        logging.debug(self.__className+ '.__init__')
-         
+        logging.debug(self.__className + '.__init__')
+
         self.db = Database()
         self.db.openConnection()
-        
+
         super().__init__()
-        
+
         self.fh = FileHelpers()
 
         self.leadingE_M = self.LeadingEdgeModel()
@@ -66,52 +68,53 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         self.gen_M = self.GenModel()
         self.cellsDistr_M = self.CellsDistrModel()
 
-    def setFileName( self, fileName ):
+    def setFileName(self, fileName):
         '''
-        :method: Does set the file name the data store shall work with. 
+        :method: Does set the file name the data store shall work with.
         :param fileName: String containing full path and filename
         '''
         self.__fileNamePath = fileName
         self.dataStatusUpdate.emit(self.__className, 'FileNamePath')
-            
-    def getFileName( self ):
+
+    def getFileName(self):
         '''
         :method: Returns the name of the file name member.
         '''
         return self.__fileNamePath
-    
-    def setFileVersion( self, fileVersion ):
+
+    def setFileVersion(self, fileVersion):
         '''
-        :method: Does set the file version the data store shall work with. 
+        :method: Does set the file version the data store shall work with.
         :param fileVersion: String containing the version number
         '''
         self.__fileVersion = fileVersion
         self.dataStatusUpdate.emit(self.__className, 'FileVersion')
-            
-    def getFileVersion( self ):
+
+    def getFileVersion(self):
         '''
         :method: Returns the version info of the data file currently in use
         '''
         return self.__fileVersion
-    
-    def isValid( self, fileName ):
+
+    def isValid(self, fileName):
         '''
-        :method: Checks if a file can be opened and contains a valid title and known version number.
+        :method: Checks if a file can be opened and contains a valid title
+                 and known version number.
         :param fileName: the name of the file to be checked
         '''
-        logging.debug(self.__className+ '.isValid')
+        logging.debug(self.__className + '.isValid')
         try:
             inFile = QFile(fileName)
             if inFile.open(QFile.ReadOnly | QFile.Text):
                 stream = QTextStream(inFile)
         except:
-            logging.error( self.__className + 'File cannot be opened ' + fileName )
+            logging.error(self.__className + 'File cannot be opened ' + fileName)
             return False
-        
+
         titleOK = False
         versionOK = False
         lineCounter = 0
-        
+
         while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 4:
             line = stream.readLine()
             if line.find('1.5') >= 0:
@@ -126,38 +129,39 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             lineCounter += 1
 
         inFile.close()
-        
-        if not ( (versionOK and titleOK) ):
-            logging.error(self.__className+ ' Result of PreProc file version check %s', versionOK)
-            logging.error(self.__className+ ' Result of PreProc file title check %s', titleOK)
-            
+
+        if not ((versionOK and titleOK)):
+            logging.error(self.__className + ' Result of PreProc file version check %s', versionOK)
+            logging.error(self.__className + ' Result of PreProc file title check %s', titleOK)
+
             msgBox = QMessageBox()
             msgBox.setWindowTitle(_('File read error'))
             msgBox.setText(_('File seems not to be a valid PreProcessor File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
-            
+
             self.setFileName('')
             self.setFileVersion('')
 
         return versionOK and titleOK
-    
+
     def openFile(self):
         '''
-        :method: Checks for unapplied/ unsaved data, and appropriate handling. Does the File Open dialog handling. 
+        :method: Checks for unapplied/ unsaved data, and appropriate handling.
+                 Does the File Open dialog handling.
         '''
-        logging.debug(self.__className+ '.openFile')
+        logging.debug(self.__className + '.openFile')
         # Make sure there is no unsaved/ unapplied data
 #         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
 #             # There is unsaved/ unapplied data, show a warning
 #             msgBox = QMessageBox()
 #             msgBox.setWindowTitle(_("Unsaved or unapplied data"))
 #             msgBox.setText(_("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. "))
-#             msgBox.setIcon(QMessageBox.Warning)        
+#             msgBox.setIcon(QMessageBox.Warning)
 #             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-#             answer = msgBox.exec()            
-#             
+#             answer = msgBox.exec()
+#
 #             if answer == QMessageBox.Cancel:
 #                 # User wants to abort
 #                 return
@@ -169,19 +173,20 @@ class PreProcessorModel(QObject, metaclass=Singleton):
                         "Pre-Proc Files (*.txt);;All Files (*)")
 
         if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the dialog  
-            # an empty tuple is retured
+            # User has really selected a file, if it would have aborted
+            # the dialog an empty tuple is retured
             if self.isValid(fileName[0]):
                 self.setFileName(fileName[0])
                 self.readFile()
-                
+
     def saveFile(self):
         '''
-        :method: Checks if there is already a valid file name, if not it asks for it. Starts afterwards the writing process.  
+        :method: Checks if there is already a valid file name, if not it asks
+                 for it. Starts afterwards the writing process.
         '''
-        logging.debug(self.__className+ '.saveFile')
-        
-        fileName = self.getFileName() 
+        logging.debug(self.__className + '.saveFile')
+
+        fileName = self.getFileName()
         if len(fileName) != 0:
             # We do have already a valid filename
             self.writeFile()
@@ -192,40 +197,42 @@ class PreProcessorModel(QObject, metaclass=Singleton):
                         _('Save Pre-Processor file'),
                         "",
                         "Pre-Proc Files (*.txt);;All Files (*)")
-            
+
             if fileName != ('', ''):
-                # User has really selected a file, if it would have aborted the dialog  
-                # an empty tuple is retured
+                # User has really selected a file, if it would have aborted
+                # the dialog an empty tuple is retured
                 self.setFileName(fileName[0])
                 self.writeFile()
-            
+
     def saveFileAs(self):
         '''
-        :method: Asks for a new filename. Starts afterwards the writing process.  
+        :method: Asks for a new filename. Starts afterwards the
+                 writing process.
         '''
-        logging.debug(self.__className+ '.saveFileAs')
-        
+        logging.debug(self.__className + '.saveFileAs')
+
         # Ask first for the filename
         fileName = QFileDialog.getSaveFileName(
                     None,
                     _('Save Pre-Processor file as'),
                     "",
                     "Pre-Proc Files (*.txt);;All Files (*)")
-        
+
         if fileName != ('', ''):
-                # User has really selected a file, if it would have aborted the dialog  
-                # an empty tuple is retured
-                self.setFileName(fileName[0])
-                self.writeFile()
-    
+            # User has really selected a file, if it would have aborted
+            # the dialog an empty tuple is retured
+            self.setFileName(fileName[0])
+            self.writeFile()
+
     def readFile(self):
         '''
-        :method: Reads the data file and saves the data in the internal varibles.
+        :method: Reads the data file and saves the data in the internal
+                 varibles.
         :warning: Filename and Path must be set first!
         '''
         logging.debug(self.__className+'.readFile')
-        
-        inFile = QFile( self.getFileName() )
+
+        inFile = QFile(self.getFileName())
         inFile.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(inFile)
 
@@ -237,151 +244,163 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             line = stream.readLine()
             if line.find('***************') >= 0:
                 counter += 1
-        
+
         # Wing Name
         self.gen_M.setNumConfigs(0)
-        
+
         logging.debug(self.__className+'.readFile: Wing name')
         self.gen_M.setNumRowsForConfig(1, 1)
         name = stream.readLine()
-        self.gen_M.updateRow(1,1, name )
-        
+        self.gen_M.updateRow(1, 1, name)
+
         # 1. Leading edge
         logging.debug(self.__className+'.readFile: Leading edge')
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
-            
+
         one = self.fh.remTabSpaceQuot(stream.readLine())
-        two = self.fh.splitLine( stream.readLine() )
-        thr = self.fh.splitLine( stream.readLine() )
-        fou = self.fh.splitLine( stream.readLine() )
-        fiv = self.fh.splitLine( stream.readLine() )
-        six = self.fh.splitLine( stream.readLine() )
-        sev = self.fh.splitLine( stream.readLine() )
-        eig = self.fh.splitLine( stream.readLine() )
-        nin = self.fh.splitLine( stream.readLine() )
-        ten = self.fh.splitLine( stream.readLine() )
-        
+        two = self.fh.splitLine(stream.readLine())
+        thr = self.fh.splitLine(stream.readLine())
+        fou = self.fh.splitLine(stream.readLine())
+        fiv = self.fh.splitLine(stream.readLine())
+        six = self.fh.splitLine(stream.readLine())
+        sev = self.fh.splitLine(stream.readLine())
+        eig = self.fh.splitLine(stream.readLine())
+        nin = self.fh.splitLine(stream.readLine())
+        ten = self.fh.splitLine(stream.readLine())
+
         self.leadingE_M.setNumConfigs(0)
         self.leadingE_M.setNumConfigs(1)
-        self.leadingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1], six[1], sev[1], eig[1], nin[1], ten[1] )
-        
+        self.leadingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1],
+                                  six[1], sev[1], eig[1], nin[1], ten[1])
+
         # 2. Trailing edge
         logging.debug(self.__className+'.readFile: Trailing edge')
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
-            
+
         one = self.fh.remTabSpaceQuot(stream.readLine())
-        two = self.fh.splitLine( stream.readLine() )
-        thr = self.fh.splitLine( stream.readLine() )
-        fou = self.fh.splitLine( stream.readLine() )
-        fiv = self.fh.splitLine( stream.readLine() )
-        six = self.fh.splitLine( stream.readLine() )
-        sev = self.fh.splitLine( stream.readLine() )
-        eig = self.fh.splitLine( stream.readLine() )
-        
+        two = self.fh.splitLine(stream.readLine())
+        thr = self.fh.splitLine(stream.readLine())
+        fou = self.fh.splitLine(stream.readLine())
+        fiv = self.fh.splitLine(stream.readLine())
+        six = self.fh.splitLine(stream.readLine())
+        sev = self.fh.splitLine(stream.readLine())
+        eig = self.fh.splitLine(stream.readLine())
+
         self.trailingE_M.setNumConfigs(0)
         self.trailingE_M.setNumConfigs(1)
-        self.trailingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1], six[1], sev[1], eig[1] )
-        
+        self.trailingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1],
+                                   six[1], sev[1], eig[1])
+
         # 3. Vault
         logging.debug(self.__className+'.readFile: vault')
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
-            
+
         self.vault_M.setNumConfigs(0)
         self.vault_M.setNumConfigs(1)
-        vtype = int( self.fh.remTabSpaceQuot(stream.readLine()) )
-        
-        one = self.fh.splitLine( stream.readLine() )
-        two = self.fh.splitLine( stream.readLine() )
-        thr = self.fh.splitLine( stream.readLine() )
-        fou = self.fh.splitLine( stream.readLine() )
-        
+        vtype = int(self.fh.remTabSpaceQuot(stream.readLine()))
+
+        one = self.fh.splitLine(stream.readLine())
+        two = self.fh.splitLine(stream.readLine())
+        thr = self.fh.splitLine(stream.readLine())
+        fou = self.fh.splitLine(stream.readLine())
+
         if vtype == 1:
-            self.vault_M.updateRow(1, 1, vtype, one[1], two[1], thr[1], fou[1], 0, 0, 0, 0, 0, 0, 0, 0)
-            
+            self.vault_M.updateRow(1, 1, vtype, one[1], two[1], thr[1],
+                                   fou[1], 0, 0, 0, 0, 0, 0, 0, 0)
+
         else:
-            self.vault_M.updateRow(1, 1, vtype, 0, 0, 0, 0, one[0], two[0], thr[0], fou[0], one[1], two[1], thr[1], fou[1])
-            
+            self.vault_M.updateRow(1, 1, vtype, 0, 0, 0, 0, one[0], two[0],
+                                   thr[0], fou[0], one[1], two[1],
+                                   thr[1], fou[1])
+
         # 4. Cells distribution
         logging.debug(self.__className+'.readFile: Cells')
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
-        
+
         self.cellsDistr_M.setNumConfigs(0)
-        
-        distrT = int( self.fh.remTabSpaceQuot(stream.readLine()) )
-                
+
+        distrT = int(self.fh.remTabSpaceQuot(stream.readLine()))
+
         if distrT == 1:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
             numCells = self.fh.remTabSpaceQuot(stream.readLine())
             self.cellsDistr_M.updateRow(1, 1, distrT, 0, 0, numCells)
-            
-        elif (distrT  == 2) or (distrT == 3):
+
+        elif (distrT == 2) or (distrT == 3):
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
             coef = self.fh.remTabSpaceQuot(stream.readLine())
             numCells = self.fh.remTabSpaceQuot(stream.readLine())
             self.cellsDistr_M.updateRow(1, 1, distrT, coef, 0, numCells)
-            
+
         elif distrT == 4:
-            numCells = int( self.fh.remTabSpaceQuot(stream.readLine()) )
+            numCells = int(self.fh.remTabSpaceQuot(stream.readLine()))
             self.cellsDistr_M.setNumRowsForConfig(1, numCells)
-            
-            for l in range (0, numCells):
+
+            for l in range(0, numCells):
                 width = self.fh.splitLine(stream.readLine())
-                self.cellsDistr_M.updateRow(1, l+1, distrT, 0, width[1], numCells)
-            
+                self.cellsDistr_M.updateRow(1, l+1, distrT, 0, width[1],
+                                            numCells)
+
         ##############################
         # Cleanup
-        inFile.close() 
+        inFile.close()
 
     def writeFile(self, forProc=False):
         '''
-        :method: Writes all the values into a data file. 
-        :warning: Filename must have been set already before, unless the file shall be written for the PreProcessor.
-        :param forProc: Set this to True if the file must be saved in the directory where the PreProcessor resides
+        :method: Writes all the values into a data file.
+        :warning: Filename must have been set already before, unless the
+                  file shall be written for the PreProcessor.
+        :param forProc: Set this to True if the file must be saved in the
+                        directory where the PreProcessor resides.
         '''
-        
+
         separator = '***************************************************\n'
-        
+
         logging.debug(self.__className+'.writeFile')
-        
+
         # check if the file already exists
         filePathName = self.getFileName()
         if os.path.isfile(filePathName):
             # file exists -> delete it
             os.remove(filePathName)
-        
+
         if forProc == False:
             # Regular file write into a file specified by the user
             outFile = QFile(filePathName)
         else:
-            # Special file write into the directory where the PreProcessor resides
+            # Special file write into the directory where the
+            # PreProcessor resides
             config = ConfigReader()
-            pathName = os.path.join(config.getPreProcDirectory(), 'pre-data.txt')
-            
+            pathName = os.path.join(config.getPreProcDirectory(),
+                                    'pre-data.txt')
+
             # Delete old file first
             if os.path.exists(pathName):
                 logging.debug(self.__className+'.writeFile remove old file')
                 os.remove(pathName)
             else:
                 logging.debug(self.__className+'.writeFile no Proc file in place')
-            
+
             outFile = QFile(pathName)
-        
+
         if not outFile.open(QFile.ReadWrite | QFile.Text):
-            logging.error(self.__className+'.writeFile '+ outFile.errorString()) 
-            
+            logging.error(self.__className+'.writeFile '
+                          + outFile.errorString())
+
             msgBox = QMessageBox()
             msgBox.setWindowTitle(_("File save error"))
-            msgBox.setText(_('File can not be saved: ')+ outFile.errorString( ))
+            msgBox.setText(_('File can not be saved: ')
+                           + outFile.errorString())
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
-            return 
-        
-        ## File is open, start writing
+            return
+
+        # File is open, start writing
         stream = QTextStream(outFile)
         stream.setCodec('UTF-8')
 
@@ -389,25 +408,25 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         stream << 'LEPARAGLIDING\n'
         stream << 'GEOMETRY PRE-PROCESSOR         V1.6\n'
         stream << separator
-        
+
         values = self.gen_M.getRow(1, 1)
-        stream << '%s\n' %(self.fh.chkStr(values(0),''))
-        
+        stream << '%s\n' % (self.fh.chkStr(values(0), ''))
+
         stream << separator
         stream << '* 1. Leading edge parameters\n'
         stream << separator
         values = self.leadingE_M.getRow(1, 1)
-        stream << '%s\n'        %(self.fh.chkNum(values(0),1))
-        stream << 'a1= %s\n'    %(self.fh.chkNum(values(1)))
-        stream << 'b1= %s\n'    %(self.fh.chkNum(values(2)))
-        stream << 'x1= %s\n'    %(self.fh.chkNum(values(3)))
-        stream << 'x2= %s\n'    %(self.fh.chkNum(values(4)))
-        stream << 'xm= %s\n'    %(self.fh.chkNum(values(5)))
-        stream << 'c0= %s\n'    %(self.fh.chkNum(values(6)))
-        stream << 'ex1= %s\n'   %(self.fh.chkNum(values(7)))
-        stream << 'c02= %s\n'   %(self.fh.chkNum(values(8)))
-        stream << 'ex2= %s\n'   %(self.fh.chkNum(values(9)))
-        
+        stream << '%s\n' % (self.fh.chkNum(values(0), 1))
+        stream << 'a1= %s\n' % (self.fh.chkNum(values(1)))
+        stream << 'b1= %s\n' % (self.fh.chkNum(values(2)))
+        stream << 'x1= %s\n' % (self.fh.chkNum(values(3)))
+        stream << 'x2= %s\n' % (self.fh.chkNum(values(4)))
+        stream << 'xm= %s\n' % (self.fh.chkNum(values(5)))
+        stream << 'c0= %s\n' % (self.fh.chkNum(values(6)))
+        stream << 'ex1= %s\n' % (self.fh.chkNum(values(7)))
+        stream << 'c02= %s\n' % (self.fh.chkNum(values(8)))
+        stream << 'ex2= %s\n' % (self.fh.chkNum(values(9)))
+
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
         stream << separator
