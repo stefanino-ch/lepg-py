@@ -25,7 +25,7 @@ from DataStores.ProcessorModel import ProcessorModel
 
 from Windows.DataStatusOverview import DataStatusOverview
 from Windows.PreProcData import PreProcData
-from Windows.WingViewer import WingViewer
+from Windows.PreProcWingOutline import PreProcWingOutline
 from Windows.BasicData import BasicData
 from Windows.Geometry import Geometry
 from Windows.Airfoils import Airfoils
@@ -276,6 +276,10 @@ class MainWindow(QMainWindow):
         preProcRunAct.setStatusTip(_('run_preProc_des'))
         preProcRunAct.triggered.connect(self.preProcRun)
 
+        preProcWingOutl = QAction(_('Show wing outline'), self)
+        preProcWingOutl.setStatusTip(_('show_WingOutline_des'))
+        preProcWingOutl.triggered.connect(self.preProcWingOutline)
+
         # Build the menu
         preProcMenu = self.mainMenu.addMenu(_('Pre Processor'))
         preProcMenu.addAction(preProcOpenFileAct)
@@ -286,6 +290,8 @@ class MainWindow(QMainWindow):
         preProcMenu.addAction(preProcCellsDistrAct)
         preProcMenu.addSeparator()
         preProcMenu.addAction(preProcRunAct)
+        preProcMenu.addSeparator()
+        preProcMenu.addAction(preProcWingOutl)
 
     def preProcOpenFile(self):
         '''
@@ -329,6 +335,18 @@ class MainWindow(QMainWindow):
             self.dws.registerWindow('PreProcCellsDistribution')
             self.mdi.addSubWindow(self.preProcCellsDistrW)
         self.preProcCellsDistrW.show()
+
+    def preProcWingOutline(self):
+        '''
+        :method: Called if the user selects *Pre Processor*
+                 -> *Show wing outline*
+        '''
+        if self.dws.windowExists('PreProcWingOutline') is False:
+            # TODO: Wrong window is opened here
+            self.preProcWingOutlineW = PreProcWingOutline()
+            self.dws.registerWindow('PreProcWingOutline')
+            self.mdi.addSubWindow(self.preProcWingOutlineW)
+        self.preProcWingOutlineW.show()
 
     def preProcRun(self):
         '''
@@ -928,11 +946,6 @@ class MainWindow(QMainWindow):
         '''
         :method: Builds the View menu
         '''
-        viewWingAct = QAction(_('Wing'), self)
-        viewWingAct.setStatusTip(_('Shows the outline of the wing'))
-        viewWingAct.triggered.connect(self.viewWing)
-        viewWingAct.setEnabled(False)
-
         # Define the actions
         viewCascadeAct = QAction(_('Cascade'), self)
         viewCascadeAct.setStatusTip(_('Cascade all windows'))
@@ -943,22 +956,9 @@ class MainWindow(QMainWindow):
         viewTileAct.triggered.connect(self.viewTile)
         # Build the menu
         viewMenu = self.mainMenu.addMenu(_('View'))
-        viewMenu.addAction(viewWingAct)
         viewMenu.addSeparator()
         viewMenu.addAction(viewCascadeAct)
         viewMenu.addAction(viewTileAct)
-
-    def viewWing(self):
-        '''
-        :method: Called if the user selects *View*
-                 -> *Show Pre-Processor outline*
-        '''
-        if self.dws.windowExists('WingViewer') is False:
-            self.wingViewer_W = WingViewer()
-            self.dws.registerWindow('WingViewer')
-            self.mdi.addSubWindow(self.wingViewer_W)
-
-        self.wingViewer_W.show()
 
     def viewCascade(self):
         '''

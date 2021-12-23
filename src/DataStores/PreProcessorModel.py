@@ -107,18 +107,22 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             inFile = QFile(fileName)
             if inFile.open(QFile.ReadOnly | QFile.Text):
                 stream = QTextStream(inFile)
-        except:
-            logging.error(self.__className + 'File cannot be opened ' + fileName)
+        except:  # noqa: E722
+            logging.error(self.__className
+                          + 'File cannot be opened '
+                          + fileName)
             return False
 
         titleOK = False
         versionOK = False
         lineCounter = 0
 
-        while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 4:
+        while ((stream.atEnd() is not True)
+               and not (titleOK and versionOK)
+               and lineCounter < 4):
             line = stream.readLine()
             if line.find('1.5') >= 0:
-                self.setFileVersion('1.6')
+                self.setFileVersion('1.5')
                 versionOK = True
             elif line.find('1.6') >= 0:
                 self.setFileVersion('1.6')
@@ -131,12 +135,20 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         inFile.close()
 
         if not ((versionOK and titleOK)):
-            logging.error(self.__className + ' Result of PreProc file version check %s', versionOK)
-            logging.error(self.__className + ' Result of PreProc file title check %s', titleOK)
+            logging.error(self.__className
+                          + ' Result of PreProc file version check %s',
+                          versionOK)
+            logging.error(self.__className
+                          + ' Result of PreProc file title check %s',
+                          titleOK)
 
             msgBox = QMessageBox()
             msgBox.setWindowTitle(_('File read error'))
-            msgBox.setText(_('File seems not to be a valid PreProcessor File! \nVersion detected: ')+ str(versionOK)+ _('\nTitle detected: ')+ str(titleOK))
+            msgBox.setText(_('File seems not to be a valid PreProcessor File! '
+                             '\nVersion detected: ')
+                           + str(versionOK)
+                           + _('\nTitle detected: ')
+                           + str(titleOK))
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
@@ -152,12 +164,16 @@ class PreProcessorModel(QObject, metaclass=Singleton):
                  Does the File Open dialog handling.
         '''
         logging.debug(self.__className + '.openFile')
-        # Make sure there is no unsaved/ unapplied data
-#         if not (self.dws.getWindowDataStatus('PreProcDataEdit') and self.dws.getFileStatus('PreProcFile')):
+
+        # TODO: Make sure there is no unsaved/ unapplied data
+#         if not (self.dws.getWindowDataStatus('PreProcDataEdit')
+#                and self.dws.getFileStatus('PreProcFile')):
 #             # There is unsaved/ unapplied data, show a warning
 #             msgBox = QMessageBox()
 #             msgBox.setWindowTitle(_("Unsaved or unapplied data"))
-#             msgBox.setText(_("You have unsaved or unapplied data. \n\nPress OK to open the new file and overwrite the changes.\nPress Cancel to abort. "))
+#             msgBox.setText(_("You have unsaved or unapplied data. \n\n"
+#                              "Press OK to open the new file and overwrite "
+#                              "the changes.\nPress Cancel to abort. "))
 #             msgBox.setIcon(QMessageBox.Warning)
 #             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 #             answer = msgBox.exec()
@@ -340,9 +356,9 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             numCells = int(self.fh.remTabSpaceQuot(stream.readLine()))
             self.cellsDistr_M.setNumRowsForConfig(1, numCells)
 
-            for l in range(0, numCells):
+            for it in range(0, numCells):
                 width = self.fh.splitLine(stream.readLine())
-                self.cellsDistr_M.updateRow(1, l+1, distrT, 0, width[1],
+                self.cellsDistr_M.updateRow(1, it + 1, distrT, 0, width[1],
                                             numCells)
 
         ##############################
@@ -368,7 +384,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             # file exists -> delete it
             os.remove(filePathName)
 
-        if forProc == False:
+        if forProc is False:
             # Regular file write into a file specified by the user
             outFile = QFile(filePathName)
         else:
@@ -383,7 +399,8 @@ class PreProcessorModel(QObject, metaclass=Singleton):
                 logging.debug(self.__className+'.writeFile remove old file')
                 os.remove(pathName)
             else:
-                logging.debug(self.__className+'.writeFile no Proc file in place')
+                logging.debug(self.__className
+                              + '.writeFile no Proc file in place')
 
             outFile = QFile(pathName)
 
@@ -416,88 +433,90 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         stream << '* 1. Leading edge parameters\n'
         stream << separator
         values = self.leadingE_M.getRow(1, 1)
-        stream << '%s\n' % (self.fh.chkNum(values(0), 1))
-        stream << 'a1= %s\n' % (self.fh.chkNum(values(1)))
-        stream << 'b1= %s\n' % (self.fh.chkNum(values(2)))
-        stream << 'x1= %s\n' % (self.fh.chkNum(values(3)))
-        stream << 'x2= %s\n' % (self.fh.chkNum(values(4)))
-        stream << 'xm= %s\n' % (self.fh.chkNum(values(5)))
-        stream << 'c0= %s\n' % (self.fh.chkNum(values(6)))
-        stream << 'ex1= %s\n' % (self.fh.chkNum(values(7)))
-        stream << 'c02= %s\n' % (self.fh.chkNum(values(8)))
-        stream << 'ex2= %s\n' % (self.fh.chkNum(values(9)))
+        # Type is always 1
+        # Column is hidden in the GUI, value will be hardcoded here
+        # stream << '%s\n' % (self.fh.chkNum(values(0), 1))
+        stream << '1\n'
+        stream << 'a1= %s\n' % self.fh.chkNum(values(1))
+        stream << 'b1= %s\n' % self.fh.chkNum(values(2))
+        stream << 'x1= %s\n' % self.fh.chkNum(values(3))
+        stream << 'x2= %s\n' % self.fh.chkNum(values(4))
+        stream << 'xm= %s\n' % self.fh.chkNum(values(5))
+        stream << 'c0= %s\n' % self.fh.chkNum(values(6))
+        stream << 'ex1= %s\n' % self.fh.chkNum(values(7))
+        stream << 'c02= %s\n' % self.fh.chkNum(values(8))
+        stream << 'ex2= %s\n' % self.fh.chkNum(values(9))
 
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
         stream << separator
         values = self.trailingE_M.getRow(1, 1)
-        stream << '%s\n'        %(self.fh.chkNum(values(0),1))
-        stream << 'a1= %s\n'    %(self.fh.chkNum(values(1)))
-        stream << 'b1= %s\n'    %(self.fh.chkNum(values(2)))
-        stream << 'x1= %s\n'    %(self.fh.chkNum(values(3)))
-        stream << 'xm= %s\n'    %(self.fh.chkNum(values(4)))
-        stream << 'c0= %s\n'    %(self.fh.chkNum(values(5)))
-        stream << 'y0= %s\n'    %(self.fh.chkNum(values(6)))
-        stream << 'exp= %s\n'   %(self.fh.chkNum(values(7)))
+        # Type is always 1
+        # Column is hidden in the GUI, value will be hardcoded here
+        # stream << '%s\n'        %(self.fh.chkNum(values(0),1))
+        stream << '1\n'
+        stream << 'a1= %s\n' % self.fh.chkNum(values(1))
+        stream << 'b1= %s\n' % self.fh.chkNum(values(2))
+        stream << 'x1= %s\n' % self.fh.chkNum(values(3))
+        stream << 'xm= %s\n' % self.fh.chkNum(values(4))
+        stream << 'c0= %s\n' % self.fh.chkNum(values(5))
+        stream << 'y0= %s\n' % self.fh.chkNum(values(6))
+        stream << 'exp= %s\n' % self.fh.chkNum(values(7))
 
         stream << separator
         stream << '* 3. Vault\n'
         stream << separator
-        
+
         values = self.vault_M.getRow(1, 1)
-        stream << '%s\n' %(self.fh.chkNum(values(0),1))
+        stream << '%s\n' % (self.fh.chkNum(values(0), 1))
 
         try:
-            if int( values(0) ) ==1:
-                stream << 'a1= %s\n' %values(1)
-                stream << 'b1= %s\n' %values(2)
-                stream << 'x1= %s\n' %values(3)
-                stream << 'c1= %s\n' %values(4)
+            if int(values(0)) == 1:
+                stream << 'a1= %s\n' % values(1)
+                stream << 'b1= %s\n' % values(2)
+                stream << 'x1= %s\n' % values(3)
+                stream << 'c1= %s\n' % values(4)
             else:
-                stream << '%s\t%s\n' %(values(5), values(9))
-                stream << '%s\t%s\n' %(values(6), values(10))
-                stream << '%s\t%s\n' %(values(7), values(11))
-                stream << '%s\t%s\n' %(values(8), values(12))
-        except:
+                stream << '%s\t%s\n' % (values(5), values(9))
+                stream << '%s\t%s\n' % (values(6), values(10))
+                stream << '%s\t%s\n' % (values(7), values(11))
+                stream << '%s\t%s\n' % (values(8), values(12))
+        except:  # noqa: E722
             stream << 'a1= 0\n'
             stream << 'b1= 0\n'
             stream << 'x1= 0\n'
             stream << 'c1= 0\n'
-            
-        
+
         stream << separator
         stream << '* 4. Cells distribution\n'
         stream << separator
         values = self.cellsDistr_M.getRow(1, 1)
-        stream << '%s\n' %(self.fh.chkNum(values(0),1))
-        
+        stream << '%s\n' % self.fh.chkNum(values(0), 1)
+
         try:
-            if int( values(0) ) ==1:
-                stream << '%s\n' %values(3)
-                
-            elif int( values(0) ) ==2 or int( values(0) ) ==3:
-                stream << '%s\n' %values(1)
-                stream << '%s\n' %values(3)
-            
-            elif int( values(0) ) ==4:
-                stream << '%s\n' %values(3)
-                
-                for l in range (0, int(values(3))):
-                    values = self.cellsDistr_M.getRow(1, l+1)
-                    stream << '%s\t%s\n' %(l+1, values(2))
-        except:
+            if int(values(0)) == 1:
+                stream << '%s\n' % values(3)
+
+            elif int(values(0)) == 2 or int(values(0)) == 3:
+                stream << '%s\n' % values(1)
+                stream << '%s\n' % values(3)
+
+            elif int(values(0)) == 4:
+                stream << '%s\n' % values(3)
+
+                for it in range(0, int(values(3))):
+                    values = self.cellsDistr_M.getRow(1, it+1)
+                    stream << '%s\t%s\n' % (it + 1, values(2))
+        except:  # noqa: E722
             stream << '0\n'
-        
+
         stream.flush()
         outFile.close()
-        
-        if forProc == False:
+
+        if forProc is False:
             # Then we need to set the right file version
             self.setFileVersion('3.10')
-        
-            # Make flags in order
-            #self.dataStatusUpdate.emit(self.__className,'Open')
-     
+
     class CellsDistrModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding all for cells distribution.
@@ -507,13 +526,13 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         :attr: Does help to indicate the source of the log messages
         '''
         OrderNumCol = 0
-        DistrTypeCol = 1 
+        DistrTypeCol = 1
         CoefCol = 2
         WidthCol = 3
         NumCellsCol = 4
         ConfigNumCol = 5
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -523,57 +542,62 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setTable("PreProcCellsDistr")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setHeaderData(0, Qt.Horizontal, _("Cell Num"))
             self.setHeaderData(2, Qt.Horizontal, _("Coef"))
             self.setHeaderData(3, Qt.Horizontal, _("Width"))
             self.setHeaderData(4, Qt.Horizontal, _("Num cells"))
-            
+
             self.setNumRowsForConfig(1, 1)
-        
+
         def createTable(self):
             '''
             :method: Creates initially the table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists PreProcCellsDistr;")
             query.exec("create table if not exists PreProcCellsDistr ("
-                    "OrderNum INTEGER, "
-                    "DistrType INTEGER, "
-                    "Coef REAL, "
-                    "Width REAL, "
-                    "NumCells INTEGER, "
-                    "ConfigNum INTEGER, "
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER, "
+                       "DistrType INTEGER, "
+                       "Coef REAL, "
+                       "Width REAL, "
+                       "NumCells INTEGER, "
+                       "ConfigNum INTEGER, "
+                       "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, distrT, coef, width, numCells):
+        def updateRow(self, configNum, orderNum, distrT, coef, width,
+                      numCells):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
             query = QSqlQuery()
             query.prepare("UPDATE PreProcCellsDistr SET "
-                            "DistrType = :distrT, "
-                            "Coef = :coef, "
-                            "Width = :width, "
-                            "NumCells = :numCells "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":distrT", distrT )
-            query.bindValue(":coef", coef )
-            query.bindValue(":width", width )
-            query.bindValue(":numCells", numCells )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            
+                          "DistrType = :distrT, "
+                          "Coef = :coef, "
+                          "Width = :width, "
+                          "NumCells = :numCells "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":distrT", distrT)
+            query.bindValue(":coef", coef)
+            query.bindValue(":width", width)
+            query.bindValue(":numCells", numCells)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
+
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a config and order number
+            :method: Reads values back from the internal database for a
+                     config and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: values read from internal database
@@ -581,35 +605,38 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "DistrType, "
-                            "Coef, "
-                            "Width, "
-                            "NumCells "
-                            "FROM PreProcCellsDistr WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "DistrType, "
+                          "Coef, "
+                          "Width, "
+                          "NumCells "
+                          "FROM PreProcCellsDistr "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value
-        
+
         def updateType(self, configNum, orderNum, distrT):
             logging.debug(self.__className+'.updateType')
 
             query = QSqlQuery()
             query.prepare("UPDATE PreProcCellsDistr SET "
-                            "DistrType= :typeN "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", distrT )
-            
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+                          "DistrType= :typeN "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":typeN", distrT)
+
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getType(self, configNum, orderNum):
             '''
-            :method: reads type value back from the internal database for a config and order number
+            :method: Reads type value back from the internal database for
+                     a config and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: type value
@@ -617,23 +644,23 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getType')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "DistrType "
-                            "FROM PreProcCellsDistr WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "DistrType "
+                          "FROM PreProcCellsDistr "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
-            
+
             if query.value(0) == '':
                 return 1
-            else: 
+            else:
                 return query.value(0)
-
 
     class GenModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding the general data 
+        :class: Provides a SqlTableModel holding the general data
         '''
         __className = 'GenModel'
         '''
@@ -642,8 +669,8 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         OrderNumCol = 0
         WingNameCol = 1
         ConfigNumCol = 2
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -653,45 +680,49 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setTable("PreProcGen")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setHeaderData(1, Qt.Horizontal, _("Wing name"))
-            
+
             self.setNumRowsForConfig(1, 1)
-        
+
         def createTable(self):
             '''
             :method: Creates initially the table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists PreProcGen;")
             query.exec("create table if not exists PreProcGen ("
-                    "OrderNum INTEGER, "
-                    "WingN TEXT, "
-                    "ConfigNum INTEGER, "
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER, "
+                       "WingN TEXT, "
+                       "ConfigNum INTEGER, "
+                       "ID INTEGER PRIMARY KEY);")
 
         def updateRow(self, configNum, orderNum, wingN):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
             query = QSqlQuery()
             query.prepare("UPDATE PreProcGen SET "
-                            "WingN = :wingN "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":wingN", wingN )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
-            
+                          "WingN = :wingN "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":wingN", wingN)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
+
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a config and order number
+            :method: Reads values back from the internal database for a config
+                     and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: values read from internal database
@@ -699,19 +730,20 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "WingN "
-                            "FROM PreProcGen WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "WingN "
+                          "FROM PreProcGen "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value
 
-
     class LeadingEdgeModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding all data for leading edge definition 
+        :class: Provides a SqlTableModel holding all data for leading
+                edge definition.
         '''
         __className = 'LeadingEdgeModel'
         '''
@@ -719,18 +751,18 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         '''
         OrderNumCol = 0
         TypeCol = 1
-        aOneCol = 2 
+        aOneCol = 2
         bOneCol = 3
         xOneCol = 4
         xTwoCol = 5
         xmCol = 6
         cZeroOneCol = 7
-        exOneCol = 8 
-        cZeroTwoCol = 9 
+        exOneCol = 8
+        cZeroTwoCol = 9
         exTwoCol = 10
         ConfigNumCol = 11
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -740,7 +772,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setTable("LeadingEdge")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setHeaderData(1, Qt.Horizontal, _("Type"))
             self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
             self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
@@ -751,69 +783,75 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(8, Qt.Horizontal, _("ex1 [coef]"))
             self.setHeaderData(9, Qt.Horizontal, _("c02 [coef]"))
             self.setHeaderData(10, Qt.Horizontal, _("ex2 [coef]"))
-            
+
             self.setNumRowsForConfig(1, 1)
-        
+
         def createTable(self):
             '''
             :method: Creates initially the table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists LeadingEdge;")
             query.exec("create table if not exists LeadingEdge ("
-                    "OrderNum INTEGER, "
-                    "Type INTEGER, "
-                    "aOne REAL, "
-                    "bOne REAL, "
-                    "xOne INTEGER, "
-                    "xTwo INTEGER, "
-                    "xm INTEGER, "
-                    "cZeroOne INTEGER, "
-                    "exOne REAL, "
-                    "cZeroTwo INTEGER, "
-                    "exTwo REAL, "
-                    "ConfigNum INTEGER, "
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER, "
+                       "Type INTEGER, "
+                       "aOne REAL, "
+                       "bOne REAL, "
+                       "xOne INTEGER, "
+                       "xTwo INTEGER, "
+                       "xm INTEGER, "
+                       "cZeroOne INTEGER, "
+                       "exOne REAL, "
+                       "cZeroTwo INTEGER, "
+                       "exTwo REAL, "
+                       "ConfigNum INTEGER, "
+                       "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, typeNum, aOne, bOne, xOne, xTwo, xm, cZeroOne, exOne, cZeroTwo, exTwo):
+        def updateRow(self, configNum, orderNum, typeNum,
+                      aOne, bOne,
+                      xOne, xTwo, xm, cZeroOne, exOne, cZeroTwo, exTwo):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
             query = QSqlQuery()
             query.prepare("UPDATE LeadingEdge SET "
-                            "Type= :typeN, "
-                            "aOne= :aOne, "
-                            "bOne= :bOne, "
-                            "xOne= :xOne, "
-                            "xTwo= :xTwo, "
-                            "xm= :xm, "
-                            "cZeroOne= :cZeroOne, "
-                            "exOne= :exOne, "
-                            "cZeroTwo= :cZeroTwo, "
-                            "exTwo= :exTwo "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum )
-            query.bindValue(":aOne", aOne )
-            query.bindValue(":bOne", bOne )
-            query.bindValue(":xOne", xOne )
-            query.bindValue(":xTwo", xTwo )
-            query.bindValue(":xm", xm )
-            query.bindValue(":cZeroOne", cZeroOne )
-            query.bindValue(":exOne", exOne )
-            query.bindValue(":cZeroTwo", cZeroTwo )
-            query.bindValue(":exTwo", exTwo )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+                          "Type= :typeN, "
+                          "aOne= :aOne, "
+                          "bOne= :bOne, "
+                          "xOne= :xOne, "
+                          "xTwo= :xTwo, "
+                          "xm= :xm, "
+                          "cZeroOne= :cZeroOne, "
+                          "exOne= :exOne, "
+                          "cZeroTwo= :cZeroTwo, "
+                          "exTwo= :exTwo "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":typeN", typeNum)
+            query.bindValue(":aOne", aOne)
+            query.bindValue(":bOne", bOne)
+            query.bindValue(":xOne", xOne)
+            query.bindValue(":xTwo", xTwo)
+            query.bindValue(":xm", xm)
+            query.bindValue(":cZeroOne", cZeroOne)
+            query.bindValue(":exOne", exOne)
+            query.bindValue(":cZeroTwo", cZeroTwo)
+            query.bindValue(":exTwo", exTwo)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a config and order number
+            :method: Reads values back from the internal database for a
+                     config and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: values read from internal database
@@ -821,28 +859,29 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "Type, "
-                            "aOne, "
-                            "bOne, "
-                            "xOne, "
-                            "xTwo, "
-                            "xm, "
-                            "cZeroOne, "
-                            "exOne, "
-                            "cZeroTwo, "
-                            "exTwo "
-                            "FROM LeadingEdge WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "Type, "
+                          "aOne, "
+                          "bOne, "
+                          "xOne, "
+                          "xTwo, "
+                          "xm, "
+                          "cZeroOne, "
+                          "exOne, "
+                          "cZeroTwo, "
+                          "exTwo "
+                          "FROM LeadingEdge "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value
 
-
     class TrailingEdgeModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding all data for trailing edge definition
+        :class: Provides a SqlTableModel holding all data for trailing
+                edge definition
         '''
         __className = 'TrailingEdgeModel'
         '''
@@ -850,16 +889,16 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         '''
         OrderNumCol = 0
         TypeCol = 1
-        aOneCol = 2 
+        aOneCol = 2
         bOneCol = 3
         xOneCol = 4
         xmCol = 5
         cZeroCol = 6
-        yZeroCol = 7 
+        yZeroCol = 7
         expCol = 8
         ConfigNumCol = 9
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -869,7 +908,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setTable("TrailingEdge")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setHeaderData(1, Qt.Horizontal, _("Type"))
             self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
             self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
@@ -878,63 +917,69 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(6, Qt.Horizontal, _("c0 [cm]"))
             self.setHeaderData(7, Qt.Horizontal, _("y0 [cm]"))
             self.setHeaderData(8, Qt.Horizontal, _("exp [coef]"))
-            
+
             self.setNumRowsForConfig(1, 1)
-        
+
         def createTable(self):
             '''
             :method: Creates initially the table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists TrailingEdge;")
             query.exec("create table if not exists TrailingEdge ("
-                    "OrderNum INTEGER, "
-                    "Type INTEGER, "
-                    "aOne REAL, "
-                    "bOne REAL, "
-                    "xOne INTEGER, "
-                    "xm INTEGER, "
-                    "cZero REAL, "
-                    "yZero REAL, "
-                    "exp REAL, "
-                    "ConfigNum INTEGER, "
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER, "
+                       "Type INTEGER, "
+                       "aOne REAL, "
+                       "bOne REAL, "
+                       "xOne INTEGER, "
+                       "xm INTEGER, "
+                       "cZero REAL, "
+                       "yZero REAL, "
+                       "exp REAL, "
+                       "ConfigNum INTEGER, "
+                       "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, typeNum, aOne, bOne, xOne, xm, cZero, yZero, exp):
+        def updateRow(self, configNum, orderNum, typeNum,
+                      aOne, bOne,
+                      xOne, xm, cZero, yZero, exp):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
             query = QSqlQuery()
             query.prepare("UPDATE TrailingEdge SET "
-                            "Type= :typeN, "
-                            "aOne= :aOne, "
-                            "bOne= :bOne, "
-                            "xOne= :xOne, "
-                            "xm= :xm, "
-                            "cZero= :cZero, "
-                            "yZero= :yZero, "
-                            "exp= :exp "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum )
-            query.bindValue(":aOne", aOne )
-            query.bindValue(":bOne", bOne )
-            query.bindValue(":xOne", xOne )
-            query.bindValue(":xm", xm )
-            query.bindValue(":cZero", cZero )
-            query.bindValue(":yZero", yZero )
-            query.bindValue(":exp", exp )
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+                          "Type= :typeN, "
+                          "aOne= :aOne, "
+                          "bOne= :bOne, "
+                          "xOne= :xOne, "
+                          "xm= :xm, "
+                          "cZero= :cZero, "
+                          "yZero= :yZero, "
+                          "exp= :exp "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":typeN", typeNum)
+            query.bindValue(":aOne", aOne)
+            query.bindValue(":bOne", bOne)
+            query.bindValue(":xOne", xOne)
+            query.bindValue(":xm", xm)
+            query.bindValue(":cZero", cZero)
+            query.bindValue(":yZero", yZero)
+            query.bindValue(":exp", exp)
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a config and order number
+            :method: Reads values back from the internal database for a
+                     config and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: values read from internal database
@@ -942,48 +987,49 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "Type, "
-                            "aOne, "
-                            "bOne, "
-                            "xOne, "
-                            "xm, "
-                            "cZero, "
-                            "yZero, "
-                            "exp "
-                            "FROM TrailingEdge WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "Type, "
+                          "aOne, "
+                          "bOne, "
+                          "xOne, "
+                          "xm, "
+                          "cZero, "
+                          "yZero, "
+                          "exp "
+                          "FROM TrailingEdge "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value
 
-        
     class VaultModel(SqlTableModel, metaclass=Singleton):
         '''
-        :class: Provides a SqlTableModel holding all data for the vault definition
+        :class: Provides a SqlTableModel holding all data for the vault
+                definition.
         '''
         __className = 'VaultModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
-        OrderNumCol= 0
-        TypeCol= 1
-        aOneCol= 2
-        bOneCol= 3
-        xOneCol= 4
-        cOneCol= 5
-        rOneRACol= 6 
-        rTwoRACol= 7
-        rThrRACol= 8
-        rFouRACol= 9
-        aOneRACol= 10
-        aTwoRACol= 11
-        aThrRACol= 12
-        aFouRACol= 13
+        OrderNumCol = 0
+        TypeCol = 1
+        aOneCol = 2
+        bOneCol = 3
+        xOneCol = 4
+        cOneCol = 5
+        rOneRACol = 6
+        rTwoRACol = 7
+        rThrRACol = 8
+        rFouRACol = 9
+        aOneRACol = 10
+        aTwoRACol = 11
+        aThrRACol = 12
+        aFouRACol = 13
         ConfigNumCol = 14
-        
-        def __init__(self, parent=None): # @UnusedVariable
+
+        def __init__(self, parent=None):  # @UnusedVariable
             '''
             :method: Constructor
             '''
@@ -993,7 +1039,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setTable("Vault")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            
+
             self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
             self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
             self.setHeaderData(4, Qt.Horizontal, _("x1 [cm]"))
@@ -1006,81 +1052,89 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(11, Qt.Horizontal, _("a2 [deg]"))
             self.setHeaderData(12, Qt.Horizontal, _("a3 [deg]"))
             self.setHeaderData(13, Qt.Horizontal, _("a4 [deg]"))
-            
+
             self.setNumRowsForConfig(1, 1)
-        
+
         def createTable(self):
             '''
             :method: Creates initially the table
-            ''' 
-            logging.debug(self.__className+'.createTable')   
+            '''
+            logging.debug(self.__className+'.createTable')
             query = QSqlQuery()
-                
+
             query.exec("DROP TABLE if exists Vault;")
             query.exec("create table if not exists Vault ("
-                    "OrderNum INTEGER, "
-                    "Type INTEGER, "
-                    "aOne REAL, "
-                    "bOne REAL, "
-                    "xOne REAL, "
-                    "cOne REAL, "
-                    "rOneRA REAL, "
-                    "rTwoRA REAL, "
-                    "rThrRA REAL, "
-                    "rFouRA REAL, "
-                    "aOneRA REAL, "
-                    "aTwoRA REAL, "
-                    "aThrRA REAL, "
-                    "aFouRA REAL, "
-                    "ConfigNum INTEGER, "
-                    "ID INTEGER PRIMARY KEY);")
+                       "OrderNum INTEGER, "
+                       "Type INTEGER, "
+                       "aOne REAL, "
+                       "bOne REAL, "
+                       "xOne REAL, "
+                       "cOne REAL, "
+                       "rOneRA REAL, "
+                       "rTwoRA REAL, "
+                       "rThrRA REAL, "
+                       "rFouRA REAL, "
+                       "aOneRA REAL, "
+                       "aTwoRA REAL, "
+                       "aThrRA REAL, "
+                       "aFouRA REAL, "
+                       "ConfigNum INTEGER, "
+                       "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, typeNum, aOne, bOne, xOne, cOne, rOneRA, rTwoRA, rThrRA, rFouRA, aOneRA, aTwoRA, aThreRA, aFouRA):
+        def updateRow(self, configNum, orderNum, typeNum,
+                      aOne, bOne,
+                      xOne, cOne,
+                      rOneRA, rTwoRA, rThrRA, rFouRA,
+                      aOneRA, aTwoRA, aThreRA, aFouRA):
             '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitely explained here as
+                     they should be well known.
             '''
             logging.debug(self.__className+'.updateRow')
 
             query = QSqlQuery()
             query.prepare("UPDATE Vault SET "
-                            "Type= :typeN, "
-                            "aOne= :aOne, "
-                            "bOne= :bOne, "
-                            "xOne= :xOne, "
-                            "cOne= :cOne, "
-                            "rOneRA= :rOneRA, "
-                            "rTwoRA= :rTwoRA, "
-                            "rThrRA= :rThrRA, "
-                            "rFouRA= :rFouRA, "
-                            "aOneRA= :aOneRA, "
-                            "aTwoRA= :aTwoRA, "
-                            "aThrRA= :aThreRA, "
-                            "aFouRA= :aFouRA  "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum )
-            query.bindValue(":aOne", aOne )
-            query.bindValue(":bOne", bOne )
-            query.bindValue(":xOne", xOne )
-            query.bindValue(":cOne", cOne )
-            
-            query.bindValue(":rOneRA", rOneRA )
-            query.bindValue(":rTwoRA", rTwoRA )
-            query.bindValue(":rThrRA", rThrRA )
-            query.bindValue(":rFouRA", rFouRA )
-            
-            query.bindValue(":aOneRA", aOneRA )
-            query.bindValue(":aTwoRA", aTwoRA )
-            query.bindValue(":aThreRA", aThreRA )
-            query.bindValue(":aFouRA", aFouRA )
-            
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+                          "Type= :typeN, "
+                          "aOne= :aOne, "
+                          "bOne= :bOne, "
+                          "xOne= :xOne, "
+                          "cOne= :cOne, "
+                          "rOneRA= :rOneRA, "
+                          "rTwoRA= :rTwoRA, "
+                          "rThrRA= :rThrRA, "
+                          "rFouRA= :rFouRA, "
+                          "aOneRA= :aOneRA, "
+                          "aTwoRA= :aTwoRA, "
+                          "aThrRA= :aThreRA, "
+                          "aFouRA= :aFouRA  "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":typeN", typeNum)
+            query.bindValue(":aOne", aOne)
+            query.bindValue(":bOne", bOne)
+            query.bindValue(":xOne", xOne)
+            query.bindValue(":cOne", cOne)
+
+            query.bindValue(":rOneRA", rOneRA)
+            query.bindValue(":rTwoRA", rTwoRA)
+            query.bindValue(":rThrRA", rThrRA)
+            query.bindValue(":rFouRA", rFouRA)
+
+            query.bindValue(":aOneRA", aOneRA)
+            query.bindValue(":aTwoRA", aTwoRA)
+            query.bindValue(":aThreRA", aThreRA)
+            query.bindValue(":aFouRA", aFouRA)
+
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getRow(self, configNum, orderNum):
             '''
-            :method: reads values back from the internal database for a config and order number
+            :method: Reads values back from the internal database for a
+                     config and order number
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: values read from internal database
@@ -1088,44 +1142,47 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getRow')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "Type, "
-                            "aOne, "
-                            "bOne, "
-                            "xOne, "
-                            "cOne, "
-                            "rOneRA, "
-                            "rTwoRA, "
-                            "rThrRA, "
-                            "rFouRA, "
-                            "aOneRA, "
-                            "aTwoRA, "
-                            "aThrRA, "
-                            "aFouRA "
-                            "FROM Vault WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "Type, "
+                          "aOne, "
+                          "bOne, "
+                          "xOne, "
+                          "cOne, "
+                          "rOneRA, "
+                          "rTwoRA, "
+                          "rThrRA, "
+                          "rFouRA, "
+                          "aOneRA, "
+                          "aTwoRA, "
+                          "aThrRA, "
+                          "aFouRA "
+                          "FROM Vault "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value
-        
+
         def updateType(self, configNum, orderNum, typeNum):
             logging.debug(self.__className+'.updateType')
 
             query = QSqlQuery()
             query.prepare("UPDATE Vault SET "
-                            "Type= :typeN "
-                            "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum )
-            
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+                          "Type= :typeN "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":typeN", typeNum)
+
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
-            self.select() # to a select() to assure the model is updated properly
-            
+            # to a select() to assure the model is updated properly
+            self.select()
+
         def getType(self, configNum, orderNum):
             '''
-            :method: reads type value back from the internal database for a config and order number
+            :method: Reads type value back from the internal database for a
+                     config and order number.
             :param configNum: Starting with 1.
             :param ordergNum: Starting with 1.
             :return: type value
@@ -1133,11 +1190,12 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             logging.debug(self.__className+'.getType')
 
             query = QSqlQuery()
-            query.prepare("Select " 
-                            "Type "
-                            "FROM Vault WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum )
-            query.bindValue(":order", orderNum )
+            query.prepare("Select "
+                          "Type "
+                          "FROM Vault "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order)")
+            query.bindValue(":config", configNum)
+            query.bindValue(":order", orderNum)
             query.exec()
             query.next()
             return query.value(0)
