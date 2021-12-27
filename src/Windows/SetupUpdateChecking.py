@@ -43,7 +43,7 @@ class SetupUpdateChecking(QMdiSubWindow):
         Structure:: 
         
             win
-                window_Ly 
+                window_ly
                      Labels    | Edit fields
                      ...       | ...
                     -------------------------

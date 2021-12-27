@@ -1,7 +1,7 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 import platform
 
@@ -9,15 +9,16 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QLabel, \
     QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QCheckBox
 from Windows.LineEdit import LineEdit
+from Windows.gui_elements.CheckBox import CheckBox
 from Windows.WindowHelpBar import WindowHelpBar
 from Windows.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
 
 
 class SetupProcessors(QMdiSubWindow):
-    '''
+    """
     :class: Window to display and setup pre-proc and proc settings.
-    '''
+    """
 
     __className = 'SetupProcessors'
     '''
@@ -25,9 +26,9 @@ class SetupProcessors(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
+        """
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
@@ -36,13 +37,13 @@ class SetupProcessors(QMdiSubWindow):
         self.buildWindow()
 
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
+        """
         logging.debug(self.__className+'.closeEvent')
 
     def buildWindow(self):
-        '''
+        """
         :method: Creates the window including all GUI elements.
 
         Structure::
@@ -54,7 +55,7 @@ class SetupProcessors(QMdiSubWindow):
                     -------------------------
                                 | helpBar
                                 | btnBar
-        '''
+        """
         logging.debug(self.__className + '.buildWindow')
 
         self.setWindowIcon(QIcon('Windows\\favicon.ico'))
@@ -62,7 +63,7 @@ class SetupProcessors(QMdiSubWindow):
         self.setWidget(self.win)
         self.win.setMinimumSize(400, 150)
 
-        self.window_Ly = QVBoxLayout()
+        self.window_ly = QVBoxLayout()
 
         self.helpBar = WindowHelpBar()
 
@@ -71,7 +72,7 @@ class SetupProcessors(QMdiSubWindow):
         self.setWindowTitle(_("Setup processors"))
 
         preProc_L = QLabel(_('Pre-Processor'))
-        self.window_Ly.addWidget(preProc_L)
+        self.window_ly.addWidget(preProc_L)
 
         self.preProc_E = LineEdit()
         self.preProc_E.setReadOnly(True)
@@ -87,13 +88,15 @@ class SetupProcessors(QMdiSubWindow):
         preProc_Ly = QHBoxLayout()
         preProc_Ly.addWidget(self.preProc_E)
         preProc_Ly.addWidget(preProc_Btn)
-        self.window_Ly.addLayout(preProc_Ly)
+        self.window_ly.addLayout(preProc_Ly)
 
-        showWingOutl_chkB = QCheckBox(_('Open wing outline after processing'))
-        self.window_Ly.addWidget(showWingOutl_chkB)
+        self.outl_chkb = CheckBox(_('Open wing outline after processing'))
+        self.outl_chkb.setHelpBar(self.helpBar)
+        self.outl_chkb.setHelpText(_('SetupProc-PreProcWingOutline'))
+        self.window_ly.addWidget(self.outl_chkb)
 
         proc_L = QLabel(_('Processor (lep)'))
-        self.window_Ly.addWidget(proc_L)
+        self.window_ly.addWidget(proc_L)
 
         self.proc_E = LineEdit()
         self.proc_E.setReadOnly(True)
@@ -109,7 +112,7 @@ class SetupProcessors(QMdiSubWindow):
         proc_Ly.addWidget(self.proc_E)
         proc_Ly.addWidget(proc_Btn)
 
-        self.window_Ly.addLayout(proc_Ly)
+        self.window_ly.addLayout(proc_Ly)
 
         #############################
         # Commons for all windows
@@ -123,16 +126,16 @@ class SetupProcessors(QMdiSubWindow):
         bottom_Ly.addStretch()
         bottom_Ly.addWidget(self.helpBar)
         bottom_Ly.addWidget(self.btnBar)
-        self.window_Ly.addLayout(bottom_Ly)
+        self.window_ly.addLayout(bottom_Ly)
 
-        self.win.setLayout(self.window_Ly)
+        self.win.setLayout(self.window_ly)
 
     def preProcBtnPress(self):
-        '''
+        """
         :method: Called at the time the user select the pre-proc change
                  button. Does prepare and execute the according file
                  change dialog.
-        '''
+        """
         logging.debug(self.__className + '.preProcBtnPress')
 
         # Do platform specific if here as the PreProx extensions are different
@@ -153,8 +156,8 @@ class SetupProcessors(QMdiSubWindow):
             return
 
         if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the
-            # dialog an empty tuple is retured
+            # User has really selected a file, if it had aborted the
+            # dialog an empty tuple is returned
             # Write the info to the config reader
             logging.debug(self.__className
                           + '.setupPreProcLocation Path and Name '
@@ -164,10 +167,10 @@ class SetupProcessors(QMdiSubWindow):
             self.confRdr.setPreProcPathName(fileName[0])
 
     def procBtnPress(self):
-        '''
+        """
         :method: Called at the time the user select the proc change button.
                  Does prepare and execute the according file change dialog.
-        '''
+        """
         logging.debug(self.__className + '.procBtnPress')
 
         # Do platform specific if here as the PreProx extensions are different
@@ -188,8 +191,8 @@ class SetupProcessors(QMdiSubWindow):
             return
 
         if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the
-            # dialog an empty tuple is retured.
+            # User has really selected a file, if it had aborted the
+            # dialog an empty tuple is returned.
             # Write the info to the config reader
             logging.debug(self.__className
                           + '.setupProcLocation Path and Name '
@@ -199,9 +202,9 @@ class SetupProcessors(QMdiSubWindow):
             self.confRdr.setProcPathName(fileName[0])
 
     def btnPress(self, q):
-        '''
+        """
         :method: Handling of all pressed buttons.
-        '''
+        """
         logging.debug(self.__className + '.btnPress')
         if q == 'Apply':
             pass

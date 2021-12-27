@@ -61,7 +61,7 @@ class ThreeDShaping(QMdiSubWindow):
         Structure:: 
         
             win
-                window_Ly
+                window_ly
                     numConfSpin
                     
                     Tabs

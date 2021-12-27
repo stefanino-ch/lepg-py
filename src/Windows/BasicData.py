@@ -46,7 +46,7 @@ class BasicData(QMdiSubWindow):
         Structure:: 
         
             win
-                window_Ly 
+                window_ly
                      Tables
                     -------------------------
                                 | helpBar
