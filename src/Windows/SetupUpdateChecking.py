@@ -6,7 +6,7 @@ import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QComboBox, QCheckBox
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
 
 class SetupUpdateChecking(QMdiSubWindow):

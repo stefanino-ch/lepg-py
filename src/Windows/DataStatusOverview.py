@@ -9,7 +9,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
 from PyQt5.QtWidgets import QLabel
 
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from DataStores.PreProcessorModel import PreProcessorModel

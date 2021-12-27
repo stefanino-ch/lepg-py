@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import QLabel
 
 from __init__ import __version__
 
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 
 class HelpAbout(QMdiSubWindow):
     '''

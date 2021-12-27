@@ -7,8 +7,8 @@
 
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 
-from Windows.WindowBtnBar import WindowBtnBar
-from Windows.WindowHelpBar import WindowHelpBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowHelpBar import WindowHelpBar
 
 class SimpleMdiWindow(QMdiSubWindow):
     '''

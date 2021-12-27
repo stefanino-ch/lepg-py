@@ -6,9 +6,9 @@ import logging
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,  QVBoxLayout, QHeaderView, QHBoxLayout
-from Windows.TableView import TableView
-from Windows.WindowHelpBar import WindowHelpBar
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.TableView import TableView
+from Windows.gui_elements.WindowHelpBar import WindowHelpBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 from DataStores.ProcessorModel import ProcessorModel
 
 class BasicData(QMdiSubWindow):

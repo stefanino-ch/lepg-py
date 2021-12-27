@@ -7,10 +7,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QDataWidgetMapper,\
     QVBoxLayout, QHBoxLayout, QHeaderView
-from Windows.LineEdit import LineEdit
-from Windows.WindowHelpBar import WindowHelpBar
-from Windows.WindowBtnBar import WindowBtnBar
-from Windows.TableView import TableView
+from Windows.gui_elements.LineEdit import LineEdit
+from Windows.gui_elements.WindowHelpBar import WindowHelpBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.TableView import TableView
 from DataStores.ProcessorModel import ProcessorModel
 
 class ElasticLinesCorr(QMdiSubWindow):

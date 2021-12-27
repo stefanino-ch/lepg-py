@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QMdiSubWindow,\
                             QTextEdit,\
                             QSizePolicy
 
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 
 
 class ProcessorOutput(QMdiSubWindow):

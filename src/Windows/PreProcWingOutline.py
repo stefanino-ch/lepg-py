@@ -6,8 +6,8 @@ import logging
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QSizePolicy
-from Windows.WindowHelpBar import WindowHelpBar
-from Windows.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowHelpBar import WindowHelpBar
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
 
 
 class PreProcWingOutline(QMdiSubWindow):

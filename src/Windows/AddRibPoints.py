@@ -19,9 +19,9 @@ from PyQt5.QtWidgets import (QMdiSubWindow,
                              QPushButton,
                              QDataWidgetMapper,
                              )
-from Windows.TableView import TableView
-from Windows.WindowBtnBar import WindowBtnBar
-from Windows.WindowHelpBar import WindowHelpBar
+from Windows.gui_elements.TableView import TableView
+from Windows.gui_elements.WindowBtnBar import WindowBtnBar
+from Windows.gui_elements.WindowHelpBar import WindowHelpBar
 
 
 class AddRibPoints(QMdiSubWindow):
