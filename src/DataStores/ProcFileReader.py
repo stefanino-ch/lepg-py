@@ -23,7 +23,7 @@ class WaitWindow(QTextEdit):
     '''
     def __init__(self):
         super(WaitWindow, self).__init__()
-        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
+        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
         self.setWindowFlag(Qt.WindowCloseButtonHint, False)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
         self.setWindowFlag(Qt.WindowMinimizeButtonHint, False)

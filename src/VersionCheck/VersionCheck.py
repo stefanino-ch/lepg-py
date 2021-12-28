@@ -64,7 +64,7 @@ class VersionCheck():
 
                 remoteVersline = self.req.text
 
-                if platform.system() == "Windows":
+                if platform.system() == ('Windows'):
                     VSRE = r"Latest_Windows_Version = ['\"]([^'\"]*)['\"]"
                 elif platform.system() == ('Linux'):
                     VSRE = r"Latest_Linux_Version = ['\"]([^'\"]*)['\"]"
