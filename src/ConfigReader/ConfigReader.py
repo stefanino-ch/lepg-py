@@ -29,11 +29,11 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__lep_directory = ""
         self.__pre_proc_path_name = ""
 
-        # TODO: convert this to boolean
+        # TODO: Convert this to boolean
         self.__pre_proc_show_outline = ''
         self.__proc_path_name = ""
 
-        # TODO: convert this to boolean
+        # TODO: Convert this to boolean
         self.__check_for_updates = ''
         self.__track_branch = ''
         self.__parser = configparser.ConfigParser()
