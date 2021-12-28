@@ -36,7 +36,7 @@ print('Create new installer package? [y/ n]')
 answ = input('Default= n ')
 
 if answ == 'y':
-    if platform.system() == "Windows":
+    if platform.system() == "gui":
         os.system('python ../distribution/buildW64Package.py')
     elif platform.system() == ('Linux'):
         os.system('python ../distribution/buildLinuxPackage.py')

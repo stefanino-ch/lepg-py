@@ -391,7 +391,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
             # Special file write into the directory where the
             # PreProcessor resides
             config = ConfigReader()
-            pathName = os.path.join(config.getPreProcDirectory(),
+            pathName = os.path.join(config.get_pre_proc_directory(),
                                     'pre-data.txt')
 
             # Delete old file first

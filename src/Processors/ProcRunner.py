@@ -37,8 +37,8 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.runPreProc')
 
-        setPath = 'cd ' + self.confR.getPreProcDirectory()
-        cmd = self.confR.getPreProcPathName()
+        setPath = 'cd ' + self.confR.get_pre_proc_directory()
+        cmd = self.confR.get_pre_proc_path_name()
 
         args = [setPath, cmd]
         self.run_command(args)
@@ -53,7 +53,7 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.preProcConfigured')
 
-        pathName = self.confR.getPreProcPathName()
+        pathName = self.confR.get_pre_proc_path_name()
 
         if len(pathName) > 0:
             if os.path.isfile(pathName) is True:
@@ -69,8 +69,8 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.runProc')
 
-        setPath = 'cd ' + self.confR.getProcDirectory()
-        cmd = self.confR.getProcPathName()
+        setPath = 'cd ' + self.confR.get_proc_directory()
+        cmd = self.confR.get_proc_path_name()
 
         args = [setPath, cmd]
         self.run_command(args)
@@ -85,7 +85,7 @@ class ProcRunner():
         '''
         logging.debug(self.__className+'.procConfigured')
 
-        pathName = self.confR.getProcPathName()
+        pathName = self.confR.get_proc_path_name()
 
         if len(pathName) > 0:
             if os.path.isfile(pathName) is True:
@@ -104,7 +104,7 @@ class ProcRunner():
         for cmd in cmds:
             logging.debug(self.__className+'.run_command ' + cmd)
 
-        if platform.system() == "Windows":
+        if platform.system() == "gui":
             process = Popen('cmd.exe', stdin=PIPE, stdout=PIPE, stderr=PIPE,
                             shell=False, encoding='utf8')
         elif platform.system() == "Linux":

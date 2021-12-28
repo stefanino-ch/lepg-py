@@ -23,54 +23,54 @@ from ConfigReader.ConfigReader import ConfigReader
 from DataStores.PreProcessorModel import PreProcessorModel
 from DataStores.ProcessorModel import ProcessorModel
 
-from Windows.DataStatusOverview import DataStatusOverview
-from Windows.PreProcData import PreProcData
-from Windows.PreProcWingOutline import PreProcWingOutline
-from Windows.BasicData import BasicData
-from Windows.Geometry import Geometry
-from Windows.Airfoils import Airfoils
-from Windows.RibHoles import RibHoles
-from Windows.HelpAbout import HelpAbout
+from gui.DataStatusOverview import DataStatusOverview
+from gui.PreProcData import PreProcData
+from gui.PreProcWingOutline import PreProcWingOutline
+from gui.BasicData import BasicData
+from gui.Geometry import Geometry
+from gui.Airfoils import Airfoils
+from gui.RibHoles import RibHoles
+from gui.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
-from Windows.ProcessorOutput import ProcessorOutput
-from Windows.AnchorPoints import AnchorPoints
-from Windows.SkinTension import SkinTension
-from Windows.SeewingAllowances import SeewingAllowances
-from Windows.Marks import Marks
-from Windows.GlobalAoA import GlobalAoA
-from Windows.Lines import Lines
-from Windows.Brakes import Brakes
-from Windows.Ramification import Ramification
-from Windows.HvVhRibs import HvVhRibs
-from Windows.ExtradColors import ExtradColors
-from Windows.IntradColors import IntradColors
-from Windows.AddRibPoints import AddRibPoints
-from Windows.ElasticLinesCorr import ElasticLinesCorr
-from Windows.DxfLayerNames import DxfLayerNames
-from Windows.MarksTypes import MarksTypes
-from Windows.JoncsDefinition import JoncsDefinition
-from Windows.NoseMylars import NoseMylars
-from Windows.TwoDDxf import TwoDDxfModel
-from Windows.ThreeDDxf import ThreeDDxfModel
-from Windows.GlueVent import GlueVent
-from Windows.SpecWingTip import SpecWingTip
-from Windows.CalageVar import CalageVar
-from Windows.ThreeDShaping import ThreeDShaping
-from Windows.AirfoilThickness import AirfoilThickness
-from Windows.NewSkinTension import NewSkinTension
-from Windows.PreProcCellsDistribution import PreProcCellsDistribution
-from Windows.SetupProcessors import SetupProcessors
-from Windows.SetupUpdateChecking import SetupUpdateChecking
+from gui.ProcessorOutput import ProcessorOutput
+from gui.AnchorPoints import AnchorPoints
+from gui.SkinTension import SkinTension
+from gui.SeewingAllowances import SeewingAllowances
+from gui.Marks import Marks
+from gui.GlobalAoA import GlobalAoA
+from gui.Lines import Lines
+from gui.Brakes import Brakes
+from gui.Ramification import Ramification
+from gui.HvVhRibs import HvVhRibs
+from gui.ExtradColors import ExtradColors
+from gui.IntradColors import IntradColors
+from gui.AddRibPoints import AddRibPoints
+from gui.ElasticLinesCorr import ElasticLinesCorr
+from gui.DxfLayerNames import DxfLayerNames
+from gui.MarksTypes import MarksTypes
+from gui.JoncsDefinition import JoncsDefinition
+from gui.NoseMylars import NoseMylars
+from gui.TwoDDxf import TwoDDxfModel
+from gui.ThreeDDxf import ThreeDDxfModel
+from gui.GlueVent import GlueVent
+from gui.SpecWingTip import SpecWingTip
+from gui.CalageVar import CalageVar
+from gui.ThreeDShaping import ThreeDShaping
+from gui.AirfoilThickness import AirfoilThickness
+from gui.NewSkinTension import NewSkinTension
+from gui.PreProcCellsDistribution import PreProcCellsDistribution
+from gui.SetupProcessors import SetupProcessors
+from gui.SetupUpdateChecking import SetupUpdateChecking
 from PyQt5.Qt import QStatusBar
 
 # TODO: bring windows to front if they are called
 
 
 class MainWindow(QMainWindow):
-    '''
+    """
     :class: Creates the main window of the application
-    '''
+    """
 
     __className = 'MainWindow'
     '''
@@ -78,13 +78,13 @@ class MainWindow(QMainWindow):
     '''
 
     def __init__(self, parent=None):
-        '''
+        """
         :method: Constructor
-        '''
+        """
         # Delete old log file
         self.deleteLogfile()
 
-        # Setup the logger
+        # Set up the logger
         # Additional code needed due to pyinstaller. Check doc there.
         bundle_dir = getattr(sys,
                              '_MEIPASS',
@@ -104,12 +104,12 @@ class MainWindow(QMainWindow):
         locale_path = 'translations'
         config = ConfigReader()
 
-        if config.getLanguage() == "de":
+        if config.get_language() == "de":
             lang_de = gettext.translation('lepg',
                                           locale_path,
                                           languages=['de'])
             lang_de.install()
-        elif config.getLanguage() == "en":
+        elif config.get_language() == "en":
             lang_en = gettext.translation('lepg',
                                           locale_path,
                                           languages=['en'])
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
         self.dws = DataWindowStatus()
 
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('Windows\\appIcon.ico'))
+        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg-py %s" % __version__)
@@ -147,9 +147,9 @@ class MainWindow(QMainWindow):
         self.setStatusBar(self.statusBar)
 
         # VersionCheck
-        if config.getCheckForUpdates() == 'yes':
+        if config.get_check_for_updates() == 'yes':
             versChk = VersionCheck()
-            versChk.setBranch(config.getTrackBranch())
+            versChk.setBranch(config.get_track_branch())
 
             if versChk.remoteVersionFound():
                 remoteVersion = versChk.getRemoteVersion()
@@ -1010,7 +1010,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Setup* *Language* -> *German*
         '''
         config = ConfigReader()
-        config.setLanguage("de")
+        config.set_language("de")
         self.displayRestartMsg()
 
     def setupLangEn(self):
@@ -1018,7 +1018,7 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Setup* *Language* -> *English*
         '''
         config = ConfigReader()
-        config.setLanguage("en")
+        config.set_language("en")
         self.displayRestartMsg()
 
     def displayRestartMsg(self):
@@ -1082,7 +1082,7 @@ class MainWindow(QMainWindow):
         webbrowser.open('file://'
                         + os.path.join(os.getcwd(),
                                        'userHelp',
-                                       config.getLanguage(),
+                                       config.get_language(),
                                        'introduction.html'))
 
     def helpAbout(self):

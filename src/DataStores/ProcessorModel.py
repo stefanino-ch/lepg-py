@@ -436,7 +436,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # Special file write into the directory where the PreProcessor
             # resides
             config = ConfigReader()
-            pathName = os.path.join(config.getProcDirectory(),
+            pathName = os.path.join(config.get_proc_directory(),
                                     'leparagliding.txt')
 
             # Delete old file first

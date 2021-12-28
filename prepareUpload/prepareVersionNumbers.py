@@ -43,7 +43,7 @@ def updateOwnVersion(pathFile, ver):
         
 def updateRemoteVersion(pathFile, ver):
     # version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
-    if platform.system() == "Windows":
+    if platform.system() == "gui":
         version_regex = re.compile(r"(Latest_Windows_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
     elif platform.system() == ('Linux'):
         version_regex = re.compile(r"(Latest_Linux_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)

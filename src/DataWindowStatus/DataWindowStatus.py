@@ -181,14 +181,14 @@ class DataWindowStatus(QObject, metaclass=Singleton):
     
     def registerWindow(self, window):
         '''
-        :method: Windows which are instanciated shall be registered here. This is part of the work to avoid multiple windows of the same name are open. 
+        :method: gui which are instanciated shall be registered here. This is part of the work to avoid multiple windows of the same name are open.
         :param window: window name to be register
         '''
         self.__instanciatedWindowList[window] = True
         
     def unregisterWindow(self, window):
         '''
-        :method: Windows which are closed shall be unregistered here. This is part of the work to avoid multiple windows of the same name are open. 
+        :method: gui which are closed shall be unregistered here. This is part of the work to avoid multiple windows of the same name are open.
         :param window: window name to be unregistered
         '''
         if window in self.__instanciatedWindowList:
