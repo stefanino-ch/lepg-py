@@ -15,6 +15,19 @@ class ConfigReader(QObject, metaclass=Singleton):
     """
     :class: Does all the necessary work to read and save global program configurations.
     """
+    LANGUAGE = 'language'
+    PRE_PROC_DIRECTORY = 'pre_proc_directory'
+
+    # TODO: PRE_PROC_DIRECTORY is somehow redundant to PRE_PROC_PATH_NAME
+    PRE_PROC_PATH_NAME = 'pre_proc_path_name'
+    PRE_PROC_SHOW_OUTLINE = 'pre_proc_show_outline'
+
+    # TODO: PROC_DIRECTORY is somehow redundant to PROC_PATH_NAME
+    PROC_DIRECTORY = 'proc_directory'
+    PROC_PATH_NAME = 'proc_path_name'
+
+    CHECK_FOR_UPDATES = 'check_for_updates'
+    TRACKING_BRANCH = 'tracking_branch'
 
     def __init__(self):
         """
@@ -29,12 +42,10 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.__lep_directory = ""
         self.__pre_proc_path_name = ""
 
-        # TODO: Convert this to boolean
-        self.__pre_proc_show_outline = ''
+        self.__pre_proc_show_outline = True  # type: bool
         self.__proc_path_name = ""
 
-        # TODO: Convert this to boolean
-        self.__check_for_updates = ''
+        self.__check_for_updates = True  # type: bool
         self.__track_branch = ''
         self.__parser = configparser.ConfigParser()
 
@@ -62,7 +73,7 @@ class ConfigReader(QObject, metaclass=Singleton):
 
             try:
                 self.__language = self.__parser.get('Defaults',
-                                                    'Language')
+                                                    self.LANGUAGE)
             except configparser.Error:
                 # Value does not exist
                 self.__language = "en"
@@ -70,14 +81,14 @@ class ConfigReader(QObject, metaclass=Singleton):
             try:
                 self.__pre_proc_directory = \
                     self.__parser.get('Defaults',
-                                      'PreProcDirectory')
+                                      self.PRE_PROC_DIRECTORY)
             except configparser.Error:
                 # Value does not exist
                 self.__pre_proc_directory = ""
 
             try:
                 self.__lep_directory = self.__parser.get('Defaults',
-                                                         'ProcDirectory')
+                                                         self.PROC_DIRECTORY)
             except configparser.Error:
                 # Value does not exist
                 self.__lep_directory = ""
@@ -85,38 +96,38 @@ class ConfigReader(QObject, metaclass=Singleton):
             try:
                 self.__pre_proc_path_name = \
                     self.__parser.get('Defaults',
-                                      'PreProcPathName')
+                                      self.PRE_PROC_PATH_NAME)
             except configparser.Error:
                 # Value does not exist
                 self.__pre_proc_path_name = ""
 
             try:
                 self.__pre_proc_show_outline = \
-                    self.__parser.get('Defaults',
-                                      'PreProcShowOutline')
+                    self.__parser.getboolean('Defaults',
+                                             self.PRE_PROC_SHOW_OUTLINE)
             except configparser.Error:
                 # Value does not exist
-                self.__pre_proc_show_outline = "yes"
+                self.__pre_proc_show_outline = True
 
             try:
                 self.__proc_path_name = \
                     self.__parser.get('Defaults',
-                                      'ProcPathName')
+                                      self.PROC_PATH_NAME)
             except configparser.Error:
                 # Value does not exist
                 self.__proc_path_name = ""
 
             try:
                 self.__check_for_updates = \
-                    self.__parser.get('Defaults',
-                                      'CheckForUpdates')
+                    self.__parser.getboolean('Defaults',
+                                             self.CHECK_FOR_UPDATES)
             except configparser.Error:
                 # Value does not exist
-                self.__check_for_updates = 'yes'
+                self.__check_for_updates = True
 
             try:
                 self.__track_branch = self.__parser.get('Defaults',
-                                                        'TrackBranch')
+                                                        self.TRACKING_BRANCH)
             except configparser.Error:
                 # Value does not exist
                 self.__track_branch = 'stable'
@@ -134,28 +145,28 @@ class ConfigReader(QObject, metaclass=Singleton):
         """
         config_file = open(self.__configFilePathName, 'w')
         self.__parser.set('Defaults',
-                          'Language',
+                          self.LANGUAGE,
                           self.__language)
         self.__parser.set('Defaults',
-                          'PreProcDirectory',
+                          self.PRE_PROC_DIRECTORY,
                           self.__pre_proc_directory)
         self.__parser.set('Defaults',
-                          'PreProcShowOutline',
-                          self.__pre_proc_show_outline)
+                          self.PRE_PROC_SHOW_OUTLINE,
+                          str(self.__pre_proc_show_outline))
         self.__parser.set('Defaults',
-                          'ProcDirectory',
+                          self.PROC_DIRECTORY,
                           self.__lep_directory)
         self.__parser.set('Defaults',
-                          'PreProcPathName',
+                          self.PRE_PROC_PATH_NAME,
                           self.__pre_proc_path_name)
         self.__parser.set('Defaults',
-                          'ProcPathName',
+                          self.PROC_PATH_NAME,
                           self.__proc_path_name)
         self.__parser.set('Defaults',
-                          'CheckForUpdates',
-                          self.__check_for_updates)
+                          self.CHECK_FOR_UPDATES,
+                          str(self.__check_for_updates))
         self.__parser.set('Defaults',
-                          'TrackBranch',
+                          self.TRACKING_BRANCH,
                           self.__track_branch)
 
         self.__parser.write(config_file)
@@ -231,9 +242,10 @@ class ConfigReader(QObject, metaclass=Singleton):
         """
         :method: Sets the info if the wing outline shall be displayed/ updated
                  automatically after processing.
-        :param show: yes or no
+        :param show: True or False
         """
         self.__pre_proc_show_outline = show
+        self.write_config_file()
 
     def get_pre_proc_show_outline(self):
         """

@@ -34,7 +34,7 @@ class HelpAbout(QMdiSubWindow):
         Builds the window. 
         
         Structure:
-            win
+            window
                 windowGrid
                     helpAboutTitleL
                     helpAboutTextL

@@ -44,13 +44,13 @@ class CalageVar(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                     Table
                     Table
                     Table
                     -------------------------
-                        helpBar  | btn_bar
+                        help_bar  | btn_bar
                             
         Naming:
             Conf is always one as there is only one configuration possible

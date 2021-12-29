@@ -45,12 +45,12 @@ class DxfLayerNames(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                     numLinesSpin
                     Table
                     -------------------------
-                             helpBar  | btn_bar
+                             help_bar  | btn_bar
                             
         Naming:
             Conf is always one as there is only one configuration possible

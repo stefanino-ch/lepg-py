@@ -1,7 +1,7 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
@@ -11,10 +11,10 @@ from gui.elements.WindowBtnBar import WindowBtnBar
 
 
 class PreProcWingOutline(QMdiSubWindow):
-    '''
+    """
     :class: Window to display the wing outline calculated by the
             PreProcessor.
-    '''
+    """
 
     __className = 'PreProcWingOutline'
     '''
@@ -22,45 +22,49 @@ class PreProcWingOutline(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
         super().__init__()
 
-        self.buildWindow()
+        self.__open_pre_proc_file = False  # type: bool
+        self.button_bar = None
+        self.help_bar = None
+        self.window_ly = None
+        self.window = None
+        
+        logging.debug(self.__className + '.__init__')
+        
+        self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
+        """
         logging.debug(self.__className+'.closeEvent')
 
-    def buildWindow(self):
-        '''
+    def build_window(self):
+        """
         :method: Creates the window including all GUI elements.
 
         Structure::
 
-            win
-                windowLayout
-                     Gen Table
-                     LE Table
-                     TE Table
-                     Vault Table
+            window
+                window_ly
+
                     ---------------------------
-                                helpBar | btn_bar
-        '''
+                                help_bar | btn_bar
+        """
         logging.debug(self.__className + '.build_window')
 
         self.setWindowIcon(QIcon('gui\\appIcon.ico'))
-        self.win = QWidget()
-        self.setWidget(self.win)
-        self.win.setMinimumSize(900, 400)
+        self.window = QWidget()
+        self.setWidget(self.window)
+        self.window.setMinimumSize(900, 400)
 
-        self.windowLayout = QVBoxLayout()
+        self.window_ly = QVBoxLayout()
 
-        self.helpBar = WindowHelpBar()
+        self.help_bar = WindowHelpBar()
 
         #############################
         # Add window specifics here
@@ -68,24 +72,34 @@ class PreProcWingOutline(QMdiSubWindow):
 
         #############################
         # Commons for all windows
-        self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('preproc/wingOutline.html')
+        self.button_bar = WindowBtnBar(0b0101)
+        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                                  QSizePolicy.Fixed))
+        self.button_bar.my_signal.connect(self.button_press)
+        self.button_bar.setHelpPage('preproc/wingOutline.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addStretch()
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.help_bar)
+        bottom_layout.addWidget(self.button_bar)
+        self.window_ly.addLayout(bottom_layout)
 
-        self.win.setLayout(self.windowLayout)
+        self.window.setLayout(self.window_ly)
 
-    def btnPress(self, q):
-        '''
+    def open_pre_proc_file(self, open_pre_proc_file=False):
+        """
+        :method: Control what data source will be read at the time the window
+                 is opened
+        :param open_pre_proc_file:
+                 False do not open a file, show the empty window
+                 True open the file from the pre-processor folder
+        """
+        self.__open_pre_proc_file = open_pre_proc_file
+
+    def button_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
+        """
         logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass

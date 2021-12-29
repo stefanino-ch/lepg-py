@@ -45,11 +45,11 @@ class BasicData(QMdiSubWindow):
 
         Structure:: 
         
-            win
+            window
                 window_ly
                      Tables
                     -------------------------
-                                | helpBar
+                                | help_bar
                                 | btn_bar
         '''
         logging.debug(self.__className + '.build_window')

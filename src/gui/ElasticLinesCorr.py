@@ -47,12 +47,12 @@ class ElasticLinesCorr(QMdiSubWindow):
             
         Structure:: 
         
-            win
+            window
                 windowGrid 
                      Labels    | Edit fields
                      ...       | ...
                     -------------------------
-                                | helpBar
+                                | help_bar
                                 | btn_bar
         '''
         logging.debug(self.__className + '.build_window')

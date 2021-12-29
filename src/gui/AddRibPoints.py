@@ -57,12 +57,12 @@ class AddRibPoints(QMdiSubWindow):
 
         Structure::
 
-            win
-                windowLayout
+            window
+                window_ly
                     numLinesSpin
                     Table
                     -------------------------
-                        OrderBtn  helpBar  | btn_bar
+                        OrderBtn  help_bar  | btn_bar
 
         Naming:
             Conf is always one as there is only one configuration possible

@@ -15,175 +15,175 @@ Main file
 
 Data Status Overview
 ---------------------
-.. automodule::    Windows.DataStatusOverview
+.. automodule::    gui.DataStatusOverview
    :undoc-members:
    :members:
    :private-members:
 
 Pre-Processor data edit   
 -----------------------
-.. automodule:: Windows.PreProcData
+.. automodule:: gui.PreProcData
    :undoc-members:
    :members:
    :private-members:
 
 Processor Basic Data
 --------------------
-.. automodule:: Windows.BasicData
+.. automodule:: gui.BasicData
    :undoc-members:
    :members:
    :private-members:
 
 Processor Geometry
 --------------------
-.. automodule:: Windows.Geometry
+.. automodule:: gui.Geometry
    :undoc-members:
    :members:
    :private-members:
 
 Processor Airfoils
 ------------------
-.. automodule:: Windows.Airfoils
+.. automodule:: gui.Airfoils
    :undoc-members:
    :members:
    :private-members:
    
 Processor Anchor Points
 -----------------------
-.. automodule:: Windows.AnchorPoints
+.. automodule:: gui.AnchorPoints
    :undoc-members:
    :members:
    :private-members:
    
 Processor Rib Holes
 -------------------
-.. automodule:: Windows.RibHoles
+.. automodule:: gui.RibHoles
    :undoc-members:
    :members:
    :private-members:
    
 Processor Skin tension
 ----------------------
-.. automodule:: Windows.SkinTension
+.. automodule:: gui.SkinTension
    :undoc-members:
    :members:
    :private-members: 
 
 Processor Global AoA
 --------------------
-.. automodule:: Windows.GlobalAoA
+.. automodule:: gui.GlobalAoA
    :undoc-members:
    :members:
    :private-members:   
 
 Processor Lines
 ---------------
-.. automodule:: Windows.Lines
+.. automodule:: gui.Lines
    :undoc-members:
    :members:
    :private-members: 
 
 Processor Brakes
 ----------------
-.. automodule:: Windows.Brakes
+.. automodule:: gui.Brakes
    :undoc-members:
    :members:
    :private-members:
    
 Processor Ramification
 ----------------------
-.. automodule:: Windows.Ramification
+.. automodule:: gui.Ramification
    :undoc-members:
    :members:
    :private-members:
    
 Processor HV VH Ribs
 --------------------
-.. automodule:: Windows.HvVhRibs
+.. automodule:: gui.HvVhRibs
    :undoc-members:
    :members:
    :private-members:
    
 Processor Extrados colors
 -------------------------
-.. automodule:: Windows.ExtradColors
+.. automodule:: gui.ExtradColors
    :undoc-members:
    :members:
    :private-members:
    
 Processor Intrados colors
 -------------------------
-.. automodule:: Windows.IntradColors
+.. automodule:: gui.IntradColors
    :undoc-members:
    :members:
    :private-members:
    
 Processor Additional rib points
 -------------------------------
-.. automodule:: Windows.AddRibPoints
+.. automodule:: gui.AddRibPoints
    :undoc-members:
    :members:
    :private-members:
 
 Processor Elastic lines corr
 ----------------------------
-.. automodule:: Windows.ElasticLinesCorr
+.. automodule:: gui.ElasticLinesCorr
    :undoc-members:
    :members:
    :private-members:
   
 Processor Joncs definition
 ----------------------------
-.. automodule:: Windows.JoncsDefinition
+.. automodule:: gui.JoncsDefinition
    :undoc-members:
    :members:
    :private-members:
    
 Processor Nose mylars
 ---------------------
-.. automodule:: Windows.NoseMylars
+.. automodule:: gui.NoseMylars
    :undoc-members:
    :members:
    :private-members:
 
 Processor Glue vent
 -------------------
-.. automodule:: Windows.GlueVent
+.. automodule:: gui.GlueVent
    :undoc-members:
    :members:
    :private-members:
    
 Processor Special wing tip
 --------------------------
-.. automodule:: Windows.SpecWingTip
+.. automodule:: gui.SpecWingTip
    :undoc-members:
    :members:
    :private-members:
    
 Processor Calage variation
 --------------------------
-.. automodule:: Windows.CalageVar
+.. automodule:: gui.CalageVar
    :undoc-members:
    :members:
    :private-members:
 
 Processor 3D Shaping
 --------------------
-.. automodule:: Windows.ThreeDShaping
+.. automodule:: gui.ThreeDShaping
    :undoc-members:
    :members:
    :private-members:  
    
 Processor Airfoil thickness
 ---------------------------
-.. automodule:: Windows.AirfoilThickness
+.. automodule:: gui.AirfoilThickness
    :undoc-members:
    :members:
    :private-members:
    
 Processor New skin tension
 --------------------------
-.. automodule:: Windows.NewSkinTension
+.. automodule:: gui.NewSkinTension
    :undoc-members:
    :members:
    :private-members:
@@ -191,77 +191,77 @@ Processor New skin tension
    
 Plan Seewing allowances
 -----------------------
-.. automodule:: Windows.SeewingAllowances
+.. automodule:: gui.SeewingAllowances
    :undoc-members:
    :members:
    :private-members:
    
 Plan Marks
 ----------
-.. automodule:: Windows.Marks
+.. automodule:: gui.Marks
    :undoc-members:
    :members:
    :private-members:
    
 Plan Marks
 ----------
-.. automodule:: Windows.DxfLayerNames
+.. automodule:: gui.DxfLayerNames
    :undoc-members:
    :members:
    :private-members:
 
 Plan Marks
 ----------
-.. automodule:: Windows.MarksTypes
+.. automodule:: gui.MarksTypes
    :undoc-members:
    :members:
    :private-members:
    
 2D DFX Options
 --------------
-.. automodule:: Windows.TwoDDxf
+.. automodule:: gui.TwoDDxf
    :undoc-members:
    :members:
    :private-members:
    
 3D DFX Options
 --------------
-.. automodule:: Windows.ThreeDDxf
+.. automodule:: gui.ThreeDDxf
    :undoc-members:
    :members:
    :private-members:
   
 #Wing Viewer
 #-----------
-#.. automodule:: Windows.WingViewer
+#.. automodule:: gui.WingViewer
 #   :undoc-members:
 #   :members:
 #   :private-members:
 
 Setup Processors
 ----------------
-.. automodule:: Windows.SetupProcessors
+.. automodule:: gui.SetupProcessors
    :undoc-members:
    :members:
    :private-members:
    
 Setup Update Checker
 --------------------
-.. automodule:: Windows.SetupUpdateChecking
+.. automodule:: gui.setupupdatechecking
    :undoc-members:
    :members:
    :private-members:
    
 Help About
 ----------
-.. automodule:: Windows.HelpAbout
+.. automodule:: gui.HelpAbout
    :undoc-members:
    :members:
    :private-members: 
    
 ProcessorOutput
 ---------------
-.. automodule:: Windows.ProcessorOutput
+.. automodule:: gui.ProcessorOutput
    :undoc-members:
    :members:
    :private-members: 

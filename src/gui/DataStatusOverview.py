@@ -53,7 +53,7 @@ class DataStatusOverview(QMdiSubWindow):
         
         Structure::
         
-            win
+            window
                 windowGrid
                     ---------------------------------
                     preProcF

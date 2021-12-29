@@ -60,7 +60,7 @@ class ThreeDShaping(QMdiSubWindow):
             
         Structure:: 
         
-            win
+            window
                 window_ly
                     numConfSpin
                     
@@ -73,7 +73,7 @@ class ThreeDShaping(QMdiSubWindow):
                         
                     printTable
                     -------------------------
-                            helpBar  | btn_bar
+                            help_bar  | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

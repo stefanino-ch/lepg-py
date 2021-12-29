@@ -44,15 +44,15 @@ class SeewingAllowances(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout 
+            window
+                window_ly
                     editGrid_L
                          uppeP_T
                          lowerP_T
                          ribs_t
                          vRibsT
                 ---------------------------
-                            helpBar | btn_bar
+                            help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

@@ -52,8 +52,8 @@ class JoncsDefinition(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                     config edit (blocs)
                     numConfSpin
                     Tabs
@@ -61,7 +61,7 @@ class JoncsDefinition(QMdiSubWindow):
                         numLinesSpin
                         LinesTable
                     -------------------------
-                        OrderBtn | helpBar  | btn_bar
+                        OrderBtn | help_bar  | btn_bar
                             
         Naming:
         

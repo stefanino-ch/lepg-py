@@ -50,11 +50,11 @@ class Geometry(QMdiSubWindow):
 
         Structure::
 
-            win
-                windowLayout
+            window
+                window_ly
                      Table
                     --------------------------
-                    SortBtn | helpBar | btn_bar
+                    SortBtn | help_bar | btn_bar
 
         '''
         logging.debug(self.__className + '.build_window')

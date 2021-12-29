@@ -53,8 +53,8 @@ class ExtradColors(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                     numConfSpin
                     
                     Tabs
@@ -62,7 +62,7 @@ class ExtradColors(QMdiSubWindow):
                         numDetSpin
                         detailTable
                     -------------------------
-                            helpBar  | btn_bar
+                            help_bar  | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

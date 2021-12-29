@@ -55,15 +55,15 @@ class Lines(QMdiSubWindow):
 
         Structure::
 
-            win
-                windowLayout
+            window
+                window_ly
                     config edit
                     numConfSpin
                     Tabs
                         numLinesSpin
                         LinesTable
                     -------------------------
-                        OrderBtn | helpBar  | btn_bar
+                        OrderBtn | help_bar  | btn_bar
 
         Naming:
 

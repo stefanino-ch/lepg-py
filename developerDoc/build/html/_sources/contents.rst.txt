@@ -8,7 +8,7 @@ Doc overview
 
    project_structure
    
-   windows
+   gui
    
    gui_elements
    

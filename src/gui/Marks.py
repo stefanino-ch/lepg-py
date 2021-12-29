@@ -42,11 +42,11 @@ class Marks(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout 
+            window
+                window_ly
                     marks_T
                 ---------------------------
-                            helpBar | btn_bar
+                            help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

@@ -42,7 +42,7 @@ class ProcessorOutput(QMdiSubWindow):
 
         Structure::
 
-            win
+            window
                 windowGrid
                     debugOut
 

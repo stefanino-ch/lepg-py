@@ -5,7 +5,8 @@
 Pre-Processor data
 ==================
 
-In the window Pre-Processor data the parameters out of the first three sections of the pre-processor input file can be edited.  
+In the window Pre-Processor data the parameters out of the first three
+sections of the pre-processor input file can be edited.
 
 .. image:: /images/preproc/nameLeTeVault1.png
    :width: 621
@@ -31,15 +32,24 @@ Raw date::
 	c02= 12
 	ex2= 4.0  
 
-The leading edge is defined by an ellipse of semiaxis a1 and b1 (red), centered at the point (0.0).  
+Currently there's only one type of leading edge definition possible. Therefore
+thy **Type** column has been removed from the GUI. Lepg will take care about
+the correct setup in the background.
 
-Xm is half span.  
+The leading edge is defined by an ellipse of semiaxis a1 and b1 (red),
+centered at the point (0.0).
 
-In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make two corrections with a generic curve of degree N.  
+**Xm** is half span.
 
-The first correction begins at the point x1 and allows a deflection c01, with a variation of degree ex1.  
+In versions 1.4 and earlier it is only possible to modify the ellipses with a
+parabolic correction (degree 2). Now it is possible to make two corrections
+with a generic curve of degree N.
 
-The second correction begins at the point x2 > x1 and allows a deflection c02, with a variation of degree ex2.  
+The first correction begins at the point x1 and allows a deflection c01, with
+a variation of degree ex1.
+
+The second correction begins at the point x2 > x1 and allows a deflection
+c02, with a variation of degree ex2.
 
 .. image:: http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg
    :width: 600
@@ -64,13 +74,21 @@ Raw data::
 	y0= 88.06
 	exp= 1.5 
 
-The trailing edge is defined by an ellipse of semiaxis a1 and b1 (green), centered at the point (0,y0).  
+Currently there's only one type of trailing edge definition possible. Therefore
+thy **Type** column has been removed from the GUI. Lepg will take care about
+the correct setup in the background.
 
-Xm is half span.  
+The trailing edge is defined by an ellipse of semiaxis a1 and b1 (green),
+centered at the point (0,y0).
 
-In versions 1.4 and earlier it is only possible to modify the ellipses with a parabolic correction (degree 2). Now it is possible to make correction with a generic curve of degree N.  
+**Xm** is half span.
 
-The correction begins at the point x1 and allows a deflection c0, with a variation of degree exp.  
+In versions 1.4 and earlier it is only possible to modify the ellipses with
+a parabolic correction (degree 2). Now it is possible to make correction with
+a generic curve of degree N.
+
+The correction begins at the point x1 and allows a deflection c0, with a
+variation of degree exp.
 
 .. image:: http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg
    :width: 600
@@ -90,7 +108,9 @@ Vault type 1 example (see window image on top of the page)::
 	x1= 265.3489
 	c1= 28.22 
 
-The shape of the vault is an ellipse of semiaxis a1 (horizontal) and b1 (vertical), but with a modification with a "cosine type function", from point x1 of the horizontal axis. Half of the span is increased by an amount c1::
+The shape of the vault is an ellipse of semiaxis a1 (horizontal) and b1
+(vertical), but with a modification with a "cosine type function", from point
+x1 of the horizontal axis. Half of the span is increased by an amount c1::
   
 	for all y in [0,b1]:  
 	If x < x1 then:  x=a1*sqrt(1-((y*y)/(b1*b1)))  
@@ -125,7 +145,8 @@ Vault type 2 example::
 	288.41	24.74
 	112.185   37.41
 
-Type 2: vault using four tangent circles. In four rows indicate radious and angle (deg)::
+Type 2: vault using four tangent circles. In four rows indicate radious and
+angle (deg)::
 
 	741.33	10.13
 

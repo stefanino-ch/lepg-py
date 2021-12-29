@@ -43,15 +43,15 @@ class Ramification(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                     editGrid_L
                         threeLineRows_T
                         FourLineRows_T
                         ThreeBrakeRows_T
                         fourBrakeRows_T
                 ---------------------------
-                            helpBar | btn_bar
+                            help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

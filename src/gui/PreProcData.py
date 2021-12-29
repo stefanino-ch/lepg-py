@@ -51,14 +51,14 @@ class PreProcData(QMdiSubWindow):
 
         Structure::
 
-            win
-                windowLayout
+            window
+                window_ly
                      Gen Table
                      LE Table
                      TE Table
                      Vault Table
                     ---------------------------
-                                helpBar | btn_bar
+                                help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
 

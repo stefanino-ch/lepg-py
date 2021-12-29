@@ -45,7 +45,7 @@ class VersionCheck():
         :method: Executes the request to the remote page, does set the
                  internal variables according to the result.
         '''
-        VSRE = ''
+        vers_line_regex = ''
 
         try:
             self.req = requests.get(self.__branchToCheck, timeout=5)
@@ -62,16 +62,16 @@ class VersionCheck():
             if self.req.status_code == 200:
                 self.__alreadyConnected__ = True
 
-                remoteVersline = self.req.text
+                remote_vers_line = self.req.text
 
                 if platform.system() == ('Windows'):
-                    VSRE = r"Latest_Windows_Version = ['\"]([^'\"]*)['\"]"
+                    vers_line_regex = r"Latest_Windows_Version = ['\"]([^'\"]*)['\"]"
                 elif platform.system() == ('Linux'):
-                    VSRE = r"Latest_Linux_Version = ['\"]([^'\"]*)['\"]"
+                    vers_line_regex = r"Latest_Linux_Version = ['\"]([^'\"]*)['\"]"
                 elif platform.system() == ('Darwin'):
-                    VSRE = r"Latest_Mac_Version = ['\"]([^'\"]*)['\"]"
+                    vers_line_regex = r"Latest_Mac_Version = ['\"]([^'\"]*)['\"]"
 
-                mo = re.search(VSRE, remoteVersline)
+                mo = re.search(vers_line_regex, remote_vers_line)
                 if mo:
                     self.__validVersFound__ = True
                     self.__remoteVersion__ = mo.group(1)

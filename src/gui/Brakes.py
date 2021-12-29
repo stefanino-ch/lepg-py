@@ -51,12 +51,12 @@ class Brakes(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout
+            window
+                window_ly
                         numLinesSpin
                         LinesTable
                     -------------------------
-                        OrderBtn  helpBar  | btn_bar
+                        OrderBtn  help_bar  | btn_bar
                             
         Naming:
         

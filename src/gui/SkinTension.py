@@ -43,12 +43,12 @@ class SkinTension(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout 
+            window
+                window_ly
                      Table
                      paramsTable
                     ---------------------------
-                                helpBar | btn_bar
+                                help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         

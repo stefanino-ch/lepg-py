@@ -29,6 +29,8 @@ class SetupProcessors(QMdiSubWindow):
         """
         :method: Constructor
         """
+        super().__init__()
+
         self.proc_e = None
         self.proc_grp = None
         self.outline_chkb = None
@@ -42,9 +44,8 @@ class SetupProcessors(QMdiSubWindow):
         self.btn_bar = None
 
         logging.debug(self.__className+'.__init__')
-        super().__init__()
 
-        self.confRdr = ConfigReader()
+        self.config_reader = ConfigReader()
         self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
@@ -59,12 +60,12 @@ class SetupProcessors(QMdiSubWindow):
 
         Structure::
 
-            win
+            window
                 windowGrid
                      Labels    | Edit fields
                      ...       | ...
                     -------------------------
-                                | helpBar
+                                | help_bar
                                 | btn_bar
         """
         logging.debug(self.__className + '.build_window')
@@ -72,7 +73,7 @@ class SetupProcessors(QMdiSubWindow):
         self.setWindowIcon(QIcon('gui\\favicon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(400, 150)
+        self.win.setMinimumSize(500, 150)
 
         self.window_ly = QVBoxLayout()
 
@@ -91,7 +92,7 @@ class SetupProcessors(QMdiSubWindow):
         self.pre_proc_e.setReadOnly(True)
         self.pre_proc_e.setHelpBar(self.helpBar)
         self.pre_proc_e.setHelpText(_('SetupProc-PreProcPathNameDesc'))
-        self.pre_proc_e.setText(self.confRdr.get_pre_proc_path_name())
+        self.pre_proc_e.setText(self.config_reader.get_pre_proc_path_name())
 
         pre_proc_btn = QPushButton(_('Change'))
         pre_proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
@@ -106,6 +107,7 @@ class SetupProcessors(QMdiSubWindow):
         self.outline_chkb = CheckBox(_('Open wing outline after processing'))
         self.outline_chkb.setHelpBar(self.helpBar)
         self.outline_chkb.setHelpText(_('SetupProc-PreProcWingOutline'))
+        self.outline_chkb.stateChanged.connect(self.outline_chkb_change)
         self.pre_proc_grp_ly.addWidget(self.outline_chkb)
 
         self.proc_grp = QGroupBox(_('Processor (lep)'))
@@ -117,7 +119,7 @@ class SetupProcessors(QMdiSubWindow):
         self.proc_e.setReadOnly(True)
         self.proc_e.setHelpBar(self.helpBar)
         self.proc_e.setHelpText(_('SetupProc-ProcPathNameDesc'))
-        self.proc_e.setText(self.confRdr.get_proc_path_name())
+        self.proc_e.setText(self.config_reader.get_proc_path_name())
 
         proc_btn = QPushButton(_('Change'))
         proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
@@ -125,6 +127,9 @@ class SetupProcessors(QMdiSubWindow):
         proc_btn.clicked.connect(self.proc_btn_press)
         self.proc_grp_ly.addWidget(self.proc_e)
         self.proc_grp_ly.addWidget(proc_btn)
+
+        self.outline_chkb.setChecked(
+            self.config_reader.get_check_for_updates())
 
         #############################
         # Commons for all windows
@@ -151,10 +156,10 @@ class SetupProcessors(QMdiSubWindow):
         logging.debug(self.__className + '.pre_proc_btn_press')
 
         # Do platform specific if here as the PreProx extensions are different
-        if platform.system() == "gui":
+        if platform.system() == "Windows":
             filename = QFileDialog.getOpenFileName(
                             None,
-                            _('Select Pre_Processor'),
+                            _('Select Pre-Processor'),
                             "",
                             "Executable (*.exe)")
         elif platform.system() == "Linux":
@@ -163,6 +168,7 @@ class SetupProcessors(QMdiSubWindow):
                             _('Select Pre_Processor'),
                             "",
                             "Compiled Fortran (*.o *.out)")
+            # TODO: OSX is missing here
         else:
             logging.error("Sorry, your operating system is not supported yet")
             return
@@ -176,7 +182,17 @@ class SetupProcessors(QMdiSubWindow):
                           + filename[0])
 
             self.pre_proc_e.setText(filename[0])
-            self.confRdr.set_pre_proc_path_name(filename[0])
+            self.config_reader.set_pre_proc_path_name(filename[0])
+
+    def outline_chkb_change(self):
+        """
+        :method: Called at the time the pre-processor show outline checkbox
+                 is changed. Does set up the config reader property.
+        """
+        if self.outline_chkb.isChecked() is True:
+            self.config_reader.set_pre_proc_show_outline('yes')
+        else:
+            self.config_reader.set_pre_proc_show_outline('no')
 
     def proc_btn_press(self):
         """
@@ -186,7 +202,7 @@ class SetupProcessors(QMdiSubWindow):
         logging.debug(self.__className + '.proc_btn_press')
 
         # Do platform specific if here as the PreProx extensions are different
-        if platform.system() == "gui":
+        if platform.system() == "Windows":
             filename = QFileDialog.getOpenFileName(
                             None,
                             _('Select Processor'),
@@ -198,6 +214,7 @@ class SetupProcessors(QMdiSubWindow):
                             _('Select Processor'),
                             "",
                             "Compiled Fortran (*.o *.out)")
+            # TODO: OSX is missing here
         else:
             logging.error("Sorry, your operating system is not supported yet")
             return
@@ -211,7 +228,7 @@ class SetupProcessors(QMdiSubWindow):
                           + filename[0])
 
             self.proc_e.setText(filename[0])
-            self.confRdr.set_proc_path_name(filename[0])
+            self.config_reader.set_proc_path_name(filename[0])
 
     def btn_press(self, q):
         """

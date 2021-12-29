@@ -42,12 +42,12 @@ class GlobalAoA(QMdiSubWindow):
             
         Structure:: 
         
-            win
-                windowLayout 
+            window
+                window_ly
                     calage_T
                     length_T
                 ---------------------------
-                            helpBar | btn_bar
+                            help_bar | btn_bar
         '''
         logging.debug(self.__className + '.build_window')
         
