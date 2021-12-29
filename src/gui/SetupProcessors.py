@@ -167,8 +167,13 @@ class SetupProcessors(QMdiSubWindow):
                             None,
                             _('Select Pre_Processor'),
                             "",
-                            "Compiled Fortran (*.o *.out)")
-            # TODO: OSX is missing here
+                            "Compiled Fortran (*.out)")
+        elif platform.system() == "Darwin":
+            filename = QFileDialog.getOpenFileName(
+                            None,
+                            _('Select Pre_Processor'),
+                            "",
+                            "Compiled Fortran (*.o)")
         else:
             logging.error("Sorry, your operating system is not supported yet")
             return
@@ -213,8 +218,13 @@ class SetupProcessors(QMdiSubWindow):
                             None,
                             _('Select Processor'),
                             "",
-                            "Compiled Fortran (*.o *.out)")
-            # TODO: OSX is missing here
+                            "Compiled Fortran (*.out)")
+        elif platform.system() == "Darwin":
+            filename = QFileDialog.getOpenFileName(
+                None,
+                _('Select Processor'),
+                "",
+                "Compiled Fortran (*.o)")
         else:
             logging.error("Sorry, your operating system is not supported yet")
             return

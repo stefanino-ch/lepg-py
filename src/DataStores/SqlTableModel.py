@@ -171,7 +171,7 @@ class SqlTableModel(QSqlTableModel):
         '''
         :method: Adds a row to the model. Sets Columns *ConfigNum* and
                  *OrderNum*
-        :parm configNum: Number of the config for which the row must be added.
+        :parm config_num: Number of the config for which the row must be added.
         :attention: The two columns *ConfigNum* and *OrderNum* must exist for
                     proper funtionality
         '''

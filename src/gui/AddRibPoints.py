@@ -131,7 +131,7 @@ class AddRibPoints(QMdiSubWindow):
         ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.YCoordCol,
                            _('AddRibPts-YCoordDesc'))
 
-        sortBtn = QPushButton(_('Sort by orderNum'))
+        sortBtn = QPushButton(_('Sort by order_num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                           QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)

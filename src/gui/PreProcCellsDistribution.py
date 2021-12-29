@@ -143,7 +143,7 @@ class PreProcCellsDistribution(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.usageUpdate')
         
-        typeN = self.cellsDistr_M.getType(1, 1)
+        typeN = self.cellsDistr_M.get_type(1, 1)
         
         if typeN == 1:
             self.usage_CB.blockSignals(True)
@@ -180,18 +180,18 @@ class PreProcCellsDistribution(QMdiSubWindow):
         logging.debug(self.__className+'.usageCbChange')
         if self.usage_CB.currentIndex() == 0:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            self.cellsDistr_M.updateType(1, 1, 1)
+            self.cellsDistr_M.update_type(1, 1, 1)
             
         elif self.usage_CB.currentIndex()==1: 
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            self.cellsDistr_M.updateType(1, 1, 2)
+            self.cellsDistr_M.update_type(1, 1, 2)
         
         elif self.usage_CB.currentIndex()==2:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            self.cellsDistr_M.updateType(1, 1, 3)
+            self.cellsDistr_M.update_type(1, 1, 3)
             
         elif self.usage_CB.currentIndex()==3: 
-            self.cellsDistr_M.updateType(1, 1, 4)
+            self.cellsDistr_M.update_type(1, 1, 4)
             
     def numLinesChange(self):
         '''

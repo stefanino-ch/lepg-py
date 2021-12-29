@@ -90,7 +90,7 @@ class DataStatusOverview(QMdiSubWindow):
          
         ##
         self.preProcFilenameL = QLabel(_('Filename'))
-        self.preProcFilenameD = QLabel(self.shortenPath(self.ppm.getFileName()))
+        self.preProcFilenameD = QLabel(self.shortenPath(self.ppm.get_file_name()))
         self.preProcFilenameD.adjustSize()
 
         self.preProcG.addWidget(self.preProcFilenameL, self.__preProcGridR , 0)
@@ -98,7 +98,7 @@ class DataStatusOverview(QMdiSubWindow):
         self.__preProcGridR += 1
         ##
         self.preProcFileversL = QLabel(_('File version'))
-        self.preProcFileversD = QLabel(self.ppm.getFileVersion())
+        self.preProcFileversD = QLabel(self.ppm.get_file_version())
 
         self.preProcG.addWidget(self.preProcFileversL, self.__preProcGridR, 0)
         self.preProcG.addWidget(self.preProcFileversD, self.__preProcGridR, 1)
@@ -171,10 +171,10 @@ class DataStatusOverview(QMdiSubWindow):
         '''
         if n == 'PreProcessorModel':
             if q == 'FileNamePath':
-                self.preProcFilenameD.setText(self.shortenPath(self.ppm.getFileName()))
+                self.preProcFilenameD.setText(self.shortenPath(self.ppm.get_file_name()))
         
             elif q == 'FileVersion':
-                self.preProcFileversD.setText(self.ppm.getFileVersion())
+                self.preProcFileversD.setText(self.ppm.get_file_version())
         
         elif n == 'ProcessorModel':
             if q == 'FileNamePath':

@@ -285,7 +285,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         :method: Checks for unapplied/ unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         '''
-        logging.debug(self.__className + '.openFile')
+        logging.debug(self.__className + '.open_file')
         # TODO: Make sure there is no unsaved/ unapplied data
 
         fileName = QFileDialog.getOpenFileName(
@@ -308,7 +308,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         :method: Checks if there is already a valid file name, if not it
                  asks for it. Starts afterwards the writing process.
         '''
-        logging.debug(self.__className + '.saveFile')
+        logging.debug(self.__className + '.save_file')
 
         fileName = self.getFileName()
         if len(fileName) > 0:
@@ -333,7 +333,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         :method: Asks for a new filename. Starts afterwards the
                  writing process.
         '''
-        logging.debug(self.__className + '.saveFileAs')
+        logging.debug(self.__className + '.save_file_as')
 
         # Ask first for the filename
         fileName = QFileDialog.getSaveFileName(
@@ -423,7 +423,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         separator = '***************************************************\n'
 
-        logging.debug(self.__className + '.writeFile')
+        logging.debug(self.__className + '.write_file')
 
         # check if the file already exists
         filePathName = self.getFileName()
@@ -444,17 +444,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
             # Delete old file first
             if os.path.exists(pathName):
                 logging.debug(self.__className
-                              + '.writeFile remove old file')
+                              + '.write_file remove old file')
                 os.remove(pathName)
             else:
                 logging.debug(self.__className
-                              + '.writeFile no Proc file in place')
+                              + '.write_file no Proc file in place')
 
             outFile = QFile(pathName)
 
         if not outFile.open(QFile.ReadWrite | QFile.Text):
             logging.error(self.__className
-                          + '.writeFile '
+                          + '.write_file '
                           + outFile.errorString())
 
             msgBox = QMessageBox()
@@ -1194,7 +1194,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists AddRibPoints;")
@@ -1224,7 +1224,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE AddRibPoints SET "
@@ -1245,7 +1245,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1291,7 +1291,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty anchor points table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists Airfoils;")
@@ -1332,7 +1332,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param ribNum: Rib number. Starting with 1. 
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1388,7 +1388,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists AirfoilThickness;")
@@ -1402,7 +1402,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE AirfoilThickness SET "
@@ -1438,7 +1438,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1524,7 +1524,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param ribNum: Rib number. Starting with 1. 
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1579,7 +1579,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Lines table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists Brakes;")
@@ -1631,7 +1631,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here as
                      they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE Brakes SET "
@@ -1670,7 +1670,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1728,7 +1728,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Brake length table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists BrakeLenght;")
@@ -1773,7 +1773,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1862,7 +1862,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists CalageVar;")
@@ -1887,7 +1887,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE CalageVar SET "
@@ -1943,7 +1943,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -1990,7 +1990,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists DxfLayerNames;")
@@ -2019,7 +2019,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE DxfLayerNames SET "
@@ -2040,7 +2040,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2099,7 +2099,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ElaslticLinesCorr;")
@@ -2138,7 +2138,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2184,7 +2184,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ElaslticLinesDef;")
@@ -2218,7 +2218,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ElaslticLinesDef SET "
@@ -2241,7 +2241,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2279,7 +2279,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ExtradColsConf;")
@@ -2303,7 +2303,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
 
         def updateRow(self, configNum, firstRib):
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ExtradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
@@ -2316,10 +2316,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: reads values back from the internal database for a specific config and order number
             :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param order_num: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2349,7 +2349,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ExtradColsDet;")
@@ -2374,7 +2374,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
 
         def updateRow(self, configNum, orderNum, distTe):
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -2392,7 +2392,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2432,7 +2432,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty GlobalAoA table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists GlobalAoA;")
@@ -2469,7 +2469,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2523,7 +2523,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists GlueVent;")
@@ -2537,7 +2537,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE GlueVent SET "
@@ -2573,7 +2573,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2628,7 +2628,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Lines table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists HvVhRibs;")
@@ -2716,7 +2716,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2761,7 +2761,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists IntradColsConf;")
@@ -2785,7 +2785,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
 
         def updateRow(self, configNum, firstRib):
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE IntradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
@@ -2798,10 +2798,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: reads values back from the internal database for a specific config and order number
             :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param order_num: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2831,7 +2831,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists IntradColsDet;")
@@ -2856,7 +2856,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
 
         def updateRow(self, configNum, orderNum, distTe):
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -2874,7 +2874,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -2938,7 +2938,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists JoncsDef;")
@@ -3082,9 +3082,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE JoncsDef SET "
-                          "type= :typeNum "
+                          "type= :type_num "
                           "WHERE (ConfigNum = :config);")
-            query.bindValue(":typeNum", typeNum)
+            query.bindValue(":type_num", typeNum)
             query.bindValue(":config", configNum)
             query.exec()
 
@@ -3093,7 +3093,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: Detects for a defined config if the type is set. 
             :return: 0: type is empty; 1: type== 1; 2: type== 2
             '''
-            logging.debug(self.__className + '.getType')
+            logging.debug(self.__className + '.get_type')
 
             query = QSqlQuery()
             query.prepare("Select Type FROM JoncsDef WHERE (ConfigNum = :config) ORDER BY OrderNum ASC;")
@@ -3114,7 +3114,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3170,7 +3170,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty LightConf table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists LightConf;")
@@ -3212,7 +3212,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param configNum: Configuration number. Starting with 1. 
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3262,7 +3262,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty lightening details table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists LightDet;")
@@ -3303,7 +3303,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             # query.prepare("UPDATE LightDet SET LightTyp= :light, DistLE= :dist, DisChord= :dis, HorAxis= :hor, VertAxis= :vert, RotAngle: rot, Opt= :opt WHERE (ConfigNum = :config AND OrderNum = :order);")
@@ -3330,7 +3330,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3397,7 +3397,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Lines table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists Lines;")
@@ -3515,7 +3515,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3561,7 +3561,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Marks table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists Marks;")
@@ -3592,7 +3592,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: updates a specific row with the parameters passed.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -3609,7 +3609,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3651,7 +3651,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists MarksTypes;")
@@ -3691,7 +3691,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE MarksTypes SET "
@@ -3722,7 +3722,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3770,7 +3770,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table.
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists NewSkinTensConf;")
@@ -3798,7 +3798,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Type"))
 
         def updateRow(self, config, initialRib, finalRib, calcT):
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -3817,7 +3817,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3860,7 +3860,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Skin tension table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists NewSkinTensDet;")
@@ -3894,7 +3894,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: updates a specific row with the parameters passed.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE NewSkinTensDet SET "
@@ -3919,7 +3919,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -3970,7 +3970,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists NoseMylars;")
@@ -3978,10 +3978,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
                        "OrderNum INTEGER, "
                        "FirstRib INTEGER, "
                        "LastRib INTEGER, "
-                       "xOne REAL, "
+                       "x_one REAL, "
                        "uOne REAL, "
                        "uTwo REAL, "
-                       "xTwo REAL, "
+                       "x_two REAL, "
                        "vOne REAL, "
                        "vTwo REAL, "
                        "ConfigNum INTEGER,"
@@ -4012,25 +4012,25 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE NoseMylars SET "
                           "FirstRib= :firstRib, "
                           "LastRib= :lastRib, "
-                          "xOne= :xOne, "
+                          "x_one= :x_one, "
                           "uOne= :uOne, "
                           "uTwo= :uTwo, "
-                          "xTwo= :xTwo, "
+                          "x_two= :x_two, "
                           "vOne= :vOne, "
                           "vTwo= :vTwo "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.bindValue(":firstRib", firstRib)
             query.bindValue(":lastRib", lastRib)
-            query.bindValue(":xOne", xOne)
+            query.bindValue(":x_one", xOne)
             query.bindValue(":uOne", uOne)
             query.bindValue(":uTwo", uTwo)
-            query.bindValue(":xTwo", xTwo)
+            query.bindValue(":x_two", xTwo)
             query.bindValue(":vOne", vOne)
             query.bindValue(":vTwo", vTwo)
             query.bindValue(":config", configNum)
@@ -4045,17 +4045,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
                           "OrderNum, "
                           "FirstRib, "
                           "LastRib, "
-                          "xOne, "
+                          "x_one, "
                           "uOne, "
                           "uTwo, "
-                          "xTwo, "
+                          "x_two, "
                           "vOne, "
                           "vTwo "
                           "FROM NoseMylars WHERE (ConfigNum = :config) ORDER BY OrderNum")
@@ -4091,7 +4091,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Ramification table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists Ramification;")
@@ -4147,7 +4147,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4266,7 +4266,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here as
                      they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE Rib SET "
@@ -4303,7 +4303,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param ribNum: Rib number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4343,7 +4343,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Skin tension table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists SkinTension;")
@@ -4375,7 +4375,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: updates a specific row with the parameters passed.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -4394,7 +4394,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param configNum: Configuration number. Starting with 1. 
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4426,7 +4426,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Skin tension params table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists SkinTensionParams;")
@@ -4458,7 +4458,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4488,7 +4488,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty Sewing allowances table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists SewingAllowances;")
@@ -4519,7 +4519,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: updates a specific row with the parameters passed.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare(
@@ -4537,7 +4537,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param ribNum: Rib number. Starting with 1. 
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4595,7 +4595,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists SpecWingTip;")
@@ -4612,7 +4612,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here as
                      they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE SpecWingTip SET "
@@ -4651,7 +4651,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4722,7 +4722,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ThreeDDxf;")
@@ -4747,7 +4747,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here
                      as they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDDxf SET "
@@ -4790,7 +4790,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4830,7 +4830,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ThreeDShapingConf;")
@@ -4859,7 +4859,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingConf SET "
@@ -4880,7 +4880,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -4920,7 +4920,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ThreeDShapingUpDetail;")
@@ -4951,7 +4951,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingUpDetail SET "
@@ -4974,7 +4974,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.  
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -5034,7 +5034,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ThreeDShapingLoDetail;")
@@ -5067,7 +5067,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here
                      as they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingLoDetail SET "
@@ -5092,7 +5092,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -5156,7 +5156,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists ThreeDShapingPrint;")
@@ -5197,7 +5197,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here
                      as they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingPrint SET "
@@ -5226,7 +5226,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -5298,7 +5298,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             '''
             :method: Creates initially the empty table
             '''
-            logging.debug(self.__className + '.createTable')
+            logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
             query.exec("DROP TABLE if exists TwoDDxf;")
@@ -5317,7 +5317,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                      passed. Parameters are not explicitely explained here as
                      they should be well known.
             '''
-            logging.debug(self.__className + '.updateRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE TwoDDxf SET "
@@ -5359,7 +5359,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :param orderNum: Order number. Starting with 1.
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("Select "
@@ -5576,7 +5576,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             :method: reads values back from the internal database
             :return: specific values read from internal database
             '''
-            logging.debug(self.__className + '.getRow')
+            logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
             query.prepare("SELECT "

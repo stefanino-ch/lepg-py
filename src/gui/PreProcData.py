@@ -278,10 +278,10 @@ class PreProcData(QMdiSubWindow):
 
         # first check if CB is set correctly
         if self.vaultT_CB.currentIndex() == 0:
-            self.vault_M.updateType(1, 1, 1)
+            self.vault_M.update_type(1, 1, 1)
             self.setTypeOneColumns()
         else:
-            self.vault_M.updateType(1, 1, 2)
+            self.vault_M.update_type(1, 1, 2)
             self.setTypeTwoColumns()
 
     def vaultModelChange(self):
@@ -290,7 +290,7 @@ class PreProcData(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.vaultModelUpdate')
 
-        vaultT = self.vault_M.getType(1, 1)
+        vaultT = self.vault_M.get_type(1, 1)
 
         if vaultT == 1:
             self.vaultT_CB.blockSignals(True)

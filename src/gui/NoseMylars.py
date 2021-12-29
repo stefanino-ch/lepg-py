@@ -116,7 +116,7 @@ class NoseMylars(QMdiSubWindow):
         table_T.setHelpText(ProcessorModel.NoseMylarsModel.vOneCol , _('NoseMylars-v1Desc'))
         table_T.setHelpText(ProcessorModel.NoseMylarsModel.vTwoCol , _('NoseMylars-v2Desc'))
         
-        sortBtn = QPushButton(_('Sort by orderNum'))
+        sortBtn = QPushButton(_('Sort by order_num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
         

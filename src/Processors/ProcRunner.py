@@ -108,9 +108,9 @@ class ProcRunner:
         elif platform.system() == "Linux":
             process = Popen('/bin/bash', stdin=PIPE, stdout=PIPE, stderr=PIPE,
                             shell=False, encoding='utf8')
-
-        # TODO: OSX is missing here
-
+        elif platform.system() == "Darwin":
+            process = Popen('/bin/zsh', stdin=PIPE, stdout=PIPE, stderr=PIPE,
+                            shell=False, encoding='utf8')
         else:
             logging.error("Sorry, your operating system is not supported yet")
             return

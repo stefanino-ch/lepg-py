@@ -159,7 +159,7 @@ class HvVhRibs(QMdiSubWindow):
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamHCol , _('HvVhRibs-ParamHDesc'))
         ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamICol , _('HvVhRibs-ParamIDesc'))
         
-        sortBtn = QPushButton(_('Sort by orderNum'))
+        sortBtn = QPushButton(_('Sort by order_num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
 

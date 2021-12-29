@@ -61,7 +61,7 @@ from gui.AirfoilThickness import AirfoilThickness
 from gui.NewSkinTension import NewSkinTension
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.SetupProcessors import SetupProcessors
-from gui.setupupdatechecking import SetupUpdateChecking
+from gui.SetupUpdateChecking import SetupUpdateChecking
 from PyQt5.Qt import QStatusBar
 
 
@@ -302,21 +302,21 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Open PreProc File*
         """
-        self.ppm.openFile()
+        self.ppm.open_file()
 
     def pre_proc_save_file(self):
         """
         :method: Called if the user selects *Pre Processor*
                  -> *Save PreProc File*
         """
-        self.ppm.saveFile()
+        self.ppm.save_file()
 
     def pre_proc_save_file_as(self):
         """
         :method: Called if the user selects *Pre Processor*
                  -> *Save PreProc File As ...*
         """
-        self.ppm.saveFileAs()
+        self.ppm.save_file_as()
 
     def pre_proc_edit(self):
         """
@@ -360,7 +360,7 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.pre_proc_run')
 
         # Save current file into processor directory
-        self.ppm.writeFile(True)
+        self.ppm.write_file(True)
 
         # Open the window for the user info
         if self.dws.windowExists('ProcessorOutput') is False:
