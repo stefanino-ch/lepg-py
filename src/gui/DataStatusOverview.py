@@ -118,7 +118,7 @@ class DataStatusOverview(QMdiSubWindow):
          
         ##
         self.procFilenameL = QLabel(_('Filename'))
-        self.procFilenameD = QLabel(self.shortenPath(self.pm.getFileName()))
+        self.procFilenameD = QLabel(self.shortenPath(self.pm.get_file_name()))
         self.procFilenameD.adjustSize()
 
         self.procG.addWidget(self.procFilenameL, self.__procGridR , 0)
@@ -178,7 +178,7 @@ class DataStatusOverview(QMdiSubWindow):
         
         elif n == 'ProcessorModel':
             if q == 'FileNamePath':
-                self.procFilenameD.setText(self.shortenPath(self.pm.getFileName()))
+                self.procFilenameD.setText(self.shortenPath(self.pm.get_file_name()))
                 
             elif q == 'FileVersion':
                 self.procFileversD.setText(self.pm.getFileVersion())

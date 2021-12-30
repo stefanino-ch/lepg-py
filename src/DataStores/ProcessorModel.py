@@ -1,4 +1,4 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 
@@ -7,7 +7,7 @@ Many thanks to the authors of:
 https://doc.qt.io/qtforpython/overviews/sql-model.html
 
 https://www.datacamp.com/community/tutorials/inner-classes-python
-'''
+"""
 import os
 import logging
 import math
@@ -28,14 +28,14 @@ from DataStores.FileHelpers import FileHelpers
 
 
 class ProcessorModel(QObject, metaclass=Singleton):
-    '''
+    """
     :class: Does take care about the data handling for the processor.
         - Reads and writes the data files
         - Holds as a central point all temporary data during program execution
 
     Is implemented as a **Singleton**. Even if it is instantiated multiple
     times all data will be the same for all instances.
-    '''
+    """
     dataStatusUpdate = pyqtSignal(str, str)
     '''
     :signal:  Sent out as soon a file was opened or saved
@@ -64,9 +64,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
     '''
 
     def __init__(self, parent=None):  # @UnusedVariable
-        '''
+        """
         :method: Constructor
-        '''
+        """
         logging.debug(self.__className + '.__init__')
 
         self.db = Database()
@@ -76,35 +76,35 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
         self.fh = FileHelpers()
 
-        self.rib_M = self.RibModel()
-        self.wing_M = self.WingModel()
-        self.airf_M = self.AirfoilsModel()
-        self.anchPoints_M = self.AnchorPointsModel()
-        self.lightC_M = self.LightConfModel()
-        self.lightD_M = self.LightDetModel()
-        self.skinTens_M = self.SkinTensionModel()
-        self.skinTensParams_M = self.SkinTensionParamsModel()
-        self.sewAll_M = self.SewingAllowancesModel()
-        self.marks_M = self.MarksModel()
-        self.globAoA_M = self.GlobAoAModel()
-        self.lines_M = self.LinesModel()
-        self.brakes_M = self.BrakesModel()
-        self.brakeL_M = self.BrakeLengthModel()
-        self.ramif_M = self.RamificationModel()
-        self.hVvHRibs_M = self.HvVhRibsModel()
-        self.extradColsConf_M = self.ExtradColsConfModel()
-        self.extradColsDet_M = self.ExtradColsDetModel()
-        self.intradColsConf_M = self.IntradColsConfModel()
-        self.intradColsDet_M = self.IntradColsDetModel()
-        self.addRibPts_M = self.AddRibPointsModel()
-        self.elLinesCorr_M = self.ElasticLinesCorrModel()
-        self.elLinesDef_M = self.ElasticLinesDefModel()
-        self.dxfLayNames_M = self.DxfLayerNamesModel()
-        self.marksT_M = self.MarksTypesModel()
-        self.joncsDef_M = self.JoncsDefModel()
-        self.noseMylars_M = self.NoseMylarsModel()
-        self.twoDDxf_M = self.TwoDDxfModel()
-        self.threeDDxf_M = self.ThreeDDxfModel()
+        self.rib_m = self.RibModel()
+        self.wing_m = self.WingModel()
+        self.airfoils_m = self.AirfoilsModel()
+        self.anchor_points_m = self.AnchorPointsModel()
+        self.light_conf_m = self.LightConfModel()
+        self.light_det_m = self.LightDetModel()
+        self.skin_tension_m = self.SkinTensionModel()
+        self.skin_tension_params_m = self.SkinTensionParamsModel()
+        self.sewing_allow_m = self.SewingAllowancesModel()
+        self.marks_m = self.MarksModel()
+        self.glob_aoa_m = self.GlobAoAModel()
+        self.lines_m = self.LinesModel()
+        self.brakes_m = self.BrakesModel()
+        self.brake_lines_m = self.BrakeLengthModel()
+        self.ramific_m = self.RamificationModel()
+        self.hv_vh_ribs_m = self.HvVhRibsModel()
+        self.extrados_col_conf_m = self.ExtradColsConfModel()
+        self.extrados_col_det_m = self.ExtradColsDetModel()
+        self.intrados_col_conf_m = self.IntradColsConfModel()
+        self.intrados_col_det_m = self.IntradColsDetModel()
+        self.add_rib_pts_m = self.AddRibPointsModel()
+        self.el_lines_corr_m = self.ElasticLinesCorrModel()
+        self.el_lines_def_m = self.ElasticLinesDefModel()
+        self.dxf_lay_names_m = self.DxfLayerNamesModel()
+        self.marks_t_m = self.MarksTypesModel()
+        self.joncs_def_m = self.JoncsDefModel()
+        self.nose_mylars_m = self.NoseMylarsModel()
+        self.two_d_dxf_m = self.TwoDDxfModel()
+        self.three_d_dxf_m = self.ThreeDDxfModel()
         self.glueVent_M = ProcessorModel.GlueVentModel()
         self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
         self.calageVar_M = ProcessorModel.CalageVarModel()
@@ -126,7 +126,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.__fileNamePath = fileName
         self.dataStatusUpdate.emit(self.__className, 'FileNamePath')
 
-    def getFileName(self):
+    def get_file_name(self):
         '''
         :method: Returns the name of the file name member.
         '''
@@ -310,7 +310,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         logging.debug(self.__className + '.save_file')
 
-        fileName = self.getFileName()
+        fileName = self.get_file_name()
         if len(fileName) > 0:
             # We do have already a valid filename
             self.writeFile()
@@ -387,11 +387,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         # all read now
         numLines = len(lineArray)
 
-        self.wing_M.updateNumRibs(numLines * 2)
+        self.wing_m.updateNumRibs(numLines * 2)
 
         for i in range(0, numLines):
             values = self.fh.splitLine(lineArray[i])
-            self.rib_M.updateRow(i + 1,
+            self.rib_m.updateRow(i + 1,
                                  values[1],
                                  values[2],
                                  values[3],
@@ -407,67 +407,57 @@ class ProcessorModel(QObject, metaclass=Singleton):
             line = stream.readLine()
 
         values = self.fh.splitLine(stream.readLine())
-        self.wing_M.updateNumCells(values[1])
+        self.wing_m.updateNumCells(values[1])
 
         ##############################
         # Cleanup
         inFile.close()
 
-    def writeFile(self, forProc=False):
-        '''
+    def writeFile(self, for_proc=False):
+        """
         :method: Writes all the values into a data file.
         :warning: Filename must have been set already before, unless the file
                   shall be written for the PreProcessor.
-        :param forProc: Set this to True if the file must be saved in the
+        :param for_proc: Set this to True if the file must be saved in the
                         directory where the PreProcessor resides
-        '''
+        """
         separator = '***************************************************\n'
 
         logging.debug(self.__className + '.write_file')
 
-        # check if the file already exists
-        filePathName = self.getFileName()
-        if os.path.isfile(filePathName):
-            # file exists -> delete it
-            os.remove(filePathName)
-
-        if forProc is False:
-            # Regular file write into a file specified by the user
-            outFile = QFile(filePathName)
+        if for_proc is True:
+            # Special file write into the directory where the
+            # PreProcessor resides
+            config_reader = ConfigReader()
+            file_path_name = os.path.join(config_reader
+                                          .get_pre_proc_directory(),
+                                          'leparagliding.txt')
         else:
-            # Special file write into the directory where the PreProcessor
-            # resides
-            config = ConfigReader()
-            pathName = os.path.join(config.get_proc_directory(),
-                                    'leparagliding.txt')
+            file_path_name = self.get_file_name()
 
-            # Delete old file first
-            if os.path.exists(pathName):
-                logging.debug(self.__className
-                              + '.write_file remove old file')
-                os.remove(pathName)
-            else:
-                logging.debug(self.__className
-                              + '.write_file no Proc file in place')
+        # check if the file already exists
+        if os.path.isfile(file_path_name):
+            # file exists -> delete it
+            os.remove(file_path_name)
 
-            outFile = QFile(pathName)
+        out_file = QFile(file_path_name)
 
-        if not outFile.open(QFile.ReadWrite | QFile.Text):
+        if not out_file.open(QFile.ReadWrite | QFile.Text):
             logging.error(self.__className
                           + '.write_file '
-                          + outFile.errorString())
+                          + out_file.errorString())
 
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("File save error")
-            msgBox.setText('File can not be saved: '
-                           + outFile.errorString())
-            msgBox.setIcon(QMessageBox.Warning)
-            msgBox.setStandardButtons(QMessageBox.Ok)
-            msgBox.exec()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("File save error")
+            msg_box.setText('File can not be saved: '
+                            + out_file.errorString())
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec()
             return
 
         # File is open, start writing
-        stream = QTextStream(outFile)
+        stream = QTextStream(out_file)
         stream.setCodec('UTF-8')
 
         stream << separator
@@ -478,7 +468,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '* Version %s\n' % today.strftime("%Y-%m-%d")
         stream << separator
 
-        values = self.wing_M.getRow()
+        values = self.wing_m.getRow()
         stream << '*             1. GEOMETRY\n'
         stream << separator
         stream << '* Brand name\n'
@@ -521,8 +511,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
                    'for "Z" versions (!)\n')
         stream << ('* Rib    x-rib    y-LE    y-TE    xp    z    beta    '
                    'RP    Washin    Rot_z    Pos_z\n')
-        for i in range(0, self.wing_M.halfNumRibs):
-            values = self.rib_M.getRow(i + 1)
+        for i in range(0, self.wing_m.halfNumRibs):
+            values = self.rib_m.getRow(i + 1)
             stream << '%s' % (i + 1)
 
             for p in range(0, 10):
@@ -534,8 +524,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*             2. AIRFOILS\n'
         stream << separator
         stream << '* Airfoil name, intake in, intake out, open , disp. rrw\n'
-        for l in range(0, self.wing_M.halfNumRibs):
-            values = self.airf_M.getRow(l + 1)
+        for l in range(0, self.wing_m.halfNumRibs):
+            values = self.airfoils_m.getRow(l + 1)
             stream << '%s' % (l + 1)
 
             for p in range(0, 7):
@@ -550,8 +540,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*            3. ANCHOR POINTS\n'
         stream << separator
         stream << '* Airf    Anch    A    B    C    D    E    F\n'
-        for l in range(0, self.wing_M.halfNumRibs):
-            values = self.anchPoints_M.getRow(l + 1)
+        for l in range(0, self.wing_m.halfNumRibs):
+            values = self.anchor_points_m.getRow(l + 1)
             stream << '%s' % (l + 1)
 
             for p in range(0, 7):
@@ -562,18 +552,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*          4. AIRFOIL HOLES\n'
         stream << separator
-        numConfigs = int(self.lightC_M.numConfigs())
+        numConfigs = int(self.light_conf_m.numConfigs())
         stream << '%s\n' % (numConfigs)
 
         for g in range(0, numConfigs):
-            values = self.lightC_M.getRow(g + 1)
+            values = self.light_conf_m.getRow(g + 1)
             stream << '%s\n' % self.fh.chkNum(values(0))
             stream << '%s\n' % self.fh.chkNum(values(1))
 
-            numLines = self.lightD_M.numRowsForConfig(g + 1)
+            numLines = self.light_det_m.numRowsForConfig(g + 1)
             stream << '%s\n' % (numLines)
             for l in range(0, numLines):
-                values = self.lightD_M.getRow(g + 1, l + 1)
+                values = self.light_det_m.getRow(g + 1, l + 1)
                 for p in range(0, 7):
                     if p > 0:
                         stream << '\t'
@@ -587,7 +577,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << 'Extrados\n'
 
         for l in range(0, 6):
-            values = self.skinTens_M.getRow(l + 1)
+            values = self.skin_tension_m.getRow(l + 1)
 
             for p in range(0, 4):
                 if p > 0:
@@ -596,7 +586,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 if p == 3:
                     stream << '\n'
 
-        values = self.skinTensParams_M.getRow()
+        values = self.skin_tension_params_m.getRow()
         stream << '%s\n' % self.fh.chkNum(values(0))
         stream << '%s' % self.fh.chkNum(values(1))
         stream << '\t%s\n' % self.fh.chkNum(values(2))
@@ -605,7 +595,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*           6. SEWING ALLOWANCES\n'
         stream << separator
 
-        values = self.sewAll_M.getRow(1)
+        values = self.sewing_allow_m.getRow(1)
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
@@ -613,7 +603,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
             if p == 2:
                 stream << '\tupper panels (mm)\n'
 
-        values = self.sewAll_M.getRow(2)
+        values = self.sewing_allow_m.getRow(2)
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
@@ -621,11 +611,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             if p == 2:
                 stream << '\tlower panels (mm)\n'
 
-        values = self.sewAll_M.getRow(3)
+        values = self.sewing_allow_m.getRow(3)
         stream << '%s' % self.fh.chkNum(values(0))
         stream << '\tribs (mm)\n'
 
-        values = self.sewAll_M.getRow(4)
+        values = self.sewing_allow_m.getRow(4)
         stream << '%s' % self.fh.chkNum(values(0))
         stream << '\tvribs (mm)\n'
 
@@ -633,7 +623,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*           7. MARKS\n'
         stream << separator
 
-        values = self.marks_M.getRow()
+        values = self.marks_m.getRow()
         stream << '%s' % self.fh.chkNum(values(0))
         stream << '\t%s' % self.fh.chkNum(values(1))
         stream << '\t%s\n' % self.fh.chkNum(values(2))
@@ -641,7 +631,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*           8. Global angle of attack estimation\n'
         stream << separator
-        values = self.globAoA_M.getRow()
+        values = self.glob_aoa_m.getRow()
         stream << '* Finesse GR\n'
         stream << '\t%s\n' % self.fh.chkNum(values(0))
         stream << '* Center of pressure % of chord\n'
@@ -658,18 +648,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
-        values = self.wing_M.getRow()
+        values = self.wing_m.getRow()
         stream << '%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.LinesConcTypeCol))
 
-        numConfigs = self.lines_M.numConfigs()
+        numConfigs = self.lines_m.numConfigs()
         stream << '%s\n' % numConfigs
 
         for g in range(0, numConfigs):
-            numLines = self.lines_M.numRowsForConfig(g + 1)
+            numLines = self.lines_m.numRowsForConfig(g + 1)
             stream << '%s\n' % numLines
 
             for l in range(0, numLines):
-                values = self.lines_M.getRow(g + 1, l + 1)
+                values = self.lines_m.getRow(g + 1, l + 1)
 
                 for p in range(0, 11):
                     if p > 0:
@@ -682,13 +672,13 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*       10. BRAKES\n'
         stream << separator
 
-        values = self.wing_M.getRow()
+        values = self.wing_m.getRow()
         stream << '%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.BrakeLengthCol))
 
-        numLines = self.brakes_M.numRowsForConfig(1)
+        numLines = self.brakes_m.numRowsForConfig(1)
         stream << '%s\n' % numLines
         for l in range(0, numLines):
-            values = self.brakes_M.getRow(1, l + 1)
+            values = self.brakes_m.getRow(1, l + 1)
 
             for p in range(0, 11):
                 if p > 0:
@@ -698,7 +688,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '\n'
 
         stream << '* Brake distribution\n'
-        values = self.brakeL_M.getRow()
+        values = self.brake_lines_m.getRow()
 
         for p in range(0, 5):
             if p > 0:
@@ -717,20 +707,20 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*       11. Ramification lengths\n'
         stream << separator
 
-        values = self.ramif_M.getRow(1, 1)
+        values = self.ramific_m.getRow(1, 1)
         stream << '3'
         stream << '\t%s\n' % self.fh.chkNum(values(1))
 
-        values = self.ramif_M.getRow(1, 2)
+        values = self.ramific_m.getRow(1, 2)
         stream << '4'
         stream << '\t%s' % self.fh.chkNum(values(1))
         stream << '\t%s\n' % self.fh.chkNum(values(2))
 
-        values = self.ramif_M.getRow(1, 3)
+        values = self.ramific_m.getRow(1, 3)
         stream << '3'
         stream << '\t%s\n' % self.fh.chkNum(values(1))
 
-        values = self.ramif_M.getRow(1, 4)
+        values = self.ramific_m.getRow(1, 4)
         stream << '4'
         stream << '\t%s' % self.fh.chkNum(values(1))
         stream << '\t%s\n' % self.fh.chkNum(values(2))
@@ -738,14 +728,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*    12. H V and VH ribs\n'
         stream << separator
-        numLines = self.hVvHRibs_M.numRowsForConfig(1)
+        numLines = self.hv_vh_ribs_m.numRowsForConfig(1)
         stream << '%s\n' % numLines
-        values = self.wing_M.getRow()
+        values = self.wing_m.getRow()
         stream << '%s' % self.fh.chkNum(values(ProcessorModel.WingModel.xSpacingCol))
         stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.ySpacingCol))
 
         for l in range(0, numLines):
-            values = self.hVvHRibs_M.getRow(1, l + 1)
+            values = self.hv_vh_ribs_m.getRow(1, l + 1)
 
             for p in range(0, 9):
                 if p == 0:
@@ -763,54 +753,54 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*    15. Extrados colors\n'
         stream << separator
-        numGroups = self.extradColsConf_M.numConfigs()
+        numGroups = self.extrados_col_conf_m.numConfigs()
         stream << '%s\n' % numGroups
 
         for g in range(0, numGroups):
-            numLines = self.extradColsDet_M.numRowsForConfig(g + 1)
+            numLines = self.extrados_col_det_m.numRowsForConfig(g + 1)
 
-            values = self.extradColsConf_M.getRow(g + 1)
+            values = self.extrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
             stream << '\t%s\n' % numLines
 
             for l in range(0, numLines):
-                values = self.extradColsDet_M.getRow(g + 1, l + 1)
+                values = self.extrados_col_det_m.getRow(g + 1, l + 1)
                 stream << '%s' % (l + 1)
                 stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
 
         stream << separator
         stream << '*    16. Intrados colors\n'
         stream << separator
-        numGroups = self.intradColsConf_M.numConfigs()
+        numGroups = self.intrados_col_conf_m.numConfigs()
         stream << '%s\n' % numGroups
 
         for g in range(0, numGroups):
-            numLines = self.intradColsDet_M.numRowsForConfig(g + 1)
+            numLines = self.intrados_col_det_m.numRowsForConfig(g + 1)
 
-            values = self.intradColsConf_M.getRow(g + 1)
+            values = self.intrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
             stream << '\t%s\n' % numLines
 
             for l in range(0, numLines):
-                values = self.intradColsDet_M.getRow(g + 1, l + 1)
+                values = self.intrados_col_det_m.getRow(g + 1, l + 1)
                 stream << '%s' % (l + 1)
                 stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
 
         stream << separator
         stream << '*       17. Aditional rib points\n'
         stream << separator
-        numLines = self.addRibPts_M.numRowsForConfig(1)
+        numLines = self.add_rib_pts_m.numRowsForConfig(1)
         stream << '%s\n' % numLines
 
         for l in range(0, numLines):
-            values = self.addRibPts_M.getRow(1, l + 1)
+            values = self.add_rib_pts_m.getRow(1, l + 1)
             stream << '%s' % self.fh.chkNum(values(0))
             stream << '\t%s\n' % self.fh.chkNum(values(1))
 
         stream << separator
         stream << '*       18. Elastic lines corrections\n'
         stream << separator
-        values = self.elLinesCorr_M.getRow()
+        values = self.el_lines_corr_m.getRow()
         stream << '%s\n' % self.fh.chkNum(values(0))
 
         stream << '%s' % self.fh.chkNum(values(1))
@@ -831,9 +821,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '\t%s' % self.fh.chkNum(values(13))
         stream << '\t%s\n' % self.fh.chkNum(values(14))
 
-        numLines = self.elLinesDef_M.numRowsForConfig(1)
+        numLines = self.el_lines_def_m.numRowsForConfig(1)
         for l in range(0, numLines):
-            values = self.elLinesDef_M.getRow(1, l + 1)
+            values = self.el_lines_def_m.getRow(1, l + 1)
 
             for p in range(0, 4):
                 if p > 0:
@@ -845,11 +835,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       19. DXF layer names\n'
         stream << separator
-        numLines = self.dxfLayNames_M.numRowsForConfig(1)
+        numLines = self.dxf_lay_names_m.numRowsForConfig(1)
         stream << '%s\n' % numLines
 
         for l in range(0, numLines):
-            values = self.dxfLayNames_M.getRow(1, l + 1)
+            values = self.dxf_lay_names_m.getRow(1, l + 1)
 
             for p in range(0, 2):
                 if p > 0:
@@ -861,11 +851,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       20. Marks types\n'
         stream << separator
-        numLines = self.marksT_M.numRowsForConfig(1)
+        numLines = self.marks_t_m.numRowsForConfig(1)
         stream << '%s\n' % numLines
 
         for l in range(0, numLines):
-            values = self.marksT_M.getRow(1, l + 1)
+            values = self.marks_t_m.getRow(1, l + 1)
 
             for p in range(0, 7):
                 if p > 0:
@@ -880,7 +870,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       21. JONCS DEFINITION (NYLON RODS)\n'
         stream << separator
-        numGroups = self.joncsDef_M.numConfigs()
+        numGroups = self.joncs_def_m.numConfigs()
         if numGroups == 0:
             stream << '0\n'
         else:
@@ -888,8 +878,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s\n' % numGroups
 
             for g in range(0, numGroups):
-                numLines = self.joncsDef_M.numRowsForConfig(g + 1)
-                values = self.joncsDef_M.getRow(g + 1, 1)
+                numLines = self.joncs_def_m.numRowsForConfig(g + 1)
+                values = self.joncs_def_m.getRow(g + 1, 1)
                 scheme = values(ProcessorModel.JoncsDefModel.TypeCol)
 
                 stream << '%s' % (g + 1)
@@ -897,7 +887,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 stream << '%s\n' % numLines
 
                 for l in range(0, numLines):
-                    values = self.joncsDef_M.getRow(g + 1, l + 1)
+                    values = self.joncs_def_m.getRow(g + 1, l + 1)
 
                     stream << '%s' % (l + 1)
                     stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.FirstRibCol))
@@ -929,7 +919,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       22. NOSE MYLARS DEFINITION\n'
         stream << separator
-        numGroups = self.noseMylars_M.numConfigs()
+        numGroups = self.nose_mylars_m.numConfigs()
         if numGroups == 0:
             stream << '0\n'
         else:
@@ -937,10 +927,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             stream << '%s\n' % numGroups
 
             for g in range(0, numGroups):
-                numLines = self.noseMylars_M.numRowsForConfig(g + 1)
+                numLines = self.nose_mylars_m.numRowsForConfig(g + 1)
 
                 for l in range(0, numLines):
-                    values = self.noseMylars_M.getRow(g + 1, l + 1)
+                    values = self.nose_mylars_m.getRow(g + 1, l + 1)
 
                     stream << '%s' % (l + 1)
                     stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.FirstRibCol))
@@ -963,14 +953,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       24. GENERAL 2D DXF OPTIONS\n'
         stream << separator
-        if self.twoDDxf_M.isUsed() == False:
+        if self.two_d_dxf_m.isUsed() == False:
             stream << '0\n'
         else:
             stream << '1\n'
-            numLines = self.twoDDxf_M.numRowsForConfig(1)
+            numLines = self.two_d_dxf_m.numRowsForConfig(1)
 
             for l in range(0, numLines):
-                values = self.twoDDxf_M.getRow(1, l + 1)
+                values = self.two_d_dxf_m.getRow(1, l + 1)
 
                 for p in range(0, 3):
                     if p > 0:
@@ -985,19 +975,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       25. GENERAL 3D DXF OPTIONS\n'
         stream << separator
-        if self.threeDDxf_M.isUsed() == False:
+        if self.three_d_dxf_m.isUsed() == False:
             stream << '0\n'
         else:
             stream << '1\n'
             for l in range(0, 6):
-                values = self.threeDDxf_M.getRow(1, l + 1)
+                values = self.three_d_dxf_m.getRow(1, l + 1)
 
                 stream << '%s' % self.fh.chkStr(values(0))
                 stream << '\t%s' % self.fh.chkNum(values(2))
                 stream << '\t%s\n' % self.fh.chkStr(values(3))
 
             for l in range(6, 9):
-                values = self.threeDDxf_M.getRow(1, l + 1)
+                values = self.three_d_dxf_m.getRow(1, l + 1)
                 for p in range(0, 4):
                     if p > 0:
                         stream << '\t'
@@ -1165,9 +1155,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
                             stream << '\n'
 
         stream.flush()
-        outFile.close()
+        out_file.close()
 
-        if forProc == False:
+        if for_proc == False:
             # Then we need to set the right file version
             self.setFileVersion('3.10')
 

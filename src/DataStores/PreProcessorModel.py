@@ -42,7 +42,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
     '''
     __fileNamePath = ''
     '''
-    :attr: full path and name of the data file currently in use
+    :attr: Full path and name of the data file currently in use
     '''
     __fileVersion = ''
     '''
@@ -373,36 +373,26 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         :param for_proc: Set this to True if the file must be saved in the
                         directory where the PreProcessor resides.
         """
-
         separator = '***************************************************\n'
 
         logging.debug(self.__className+'.write_file')
 
+        if for_proc is True:
+            # Special file write into the directory where the
+            # PreProcessor resides
+            config_reader = ConfigReader()
+            file_path_name = os.path.join(config_reader
+                                          .get_pre_proc_directory(),
+                                          'pre-data.txt')
+        else:
+            file_path_name = self.get_file_name()
+
         # check if the file already exists
-        file_path_name = self.get_file_name()
         if os.path.isfile(file_path_name):
             # file exists -> delete it
             os.remove(file_path_name)
 
-        if for_proc is False:
-            # Regular file write into a file specified by the user
-            out_file = QFile(file_path_name)
-        else:
-            # Special file write into the directory where the
-            # PreProcessor resides
-            config = ConfigReader()
-            path_name = os.path.join(config.get_pre_proc_directory(),
-                                    'pre-data.txt')
-
-            # Delete old file first
-            if os.path.exists(path_name):
-                logging.debug(self.__className+'.write_file remove old file')
-                os.remove(path_name)
-            else:
-                logging.debug(self.__className
-                              + '.write_file no Proc file in place')
-
-            out_file = QFile(path_name)
+        out_file = QFile(file_path_name)
 
         if not out_file.open(QFile.ReadWrite | QFile.Text):
             logging.error(self.__className+'.write_file '
