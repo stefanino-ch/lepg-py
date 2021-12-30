@@ -33,6 +33,8 @@ lines.txt
 .pydevproject
 .pydevproject.bak
 /preTest.txt
+# PyCharm development environment
+/.idea
 
 # MAC specifics
 .DS_Store
