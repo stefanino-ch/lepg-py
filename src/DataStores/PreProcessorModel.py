@@ -376,6 +376,17 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         separator = '***************************************************\n'
 
         logging.debug(self.__className+'.write_file')
+        # TODO: check also processor code for wrong deletion ...
+
+        if for_proc is True:
+            # Special file write into the directory where the
+            # PreProcessor resides
+            config_reader = ConfigReader()
+            file_path_name = os.path.join(config_reader
+                                          .get_pre_proc_directory(),
+                                          'pre-data.txt')
+        else:
+            file_path_name = self.get_file_name()
 
         if for_proc is True:
             # Special file write into the directory where the
