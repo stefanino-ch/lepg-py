@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class CalageVar(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class CalageVar(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.calageVar_M = ProcessorModel.CalageVarModel()
+        self.calageVar_M = ProcModel.CalageVarModel()
         self.calageVar_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
@@ -87,7 +87,7 @@ class CalageVar(QMdiSubWindow):
         one_T.verticalHeader().setVisible(False)
         one_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         one_T.hideColumn( 0 )
-        for i in range (ProcessorModel.CalageVarModel.PosACol, ProcessorModel.CalageVarModel.NumPosStepsCol+1):
+        for i in range (ProcModel.CalageVarModel.PosACol, ProcModel.CalageVarModel.NumPosStepsCol + 1):
             one_T.hideColumn( i )
         one_T.hideColumn( self.calageVar_M.columnCount()-2 )
         one_T.hideColumn( self.calageVar_M.columnCount()-1 )
@@ -99,18 +99,18 @@ class CalageVar(QMdiSubWindow):
         oneT_Lo.addStretch()
         self.windowLayout.addLayout(oneT_Lo)
         
-        one_T.enableIntValidator(ProcessorModel.CalageVarModel.NumRisersCol, ProcessorModel.CalageVarModel.NumRisersCol, 2, 6)
+        one_T.enableIntValidator(ProcModel.CalageVarModel.NumRisersCol, ProcModel.CalageVarModel.NumRisersCol, 2, 6)
 
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.CalageVarModel.NumRisersCol, _('CalageVar-NumRisersDesc'))
+        one_T.setHelpText(ProcModel.CalageVarModel.NumRisersCol, _('CalageVar-NumRisersDesc'))
 
         two_T = TableView()
         two_T.setModel( self.calageVar_M )
         two_T.verticalHeader().setVisible(False)
         two_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        for i in range (0, ProcessorModel.CalageVarModel.NumRisersCol+1):
+        for i in range (0, ProcModel.CalageVarModel.NumRisersCol + 1):
             two_T.hideColumn( i )
-        for i in range (ProcessorModel.CalageVarModel.MaxNegAngCol, ProcessorModel.CalageVarModel.NumPosStepsCol+1):
+        for i in range (ProcModel.CalageVarModel.MaxNegAngCol, ProcModel.CalageVarModel.NumPosStepsCol + 1):
             two_T.hideColumn( i )
         two_T.hideColumn( self.calageVar_M.columnCount()-2 )
         two_T.hideColumn( self.calageVar_M.columnCount()-1 )
@@ -120,21 +120,21 @@ class CalageVar(QMdiSubWindow):
         twoT_Lo.addWidget(two_T)
         self.windowLayout.addLayout(twoT_Lo)
         
-        two_T.enableDoubleValidator(ProcessorModel.CalageVarModel.PosACol, ProcessorModel.CalageVarModel.PosFCol, 0, 100, 2)
+        two_T.enableDoubleValidator(ProcModel.CalageVarModel.PosACol, ProcModel.CalageVarModel.PosFCol, 0, 100, 2)
 
         two_T.setHelpBar(self.helpBar)
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosACol, _('CalageVar-PosADesc'))
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosBCol, _('CalageVar-PosBDesc'))
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosCCol, _('CalageVar-PosCDesc'))
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosDCol, _('CalageVar-PosDDesc'))
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosECol, _('CalageVar-PosEDesc'))
-        two_T.setHelpText(ProcessorModel.CalageVarModel.PosFCol, _('CalageVar-PosFDesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosACol, _('CalageVar-PosADesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosBCol, _('CalageVar-PosBDesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosCCol, _('CalageVar-PosCDesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosDCol, _('CalageVar-PosDDesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosECol, _('CalageVar-PosEDesc'))
+        two_T.setHelpText(ProcModel.CalageVarModel.PosFCol, _('CalageVar-PosFDesc'))
 
         three_T = TableView()
         three_T.setModel( self.calageVar_M )
         three_T.verticalHeader().setVisible(False)
         three_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        for i in range (0, ProcessorModel.CalageVarModel.PosFCol+1):
+        for i in range (0, ProcModel.CalageVarModel.PosFCol + 1):
             three_T.hideColumn( i )
         three_T.hideColumn( self.calageVar_M.columnCount()-2 )
         three_T.hideColumn( self.calageVar_M.columnCount()-1 )
@@ -144,16 +144,16 @@ class CalageVar(QMdiSubWindow):
         threeT_Lo.addWidget(three_T)
         self.windowLayout.addLayout(threeT_Lo)
 
-        three_T.enableDoubleValidator(ProcessorModel.CalageVarModel.MaxNegAngCol, ProcessorModel.CalageVarModel.MaxNegAngCol, -45, 0, 2)
-        three_T.enableIntValidator(ProcessorModel.CalageVarModel.NumNegStepsCol, ProcessorModel.CalageVarModel.NumNegStepsCol, 1, 100)
-        three_T.enableDoubleValidator(ProcessorModel.CalageVarModel.MaxPosAngCol, ProcessorModel.CalageVarModel.MaxPosAngCol, 0, 45, 2)
-        three_T.enableIntValidator(ProcessorModel.CalageVarModel.NumPosStepsCol, ProcessorModel.CalageVarModel.NumPosStepsCol, 1, 100)
+        three_T.enableDoubleValidator(ProcModel.CalageVarModel.MaxNegAngCol, ProcModel.CalageVarModel.MaxNegAngCol, -45, 0, 2)
+        three_T.enableIntValidator(ProcModel.CalageVarModel.NumNegStepsCol, ProcModel.CalageVarModel.NumNegStepsCol, 1, 100)
+        three_T.enableDoubleValidator(ProcModel.CalageVarModel.MaxPosAngCol, ProcModel.CalageVarModel.MaxPosAngCol, 0, 45, 2)
+        three_T.enableIntValidator(ProcModel.CalageVarModel.NumPosStepsCol, ProcModel.CalageVarModel.NumPosStepsCol, 1, 100)
 
         three_T.setHelpBar(self.helpBar)
-        three_T.setHelpText(ProcessorModel.CalageVarModel.MaxNegAngCol, _('CalageVar-MaxNegAngDesc'))
-        three_T.setHelpText(ProcessorModel.CalageVarModel.NumNegStepsCol, _('CalageVar-NumNegStepsDesc'))
-        three_T.setHelpText(ProcessorModel.CalageVarModel.MaxPosAngCol, _('CalageVar-MaxPosAngDesc'))
-        three_T.setHelpText(ProcessorModel.CalageVarModel.NumPosStepsCol, _('CalageVar-NumPosStepsDesc'))
+        three_T.setHelpText(ProcModel.CalageVarModel.MaxNegAngCol, _('CalageVar-MaxNegAngDesc'))
+        three_T.setHelpText(ProcModel.CalageVarModel.NumNegStepsCol, _('CalageVar-NumNegStepsDesc'))
+        three_T.setHelpText(ProcModel.CalageVarModel.MaxPosAngCol, _('CalageVar-MaxPosAngDesc'))
+        three_T.setHelpText(ProcModel.CalageVarModel.NumPosStepsCol, _('CalageVar-NumPosStepsDesc'))
 
         self.usageUpdate()
         

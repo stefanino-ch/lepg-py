@@ -5,7 +5,7 @@
 
 import logging
 
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QMdiSubWindow,
@@ -41,7 +41,7 @@ class AddRibPoints(QMdiSubWindow):
         logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.addRibPts_M = ProcessorModel.AddRibPointsModel()
+        self.addRibPts_M = ProcModel.AddRibPointsModel()
         self.addRibPts_M.numRowsForConfigChanged.connect(self.modelSizeChanged)
         self.buildWindow()
 
@@ -116,19 +116,19 @@ class AddRibPoints(QMdiSubWindow):
         ribs_T.hideColumn(self.addRibPts_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_T)
 
-        ribs_T.enableIntValidator(ProcessorModel.AddRibPointsModel.OrderNumCol,
-                                  ProcessorModel.AddRibPointsModel.OrderNumCol,
+        ribs_T.enableIntValidator(ProcModel.AddRibPointsModel.OrderNumCol,
+                                  ProcModel.AddRibPointsModel.OrderNumCol,
                                   1, 999)
-        ribs_T.enableDoubleValidator(ProcessorModel.AddRibPointsModel.XCoordCol,
-                                     ProcessorModel.AddRibPointsModel.YCoordCol,
+        ribs_T.enableDoubleValidator(ProcModel.AddRibPointsModel.XCoordCol,
+                                     ProcModel.AddRibPointsModel.YCoordCol,
                                      1, 100, 2)
 
         ribs_T.setHelpBar(self.helpBar)
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.OrderNumCol,
+        ribs_T.setHelpText(ProcModel.AddRibPointsModel.OrderNumCol,
                            _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.XCoordCol,
+        ribs_T.setHelpText(ProcModel.AddRibPointsModel.XCoordCol,
                            _('AddRibPts-XCoordDesc'))
-        ribs_T.setHelpText(ProcessorModel.AddRibPointsModel.YCoordCol,
+        ribs_T.setHelpText(ProcModel.AddRibPointsModel.YCoordCol,
                            _('AddRibPts-YCoordDesc'))
 
         sortBtn = QPushButton(_('Sort by order_num'))
@@ -182,7 +182,7 @@ class AddRibPoints(QMdiSubWindow):
         """
         logging.debug(self.__className + '.sortBtnPress')
 
-        self.proxyModel.sort(ProcessorModel.AddRibPointsModel.OrderNumCol,
+        self.proxyModel.sort(ProcModel.AddRibPointsModel.OrderNumCol,
                              Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 

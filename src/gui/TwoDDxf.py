@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QH
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class TwoDDxfModel(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class TwoDDxfModel(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.twoDDxf_M = ProcessorModel.TwoDDxfModel()
+        self.twoDDxf_M = ProcModel.TwoDDxfModel()
         self.twoDDxf_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
@@ -91,14 +91,14 @@ class TwoDDxfModel(QMdiSubWindow):
         one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + 6*one_T.rowHeight(0))
         self.windowLayout.addWidget(one_T)
          
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
-        one_T.enableIntValidator(ProcessorModel.TwoDDxfModel.ColorCodeCol, ProcessorModel.TwoDDxfModel.ColorCodeCol, 0, 255)
-        one_T.enableRegExpValidator(ProcessorModel.TwoDDxfModel.LineNameCol, ProcessorModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableRegExpValidator(ProcModel.TwoDDxfModel.LineNameCol, ProcModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableIntValidator(ProcModel.TwoDDxfModel.ColorCodeCol, ProcModel.TwoDDxfModel.ColorCodeCol, 0, 255)
+        one_T.enableRegExpValidator(ProcModel.TwoDDxfModel.LineNameCol, ProcModel.TwoDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.LineNameCol, _('TwoDDxf-LineNameDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorCodeCol, _('TwoDDxf-ColorCodeDesc'))
-        one_T.setHelpText(ProcessorModel.TwoDDxfModel.ColorNameCol, _('TwoDDxf-ColorNameDesc'))
+        one_T.setHelpText(ProcModel.TwoDDxfModel.LineNameCol, _('TwoDDxf-LineNameDesc'))
+        one_T.setHelpText(ProcModel.TwoDDxfModel.ColorCodeCol, _('TwoDDxf-ColorCodeDesc'))
+        one_T.setHelpText(ProcModel.TwoDDxfModel.ColorNameCol, _('TwoDDxf-ColorNameDesc'))
         
         self.usageUpdate()
         

@@ -20,8 +20,8 @@ from __init__ import __version__
 from VersionCheck.VersionCheck import VersionCheck
 
 from ConfigReader.ConfigReader import ConfigReader
-from DataStores.PreProcessorModel import PreProcessorModel
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.PreProcModel import PreProcModel
+from DataStores.ProcModel import ProcModel
 
 from gui.DataStatusOverview import DataStatusOverview
 from gui.PreProcData import PreProcData
@@ -125,9 +125,9 @@ class MainWindow(QMainWindow):
                                           languages=['en'])
             lang_en.install()
 
-        self.ppm = PreProcessorModel()
+        self.ppm = PreProcModel()
 
-        self.pm = ProcessorModel()
+        self.pm = ProcModel()
 
         self.dws = DataWindowStatus()
 
@@ -561,28 +561,28 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor* ->
                  *Import Pre-Proc File*
         """
-        self.pm.importPreProcFile()
+        self.pm.import_pre_proc_file()
 
     def proc_open_file(self):
         """
         :method: Called if the user selects *Processor*
                  -> *Open Processor File*
         """
-        self.pm.openFile()
+        self.pm.open_file()
 
     def proc_save_file(self):
         """
         :method: Called if the user selects *Processor*
                  -> *Save Processor File*
         """
-        self.pm.saveFile()
+        self.pm.save_file()
 
     def proc_save_file_as(self):
         """
         :method: Called if the user selects *Processor*
                  -> *Save Processor File As…*
         """
-        self.pm.saveFileAs()
+        self.pm.save_file_as()
 
     def proc_basic_data_edit(self):
         """
@@ -823,7 +823,7 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.proc_run')
 
         # Save current file into processor directory
-        self.pm.writeFile(True)
+        self.pm.write_file(True)
 
         # Open the window for the user info
         if self.dws.windowExists('ProcessorOutput') is False:

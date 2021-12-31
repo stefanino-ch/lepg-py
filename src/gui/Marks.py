@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class Marks(QMdiSubWindow):
     '''
@@ -27,7 +27,7 @@ class Marks(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.marks_M = ProcessorModel.MarksModel()
+        self.marks_M = ProcModel.MarksModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -71,11 +71,11 @@ class Marks(QMdiSubWindow):
         marks_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         marks_T.setHelpBar(self.helpBar)
         
-        marks_T.setHelpText(ProcessorModel.MarksModel.MarksSpCol, _('Marks-MarksSpacingDesc'))
-        marks_T.setHelpText(ProcessorModel.MarksModel.PointRadCol, _('Marks-PointRadiusDesc'))
-        marks_T.setHelpText(ProcessorModel.MarksModel.PointDisplCol, _('Marks-PointsDisplacementDesc'))
+        marks_T.setHelpText(ProcModel.MarksModel.MarksSpCol, _('Marks-MarksSpacingDesc'))
+        marks_T.setHelpText(ProcModel.MarksModel.PointRadCol, _('Marks-PointRadiusDesc'))
+        marks_T.setHelpText(ProcModel.MarksModel.PointDisplCol, _('Marks-PointsDisplacementDesc'))
 
-        marks_T.enableDoubleValidator(ProcessorModel.MarksModel.MarksSpCol, ProcessorModel.MarksModel.PointDisplCol, 0, 10, 2)
+        marks_T.enableDoubleValidator(ProcModel.MarksModel.MarksSpCol, ProcModel.MarksModel.PointDisplCol, 0, 10, 2)
         
         marks_T.setFixedHeight(2 + marks_T.horizontalHeader().height() + marks_T.rowHeight(0))
 

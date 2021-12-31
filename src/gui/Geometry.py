@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 
 class Geometry(QMdiSubWindow):
@@ -30,7 +30,7 @@ class Geometry(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
-        self.rib_M = ProcessorModel.RibModel()
+        self.rib_M = ProcModel.RibModel()
         self.buildWindow()
 
     def closeEvent(self, event):  # @UnusedVariable
@@ -80,58 +80,58 @@ class Geometry(QMdiSubWindow):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
 
-        self.table.setHelpText(ProcessorModel.RibModel.RibNumCol,
+        self.table.setHelpText(ProcModel.RibModel.RibNumCol,
                                _('Proc-RibNumDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.xribCol,
+        self.table.setHelpText(ProcModel.RibModel.xribCol,
                                _('Proc-xribDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.yLECol,
+        self.table.setHelpText(ProcModel.RibModel.yLECol,
                                _('Proc-yLEDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.yTECol,
+        self.table.setHelpText(ProcModel.RibModel.yTECol,
                                _('Proc-yTEDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.xpCol,
+        self.table.setHelpText(ProcModel.RibModel.xpCol,
                                _('Proc-xpDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.zCol,
+        self.table.setHelpText(ProcModel.RibModel.zCol,
                                _('Proc-zDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.betaCol,
+        self.table.setHelpText(ProcModel.RibModel.betaCol,
                                _('Proc-betaDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.RPCol,
+        self.table.setHelpText(ProcModel.RibModel.RPCol,
                                _('Proc-RPDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.WashinCol,
+        self.table.setHelpText(ProcModel.RibModel.WashinCol,
                                _('Proc-WashinDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.RotZCol,
+        self.table.setHelpText(ProcModel.RibModel.RotZCol,
                                _('Proc-RotZDesc'))
-        self.table.setHelpText(ProcessorModel.RibModel.PosZCol,
+        self.table.setHelpText(ProcModel.RibModel.PosZCol,
                                _('Proc-PosZDesc'))
 
-        self.table.enableIntValidator(ProcessorModel.RibModel.RibNumCol,
-                                      ProcessorModel.RibModel.RibNumCol,
+        self.table.enableIntValidator(ProcModel.RibModel.RibNumCol,
+                                      ProcModel.RibModel.RibNumCol,
                                       1, 999)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xribCol,
-                                         ProcessorModel.RibModel.xribCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.xribCol,
+                                         ProcModel.RibModel.xribCol,
                                          -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.yLECol,
-                                         ProcessorModel.RibModel.yTECol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.yLECol,
+                                         ProcModel.RibModel.yTECol,
                                          -500, 1000, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.xpCol,
-                                         ProcessorModel.RibModel.xpCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.xpCol,
+                                         ProcModel.RibModel.xpCol,
                                          -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.zCol,
-                                         ProcessorModel.RibModel.zCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.zCol,
+                                         ProcModel.RibModel.zCol,
                                          -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.betaCol,
-                                         ProcessorModel.RibModel.betaCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.betaCol,
+                                         ProcModel.RibModel.betaCol,
                                          0, 105, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.RPCol,
-                                         ProcessorModel.RibModel.RPCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.RPCol,
+                                         ProcModel.RibModel.RPCol,
                                          0, 100, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.WashinCol,
-                                         ProcessorModel.RibModel.WashinCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.WashinCol,
+                                         ProcModel.RibModel.WashinCol,
                                          -45, 45, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.RotZCol,
-                                         ProcessorModel.RibModel.RotZCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.RotZCol,
+                                         ProcModel.RibModel.RotZCol,
                                          -45, 45, 3)
-        self.table.enableDoubleValidator(ProcessorModel.RibModel.PosZCol,
-                                         ProcessorModel.RibModel.PosZCol,
+        self.table.enableDoubleValidator(ProcModel.RibModel.PosZCol,
+                                         ProcModel.RibModel.PosZCol,
                                          0, 100, 3)
 
         self.windowLayout.addWidget(self.table)
@@ -164,7 +164,7 @@ class Geometry(QMdiSubWindow):
         : method : handles the sort of the table by rib number
         '''
         logging.debug(self.__className+'.sortBtnPress')
-        self.rib_M.sortTable(ProcessorModel.RibModel.RibNumCol,
+        self.rib_M.sortTable(ProcModel.RibModel.RibNumCol,
                              Qt.AscendingOrder)
 
     def btnPress(self, q):

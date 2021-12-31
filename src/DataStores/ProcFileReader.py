@@ -9,7 +9,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, QFile, QTextStream
 from PyQt5.QtWidgets import QTextEdit
 
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 from DataStores.FileHelpers import FileHelpers
 
 
@@ -53,45 +53,45 @@ class ProcFileReader(QObject):
 
         self.fh = FileHelpers()
 
-        self.rib_M = ProcessorModel.RibModel()
-        self.wing_M = ProcessorModel.WingModel()
-        self.airf_M = ProcessorModel.AirfoilsModel()
-        self.anchPoints_M = ProcessorModel.AnchorPointsModel()
-        self.lightC_M = ProcessorModel.LightConfModel()
-        self.lightD_M = ProcessorModel.LightDetModel()
-        self.skinTens_M = ProcessorModel.SkinTensionModel()
-        self.skinTensParams_M = ProcessorModel.SkinTensionParamsModel()
-        self.sewAll_M = ProcessorModel.SewingAllowancesModel()
-        self.marks_M = ProcessorModel.MarksModel()
-        self.globAoA_M = ProcessorModel.GlobAoAModel()
-        self.lines_M = ProcessorModel.LinesModel()
-        self.brakes_M = ProcessorModel.BrakesModel()
-        self.brakeL_M = ProcessorModel.BrakeLengthModel()
-        self.ramif_M = ProcessorModel.RamificationModel()
-        self.hVvHRibs_M = ProcessorModel.HvVhRibsModel()
-        self.extradColsConf_M = ProcessorModel.ExtradColsConfModel()
-        self.extradColsDet_M = ProcessorModel.ExtradColsDetModel()
-        self.intradColsConf_M = ProcessorModel.IntradColsConfModel()
-        self.intradColsDet_M = ProcessorModel.IntradColsDetModel()
-        self.addRibPts_M = ProcessorModel.AddRibPointsModel()
-        self.elLinesCorr_M = ProcessorModel.ElasticLinesCorrModel()
-        self.elLinesDef_M = ProcessorModel.ElasticLinesDefModel()
-        self.dxfLayNames_M = ProcessorModel.DxfLayerNamesModel()
-        self.marksT_M = ProcessorModel.MarksTypesModel()
-        self.joncsDef_M = ProcessorModel.JoncsDefModel()
-        self.noseMylars_M = ProcessorModel.NoseMylarsModel()
-        self.twoDDxf_M = ProcessorModel.TwoDDxfModel()
-        self.threeDDxf_M = ProcessorModel.ThreeDDxfModel()
-        self.glueVent_M = ProcessorModel.GlueVentModel()
-        self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
-        self.calageVar_M = ProcessorModel.CalageVarModel()
-        self.threeDShConf_M = ProcessorModel.ThreeDShConfModel()
-        self.threeDShUpDet_M = ProcessorModel.ThreeDShUpDetModel()
-        self.threeDShLoDet_M = ProcessorModel.ThreeDShLoDetModel()
-        self.threeDShPr_M = ProcessorModel.ThreeDShPrintModel()
-        self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
-        self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
-        self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
+        self.rib_M = ProcModel.RibModel()
+        self.wing_M = ProcModel.WingModel()
+        self.airf_M = ProcModel.AirfoilsModel()
+        self.anchPoints_M = ProcModel.AnchorPointsModel()
+        self.lightC_M = ProcModel.LightConfModel()
+        self.lightD_M = ProcModel.LightDetModel()
+        self.skinTens_M = ProcModel.SkinTensionModel()
+        self.skinTensParams_M = ProcModel.SkinTensionParamsModel()
+        self.sewAll_M = ProcModel.SewingAllowancesModel()
+        self.marks_M = ProcModel.MarksModel()
+        self.globAoA_M = ProcModel.GlobAoAModel()
+        self.lines_M = ProcModel.LinesModel()
+        self.brakes_M = ProcModel.BrakesModel()
+        self.brakeL_M = ProcModel.BrakeLengthModel()
+        self.ramif_M = ProcModel.RamificationModel()
+        self.hVvHRibs_M = ProcModel.HvVhRibsModel()
+        self.extradColsConf_M = ProcModel.ExtradosColConfModel()
+        self.extradColsDet_M = ProcModel.ExtradosColDetModel()
+        self.intradColsConf_M = ProcModel.IntradosColsConfModel()
+        self.intradColsDet_M = ProcModel.IntradosColsDetModel()
+        self.addRibPts_M = ProcModel.AddRibPointsModel()
+        self.elLinesCorr_M = ProcModel.ElLinesCorrModel()
+        self.elLinesDef_M = ProcModel.ElLinesDefModel()
+        self.dxfLayNames_M = ProcModel.DxfLayerNamesModel()
+        self.marksT_M = ProcModel.MarksTypesModel()
+        self.joncsDef_M = ProcModel.JoncsDefModel()
+        self.noseMylars_M = ProcModel.NoseMylarsModel()
+        self.twoDDxf_M = ProcModel.TwoDDxfModel()
+        self.threeDDxf_M = ProcModel.ThreeDDxfModel()
+        self.glueVent_M = ProcModel.GlueVentModel()
+        self.specWingTyp_M = ProcModel.SpecWingTipModel()
+        self.calageVar_M = ProcModel.CalageVarModel()
+        self.threeDShConf_M = ProcModel.ThreeDShConfModel()
+        self.threeDShUpDet_M = ProcModel.ThreeDShUpDetModel()
+        self.threeDShLoDet_M = ProcModel.ThreeDShLoDetModel()
+        self.threeDShPr_M = ProcModel.ThreeDShPrintModel()
+        self.airfThick_M = ProcModel.AirfoilThicknessModel()
+        self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
+        self.newSkinTensDet_M = ProcModel.NewSkinTensDetModel()
 
     def setFilePathName(self, fileNamePath):
         '''
@@ -129,84 +129,84 @@ class ProcFileReader(QObject):
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.BrandNameCol),
+                self.wing_M.index(0, ProcModel.WingModel.BrandNameCol),
                 self.fh.remTabSpaceQuot(line))
 
         # Wing name
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.WingNameCol),
+                self.wing_M.index(0, ProcModel.WingModel.WingNameCol),
                 self.fh.remTabSpaceQuot(line))
 
         # Draw scale
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.DrawScaleCol),
+                self.wing_M.index(0, ProcModel.WingModel.DrawScaleCol),
                 self.fh.remTabSpace(line))
 
         # Wing scale
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.WingScaleCol),
+                self.wing_M.index(0, ProcModel.WingModel.WingScaleCol),
                 self.fh.remTabSpace(line))
 
         # Number of cells
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.NumCellsCol),
+                self.wing_M.index(0, ProcModel.WingModel.NumCellsCol),
                 self.fh.remTabSpace(line))
 
         # Number of Ribs
         line = stream.readLine()
         line = stream.readLine()
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.NumRibsCol),
+                self.wing_M.index(0, ProcModel.WingModel.NumRibsCol),
                 self.fh.remTabSpace(line))
 
         # Alpha max and parameter
         line = stream.readLine()
         values = self.fh.splitLine(stream.readLine())
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxTipCol),
+                self.wing_M.index(0, ProcModel.WingModel.AlphaMaxTipCol),
                 values[0])
         try:
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol),
+                self.wing_M.index(0, ProcModel.WingModel.AlphaModeCol),
                 values[1])
         except:
             # in case of an empty file values[1] is missing
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.AlphaModeCol),
+                self.wing_M.index(0, ProcModel.WingModel.AlphaModeCol),
                 '')
             logging.error(self.__className+'.read_file: AlphaMode missing')
 
         if len(values) > 2:
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol),
+                self.wing_M.index(0, ProcModel.WingModel.AlphaMaxCentCol),
                 values[2])
         else:
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.AlphaMaxCentCol),
+                self.wing_M.index(0, ProcModel.WingModel.AlphaMaxCentCol),
                 '')
 
         # Paraglider type and parameter
         line = stream.readLine()
         values = self.fh.splitLine(stream.readLine())
         self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.ParaTypeCol),
+                self.wing_M.index(0, ProcModel.WingModel.ParaTypeCol),
                 self.fh.remTabSpaceQuot(values[0]))
         try:
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol),
+                self.wing_M.index(0, ProcModel.WingModel.ParaParamCol),
                 values[1])
         except:
             # in case of an empty file values[1] is missing
             self.wing_M.setData(
-                self.wing_M.index(0, ProcessorModel.WingModel.ParaParamCol),
+                self.wing_M.index(0, ProcModel.WingModel.ParaParamCol),
                 '')
             logging.error(self.__className+'.read_file: ParaParam missing')
 
@@ -306,17 +306,17 @@ class ProcFileReader(QObject):
         self.skinTensParams_M.setData(
             self.skinTensParams_M.index(
                 0,
-                ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol), val)
+                ProcModel.SkinTensionParamsModel.StrainMiniRibsCol), val)
 
         values = self.fh.splitLine(stream.readLine())
         self.skinTensParams_M.setData(
             self.skinTensParams_M.index(
                 0,
-                ProcessorModel.SkinTensionParamsModel.NumPointsCol), values[0])
+                ProcModel.SkinTensionParamsModel.NumPointsCol), values[0])
         self.skinTensParams_M.setData(
             self.skinTensParams_M.index(
                 0,
-                ProcessorModel.SkinTensionParamsModel.CoeffCol), values[1])
+                ProcModel.SkinTensionParamsModel.CoeffCol), values[1])
 
         ##############################
         # 6. SEWING ALLOWANCES
@@ -374,37 +374,37 @@ class ProcFileReader(QObject):
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.FinesseCol),
+                                 ProcModel.GlobAoAModel.FinesseCol),
             self.fh.remTabSpace(stream.readLine()))
 
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.CentOfPressCol),
+                                 ProcModel.GlobAoAModel.CentOfPressCol),
             self.fh.remTabSpace(stream.readLine()))
 
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.CalageCol),
+                                 ProcModel.GlobAoAModel.CalageCol),
             self.fh.remTabSpace(stream.readLine()))
 
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.RisersCol),
+                                 ProcModel.GlobAoAModel.RisersCol),
             self.fh.remTabSpace(stream.readLine()))
 
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.LinesCol),
+                                 ProcModel.GlobAoAModel.LinesCol),
             self.fh.remTabSpace(stream.readLine()))
 
         line = stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 ProcessorModel.GlobAoAModel.KarabinersCol),
+                                 ProcModel.GlobAoAModel.KarabinersCol),
             self.fh.remTabSpace(stream.readLine()))
 
         ##############################
@@ -416,7 +416,7 @@ class ProcFileReader(QObject):
 
         self.wing_M.setData(
             self.wing_M.index(0,
-                              ProcessorModel.WingModel.LinesConcTypeCol),
+                              ProcModel.WingModel.LinesConcTypeCol),
             self.fh.remTabSpace(stream.readLine()))
 
         numConfigs = int(self.fh.remTabSpace(stream.readLine()))
@@ -450,7 +450,7 @@ class ProcFileReader(QObject):
 
         self.wing_M.setData(
             self.wing_M.index(0,
-                              ProcessorModel.WingModel.BrakeLengthCol),
+                              ProcModel.WingModel.BrakeLengthCol),
             self.fh.remTabSpace(stream.readLine()))
 
         # delete existing data
@@ -547,11 +547,11 @@ class ProcFileReader(QObject):
         numConfigLines = int(self.fh.remTabSpace( stream.readLine() ) )
         
         values =  self.fh.splitLine( stream.readLine() )
-        self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.xSpacingCol ), values[0] )
+        self.wing_M.setData(self.wing_M.index(0, ProcModel.WingModel.xSpacingCol), values[0])
         try:
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.ySpacingCol ), values[1] )
+            self.wing_M.setData(self.wing_M.index(0, ProcModel.WingModel.ySpacingCol), values[1])
         except:
-            self.wing_M.setData(self.wing_M.index(0, ProcessorModel.WingModel.ySpacingCol ), 0 )
+            self.wing_M.setData(self.wing_M.index(0, ProcModel.WingModel.ySpacingCol), 0)
             logging.error(self.__className+'.read_file: H V and VH ribs data missing')
         
         # delete existing data
@@ -654,68 +654,68 @@ class ProcFileReader(QObject):
         for i in range(3):
             line = stream.readLine()
         
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.LoadCol), self.fh.remTabSpace(stream.readLine()))
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.LoadCol), self.fh.remTabSpace(stream.readLine()))
         
         values =  self.fh.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.TwoLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.TwoLineDistACol), values[0])
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.TwoLineDistBCol), values[1] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.TwoLineDistBCol), values[1])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.TwoLineDistBCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.TwoLineDistBCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         
         values =  self.fh.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.ThreeLineDistACol), values[0])
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistBCol), values[1] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.ThreeLineDistBCol), values[1])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistBCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.ThreeLineDistBCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistCCol), values[2] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.ThreeLineDistCCol), values[2])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistCCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.ThreeLineDistCCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
 
         values =  self.fh.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistACol), values[0])
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistBCol), values[1] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistBCol), values[1])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistBCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistBCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModelFourLineDistCCol), values[2] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElasticLinesCorrModelFourLineDistCCol), values[2])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistCCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistCCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistDCol), values[3] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistDCol), values[3])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FourLineDistDCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FourLineDistDCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         
         values =  self.fh.splitLine( stream.readLine() )
-        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistACol), values[0] )
+        self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistACol), values[0])
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistBCol), values[1] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistBCol), values[1])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistBCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistBCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistCCol), values[2] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistCCol), values[2])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistCCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistCCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistDCol), values[3] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistDCol), values[3])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistDCol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistDCol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
         try:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistECol), values[4] )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistECol), values[4])
         except:
-            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcessorModel.ElasticLinesCorrModel.FiveLineDistECol), 0 )
+            self.elLinesCorr_M.setData(self.elLinesCorr_M.index(0, ProcModel.ElLinesCorrModel.FiveLineDistECol), 0)
             logging.error(self.__className+'.read_file: Elastic lines corr data missing')
 
         for l in range (0,5):

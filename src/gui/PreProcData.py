@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.PreProcessorModel import PreProcessorModel
+from DataStores.PreProcModel import PreProcModel
 
 
 class PreProcData(QMdiSubWindow):
@@ -30,11 +30,11 @@ class PreProcData(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
-        self.gen_M = PreProcessorModel.GenModel()
-        self.leadingE_M = PreProcessorModel.LeadingEdgeModel()
-        self.trailingE_M = PreProcessorModel.TrailingEdgeModel()
+        self.gen_M = PreProcModel.GenModel()
+        self.leadingE_M = PreProcModel.LeadingEdgeModel()
+        self.trailingE_M = PreProcModel.TrailingEdgeModel()
 
-        self.vault_M = PreProcessorModel.VaultModel()
+        self.vault_M = PreProcModel.VaultModel()
         self.vault_M.didSelect.connect(self.vaultModelChange)
 
         self.buildWindow()
@@ -89,11 +89,11 @@ class PreProcData(QMdiSubWindow):
                                 + genTable.rowHeight(0))
         genTable.setHelpBar(self.helpBar)
 
-        genTable.setHelpText(PreProcessorModel.GenModel.WingNameCol,
+        genTable.setHelpText(PreProcModel.GenModel.WingNameCol,
                              _('PreProc-WingNameDesc'))
 
-        genTable.enableRegExpValidator(PreProcessorModel.GenModel.WingNameCol,
-                                       PreProcessorModel.GenModel.WingNameCol,
+        genTable.enableRegExpValidator(PreProcModel.GenModel.WingNameCol,
+                                       PreProcModel.GenModel.WingNameCol,
                                        "^[a-zA-Z0-9_.-]*$")
 
         gen_Ly = QHBoxLayout()
@@ -122,25 +122,25 @@ class PreProcData(QMdiSubWindow):
                                + leTable.rowHeight(0))
 
         leTable.setHelpBar(self.helpBar)
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.TypeCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.TypeCol,
                             _('PreProc-LE-Type-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.aOneCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.aOneCol,
                             _('PreProc-LE-a1-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.bOneCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.bOneCol,
                             _('PreProc-LE-b1-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.xOneCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.xOneCol,
                             _('PreProc-LE-x1-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.xTwoCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.xTwoCol,
                             _('PreProc-LE-x2-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.xmCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.xmCol,
                             _('PreProc-LE-xm-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.cZeroOneCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.cZeroOneCol,
                             _('PreProc-LE-c01-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.exOneCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.exOneCol,
                             _('PreProc-LE-ex1-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.cZeroTwoCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.cZeroTwoCol,
                             _('PreProc-LE-c02-Desc'))
-        leTable.setHelpText(PreProcessorModel.LeadingEdgeModel.exTwoCol,
+        leTable.setHelpText(PreProcModel.LeadingEdgeModel.exTwoCol,
                             _('PreProc-LE-ex2-Desc'))
 
         self.windowLayout.addWidget(le_L)
@@ -166,21 +166,21 @@ class PreProcData(QMdiSubWindow):
                                + teTable.rowHeight(0))
 
         teTable.setHelpBar(self.helpBar)
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.TypeCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.TypeCol,
                             _('PreProc-TE-Type-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.aOneCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.aOneCol,
                             _('PreProc-TE-a1-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.bOneCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.bOneCol,
                             _('PreProc-TE-b1-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.xOneCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.xOneCol,
                             _('PreProc-TE-x1-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.xmCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.xmCol,
                             _('PreProc-TE-xm-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.cZeroCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.cZeroCol,
                             _('PreProc-TE-c0-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.yZeroCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.yZeroCol,
                             _('PreProc-TE-y0-Desc'))
-        teTable.setHelpText(PreProcessorModel.TrailingEdgeModel.expCol,
+        teTable.setHelpText(PreProcModel.TrailingEdgeModel.expCol,
                             _('PreProc-TE-exp-Desc'))
 
         self.windowLayout.addWidget(te_L)
@@ -212,34 +212,34 @@ class PreProcData(QMdiSubWindow):
                                        + self.vaultTable.rowHeight(0))
 
         self.vaultTable.setHelpBar(self.helpBar)
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aOneCol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.aOneCol,
                                     _('PreProc-Vault-a1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.bOneCol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.bOneCol,
                                     _('PreProc-Vault-b1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.xOneCol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.xOneCol,
                                     _('PreProc-Vault-x1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.cOneCol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.cOneCol,
                                     _('PreProc-Vault-c1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rOneRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.rOneRACol,
                                     _('PreProc-Vault-r1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rTwoRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.rTwoRACol,
                                     _('PreProc-Vault-r2-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rThrRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.rThrRACol,
                                     _('PreProc-Vault-r3-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.rFouRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.rFouRACol,
                                     _('PreProc-Vault-r4-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aOneRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.aOneRACol,
                                     _('PreProc-Vault-ra1-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aTwoRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.aTwoRACol,
                                     _('PreProc-Vault-ra2-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aThrRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.aThrRACol,
                                     _('PreProc-Vault-ra3-Desc'))
-        self.vaultTable.setHelpText(PreProcessorModel.VaultModel.aFouRACol,
+        self.vaultTable.setHelpText(PreProcModel.VaultModel.aFouRACol,
                                     _('PreProc-Vault-ra4-Desc'))
 
         self.vaultTable.enableDoubleValidator(
-                            PreProcessorModel.VaultModel.aOneCol,
-                            PreProcessorModel.VaultModel.aFouRACol,
+                            PreProcModel.VaultModel.aOneCol,
+                            PreProcModel.VaultModel.aFouRACol,
                             0,
                             10000,
                             4)
@@ -310,12 +310,12 @@ class PreProcData(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.setTypeOneColumns')
 
-        for i in range(PreProcessorModel.VaultModel.aOneCol,
-                       PreProcessorModel.VaultModel.cOneCol+1):
+        for i in range(PreProcModel.VaultModel.aOneCol,
+                       PreProcModel.VaultModel.cOneCol + 1):
             self.vaultTable.showColumn(i)
 
-        for i in range(PreProcessorModel.VaultModel.rOneRACol,
-                       PreProcessorModel.VaultModel.aFouRACol+1):
+        for i in range(PreProcModel.VaultModel.rOneRACol,
+                       PreProcModel.VaultModel.aFouRACol + 1):
             self.vaultTable.hideColumn(i)
 
     def setTypeTwoColumns(self):
@@ -325,12 +325,12 @@ class PreProcData(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.setTypeTwoColumns')
 
-        for i in range(PreProcessorModel.VaultModel.aOneCol,
-                       PreProcessorModel.VaultModel.cOneCol+1):
+        for i in range(PreProcModel.VaultModel.aOneCol,
+                       PreProcModel.VaultModel.cOneCol + 1):
             self.vaultTable.hideColumn(i)
 
-        for i in range(PreProcessorModel.VaultModel.rOneRACol,
-                       PreProcessorModel.VaultModel.aFouRACol+1):
+        for i in range(PreProcModel.VaultModel.rOneRACol,
+                       PreProcModel.VaultModel.aFouRACol + 1):
             self.vaultTable.showColumn(i)
 
     def btnPress(self, q):

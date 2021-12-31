@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class JoncsDefinition(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class JoncsDefinition(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.joncsDef_M = ProcessorModel.JoncsDefModel()
+        self.joncsDef_M = ProcModel.JoncsDefModel()
         self.joncsDef_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
 
         self.type_CB = []        
@@ -242,7 +242,7 @@ class JoncsDefinition(QMdiSubWindow):
 
         self.proxyModel.append(QSortFilterProxyModel())
         self.proxyModel[currNumTabs].setSourceModel(self.joncsDef_M)
-        self.proxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.JoncsDefModel.ConfigNumCol)
+        self.proxyModel[currNumTabs].setFilterKeyColumn(ProcModel.JoncsDefModel.ConfigNumCol)
         self.proxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )        
         
         self.table.append(TableView())
@@ -255,29 +255,29 @@ class JoncsDefinition(QMdiSubWindow):
         
 
 # TODO: enable validators
-#         branchTable.enableIntValidator(ProcessorModel.LinesModel.OrderNumCol, ProcessorModel.LinesModel.OrderNumCol, 1, 999)
-#         branchTable.enableIntValidator(ProcessorModel.LinesModel.NumBranchesCol, ProcessorModel.LinesModel.NumBranchesCol, 1, 4)
-#         branchTable.enableIntValidator(ProcessorModel.LinesModel.BranchLvlOneCol, ProcessorModel.LinesModel.OrderLvlFourCol, 1, 99)
-#         branchTable.enableIntValidator(ProcessorModel.LinesModel.AnchorLineCol, ProcessorModel.LinesModel.AnchorLineCol, 1, 6)
-#         branchTable.enableIntValidator(ProcessorModel.LinesModel.AnchorRibNumCol, ProcessorModel.LinesModel.AnchorRibNumCol, 1, 999)
+#         branchTable.enableIntValidator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
+#         branchTable.enableIntValidator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
+#         branchTable.enableIntValidator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
+#         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
+#         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
 #         
         self.table[currNumTabs].setHelpBar(self.helpBar)
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.OrderNumCol, _('OrderNumDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.FirstRibCol , _('JoncsDef-FirstRibDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.LastRibCol , _('JoncsDef-LastRibDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pBACol , _('JoncsDef-pBADesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pBBCol , _('JoncsDef-pBBDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pBCCol , _('JoncsDef-pBCDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pBDCol , _('JoncsDef-pBDDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pBECol , _('JoncsDef-pBEDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pCACol , _('JoncsDef-pCADesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pCBCol , _('JoncsDef-pCBDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pCCCol , _('JoncsDef-pCCDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pCDCol , _('JoncsDef-pCDDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pDACol , _('JoncsDef-pDADesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pDBCol , _('JoncsDef-pDBDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pDCCol , _('JoncsDef-pDCDesc'))
-        self.table[currNumTabs].setHelpText(ProcessorModel.JoncsDefModel.pDDCol , _('JoncsDef-pDDDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol, _('OrderNumDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.FirstRibCol, _('JoncsDef-FirstRibDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.LastRibCol, _('JoncsDef-LastRibDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBACol, _('JoncsDef-pBADesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBBCol, _('JoncsDef-pBBDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBCCol, _('JoncsDef-pBCDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBDCol, _('JoncsDef-pBDDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBECol, _('JoncsDef-pBEDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCACol, _('JoncsDef-pCADesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCBCol, _('JoncsDef-pCBDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCCCol, _('JoncsDef-pCCDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCDCol, _('JoncsDef-pCDDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDACol, _('JoncsDef-pDADesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDBCol, _('JoncsDef-pDBDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDCCol, _('JoncsDef-pDCDesc'))
+        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDDCol, _('JoncsDef-pDDDesc'))
         
         tabWidget.setLayout(tabLayout)
  
@@ -352,26 +352,26 @@ class JoncsDefinition(QMdiSubWindow):
         :method: Enables disables table columns to be accurate for type one tables
         '''
         currTab = self.tabs.currentIndex()     
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pBECol )
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pBECol)
 
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCACol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCBCol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCCCol)
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pCDCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.TypeCol)
+        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCACol)
+        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCBCol)
+        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCCCol)
+        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCDCol)
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
         
     def setTypeTwoColumns(self):
         '''
         :method: Enables disables table columns to be accurate for type two tables
         '''
         currTab = self.tabs.currentIndex()
-        self.table[currTab].showColumn( ProcessorModel.JoncsDefModel.pBECol)
+        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pBECol)
 
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCACol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCBCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCCCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.pCDCol)
-        self.table[currTab].hideColumn( ProcessorModel.JoncsDefModel.TypeCol)  
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCACol)
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCBCol)
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCCCol)
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCDCol)
+        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
 
     def sortBtnPress(self):
         '''
@@ -381,7 +381,7 @@ class JoncsDefinition(QMdiSubWindow):
                 
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
-            self.proxyModel[currTab].sort(ProcessorModel.JoncsDefModel.OrderNumCol, Qt.AscendingOrder)
+            self.proxyModel[currTab].sort(ProcModel.JoncsDefModel.OrderNumCol, Qt.AscendingOrder)
             self.proxyModel[currTab].setDynamicSortFilter(False)
     
     def btnPress(self, q):

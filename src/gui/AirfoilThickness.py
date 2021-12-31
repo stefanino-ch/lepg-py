@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class AirfoilThickness(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class AirfoilThickness(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
+        self.airfThick_M = ProcModel.AirfoilThicknessModel()
         self.airfThick_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
@@ -88,12 +88,12 @@ class AirfoilThickness(QMdiSubWindow):
         one_T.hideColumn( self.airfThick_M.columnCount()-2 )
         self.windowLayout.addWidget(one_T)
         
-        one_T.enableIntValidator(ProcessorModel.AirfoilThicknessModel.OrderNumCol, ProcessorModel.AirfoilThicknessModel.OrderNumCol, 0, 999)
-        one_T.enableDoubleValidator(ProcessorModel.AirfoilThicknessModel.CoeffCol, ProcessorModel.AirfoilThicknessModel.CoeffCol, 0, 10, 1)
+        one_T.enableIntValidator(ProcModel.AirfoilThicknessModel.OrderNumCol, ProcModel.AirfoilThicknessModel.OrderNumCol, 0, 999)
+        one_T.enableDoubleValidator(ProcModel.AirfoilThicknessModel.CoeffCol, ProcModel.AirfoilThicknessModel.CoeffCol, 0, 10, 1)
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.AirfoilThicknessModel.OrderNumCol, _('AirfThick-RibNumDesc'))
-        one_T.setHelpText(ProcessorModel.AirfoilThicknessModel.CoeffCol, _('AirfThick-CoeffDesc'))
+        one_T.setHelpText(ProcModel.AirfoilThicknessModel.OrderNumCol, _('AirfThick-RibNumDesc'))
+        one_T.setHelpText(ProcModel.AirfoilThicknessModel.CoeffCol, _('AirfThick-CoeffDesc'))
 
         self.usageUpdate()
         

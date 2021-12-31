@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class RibHoles(QMdiSubWindow):
     '''
@@ -28,10 +28,10 @@ class RibHoles(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.lightC_M = ProcessorModel.LightConfModel()
+        self.lightC_M = ProcModel.LightConfModel()
         self.lightC_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
         
-        self.lightD_M = ProcessorModel.LightDetModel()
+        self.lightD_M = ProcModel.LightDetModel()
         self.lightD_M.numRowsForConfigChanged.connect(self.updateTabs)
         
         self.confProxyModel = []
@@ -179,7 +179,7 @@ class RibHoles(QMdiSubWindow):
         confTable = TableView()
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[currNumTabs].setSourceModel(self.lightC_M)
-        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.LightConfModel.ConfigNumCol)
+        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.LightConfModel.ConfigNumCol)
         self.confProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         confTable.setModel( self.confProxyModel[currNumTabs] )
         confTable.verticalHeader().setVisible(False)
@@ -187,17 +187,17 @@ class RibHoles(QMdiSubWindow):
         confTable.hideColumn(self.lightC_M.columnCount() -1 )
         confTable.hideColumn(self.lightC_M.columnCount() -2 )
         
-        confTable.enableIntValidator(ProcessorModel.LightConfModel.InitialRibCol, ProcessorModel.LightConfModel.FinalRibCol, 1, 999)
+        confTable.enableIntValidator(ProcModel.LightConfModel.InitialRibCol, ProcModel.LightConfModel.FinalRibCol, 1, 999)
         
         confTable.setHelpBar(self.helpBar)
-        confTable.setHelpText(ProcessorModel.LightConfModel.InitialRibCol, _('Proc-InitialRibDesc'))
-        confTable.setHelpText(ProcessorModel.LightConfModel.FinalRibCol, _('Proc-FinalRibDesc'))
+        confTable.setHelpText(ProcModel.LightConfModel.InitialRibCol, _('Proc-InitialRibDesc'))
+        confTable.setHelpText(ProcModel.LightConfModel.FinalRibCol, _('Proc-FinalRibDesc'))
         
         confLayout = QHBoxLayout()
         confLayout.addWidget(confTable)
         confLayout.addStretch()
-        confTable.setFixedWidth( 2 + confTable.columnWidth(ProcessorModel.LightConfModel.InitialRibCol) \
-                                 + confTable.columnWidth(ProcessorModel.LightConfModel.FinalRibCol) )
+        confTable.setFixedWidth(2 + confTable.columnWidth(ProcModel.LightConfModel.InitialRibCol) \
+                                + confTable.columnWidth(ProcModel.LightConfModel.FinalRibCol))
         confTable.setFixedHeight(2 + confTable.horizontalHeader().height() + confTable.rowHeight(0))
         tabLayout.addLayout(confLayout)
         
@@ -223,7 +223,7 @@ class RibHoles(QMdiSubWindow):
         detTable = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[currNumTabs].setSourceModel(self.lightD_M)
-        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.LightDetModel.ConfigNumCol)
+        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.LightDetModel.ConfigNumCol)
         self.detProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         detTable.setModel( self.detProxyModel[currNumTabs] )
         detTable.verticalHeader().setVisible(False)
@@ -232,21 +232,21 @@ class RibHoles(QMdiSubWindow):
         detTable.hideColumn(self.lightD_M.columnCount() -2 )
         tabLayout.addWidget(detTable)
          
-        detTable.enableIntValidator(ProcessorModel.LightDetModel.OrderNumCol, ProcessorModel.LightDetModel.OrderNumCol, 1, 999)
-        detTable.enableIntValidator(ProcessorModel.LightDetModel.LightTypCol, ProcessorModel.LightDetModel.LightTypCol, 1, 3)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.DistLECol, ProcessorModel.LightDetModel.VertAxisCol, 0, 100, 3)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.RotAngleCol, ProcessorModel.LightDetModel.RotAngleCol, 0, 360, 3)
-        detTable.enableDoubleValidator(ProcessorModel.LightDetModel.Opt1Col, ProcessorModel.LightDetModel.Opt1Col, 0, 100, 3)
+        detTable.enableIntValidator(ProcModel.LightDetModel.OrderNumCol, ProcModel.LightDetModel.OrderNumCol, 1, 999)
+        detTable.enableIntValidator(ProcModel.LightDetModel.LightTypCol, ProcModel.LightDetModel.LightTypCol, 1, 3)
+        detTable.enableDoubleValidator(ProcModel.LightDetModel.DistLECol, ProcModel.LightDetModel.VertAxisCol, 0, 100, 3)
+        detTable.enableDoubleValidator(ProcModel.LightDetModel.RotAngleCol, ProcModel.LightDetModel.RotAngleCol, 0, 360, 3)
+        detTable.enableDoubleValidator(ProcModel.LightDetModel.Opt1Col, ProcModel.LightDetModel.Opt1Col, 0, 100, 3)
         
         detTable.setHelpBar(self.helpBar)
-        detTable.setHelpText(ProcessorModel.LightDetModel.OrderNumCol, _('OrderNumDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.LightTypCol, _('RibHoles-LigthTypeDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.DistLECol, _('RibHoles-DistLEDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.DisChordCol, _('RibHoles-DisChordDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.HorAxisCol, _('RibHoles-HorAxisDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.VertAxisCol, _('RibHoles-VertAxisDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.RotAngleCol, _('RibHoles-RotAngleDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.Opt1Col, _('RibHoles-Opt1Desc'))
+        detTable.setHelpText(ProcModel.LightDetModel.OrderNumCol, _('OrderNumDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.LightTypCol, _('RibHoles-LigthTypeDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.DistLECol, _('RibHoles-DistLEDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.DisChordCol, _('RibHoles-DisChordDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.HorAxisCol, _('RibHoles-HorAxisDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.VertAxisCol, _('RibHoles-VertAxisDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.RotAngleCol, _('RibHoles-RotAngleDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.Opt1Col, _('RibHoles-Opt1Desc'))
         
         # then setup spin
         if self.detProxyModel[currNumTabs].rowCount() ==0:
@@ -293,7 +293,7 @@ class RibHoles(QMdiSubWindow):
         
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
-            self.detProxyModel[currTab].sort(ProcessorModel.LightDetModel.OrderNumCol, Qt.AscendingOrder)
+            self.detProxyModel[currTab].sort(ProcModel.LightDetModel.OrderNumCol, Qt.AscendingOrder)
             self.detProxyModel[currTab].setDynamicSortFilter(False)
     
     def btnPress(self, q):

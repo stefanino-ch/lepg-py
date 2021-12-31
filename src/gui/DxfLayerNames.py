@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class DxfLayerNames(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class DxfLayerNames(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.dxfLayNames_M = ProcessorModel.DxfLayerNamesModel()
+        self.dxfLayNames_M = ProcModel.DxfLayerNamesModel()
         self.dxfLayNames_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         self.buildWindow()
     
@@ -97,11 +97,11 @@ class DxfLayerNames(QMdiSubWindow):
         dxfLayNames_T.hideColumn( 0 )
         self.windowLayout.addWidget(dxfLayNames_T)
          
-        dxfLayNames_T.enableRegExpValidator(ProcessorModel.DxfLayerNamesModel.LayerCol, ProcessorModel.DxfLayerNamesModel.DescriptionCol, "^[a-zA-Z0-9_.-]*$")
+        dxfLayNames_T.enableRegExpValidator(ProcModel.DxfLayerNamesModel.LayerCol, ProcModel.DxfLayerNamesModel.DescriptionCol, "^[a-zA-Z0-9_.-]*$")
           
         dxfLayNames_T.setHelpBar(self.helpBar)
-        dxfLayNames_T.setHelpText(ProcessorModel.DxfLayerNamesModel.LayerCol, _('DxfLayNames-LayerDesc'))
-        dxfLayNames_T.setHelpText(ProcessorModel.DxfLayerNamesModel.DescriptionCol, _('DxfLayNames-DescriptionDesc'))
+        dxfLayNames_T.setHelpText(ProcModel.DxfLayerNamesModel.LayerCol, _('DxfLayNames-LayerDesc'))
+        dxfLayNames_T.setHelpText(ProcModel.DxfLayerNamesModel.DescriptionCol, _('DxfLayNames-DescriptionDesc'))
         
         self.numLines_S.blockSignals(True)
         self.numLines_S.setValue( self.dxfLayNames_M.numRowsForConfig(1) )

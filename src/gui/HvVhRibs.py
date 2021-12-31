@@ -11,7 +11,7 @@ from gui.elements.LineEdit import LineEdit
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class HvVhRibs(QMdiSubWindow):
     '''
@@ -30,9 +30,9 @@ class HvVhRibs(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.wing_M = ProcessorModel.WingModel()
+        self.wing_M = ProcModel.WingModel()
         
-        self.ribs_M = ProcessorModel.HvVhRibsModel()
+        self.ribs_M = ProcModel.HvVhRibsModel()
         self.ribs_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         
         self.buildWindow()
@@ -83,7 +83,7 @@ class HvVhRibs(QMdiSubWindow):
         xSp_L.setAlignment(Qt.AlignRight)
         xSp_E = LineEdit()
         xSp_E.setFixedWidth(40)
-        self.wrapper.addMapping(xSp_E, ProcessorModel.WingModel.xSpacingCol)
+        self.wrapper.addMapping(xSp_E, ProcModel.WingModel.xSpacingCol)
         xSp_E.enableDoubleValidator(0, 100, 1)
         xSp_E.setHelpText(_('HvVhRibs-xSpacingDesc'))
         xSp_E.setHelpBar(self.helpBar)
@@ -97,7 +97,7 @@ class HvVhRibs(QMdiSubWindow):
         ySp_L.setAlignment(Qt.AlignRight)
         ySp_E = LineEdit()
         ySp_E.setFixedWidth(40)
-        self.wrapper.addMapping(ySp_E, ProcessorModel.WingModel.ySpacingCol)
+        self.wrapper.addMapping(ySp_E, ProcModel.WingModel.ySpacingCol)
         ySp_E.enableDoubleValidator(0, 100, 1)
         ySp_E.setHelpText(_('HvVhRibs-ySpacingDesc'))
         ySp_E.setHelpBar(self.helpBar)        
@@ -139,25 +139,25 @@ class HvVhRibs(QMdiSubWindow):
         ribs_T.hideColumn( self.ribs_M.columnCount()-2 )
         self.windowLayout.addWidget(ribs_T)
          
-        ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.TypeCol, ProcessorModel.HvVhRibsModel.TypeCol, 1, 16)
-        ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.IniRibCol, ProcessorModel.HvVhRibsModel.IniRibCol, 1, 999)
-        ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.ParamACol, ProcessorModel.HvVhRibsModel.ParamACol, 1, 6)
-        ribs_T.enableIntValidator(ProcessorModel.HvVhRibsModel.ParamBCol, ProcessorModel.HvVhRibsModel.ParamCCol, 1, 100)
-        ribs_T.enableDoubleValidator(ProcessorModel.HvVhRibsModel.ParamDCol, ProcessorModel.HvVhRibsModel.ParamICol, 1, 100, 1)
+        ribs_T.enableIntValidator(ProcModel.HvVhRibsModel.TypeCol, ProcModel.HvVhRibsModel.TypeCol, 1, 16)
+        ribs_T.enableIntValidator(ProcModel.HvVhRibsModel.IniRibCol, ProcModel.HvVhRibsModel.IniRibCol, 1, 999)
+        ribs_T.enableIntValidator(ProcModel.HvVhRibsModel.ParamACol, ProcModel.HvVhRibsModel.ParamACol, 1, 6)
+        ribs_T.enableIntValidator(ProcModel.HvVhRibsModel.ParamBCol, ProcModel.HvVhRibsModel.ParamCCol, 1, 100)
+        ribs_T.enableDoubleValidator(ProcModel.HvVhRibsModel.ParamDCol, ProcModel.HvVhRibsModel.ParamICol, 1, 100, 1)
           
         ribs_T.setHelpBar(self.helpBar)
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.OrderNumCol, _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.TypeCol , _('HvVhRibs-TypeDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.IniRibCol , _('HvVhRibs-IniRibDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamACol , _('HvVhRibs-ParamADesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamBCol , _('HvVhRibs-ParamBDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamCCol , _('HvVhRibs-ParamCDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamDCol , _('HvVhRibs-ParamDDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamECol , _('HvVhRibs-ParamEDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamFCol , _('HvVhRibs-ParamFDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamGCol , _('HvVhRibs-ParamGDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamHCol , _('HvVhRibs-ParamHDesc'))
-        ribs_T.setHelpText(ProcessorModel.HvVhRibsModel.ParamICol , _('HvVhRibs-ParamIDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.OrderNumCol, _('OrderNumDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.TypeCol, _('HvVhRibs-TypeDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.IniRibCol, _('HvVhRibs-IniRibDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamACol, _('HvVhRibs-ParamADesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamBCol, _('HvVhRibs-ParamBDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamCCol, _('HvVhRibs-ParamCDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamDCol, _('HvVhRibs-ParamDDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamECol, _('HvVhRibs-ParamEDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamFCol, _('HvVhRibs-ParamFDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamGCol, _('HvVhRibs-ParamGDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamHCol, _('HvVhRibs-ParamHDesc'))
+        ribs_T.setHelpText(ProcModel.HvVhRibsModel.ParamICol, _('HvVhRibs-ParamIDesc'))
         
         sortBtn = QPushButton(_('Sort by order_num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
@@ -202,7 +202,7 @@ class HvVhRibs(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.sortBtnPress')
 
-        self.proxyModel.sort(ProcessorModel.HvVhRibsModel.OrderNumCol, Qt.AscendingOrder)
+        self.proxyModel.sort(ProcModel.HvVhRibsModel.OrderNumCol, Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
     
     def btnPress(self, q):

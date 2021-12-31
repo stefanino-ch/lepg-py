@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class MarksTypes(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class MarksTypes(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.marksT_M = ProcessorModel.MarksTypesModel()
+        self.marksT_M = ProcModel.MarksTypesModel()
         self.marksT_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         self.buildWindow()
     
@@ -97,20 +97,20 @@ class MarksTypes(QMdiSubWindow):
         marksTypes_T.hideColumn( 0 )
         self.windowLayout.addWidget(marksTypes_T)
          
-        marksTypes_T.enableRegExpValidator(ProcessorModel.MarksTypesModel.TypeCol, ProcessorModel.MarksTypesModel.TypeCol, "^[a-zA-Z0-9_.-]*$")
-        marksTypes_T.enableIntValidator(ProcessorModel.MarksTypesModel.FormOneCol, ProcessorModel.MarksTypesModel.FormOneCol, 1, 3)
-        marksTypes_T.enableDoubleValidator(ProcessorModel.MarksTypesModel.FormOnePOneCol, ProcessorModel.MarksTypesModel.FormOnePTwoCol, 0, 100, 2)
-        marksTypes_T.enableIntValidator(ProcessorModel.MarksTypesModel.FormTwoCol, ProcessorModel.MarksTypesModel.FormTwoCol, 1, 3)
-        marksTypes_T.enableDoubleValidator(ProcessorModel.MarksTypesModel.FormTwoPOneCol, ProcessorModel.MarksTypesModel.FormTwoPTwoCol, 0, 100, 2)
+        marksTypes_T.enableRegExpValidator(ProcModel.MarksTypesModel.TypeCol, ProcModel.MarksTypesModel.TypeCol, "^[a-zA-Z0-9_.-]*$")
+        marksTypes_T.enableIntValidator(ProcModel.MarksTypesModel.FormOneCol, ProcModel.MarksTypesModel.FormOneCol, 1, 3)
+        marksTypes_T.enableDoubleValidator(ProcModel.MarksTypesModel.FormOnePOneCol, ProcModel.MarksTypesModel.FormOnePTwoCol, 0, 100, 2)
+        marksTypes_T.enableIntValidator(ProcModel.MarksTypesModel.FormTwoCol, ProcModel.MarksTypesModel.FormTwoCol, 1, 3)
+        marksTypes_T.enableDoubleValidator(ProcModel.MarksTypesModel.FormTwoPOneCol, ProcModel.MarksTypesModel.FormTwoPTwoCol, 0, 100, 2)
           
         marksTypes_T.setHelpBar(self.helpBar)
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.TypeCol, _('MarksTypes-TypeDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormOneCol, _('MarksTypes-FormOneDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormOnePOneCol, _('MarksTypes-FormOnePOneDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormOnePTwoCol, _('MarksTypes-FormOnePTwoDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormTwoCol, _('MarksTypes-FormTwoDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormTwoPOneCol, _('MarksTypes-FormTwoPOneDesc'))
-        marksTypes_T.setHelpText(ProcessorModel.MarksTypesModel.FormTwoPTwoCol, _('MarksTypes-FormTwoPTwoDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.TypeCol, _('MarksTypes-TypeDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormOneCol, _('MarksTypes-FormOneDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormOnePOneCol, _('MarksTypes-FormOnePOneDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormOnePTwoCol, _('MarksTypes-FormOnePTwoDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormTwoCol, _('MarksTypes-FormTwoDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormTwoPOneCol, _('MarksTypes-FormTwoPOneDesc'))
+        marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormTwoPTwoCol, _('MarksTypes-FormTwoPTwoDesc'))
         
         self.numLines_S.blockSignals(True)
         self.numLines_S.setValue( self.marksT_M.numRowsForConfig(1) )

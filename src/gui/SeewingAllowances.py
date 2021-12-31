@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QSizePolicy
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class SeewingAllowances(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class SeewingAllowances(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.sewAll_M = ProcessorModel.SewingAllowancesModel()
+        self.sewAll_M = ProcModel.SewingAllowancesModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -85,11 +85,11 @@ class SeewingAllowances(QMdiSubWindow):
         upperP_T.verticalHeader().setVisible(False)
         upperP_T.setHelpBar(self.helpBar)
         
-        upperP_T.setHelpText(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-EdgeSeamDesc'))
-        upperP_T.setHelpText(ProcessorModel.SewingAllowancesModel.LeSeemCol, _('SewingAllowances-LeSeamDesc'))
-        upperP_T.setHelpText(ProcessorModel.SewingAllowancesModel.TeSeemCol, _('SewingAllowances-TeSeamDesc'))
+        upperP_T.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-EdgeSeamDesc'))
+        upperP_T.setHelpText(ProcModel.SewingAllowancesModel.LeSeemCol, _('SewingAllowances-LeSeamDesc'))
+        upperP_T.setHelpText(ProcModel.SewingAllowancesModel.TeSeemCol, _('SewingAllowances-TeSeamDesc'))
 
-        upperP_T.enableIntValidator(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, ProcessorModel.SewingAllowancesModel.TeSeemCol, 1, 100)
+        upperP_T.enableIntValidator(ProcModel.SewingAllowancesModel.EdgeSeamCol, ProcModel.SewingAllowancesModel.TeSeemCol, 1, 100)
         upperP_T.setFixedHeight(2 + upperP_T.horizontalHeader().height() + upperP_T.rowHeight(0))
         upperP_T.setFixedWidth(2 +upperP_T.columnWidth(0)+upperP_T.columnWidth(1)+upperP_T.columnWidth(2) )
 
@@ -111,11 +111,11 @@ class SeewingAllowances(QMdiSubWindow):
         lowerP_T.verticalHeader().setVisible(False)
         lowerP_T.setHelpBar(self.helpBar)
         
-        lowerP_T.setHelpText(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-EdgeSeamDesc'))
-        lowerP_T.setHelpText(ProcessorModel.SewingAllowancesModel.LeSeemCol, _('SewingAllowances-LeSeamDesc'))
-        lowerP_T.setHelpText(ProcessorModel.SewingAllowancesModel.TeSeemCol, _('SewingAllowances-TeSeamDesc'))
+        lowerP_T.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-EdgeSeamDesc'))
+        lowerP_T.setHelpText(ProcModel.SewingAllowancesModel.LeSeemCol, _('SewingAllowances-LeSeamDesc'))
+        lowerP_T.setHelpText(ProcModel.SewingAllowancesModel.TeSeemCol, _('SewingAllowances-TeSeamDesc'))
 
-        lowerP_T.enableIntValidator(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, ProcessorModel.SewingAllowancesModel.TeSeemCol, 1, 100)
+        lowerP_T.enableIntValidator(ProcModel.SewingAllowancesModel.EdgeSeamCol, ProcModel.SewingAllowancesModel.TeSeemCol, 1, 100)
         lowerP_T.setFixedHeight(2 + upperP_T.horizontalHeader().height() + upperP_T.rowHeight(0))
         lowerP_T.setFixedWidth(2 +upperP_T.columnWidth(0)+upperP_T.columnWidth(1)+upperP_T.columnWidth(2) )
 
@@ -139,9 +139,9 @@ class SeewingAllowances(QMdiSubWindow):
         ribs_T.verticalHeader().setVisible(False)
         ribs_T.setHelpBar(self.helpBar)
         
-        ribs_T.setHelpText(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-RibsSeemDesc'))
+        ribs_T.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-RibsSeemDesc'))
 
-        ribs_T.enableIntValidator(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, ProcessorModel.SewingAllowancesModel.EdgeSeamCol, 1, 100)
+        ribs_T.enableIntValidator(ProcModel.SewingAllowancesModel.EdgeSeamCol, ProcModel.SewingAllowancesModel.EdgeSeamCol, 1, 100)
         ribs_T.setFixedHeight(2 + upperP_T.horizontalHeader().height() + upperP_T.rowHeight(0))
         ribs_T.setFixedWidth(2 +upperP_T.columnWidth(0) )
 
@@ -165,9 +165,9 @@ class SeewingAllowances(QMdiSubWindow):
         vRibs_T.verticalHeader().setVisible(False)
         vRibs_T.setHelpBar(self.helpBar)
         
-        vRibs_T.setHelpText(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-V-RibsSeemDesc'))
+        vRibs_T.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol, _('SewingAllowances-V-RibsSeemDesc'))
 
-        vRibs_T.enableIntValidator(ProcessorModel.SewingAllowancesModel.EdgeSeamCol, ProcessorModel.SewingAllowancesModel.EdgeSeamCol, 1, 100)
+        vRibs_T.enableIntValidator(ProcModel.SewingAllowancesModel.EdgeSeamCol, ProcModel.SewingAllowancesModel.EdgeSeamCol, 1, 100)
         vRibs_T.setFixedHeight(2 + upperP_T.horizontalHeader().height() + upperP_T.rowHeight(0))
         vRibs_T.setFixedWidth(2 +upperP_T.columnWidth(0) )
 

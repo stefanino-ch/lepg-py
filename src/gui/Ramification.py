@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QSizePolicy
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class Ramification(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class Ramification(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.ramif_M = ProcessorModel.RamificationModel()
+        self.ramif_M = ProcModel.RamificationModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -89,11 +89,11 @@ class Ramification(QMdiSubWindow):
         threeLineRows_T.verticalHeader().setVisible(False)
         threeLineRows_T.setHelpBar(self.helpBar)
         
-        #threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdLineToSailDesc'))
+        #threeLineRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        threeLineRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdLineToSailDesc'))
 
-        #threeLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
-        threeLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
+        #threeLineRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
+        threeLineRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
         
         threeLineRows_T.setFixedHeight(2 + threeLineRows_T.horizontalHeader().height() + threeLineRows_T.rowHeight(0))
         threeLineRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -121,13 +121,13 @@ class Ramification(QMdiSubWindow):
         fourLineRows_T.verticalHeader().setVisible(False)
         fourLineRows_T.setHelpBar(self.helpBar)
         
-        # fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdLineToSailDesc'))
-        fourLineRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthLineToSailDesc'))
+        # fourLineRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        fourLineRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdLineToSailDesc'))
+        fourLineRows_T.setHelpText(ProcModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthLineToSailDesc'))
 
-        # fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
-        fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        fourLineRows_T.enableIntValidator(ProcessorModel.RamificationModel.FourthToSailCol, ProcessorModel.RamificationModel.FourthToSailCol, 1, 2000)
+        # fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
+        fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
+        fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.FourthToSailCol, ProcModel.RamificationModel.FourthToSailCol, 1, 2000)
         
         fourLineRows_T.setFixedHeight(2 + fourLineRows_T.horizontalHeader().height() + fourLineRows_T.rowHeight(1))
         fourLineRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -154,11 +154,11 @@ class Ramification(QMdiSubWindow):
         threeBrakeRows_T.verticalHeader().setVisible(False)
         threeBrakeRows_T.setHelpBar(self.helpBar)
         
-        # threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdBrakeToSailDesc'))
+        # threeBrakeRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        threeBrakeRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdBrakeToSailDesc'))
 
-        # threeBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
-        threeBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
+        # threeBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
+        threeBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
         
         threeBrakeRows_T.setFixedHeight(2 + threeBrakeRows_T.horizontalHeader().height() + threeBrakeRows_T.rowHeight(2))
         threeBrakeRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -185,13 +185,13 @@ class Ramification(QMdiSubWindow):
         fourBrakeRows_T.verticalHeader().setVisible(False)
         fourBrakeRows_T.setHelpBar(self.helpBar)
         
-        # fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdBrakeToSailDesc'))
-        fourBrakeRows_T.setHelpText(ProcessorModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthBrakeToSailDesc'))
+        # fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
+        fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdBrakeToSailDesc'))
+        fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthBrakeToSailDesc'))
 
-        # fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.RowsCol, ProcessorModel.RamificationModel.RowsCol, 3, 4)
-        fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.ThirdToSailCol, ProcessorModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        fourBrakeRows_T.enableIntValidator(ProcessorModel.RamificationModel.FourthToSailCol, ProcessorModel.RamificationModel.FourthToSailCol, 1, 2000)
+        # fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
+        fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
+        fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.FourthToSailCol, ProcModel.RamificationModel.FourthToSailCol, 1, 2000)
         
         fourBrakeRows_T.setFixedHeight(2 + fourBrakeRows_T.horizontalHeader().height() + fourBrakeRows_T.rowHeight(3))
         fourBrakeRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)

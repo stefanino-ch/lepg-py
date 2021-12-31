@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,  QVBoxLayout, Q
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class BasicData(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class BasicData(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.wing_M = ProcessorModel.WingModel()
+        self.wing_M = ProcModel.WingModel()
         self.wing_M.dataChanged.connect(self.checkNumCellsRibs)
 
         self.buildWindow()
@@ -71,16 +71,16 @@ class BasicData(QMdiSubWindow):
         brandName_T = TableView()
         brandName_T.setModel( self.wing_M )
         
-        for i in range (ProcessorModel.WingModel.WingNameCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.WingNameCol, self.wing_M.columnCount()):
             brandName_T.hideColumn(i)
         brandName_T.verticalHeader().setVisible(False)
         brandName_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         brandName_T.setFixedHeight(2 + brandName_T.horizontalHeader().height() + brandName_T.rowHeight(0))
         
         brandName_T.setHelpBar(self.helpBar)
-        brandName_T.setHelpText(ProcessorModel.WingModel.BrandNameCol, _('Proc-BrandNameDesc'))
+        brandName_T.setHelpText(ProcModel.WingModel.BrandNameCol, _('Proc-BrandNameDesc'))
         
-        brandName_T.enableRegExpValidator(ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.BrandNameCol, "(.|\s)*\S(.|\s)*")
+        brandName_T.enableRegExpValidator(ProcModel.WingModel.BrandNameCol, ProcModel.WingModel.BrandNameCol, "(.|\s)*\S(.|\s)*")
         
         self.window_Ly.addWidget(brandName_T)          
         
@@ -89,16 +89,16 @@ class BasicData(QMdiSubWindow):
         wingName_T.setModel( self.wing_M )
         
         wingName_T.hideColumn(0)
-        for i in range (ProcessorModel.WingModel.DrawScaleCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.DrawScaleCol, self.wing_M.columnCount()):
             wingName_T.hideColumn(i)
         wingName_T.verticalHeader().setVisible(False)
         wingName_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         wingName_T.setFixedHeight(2 + wingName_T.horizontalHeader().height() + wingName_T.rowHeight(0))
         
         wingName_T.setHelpBar(self.helpBar)
-        wingName_T.setHelpText(ProcessorModel.WingModel.WingNameCol, _('Proc-WingNameDesc'))
+        wingName_T.setHelpText(ProcModel.WingModel.WingNameCol, _('Proc-WingNameDesc'))
         
-        wingName_T.enableRegExpValidator(ProcessorModel.WingModel.WingNameCol, ProcessorModel.WingModel.WingNameCol, "(.|\s)*\S(.|\s)*")
+        wingName_T.enableRegExpValidator(ProcModel.WingModel.WingNameCol, ProcModel.WingModel.WingNameCol, "(.|\s)*\S(.|\s)*")
         
         self.window_Ly.addWidget(wingName_T)        
         
@@ -106,19 +106,19 @@ class BasicData(QMdiSubWindow):
         scales_T = TableView()
         scales_T.setModel( self.wing_M )
         
-        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.WingNameCol+1 ):
+        for i in range (ProcModel.WingModel.BrandNameCol, ProcModel.WingModel.WingNameCol + 1):
             scales_T.hideColumn(i)
-        for i in range (ProcessorModel.WingModel.NumCellsCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.NumCellsCol, self.wing_M.columnCount()):
             scales_T.hideColumn(i)
         scales_T.verticalHeader().setVisible(False)
         scales_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         scales_T.setFixedHeight(2 + scales_T.horizontalHeader().height() + scales_T.rowHeight(0))
         
         scales_T.setHelpBar(self.helpBar)
-        scales_T.setHelpText(ProcessorModel.WingModel.DrawScaleCol, _('Proc-DrawScaleDesc'))
-        scales_T.setHelpText(ProcessorModel.WingModel.WingScaleCol, _('Proc-WingScaleDesc'))
+        scales_T.setHelpText(ProcModel.WingModel.DrawScaleCol, _('Proc-DrawScaleDesc'))
+        scales_T.setHelpText(ProcModel.WingModel.WingScaleCol, _('Proc-WingScaleDesc'))
         
-        scales_T.enableDoubleValidator(ProcessorModel.WingModel.DrawScaleCol, ProcessorModel.WingModel.WingScaleCol, 0, 10, 2)
+        scales_T.enableDoubleValidator(ProcModel.WingModel.DrawScaleCol, ProcModel.WingModel.WingScaleCol, 0, 10, 2)
        
         self.window_Ly.addWidget(scales_T)
         
@@ -126,19 +126,19 @@ class BasicData(QMdiSubWindow):
         self.numbers_T = TableView()
         self.numbers_T.setModel( self.wing_M )
         
-        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.WingScaleCol+1 ):
+        for i in range (ProcModel.WingModel.BrandNameCol, ProcModel.WingModel.WingScaleCol + 1):
             self.numbers_T.hideColumn(i)
-        for i in range (ProcessorModel.WingModel.AlphaMaxTipCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.AlphaMaxTipCol, self.wing_M.columnCount()):
             self.numbers_T.hideColumn(i)
         self.numbers_T.verticalHeader().setVisible(False)
         self.numbers_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.numbers_T.setFixedHeight(2 + self.numbers_T.horizontalHeader().height() + self.numbers_T.rowHeight(0))
         
         self.numbers_T.setHelpBar(self.helpBar)
-        self.numbers_T.setHelpText(ProcessorModel.WingModel.NumCellsCol, _('Proc-NumCellsDesc'))
-        self.numbers_T.setHelpText(ProcessorModel.WingModel.NumRibsCol, _('Proc-NumRibsDesc'))
+        self.numbers_T.setHelpText(ProcModel.WingModel.NumCellsCol, _('Proc-NumCellsDesc'))
+        self.numbers_T.setHelpText(ProcModel.WingModel.NumRibsCol, _('Proc-NumRibsDesc'))
         
-        self.numbers_T.enableIntValidator(ProcessorModel.WingModel.NumCellsCol, ProcessorModel.WingModel.NumRibsCol, 1, 999)
+        self.numbers_T.enableIntValidator(ProcModel.WingModel.NumCellsCol, ProcModel.WingModel.NumRibsCol, 1, 999)
        
         self.window_Ly.addWidget(self.numbers_T)
 
@@ -146,22 +146,22 @@ class BasicData(QMdiSubWindow):
         self.alpha_T = TableView()
         self.alpha_T.setModel( self.wing_M )
         
-        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.NumRibsCol+1 ):
+        for i in range (ProcModel.WingModel.BrandNameCol, ProcModel.WingModel.NumRibsCol + 1):
             self.alpha_T.hideColumn(i)
-        for i in range (ProcessorModel.WingModel.ParaTypeCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.ParaTypeCol, self.wing_M.columnCount()):
             self.alpha_T.hideColumn(i)
         self.alpha_T.verticalHeader().setVisible(False)
         self.alpha_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.alpha_T.setFixedHeight(2 + self.alpha_T.horizontalHeader().height() + self.alpha_T.rowHeight(0))
         
         self.alpha_T.setHelpBar(self.helpBar)
-        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaModeCol, _('Proc-AlphaModeDesc'))
-        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaMaxCentCol, _('Proc-AlphaMaxCentDesc'))
-        self.alpha_T.setHelpText(ProcessorModel.WingModel.AlphaMaxTipCol, _('Proc-AlphaMaxTipDesc'))
+        self.alpha_T.setHelpText(ProcModel.WingModel.AlphaModeCol, _('Proc-AlphaModeDesc'))
+        self.alpha_T.setHelpText(ProcModel.WingModel.AlphaMaxCentCol, _('Proc-AlphaMaxCentDesc'))
+        self.alpha_T.setHelpText(ProcModel.WingModel.AlphaMaxTipCol, _('Proc-AlphaMaxTipDesc'))
         
-        self.alpha_T.enableDoubleValidator(ProcessorModel.WingModel.AlphaMaxTipCol, ProcessorModel.WingModel.AlphaMaxTipCol, -10, -10, 1)
-        self.alpha_T.enableIntValidator(ProcessorModel.WingModel.AlphaModeCol, ProcessorModel.WingModel.ParaParamCol, 0, 2)
-        self.alpha_T.enableDoubleValidator(ProcessorModel.WingModel.AlphaMaxCentCol, ProcessorModel.WingModel.AlphaMaxCentCol, -10, -10, 1)
+        self.alpha_T.enableDoubleValidator(ProcModel.WingModel.AlphaMaxTipCol, ProcModel.WingModel.AlphaMaxTipCol, -10, -10, 1)
+        self.alpha_T.enableIntValidator(ProcModel.WingModel.AlphaModeCol, ProcModel.WingModel.ParaParamCol, 0, 2)
+        self.alpha_T.enableDoubleValidator(ProcModel.WingModel.AlphaMaxCentCol, ProcModel.WingModel.AlphaMaxCentCol, -10, -10, 1)
         
         self.window_Ly.addWidget(self.alpha_T)
         
@@ -169,20 +169,20 @@ class BasicData(QMdiSubWindow):
         self.type_T = TableView()
         self.type_T.setModel( self.wing_M )
         
-        for i in range (ProcessorModel.WingModel.BrandNameCol, ProcessorModel.WingModel.AlphaMaxCentCol+1 ):
+        for i in range (ProcModel.WingModel.BrandNameCol, ProcModel.WingModel.AlphaMaxCentCol + 1):
             self.type_T.hideColumn(i)
-        for i in range (ProcessorModel.WingModel.LinesConcTypeCol, self.wing_M.columnCount() ):
+        for i in range (ProcModel.WingModel.LinesConcTypeCol, self.wing_M.columnCount()):
             self.type_T.hideColumn(i)
         self.type_T.verticalHeader().setVisible(False)
         self.type_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.type_T.setFixedHeight(2 + self.type_T.horizontalHeader().height() + self.type_T.rowHeight(0))
         
         self.type_T.setHelpBar(self.helpBar)
-        self.type_T.setHelpText(ProcessorModel.WingModel.ParaTypeCol, _('Proc-ParaTypeDesc'))
-        self.type_T.setHelpText(ProcessorModel.WingModel.ParaParamCol, _('Proc-ParaParamDesc'))
+        self.type_T.setHelpText(ProcModel.WingModel.ParaTypeCol, _('Proc-ParaTypeDesc'))
+        self.type_T.setHelpText(ProcModel.WingModel.ParaParamCol, _('Proc-ParaParamDesc'))
         
-        self.type_T.enableRegExpValidator(ProcessorModel.WingModel.ParaTypeCol, ProcessorModel.WingModel.ParaTypeCol, "(.|\s)*\S(.|\s)*")
-        self.type_T.enableIntValidator(ProcessorModel.WingModel.ParaParamCol, ProcessorModel.WingModel.ParaParamCol, 0, 1)
+        self.type_T.enableRegExpValidator(ProcModel.WingModel.ParaTypeCol, ProcModel.WingModel.ParaTypeCol, "(.|\s)*\S(.|\s)*")
+        self.type_T.enableIntValidator(ProcModel.WingModel.ParaParamCol, ProcModel.WingModel.ParaParamCol, 0, 1)
        
         self.window_Ly.addWidget(self.type_T)
                    

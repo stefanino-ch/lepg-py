@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class AnchorPoints(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class AnchorPoints(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.anchPoints_M = ProcessorModel.AnchorPointsModel()
+        self.anchPoints_M = ProcModel.AnchorPointsModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -75,18 +75,18 @@ class AnchorPoints(QMdiSubWindow):
         self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.RibNumCol, _('AnchPoints-RibNumDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.NumAnchCol, _('AnchPoints-NumAnchorsDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosACol, _('AnchPoints-PosADesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosBCol, _('AnchPoints-PosBDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosCCol, _('AnchPoints-PosCDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosDCol, _('AnchPoints-PosDDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosECol, _('AnchPoints-PosEDesc'))
-        self.table.setHelpText(ProcessorModel.AnchorPointsModel.PosFCol, _('AnchPoints-PosFDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.RibNumCol, _('AnchPoints-RibNumDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.NumAnchCol, _('AnchPoints-NumAnchorsDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosACol, _('AnchPoints-PosADesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosBCol, _('AnchPoints-PosBDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosCCol, _('AnchPoints-PosCDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosDCol, _('AnchPoints-PosDDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosECol, _('AnchPoints-PosEDesc'))
+        self.table.setHelpText(ProcModel.AnchorPointsModel.PosFCol, _('AnchPoints-PosFDesc'))
         
-        self.table.enableIntValidator(ProcessorModel.AnchorPointsModel.RibNumCol, ProcessorModel.AnchorPointsModel.RibNumCol, 1, 999)
-        self.table.enableIntValidator(ProcessorModel.AnchorPointsModel.NumAnchCol, ProcessorModel.AnchorPointsModel.NumAnchCol, 1, 5)
-        self.table.enableDoubleValidator(ProcessorModel.AnchorPointsModel.PosACol, ProcessorModel.AnchorPointsModel.PosFCol, 0, 100, 3)
+        self.table.enableIntValidator(ProcModel.AnchorPointsModel.RibNumCol, ProcModel.AnchorPointsModel.RibNumCol, 1, 999)
+        self.table.enableIntValidator(ProcModel.AnchorPointsModel.NumAnchCol, ProcModel.AnchorPointsModel.NumAnchCol, 1, 5)
+        self.table.enableDoubleValidator(ProcModel.AnchorPointsModel.PosACol, ProcModel.AnchorPointsModel.PosFCol, 0, 100, 3)
         
         self.windowLayout.addWidget(self.table)
         
@@ -115,7 +115,7 @@ class AnchorPoints(QMdiSubWindow):
         : method : handles the sort of the table by rib number
         '''
         logging.debug(self.__className+'.sortBtnPress')
-        self.anchPoints_M.sortTable(ProcessorModel.AnchorPointsModel.RibNumCol, Qt.AscendingOrder)
+        self.anchPoints_M.sortTable(ProcModel.AnchorPointsModel.RibNumCol, Qt.AscendingOrder)
     
     def btnPress(self, q):
         '''

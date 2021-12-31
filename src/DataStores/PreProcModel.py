@@ -18,7 +18,7 @@ from DataStores.Database import Database
 from DataStores.FileHelpers import FileHelpers
 
 
-class PreProcessorModel(QObject, metaclass=Singleton):
+class PreProcModel(QObject, metaclass=Singleton):
     """
     :class: Does take care about the data handling for the pre-processor.
             Reads and writes the data files
@@ -36,7 +36,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         - if a file was saved
         - Filename and Path has been changed
     '''
-    __className = 'PreProcessorModel'
+    __className = 'PreProcModel'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -582,12 +582,12 @@ class PreProcessorModel(QObject, metaclass=Singleton):
                           "DistrType = :distr_type, "
                           "Coef = :coef, "
                           "Width = :width, "
-                          "NumCells = :numCells "
+                          "NumCells = :num_cells "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.bindValue(":distr_type", distr_type)
             query.bindValue(":coef", coef)
             query.bindValue(":width", width)
-            query.bindValue(":numCells", numCells)
+            query.bindValue(":num_cells", numCells)
             query.bindValue(":config", config_num)
             query.bindValue(":order", order_num)
 

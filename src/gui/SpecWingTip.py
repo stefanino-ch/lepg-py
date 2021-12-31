@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 
 class SpecWingTip(QMdiSubWindow):
@@ -29,7 +29,7 @@ class SpecWingTip(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
-        self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
+        self.specWingTyp_M = ProcModel.SpecWingTipModel()
         self.specWingTyp_M.usageUpd.connect(self.usageUpdate)
         self.buildWindow()
 
@@ -94,16 +94,16 @@ class SpecWingTip(QMdiSubWindow):
         self.windowLayout.addWidget(one_T)
 
         one_T.enableDoubleValidator(
-                        ProcessorModel.SpecWingTipModel.AngleLECol,
-                        ProcessorModel.SpecWingTipModel.AngleTECol,
+                        ProcModel.SpecWingTipModel.AngleLECol,
+                        ProcModel.SpecWingTipModel.AngleTECol,
                         -45,
                         45,
                         2)
 
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleLECol,
+        one_T.setHelpText(ProcModel.SpecWingTipModel.AngleLECol,
                           _('SpecWingTyp-AngleLEDesc'))
-        one_T.setHelpText(ProcessorModel.SpecWingTipModel.AngleTECol,
+        one_T.setHelpText(ProcModel.SpecWingTipModel.AngleTECol,
                           _('SpecWingTyp-AngleTEDesc'))
 
         self.usageUpdate()
