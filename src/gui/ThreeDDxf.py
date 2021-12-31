@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QH
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class ThreeDDxfModel(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class ThreeDDxfModel(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.threeDDxf_M = ProcessorModel.ThreeDDxfModel()
+        self.threeDDxf_M = ProcModel.ThreeDDxfModel()
         self.threeDDxf_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
@@ -93,14 +93,14 @@ class ThreeDDxfModel(QMdiSubWindow):
         one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + 6*one_T.rowHeight(0))
         self.windowLayout.addWidget(one_T)
          
-        one_T.enableRegExpValidator(ProcessorModel.ThreeDDxfModel.LineNameCol, ProcessorModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
-        one_T.enableIntValidator(ProcessorModel.ThreeDDxfModel.ColorCodeCol, ProcessorModel.ThreeDDxfModel.ColorCodeCol, 0, 255)
-        one_T.enableRegExpValidator(ProcessorModel.ThreeDDxfModel.LineNameCol, ProcessorModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol, ProcModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        one_T.enableIntValidator(ProcModel.ThreeDDxfModel.ColorCodeCol, ProcModel.ThreeDDxfModel.ColorCodeCol, 0, 255)
+        one_T.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol, ProcModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.ThreeDDxfModel.LineNameCol, _('ThreeDDxf-LineNameDesc'))
-        one_T.setHelpText(ProcessorModel.ThreeDDxfModel.ColorCodeCol, _('ThreeDDxf-ColorCodeDesc'))
-        one_T.setHelpText(ProcessorModel.ThreeDDxfModel.ColorNameCol, _('ThreeDDxf-ColorNameDesc'))
+        one_T.setHelpText(ProcModel.ThreeDDxfModel.LineNameCol, _('ThreeDDxf-LineNameDesc'))
+        one_T.setHelpText(ProcModel.ThreeDDxfModel.ColorCodeCol, _('ThreeDDxf-ColorCodeDesc'))
+        one_T.setHelpText(ProcModel.ThreeDDxfModel.ColorNameCol, _('ThreeDDxf-ColorNameDesc'))
         
         two_T = TableView()
         two_T.setModel( self.threeDDxf_M )
@@ -114,16 +114,16 @@ class ThreeDDxfModel(QMdiSubWindow):
         two_T.setFixedHeight(2 + two_T.horizontalHeader().height() + 3*two_T.rowHeight(6))
         self.windowLayout.addWidget(two_T)
          
-        two_T.enableRegExpValidator(ProcessorModel.ThreeDDxfModel.LineNameCol, ProcessorModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
-        two_T.enableIntValidator(ProcessorModel.ThreeDDxfModel.UnifilarCol, ProcessorModel.ThreeDDxfModel.UnifilarCol, 0, 1)
-        two_T.enableIntValidator(ProcessorModel.ThreeDDxfModel.ColorCodeCol, ProcessorModel.ThreeDDxfModel.ColorCodeCol, 0, 255)
-        two_T.enableRegExpValidator(ProcessorModel.ThreeDDxfModel.LineNameCol, ProcessorModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        two_T.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol, ProcModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
+        two_T.enableIntValidator(ProcModel.ThreeDDxfModel.UnifilarCol, ProcModel.ThreeDDxfModel.UnifilarCol, 0, 1)
+        two_T.enableIntValidator(ProcModel.ThreeDDxfModel.ColorCodeCol, ProcModel.ThreeDDxfModel.ColorCodeCol, 0, 255)
+        two_T.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol, ProcModel.ThreeDDxfModel.LineNameCol, "^[a-zA-Z0-9_.-]*$")
           
         two_T.setHelpBar(self.helpBar)
-        two_T.setHelpText(ProcessorModel.ThreeDDxfModel.LineNameCol, _('ThreeDDxf-LineNameDesc'))
-        two_T.setHelpText(ProcessorModel.ThreeDDxfModel.UnifilarCol, _('ThreeDDxf-UnifilarDesc'))
-        two_T.setHelpText(ProcessorModel.ThreeDDxfModel.ColorCodeCol, _('ThreeDDxf-ColorCodeDesc'))
-        two_T.setHelpText(ProcessorModel.ThreeDDxfModel.ColorNameCol, _('ThreeDDxf-ColorNameDesc'))       
+        two_T.setHelpText(ProcModel.ThreeDDxfModel.LineNameCol, _('ThreeDDxf-LineNameDesc'))
+        two_T.setHelpText(ProcModel.ThreeDDxfModel.UnifilarCol, _('ThreeDDxf-UnifilarDesc'))
+        two_T.setHelpText(ProcModel.ThreeDDxfModel.ColorCodeCol, _('ThreeDDxf-ColorCodeDesc'))
+        two_T.setHelpText(ProcModel.ThreeDDxfModel.ColorNameCol, _('ThreeDDxf-ColorNameDesc'))
 
         self.usageUpdate()
          

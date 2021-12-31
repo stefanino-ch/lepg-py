@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class SkinTension(QMdiSubWindow):
     '''
@@ -27,8 +27,8 @@ class SkinTension(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.skinTens_M = ProcessorModel.SkinTensionModel()
-        self.skinTensParams_M = ProcessorModel.SkinTensionParamsModel()
+        self.skinTens_M = ProcModel.SkinTensionModel()
+        self.skinTensParams_M = ProcModel.SkinTensionParamsModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -72,12 +72,12 @@ class SkinTension(QMdiSubWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         table.setHelpBar(self.helpBar)
         
-        table.setHelpText(ProcessorModel.SkinTensionModel.TopDistLECol, _('SkinTension-TopDistLEDesc'))
-        table.setHelpText(ProcessorModel.SkinTensionModel.TopWideCol, _('SkinTension-TopOverWideDesc'))
-        table.setHelpText(ProcessorModel.SkinTensionModel.BottDistTECol, _('SkinTension-BottDistTEDesc'))
-        table.setHelpText(ProcessorModel.SkinTensionModel.BottWideCol, _('SkinTension-BottOverWideDesc'))
+        table.setHelpText(ProcModel.SkinTensionModel.TopDistLECol, _('SkinTension-TopDistLEDesc'))
+        table.setHelpText(ProcModel.SkinTensionModel.TopWideCol, _('SkinTension-TopOverWideDesc'))
+        table.setHelpText(ProcModel.SkinTensionModel.BottDistTECol, _('SkinTension-BottDistTEDesc'))
+        table.setHelpText(ProcModel.SkinTensionModel.BottWideCol, _('SkinTension-BottOverWideDesc'))
 
-        table.enableDoubleValidator(ProcessorModel.SkinTensionModel.TopDistLECol, ProcessorModel.SkinTensionModel.BottWideCol, 0, 100, 3)
+        table.enableDoubleValidator(ProcModel.SkinTensionModel.TopDistLECol, ProcModel.SkinTensionModel.BottWideCol, 0, 100, 3)
         table.setFixedHeight(2 + table.horizontalHeader().height() + 6*table.rowHeight(0))
         self.windowLayout.addWidget(table)
 
@@ -88,13 +88,13 @@ class SkinTension(QMdiSubWindow):
         paramsTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         paramsTable.setHelpBar(self.helpBar)
         
-        paramsTable.setHelpText(ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol, _('SkinTension-StrainMiniRibsDesc'))
-        paramsTable.setHelpText(ProcessorModel.SkinTensionParamsModel.NumPointsCol, _('SkinTension-NumPointsDesc'))
-        paramsTable.setHelpText(ProcessorModel.SkinTensionParamsModel.CoeffCol, _('SkinTension-CoeffDesc'))
+        paramsTable.setHelpText(ProcModel.SkinTensionParamsModel.StrainMiniRibsCol, _('SkinTension-StrainMiniRibsDesc'))
+        paramsTable.setHelpText(ProcModel.SkinTensionParamsModel.NumPointsCol, _('SkinTension-NumPointsDesc'))
+        paramsTable.setHelpText(ProcModel.SkinTensionParamsModel.CoeffCol, _('SkinTension-CoeffDesc'))
 
-        paramsTable.enableDoubleValidator(ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol, ProcessorModel.SkinTensionParamsModel.StrainMiniRibsCol, 0, 100, 3)
-        paramsTable.enableIntValidator(ProcessorModel.SkinTensionParamsModel.NumPointsCol, ProcessorModel.SkinTensionParamsModel.NumPointsCol, 0, 1000)
-        paramsTable.enableDoubleValidator(ProcessorModel.SkinTensionParamsModel.CoeffCol, ProcessorModel.SkinTensionParamsModel.CoeffCol, 0, 1, 1)
+        paramsTable.enableDoubleValidator(ProcModel.SkinTensionParamsModel.StrainMiniRibsCol, ProcModel.SkinTensionParamsModel.StrainMiniRibsCol, 0, 100, 3)
+        paramsTable.enableIntValidator(ProcModel.SkinTensionParamsModel.NumPointsCol, ProcModel.SkinTensionParamsModel.NumPointsCol, 0, 1000)
+        paramsTable.enableDoubleValidator(ProcModel.SkinTensionParamsModel.CoeffCol, ProcModel.SkinTensionParamsModel.CoeffCol, 0, 1, 1)
         
         paramsLayout = QHBoxLayout()
         paramsLayout.addWidget(paramsTable)

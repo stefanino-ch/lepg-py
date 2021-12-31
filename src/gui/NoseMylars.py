@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class NoseMylars(QMdiSubWindow):
     '''
@@ -29,7 +29,7 @@ class NoseMylars(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.noseMylars_M = ProcessorModel.NoseMylarsModel()
+        self.noseMylars_M = ProcModel.NoseMylarsModel()
         self.noseMylars_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
         self.buildWindow()
     
@@ -102,19 +102,19 @@ class NoseMylars(QMdiSubWindow):
         table_T.hideColumn( self.noseMylars_M.columnCount()-2 )
         self.windowLayout.addWidget(table_T)
          
-        table_T.enableIntValidator(ProcessorModel.NoseMylarsModel.OrderNumCol, ProcessorModel.NoseMylarsModel.LastRibCol, 1, 999)
-        table_T.enableDoubleValidator(ProcessorModel.NoseMylarsModel.xOneCol, ProcessorModel.NoseMylarsModel.vTwoCol, 1, 100, 1)
+        table_T.enableIntValidator(ProcModel.NoseMylarsModel.OrderNumCol, ProcModel.NoseMylarsModel.LastRibCol, 1, 999)
+        table_T.enableDoubleValidator(ProcModel.NoseMylarsModel.xOneCol, ProcModel.NoseMylarsModel.vTwoCol, 1, 100, 1)
           
         table_T.setHelpBar(self.helpBar)
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.OrderNumCol, _('OrderNumDesc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.FirstRibCol, _('NoseMylars-FirstRibDesc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.LastRibCol , _('NoseMylars-LastRibDesc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.xOneCol , _('NoseMylars-x1Desc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.uOneCol , _('NoseMylars-u1Desc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.uTwoCol , _('NoseMylars-u2Desc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.xTwoCol , _('NoseMylars-x2Desc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.vOneCol , _('NoseMylars-v1Desc'))
-        table_T.setHelpText(ProcessorModel.NoseMylarsModel.vTwoCol , _('NoseMylars-v2Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.OrderNumCol, _('OrderNumDesc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.FirstRibCol, _('NoseMylars-FirstRibDesc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.LastRibCol, _('NoseMylars-LastRibDesc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.xOneCol, _('NoseMylars-x1Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.uOneCol, _('NoseMylars-u1Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.uTwoCol, _('NoseMylars-u2Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.xTwoCol, _('NoseMylars-x2Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.vOneCol, _('NoseMylars-v1Desc'))
+        table_T.setHelpText(ProcModel.NoseMylarsModel.vTwoCol, _('NoseMylars-v2Desc'))
         
         sortBtn = QPushButton(_('Sort by order_num'))
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
@@ -163,7 +163,7 @@ class NoseMylars(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.sortBtnPress')
 
-        self.proxyModel.sort(ProcessorModel.NoseMylarsModel.OrderNumCol, Qt.AscendingOrder)
+        self.proxyModel.sort(ProcModel.NoseMylarsModel.OrderNumCol, Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
     
     def btnPress(self, q):

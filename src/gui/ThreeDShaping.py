@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class ThreeDShaping(QMdiSubWindow):
     '''
@@ -28,16 +28,16 @@ class ThreeDShaping(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.threeDShConf_M = ProcessorModel.ThreeDShConfModel()
+        self.threeDShConf_M = ProcModel.ThreeDShConfModel()
         self.threeDShConf_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
         
-        self.threeDShUpDet_M = ProcessorModel.ThreeDShUpDetModel()
+        self.threeDShUpDet_M = ProcModel.ThreeDShUpDetModel()
         self.threeDShUpDet_M.numRowsForConfigChanged.connect( self.updateTabs)
         
-        self.threeDShLoDet_M = ProcessorModel.ThreeDShLoDetModel()
+        self.threeDShLoDet_M = ProcModel.ThreeDShLoDetModel()
         self.threeDShLoDet_M.numRowsForConfigChanged.connect( self.updateTabs)
         
-        self.threeDShPr_M = ProcessorModel.ThreeDShPrintModel()
+        self.threeDShPr_M = ProcModel.ThreeDShPrintModel()
         
         self.rib_PM = []
         self.upC_PM = []
@@ -123,11 +123,11 @@ class ThreeDShaping(QMdiSubWindow):
         
         # TODO: remove currently not supported rows
         printTable.setHelpBar(self.helpBar)
-        printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.NameCol, _('3DShPrint-NameDesc'))
-        printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.DrawCol, _('3DShPrint-DrawDesc'))
-        printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.FirstPanelCol, _('3DShPrint-FirstPanelDesc'))
-        printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.LastPanelCol, _('3DShPrint-LastPanelDesc'))
-        printTable.setHelpText(ProcessorModel.ThreeDShPrintModel.SymmetricCol, _('3DShPrint-SymmetricDesc'))
+        printTable.setHelpText(ProcModel.ThreeDShPrintModel.NameCol, _('3DShPrint-NameDesc'))
+        printTable.setHelpText(ProcModel.ThreeDShPrintModel.DrawCol, _('3DShPrint-DrawDesc'))
+        printTable.setHelpText(ProcModel.ThreeDShPrintModel.FirstPanelCol, _('3DShPrint-FirstPanelDesc'))
+        printTable.setHelpText(ProcModel.ThreeDShPrintModel.LastPanelCol, _('3DShPrint-LastPanelDesc'))
+        printTable.setHelpText(ProcModel.ThreeDShPrintModel.SymmetricCol, _('3DShPrint-SymmetricDesc'))
         
         printLayout = QHBoxLayout()
         printLayout.addWidget(printTable)
@@ -200,7 +200,7 @@ class ThreeDShaping(QMdiSubWindow):
         ribTable = TableView()
         self.rib_PM.append(QSortFilterProxyModel())
         self.rib_PM[currNumTabs].setSourceModel(self.threeDShConf_M)
-        self.rib_PM[currNumTabs].setFilterKeyColumn(ProcessorModel.ThreeDShConfModel.ConfigNumCol)
+        self.rib_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShConfModel.ConfigNumCol)
         self.rib_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         ribTable.setModel( self.rib_PM[currNumTabs] )
         ribTable.verticalHeader().setVisible(False)
@@ -208,17 +208,17 @@ class ThreeDShaping(QMdiSubWindow):
         ribTable.hideColumn(self.threeDShConf_M.columnCount() -1 )
         ribTable.hideColumn(self.threeDShConf_M.columnCount() -2 )
         
-        ribTable.enableIntValidator(ProcessorModel.ThreeDShConfModel.FirstRibCol, ProcessorModel.ThreeDShConfModel.LastRibCol, 1, 999)
+        ribTable.enableIntValidator(ProcModel.ThreeDShConfModel.FirstRibCol, ProcModel.ThreeDShConfModel.LastRibCol, 1, 999)
         
         ribTable.setHelpBar(self.helpBar)
-        ribTable.setHelpText(ProcessorModel.ThreeDShConfModel.FirstRibCol, _('3DSh-FirstRibDesc'))
-        ribTable.setHelpText(ProcessorModel.ThreeDShConfModel.LastRibCol, _('3DSh-LastRibDesc'))
+        ribTable.setHelpText(ProcModel.ThreeDShConfModel.FirstRibCol, _('3DSh-FirstRibDesc'))
+        ribTable.setHelpText(ProcModel.ThreeDShConfModel.LastRibCol, _('3DSh-LastRibDesc'))
         
         rib_Ly = QHBoxLayout()
         rib_Ly.addWidget(ribTable)
         rib_Ly.addStretch()
-        ribTable.setFixedWidth( 2 + ribTable.columnWidth(ProcessorModel.ThreeDShConfModel.FirstRibCol) \
-                                 + ribTable.columnWidth(ProcessorModel.ThreeDShConfModel.LastRibCol) )
+        ribTable.setFixedWidth(2 + ribTable.columnWidth(ProcModel.ThreeDShConfModel.FirstRibCol) \
+                               + ribTable.columnWidth(ProcModel.ThreeDShConfModel.LastRibCol))
         ribTable.setFixedHeight(2 + ribTable.horizontalHeader().height() + ribTable.rowHeight(0))
         tab_Ly.addLayout(rib_Ly)
         
@@ -243,7 +243,7 @@ class ThreeDShaping(QMdiSubWindow):
         upC_T = TableView()
         self.upC_PM.append(QSortFilterProxyModel())
         self.upC_PM[currNumTabs].setSourceModel(self.threeDShUpDet_M)
-        self.upC_PM[currNumTabs].setFilterKeyColumn(ProcessorModel.ThreeDShUpDetModel.ConfigNumCol)
+        self.upC_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShUpDetModel.ConfigNumCol)
         self.upC_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         upC_T.setModel( self.upC_PM[currNumTabs] )
         upC_T.verticalHeader().setVisible(False)
@@ -251,13 +251,13 @@ class ThreeDShaping(QMdiSubWindow):
         upC_T.hideColumn(self.threeDShUpDet_M.columnCount() -1 )
         upC_T.hideColumn(self.threeDShUpDet_M.columnCount() -2 )
         
-        upC_T.enableIntValidator(ProcessorModel.ThreeDShUpDetModel.IniPointCol, ProcessorModel.ThreeDShUpDetModel.CutPointCol, 0, 100)
-        upC_T.enableDoubleValidator(ProcessorModel.ThreeDShUpDetModel.DepthCol, ProcessorModel.ThreeDShUpDetModel.DepthCol, -1, 1, 1)
+        upC_T.enableIntValidator(ProcModel.ThreeDShUpDetModel.IniPointCol, ProcModel.ThreeDShUpDetModel.CutPointCol, 0, 100)
+        upC_T.enableDoubleValidator(ProcModel.ThreeDShUpDetModel.DepthCol, ProcModel.ThreeDShUpDetModel.DepthCol, -1, 1, 1)
         
         upC_T.setHelpBar(self.helpBar)
-        upC_T.setHelpText(ProcessorModel.ThreeDShUpDetModel.IniPointCol, _('3DSh-IniPointDesc'))
-        upC_T.setHelpText(ProcessorModel.ThreeDShUpDetModel.CutPointCol, _('3DSh-CutPointDesc'))
-        upC_T.setHelpText(ProcessorModel.ThreeDShUpDetModel.DepthCol, _('3DSh-DepthDesc'))
+        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.IniPointCol, _('3DSh-IniPointDesc'))
+        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.CutPointCol, _('3DSh-CutPointDesc'))
+        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.DepthCol, _('3DSh-DepthDesc'))
         
         upC_Ly = QHBoxLayout()
         upC_Ly.addWidget(upC_T)
@@ -287,7 +287,7 @@ class ThreeDShaping(QMdiSubWindow):
         loC_T = TableView()
         self.loC_PM.append(QSortFilterProxyModel())
         self.loC_PM[currNumTabs].setSourceModel(self.threeDShLoDet_M)
-        self.loC_PM[currNumTabs].setFilterKeyColumn(ProcessorModel.ThreeDShLoDetModel.ConfigNumCol)
+        self.loC_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShLoDetModel.ConfigNumCol)
         self.loC_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         loC_T.setModel( self.loC_PM[currNumTabs] )
         loC_T.verticalHeader().setVisible(False)
@@ -295,13 +295,13 @@ class ThreeDShaping(QMdiSubWindow):
         loC_T.hideColumn(self.threeDShLoDet_M.columnCount() -1 )
         loC_T.hideColumn(self.threeDShLoDet_M.columnCount() -2 )
         
-        loC_T.enableIntValidator(ProcessorModel.ThreeDShLoDetModel.IniPointCol, ProcessorModel.ThreeDShLoDetModel.CutPointCol, 0, 100)
-        loC_T.enableDoubleValidator(ProcessorModel.ThreeDShLoDetModel.DepthCol, ProcessorModel.ThreeDShLoDetModel.DepthCol, -1, 1, 1)
+        loC_T.enableIntValidator(ProcModel.ThreeDShLoDetModel.IniPointCol, ProcModel.ThreeDShLoDetModel.CutPointCol, 0, 100)
+        loC_T.enableDoubleValidator(ProcModel.ThreeDShLoDetModel.DepthCol, ProcModel.ThreeDShLoDetModel.DepthCol, -1, 1, 1)
         
         loC_T.setHelpBar(self.helpBar)
-        loC_T.setHelpText(ProcessorModel.ThreeDShLoDetModel.IniPointCol, _('3DSh-IniPointDesc'))
-        loC_T.setHelpText(ProcessorModel.ThreeDShLoDetModel.CutPointCol, _('3DSh-CutPointDesc'))
-        loC_T.setHelpText(ProcessorModel.ThreeDShLoDetModel.DepthCol, _('3DSh-DepthDesc'))
+        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.IniPointCol, _('3DSh-IniPointDesc'))
+        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.CutPointCol, _('3DSh-CutPointDesc'))
+        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.DepthCol, _('3DSh-DepthDesc'))
         
         loC_Ly = QHBoxLayout()
         loC_Ly.addWidget(loC_T)

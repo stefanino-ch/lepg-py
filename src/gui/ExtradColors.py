@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class ExtradColors(QMdiSubWindow):
     '''
@@ -28,10 +28,10 @@ class ExtradColors(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.extradColsConf_M = ProcessorModel.ExtradColsConfModel()
+        self.extradColsConf_M = ProcModel.ExtradosColConfModel()
         self.extradColsConf_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
         
-        self.extradColsDet_M = ProcessorModel.ExtradColsDetModel()
+        self.extradColsDet_M = ProcModel.ExtradosColDetModel()
         self.extradColsDet_M.numRowsForConfigChanged.connect(self.updateTabs)
         
         self.confProxyModel = []
@@ -179,7 +179,7 @@ class ExtradColors(QMdiSubWindow):
         confTable = TableView()
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[currNumTabs].setSourceModel(self.extradColsConf_M)
-        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.ExtradColsConfModel.ConfigNumCol)
+        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.ExtradosColConfModel.ConfigNumCol)
         self.confProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         confTable.setModel( self.confProxyModel[currNumTabs] )
         confTable.verticalHeader().setVisible(False)
@@ -187,15 +187,15 @@ class ExtradColors(QMdiSubWindow):
         confTable.hideColumn(self.extradColsConf_M.columnCount() -1 )
         confTable.hideColumn(self.extradColsConf_M.columnCount() -2 )
         
-        confTable.enableIntValidator(ProcessorModel.ExtradColsConfModel.FirstRibCol, ProcessorModel.ExtradColsConfModel.FirstRibCol, 1, 999)
+        confTable.enableIntValidator(ProcModel.ExtradosColConfModel.FirstRibCol, ProcModel.ExtradosColConfModel.FirstRibCol, 1, 999)
         
         confTable.setHelpBar(self.helpBar)
-        confTable.setHelpText(ProcessorModel.ExtradColsConfModel.FirstRibCol, _('ExtradCols-FirstRibDesc'))
+        confTable.setHelpText(ProcModel.ExtradosColConfModel.FirstRibCol, _('ExtradCols-FirstRibDesc'))
         
         confLayout = QHBoxLayout()
         confLayout.addWidget(confTable)
         confLayout.addStretch()
-        confTable.setFixedWidth( 2 + confTable.columnWidth(ProcessorModel.ExtradColsConfModel.FirstRibCol) )
+        confTable.setFixedWidth(2 + confTable.columnWidth(ProcModel.ExtradosColConfModel.FirstRibCol))
         confTable.setFixedHeight(2 + confTable.horizontalHeader().height() + confTable.rowHeight(0))
         tabLayout.addLayout(confLayout)
         
@@ -221,7 +221,7 @@ class ExtradColors(QMdiSubWindow):
         detTable = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[currNumTabs].setSourceModel(self.extradColsDet_M)
-        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.ExtradColsDetModel.ConfigNumCol)
+        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.ExtradosColDetModel.ConfigNumCol)
         self.detProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         detTable.setModel( self.detProxyModel[currNumTabs] )
         detTable.verticalHeader().setVisible(False)
@@ -230,12 +230,12 @@ class ExtradColors(QMdiSubWindow):
         detTable.hideColumn(self.extradColsDet_M.columnCount() -2 )
         tabLayout.addWidget(detTable)
          
-        detTable.enableIntValidator(ProcessorModel.ExtradColsDetModel.OrderNumCol, ProcessorModel.ExtradColsDetModel.OrderNumCol, 1, 999)
-        detTable.enableDoubleValidator(ProcessorModel.ExtradColsDetModel.DistTeCol, ProcessorModel.ExtradColsDetModel.DistTeCol, 0, 100, 0)
+        detTable.enableIntValidator(ProcModel.ExtradosColDetModel.OrderNumCol, ProcModel.ExtradosColDetModel.OrderNumCol, 1, 999)
+        detTable.enableDoubleValidator(ProcModel.ExtradosColDetModel.DistTeCol, ProcModel.ExtradosColDetModel.DistTeCol, 0, 100, 0)
          
         detTable.setHelpBar(self.helpBar)
-        detTable.setHelpText(ProcessorModel.LightDetModel.OrderNumCol, _('OrderNumDesc'))
-        detTable.setHelpText(ProcessorModel.LightDetModel.LightTypCol, _('ExtradCols-DistTeDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.OrderNumCol, _('OrderNumDesc'))
+        detTable.setHelpText(ProcModel.LightDetModel.LightTypCol, _('ExtradCols-DistTeDesc'))
         
         # then setup spin
         if self.detProxyModel[currNumTabs].rowCount() ==0:
@@ -281,7 +281,7 @@ class ExtradColors(QMdiSubWindow):
         
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
-            self.detProxyModel[currTab].sort(ProcessorModel.ExtradColsDetModel.OrderNumCol, Qt.AscendingOrder)
+            self.detProxyModel[currTab].sort(ProcModel.ExtradosColDetModel.OrderNumCol, Qt.AscendingOrder)
             self.detProxyModel[currTab].setDynamicSortFilter(False)
     
     def btnPress(self, q):

@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class GlueVent(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class GlueVent(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.glueVent_M = ProcessorModel.GlueVentModel()
+        self.glueVent_M = ProcModel.GlueVentModel()
         self.glueVent_M.usageUpd.connect( self.usageUpdate )
         self.buildWindow()
     
@@ -88,12 +88,12 @@ class GlueVent(QMdiSubWindow):
         one_T.hideColumn( self.glueVent_M.columnCount()-2 )
         self.windowLayout.addWidget(one_T)
         
-        one_T.enableIntValidator(ProcessorModel.GlueVentModel.OrderNumCol, ProcessorModel.GlueVentModel.OrderNumCol, 0, 999)
-        one_T.enableDoubleValidator(ProcessorModel.GlueVentModel.VentParamCol, ProcessorModel.GlueVentModel.VentParamCol, -3, 1, 0)
+        one_T.enableIntValidator(ProcModel.GlueVentModel.OrderNumCol, ProcModel.GlueVentModel.OrderNumCol, 0, 999)
+        one_T.enableDoubleValidator(ProcModel.GlueVentModel.VentParamCol, ProcModel.GlueVentModel.VentParamCol, -3, 1, 0)
           
         one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcessorModel.GlueVentModel.OrderNumCol, _('GlueVent-AirfoilNumDesc'))
-        one_T.setHelpText(ProcessorModel.GlueVentModel.VentParamCol, _('GlueVent-VentParamDesc'))
+        one_T.setHelpText(ProcModel.GlueVentModel.OrderNumCol, _('GlueVent-AirfoilNumDesc'))
+        one_T.setHelpText(ProcModel.GlueVentModel.VentParamCol, _('GlueVent-VentParamDesc'))
 
         self.usageUpdate()
         

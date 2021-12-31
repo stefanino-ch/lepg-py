@@ -27,7 +27,7 @@ from DataStores.Database import Database
 from DataStores.FileHelpers import FileHelpers
 
 
-class ProcessorModel(QObject, metaclass=Singleton):
+class ProcModel(QObject, metaclass=Singleton):
     """
     :class: Does take care about the data handling for the processor.
         - Reads and writes the data files
@@ -46,7 +46,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         - Filename and Path has been changed
     '''
 
-    __className = 'ProcessorModel'
+    __className = 'ProcModel'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -82,315 +82,327 @@ class ProcessorModel(QObject, metaclass=Singleton):
         self.anchor_points_m = self.AnchorPointsModel()
         self.light_conf_m = self.LightConfModel()
         self.light_det_m = self.LightDetModel()
-        self.skin_tension_m = self.SkinTensionModel()
-        self.skin_tension_params_m = self.SkinTensionParamsModel()
+        self.skin_tens_m = self.SkinTensionModel()
+        self.skin_tens_params_m = self.SkinTensionParamsModel()
         self.sewing_allow_m = self.SewingAllowancesModel()
         self.marks_m = self.MarksModel()
         self.glob_aoa_m = self.GlobAoAModel()
         self.lines_m = self.LinesModel()
         self.brakes_m = self.BrakesModel()
-        self.brake_lines_m = self.BrakeLengthModel()
+        self.branke_length_m = self.BrakeLengthModel()
         self.ramific_m = self.RamificationModel()
         self.hv_vh_ribs_m = self.HvVhRibsModel()
-        self.extrados_col_conf_m = self.ExtradColsConfModel()
-        self.extrados_col_det_m = self.ExtradColsDetModel()
-        self.intrados_col_conf_m = self.IntradColsConfModel()
-        self.intrados_col_det_m = self.IntradColsDetModel()
+        self.extrados_col_conf_m = self.ExtradosColConfModel()
+        self.extrados_col_det_m = self.ExtradosColDetModel()
+        self.intrados_col_conf_m = self.IntradosColsConfModel()
+        self.intrados_col_det_m = self.IntradosColsDetModel()
         self.add_rib_pts_m = self.AddRibPointsModel()
-        self.el_lines_corr_m = self.ElasticLinesCorrModel()
-        self.el_lines_def_m = self.ElasticLinesDefModel()
+        self.el_lines_corr_m = self.ElLinesCorrModel()
+        self.el_lines_def_m = self.ElLinesDefModel()
         self.dxf_lay_names_m = self.DxfLayerNamesModel()
         self.marks_t_m = self.MarksTypesModel()
         self.joncs_def_m = self.JoncsDefModel()
         self.nose_mylars_m = self.NoseMylarsModel()
         self.two_d_dxf_m = self.TwoDDxfModel()
         self.three_d_dxf_m = self.ThreeDDxfModel()
-        self.glueVent_M = ProcessorModel.GlueVentModel()
-        self.specWingTyp_M = ProcessorModel.SpecWingTipModel()
-        self.calageVar_M = ProcessorModel.CalageVarModel()
-        self.threeDShConf_M = ProcessorModel.ThreeDShConfModel()
-        self.threeDShUpDet_M = ProcessorModel.ThreeDShUpDetModel()
-        self.threeDShLoDet_M = ProcessorModel.ThreeDShLoDetModel()
-        self.threeDShPr_M = ProcessorModel.ThreeDShPrintModel()
-        self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
-        self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
-        self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
+        self.glue_vent_m = ProcModel.GlueVentModel()
+        self.spec_wing_tip_m = ProcModel.SpecWingTipModel()
+        self.calage_var_m = ProcModel.CalageVarModel()
+        self.three_d_sh_conf_m = ProcModel.ThreeDShConfModel()
+        self.three_d_sh_up_det_M = ProcModel.ThreeDShUpDetModel()
+        self.three_d_sh_lo_det_m = ProcModel.ThreeDShLoDetModel()
+        self.three_d_sh_print_m = ProcModel.ThreeDShPrintModel()
+        self.airf_thickn_m = ProcModel.AirfoilThicknessModel()
+        self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
+        self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
 
         self.fileReader = ProcFileReader()
 
-    def setFileName(self, fileName):
-        '''
+    def set_file_name(self, file_name):
+        """
         :method: Does set the file name the data store shall work with.
-        :param fileName: String containing full path and filename
-        '''
-        self.__fileNamePath = fileName
+        :param file_name: String containing full path and filename
+        """
+        self.__fileNamePath = file_name
         self.dataStatusUpdate.emit(self.__className, 'FileNamePath')
 
     def get_file_name(self):
-        '''
+        """
         :method: Returns the name of the file name member.
-        '''
+        """
         return self.__fileNamePath
 
-    def setFileVersion(self, fileVersion):
-        '''
-        :method: Does set the file version the data store shall work with.
-        :param fileVersion: String containing the version number
-        '''
-        self.__fileVersion = fileVersion
+    def set_file_version(self, file_version):
+        """
+        :method: Does set the file version the data store shall work with
+        :param file_version: String containing the version number
+        """
+        self.__fileVersion = file_version
         self.dataStatusUpdate.emit(self.__className, 'FileVersion')
 
-    def getFileVersion(self):
-        '''
+    def get_file_version(self):
+        """
         :method: Returns the version info of the data file currently in use
-        '''
+        """
         return self.__fileVersion
 
-    def isValidPreProcFile(self, fileName):
-        '''
+    def is_valid_pre_proc_file(self, file_name):
+        """
         :method: Checks if a file can be opened and contains a valid title and known version number.
-        :param fileName: the name of the file to be checked
-        '''
-        logging.debug(self.__className + '.isValidPreProcFile')
+        :param file_name: the name of the file to be checked
+        """
+        logging.debug(self.__className + '.is_valid_pre_proc_file')
         try:
-            inFile = QFile(fileName)
-            if inFile.open(QFile.ReadOnly | QFile.Text):
-                stream = QTextStream(inFile)
+            in_file = QFile(file_name)
+            if in_file.open(QFile.ReadOnly | QFile.Text):
+                stream = QTextStream(in_file)
         except:
-            logging.error(self.__className + 'File cannot be opened ' + fileName)
+            logging.error(self.__className
+                          + 'File cannot be opened '
+                          + file_name)
             return False
 
-        titleOK = False
-        versionOK = False
-        lineCounter = 0
+        title_ok = False
+        version_ok = False
+        line_counter = 0
 
-        while (stream.atEnd() != True) and not (titleOK and versionOK) and lineCounter < 10:
+        # noinspection PyUnboundLocalVariable
+        while (stream.atEnd() is not True) \
+                and not (title_ok and version_ok) \
+                and line_counter < 10:
+
             line = stream.readLine()
             if line.find('1.6') >= 0:
-                versionOK = True
+                version_ok = True
 
             if line.find('Auxiliar geometry data') >= 0:
-                titleOK = True
-            lineCounter += 1
+                title_ok = True
+            line_counter += 1
 
-        inFile.close()
+        in_file.close()
 
-        if not ((versionOK and titleOK)):
-            logging.error(self.__className + ' Result of Pre-Proc out file version check %s', versionOK)
-            logging.error(self.__className + ' Result of Pre-Proc out file title check %s', titleOK)
+        if not (version_ok and title_ok):
+            logging.error(self.__className
+                          + ' Result of Pre-Proc out file version check %s',
+                          version_ok)
+            logging.error(self.__className
+                          + ' Result of Pre-Proc out file title check %s',
+                          title_ok)
 
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle(_('File read error'))
-            msgBox.setText(
-                _('File seems not to be a valid Pre-Proc output File! \nVersion detected: ') + str(versionOK) + _(
-                    '\nTitle detected: ') + str(titleOK))
-            msgBox.setIcon(QMessageBox.Warning)
-            msgBox.setStandardButtons(QMessageBox.Ok)
-            msgBox.exec()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_('File read error'))
+            msg_box.setText(
+                _('File seems not to be a valid Pre-Proc output File! '
+                  '\nVersion detected: ')
+                + str(version_ok) + _('\nTitle detected: ')
+                + str(title_ok))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec()
 
-        return versionOK and titleOK
+        return version_ok and title_ok
 
-    def isValidProcFile(self, fileName):
-        '''
+    def is_valid_proc_file(self, file_name):
+        """
         :method: Checks if a file can be opened and contains a valid title and
                  known version number.
-        :param fileName: the name of the file to be checked
-        '''
-        logging.debug(self.__className + '.isValidProcFile')
+        :param file_name: the name of the file to be checked
+        """
+        logging.debug(self.__className + '.is_valid_proc_file')
         try:
-            inFile = QFile(fileName)
-            if inFile.open(QFile.ReadOnly | QFile.Text):
-                stream = QTextStream(inFile)
+            in_file = QFile(file_name)
+            if in_file.open(QFile.ReadOnly | QFile.Text):
+                stream = QTextStream(in_file)
         except:
             logging.error(self.__className +
                           'File cannot be opened ' +
-                          fileName)
+                          file_name)
             return False
 
-        titleOK = False
-        versionOK = False
-        lineCounter = 0
+        title_ok = False
+        version_ok = False
+        line_counter = 0
 
+        # noinspection PyUnboundLocalVariable
         while (stream.atEnd() is not True) and \
-                not (titleOK and versionOK) and \
-                lineCounter < 4:
+                not (title_ok and version_ok) and \
+                line_counter < 4:
 
             line = stream.readLine()
             if line.find('3.10') >= 0:
-                self.setFileVersion('3.10')
-                versionOK = True
+                self.set_file_version('3.10')
+                version_ok = True
             elif line.find('3.15') >= 0:
-                self.setFileVersion('3.15')
-                versionOK = True
+                self.set_file_version('3.15')
+                version_ok = True
             elif line.find('3.16') >= 0:
-                self.setFileVersion('3.16')
-                versionOK = True
+                self.set_file_version('3.16')
+                version_ok = True
 
             if line.find('Input data file') >= 0:
-                titleOK = True
-            lineCounter += 1
+                title_ok = True
+            line_counter += 1
 
-        inFile.close()
+        in_file.close()
 
-        if not ((versionOK and titleOK)):
+        if not (version_ok and title_ok):
             logging.error(self.__className
                           + ' Result of Proc file version check %s',
-                          versionOK)
+                          version_ok)
             logging.error(self.__className
                           + ' Result of Proc file title check %s',
-                          titleOK)
+                          title_ok)
 
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle(_('File read error'))
-            msgBox.setText(_('File seems not to be a valid Processor File!\n'
-                             'Version detected: ')
-                           + str(versionOK)
-                           + _('\nTitle detected: ')
-                           + str(titleOK))
-            # TODO check if translation works if line is changed to
-            # correct lengt.
-            msgBox.setIcon(QMessageBox.Warning)
-            msgBox.setStandardButtons(QMessageBox.Ok)
-            msgBox.exec()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_('File read error'))
+            msg_box.setText(_('File seems not to be a valid Processor File!\n'
+                              'Version detected: ')
+                            + str(version_ok)
+                            + _('\nTitle detected: ')
+                            + str(title_ok))
+            # TODO check if translation works if line is changed to correct lenght.
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec()
 
-            self.setFileName('')
-            self.setFileVersion('')
+            self.set_file_name('')
+            self.set_file_version('')
 
-        return versionOK and titleOK
+        return version_ok and title_ok
 
-    def importPreProcFile(self):
-        '''
-        :method: Checks for unapplied/ unsaved data, and appropriate handling.
+    def import_pre_proc_file(self):
+        """
+        :method: Checks for un applied/ unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
-        '''
-        logging.debug(self.__className + '.importPreProcFile')
+        """
+        logging.debug(self.__className + '.import_pre_proc_file')
 
-        # TODO: Make sure there is no unsaved/ unapplied data
+        # TODO: Make sure there is no unsaved/ un applied data
 
-        fileName = QFileDialog.getOpenFileName(
+        file_name = QFileDialog.getOpenFileName(
             None,
-            _('Import Pre-Proc ouptut file'),
+            _('Import Pre-Proc output file'),
             "",
             "Pre Proc Files (*.txt);;All Files (*)")
 
-        if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the
-            # dialog an empty tuple is retured
-            if self.isValidPreProcFile(fileName[0]):
+        if file_name != ('', ''):
+            # User has really selected a file, if it had aborted the
+            # dialog an empty tuple is returned
+            if self.is_valid_pre_proc_file(file_name[0]):
                 # TODO: delete already existing Processor data
-                self.readPreProcFile(fileName[0])
+                self.read_pre_proc_file(file_name[0])
 
-    def openFile(self):
-        '''
-        :method: Checks for unapplied/ unsaved data, and appropriate handling.
+    def open_file(self):
+        """
+        :method: Checks for un applied/ unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
-        '''
+        """
         logging.debug(self.__className + '.open_file')
-        # TODO: Make sure there is no unsaved/ unapplied data
+        # TODO: Make sure there is no unsaved/ un applied data
 
-        fileName = QFileDialog.getOpenFileName(
+        file_name = QFileDialog.getOpenFileName(
             None,
             _('Open Proc file'),
             "",
             "Pre Proc Files (*.txt);;All Files (*)")
 
-        if fileName != ('', ''):
-            # User has really selected a file, if it would have aborted the
-            # dialog an empty tuple is retured
-            if self.isValidProcFile(fileName[0]):
-                self.setFileName(fileName[0])
+        if file_name != ('', ''):
+            # User has really selected a file, if it had aborted the
+            # dialog an empty tuple is returned
+            if self.is_valid_proc_file(file_name[0]):
+                self.set_file_name(file_name[0])
 
-                self.fileReader.setFilePathName(fileName[0])
+                self.fileReader.setFilePathName(file_name[0])
                 self.fileReader.readFile()
 
-    def saveFile(self):
-        '''
+    def save_file(self):
+        """
         :method: Checks if there is already a valid file name, if not it
                  asks for it. Starts afterwards the writing process.
-        '''
+        """
         logging.debug(self.__className + '.save_file')
 
-        fileName = self.get_file_name()
-        if len(fileName) > 0:
+        file_name = self.get_file_name()
+        if len(file_name) > 0:
             # We do have already a valid filename
-            self.writeFile()
+            self.write_file()
         else:
             # Ask first for the filename
-            fileName = QFileDialog.getSaveFileName(
+            file_name = QFileDialog.getSaveFileName(
                 None,
                 _('Save Processor file'),
                 "",
                 "Geometry Files (*.txt);;All Files (*)")
 
-            if fileName != ('', ''):
-                # User has really selected a file, if it would have
-                # aborted the dialog an empty tuple is retured
-                self.setFileName(fileName[0])
-                self.writeFile()
+            if file_name != ('', ''):
+                # User has really selected a file, if it had
+                # aborted the dialog an empty tuple is returned
+                self.set_file_name(file_name[0])
+                self.write_file()
 
-    def saveFileAs(self):
-        '''
+    def save_file_as(self):
+        """
         :method: Asks for a new filename. Starts afterwards the
                  writing process.
-        '''
+        """
         logging.debug(self.__className + '.save_file_as')
 
         # Ask first for the filename
-        fileName = QFileDialog.getSaveFileName(
+        file_name = QFileDialog.getSaveFileName(
             None,
             _('Save Processor file as'),
             "",
             "Geometry Files (*.txt);;All Files (*)")
 
-        if fileName != ('', ''):
-            # User has really selected a file, if it would have
-            # aborted the dialog an empty tuple is retured
-            self.setFileName(fileName[0])
-            self.writeFile()
+        if file_name != ('', ''):
+            # User has really selected a file, if it had
+            # aborted the dialog an empty tuple is returned
+            self.set_file_name(file_name[0])
+            self.write_file()
 
-    def readPreProcFile(self, fileName):
-        '''
+    def read_pre_proc_file(self, file_name):
+        """
         :method: Imports the data file created by the pre-processor saves the
                  data in the internal database.
-        :param fileName: Path and Filename in one fully qualified string.
-        '''
-        logging.debug(self.__className + '.readPreProcFile')
+        :param file_name: Path and Filename in one fully qualified string.
+        """
+        logging.debug(self.__className + '.read_pre_proc_file')
 
-        inFile = QFile(fileName)
-        inFile.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(inFile)
+        in_file = QFile(file_name)
+        in_file.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(in_file)
 
         ##############################
-        # overread file header
+        # over read file header
         counter = 0
         while counter < 5:
             line = stream.readLine()
             if line.find('***************') >= 0:
                 counter += 1
 
-        # overread title
+        # over read title
         line = stream.readLine()
 
-        # There's no idication about the number of lines
+        # There's no indication about the number of lines
         # We first read all into the memory
-        lineArray = []
-        validData = True
+        line_array = []
+        valid_data = True
 
-        while validData:
+        while valid_data:
             line = stream.readLine()
 
             if line.find('***************') >= 0:
-                validData = False
+                valid_data = False
             else:
-                lineArray.append(line)
+                line_array.append(line)
 
         # all read now
-        numLines = len(lineArray)
+        num_lines = len(line_array)
 
-        self.wing_m.updateNumRibs(numLines * 2)
+        self.wing_m.updateNumRibs(num_lines * 2)
 
-        for i in range(0, numLines):
-            values = self.fh.splitLine(lineArray[i])
+        for i in range(0, num_lines):
+            values = self.fh.splitLine(line_array[i])
             self.rib_m.updateRow(i + 1,
                                  values[1],
                                  values[2],
@@ -411,9 +423,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
         ##############################
         # Cleanup
-        inFile.close()
+        in_file.close()
 
-    def writeFile(self, for_proc=False):
+    def write_file(self, for_proc=False):
         """
         :method: Writes all the values into a data file.
         :warning: Filename must have been set already before, unless the file
@@ -472,39 +484,38 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*             1. GEOMETRY\n'
         stream << separator
         stream << '* Brand name\n'
-        stream << '\"%s\"\n' % values(ProcessorModel.WingModel.BrandNameCol)
+        stream << '\"%s\"\n' % values(ProcModel.WingModel.BrandNameCol)
         stream << '* Wing name\n'
-        stream << '\"%s\"\n' % values(ProcessorModel.WingModel.WingNameCol)
+        stream << '\"%s\"\n' % values(ProcModel.WingModel.WingNameCol)
         stream << '* Drawing scale\n'
         stream << '%s\n' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.DrawScaleCol), 1)
+            values(ProcModel.WingModel.DrawScaleCol), 1)
         stream << '* Wing scale\n'
         stream << '%s\n' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.WingScaleCol), 1)
+            values(ProcModel.WingModel.WingScaleCol), 1)
         stream << '* Number of cells\n'
         stream << '\t%s\n' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.NumCellsCol))
+            values(ProcModel.WingModel.NumCellsCol))
         stream << '* Number of ribs\n'
         stream << '\t%s\n' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.NumRibsCol))
+            values(ProcModel.WingModel.NumRibsCol))
         stream << '* Alpha max and parameter\n'
         stream << '\t%s' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.AlphaMaxTipCol))
+            values(ProcModel.WingModel.AlphaMaxTipCol))
         stream << '\t%s' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.AlphaModeCol), 1)
-        if values(ProcessorModel.WingModel.AlphaModeCol) == '2':
-            stream << '\t%s\n' % values(
-                ProcessorModel.WingModel.AlphaMaxCentCol)
+            values(ProcModel.WingModel.AlphaModeCol), 1)
+        if values(ProcModel.WingModel.AlphaModeCol) == '2':
+            stream << '\t%s\n' % values(ProcModel.WingModel.AlphaMaxCentCol)
         else:
             stream << '\n'
 
         stream << '* Paraglider type and parameter.\n'
 
         stream << '\t\"%s\"' % self.fh.chkStr(
-            values(ProcessorModel.WingModel.ParaTypeCol),
+            values(ProcModel.WingModel.ParaTypeCol),
             'ds')
         stream << '\t%s\n' % self.fh.chkNum(
-            values(ProcessorModel.WingModel.ParaParamCol),
+            values(ProcModel.WingModel.ParaParamCol),
             1)
         stream << ('* Rib geometric parameters. '
                    'Extended data with two additional columns '
@@ -524,9 +535,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*             2. AIRFOILS\n'
         stream << separator
         stream << '* Airfoil name, intake in, intake out, open , disp. rrw\n'
-        for l in range(0, self.wing_m.halfNumRibs):
-            values = self.airfoils_m.getRow(l + 1)
-            stream << '%s' % (l + 1)
+        for line_it in range(0, self.wing_m.halfNumRibs):
+            values = self.airfoils_m.getRow(line_it + 1)
+            stream << '%s' % (line_it + 1)
 
             for p in range(0, 7):
                 if p == 0:
@@ -540,9 +551,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*            3. ANCHOR POINTS\n'
         stream << separator
         stream << '* Airf    Anch    A    B    C    D    E    F\n'
-        for l in range(0, self.wing_m.halfNumRibs):
-            values = self.anchor_points_m.getRow(l + 1)
-            stream << '%s' % (l + 1)
+        for line_it in range(0, self.wing_m.halfNumRibs):
+            values = self.anchor_points_m.getRow(line_it + 1)
+            stream << '%s' % (line_it + 1)
 
             for p in range(0, 7):
                 stream << '\t%s' % self.fh.chkNum(values(p))
@@ -552,18 +563,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*          4. AIRFOIL HOLES\n'
         stream << separator
-        numConfigs = int(self.light_conf_m.numConfigs())
-        stream << '%s\n' % (numConfigs)
+        num_configs = int(self.light_conf_m.numConfigs())
+        stream << '%s\n' % num_configs
 
-        for g in range(0, numConfigs):
+        for g in range(0, num_configs):
             values = self.light_conf_m.getRow(g + 1)
             stream << '%s\n' % self.fh.chkNum(values(0))
             stream << '%s\n' % self.fh.chkNum(values(1))
 
-            numLines = self.light_det_m.numRowsForConfig(g + 1)
-            stream << '%s\n' % (numLines)
-            for l in range(0, numLines):
-                values = self.light_det_m.getRow(g + 1, l + 1)
+            num_lines = self.light_det_m.numRowsForConfig(g + 1)
+            stream << '%s\n' % num_lines
+            for line_it in range(0, num_lines):
+                values = self.light_det_m.getRow(g + 1, line_it + 1)
                 for p in range(0, 7):
                     if p > 0:
                         stream << '\t'
@@ -576,8 +587,8 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << 'Extrados\n'
 
-        for l in range(0, 6):
-            values = self.skin_tension_m.getRow(l + 1)
+        for line_it in range(0, 6):
+            values = self.skin_tens_m.getRow(line_it + 1)
 
             for p in range(0, 4):
                 if p > 0:
@@ -586,7 +597,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 if p == 3:
                     stream << '\n'
 
-        values = self.skin_tension_params_m.getRow()
+        values = self.skin_tens_params_m.getRow()
         stream << '%s\n' % self.fh.chkNum(values(0))
         stream << '%s' % self.fh.chkNum(values(1))
         stream << '\t%s\n' % self.fh.chkNum(values(2))
@@ -649,17 +660,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
         values = self.wing_m.getRow()
-        stream << '%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.LinesConcTypeCol))
+        stream << '%s\n' % self.fh.chkNum(values(ProcModel.WingModel.LinesConcTypeCol))
 
-        numConfigs = self.lines_m.numConfigs()
-        stream << '%s\n' % numConfigs
+        num_configs = self.lines_m.numConfigs()
+        stream << '%s\n' % num_configs
 
-        for g in range(0, numConfigs):
-            numLines = self.lines_m.numRowsForConfig(g + 1)
-            stream << '%s\n' % numLines
+        for g in range(0, num_configs):
+            num_lines = self.lines_m.numRowsForConfig(g + 1)
+            stream << '%s\n' % num_lines
 
-            for l in range(0, numLines):
-                values = self.lines_m.getRow(g + 1, l + 1)
+            for line_it in range(0, num_lines):
+                values = self.lines_m.getRow(g + 1, line_it + 1)
 
                 for p in range(0, 11):
                     if p > 0:
@@ -673,12 +684,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
 
         values = self.wing_m.getRow()
-        stream << '%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.BrakeLengthCol))
+        stream << '%s\n' % self.fh.chkNum(values(ProcModel.WingModel.BrakeLengthCol))
 
-        numLines = self.brakes_m.numRowsForConfig(1)
-        stream << '%s\n' % numLines
-        for l in range(0, numLines):
-            values = self.brakes_m.getRow(1, l + 1)
+        num_lines = self.brakes_m.numRowsForConfig(1)
+        stream << '%s\n' % num_lines
+        for line_it in range(0, num_lines):
+            values = self.brakes_m.getRow(1, line_it + 1)
 
             for p in range(0, 11):
                 if p > 0:
@@ -688,7 +699,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
                     stream << '\n'
 
         stream << '* Brake distribution\n'
-        values = self.brake_lines_m.getRow()
+        values = self.branke_length_m.getRow()
 
         for p in range(0, 5):
             if p > 0:
@@ -728,18 +739,18 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*    12. H V and VH ribs\n'
         stream << separator
-        numLines = self.hv_vh_ribs_m.numRowsForConfig(1)
-        stream << '%s\n' % numLines
+        num_lines = self.hv_vh_ribs_m.numRowsForConfig(1)
+        stream << '%s\n' % num_lines
         values = self.wing_m.getRow()
-        stream << '%s' % self.fh.chkNum(values(ProcessorModel.WingModel.xSpacingCol))
-        stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.WingModel.ySpacingCol))
+        stream << '%s' % self.fh.chkNum(values(ProcModel.WingModel.xSpacingCol))
+        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.WingModel.ySpacingCol))
 
-        for l in range(0, numLines):
-            values = self.hv_vh_ribs_m.getRow(1, l + 1)
+        for line_it in range(0, num_lines):
+            values = self.hv_vh_ribs_m.getRow(1, line_it + 1)
 
             for p in range(0, 9):
                 if p == 0:
-                    stream << '%s\t' % (l + 1)
+                    stream << '%s\t' % (line_it + 1)
                 if p > 0:
                     stream << '\t'
                 stream << '%s' % self.fh.chkNum(values(p))
@@ -753,47 +764,47 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*    15. Extrados colors\n'
         stream << separator
-        numGroups = self.extrados_col_conf_m.numConfigs()
-        stream << '%s\n' % numGroups
+        num_groups = self.extrados_col_conf_m.numConfigs()
+        stream << '%s\n' % num_groups
 
-        for g in range(0, numGroups):
-            numLines = self.extrados_col_det_m.numRowsForConfig(g + 1)
+        for g in range(0, num_groups):
+            num_lines = self.extrados_col_det_m.numRowsForConfig(g + 1)
 
             values = self.extrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
-            stream << '\t%s\n' % numLines
+            stream << '\t%s\n' % num_lines
 
-            for l in range(0, numLines):
-                values = self.extrados_col_det_m.getRow(g + 1, l + 1)
-                stream << '%s' % (l + 1)
+            for line_it in range(0, num_lines):
+                values = self.extrados_col_det_m.getRow(g + 1, line_it + 1)
+                stream << '%s' % (line_it + 1)
                 stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
 
         stream << separator
         stream << '*    16. Intrados colors\n'
         stream << separator
-        numGroups = self.intrados_col_conf_m.numConfigs()
-        stream << '%s\n' % numGroups
+        num_groups = self.intrados_col_conf_m.numConfigs()
+        stream << '%s\n' % num_groups
 
-        for g in range(0, numGroups):
-            numLines = self.intrados_col_det_m.numRowsForConfig(g + 1)
+        for g in range(0, num_groups):
+            num_lines = self.intrados_col_det_m.numRowsForConfig(g + 1)
 
             values = self.intrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
-            stream << '\t%s\n' % numLines
+            stream << '\t%s\n' % num_lines
 
-            for l in range(0, numLines):
-                values = self.intrados_col_det_m.getRow(g + 1, l + 1)
-                stream << '%s' % (l + 1)
+            for line_it in range(0, num_lines):
+                values = self.intrados_col_det_m.getRow(g + 1, line_it + 1)
+                stream << '%s' % (line_it + 1)
                 stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
 
         stream << separator
         stream << '*       17. Aditional rib points\n'
         stream << separator
-        numLines = self.add_rib_pts_m.numRowsForConfig(1)
-        stream << '%s\n' % numLines
+        num_lines = self.add_rib_pts_m.numRowsForConfig(1)
+        stream << '%s\n' % num_lines
 
-        for l in range(0, numLines):
-            values = self.add_rib_pts_m.getRow(1, l + 1)
+        for line_it in range(0, num_lines):
+            values = self.add_rib_pts_m.getRow(1, line_it + 1)
             stream << '%s' % self.fh.chkNum(values(0))
             stream << '\t%s\n' % self.fh.chkNum(values(1))
 
@@ -821,9 +832,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << '\t%s' % self.fh.chkNum(values(13))
         stream << '\t%s\n' % self.fh.chkNum(values(14))
 
-        numLines = self.el_lines_def_m.numRowsForConfig(1)
-        for l in range(0, numLines):
-            values = self.el_lines_def_m.getRow(1, l + 1)
+        num_lines = self.el_lines_def_m.numRowsForConfig(1)
+        for line_it in range(0, num_lines):
+            values = self.el_lines_def_m.getRow(1, line_it + 1)
 
             for p in range(0, 4):
                 if p > 0:
@@ -835,11 +846,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       19. DXF layer names\n'
         stream << separator
-        numLines = self.dxf_lay_names_m.numRowsForConfig(1)
-        stream << '%s\n' % numLines
+        num_lines = self.dxf_lay_names_m.numRowsForConfig(1)
+        stream << '%s\n' % num_lines
 
-        for l in range(0, numLines):
-            values = self.dxf_lay_names_m.getRow(1, l + 1)
+        for line_it in range(0, num_lines):
+            values = self.dxf_lay_names_m.getRow(1, line_it + 1)
 
             for p in range(0, 2):
                 if p > 0:
@@ -851,11 +862,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       20. Marks types\n'
         stream << separator
-        numLines = self.marks_t_m.numRowsForConfig(1)
-        stream << '%s\n' % numLines
+        num_lines = self.marks_t_m.numRowsForConfig(1)
+        stream << '%s\n' % num_lines
 
-        for l in range(0, numLines):
-            values = self.marks_t_m.getRow(1, l + 1)
+        for line_it in range(0, num_lines):
+            values = self.marks_t_m.getRow(1, line_it + 1)
 
             for p in range(0, 7):
                 if p > 0:
@@ -870,77 +881,77 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       21. JONCS DEFINITION (NYLON RODS)\n'
         stream << separator
-        numGroups = self.joncs_def_m.numConfigs()
-        if numGroups == 0:
+        num_groups = self.joncs_def_m.numConfigs()
+        if num_groups == 0:
             stream << '0\n'
         else:
             stream << '2\n'  # we always use scheme 2!
-            stream << '%s\n' % numGroups
+            stream << '%s\n' % num_groups
 
-            for g in range(0, numGroups):
-                numLines = self.joncs_def_m.numRowsForConfig(g + 1)
+            for g in range(0, num_groups):
+                num_lines = self.joncs_def_m.numRowsForConfig(g + 1)
                 values = self.joncs_def_m.getRow(g + 1, 1)
-                scheme = values(ProcessorModel.JoncsDefModel.TypeCol)
+                scheme = values(ProcModel.JoncsDefModel.TypeCol)
 
                 stream << '%s' % (g + 1)
                 stream << '\t%s\n' % scheme
-                stream << '%s\n' % numLines
+                stream << '%s\n' % num_lines
 
-                for l in range(0, numLines):
-                    values = self.joncs_def_m.getRow(g + 1, l + 1)
+                for line_it in range(0, num_lines):
+                    values = self.joncs_def_m.getRow(g + 1, line_it + 1)
 
-                    stream << '%s' % (l + 1)
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.FirstRibCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.LastRibCol))
+                    stream << '%s' % (line_it + 1)
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.FirstRibCol))
+                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.LastRibCol))
 
                     # Line 1
-                    stream << '%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBACol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBBCol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBCCol))
+                    stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBACol))
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBBCol))
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBCCol))
                     if scheme == 1:
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBDCol))
                     else:
-                        stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBDCol))
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pBECol))
+                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBECol))
 
                     if scheme == 1:
                         # Line 2
-                        stream << '%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCACol))
-                        stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCBCol))
-                        stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCCCol))
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pCDCol))
+                        stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCACol))
+                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCBCol))
+                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCCCol))
+                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCDCol))
 
                     # s values    
-                    stream << '%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDACol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDBCol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDCCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.JoncsDefModel.pDDCol))
+                    stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDACol))
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDBCol))
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDCCol))
+                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDDCol))
 
         stream << separator
         stream << '*       22. NOSE MYLARS DEFINITION\n'
         stream << separator
-        numGroups = self.nose_mylars_m.numConfigs()
-        if numGroups == 0:
+        num_groups = self.nose_mylars_m.numConfigs()
+        if num_groups == 0:
             stream << '0\n'
         else:
             stream << '1\n'
-            stream << '%s\n' % numGroups
+            stream << '%s\n' % num_groups
 
-            for g in range(0, numGroups):
-                numLines = self.nose_mylars_m.numRowsForConfig(g + 1)
+            for g in range(0, num_groups):
+                num_lines = self.nose_mylars_m.numRowsForConfig(g + 1)
 
-                for l in range(0, numLines):
-                    values = self.nose_mylars_m.getRow(g + 1, l + 1)
+                for line_it in range(0, num_lines):
+                    values = self.nose_mylars_m.getRow(g + 1, line_it + 1)
 
-                    stream << '%s' % (l + 1)
-                    stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.FirstRibCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.LastRibCol))
+                    stream << '%s' % (line_it + 1)
+                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.FirstRibCol))
+                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.LastRibCol))
 
                     for p in range(0, 6):
                         if p > 0:
                             stream << '\t'
 
-                        stream << '%s' % self.fh.chkNum(values(ProcessorModel.NoseMylarsModel.xOneCol + p))
+                        stream << '%s' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.xOneCol + p))
 
                         if p == 5:
                             stream << '\n'
@@ -953,14 +964,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       24. GENERAL 2D DXF OPTIONS\n'
         stream << separator
-        if self.two_d_dxf_m.isUsed() == False:
+        if self.two_d_dxf_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
-            numLines = self.two_d_dxf_m.numRowsForConfig(1)
+            num_lines = self.two_d_dxf_m.numRowsForConfig(1)
 
-            for l in range(0, numLines):
-                values = self.two_d_dxf_m.getRow(1, l + 1)
+            for line_it in range(0, num_lines):
+                values = self.two_d_dxf_m.getRow(1, line_it + 1)
 
                 for p in range(0, 3):
                     if p > 0:
@@ -975,19 +986,19 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       25. GENERAL 3D DXF OPTIONS\n'
         stream << separator
-        if self.three_d_dxf_m.isUsed() == False:
+        if self.three_d_dxf_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
-            for l in range(0, 6):
-                values = self.three_d_dxf_m.getRow(1, l + 1)
+            for line_it in range(0, 6):
+                values = self.three_d_dxf_m.getRow(1, line_it + 1)
 
                 stream << '%s' % self.fh.chkStr(values(0))
                 stream << '\t%s' % self.fh.chkNum(values(2))
                 stream << '\t%s\n' % self.fh.chkStr(values(3))
 
-            for l in range(6, 9):
-                values = self.three_d_dxf_m.getRow(1, l + 1)
+            for line_it in range(6, 9):
+                values = self.three_d_dxf_m.getRow(1, line_it + 1)
                 for p in range(0, 4):
                     if p > 0:
                         stream << '\t'
@@ -1001,14 +1012,14 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       26. GLUE VENTS\n'
         stream << separator
-        if self.glueVent_M.isUsed() == False:
+        if self.glue_vent_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
-            numLines = self.glueVent_M.numRowsForConfig(1)
+            num_lines = self.glue_vent_m.numRowsForConfig(1)
 
-            for l in range(0, numLines):
-                values = self.glueVent_M.getRow(1, l + 1)
+            for line_it in range(0, num_lines):
+                values = self.glue_vent_m.getRow(1, line_it + 1)
 
                 for p in range(0, 2):
                     if p > 0:
@@ -1020,74 +1031,74 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       27. SPECIAL WING TIP\n'
         stream << separator
-        if self.specWingTyp_M.isUsed() == False:
+        if self.spec_wing_tip_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            values = self.specWingTyp_M.getRow(1, 1)
-            stream << 'AngleLE\t%s\n' % self.fh.chkNum(values(ProcessorModel.SpecWingTipModel.AngleLECol))
-            stream << 'AngleTE\t%s\n' % self.fh.chkNum(values(ProcessorModel.SpecWingTipModel.AngleTECol))
+            values = self.spec_wing_tip_m.getRow(1, 1)
+            stream << 'AngleLE\t%s\n' % self.fh.chkNum(values(ProcModel.SpecWingTipModel.AngleLECol))
+            stream << 'AngleTE\t%s\n' % self.fh.chkNum(values(ProcModel.SpecWingTipModel.AngleTECol))
 
         stream << separator
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
         stream << separator
-        if self.calageVar_M.isUsed() == False:
+        if self.calage_var_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            values = self.calageVar_M.getRow(1, 1)
-            stream << '%s\n' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumRisersCol))
+            values = self.calage_var_m.getRow(1, 1)
+            stream << '%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumRisersCol))
 
-            stream << '%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosACol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosBCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosCCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosDCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosECol))
-            stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.PosFCol))
+            stream << '%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosACol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosBCol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosCCol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosDCol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosECol))
+            stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosFCol))
 
-            stream << '%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.MaxNegAngCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumNegStepsCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.MaxPosAngCol))
-            stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.CalageVarModel.NumPosStepsCol))
+            stream << '%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.MaxNegAngCol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumNegStepsCol))
+            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.MaxPosAngCol))
+            stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumPosStepsCol))
 
         stream << separator
         stream << '*       29. 3D SHAPING\n'
         stream << separator
-        numGroups = self.threeDShConf_M.numConfigs()
-        if numGroups == 0:
+        num_groups = self.three_d_sh_conf_m.numConfigs()
+        if num_groups == 0:
             stream << '0\n'
         else:
             stream << '1\n'
 
             stream << '1\n'
-            stream << 'groups\t%s\n' % numGroups
+            stream << 'groups\t%s\n' % num_groups
 
-            for g in range(0, numGroups):
-                values = self.threeDShConf_M.getRow(g + 1, 1)
+            for g in range(0, num_groups):
+                values = self.three_d_sh_conf_m.getRow(g + 1, 1)
                 stream << 'group\t%s' % (g + 1)
-                stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.ThreeDShConfModel.FirstRibCol))
-                stream << '\t%s\n' % self.fh.chkNum(values(ProcessorModel.ThreeDShConfModel.LastRibCol))
+                stream << '\t%s' % self.fh.chkNum(values(ProcModel.ThreeDShConfModel.FirstRibCol))
+                stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.ThreeDShConfModel.LastRibCol))
 
-                numLines = self.threeDShUpDet_M.numRowsForConfig(g + 1)
-                stream << 'upper\t%s\t1\n' % numLines
+                num_lines = self.three_d_sh_up_det_M.numRowsForConfig(g + 1)
+                stream << 'upper\t%s\t1\n' % num_lines
 
-                for l in range(0, numLines):
-                    values = self.threeDShUpDet_M.getRow(g + 1, l + 1)
-                    stream << '%s' % (l + 1)
+                for line_it in range(0, num_lines):
+                    values = self.three_d_sh_up_det_M.getRow(g + 1, line_it + 1)
+                    stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
                         stream << '\t%s' % self.fh.chkNum(values(p))
                         if p == 2:
                             stream << '\n'
 
-                numLines = self.threeDShLoDet_M.numRowsForConfig(g + 1)
-                stream << 'lower\t%s\t1\n' % numLines
+                num_lines = self.three_d_sh_lo_det_m.numRowsForConfig(g + 1)
+                stream << 'lower\t%s\t1\n' % num_lines
 
-                for l in range(0, numLines):
-                    values = self.threeDShLoDet_M.getRow(g + 1, l + 1)
-                    stream << '%s' % (l + 1)
+                for line_it in range(0, num_lines):
+                    values = self.three_d_sh_lo_det_m.getRow(g + 1, line_it + 1)
+                    stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
                         stream << '\t%s' % self.fh.chkNum(values(p))
@@ -1095,9 +1106,9 @@ class ProcessorModel(QObject, metaclass=Singleton):
                             stream << '\n'
 
             stream << '* Print parameters\n'
-            numLines = self.threeDShPr_M.numRowsForConfig(1)
-            for l in range(0, numLines):
-                values = self.threeDShPr_M.getRow(1, l + 1)
+            num_lines = self.three_d_sh_print_m.numRowsForConfig(1)
+            for line_it in range(0, num_lines):
+                values = self.three_d_sh_print_m.getRow(1, line_it + 1)
 
                 for p in range(0, 5):
                     if p > 0:
@@ -1112,43 +1123,44 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '*       30. AIRFOIL THICKNESS MODIFICATION\n'
         stream << separator
-        if self.airfThick_M.isUsed() == False:
+        if self.airf_thickn_m.isUsed() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            numLines = self.airfThick_M.numRowsForConfig(1)
-            for l in range(0, numLines):
-                values = self.airfThick_M.getRow(1, l + 1)
+            num_lines = self.airf_thickn_m.numRowsForConfig(1)
+            for line_it in range(0, num_lines):
+                values = self.airf_thickn_m.getRow(1, line_it + 1)
 
-                stream << '%s' % (l + 1)
+                stream << '%s' % (line_it + 1)
                 stream << '\t%s\n' % self.fh.chkNum(values(0))
 
         stream << separator
         stream << '*       31. NEW SKIN TENSION MODULE\n'
         stream << separator
-        numGroups = self.newSkinTensConf_M.numConfigs()
-        if numGroups == 0:
+        num_groups = self.new_skin_tens_conf_m.numConfigs()
+        if num_groups == 0:
             stream << '0\n'
         else:
             stream << '1\n'
-            stream << '%s\n' % numGroups
+            stream << '%s\n' % num_groups
 
-            for g in range(0, numGroups):
+            for g in range(0, num_groups):
                 stream << '* Skin tension group\n'
-                values = self.newSkinTensConf_M.getRow(g + 1, 1)
-                numLines = self.newSkinTensDet_M.numRowsForConfig(g + 1)
+                values = self.new_skin_tens_conf_m.getRow(g + 1, 1)
+                num_lines = self.new_skin_tens_det_m.numRowsForConfig(g + 1)
 
                 stream << '%s' % (g + 1)
-                stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.NewSkinTensConfModel.InitialRibCol))
-                stream << '\t%s' % self.fh.chkNum(values(ProcessorModel.NewSkinTensConfModel.FinalRibCol))
-                stream << '\t%s' % numLines
+                stream << '\t%s' % self.fh.chkNum(values(ProcModel.NewSkinTensConfModel.InitialRibCol))
+                stream << '\t%s' % self.fh.chkNum(values(ProcModel.NewSkinTensConfModel.FinalRibCol))
+                stream << '\t%s' % num_lines
                 stream << '\t1\n'
 
-                for l in range(0, numLines):
-                    values = self.newSkinTensDet_M.getRow(g + 1, l + 1)
+                for line_it in range(0, num_lines):
+                    values = self.new_skin_tens_det_m.getRow(g + 1,
+                                                             line_it + 1)
 
-                    stream << '%s' % (l + 1)
+                    stream << '%s' % (line_it + 1)
                     for p in range(0, 4):
                         stream << '\t%s' % self.fh.chkNum(values(p))
                         if p == 3:
@@ -1157,17 +1169,17 @@ class ProcessorModel(QObject, metaclass=Singleton):
         stream.flush()
         out_file.close()
 
-        if for_proc == False:
+        if for_proc is False:
             # Then we need to set the right file version
-            self.setFileVersion('3.10')
+            self.set_file_version('3.10')
 
             # Make flags in order
             # self.dataStatusUpdate.emit(self.__className,'Open')
 
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the parameters for the additional rib points. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the parameters for the additional rib points.
+        """
         __className = 'AddRibPointsModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -2047,11 +2059,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 i += 1
             return query.value
 
-    class ElasticLinesCorrModel(SqlTableModel, metaclass=Singleton):
+    class ElLinesCorrModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the parameters for the elastic lines correction. 
         '''
-        __className = 'ElasticLinesCorrModel'
+        __className = 'ElLinesCorrModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
         LoadCol = 0
@@ -2152,11 +2164,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.next()
             return query.value
 
-    class ElasticLinesDefModel(SqlTableModel, metaclass=Singleton):
+    class ElLinesDefModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic lines correction)
         '''
-        __className = 'ElasticLinesDefModel'
+        __className = 'ElLinesDefModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
         OrderNumCol = 0
@@ -2250,11 +2262,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 i += 1
             return query.value
 
-    class ExtradColsConfModel(SqlTableModel, metaclass=Singleton):
+    class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all data related to the Extrados colors configuration 
         '''
-        __className = 'ExtradColsConfModel'
+        __className = 'ExtradosColConfModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
@@ -2320,11 +2332,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.next()
             return query.value
 
-    class ExtradColsDetModel(SqlTableModel, metaclass=Singleton):
+    class ExtradosColDetModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all detail data related to the Extrados colors 
         '''
-        __className = 'ExtradColsDetModel'
+        __className = 'ExtradosColDetModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
@@ -2732,11 +2744,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
                 i += 1
             return query.value
 
-    class IntradColsConfModel(SqlTableModel, metaclass=Singleton):
+    class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all data related to the Intrados colors configuration 
         '''
-        __className = 'IntradColsConfModel'
+        __className = 'IntradosColsConfModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
@@ -2802,11 +2814,11 @@ class ProcessorModel(QObject, metaclass=Singleton):
             query.next()
             return query.value
 
-    class IntradColsDetModel(SqlTableModel, metaclass=Singleton):
+    class IntradosColsDetModel(SqlTableModel, metaclass=Singleton):
         '''
         :class: provides a SqlTableModel holding all detail data related to the Intrados colors 
         '''
-        __className = 'IntradColsDetModel'
+        __className = 'IntradosColsDetModel'
         '''
         :attr: Does help to indicate the source of the log messages
         '''
@@ -5374,7 +5386,7 @@ class ProcessorModel(QObject, metaclass=Singleton):
         '''
         __className = 'WingModel'
 
-        BrandNameCol = 0
+        BrandNameCol = 0  # type: int
         ''':attr: number of the brand name column'''
         WingNameCol = 1
         ''':attr: number of the wing name column'''
@@ -5461,12 +5473,12 @@ class ProcessorModel(QObject, metaclass=Singleton):
 
             self.setNumRowsForConfig(1, 1)
 
-            self.rib_M = ProcessorModel.RibModel()
-            self.anchPoints_M = ProcessorModel.AnchorPointsModel()
-            self.airf_M = ProcessorModel.AirfoilsModel()
-            self.lightC_M = ProcessorModel.LightConfModel()
-            self.glueVent_M = ProcessorModel.GlueVentModel()
-            self.airfThick_M = ProcessorModel.AirfoilThicknessModel()
+            self.rib_M = ProcModel.RibModel()
+            self.anchPoints_M = ProcModel.AnchorPointsModel()
+            self.airf_M = ProcModel.AirfoilsModel()
+            self.lightC_M = ProcModel.LightConfModel()
+            self.glueVent_M = ProcModel.GlueVentModel()
+            self.airfThick_M = ProcModel.AirfoilThicknessModel()
 
             # self.dataChanged.connect(self.syncRibNumData)
             self.dataChanged.connect(self.manDataChange)
@@ -5562,10 +5574,10 @@ class ProcessorModel(QObject, metaclass=Singleton):
             self.syncRibNumData()
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()

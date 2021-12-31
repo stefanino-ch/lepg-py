@@ -12,7 +12,7 @@ from gui.elements.LineEdit import LineEdit
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 
 class Lines(QMdiSubWindow):
@@ -32,10 +32,10 @@ class Lines(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
-        self.wing_M = ProcessorModel.WingModel()
+        self.wing_M = ProcModel.WingModel()
         self.wing_M.dataChanged.connect(self.wingModelDataChange)
 
-        self.lines_M = ProcessorModel.LinesModel()
+        self.lines_M = ProcModel.LinesModel()
         self.lines_M.numRowsForConfigChanged.connect(self.modelSizeChanged)
 
         self.proxyModel = []
@@ -93,7 +93,7 @@ class Lines(QMdiSubWindow):
         self.contr_E = LineEdit()
         self.contr_E.setFixedWidth(40)
         self.wrapper.addMapping(self.contr_E,
-                                ProcessorModel.WingModel.LinesConcTypeCol)
+                                ProcModel.WingModel.LinesConcTypeCol)
         self.contr_E.enableIntValidator(0, 3)
         self.contr_E.setHelpText(_('Lines-LinesControlParamDesc'))
         self.contr_E.setHelpBar(self.helpBar)
@@ -247,7 +247,7 @@ class Lines(QMdiSubWindow):
         self.proxyModel.append(QSortFilterProxyModel())
         self.proxyModel[currNumTabs].setSourceModel(self.lines_M)
         self.proxyModel[currNumTabs].setFilterKeyColumn(
-                                        ProcessorModel.LinesModel.ConfigNumCol)
+                                        ProcModel.LinesModel.ConfigNumCol)
 
         self.proxyModel[currNumTabs].setFilterRegExp(
                                         QRegExp(str(currNumTabs+1)))
@@ -262,67 +262,67 @@ class Lines(QMdiSubWindow):
         tabLayout.addWidget(branchTable)
 
         branchTable.enableIntValidator(
-                        ProcessorModel.LinesModel.OrderNumCol,
-                        ProcessorModel.LinesModel.OrderNumCol,
+                        ProcModel.LinesModel.OrderNumCol,
+                        ProcModel.LinesModel.OrderNumCol,
                         1,
                         999)
         branchTable.enableIntValidator(
-                        ProcessorModel.LinesModel.NumBranchesCol,
-                        ProcessorModel.LinesModel.NumBranchesCol,
+                        ProcModel.LinesModel.NumBranchesCol,
+                        ProcModel.LinesModel.NumBranchesCol,
                         1,
                         4)
         branchTable.enableIntValidator(
-                        ProcessorModel.LinesModel.BranchLvlOneCol,
-                        ProcessorModel.LinesModel.OrderLvlFourCol,
+                        ProcModel.LinesModel.BranchLvlOneCol,
+                        ProcModel.LinesModel.OrderLvlFourCol,
                         1,
                         99)
         branchTable.enableIntValidator(
-                        ProcessorModel.LinesModel.AnchorLineCol,
-                        ProcessorModel.LinesModel.AnchorLineCol,
+                        ProcModel.LinesModel.AnchorLineCol,
+                        ProcModel.LinesModel.AnchorLineCol,
                         1,
                         6)
         branchTable.enableIntValidator(
-                        ProcessorModel.LinesModel.AnchorRibNumCol,
-                        ProcessorModel.LinesModel.AnchorRibNumCol,
+                        ProcModel.LinesModel.AnchorRibNumCol,
+                        ProcModel.LinesModel.AnchorRibNumCol,
                         1,
                         999)
 
         branchTable.setHelpBar(self.helpBar)
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.OrderNumCol,
+                        ProcModel.LinesModel.OrderNumCol,
                         _('OrderNumDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.NumBranchesCol,
+                        ProcModel.LinesModel.NumBranchesCol,
                         _('Lines-NumBranchesDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.BranchLvlOneCol,
+                        ProcModel.LinesModel.BranchLvlOneCol,
                         _('Lines-BranchLvlOneDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.OrderLvlOneCol,
+                        ProcModel.LinesModel.OrderLvlOneCol,
                         _('Lines-OrderLvlOneDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.LevelOfRamTwoCol,
+                        ProcModel.LinesModel.LevelOfRamTwoCol,
                         _('Lines-LevelOfRamTwoDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.OrderLvlTwoCol,
+                        ProcModel.LinesModel.OrderLvlTwoCol,
                         _('Lines-OrderLvlTwoDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.LevelOfRamThreeCol,
+                        ProcModel.LinesModel.LevelOfRamThreeCol,
                         _('Lines-LevelOfRamThreeDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.OrderLvlThreeCol,
+                        ProcModel.LinesModel.OrderLvlThreeCol,
                         _('Lines-OrderLvlThreeDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.BranchLvlFourCol,
+                        ProcModel.LinesModel.BranchLvlFourCol,
                         _('Lines-BranchLvlFourDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.OrderLvlFourCol,
+                        ProcModel.LinesModel.OrderLvlFourCol,
                         _('Lines-OrderLvlFourDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.AnchorLineCol,
+                        ProcModel.LinesModel.AnchorLineCol,
                         _('Lines-AnchorLineDesc'))
         branchTable.setHelpText(
-                        ProcessorModel.LinesModel.AnchorRibNumCol,
+                        ProcModel.LinesModel.AnchorRibNumCol,
                         _('Lines-AnchorRibNumDesc'))
 
         tabWidget.setLayout(tabLayout)
@@ -359,7 +359,7 @@ class Lines(QMdiSubWindow):
                  the mapping again.
         '''
         self.wrapper.addMapping(self.contr_E,
-                                ProcessorModel.WingModel.LinesConcTypeCol)
+                                ProcModel.WingModel.LinesConcTypeCol)
 
     def sortBtnPress(self):
         '''
@@ -371,7 +371,7 @@ class Lines(QMdiSubWindow):
         if self.tabs.count() > 0:
             currTab = self.tabs.currentIndex()
             self.proxyModel[currTab].sort(
-                                    ProcessorModel.LinesModel.OrderNumCol,
+                                    ProcModel.LinesModel.OrderNumCol,
                                     Qt.AscendingOrder)
             self.proxyModel[currTab].setDynamicSortFilter(False)
 

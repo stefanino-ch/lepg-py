@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class Airfoils(QMdiSubWindow):
     '''
@@ -28,7 +28,7 @@ class Airfoils(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.airf_M = ProcessorModel.AirfoilsModel()
+        self.airf_M = ProcModel.AirfoilsModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -75,21 +75,21 @@ class Airfoils(QMdiSubWindow):
         self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setHelpBar(self.helpBar)
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.RibNumCol, _('Proc-RibNumDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.AirfNameCol, _('Proc-AirfoilNameDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.IntakeStartCol, _('Proc-IntakeStartDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.IntakeEndCol, _('Proc-IntakeEnDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.OpenCloseCol, _('Proc-OpenCloseDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.DisplacCol, _('Proc-DisplacDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.RelWeightCol, _('Proc-RelWeightDesc'))
-        self.table.setHelpText(ProcessorModel.AirfoilsModel.rrwCol, _('Proc-rrwDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.RibNumCol, _('Proc-RibNumDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.AirfNameCol, _('Proc-AirfoilNameDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.IntakeStartCol, _('Proc-IntakeStartDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.IntakeEndCol, _('Proc-IntakeEnDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.OpenCloseCol, _('Proc-OpenCloseDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.DisplacCol, _('Proc-DisplacDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.RelWeightCol, _('Proc-RelWeightDesc'))
+        self.table.setHelpText(ProcModel.AirfoilsModel.rrwCol, _('Proc-rrwDesc'))
         
-        self.table.enableIntValidator(ProcessorModel.AirfoilsModel.RibNumCol, ProcessorModel.AirfoilsModel.RibNumCol, 1, 999)
-        self.table.enableRegExpValidator(ProcessorModel.AirfoilsModel.AirfNameCol, ProcessorModel.AirfoilsModel.AirfNameCol, "(.|\s)*\S(.|\s)*")
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.IntakeStartCol, ProcessorModel.AirfoilsModel.IntakeEndCol, 0, 100, 3)
-        self.table.enableIntValidator(ProcessorModel.AirfoilsModel.OpenCloseCol, ProcessorModel.AirfoilsModel.OpenCloseCol, 0, 1)
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.DisplacCol, ProcessorModel.AirfoilsModel.DisplacCol, 0, 3000, 3)
-        self.table.enableDoubleValidator(ProcessorModel.AirfoilsModel.RelWeightCol,ProcessorModel.AirfoilsModel.rrwCol, 0, 100, 3)
+        self.table.enableIntValidator(ProcModel.AirfoilsModel.RibNumCol, ProcModel.AirfoilsModel.RibNumCol, 1, 999)
+        self.table.enableRegExpValidator(ProcModel.AirfoilsModel.AirfNameCol, ProcModel.AirfoilsModel.AirfNameCol, "(.|\s)*\S(.|\s)*")
+        self.table.enableDoubleValidator(ProcModel.AirfoilsModel.IntakeStartCol, ProcModel.AirfoilsModel.IntakeEndCol, 0, 100, 3)
+        self.table.enableIntValidator(ProcModel.AirfoilsModel.OpenCloseCol, ProcModel.AirfoilsModel.OpenCloseCol, 0, 1)
+        self.table.enableDoubleValidator(ProcModel.AirfoilsModel.DisplacCol, ProcModel.AirfoilsModel.DisplacCol, 0, 3000, 3)
+        self.table.enableDoubleValidator(ProcModel.AirfoilsModel.RelWeightCol, ProcModel.AirfoilsModel.rrwCol, 0, 100, 3)
         
         self.windowLayout.addWidget(self.table)
         
@@ -118,7 +118,7 @@ class Airfoils(QMdiSubWindow):
         : method : handles the sort of the table by rib number
         '''
         logging.debug(self.__className+'.sortBtnPress')
-        self.airf_M.sortTable(ProcessorModel.AirfoilsModel.RibNumCol, Qt.AscendingOrder)
+        self.airf_M.sortTable(ProcModel.AirfoilsModel.RibNumCol, Qt.AscendingOrder)
     
     def btnPress(self, q):
         '''

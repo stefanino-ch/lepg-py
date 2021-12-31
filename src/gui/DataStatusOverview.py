@@ -12,8 +12,8 @@ from PyQt5.QtWidgets import QLabel
 from gui.elements.WindowBtnBar import WindowBtnBar
 
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
-from DataStores.PreProcessorModel import PreProcessorModel
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.PreProcModel import PreProcModel
+from DataStores.ProcModel import ProcModel
 
 class DataStatusOverview(QMdiSubWindow):
     '''
@@ -33,8 +33,8 @@ class DataStatusOverview(QMdiSubWindow):
         super().__init__()
         
         self.dws = DataWindowStatus()
-        self.ppm = PreProcessorModel()
-        self.pm = ProcessorModel()
+        self.ppm = PreProcModel()
+        self.pm = ProcModel()
         
         self.buildWindow()
         self.dws.statusUpdated.connect(self.updateStatus)
@@ -126,7 +126,7 @@ class DataStatusOverview(QMdiSubWindow):
         self.__procGridR += 1
         ##
         self.procFileversL = QLabel(_('File version'))
-        self.procFileversD = QLabel(self.pm.getFileVersion())
+        self.procFileversD = QLabel(self.pm.get_file_version())
 
         self.procG.addWidget(self.procFileversL, self.__procGridR, 0)
         self.procG.addWidget(self.procFileversD, self.__procGridR, 1)
@@ -169,19 +169,19 @@ class DataStatusOverview(QMdiSubWindow):
         '''
         :method: Updates the status information displayed in the window
         '''
-        if n == 'PreProcessorModel':
+        if n == 'PreProcModel':
             if q == 'FileNamePath':
                 self.preProcFilenameD.setText(self.shortenPath(self.ppm.get_file_name()))
         
             elif q == 'FileVersion':
                 self.preProcFileversD.setText(self.ppm.get_file_version())
         
-        elif n == 'ProcessorModel':
+        elif n == 'ProcModel':
             if q == 'FileNamePath':
                 self.procFilenameD.setText(self.shortenPath(self.pm.get_file_name()))
                 
             elif q == 'FileVersion':
-                self.procFileversD.setText(self.pm.getFileVersion())
+                self.procFileversD.setText(self.pm.get_file_version())
             
     def btnPress(self, q):
         '''

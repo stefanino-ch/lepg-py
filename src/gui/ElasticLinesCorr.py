@@ -11,7 +11,7 @@ from gui.elements.LineEdit import LineEdit
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.TableView import TableView
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class ElasticLinesCorr(QMdiSubWindow):
     '''
@@ -30,8 +30,8 @@ class ElasticLinesCorr(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.elLinesCorr_M = ProcessorModel.ElasticLinesCorrModel()
-        self.elLinesDef_M = ProcessorModel.ElasticLinesDefModel()
+        self.elLinesCorr_M = ProcModel.ElLinesCorrModel()
+        self.elLinesDef_M = ProcModel.ElLinesDefModel()
 
         self.buildWindow()
     
@@ -80,7 +80,7 @@ class ElasticLinesCorr(QMdiSubWindow):
         load_L = QLabel(_('In flight load [kg]'))
         load_L.setAlignment(Qt.AlignRight)
         self.load_E = LineEdit()
-        self.wrapper.addMapping(self.load_E, ProcessorModel.ElasticLinesCorrModel.LoadCol)
+        self.wrapper.addMapping(self.load_E, ProcModel.ElLinesCorrModel.LoadCol)
         self.load_E.enableDoubleValidator(0, 500, 2)
         self.load_E.setHelpText(_('ElLinesCorr-LoadDesc'))
         self.load_E.setHelpBar(self.helpBar)
@@ -99,13 +99,13 @@ class ElasticLinesCorr(QMdiSubWindow):
         twoLineT_L = QLabel(_('Two Lines'))
         twoLineT_L.setAlignment(Qt.AlignRight)
         self.twoLineA_E = LineEdit()
-        self.wrapper.addMapping(self.twoLineA_E, ProcessorModel.ElasticLinesCorrModel.TwoLineDistACol)
+        self.wrapper.addMapping(self.twoLineA_E, ProcModel.ElLinesCorrModel.TwoLineDistACol)
         self.twoLineA_E.enableDoubleValidator(0, 100, 2)
         self.twoLineA_E.setHelpText(_('ElLinesCorr-TwoLineDistDesc'))
         self.twoLineA_E.setHelpBar(self.helpBar)
         
         self.twoLineB_E = LineEdit()
-        self.wrapper.addMapping(self.twoLineB_E, ProcessorModel.ElasticLinesCorrModel.TwoLineDistBCol)
+        self.wrapper.addMapping(self.twoLineB_E, ProcModel.ElLinesCorrModel.TwoLineDistBCol)
         self.twoLineB_E.enableDoubleValidator(0, 100, 2)
         self.twoLineB_E.setHelpText(_('ElLinesCorr-TwoLineDistDesc'))
         self.twoLineB_E.setHelpBar(self.helpBar)
@@ -119,19 +119,19 @@ class ElasticLinesCorr(QMdiSubWindow):
         threeLineT_L = QLabel(_('Three Lines'))
         threeLineT_L.setAlignment(Qt.AlignRight)
         self.threeLineA_E = LineEdit()
-        self.wrapper.addMapping(self.threeLineA_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistACol)
+        self.wrapper.addMapping(self.threeLineA_E, ProcModel.ElLinesCorrModel.ThreeLineDistACol)
         self.threeLineA_E.enableDoubleValidator(0, 100, 2)
         self.threeLineA_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineA_E.setHelpBar(self.helpBar)
         
         self.threeLineB_E = LineEdit()
-        self.wrapper.addMapping(self.threeLineB_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistBCol)
+        self.wrapper.addMapping(self.threeLineB_E, ProcModel.ElLinesCorrModel.ThreeLineDistBCol)
         self.threeLineB_E.enableDoubleValidator(0, 100, 2)
         self.threeLineB_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineB_E.setHelpBar(self.helpBar)
 
         self.threeLineC_E = LineEdit()
-        self.wrapper.addMapping(self.threeLineC_E, ProcessorModel.ElasticLinesCorrModel.ThreeLineDistCCol)
+        self.wrapper.addMapping(self.threeLineC_E, ProcModel.ElLinesCorrModel.ThreeLineDistCCol)
         self.threeLineC_E.enableDoubleValidator(0, 100, 2)
         self.threeLineC_E.setHelpText(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineC_E.setHelpBar(self.helpBar)
@@ -146,25 +146,25 @@ class ElasticLinesCorr(QMdiSubWindow):
         fourLineT_L = QLabel(_('Four Lines'))
         fourLineT_L.setAlignment(Qt.AlignRight)
         self.fourLineA_E = LineEdit()
-        self.wrapper.addMapping(self.fourLineA_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistACol)
+        self.wrapper.addMapping(self.fourLineA_E, ProcModel.ElLinesCorrModel.FourLineDistACol)
         self.fourLineA_E.enableDoubleValidator(0, 100, 2)
         self.fourLineA_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineA_E.setHelpBar(self.helpBar)
         
         self.fourLineB_E = LineEdit()
-        self.wrapper.addMapping(self.fourLineB_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistBCol)
+        self.wrapper.addMapping(self.fourLineB_E, ProcModel.ElLinesCorrModel.FourLineDistBCol)
         self.fourLineB_E.enableDoubleValidator(0, 100, 2)
         self.fourLineB_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineB_E.setHelpBar(self.helpBar)
 
         self.fourLineC_E = LineEdit()
-        self.wrapper.addMapping(self.fourLineC_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistCCol)
+        self.wrapper.addMapping(self.fourLineC_E, ProcModel.ElLinesCorrModel.FourLineDistCCol)
         self.fourLineC_E.enableDoubleValidator(0, 100, 2)
         self.fourLineC_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineC_E.setHelpBar(self.helpBar)
         
         self.fourLineD_E = LineEdit()
-        self.wrapper.addMapping(self.fourLineD_E, ProcessorModel.ElasticLinesCorrModel.FourLineDistDCol)
+        self.wrapper.addMapping(self.fourLineD_E, ProcModel.ElLinesCorrModel.FourLineDistDCol)
         self.fourLineD_E.enableDoubleValidator(0, 100, 2)
         self.fourLineD_E.setHelpText(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineD_E.setHelpBar(self.helpBar)
@@ -180,31 +180,31 @@ class ElasticLinesCorr(QMdiSubWindow):
         fiveLineT_L = QLabel(_('Five Lines'))
         fiveLineT_L.setAlignment(Qt.AlignRight)
         self.fiveLineA_E = LineEdit()
-        self.wrapper.addMapping(self.fiveLineA_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistACol)
+        self.wrapper.addMapping(self.fiveLineA_E, ProcModel.ElLinesCorrModel.FiveLineDistACol)
         self.fiveLineA_E.enableDoubleValidator(0, 100, 2)
         self.fiveLineA_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineA_E.setHelpBar(self.helpBar)
         
         self.fiveLineB_E = LineEdit()
-        self.wrapper.addMapping(self.fiveLineB_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistBCol)
+        self.wrapper.addMapping(self.fiveLineB_E, ProcModel.ElLinesCorrModel.FiveLineDistBCol)
         self.fiveLineB_E.enableDoubleValidator(0, 100, 2)
         self.fiveLineB_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineB_E.setHelpBar(self.helpBar)
 
         self.fiveLineC_E = LineEdit()
-        self.wrapper.addMapping(self.fiveLineC_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistCCol)
+        self.wrapper.addMapping(self.fiveLineC_E, ProcModel.ElLinesCorrModel.FiveLineDistCCol)
         self.fiveLineC_E.enableDoubleValidator(0, 100, 2)
         self.fiveLineC_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineC_E.setHelpBar(self.helpBar)
         
         self.fiveLineD_E = LineEdit()
-        self.wrapper.addMapping(self.fiveLineD_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistDCol)
+        self.wrapper.addMapping(self.fiveLineD_E, ProcModel.ElLinesCorrModel.FiveLineDistDCol)
         self.fiveLineD_E.enableDoubleValidator(0, 100, 2)
         self.fiveLineD_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineD_E.setHelpBar(self.helpBar)
         
         self.fiveLineE_E = LineEdit()
-        self.wrapper.addMapping(self.fiveLineE_E, ProcessorModel.ElasticLinesCorrModel.FiveLineDistECol)
+        self.wrapper.addMapping(self.fiveLineE_E, ProcModel.ElLinesCorrModel.FiveLineDistECol)
         self.fiveLineD_E.enableDoubleValidator(0, 100, 2)
         self.fiveLineE_E.setHelpText(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineE_E.setHelpBar(self.helpBar)        
@@ -228,14 +228,14 @@ class ElasticLinesCorr(QMdiSubWindow):
         def_T.setFixedHeight(2 + def_T.horizontalHeader().height() + 5* def_T.rowHeight(0))
         self.windowLayout.addWidget(def_T)
         
-        def_T.enableIntValidator(ProcessorModel.ElasticLinesDefModel.OrderNumCol, ProcessorModel.ElasticLinesDefModel.OrderNumCol, 1,5 )
-        def_T.enableDoubleValidator(ProcessorModel.ElasticLinesDefModel.DefLowCol, ProcessorModel.ElasticLinesDefModel.DefHighCol, 0, 10, 2)
+        def_T.enableIntValidator(ProcModel.ElLinesDefModel.OrderNumCol, ProcModel.ElLinesDefModel.OrderNumCol, 1, 5)
+        def_T.enableDoubleValidator(ProcModel.ElLinesDefModel.DefLowCol, ProcModel.ElLinesDefModel.DefHighCol, 0, 10, 2)
         
         def_T.setHelpBar(self.helpBar)
-        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.OrderNumCol, _('ElLinesCorr-NumOfLinesDesc'))
-        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefLowCol, _('ElLinesCorr-LowColDesc'))
-        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefMidCol, _('ElLinesCorr-MidColDesc'))
-        def_T.setHelpText(ProcessorModel.ElasticLinesDefModel.DefHighCol , _('ElLinesCorr-HigColDesc'))
+        def_T.setHelpText(ProcModel.ElLinesDefModel.OrderNumCol, _('ElLinesCorr-NumOfLinesDesc'))
+        def_T.setHelpText(ProcModel.ElLinesDefModel.DefLowCol, _('ElLinesCorr-LowColDesc'))
+        def_T.setHelpText(ProcModel.ElLinesDefModel.DefMidCol, _('ElLinesCorr-MidColDesc'))
+        def_T.setHelpText(ProcModel.ElLinesDefModel.DefHighCol, _('ElLinesCorr-HigColDesc'))
   
         self.wrapper.toFirst()
         #############################

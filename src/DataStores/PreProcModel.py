@@ -18,7 +18,7 @@ from DataStores.Database import Database
 from DataStores.FileHelpers import FileHelpers
 
 
-class PreProcessorModel(QObject, metaclass=Singleton):
+class PreProcModel(QObject, metaclass=Singleton):
     """
     :class: Does take care about the data handling for the pre-processor.
             Reads and writes the data files
@@ -36,7 +36,7 @@ class PreProcessorModel(QObject, metaclass=Singleton):
         - if a file was saved
         - Filename and Path has been changed
     '''
-    __className = 'PreProcessorModel'
+    __className = 'PreProcModel'
     '''
     :attr: Does help to indicate the source of the log messages
     '''

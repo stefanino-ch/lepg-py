@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class GlobalAoA(QMdiSubWindow):
     '''
@@ -27,7 +27,7 @@ class GlobalAoA(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.globAoA_M = ProcessorModel.GlobAoAModel()
+        self.globAoA_M = ProcModel.GlobAoAModel()
         self.buildWindow()
     
     def closeEvent(self, event):  # @UnusedVariable
@@ -75,12 +75,12 @@ class GlobalAoA(QMdiSubWindow):
         calage_T.hideColumn(4)
         calage_T.hideColumn(5)
         
-        calage_T.setHelpText(ProcessorModel.GlobAoAModel.FinesseCol, _('GlobalAoA-FinesseDesc'))
-        calage_T.setHelpText(ProcessorModel.GlobAoAModel.CentOfPressCol, _('GlobalAoA-CenterOfPressureDesc'))
-        calage_T.setHelpText(ProcessorModel.GlobAoAModel.CalageCol, _('GlobalAoA-CalageDesc'))
+        calage_T.setHelpText(ProcModel.GlobAoAModel.FinesseCol, _('GlobalAoA-FinesseDesc'))
+        calage_T.setHelpText(ProcModel.GlobAoAModel.CentOfPressCol, _('GlobalAoA-CenterOfPressureDesc'))
+        calage_T.setHelpText(ProcModel.GlobAoAModel.CalageCol, _('GlobalAoA-CalageDesc'))
 
-        calage_T.enableDoubleValidator(ProcessorModel.GlobAoAModel.FinesseCol, ProcessorModel.GlobAoAModel.FinesseCol, 0, 100, 2)
-        calage_T.enableIntValidator(ProcessorModel.GlobAoAModel.CentOfPressCol, ProcessorModel.GlobAoAModel.CalageCol, 0, 100)
+        calage_T.enableDoubleValidator(ProcModel.GlobAoAModel.FinesseCol, ProcModel.GlobAoAModel.FinesseCol, 0, 100, 2)
+        calage_T.enableIntValidator(ProcModel.GlobAoAModel.CentOfPressCol, ProcModel.GlobAoAModel.CalageCol, 0, 100)
                 
         calage_T.setFixedHeight(2 + calage_T.horizontalHeader().height() + calage_T.rowHeight(0))
 
@@ -98,12 +98,12 @@ class GlobalAoA(QMdiSubWindow):
         lenght_T.hideColumn(1)
         lenght_T.hideColumn(2)
         
-        lenght_T.setHelpText(ProcessorModel.GlobAoAModel.RisersCol, _('GlobalAoA-RisersDesc'))
-        lenght_T.setHelpText(ProcessorModel.GlobAoAModel.LinesCol, _('GlobalAoA-LinesDesc'))
-        lenght_T.setHelpText(ProcessorModel.GlobAoAModel.KarabinersCol, _('GlobalAoA-KarabinersDesc'))
+        lenght_T.setHelpText(ProcModel.GlobAoAModel.RisersCol, _('GlobalAoA-RisersDesc'))
+        lenght_T.setHelpText(ProcModel.GlobAoAModel.LinesCol, _('GlobalAoA-LinesDesc'))
+        lenght_T.setHelpText(ProcModel.GlobAoAModel.KarabinersCol, _('GlobalAoA-KarabinersDesc'))
 
-        lenght_T.enableIntValidator(ProcessorModel.GlobAoAModel.RisersCol, ProcessorModel.GlobAoAModel.LinesCol, 0, 2000)
-        lenght_T.enableIntValidator(ProcessorModel.GlobAoAModel.KarabinersCol, ProcessorModel.GlobAoAModel.KarabinersCol, 0, 100)
+        lenght_T.enableIntValidator(ProcModel.GlobAoAModel.RisersCol, ProcModel.GlobAoAModel.LinesCol, 0, 2000)
+        lenght_T.enableIntValidator(ProcModel.GlobAoAModel.KarabinersCol, ProcModel.GlobAoAModel.KarabinersCol, 0, 100)
                 
         lenght_T.setFixedHeight(2 + lenght_T.horizontalHeader().height() + lenght_T.rowHeight(0))
 

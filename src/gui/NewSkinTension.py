@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QS
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcessorModel import ProcessorModel
+from DataStores.ProcModel import ProcModel
 
 class NewSkinTension(QMdiSubWindow):
     '''
@@ -28,10 +28,10 @@ class NewSkinTension(QMdiSubWindow):
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
-        self.newSkinTensConf_M = ProcessorModel.NewSkinTensConfModel()
+        self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
         self.newSkinTensConf_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
         
-        self.newSkinTensDet_M = ProcessorModel.NewSkinTensDetModel()
+        self.newSkinTensDet_M = ProcModel.NewSkinTensDetModel()
         self.newSkinTensDet_M.numRowsForConfigChanged.connect(self.updateTabs)
         
         self.confProxyModel = []
@@ -180,7 +180,7 @@ class NewSkinTension(QMdiSubWindow):
         # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[currNumTabs].setSourceModel(self.newSkinTensConf_M)
-        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.NewSkinTensConfModel.ConfigNumCol)
+        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.NewSkinTensConfModel.ConfigNumCol)
         self.confProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         confTable.setModel( self.confProxyModel[currNumTabs] )
         confTable.verticalHeader().setVisible(False)
@@ -188,20 +188,20 @@ class NewSkinTension(QMdiSubWindow):
         confTable.hideColumn(self.newSkinTensConf_M.columnCount() -1 )
         confTable.hideColumn(self.newSkinTensConf_M.columnCount() -2 )
         
-        confTable.enableIntValidator(ProcessorModel.NewSkinTensConfModel.InitialRibCol, ProcessorModel.NewSkinTensConfModel.FinalRibCol, 1, 999)
-        confTable.enableIntValidator(ProcessorModel.NewSkinTensConfModel.TypeCol, ProcessorModel.NewSkinTensConfModel.TypeCol, 1, 1)
+        confTable.enableIntValidator(ProcModel.NewSkinTensConfModel.InitialRibCol, ProcModel.NewSkinTensConfModel.FinalRibCol, 1, 999)
+        confTable.enableIntValidator(ProcModel.NewSkinTensConfModel.TypeCol, ProcModel.NewSkinTensConfModel.TypeCol, 1, 1)
         
         confTable.setHelpBar(self.helpBar)
-        confTable.setHelpText(ProcessorModel.NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
-        confTable.setHelpText(ProcessorModel.NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
-        confTable.setHelpText(ProcessorModel.NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
+        confTable.setHelpText(ProcModel.NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
+        confTable.setHelpText(ProcModel.NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
+        confTable.setHelpText(ProcModel.NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
         
         confLayout = QHBoxLayout()
         confLayout.addWidget(confTable)
         confLayout.addStretch()
-        confTable.setFixedWidth( 2 + confTable.columnWidth(ProcessorModel.NewSkinTensConfModel.InitialRibCol) \
-                                 + confTable.columnWidth(ProcessorModel.NewSkinTensConfModel.FinalRibCol) \
-                                 + confTable.columnWidth(ProcessorModel.NewSkinTensConfModel.TypeCol) )
+        confTable.setFixedWidth(2 + confTable.columnWidth(ProcModel.NewSkinTensConfModel.InitialRibCol) \
+                                + confTable.columnWidth(ProcModel.NewSkinTensConfModel.FinalRibCol) \
+                                + confTable.columnWidth(ProcModel.NewSkinTensConfModel.TypeCol))
         confTable.setFixedHeight(2 + confTable.horizontalHeader().height() + confTable.rowHeight(0))
         tabLayout.addLayout(confLayout)
         
@@ -227,7 +227,7 @@ class NewSkinTension(QMdiSubWindow):
         detTable = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[currNumTabs].setSourceModel(self.newSkinTensDet_M)
-        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcessorModel.NewSkinTensDetModel.ConfigNumCol)
+        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.NewSkinTensDetModel.ConfigNumCol)
         self.detProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
         detTable.setModel( self.detProxyModel[currNumTabs] )
         detTable.verticalHeader().setVisible(False)
@@ -237,13 +237,13 @@ class NewSkinTension(QMdiSubWindow):
         tabLayout.addWidget(detTable)
          
         detTable.setHelpBar(self.helpBar)
-        detTable.setHelpText(ProcessorModel.NewSkinTensDetModel.OrderNumCol, _('SkinTension-OrderNumDesc'))
-        detTable.setHelpText(ProcessorModel.NewSkinTensDetModel.TopDistLECol, _('SkinTension-TopDistLEDesc'))
-        detTable.setHelpText(ProcessorModel.NewSkinTensDetModel.TopWideCol, _('SkinTension-TopOverWideDesc'))
-        detTable.setHelpText(ProcessorModel.NewSkinTensDetModel.BottDistTECol, _('SkinTension-BottDistTEDesc'))
-        detTable.setHelpText(ProcessorModel.NewSkinTensDetModel.BottWideCol, _('SkinTension-BottOverWideDesc'))
+        detTable.setHelpText(ProcModel.NewSkinTensDetModel.OrderNumCol, _('SkinTension-OrderNumDesc'))
+        detTable.setHelpText(ProcModel.NewSkinTensDetModel.TopDistLECol, _('SkinTension-TopDistLEDesc'))
+        detTable.setHelpText(ProcModel.NewSkinTensDetModel.TopWideCol, _('SkinTension-TopOverWideDesc'))
+        detTable.setHelpText(ProcModel.NewSkinTensDetModel.BottDistTECol, _('SkinTension-BottDistTEDesc'))
+        detTable.setHelpText(ProcModel.NewSkinTensDetModel.BottWideCol, _('SkinTension-BottOverWideDesc'))
 
-        detTable.enableDoubleValidator(ProcessorModel.NewSkinTensDetModel.TopDistLECol, ProcessorModel.NewSkinTensDetModel.BottWideCol, 0, 100, 3)
+        detTable.enableDoubleValidator(ProcModel.NewSkinTensDetModel.TopDistLECol, ProcModel.NewSkinTensDetModel.BottWideCol, 0, 100, 3)
         
         # then setup spin
         if self.detProxyModel[currNumTabs].rowCount() ==0:
@@ -291,7 +291,7 @@ class NewSkinTension(QMdiSubWindow):
         
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()
-            self.detProxyModel[currTab].sort(ProcessorModel.NewSkinTensDetModel.OrderNumCol, Qt.AscendingOrder)
+            self.detProxyModel[currTab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.AscendingOrder)
             self.detProxyModel[currTab].setDynamicSortFilter(False)
     
     def btnPress(self, q):
