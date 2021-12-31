@@ -5568,13 +5568,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated
             self.sync_rib_num_data()
 
-        def get_row(self):
-            """
-            :method: Reads values back from the internal database
-            ...
-            :return: Values read from internal database
-            :rtype: QRecord
-            """
+        def getRow(self):
+            '''
+            :method: reads values back from the internal database
+            :return: specific values read from internal database
+            '''
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
