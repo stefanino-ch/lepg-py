@@ -3,11 +3,39 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
-                            QSizePolicy
+from PyQt5.QtGui import QIcon, QPainter
+from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView
+from data.Point3d import Point3D
+from data.PreProcOutfileReader import PreProcOutfileReader
+
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
+
+
+class Rib:
+    """
+    :class: Does collect all data to describe the 3D coordinates of a rib.
+    """
+
+    le = None
+    te = None
+
+    def __init__(self,
+                 le_x, le_y, le_z,
+                 te_x, te_y, te_z):
+        """
+        :method: Constructor
+        :param le_x: x-Coordinate of the le-position
+        :param le_y: y-Coordinate of the le-position
+        :param le_z: z-Coordinate of the le-position
+        :param te_x: x-Coordinate of the te-position
+        :param te_y: y-Coordinate of the te-position
+        :param te_z: z-Coordinate of the te-position
+        """
+
+        self.le = Point3D(le_x, le_y, le_z)
+        self.te = Point3D(te_x, te_y, te_z)
 
 
 class PreProcWingOutline(QMdiSubWindow):
@@ -26,22 +54,32 @@ class PreProcWingOutline(QMdiSubWindow):
         :method: Constructor
         """
         super().__init__()
+        self.proj_params = None
+        logging.debug(self.__className + '.__init__')
 
         self.__open_pre_proc_file = False  # type: bool
         self.button_bar = None
         self.help_bar = None
         self.window_ly = None
         self.window = None
-        
-        logging.debug(self.__className + '.__init__')
-        
-        self.build_window()
 
-    def closeEvent(self, event):  # @UnusedVariable
-        """
-        :method: Called at the time the user closes the window.
-        """
-        logging.debug(self.__className+'.closeEvent')
+        self.wing = []
+        self.edges = []
+        self.ini_angle_x = 100
+        self.ini_angle_y = 210
+        self.ini_angle_z = 0
+
+        self.ini_fov = 1500
+        self.ini_distance = 6000
+
+        self.angle_x = self.ini_angle_x
+        self.angle_y = self.ini_angle_y
+        self.angle_z = self.ini_angle_z
+
+        self.ini_scene_width = 400
+        self.ini_scene_heigth = 200
+
+        self.build_window()
 
     def build_window(self):
         """
@@ -70,6 +108,83 @@ class PreProcWingOutline(QMdiSubWindow):
         # Add window specifics here
         self.setWindowTitle(_("Wing outline"))
 
+        btn_ly = QVBoxLayout()
+        x_min_btn = QPushButton("Pitch -")
+        x_min_btn.clicked.connect(self.x_min)
+        x_plu_btn = QPushButton("Pitch +")
+        x_plu_btn.clicked.connect(self.x_plu)
+        x_hbox = QHBoxLayout()
+        x_hbox.addWidget(x_min_btn)
+        x_hbox.addWidget(x_plu_btn)
+        btn_ly.addLayout(x_hbox)
+
+        y_min_btn = QPushButton("Yaw BB")
+        y_min_btn.clicked.connect(self.y_min)
+        y_plu_btn = QPushButton("Yaw StB")
+        y_plu_btn.clicked.connect(self.y_plu)
+        y_hbox = QHBoxLayout()
+        y_hbox.addWidget(y_min_btn)
+        y_hbox.addWidget(y_plu_btn)
+        btn_ly.addLayout(y_hbox)
+
+        z_min_btn = QPushButton("Roll StB")
+        z_min_btn.clicked.connect(self.z_min)
+        z_plu_btn = QPushButton("Roll BB")
+        z_plu_btn.clicked.connect(self.z_plu)
+        z_hbox = QHBoxLayout()
+        z_hbox.addWidget(z_plu_btn)
+        z_hbox.addWidget(z_min_btn)
+        btn_ly.addLayout(z_hbox)
+
+        top_btn = QPushButton("Top")
+        top_btn.clicked.connect(self.top)
+        btn_ly.addWidget(top_btn)
+
+        side_stb_btn = QPushButton("StB")
+        side_stb_btn.clicked.connect(self.side_stb)
+        side_bb_btn = QPushButton("BB")
+        side_bb_btn.clicked.connect(self.side_bb)
+        side_hbox = QHBoxLayout()
+        side_hbox.addWidget(side_bb_btn)
+        side_hbox.addWidget(side_stb_btn)
+        btn_ly.addLayout(side_hbox)
+
+        rear_btn = QPushButton("Rear")
+        rear_btn.clicked.connect(self.rear)
+        btn_ly.addWidget(rear_btn)
+
+        # z_hbox = QHBoxLayout()
+        # z_hbox.addWidget(zPlu)
+        # z_hbox.addWidget(zMin)
+        # vbox.addLayout(z_hbox)
+
+        zoom_in_btn = QPushButton("Zoom in")
+        zoom_in_btn.clicked.connect(self.zoom_in)
+        zoom_out_btn = QPushButton("Zoom out")
+        zoom_out_btn.clicked.connect(self.zoom_out)
+        zoom_hbox = QHBoxLayout()
+        zoom_hbox.addWidget(zoom_in_btn)
+        zoom_hbox.addWidget(zoom_out_btn)
+        btn_ly.addLayout(zoom_hbox)
+
+        res_btn = QPushButton("reset")
+        res_btn.clicked.connect(self.res)
+        btn_ly.addWidget(res_btn)
+
+        self.scene = QGraphicsScene(0, 0,
+                                    self.ini_scene_width,
+                                    self.ini_scene_heigth)
+        self.view = QGraphicsView(self.scene)
+        self.view.setRenderHint(QPainter.Antialiasing)
+
+        hbox_ly = QHBoxLayout()
+        hbox_ly.addLayout(btn_ly)
+        hbox_ly.addWidget(self.view)
+
+        self.window_ly.addLayout(hbox_ly)
+
+        self.update_scene()
+
         #############################
         # Commons for all windows
         self.button_bar = WindowBtnBar(0b0101)
@@ -86,15 +201,116 @@ class PreProcWingOutline(QMdiSubWindow):
 
         self.window.setLayout(self.window_ly)
 
-    def open_pre_proc_file(self, open_pre_proc_file=False):
+    def open_pre_proc_file(self):
         """
-        :method: Control what data source will be read at the time the window
-                 is opened
-        :param open_pre_proc_file:
-                 False do not open a file, show the empty window
-                 True open the file from the pre-processor folder
+        :method: Opens the data file from the pre-proc directory and updates
+                 the window
         """
-        self.__open_pre_proc_file = open_pre_proc_file
+        pre_proc_reader = PreProcOutfileReader()
+        data, num_cells = pre_proc_reader.open_read_file(False)
+
+        if len(data) > 0 and num_cells != 0:
+            self.prepare_wing(data, num_cells)
+            self.update_scene()
+
+    def open_file(self):
+        """
+        :method: Opens a user specific data file and updates the window
+        """
+        pre_proc_reader = PreProcOutfileReader()
+        data, num_cells = pre_proc_reader.open_read_file(True)
+
+        if len(data) > 0 and num_cells != 0:
+            self.prepare_wing(data, num_cells)
+            self.update_scene()
+
+    def prepare_wing(self, data, num_cells):
+        """
+        :method: Builds with the one sided data read from the data file all
+                 edges tho be displayed.
+        :param data: Data read from the data file
+        :param: Number of cells read from the data file
+        """
+#### go on here
+        # num_cells odd/ ungerade
+        self.wing.append(Rib(-575.5, 148.95, 254.62,
+                             -575.5, 212.8, 254.62))
+
+        # num_cells even/ gerade
+        # we have one rib exactly in the middle
+
+    def update_scene(self):
+        self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
+                            self.scene.width(), self.scene.height(),
+                            self.ini_fov, self.ini_distance]
+
+        for edge in self.edges:
+            edge[2].setLine(edge[0].get_x2d(*self.proj_params),
+                            edge[0].get_y2d(*self.proj_params),
+                            edge[1].get_x2d(*self.proj_params),
+                            edge[1].get_y2d(*self.proj_params))
+
+        print(f'x: {self.angle_x}\t y: {self.angle_y}\t z: {self.angle_z}')
+
+    def x_min(self):
+        self.angle_x -= 10
+        self.update_scene()
+
+    def x_plu(self):
+        self.angle_x += 10
+        self.update_scene()
+
+    def y_min(self):
+        self.angle_y -= 10
+        self.update_scene()
+
+    def y_plu(self):
+        self.angle_y += 10
+        self.update_scene()
+
+    def z_min(self):
+        self.angle_z -= 10
+        self.update_scene()
+
+    def z_plu(self):
+        self.angle_z += 10
+        self.update_scene()
+
+    def top(self):
+        self.angle_x = 180
+        self.angle_y = 180
+        self.angle_z = 0
+        self.update_scene()
+
+    def rear(self):
+        self.angle_x = 90
+        self.angle_y = 180
+        self.angle_z = 0
+        self.update_scene()
+
+    def side_stb(self):
+        self.angle_x = 90
+        self.angle_y = 270
+        self.angle_z = 0
+        self.update_scene()
+
+    def side_bb(self):
+        self.angle_x = 90
+        self.angle_y = 90
+        self.angle_z = 0
+        self.update_scene()
+
+    def zoom_in(self):
+        self.view.scale(1.1, 1.1)
+
+    def zoom_out(self):
+        self.view.scale(.9, .9)
+
+    def res(self):
+        self.angle_x = self.ini_angle_x
+        self.angle_y = self.ini_angle_y
+        self.angle_z = self.ini_angle_z
+        self.update_scene()
 
     def button_press(self, q):
         """
@@ -113,3 +329,9 @@ class PreProcWingOutline(QMdiSubWindow):
             logging.error(self.__className
                           + '.btn_press unrecognized button press '
                           + q)
+
+    def closeEvent(self, event):
+        """
+        :method: Called at the time the user closes the window.
+        """
+        logging.debug(self.__className+'.closeEvent')

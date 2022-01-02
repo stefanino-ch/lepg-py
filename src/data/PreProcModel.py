@@ -10,12 +10,12 @@ from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Singleton.Singleton import Singleton
-from DataStores.SqlTableModel import SqlTableModel
+from data.SqlTableModel import SqlTableModel
 
 from ConfigReader.ConfigReader import ConfigReader
-from DataStores.Database import Database
+from data.Database import Database
 
-from DataStores.FileHelpers import FileHelpers
+from data.FileHelpers import FileHelpers
 
 
 class PreProcModel(QObject, metaclass=Singleton):

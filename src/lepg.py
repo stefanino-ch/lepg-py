@@ -20,8 +20,8 @@ from __init__ import __version__
 from VersionCheck.VersionCheck import VersionCheck
 
 from ConfigReader.ConfigReader import ConfigReader
-from DataStores.PreProcModel import PreProcModel
-from DataStores.ProcModel import ProcModel
+from data.PreProcModel import PreProcModel
+from data.ProcModel import ProcModel
 
 from gui.DataStatusOverview import DataStatusOverview
 from gui.PreProcData import PreProcData
@@ -349,7 +349,6 @@ class MainWindow(QMainWindow):
             self.pre_proc_wing_outline_w = PreProcWingOutline()
             self.dws.registerWindow('PreProcWingOutline')
             self.mdi.addSubWindow(self.pre_proc_wing_outline_w)
-        self.pre_proc_wing_outline_w.open_pre_proc_file(False)
         self.pre_proc_wing_outline_w.show()
 
     def pre_proc_run(self):
@@ -385,6 +384,7 @@ class MainWindow(QMainWindow):
             proc_runner.run_pre_proc()
             if self.config_reader.get_pre_proc_show_outline() is True:
                 self.pre_proc_wing_outline()
+                self.pre_proc_wing_outline_w.open_pre_proc_file()
 
     def build_proc_menu(self):
         """

@@ -20,10 +20,10 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
 
-from DataStores.Database import Database
-from DataStores.FileHelpers import FileHelpers
-from DataStores.PreProcOutfileReader import PreProcOutfileReader
-from DataStores.SqlTableModel import SqlTableModel
+from data.Database import Database
+from data.FileHelpers import FileHelpers
+from data.PreProcOutfileReader import PreProcOutfileReader
+from data.SqlTableModel import SqlTableModel
 
 from Singleton.Singleton import Singleton
 
@@ -5541,4 +5541,4 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.record()
 
 
-from DataStores.ProcFileReader import ProcFileReader  # noqa: E402
+from data.ProcFileReader import ProcFileReader  # noqa: E402

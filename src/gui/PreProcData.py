@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.PreProcModel import PreProcModel
+from data.PreProcModel import PreProcModel
 
 
 class PreProcData(QMdiSubWindow):

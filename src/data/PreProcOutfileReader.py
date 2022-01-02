@@ -9,7 +9,7 @@ from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
-from DataStores.FileHelpers import FileHelpers
+from data.FileHelpers import FileHelpers
 
 
 class PreProcOutfileReader:

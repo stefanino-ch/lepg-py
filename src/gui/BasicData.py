@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,  QVBoxLayout, Q
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from DataStores.ProcModel import ProcModel
+from data.ProcModel import ProcModel
 
 class BasicData(QMdiSubWindow):
     '''

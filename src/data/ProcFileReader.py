@@ -9,8 +9,8 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, QFile, QTextStream
 from PyQt5.QtWidgets import QTextEdit
 
-from DataStores.ProcModel import ProcModel
-from DataStores.FileHelpers import FileHelpers
+from data.ProcModel import ProcModel
+from data.FileHelpers import FileHelpers
 
 
 class WaitWindow(QTextEdit):

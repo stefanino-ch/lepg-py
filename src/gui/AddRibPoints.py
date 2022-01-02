@@ -5,7 +5,7 @@
 
 import logging
 
-from DataStores.ProcModel import ProcModel
+from data.ProcModel import ProcModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QMdiSubWindow,

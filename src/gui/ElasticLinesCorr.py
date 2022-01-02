@@ -11,7 +11,7 @@ from gui.elements.LineEdit import LineEdit
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.TableView import TableView
-from DataStores.ProcModel import ProcModel
+from data.ProcModel import ProcModel
 
 class ElasticLinesCorr(QMdiSubWindow):
     '''

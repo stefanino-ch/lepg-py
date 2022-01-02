@@ -12,8 +12,8 @@ from PyQt5.QtWidgets import QLabel
 from gui.elements.WindowBtnBar import WindowBtnBar
 
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
-from DataStores.PreProcModel import PreProcModel
-from DataStores.ProcModel import ProcModel
+from data.PreProcModel import PreProcModel
+from data.ProcModel import ProcModel
 
 class DataStatusOverview(QMdiSubWindow):
     '''
