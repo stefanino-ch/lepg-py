@@ -18,13 +18,14 @@ from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from Singleton.Singleton import Singleton
+from ConfigReader.ConfigReader import ConfigReader
+
+from DataStores.Database import Database
+from DataStores.FileHelpers import FileHelpers
+from DataStores.PreProcOutfileReader import PreProcOutfileReader
 from DataStores.SqlTableModel import SqlTableModel
 
-from ConfigReader.ConfigReader import ConfigReader
-from DataStores.Database import Database
-
-from DataStores.FileHelpers import FileHelpers
+from Singleton.Singleton import Singleton
 
 
 class ProcModel(QObject, metaclass=Singleton):
@@ -203,18 +204,18 @@ class ProcModel(QObject, metaclass=Singleton):
 
         return version_ok and title_ok
 
-    def is_valid_proc_file(self, file_name):
+    def valid_file(self, file_name):
         """
         :method: Checks if a file can be opened and contains a valid title and
                  known version number.
         :param file_name: the name of the file to be checked
         """
-        logging.debug(self.__className + '.is_valid_proc_file')
-        try:
-            in_file = QFile(file_name)
-            if in_file.open(QFile.ReadOnly | QFile.Text):
-                stream = QTextStream(in_file)
-        except:
+        logging.debug(self.__className + '.valid_file')
+
+        in_file = QFile(file_name)
+        if in_file.open(QFile.ReadOnly | QFile.Text):
+            stream = QTextStream(in_file)
+        else:
             logging.error(self.__className +
                           'File cannot be opened ' +
                           file_name)
@@ -224,7 +225,6 @@ class ProcModel(QObject, metaclass=Singleton):
         version_ok = False
         line_counter = 0
 
-        # noinspection PyUnboundLocalVariable
         while (stream.atEnd() is not True) and \
                 not (title_ok and version_ok) and \
                 line_counter < 4:
@@ -280,25 +280,32 @@ class ProcModel(QObject, metaclass=Singleton):
 
         # TODO: Make sure there is no unsaved/ un applied data
 
-        file_name = QFileDialog.getOpenFileName(
-            None,
-            _('Import Pre-Proc output file'),
-            "",
-            "Pre Proc Files (*.txt);;All Files (*)")
+        pre_proc_reader = PreProcOutfileReader()
+        data, num_cells = pre_proc_reader.open_read_file(False)
 
-        if file_name != ('', ''):
-            # User has really selected a file, if it had aborted the
-            # dialog an empty tuple is returned
-            if self.is_valid_pre_proc_file(file_name[0]):
-                # TODO: delete already existing Processor data
-                self.read_pre_proc_file(file_name[0])
+        if len(data)>0 and num_cells != 0:
+            num_data_lines = len(data)
+            self.wing_m.update_num_ribs(num_data_lines * 2)
+
+            for line_it in range(0, num_data_lines):
+                self.rib_m.updateRow(line_it + 1,
+                                     data[line_it][1],
+                                     data[line_it][2],
+                                     data[line_it][3],
+                                     data[line_it][4],
+                                     data[line_it][5],
+                                     data[line_it][6],
+                                     data[line_it][7],
+                                     data[line_it][8],
+                                     0,
+                                     0)
 
     def open_file(self):
         """
         :method: Checks for un applied/ unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         """
-        logging.debug(self.__className + '.open_file')
+        logging.debug(self.__className + '.open_read_file')
         # TODO: Make sure there is no unsaved/ un applied data
 
         file_name = QFileDialog.getOpenFileName(
@@ -310,11 +317,11 @@ class ProcModel(QObject, metaclass=Singleton):
         if file_name != ('', ''):
             # User has really selected a file, if it had aborted the
             # dialog an empty tuple is returned
-            if self.is_valid_proc_file(file_name[0]):
+            if self.valid_file(file_name[0]):
                 self.set_file_name(file_name[0])
 
-                self.fileReader.setFilePathName(file_name[0])
-                self.fileReader.readFile()
+                self.fileReader.set_file_path_name(file_name[0])
+                self.fileReader.read_file()
 
     def save_file(self):
         """
@@ -360,71 +367,6 @@ class ProcModel(QObject, metaclass=Singleton):
             # aborted the dialog an empty tuple is returned
             self.set_file_name(file_name[0])
             self.write_file()
-
-    def read_pre_proc_file(self, file_name):
-        """
-        :method: Imports the data file created by the pre-processor saves the
-                 data in the internal database.
-        :param file_name: Path and Filename in one fully qualified string.
-        """
-        logging.debug(self.__className + '.read_pre_proc_file')
-
-        in_file = QFile(file_name)
-        in_file.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(in_file)
-
-        ##############################
-        # over read file header
-        counter = 0
-        while counter < 5:
-            line = stream.readLine()
-            if line.find('***************') >= 0:
-                counter += 1
-
-        # over read title
-        line = stream.readLine()
-
-        # There's no indication about the number of lines
-        # We first read all into the memory
-        line_array = []
-        valid_data = True
-
-        while valid_data:
-            line = stream.readLine()
-
-            if line.find('***************') >= 0:
-                valid_data = False
-            else:
-                line_array.append(line)
-
-        # all read now
-        num_lines = len(line_array)
-
-        self.wing_m.update_num_ribs(num_lines * 2)
-
-        for i in range(0, num_lines):
-            values = self.fh.splitLine(line_array[i])
-            self.rib_m.updateRow(i + 1,
-                                 values[1],
-                                 values[2],
-                                 values[3],
-                                 values[4],
-                                 values[5],
-                                 values[6],
-                                 values[7],
-                                 values[8],
-                                 0,
-                                 0)
-
-        for i in range(2):  # @UnusedVariable
-            line = stream.readLine()
-
-        values = self.fh.splitLine(stream.readLine())
-        self.wing_m.update_num_cells(values[1])
-
-        ##############################
-        # Cleanup
-        in_file.close()
 
     def write_file(self, for_proc=False):
         """
@@ -5568,11 +5510,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated
             self.sync_rib_num_data()
 
-        def getRow(self):
-            '''
+        def get_row(self):
+            """
             :method: reads values back from the internal database
-            :return: specific values read from internal database
-            '''
+            ...
+            :returns: Values read from internal database
+            :rtype: QRecord
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()

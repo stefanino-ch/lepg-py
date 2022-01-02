@@ -1,7 +1,7 @@
-'''
+""""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+'"""
 import logging
 
 from PyQt5.Qt import Qt
@@ -14,13 +14,13 @@ from DataStores.FileHelpers import FileHelpers
 
 
 class WaitWindow(QTextEdit):
-    '''
+    """
     :class: Builds a minimalized window to inform the user that file reading
             does take some time.
             All infomation is shown in the window title due to this discussion:
             https://stackoverflow.com/questions/67934352/window-opened-from-a-
             class-is-not-displaying-correctly/67937507#67937507
-    '''
+    """
     def __init__(self):
         super(WaitWindow, self).__init__()
         self.setWindowIcon(QIcon('gui\\appIcon.ico'))
@@ -33,10 +33,10 @@ class WaitWindow(QTextEdit):
 
 
 class ProcFileReader(QObject):
-    '''
+    """
     :class: Covers the operations to read a processor file and write the data
             into the according models.
-    '''
+    """
 
     __className = 'ProcFileReader'
     '''
@@ -46,10 +46,12 @@ class ProcFileReader(QObject):
     __fileNamePath = ''
 
     def __init__(self):
-        '''
+        """
         Constructor
-        '''
+        """
         super().__init__()
+
+        self.wait_info_w = None
 
         self.fh = FileHelpers()
 
@@ -93,30 +95,30 @@ class ProcFileReader(QObject):
         self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
         self.newSkinTensDet_M = ProcModel.NewSkinTensDetModel()
 
-    def setFilePathName(self, fileNamePath):
-        '''
+    def set_file_path_name(self, file_path_name):
+        """
         :method: Used to set the full path and filename to be read
-        '''
-        self.__fileNamePath = fileNamePath
+        """
+        self.__fileNamePath = file_path_name
 
-    def readFile(self):
-        '''
+    def read_file(self):
+        """
         :method: Reads the data file and saves the data in the internal
                  database.
         :warning: Filename and Path must be set first!
-        '''
+        """
         logging.debug(self.__className+'.read_file')
 
-        self.waitInfo = WaitWindow()
-        self.waitInfo.show()
+        self.wait_info_w = WaitWindow()
+        self.wait_info_w.show()
 
-        inFile = QFile(self.__fileNamePath)
-        inFile.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(inFile)
+        in_file = QFile(self.__fileNamePath)
+        in_file.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(in_file)
 
         ##############################
         # 1. GEOMETRY
-        # Overread file header
+        # Over read file header
         logging.debug(self.__className+'.read_file: 1. GEOMETRY')
 
         counter = 0
@@ -1077,5 +1079,5 @@ class ProcFileReader(QObject):
             
         ##############################
         # Cleanup
-        inFile.close()
-        self.waitInfo.close()
+        in_file.close()
+        self.wait_info_w.close()

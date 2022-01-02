@@ -1,7 +1,7 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import os
 import logging
 
@@ -96,18 +96,18 @@ class PreProcModel(QObject, metaclass=Singleton):
         '''
         return self.__fileVersion
 
-    def is_valid(self, file_name):
+    def valid_file(self, file_name):
         """
         :method: Checks if a file can be opened and contains a valid title
                  and known version number.
         :param file_name: the name of the file to be checked
         """
-        logging.debug(self.__className + '.is_valid')
-        try:
-            in_file = QFile(file_name)
-            if in_file.open(QFile.ReadOnly | QFile.Text):
-                stream = QTextStream(in_file)
-        except:
+        logging.debug(self.__className + '.valid_file')
+
+        in_file = QFile(file_name)
+        if in_file.open(QFile.ReadOnly | QFile.Text):
+            stream = QTextStream(in_file)
+        else:
             logging.error(self.__className
                           + 'File cannot be opened '
                           + file_name)
@@ -163,7 +163,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         :method: Checks for unapplied/ unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         """
-        logging.debug(self.__className + '.open_file')
+        logging.debug(self.__className + '.open_read_file')
 
         # TODO: Make sure there is no unsaved/ unapplied data
 #         if not (self.dws.getWindowDataStatus('PreProcDataEdit')
@@ -191,7 +191,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         if file_name != ('', ''):
             # User has really selected a file, if it had aborted
             # the dialog an empty tuple is returned
-            if self.is_valid(file_name[0]):
+            if self.valid_file(file_name[0]):
                 self.set_file_name(file_name[0])
                 self.read_file()
 
