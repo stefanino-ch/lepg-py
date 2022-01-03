@@ -187,7 +187,7 @@ class CalageVar(QMdiSubWindow):
         '''
         :method: Updates the model as soon the usage CB has been changed
         '''
-        logging.debug(self.__className+'.usageCbChange')
+        logging.debug(self.__className+'.usage_cb_change')
         if self.usage_CB.currentIndex() == 0:
             self.calageVar_M.setIsUsed(False)
         else:

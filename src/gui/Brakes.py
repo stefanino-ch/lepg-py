@@ -230,7 +230,7 @@ class Brakes(QMdiSubWindow):
         '''
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
-        logging.debug(self.__className+'.numLinesChange')
+        logging.debug(self.__className+'.num_lines_change')
         self.brakes_M.setNumRowsForConfig(1, self.numLines_S.value() )
 
     def sortBtnPress(self):

@@ -99,7 +99,7 @@ class PreProcOutfileReader:
         """
         :method: Reads the data file created by the pre-processor saves the
                  data in a double list.
-        ...
+
         :returns: Data read from the file.
         :rtype:  List of rows, each row is described as a list of columns
         :returns: numCells
@@ -154,7 +154,7 @@ class PreProcOutfileReader:
                  Checks if the file header specifies a valid file
         :param read_from_pre_proc_dir: Set this to True if the file in the
                  configured pre-proc dir shall be read.
-        ...
+
         :returns: Data read from the file.
         :rtype:  List of rows, each row is described as a list of columns
         :returns: numCells

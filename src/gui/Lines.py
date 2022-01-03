@@ -347,7 +347,7 @@ class Lines(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure
                  all elements will follow the user configuration.
         '''
-        logging.debug(self.__className+'.numLinesChange')
+        logging.debug(self.__className+'.num_lines_change')
         self.lines_M.setNumRowsForConfig(
                         self.tabs.currentIndex()+1,
                         self.numLines_S[self.tabs.currentIndex()].value())

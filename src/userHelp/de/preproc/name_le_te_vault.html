@@ -15,7 +15,7 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Pre-Prozessor Zellverteilung" href="cellDistribution.html" />
+    <link rel="next" title="Pre-Prozessor Zellverteilung" href="cell_distribution.html" />
     <link rel="prev" title="Einführung zu lepg" href="../introduction.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
@@ -76,7 +76,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="cellDistribution.html" title="Pre-Prozessor Zellverteilung"
+          <a href="cell_distribution.html" title="Pre-Prozessor Zellverteilung"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../introduction.html" title="Einführung zu lepg"
@@ -106,7 +106,7 @@
   <p class="topless"><a href="../introduction.html"
                         title="previous chapter">Einführung zu lepg</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="cellDistribution.html"
+  <p class="topless"><a href="cell_distribution.html"
                         title="next chapter">Pre-Prozessor Zellverteilung</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -130,7 +130,8 @@
 <div></div></blockquote>
 <div class="section" id="pre-processor-parameter">
 <h1>Pre-Processor Parameter<a class="headerlink" href="#pre-processor-parameter" title="Permalink to this headline">¶</a></h1>
-<p>Im Fenster Zellverteilung werden die ersten drei Abschnitte der Eingabedatei des Pre-Prozessors editiert.</p>
+<p>Im Fenster Zellverteilung werden die ersten drei Abschnitte der Eingabedatei
+des Pre-Prozessors editiert.</p>
 <a class="reference internal image-reference" href="../../_images/nameLeTeVault1-de.png"><img alt="../../_images/nameLeTeVault1-de.png" src="../../_images/nameLeTeVault1-de.png" style="width: 621px; height: 322px;" /></a>
 <div class="section" id="definition-eintrittskante">
 <h2>Definition Eintrittskante<a class="headerlink" href="#definition-eintrittskante" title="Permalink to this headline">¶</a></h2>
@@ -150,11 +151,19 @@
 <span class="n">ex2</span><span class="o">=</span> <span class="mf">4.0</span>
 </pre></div>
 </div>
-<p>Die Eintrittskannte wird definiert mit einer Ellipse und den beiden Achsen a1 und b1, zentriert am Punkt 0.0.</p>
-<p>Xm entspricht der halben Spannweite.</p>
-<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen können 2 Korrekturen mit einer generischen Kurve N. Grades gemacht werden.</p>
-<p>Die erste Korrektur beginnt am Punkt x1 mit einer Deflektion c01 und einer Variation vom Grad ex1.</p>
-<p>Die zweite Korrektur beginnt am punkt x2 &gt; x1 mit der Deflektion c02 und einer Variation vom Grad ex2.</p>
+<p>Aktuell gibt es nur ein Definitionsschema für die Eintrittskante. Aus diesem
+Grund wird der Parameter <strong>Type</strong> in lepg nicht angezeigt. Lepg sorgt im
+Hintergrund automatisch dafür dass der Parameter richtig gesetzt wird.</p>
+<p>Die Eintrittskannte wird definiert mit einer Ellipse und den beiden Achsen a1
+und b1, zentriert am Punkt 0.0.</p>
+<p><strong>Xm</strong> entspricht der halben Spannweite.</p>
+<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer
+parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen können
+2 Korrekturen mit einer generischen Kurve N. Grades gemacht werden.</p>
+<p>Die erste Korrektur beginnt am Punkt x1 mit einer Deflektion c01 und einer
+Variation vom Grad ex1.</p>
+<p>Die zweite Korrektur beginnt am punkt x2 &gt; x1 mit der Deflektion c02 und einer
+Variation vom Grad ex2.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg"><img alt="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" style="width: 600px; height: 357px;" /></a>
 <img alt="http://laboratoridenvol.com/leparagliding/pre/images/1_LE.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/1_LE.jpg" />
 </div>
@@ -174,10 +183,17 @@
 <span class="n">exp</span><span class="o">=</span> <span class="mf">1.5</span>
 </pre></div>
 </div>
-<p>Die Austrittskante ist definiert mit einer Ellipse und den beiden Achsen a1 und b1, zentriert am Punkt 0,y0.</p>
-<p>Xm entspricht der halben Spannweite.</p>
-<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen kann eine Korrektur mit einer generischen Kurve N. Grades gemacht werden.</p>
-<p>Die Korrektur beginnt am Punkt x1 und ermöglicht eine Deflektion c0 mit einer Variation von Grad exp.</p>
+<p>Aktuell gibt es nur ein Definitionsschema für die Eintrittskante. Aus diesem
+Grund wird der Parameter <strong>Type</strong> in lepg nicht angezeigt. Lepg sorgt im
+Hintergrund automatisch dafür dass der Parameter richtig gesetzt wird.</p>
+<p>Die Austrittskante ist definiert mit einer Ellipse und den beiden Achsen a1
+und b1, zentriert am Punkt 0,y0.</p>
+<p><strong>Xm</strong> entspricht der halben Spannweite.</p>
+<p>In den Versionen 1.4 und früher war es nur möglich die Ellipse mit einer
+parabolischen Korrektur (2. Grad) zu definieren. In späteren Versionen kann
+eine Korrektur mit einer generischen Kurve N. Grades gemacht werden.</p>
+<p>Die Korrektur beginnt am Punkt x1 und ermöglicht eine Deflektion c0 mit einer
+Variation von Grad exp.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg"><img alt="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" src="http://laboratoridenvol.com/leparagliding/pre/images/lete-1.5.jpg" style="width: 600px; height: 357px;" /></a>
 </div>
 <div class="section" id="krummung-typ-1">
@@ -193,7 +209,9 @@
 <span class="n">c1</span><span class="o">=</span> <span class="mf">28.22</span>
 </pre></div>
 </div>
-<p>Die Form der Krümmung ist eine Ellipse mit den Halbachsen a1 (horizontal) und b1 (vertikal), aber mit einer Kosinus Modifikation ausgehend vom Punkt x1. Die halbe Spannweite ist verlängert mit c1:</p>
+<p>Die Form der Krümmung ist eine Ellipse mit den Halbachsen a1 (horizontal) und
+b1 (vertikal), aber mit einer Kosinus Modifikation ausgehend vom Punkt x1.
+Die halbe Spannweite ist verlängert mit c1:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nb">all</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">b1</span><span class="p">]:</span>
 <span class="n">If</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x1</span> <span class="n">then</span><span class="p">:</span>  <span class="n">x</span><span class="o">=</span><span class="n">a1</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b1</span><span class="o">*</span><span class="n">b1</span><span class="p">)))</span>
 <span class="n">If</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">x1</span> <span class="n">then</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">a1</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b1</span><span class="o">*</span><span class="n">b1</span><span class="p">)))</span><span class="o">+</span><span class="n">c1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cos</span><span class="p">(((</span><span class="n">y1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">y1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
@@ -222,7 +240,8 @@ where y1=b1*sqrt(1-((x1*x1)/(a1*a1)))</p>
 <span class="mf">112.185</span>   <span class="mf">37.41</span>
 </pre></div>
 </div>
-<p>Typ 2: Krümmung definiert durch tangentiale Kreise definiert in 4 Zeilen mit Radius und Winkel:</p>
+<p>Typ 2: Krümmung definiert durch tangentiale Kreise definiert in 4 Zeilen mit
+Radius und Winkel:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">741.33</span>  <span class="mf">10.13</span>
 </pre></div>
 </div>
@@ -261,7 +280,7 @@ where y1=b1*sqrt(1-((x1*x1)/(a1*a1)))</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="cellDistribution.html" title="Pre-Prozessor Zellverteilung"
+          <a href="cell_distribution.html" title="Pre-Prozessor Zellverteilung"
              >next</a> |</li>
         <li class="right" >
           <a href="../introduction.html" title="Einführung zu lepg"
@@ -276,7 +295,7 @@ where y1=b1*sqrt(1-((x1*x1)/(a1*a1)))</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>
 </html>

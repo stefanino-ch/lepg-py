@@ -91,6 +91,14 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configure the locations of both processors</a><ul>
+<li><a class="reference internal" href="#open-wing-outline-after-processing">Open wing outline after processing</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="language.html"
                         title="previous chapter">Language configuration</a></p>
@@ -119,17 +127,23 @@
 <div></div></blockquote>
 <div class="section" id="configure-the-locations-of-both-processors">
 <span id="processor-configuration-en"></span><h1>Configure the locations of both processors<a class="headerlink" href="#configure-the-locations-of-both-processors" title="Permalink to this headline">¶</a></h1>
-<p>Before you can execute pre- and processor you must configure where they are located.</p>
+<p>Before you can execute pre- and processor you must configure where they are
+located.</p>
 <blockquote>
 <div><img alt="../../_images/setup_processors.png" src="../../_images/setup_processors.png" />
 </div></blockquote>
-<p>With the button behind the field disaplaying path and name of the processor you can start the Setup dialog.</p>
-<p>If you use the lepg package, you will find the processors in the subdirectory <strong>Processors</strong>.</p>
-<p>There in the processors are separated in folders <strong>per operating system</strong>. The pre-processor is located in the folder pre…, the processor in the folder lep.</p>
+<p>With the button behind the field disaplaying path and name of the processor
+you can start the Setup dialog.</p>
+<p>If you use the lepg package, you will find the processors in the subdirectory
+<strong>Processors</strong>.</p>
+<p>There in the processors are separated in folders <strong>per operating system</strong>.
+The pre-processor is located in the folder pre…, the processor in the
+folder lep.</p>
 <dl class="simple">
 <dt>You must choose the executable files which are:</dt><dd><ul class="simple">
 <li><p>Windows: .exe</p></li>
 <li><p>Linux: .out</p></li>
+<li><p>Mac: .o</p></li>
 </ul>
 </dd>
 </dl>
@@ -144,8 +158,15 @@
         <span class="o">|-</span><span class="n">pre</span><span class="o">-</span><span class="mf">1.6</span><span class="o">-</span><span class="n">win64</span><span class="o">.</span><span class="n">exe</span>     <span class="o">&lt;-</span> <span class="n">Pre</span><span class="o">-</span><span class="n">Prozessor</span>
 </pre></div>
 </div>
-<p>The folders containing the processors will also be used a the target folders for the output files during a processor run.</p>
-<p>If you get after a processor run the message saying the files where successful created you will find them in the folders explained above.</p>
+<p>The folders containing the processors will also be used a the target folders
+for the output files during a processor run.</p>
+<p>If you get after a processor run the message saying the files were
+successful created you will find them in the folders explained above.</p>
+<div class="section" id="open-wing-outline-after-processing">
+<h2>Open wing outline after processing<a class="headerlink" href="#open-wing-outline-after-processing" title="Permalink to this headline">¶</a></h2>
+<p>If you activate this checkbox the window <strong>Wing outline</strong> will be opened and
+updated automatically after a pre-processor run.</p>
+</div>
 </div>
 
 
@@ -177,7 +198,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>
 </html>

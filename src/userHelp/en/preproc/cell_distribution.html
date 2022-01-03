@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pre-Prozessor Zellverteilung &#8212; lepg 3.16.x documentation</title>
+    <title>Pre-Processor cells distribution &#8212; lepg 3.16.x documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Basisdaten" href="../proc/basicData.html" />
-    <link rel="prev" title="Pre-Processor Parameter" href="nameLeTeVault.html" />
+    <link rel="next" title="Basic data" href="../proc/basicData.html" />
+    <link rel="prev" title="Pre-Processor data" href="name_le_te_vault.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
  
@@ -76,38 +76,38 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../proc/basicData.html" title="Basisdaten"
+          <a href="../proc/basicData.html" title="Basic data"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="nameLeTeVault.html" title="Pre-Processor Parameter"
+          <a href="name_le_te_vault.html" title="Pre-Processor data"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Pre-Prozessor Zellverteilung</a></li> 
+          <li class="nav-item nav-item-2"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pre-Processor cells distribution</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Pre-Prozessor Zellverteilung</a><ul>
-<li><a class="reference internal" href="#typ-1-identische-zellverteilung">Typ 1: identische Zellverteilung</a></li>
-<li><a class="reference internal" href="#typ-2-lineare-verkleinerung-der-zellen-nach-aussen">Typ 2: lineare Verkleinerung der Zellen nach aussen</a></li>
-<li><a class="reference internal" href="#typ-3-verkleinerung-proportional-zur-flugeltiefe">Typ 3: Verkleinerung proportional zur Flügeltiefe</a></li>
-<li><a class="reference internal" href="#typ-4-explizite-definition-pro-zelle">Typ 4: explizite definition pro Zelle</a></li>
+<li><a class="reference internal" href="#">Pre-Processor cells distribution</a><ul>
+<li><a class="reference internal" href="#type-1-uniform">Type 1: uniform</a></li>
+<li><a class="reference internal" href="#type-2-linear-with-reduction">Type 2: linear with reduction</a></li>
+<li><a class="reference internal" href="#type-3-reduction-proportional-to-chord">Type 3: Reduction proportional to chord</a></li>
+<li><a class="reference internal" href="#type-4-ecplicit-definition">Type 4: ecplicit definition</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="nameLeTeVault.html"
-                        title="previous chapter">Pre-Processor Parameter</a></p>
+  <p class="topless"><a href="name_le_te_vault.html"
+                        title="previous chapter">Pre-Processor data</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../proc/basicData.html"
-                        title="next chapter">Basisdaten</a></p>
+                        title="next chapter">Basic data</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -128,14 +128,14 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="pre-prozessor-zellverteilung">
-<h1>Pre-Prozessor Zellverteilung<a class="headerlink" href="#pre-prozessor-zellverteilung" title="Permalink to this headline">¶</a></h1>
-<p>Im Fenster Zellverteilung wird ein Teil der Parameter aus dem letzten Abschnitt der Eingabedatei des Pre-Prozessors editiert.</p>
-<p>Es gibt vier verschiedene Möglichkeiten die Zellverteilung zu definieren.</p>
-<div class="section" id="typ-1-identische-zellverteilung">
-<h2>Typ 1: identische Zellverteilung<a class="headerlink" href="#typ-1-identische-zellverteilung" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../../_images/cellsDistrMode1-de.png"><img alt="../../_images/cellsDistrMode1-de.png" src="../../_images/cellsDistrMode1-de.png" style="width: 350px; height: 243px;" /></a>
-<p>Rohdaten:</p>
+<div class="section" id="pre-processor-cells-distribution">
+<h1>Pre-Processor cells distribution<a class="headerlink" href="#pre-processor-cells-distribution" title="Permalink to this headline">¶</a></h1>
+<p>In the window cells distribution the parameters out of the last section of the pre-processor input file can be edited.</p>
+<p>There are four different possibilities to define the cells distribution.</p>
+<div class="section" id="type-1-uniform">
+<h2>Type 1: uniform<a class="headerlink" href="#type-1-uniform" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../../_images/cellsDistrMode1.png"><img alt="../../_images/cellsDistrMode1.png" src="../../_images/cellsDistrMode1.png" style="width: 350px; height: 243px;" /></a>
+<p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
 <span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
 <span class="o">**********************************</span>
@@ -143,12 +143,12 @@
 <span class="mi">45</span>
 </pre></div>
 </div>
-<p>Der Flügel hat 45 Zellen, alle Zellen sind genau gleich breit.</p>
+<p>The wing does have 45 cells everyone with identical width.</p>
 </div>
-<div class="section" id="typ-2-lineare-verkleinerung-der-zellen-nach-aussen">
-<h2>Typ 2: lineare Verkleinerung der Zellen nach aussen<a class="headerlink" href="#typ-2-lineare-verkleinerung-der-zellen-nach-aussen" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../../_images/cellsDistrMode2-de.png"><img alt="../../_images/cellsDistrMode2-de.png" src="../../_images/cellsDistrMode2-de.png" style="width: 350px; height: 243px;" /></a>
-<p>Rohdaten:</p>
+<div class="section" id="type-2-linear-with-reduction">
+<h2>Type 2: linear with reduction<a class="headerlink" href="#type-2-linear-with-reduction" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../../_images/cellsDistrMode2.png"><img alt="../../_images/cellsDistrMode2.png" src="../../_images/cellsDistrMode2.png" style="width: 350px; height: 243px;" /></a>
+<p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
 <span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
 <span class="o">**********************************</span>
@@ -157,17 +157,17 @@
 <span class="mi">40</span>
 </pre></div>
 </div>
-<p>Der Flügel hat 40 Zellen.</p>
-<p>Der Koeffizient von 0.7 definiert die Zellverkleinerung nach aussen.</p>
+<p>The wing does have 40 cells.</p>
+<p>The coefficient of 0.7 defines the liear cell reduction towards the wing tip.</p>
 <ul class="simple">
-<li><p>Wert = 1: alle Zellen sind genau gleich breit</p></li>
-<li><p>Wert = 0: die äussersten Zellen haben eine minimale Breite</p></li>
+<li><p>Value = 1: cell with is uniform</p></li>
+<li><p>Value = 0: the width of the last cell is minimal</p></li>
 </ul>
 </div>
-<div class="section" id="typ-3-verkleinerung-proportional-zur-flugeltiefe">
-<h2>Typ 3: Verkleinerung proportional zur Flügeltiefe<a class="headerlink" href="#typ-3-verkleinerung-proportional-zur-flugeltiefe" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../../_images/cellsDistrMode3-de.png"><img alt="../../_images/cellsDistrMode3-de.png" src="../../_images/cellsDistrMode3-de.png" style="width: 350px; height: 243px;" /></a>
-<p>Rohdaten:</p>
+<div class="section" id="type-3-reduction-proportional-to-chord">
+<h2>Type 3: Reduction proportional to chord<a class="headerlink" href="#type-3-reduction-proportional-to-chord" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../../_images/cellsDistrMode3.png"><img alt="../../_images/cellsDistrMode3.png" src="../../_images/cellsDistrMode3.png" style="width: 350px; height: 243px;" /></a>
+<p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
 <span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
 <span class="o">**********************************</span>
@@ -176,17 +176,17 @@
 <span class="mi">33</span>
 </pre></div>
 </div>
-<p>Der Flügel hat 33 Zellen.</p>
-<p>Der Koeffizient von 0.3 definiert die Zellverkleinerung welche proportional zur Flügeltiefe abnimmt.</p>
+<p>The wing does have 33 cells.</p>
+<p>The coefficient of 0.3 defines the width reduction proportional to chord.</p>
 <ul class="simple">
-<li><p>Wert = 1: alle Zellen sind genau gleich breit, unabhängig von der Flügeltiefe</p></li>
-<li><p>Wert = 0: die Zellbreit nimmt strikt proportional zur Flügeltiefe ab</p></li>
+<li><p>Value = 1: all cells are uniform, independent of the chord</p></li>
+<li><p>Value = 0: the cell width will be reduced strictly proportional to chord</p></li>
 </ul>
 </div>
-<div class="section" id="typ-4-explizite-definition-pro-zelle">
-<h2>Typ 4: explizite definition pro Zelle<a class="headerlink" href="#typ-4-explizite-definition-pro-zelle" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../../_images/cellsDistrMode4-de.png"><img alt="../../_images/cellsDistrMode4-de.png" src="../../_images/cellsDistrMode4-de.png" style="width: 350px; height: 243px;" /></a>
-<p>Rohdaten:</p>
+<div class="section" id="type-4-ecplicit-definition">
+<h2>Type 4: ecplicit definition<a class="headerlink" href="#type-4-ecplicit-definition" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../../_images/cellsDistrMode4.png"><img alt="../../_images/cellsDistrMode4.png" src="../../_images/cellsDistrMode4.png" style="width: 350px; height: 243px;" /></a>
+<p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
 <span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
 <span class="o">**********************************</span>
@@ -211,12 +211,12 @@
 <span class="mi">17</span>    <span class="mf">20.2</span>
 </pre></div>
 </div>
-<p>Obiges Beispiel definiert einen Flügel mit 33 Zellen. Nr 1 ist in der mitte, dann jeweils noch 16 Zellen zu beiden Seiten.</p>
-<p>Die zweite Zahl definiert die Zellenbreite in cm. Wenn die Summe der Zellenbreiten nicht mit der definierten Gesammtbreite des Flügels übereinstimmt,
-dann korrigiert das der Pre-Prozessor während der definitiven Berechnung des Flügels.</p>
-<p>Das Beispiel unten zeigt einen Flügel mit 18 Zellen.</p>
-<p>Für eine gerade Anzahl Zellen braucht es einen Trick: die mittlere Zelle muss mit einer Breite von 0.0 definiert werden.
-Nach aussen folgen dann im Beispiel noch jeweils noch 9 Zellen auf beide Seiten.:</p>
+<p>The example above defines a wing with 33 cells. Number 1 is the central one, then 16 cells to each side.</p>
+<p>The second column defines the cell with in cm. If the sum of the cell with defined in here does not match the total wing span,
+lep will fix this during the processing.</p>
+<p>The example below shows a wing with 18 cells.</p>
+<p>To define a even number of cells we need a trick: we define a center cell with the width of 0.0. Tho both sides we
+have then 9 cells which makes a total of 18.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**********************************</span>
 <span class="o">*</span> <span class="mf">4.</span> <span class="n">Cells</span> <span class="n">distribution</span>
 <span class="o">**********************************</span>
@@ -234,7 +234,7 @@ Nach aussen folgen dann im Beispiel noch jeweils noch 9 Zellen auf beide Seiten.
 <span class="mi">10</span>   <span class="mi">35</span>
 </pre></div>
 </div>
-<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/pre.en.html#2" target="_blank">Laboratori d'envol website</a>.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/pre.en.html#2" target="_blank">Laboratori d'envol website</a>.</p>
 </div>
 </div>
 
@@ -252,22 +252,22 @@ Nach aussen folgen dann im Beispiel noch jeweils noch 9 Zellen auf beide Seiten.
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../proc/basicData.html" title="Basisdaten"
+          <a href="../proc/basicData.html" title="Basic data"
              >next</a> |</li>
         <li class="right" >
-          <a href="nameLeTeVault.html" title="Pre-Processor Parameter"
+          <a href="name_le_te_vault.html" title="Pre-Processor data"
              >previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../../contents.html" >lepg Documentation/ Dokumentation</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Pre-Prozessor Zellverteilung</a></li> 
+          <li class="nav-item nav-item-2"><a href="../english.html" >English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pre-Processor cells distribution</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
     </div>
   </body>
 </html>

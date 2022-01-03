@@ -8,19 +8,25 @@
 Configure the locations of both processors
 ------------------------------------------
 
-Before you can execute pre- and processor you must configure where they are located.
+Before you can execute pre- and processor you must configure where they are
+located.
 
  .. image:: /images/setup/setup_processors.png
 
-With the button behind the field disaplaying path and name of the processor you can start the Setup dialog.
+With the button behind the field disaplaying path and name of the processor
+you can start the Setup dialog.
 
-If you use the lepg package, you will find the processors in the subdirectory **Processors**.
+If you use the lepg package, you will find the processors in the subdirectory
+**Processors**.
 
-There in the processors are separated in folders **per operating system**. The pre-processor is located in the folder pre..., the processor in the folder lep.
+There in the processors are separated in folders **per operating system**.
+The pre-processor is located in the folder pre..., the processor in the
+folder lep.
 
 You must choose the executable files which are:
  * Windows: .exe
  * Linux: .out
+ * Mac: .o
 
 Example structure for Windows::
 
@@ -33,6 +39,13 @@ Example structure for Windows::
         |-pre1.6
             |-pre-1.6-win64.exe     <- Pre-Prozessor
 
-The folders containing the processors will also be used a the target folders for the output files during a processor run.
+The folders containing the processors will also be used a the target folders
+for the output files during a processor run.
 
-If you get after a processor run the message saying the files where successful created you will find them in the folders explained above.
+If you get after a processor run the message saying the files were
+successful created you will find them in the folders explained above.
+
+Open wing outline after processing
+----------------------------------
+If you activate this checkbox the window **Wing outline** will be opened and
+updated automatically after a pre-processor run.

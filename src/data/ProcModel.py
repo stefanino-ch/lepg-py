@@ -5513,7 +5513,7 @@ class ProcModel(QObject, metaclass=Singleton):
         def get_row(self):
             """
             :method: reads values back from the internal database
-            ...
+
             :returns: Values read from internal database
             :rtype: QRecord
             """

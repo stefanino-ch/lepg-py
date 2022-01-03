@@ -36,7 +36,7 @@ if not os.path.isdir(staticPath):
 
 print()
 print('...starting Sphinx...')
-if platform.system() == "gui":
+if platform.system() == "Windows":
     pathName = os.path.join(dirpath, 'make.bat html')
     os.system(pathName)
 elif platform.system() == 'Linux':

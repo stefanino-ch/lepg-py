@@ -320,7 +320,7 @@ class JoncsDefinition(QMdiSubWindow):
         '''
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
-        logging.debug(self.__className+'.numLinesChange')
+        logging.debug(self.__className+'.num_lines_change')
         self.joncsDef_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numLines_S[self.tabs.currentIndex()].value() )
         
         currTab = self.tabs.currentIndex()

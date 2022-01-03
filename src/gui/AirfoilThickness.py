@@ -127,7 +127,7 @@ class AirfoilThickness(QMdiSubWindow):
         '''
         :method: Updates the model as soon the usage CB has been changed
         '''
-        logging.debug(self.__className+'.usageCbChange')
+        logging.debug(self.__className+'.usage_cb_change')
         if self.usage_CB.currentIndex() == 0:
             self.airfThick_M.setIsUsed(False)
         else:

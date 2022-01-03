@@ -1,7 +1,7 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
@@ -11,10 +11,12 @@ from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.PreProcModel import PreProcModel
 
+
 class PreProcCellsDistribution(QMdiSubWindow):
-    '''
-    :class: Window to display and edit the cells distribution data for the pre-processor  
-    '''
+    """
+    :class: Window to display and edit the cells' distribution data
+            for the pre-processor
+    """
 
     __className = 'PreProcCellsDistribution'
     '''
@@ -22,39 +24,47 @@ class PreProcCellsDistribution(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
+        """
+        self.win = None
+        self.window_ly = None
+        self.help_bar = None
+        self.usage_cb = None
+        self.num_lines_s = None
+        self.num_lines_l = None
+        self.one_t = None
+        self.btn_bar = None
         logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.cellsDistr_M = PreProcModel.CellsDistrModel()
-        self.cellsDistr_M.didSelect.connect( self.modelChange )
-        self.buildWindow()
+        self.cellsDistr_M.didSelect.connect(self.model_change)
+        self.build_window()
     
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
+        """
         logging.debug(self.__className+'.closeEvent') 
         
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
-                    usage_CB
-                    numLines_S
+                    usage_cb
+                    num_lines_s
                     Table
                     -------------------------
                         help_bar  | btn_bar
-                            
+
         Naming:
             Conf is always one as there is only one configuration possible
-        '''
+        """
         logging.debug(self.__className + '.build_window')
         
         self.setWindowIcon(QIcon('gui\\appIcon.ico'))
@@ -62,148 +72,156 @@ class PreProcCellsDistribution(QMdiSubWindow):
         self.setWidget(self.win)
         self.win.setMinimumSize(450, 200)
 
-        self.windowLayout = QVBoxLayout()
+        self.window_ly = QVBoxLayout()
         
-        self.helpBar = WindowHelpBar()
+        self.help_bar = WindowHelpBar()
         
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Pre-Processor cells distribution"))
         
-        usage_L = QLabel(_('Type'))
-        usage_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.usage_CB = QComboBox()
-        self.usage_CB.addItem(_("1: uniform "))
-        self.usage_CB.addItem(_("2: linear"))
-        self.usage_CB.addItem(_("3: prop to chord"))
-        self.usage_CB.addItem(_("4: explicit"))
-        self.usage_CB.currentIndexChanged.connect(self.usageCbChange)
-        usage_Ly = QHBoxLayout()
-        usage_Ly.addWidget(usage_L)
-        usage_Ly.addWidget(self.usage_CB)
-        usage_Ly.addStretch()
+        usage_l = QLabel(_('Type'))
+        usage_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.usage_cb = QComboBox()
+        self.usage_cb.addItem(_("1: uniform "))
+        self.usage_cb.addItem(_("2: linear"))
+        self.usage_cb.addItem(_("3: prop to chord"))
+        self.usage_cb.addItem(_("4: explicit"))
+        self.usage_cb.currentIndexChanged.connect(self.usage_cb_change)
+        usage_ly = QHBoxLayout()
+        usage_ly.addWidget(usage_l)
+        usage_ly.addWidget(self.usage_cb)
+        usage_ly.addStretch()
         
-        self.windowLayout.addLayout(usage_Ly)
+        self.window_ly.addLayout(usage_ly)
         
-        self.numLines_L = QLabel(_('Num cells'))
-        self.numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLines_S = QSpinBox()
-        self.numLines_S.setRange(1,999)
-        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLines_S.valueChanged.connect(self.numLinesChange)
-        numLinesEdit = self.numLines_S.lineEdit()
-        numLinesEdit.setReadOnly(True)
-        numLines_Ly = QHBoxLayout()
-        numLines_Ly.addWidget(self.numLines_L)
-        numLines_Ly.addWidget(self.numLines_S)
-        numLines_Ly.addStretch()
+        self.num_lines_l = QLabel(_('Num cells'))
+        self.num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.num_lines_s = QSpinBox()
+        self.num_lines_s.setRange(1, 999)
+        self.num_lines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.num_lines_s.valueChanged.connect(self.num_lines_change)
+        num_lines_edit = self.num_lines_s.lineEdit()
+        num_lines_edit.setReadOnly(True)
+        num_lines_ly = QHBoxLayout()
+        num_lines_ly.addWidget(self.num_lines_l)
+        num_lines_ly.addWidget(self.num_lines_s)
+        num_lines_ly.addStretch()
         
-        self.windowLayout.addLayout(numLines_Ly)
+        self.window_ly.addLayout(num_lines_ly)
         
-        self.one_T = TableView()
-        self.one_T.setModel( self.cellsDistr_M )
-        self.one_T.verticalHeader().setVisible(False)
-        self.one_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.one_T.hideColumn( self.cellsDistr_M.columnCount()-1 )
-        self.one_T.hideColumn( self.cellsDistr_M.columnCount()-2 )
+        self.one_t = TableView()
+        self.one_t.setModel(self.cellsDistr_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.one_t.hideColumn(self.cellsDistr_M.columnCount() - 1)
+        self.one_t.hideColumn(self.cellsDistr_M.columnCount() - 2)
 
-        self.windowLayout.addWidget(self.one_T)
+        self.window_ly.addWidget(self.one_t)
         
-        self.one_T.enableIntValidator(PreProcModel.CellsDistrModel.OrderNumCol, PreProcModel.CellsDistrModel.OrderNumCol, 1, 999)
-        self.one_T.enableDoubleValidator(PreProcModel.CellsDistrModel.CoefCol, PreProcModel.CellsDistrModel.CoefCol, 0, 1, 1)
-        self.one_T.enableDoubleValidator(PreProcModel.CellsDistrModel.WidthCol, PreProcModel.CellsDistrModel.WidthCol, 1, 500, 1)
-        self.one_T.enableIntValidator(PreProcModel.CellsDistrModel.NumCellsCol, PreProcModel.CellsDistrModel.NumCellsCol, 1, 999)
+        self.one_t.enableIntValidator(PreProcModel.CellsDistrModel.OrderNumCol,
+                                      PreProcModel.CellsDistrModel.OrderNumCol,
+                                      1, 999)
+        self.one_t.enableDoubleValidator(PreProcModel.CellsDistrModel.CoefCol,
+                                         PreProcModel.CellsDistrModel.CoefCol,
+                                         0, 1, 1)
+        self.one_t.enableDoubleValidator(PreProcModel.CellsDistrModel.WidthCol,
+                                         PreProcModel.CellsDistrModel.WidthCol,
+                                         1, 500, 1)
+        self.one_t.enableIntValidator(PreProcModel.CellsDistrModel.NumCellsCol,
+                                      PreProcModel.CellsDistrModel.NumCellsCol,
+                                      1, 999)
           
-        self.one_T.setHelpBar(self.helpBar)
-        self.one_T.setHelpText(PreProcModel.CellsDistrModel.OrderNumCol, _('PreProc-CellNumDesc'))
-        self.one_T.setHelpText(PreProcModel.CellsDistrModel.CoefCol, _('PreProc-DistrCoefDesc'))
-        self.one_T.setHelpText(PreProcModel.CellsDistrModel.WidthCol, _('PreProc-WidthDesc'))
-        self.one_T.setHelpText(PreProcModel.CellsDistrModel.NumCellsCol, _('PreProc-NumCellsDesc'))
+        self.one_t.setHelpBar(self.help_bar)
+        self.one_t.setHelpText(PreProcModel.CellsDistrModel.OrderNumCol, _('PreProc-CellNumDesc'))
+        self.one_t.setHelpText(PreProcModel.CellsDistrModel.CoefCol, _('PreProc-DistrCoefDesc'))
+        self.one_t.setHelpText(PreProcModel.CellsDistrModel.WidthCol, _('PreProc-WidthDesc'))
+        self.one_t.setHelpText(PreProcModel.CellsDistrModel.NumCellsCol, _('PreProc-NumCellsDesc'))
 
-        self.modelChange()
+        self.model_change()
         
         #############################
         # Commons for all windows
-        self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('preproc/cellDistribution.html')
+        self.btn_bar = WindowBtnBar(0b0101)
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btn_bar.my_signal.connect(self.btn_press)
+        self.btn_bar.setHelpPage('preproc/cell_distribution.html')
         
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.help_bar)
+        bottom_layout.addWidget(self.btn_bar)
+        self.window_ly.addLayout(bottom_layout)
         
-        self.win.setLayout(self.windowLayout)
+        self.win.setLayout(self.window_ly)
 
-    def modelChange(self):
-        '''
+    def model_change(self):
+        """
         :method: Updates the GUI as soon the model changes
-        '''
+        """
         logging.debug(self.__className+'.usageUpdate')
         
-        typeN = self.cellsDistr_M.get_type(1, 1)
+        type_n = self.cellsDistr_M.get_type(1, 1)
         
-        if typeN == 1:
-            self.usage_CB.blockSignals(True)
-            self.usage_CB.setCurrentIndex(0)
-            self.usage_CB.blockSignals(False)
+        if type_n == 1:
+            self.usage_cb.blockSignals(True)
+            self.usage_cb.setCurrentIndex(0)
+            self.usage_cb.blockSignals(False)
             
-            self.setTypeOneColumns()
+            self.set_type_one_columns()
             
-        elif typeN == 2:
-            self.usage_CB.blockSignals(True)
-            self.usage_CB.setCurrentIndex(1)
-            self.usage_CB.blockSignals(False)
+        elif type_n == 2:
+            self.usage_cb.blockSignals(True)
+            self.usage_cb.setCurrentIndex(1)
+            self.usage_cb.blockSignals(False)
             
-            self.setTypeTwoThrColumns()
+            self.set_type_two_thr_columns()
             
-        elif typeN == 3:
-            self.usage_CB.blockSignals(True)
-            self.usage_CB.setCurrentIndex(2)
-            self.usage_CB.blockSignals(False)
+        elif type_n == 3:
+            self.usage_cb.blockSignals(True)
+            self.usage_cb.setCurrentIndex(2)
+            self.usage_cb.blockSignals(False)
             
-            self.setTypeTwoThrColumns()
+            self.set_type_two_thr_columns()
         
-        elif typeN == 4: 
-            self.usage_CB.blockSignals(True)
-            self.usage_CB.setCurrentIndex(3)
-            self.usage_CB.blockSignals(False)
+        elif type_n == 4:
+            self.usage_cb.blockSignals(True)
+            self.usage_cb.setCurrentIndex(3)
+            self.usage_cb.blockSignals(False)
             
-            self.setTypeFouColumns()
+            self.set_type_fou_columns()
             
-    def usageCbChange(self):
-        '''
+    def usage_cb_change(self):
+        """
         :method: Updates the model as soon the usage CB has been changed
-        '''
-        logging.debug(self.__className+'.usageCbChange')
-        if self.usage_CB.currentIndex() == 0:
+        """
+        logging.debug(self.__className+'.usage_cb_change')
+        if self.usage_cb.currentIndex() == 0:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
             self.cellsDistr_M.update_type(1, 1, 1)
             
-        elif self.usage_CB.currentIndex()==1: 
+        elif self.usage_cb.currentIndex() == 1:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
             self.cellsDistr_M.update_type(1, 1, 2)
         
-        elif self.usage_CB.currentIndex()==2:
+        elif self.usage_cb.currentIndex() == 2:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
             self.cellsDistr_M.update_type(1, 1, 3)
             
-        elif self.usage_CB.currentIndex()==3: 
+        elif self.usage_cb.currentIndex() == 3:
             self.cellsDistr_M.update_type(1, 1, 4)
             
-    def numLinesChange(self):
-        '''
+    def num_lines_change(self):
+        """
         :method: Updates the model as soon the usage CB has been changed
-        '''
-        logging.debug(self.__className+'.numLinesChange')
-        self.cellsDistr_M.setNumRowsForConfig(1, self.numLines_S.value() )
+        """
+        logging.debug(self.__className+'.num_lines_change')
+        self.cellsDistr_M.setNumRowsForConfig(1, self.num_lines_s.value())
             
-    def btnPress(self, q):
-        '''
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
+        """
         logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
@@ -216,52 +234,52 @@ class PreProcCellsDistribution(QMdiSubWindow):
         else:
             logging.error(self.__className + '.btn_press unrecognized button press '+q)
             
-    def setTypeOneColumns(self):
-        '''
-        :method: shows/ hides the spinbox and the table colums to for type 1 data
-        '''
-        logging.debug(self.__className+'.setTypeOneColumns')
+    def set_type_one_columns(self):
+        """
+        :method: shows/ hides the spinbox and the table columns to for type 1 data
+        """
+        logging.debug(self.__className+'.set_type_one_columns')
         
-        self.numLines_L.setVisible(False)
-        self.numLines_S.setVisible(False)
+        self.num_lines_l.setVisible(False)
+        self.num_lines_s.setVisible(False)
         
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_T.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
+        self.one_t.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
 
-    def setTypeTwoThrColumns(self):
-        '''
-        :method: shows/ hides the spinbox and the table colums to for type 2 and 3 data 
-        '''
-        logging.debug(self.__className+'.setTypeTwoThrColumns')
+    def set_type_two_thr_columns(self):
+        """
+        :method: shows/ hides the spinbox and the table columns to for type 2 and 3 data
+        """
+        logging.debug(self.__className+'.set_type_two_thr_columns')
         
-        self.numLines_L.setVisible(False)
-        self.numLines_S.setVisible(False)
+        self.num_lines_l.setVisible(False)
+        self.num_lines_s.setVisible(False)
         
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_T.showColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_T.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
+        self.one_t.showColumn(PreProcModel.CellsDistrModel.CoefCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
+        self.one_t.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
         
-    def setTypeFouColumns(self):
-        '''
-        :method: shows/ hides the spinbox and the table colums to for type 4 data 
-        '''
-        logging.debug(self.__className+'.setTypeFouColumns')
+    def set_type_fou_columns(self):
+        """
+        :method: shows/ hides the spinbox and the table columns to for type 4 data
+        """
+        logging.debug(self.__className+'.set_type_fou_columns')
         
-        self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.cellsDistr_M.numRowsForConfig(1) )
-        self.numLines_S.blockSignals(False)
+        self.num_lines_s.blockSignals(True)
+        self.num_lines_s.setValue(self.cellsDistr_M.numRowsForConfig(1))
+        self.num_lines_s.blockSignals(False)
         
-        self.numLines_L.setVisible(True)
-        self.numLines_S.setVisible(True)
+        self.num_lines_l.setVisible(True)
+        self.num_lines_s.setVisible(True)
         
-        self.one_T.showColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_T.showColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_T.hideColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.showColumn(PreProcModel.CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
+        self.one_t.showColumn(PreProcModel.CellsDistrModel.WidthCol)
+        self.one_t.hideColumn(PreProcModel.CellsDistrModel.NumCellsCol)
     

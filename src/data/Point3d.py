@@ -14,13 +14,15 @@ class Point3D:
 
             Two ways of working are possible:
             1. Create the point. Make sure it gets informed about every
-               transformation, use .x3d, .y3d, .z3d, .x2d, y2d to find the
-               position
+            transformation, use .x3d, .y3d, .z3d, .x2d, y2d to find the
+            position
+
             2. Create the point. Use x2d(), y2d() to find the 2d coordinates
-               for the given parameters.
+            for the given parameters.
 
             ATTENTION: if you call x2d() and y2d() also .x3d, .y3d, .z3d, .x2d,
                        y2d will be updated.
+
     """
     curr_x_ang = 0  # type: int
     curr_y_ang = 0  # type: int
