@@ -3,9 +3,11 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtGui import QIcon, QPainter
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView
+    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView, QGraphicsLineItem
 from data.Point3d import Point3D
 from data.PreProcOutfileReader import PreProcOutfileReader
 
@@ -54,6 +56,8 @@ class PreProcWingOutline(QMdiSubWindow):
         :method: Constructor
         """
         super().__init__()
+        self.view = None
+        self.scene = None
         self.proj_params = None
         logging.debug(self.__className + '.__init__')
 
@@ -77,7 +81,7 @@ class PreProcWingOutline(QMdiSubWindow):
         self.angle_z = self.ini_angle_z
 
         self.ini_scene_width = 400
-        self.ini_scene_heigth = 200
+        self.ini_scene_height = 200
 
         self.build_window()
 
@@ -168,12 +172,12 @@ class PreProcWingOutline(QMdiSubWindow):
         btn_ly.addLayout(zoom_hbox)
 
         res_btn = QPushButton("reset")
-        res_btn.clicked.connect(self.res)
+        res_btn.clicked.connect(self.reset_scene)
         btn_ly.addWidget(res_btn)
 
         self.scene = QGraphicsScene(0, 0,
                                     self.ini_scene_width,
-                                    self.ini_scene_heigth)
+                                    self.ini_scene_height)
         self.view = QGraphicsView(self.scene)
         self.view.setRenderHint(QPainter.Antialiasing)
 
@@ -183,7 +187,10 @@ class PreProcWingOutline(QMdiSubWindow):
 
         self.window_ly.addLayout(hbox_ly)
 
-        self.update_scene()
+        pre_proc_file_btn = QPushButton("Pre-Proc file")
+        pre_proc_file_btn.clicked.connect(self.open_pre_proc_file)
+        own_file_btn = QPushButton("Own file")
+        own_file_btn.clicked.connect(self.open_file)
 
         #############################
         # Commons for all windows
@@ -194,6 +201,8 @@ class PreProcWingOutline(QMdiSubWindow):
         self.button_bar.setHelpPage('preproc/wingOutline.html')
 
         bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(pre_proc_file_btn)
+        bottom_layout.addWidget(own_file_btn)
         bottom_layout.addStretch()
         bottom_layout.addWidget(self.help_bar)
         bottom_layout.addWidget(self.button_bar)
@@ -207,37 +216,120 @@ class PreProcWingOutline(QMdiSubWindow):
                  the window
         """
         pre_proc_reader = PreProcOutfileReader()
-        data, num_cells = pre_proc_reader.open_read_file(False)
+        data, num_cells = pre_proc_reader.open_read_file(True)
 
         if len(data) > 0 and num_cells != 0:
-            self.prepare_wing(data, num_cells)
+            self.prepare_wing_data(data, num_cells)
             self.update_scene()
+            self.reset_scene()
 
     def open_file(self):
         """
         :method: Opens a user specific data file and updates the window
         """
         pre_proc_reader = PreProcOutfileReader()
-        data, num_cells = pre_proc_reader.open_read_file(True)
+        data, num_cells = pre_proc_reader.open_read_file(False)
 
         if len(data) > 0 and num_cells != 0:
-            self.prepare_wing(data, num_cells)
+            self.prepare_wing_data(data, num_cells)
             self.update_scene()
+            self.reset_scene()
 
-    def prepare_wing(self, data, num_cells):
+    def prepare_wing_data(self, data, num_cells):
         """
-        :method: Builds with the one sided data read from the data file all
+        :method: Builds with the one-sided data read from the data file all
                  edges tho be displayed.
         :param data: Data read from the data file
-        :param: Number of cells read from the data file
+        :param num_cells: Number of cells read from the data file
         """
-#### go on here
-        # num_cells odd/ ungerade
-        self.wing.append(Rib(-575.5, 148.95, 254.62,
-                             -575.5, 212.8, 254.62))
 
-        # num_cells even/ gerade
-        # we have one rib exactly in the middle
+        # We will move the turn point of the wing to half wing deep
+        delta_y = float(data[0][3]) * 0.5
+
+        # Empty wing list
+        del self.wing[:]
+
+        if int(num_cells) % 2 == 0:
+            # num_cells even/ gerade Anzahl
+            # we have one rib exactly in the middle
+
+            for rib_it in range(len(data)-1, -1, -1):
+                self.wing.append(Rib(float(data[rib_it][1]) * -1,
+                                     float(data[rib_it][2]) - delta_y,
+                                     float(data[rib_it][5]),
+                                     float(data[rib_it][1]) * - 1,
+                                     float(data[rib_it][3]) - delta_y,
+                                     float(data[rib_it][5])))
+            # middle rib has already been written
+            for rib_it in range(1, len(data)):
+                self.wing.append(Rib(float(data[rib_it][1]),
+                                     float(data[rib_it][2]) - delta_y,
+                                     float(data[rib_it][5]),
+                                     float(data[rib_it][1]),
+                                     float(data[rib_it][3]) - delta_y,
+                                     float(data[rib_it][5])))
+
+        else:
+            # num_cells odd/ ungerade
+            for rib_it in range(len(data)-1, -1, -1):
+                self.wing.append(Rib(float(data[rib_it][1]) * -1,
+                                     float(data[rib_it][2]) - delta_y,
+                                     float(data[rib_it][5]),
+                                     float(data[rib_it][1]) * - 1,
+                                     float(data[rib_it][3]) - delta_y,
+                                     float(data[rib_it][5])))
+            # middle rib will be written twice
+            for rib_it in range(0, len(data)):
+                self.wing.append(Rib(float(data[rib_it][1]),
+                                     float(data[rib_it][2]) - delta_y,
+                                     float(data[rib_it][5]),
+                                     float(data[rib_it][1]),
+                                     float(data[rib_it][3]) - delta_y,
+                                     float(data[rib_it][5])))
+
+        # delete old edges
+        for edge_it in range(len(self.edges)-1, -1, -1):
+            self.scene.removeItem(self.edges[edge_it][2])
+        # empty edge list
+        del self.edges[:]
+
+        # create edges
+        # lines for the ribs
+        for rib_it in range(0, len(self.wing)):
+
+            line_item = QGraphicsLineItem()
+
+            border = divmod(len(self.wing), 2)
+
+            if rib_it < border[0]:
+                pen = QPen(Qt.darkGreen)
+            elif rib_it >= border[0]+border[1]:
+                pen = QPen(Qt.red)
+            else:
+                pen = QPen(Qt.black)
+            line_item.setPen(pen)
+
+            edge = (self.wing[rib_it].le,
+                    self.wing[rib_it].te,
+                    line_item)
+            self.edges.append(edge)
+
+        # leading edge
+        for rib_it in range(0, len(self.wing)-1):
+            edge = (self.wing[rib_it].le,
+                    self.wing[rib_it+1].le,
+                    QGraphicsLineItem())
+            self.edges.append(edge)
+
+        # trailing edge
+        for rib_it in range(0, len(self.wing)-1):
+            edge = (self.wing[rib_it].te,
+                    self.wing[rib_it+1].te,
+                    QGraphicsLineItem())
+            self.edges.append(edge)
+
+        for edge in self.edges:
+            self.scene.addItem(edge[2])
 
     def update_scene(self):
         self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
@@ -250,7 +342,7 @@ class PreProcWingOutline(QMdiSubWindow):
                             edge[1].get_x2d(*self.proj_params),
                             edge[1].get_y2d(*self.proj_params))
 
-        print(f'x: {self.angle_x}\t y: {self.angle_y}\t z: {self.angle_z}')
+        # print(f'x: {self.angle_x}\t y: {self.angle_y}\t z: {self.angle_z}')
 
     def x_min(self):
         self.angle_x -= 10
@@ -306,7 +398,7 @@ class PreProcWingOutline(QMdiSubWindow):
     def zoom_out(self):
         self.view.scale(.9, .9)
 
-    def res(self):
+    def reset_scene(self):
         self.angle_x = self.ini_angle_x
         self.angle_y = self.ini_angle_y
         self.angle_z = self.ini_angle_z
