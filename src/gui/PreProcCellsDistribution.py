@@ -159,7 +159,7 @@ class PreProcCellsDistribution(QMdiSubWindow):
         """
         :method: Updates the GUI as soon the model changes
         """
-        logging.debug(self.__className+'.usageUpdate')
+        logging.debug(self.__className+'.usage_update')
         
         type_n = self.cellsDistr_M.get_type(1, 1)
         

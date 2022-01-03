@@ -146,7 +146,7 @@ class ThreeDDxfModel(QMdiSubWindow):
         '''
         :method: Updates the GUI as soon in the model the usage flag has been changed
         '''
-        logging.debug(self.__className+'.usageUpdate')
+        logging.debug(self.__className+'.usage_update')
         
         if self.threeDDxf_M.isUsed():
             self.usage_CB.setCurrentIndex(1)
