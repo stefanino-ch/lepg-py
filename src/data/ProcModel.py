@@ -75,48 +75,6 @@ class ProcModel(QObject, metaclass=Singleton):
 
         super().__init__()
 
-        self.fh = FileHelpers()
-
-        self.rib_m = self.RibModel()
-        self.wing_m = self.WingModel()
-        self.airfoils_m = self.AirfoilsModel()
-        self.anchor_points_m = self.AnchorPointsModel()
-        self.light_conf_m = self.LightConfModel()
-        self.light_det_m = self.LightDetModel()
-        self.skin_tens_m = self.SkinTensionModel()
-        self.skin_tens_params_m = self.SkinTensionParamsModel()
-        self.sewing_allow_m = self.SewingAllowancesModel()
-        self.marks_m = self.MarksModel()
-        self.glob_aoa_m = self.GlobAoAModel()
-        self.lines_m = self.LinesModel()
-        self.brakes_m = self.BrakesModel()
-        self.brake_length_m = self.BrakeLengthModel()
-        self.ramific_m = self.RamificationModel()
-        self.hv_vh_ribs_m = self.HvVhRibsModel()
-        self.extrados_col_conf_m = self.ExtradosColConfModel()
-        self.extrados_col_det_m = self.ExtradosColDetModel()
-        self.intrados_col_conf_m = self.IntradosColsConfModel()
-        self.intrados_col_det_m = self.IntradosColsDetModel()
-        self.add_rib_pts_m = self.AddRibPointsModel()
-        self.el_lines_corr_m = self.ElLinesCorrModel()
-        self.el_lines_def_m = self.ElLinesDefModel()
-        self.dxf_lay_names_m = self.DxfLayerNamesModel()
-        self.marks_t_m = self.MarksTypesModel()
-        self.joncs_def_m = self.JoncsDefModel()
-        self.nose_mylars_m = self.NoseMylarsModel()
-        self.two_d_dxf_m = self.TwoDDxfModel()
-        self.three_d_dxf_m = self.ThreeDDxfModel()
-        self.glue_vent_m = ProcModel.GlueVentModel()
-        self.spec_wing_tip_m = ProcModel.SpecWingTipModel()
-        self.calage_var_m = ProcModel.CalageVarModel()
-        self.three_d_sh_conf_m = ProcModel.ThreeDShConfModel()
-        self.three_d_sh_up_det_M = ProcModel.ThreeDShUpDetModel()
-        self.three_d_sh_lo_det_m = ProcModel.ThreeDShLoDetModel()
-        self.three_d_sh_print_m = ProcModel.ThreeDShPrintModel()
-        self.airf_thickn_m = ProcModel.AirfoilThicknessModel()
-        self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
-        self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
-
         self.fileReader = ProcFileReader()
         self.fileWriter = ProcFileWriter()
 
@@ -1711,7 +1669,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
     class GlueVentModel(SqlTableModel, metaclass=Singleton):
         """
-        :class: Provides a SqlTableModel holding the DXF layer names
+        :class: Provides a SqlTableModel holding the glue vent parameters.
         """
         __className = 'GlueVentModel'
         '''
@@ -3346,10 +3304,231 @@ class ProcModel(QObject, metaclass=Singleton):
                 i += 1
             return query.value
 
+    class PartsSeparationModel(SqlTableModel, metaclass=Singleton):
+        """
+        :class: Provides a SqlTableModel holding the parts' separation
+                settings.
+        """
+        __className = 'PartsSeparationModel'
+        '''
+        :attr: Does help to indicate the source of the log messages.
+        '''
+        __isUsed = False
+        '''
+        :attr: Helps to remember if the section is in use or not
+        '''
+        usageUpd = pyqtSignal()
+        '''
+        :signal: Emitted as soon the usage flag is changed
+        '''
+        OrderNumCol = 0
+        '''
+        :attr: Num of column for ordering the individual lines of a config
+        '''
+        Panel_x_col = 1
+        '''
+        :attr: Multiplication factor for x-direction panels separation
+        '''
+        Panel_x_min_col = 2
+        '''
+        :attr: Multiplication factor for x-direction panels minimum separation
+        '''
+        Panel_y_col = 3
+        '''
+        :attr: Multiplication factor for y-direction panels separation 
+        '''
+        Rib_x_col = 4
+        '''
+        :attr: Multiplication factor for x-direction ribs separation
+        '''
+        Rib_y_col = 5
+        '''
+        :attr: Multiplication factor for y-direction ribs separation
+        '''
+        Param6_col = 6
+        '''
+        :attr: Parameter still not used
+        '''
+        Param7_col = 7
+        '''
+        :attr: Parameter still not used
+        '''
+        Param8_col = 8
+        '''
+        :attr: Parameter still not used
+        '''
+        Param9_col = 9
+        '''
+        :attr: Parameter still not used
+        '''
+        Param10_col = 10
+        '''
+        :attr: Parameter still not used
+        '''
+        ConfigNumCol = 11
+        '''
+        :attr: Num of column for config number (always 1)
+        '''
+
+        def __init__(self, parent=None):
+            """
+            :method: Constructor
+            """
+            logging.debug(self.__className + '.__init__')
+            super().__init__()
+            self.create_table()
+            self.setTable("PartsSeparation")
+            self.select()
+            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+
+            self.setHeaderData(self.OrderNumCol,
+                               Qt.Horizontal,
+                               _("Order num"))
+            self.setHeaderData(self.Panel_x_col,
+                               Qt.Horizontal,
+                               _("panel_x"))
+            self.setHeaderData(self.Panel_x_min_col,
+                               Qt.Horizontal,
+                               _("panel_x_min"))
+            self.setHeaderData(self.Panel_x_col,
+                               Qt.Horizontal,
+                               _("panel_y"))
+            self.setHeaderData(self.Rib_x_col,
+                               Qt.Horizontal,
+                               _("rib_x"))
+            self.setHeaderData(self.Rib_y_col,
+                               Qt.Horizontal,
+                               _("rib_y"))
+            self.setHeaderData(self.Param6_col,
+                               Qt.Horizontal,
+                               _("parameter6"))
+            self.setHeaderData(self.Param7_col,
+                               Qt.Horizontal,
+                               _("parameter7"))
+            self.setHeaderData(self.Param8_col,
+                               Qt.Horizontal,
+                               _("parameter8"))
+            self.setHeaderData(self.Param9_col,
+                               Qt.Horizontal,
+                               _("parameter9"))
+            self.setHeaderData(self.Param10_col,
+                               Qt.Horizontal,
+                               _("parameter10"))
+
+        def create_table(self):
+            """
+            :method: Creates initially the empty table
+            """
+            logging.debug(self.__className + '.create_table')
+            query = QSqlQuery()
+
+            query.exec("DROP TABLE if exists PartsSeparation;")
+            query.exec("create table if not exists PartsSeparation ("
+                       "OrderNum INTEGER, "
+                       "panel_x REAL, "
+                       "panel_x_min REAL, "
+                       "panel_y REAL, "
+                       "rib_x REAL, "
+                       "rib_y REAL, "
+                       "param6 REAL, "
+                       "param7 REAL, "
+                       "param8 REAL, "
+                       "param9 REAL, "
+                       "param10 REAL, "
+                       "ConfigNum INTEGER,"
+                       "ID INTEGER PRIMARY KEY);")
+
+        def update_row(self, config_num, order_num,
+                       panel_x, panel_x_min, panel_y,
+                       rib_x, rib_y,
+                       param6, param7, param8, param9, param10):
+            """
+            :method: Updates a specific row in the database with the values
+                     passed. Parameters are not explicitly explained here
+                     as they should be well known.
+            """
+            logging.debug(self.__className + '.update_row')
+
+            query = QSqlQuery()
+            query.prepare("UPDATE PartsSeparation SET "
+                          "panel_x= :panel_x, "
+                          "panel_x_min= :panel_x_min, "
+                          "panel_y= :panel_y, "
+                          "rib_x= :rib_x, "
+                          "rib_y= :rib_y, "
+                          "param6= :param6, "
+                          "param7= :param7, "
+                          "param8= :param8, "
+                          "param9= :param9, "
+                          "param10= :param10 "
+                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
+            query.bindValue(":panel_x", panel_x)
+            query.bindValue(":panel_x_min", panel_x_min)
+            query.bindValue(":panel_y", panel_y)
+            query.bindValue(":rib_x", rib_x)
+            query.bindValue(":rib_y", rib_y)
+            query.bindValue(":param6", param6)
+            query.bindValue(":param7", param7)
+            query.bindValue(":param8", param8)
+            query.bindValue(":param9", param9)
+            query.bindValue(":param10", param10)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
+            query.exec()
+            self.select()  # assure the model is updated properly
+
+        def set_is_used(self, is_used):
+            """
+            :method: Set the usage flag of the section
+            :param is_used: True if section is in use, False otherwise
+            """
+            logging.debug(self.__className + '.set_is_used')
+            self.__isUsed = is_used
+            self.usageUpd.emit()
+
+        def is_used(self):
+            """
+            :method: Returns the information if the section is in use or not
+            :returns: True if section is in use, false otherwise
+            """
+            logging.debug(self.__className + '.is_used')
+            return self.__isUsed
+
+        def get_row(self, config_num, order_num):
+            """
+            :method: Reads values back from the internal database for a
+                     specific config and order number
+            :param config_num: Configuration number. Starting with 1.
+            :param order_num: Order number. Starting with 1.
+
+            :return: Values read from internal database
+            :rtype: QRecord
+            """
+            logging.debug(self.__className + '.get_row')
+
+            query = QSqlQuery()
+            query.prepare("Select "
+                          "panel_x, "
+                          "panel_x_min, "
+                          "panel_y, "
+                          "rib_x, "
+                          "rib_y, "
+                          "param6, "
+                          "param7, "
+                          "param8, "
+                          "param9, "
+                          "param10 "
+                          "FROM PartsSeparation WHERE (ConfigNum = :config) "
+                          "ORDER BY OrderNum")
+            query.bindValue(":config", config_num)
+            query.exec()
+            query.next()
+            return query.record()
+
     class RamificationModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the ramification parameters. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the ramification parameters.
+        """
         __className = 'RamificationModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
