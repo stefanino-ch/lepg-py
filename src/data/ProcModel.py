@@ -1854,7 +1854,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "VentParam, "
                           "ParamA, "
                           "ParamB, "
-                          "ParamC, "
+                          "ParamC "
                           "FROM GlueVent WHERE (ConfigNum = :config) "
                           "ORDER BY OrderNum")
             query.bindValue(":config", config_num)

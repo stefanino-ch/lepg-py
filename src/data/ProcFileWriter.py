@@ -11,7 +11,7 @@ from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtWidgets import QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
-from data.FileHelpers import FileHelpers
+from data.FileHelpers import chk_num, chk_str
 from data.ProcModel import ProcModel
 
 
@@ -73,8 +73,6 @@ class ProcFileWriter:
         self.airf_thickn_m = ProcModel.AirfoilThicknessModel()
         self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
         self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
-
-        self.fh = FileHelpers()
 
     def set_file_path_name(self, file_path_name):
         """
@@ -148,21 +146,21 @@ class ProcFileWriter:
         stream << '* Wing name\n'
         stream << '\"%s\"\n' % values.value(ProcModel.WingModel.WingNameCol)
         stream << '* Drawing scale\n'
-        stream << '%s\n' % self.fh.chkNum(
+        stream << '%s\n' % chk_num(
             values.value(ProcModel.WingModel.DrawScaleCol), 1)
         stream << '* Wing scale\n'
-        stream << '%s\n' % self.fh.chkNum(
+        stream << '%s\n' % chk_num(
             values.value(ProcModel.WingModel.WingScaleCol), 1)
         stream << '* Number of cells\n'
-        stream << '\t%s\n' % self.fh.chkNum(
+        stream << '\t%s\n' % chk_num(
             values.value(ProcModel.WingModel.NumCellsCol))
         stream << '* Number of ribs\n'
-        stream << '\t%s\n' % self.fh.chkNum(
+        stream << '\t%s\n' % chk_num(
             values.value(ProcModel.WingModel.NumRibsCol))
         stream << '* Alpha max and parameter\n'
-        stream << '\t%s' % self.fh.chkNum(
+        stream << '\t%s' % chk_num(
             values.value(ProcModel.WingModel.AlphaMaxTipCol))
-        stream << '\t%s' % self.fh.chkNum(
+        stream << '\t%s' % chk_num(
             values.value(ProcModel.WingModel.AlphaModeCol), 1)
         if values.value(ProcModel.WingModel.AlphaModeCol) == '2':
             stream << '\t%s\n' \
@@ -172,10 +170,10 @@ class ProcFileWriter:
 
         stream << '* Paraglider type and parameter.\n'
 
-        stream << '\t\"%s\"' % self.fh.chkStr(
+        stream << '\t\"%s\"' % chk_str(
             values.value(ProcModel.WingModel.ParaTypeCol),
             'ds')
-        stream << '\t%s\n' % self.fh.chkNum(
+        stream << '\t%s\n' % chk_num(
             values.value(ProcModel.WingModel.ParaParamCol),
             1)
         stream << ('* Rib geometric parameters. '
@@ -188,7 +186,7 @@ class ProcFileWriter:
             stream << '%s' % (i + 1)
 
             for p in range(0, 10):
-                stream << '\t%s' % self.fh.chkNum(values(p))
+                stream << '\t%s' % chk_num(values(p))
                 if p == 9:
                     stream << '\n'
 
@@ -202,9 +200,9 @@ class ProcFileWriter:
 
             for p in range(0, 7):
                 if p == 0:
-                    stream << '\t%s' % self.fh.chkStr(values(p))
+                    stream << '\t%s' % chk_str(values(p))
                 else:
-                    stream << '\t%s' % self.fh.chkNum(values(p))
+                    stream << '\t%s' % chk_num(values(p))
                 if p == 6:
                     stream << '\n'
 
@@ -217,7 +215,7 @@ class ProcFileWriter:
             stream << '%s' % (line_it + 1)
 
             for p in range(0, 7):
-                stream << '\t%s' % self.fh.chkNum(values(p))
+                stream << '\t%s' % chk_num(values(p))
                 if p == 6:
                     stream << '\n'
 
@@ -229,8 +227,8 @@ class ProcFileWriter:
 
         for g in range(0, num_configs):
             values = self.light_conf_m.getRow(g + 1)
-            stream << '%s\n' % self.fh.chkNum(values(0))
-            stream << '%s\n' % self.fh.chkNum(values(1))
+            stream << '%s\n' % chk_num(values(0))
+            stream << '%s\n' % chk_num(values(1))
 
             num_lines = self.light_det_m.numRowsForConfig(g + 1)
             stream << '%s\n' % num_lines
@@ -239,7 +237,7 @@ class ProcFileWriter:
                 for p in range(0, 7):
                     if p > 0:
                         stream << '\t'
-                    stream << '%s' % self.fh.chkNum(values(p))
+                    stream << '%s' % chk_num(values(p))
                     if p == 6:
                         stream << '\t0.\t0.\n'
 
@@ -254,14 +252,14 @@ class ProcFileWriter:
             for p in range(0, 4):
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % self.fh.chkNum(values(p))
+                stream << '%s' % chk_num(values(p))
                 if p == 3:
                     stream << '\n'
 
         values = self.skin_tens_params_m.getRow()
-        stream << '%s\n' % self.fh.chkNum(values(0))
-        stream << '%s' % self.fh.chkNum(values(1))
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '%s\n' % chk_num(values(0))
+        stream << '%s' % chk_num(values(1))
+        stream << '\t%s\n' % chk_num(values(2))
 
         stream << separator
         stream << '*           6. SEWING ALLOWANCES\n'
@@ -271,7 +269,7 @@ class ProcFileWriter:
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
-            stream << '%s' % self.fh.chkNum(values(p))
+            stream << '%s' % chk_num(values(p))
             if p == 2:
                 stream << '\tupper panels (mm)\n'
 
@@ -279,16 +277,16 @@ class ProcFileWriter:
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
-            stream << '%s' % self.fh.chkNum(values(p))
+            stream << '%s' % chk_num(values(p))
             if p == 2:
                 stream << '\tlower panels (mm)\n'
 
         values = self.sewing_allow_m.getRow(3)
-        stream << '%s' % self.fh.chkNum(values(0))
+        stream << '%s' % chk_num(values(0))
         stream << '\tribs (mm)\n'
 
         values = self.sewing_allow_m.getRow(4)
-        stream << '%s' % self.fh.chkNum(values(0))
+        stream << '%s' % chk_num(values(0))
         stream << '\tvribs (mm)\n'
 
         stream << separator
@@ -296,32 +294,32 @@ class ProcFileWriter:
         stream << separator
 
         values = self.marks_m.getRow()
-        stream << '%s' % self.fh.chkNum(values(0))
-        stream << '\t%s' % self.fh.chkNum(values(1))
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '%s' % chk_num(values(0))
+        stream << '\t%s' % chk_num(values(1))
+        stream << '\t%s\n' % chk_num(values(2))
 
         stream << separator
         stream << '*           8. Global angle of attack estimation\n'
         stream << separator
         values = self.glob_aoa_m.getRow()
         stream << '* Finesse GR\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(0))
+        stream << '\t%s\n' % chk_num(values(0))
         stream << '* Center of pressure % of chord\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(1))
+        stream << '\t%s\n' % chk_num(values(1))
         stream << '* Calage %\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '\t%s\n' % chk_num(values(2))
         stream << '* Risers lenght cm\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(3))
+        stream << '\t%s\n' % chk_num(values(3))
         stream << '* Line lenght cm\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(4))
+        stream << '\t%s\n' % chk_num(values(4))
         stream << '* Karabiners cm\n'
-        stream << '\t%s\n' % self.fh.chkNum(values(5))
+        stream << '\t%s\n' % chk_num(values(5))
 
         stream << separator
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
         values = self.wing_m.get_row()
-        stream << '%s\n' % self.fh.chkNum(values.value(ProcModel.WingModel.LinesConcTypeCol))
+        stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.LinesConcTypeCol))
 
         num_configs = self.lines_m.numConfigs()
         stream << '%s\n' % num_configs
@@ -336,7 +334,7 @@ class ProcFileWriter:
                 for p in range(0, 11):
                     if p > 0:
                         stream << '\t'
-                    stream << '%s' % self.fh.chkNum(values(p))
+                    stream << '%s' % chk_num(values(p))
                     if p == 10:
                         stream << '\n'
 
@@ -345,7 +343,7 @@ class ProcFileWriter:
         stream << separator
 
         values = self.wing_m.get_row()
-        stream << '%s\n' % self.fh.chkNum(values.value(ProcModel.WingModel.BrakeLengthCol))
+        stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.BrakeLengthCol))
 
         num_lines = self.brakes_m.numRowsForConfig(1)
         stream << '%s\n' % num_lines
@@ -355,7 +353,7 @@ class ProcFileWriter:
             for p in range(0, 11):
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % self.fh.chkNum(values(p))
+                stream << '%s' % chk_num(values(p))
                 if p == 10:
                     stream << '\n'
 
@@ -365,13 +363,13 @@ class ProcFileWriter:
         for p in range(0, 5):
             if p > 0:
                 stream << '\t'
-            stream << '%s' % self.fh.chkNum(values(p))
+            stream << '%s' % chk_num(values(p))
             if p == 4:
                 stream << '\n'
         for p in range(5, 10):
             if p > 5:
                 stream << '\t'
-            stream << '%s' % self.fh.chkNum(values(p))
+            stream << '%s' % chk_num(values(p))
             if p == 9:
                 stream << '\n'
 
@@ -381,21 +379,21 @@ class ProcFileWriter:
 
         values = self.ramific_m.getRow(1, 1)
         stream << '3'
-        stream << '\t%s\n' % self.fh.chkNum(values(1))
+        stream << '\t%s\n' % chk_num(values(1))
 
         values = self.ramific_m.getRow(1, 2)
         stream << '4'
-        stream << '\t%s' % self.fh.chkNum(values(1))
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '\t%s' % chk_num(values(1))
+        stream << '\t%s\n' % chk_num(values(2))
 
         values = self.ramific_m.getRow(1, 3)
         stream << '3'
-        stream << '\t%s\n' % self.fh.chkNum(values(1))
+        stream << '\t%s\n' % chk_num(values(1))
 
         values = self.ramific_m.getRow(1, 4)
         stream << '4'
-        stream << '\t%s' % self.fh.chkNum(values(1))
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '\t%s' % chk_num(values(1))
+        stream << '\t%s\n' % chk_num(values(2))
 
         stream << separator
         stream << '*    12. H V and VH ribs\n'
@@ -403,8 +401,8 @@ class ProcFileWriter:
         num_lines = self.hv_vh_ribs_m.numRowsForConfig(1)
         stream << '%s\n' % num_lines
         values = self.wing_m.get_row()
-        stream << '%s' % self.fh.chkNum(values.value(ProcModel.WingModel.xSpacingCol))
-        stream << '\t%s\n' % self.fh.chkNum(values.value(ProcModel.WingModel.ySpacingCol))
+        stream << '%s' % chk_num(values.value(ProcModel.WingModel.xSpacingCol))
+        stream << '\t%s\n' % chk_num(values.value(ProcModel.WingModel.ySpacingCol))
 
         for line_it in range(0, num_lines):
             values = self.hv_vh_ribs_m.getRow(1, line_it + 1)
@@ -414,11 +412,11 @@ class ProcFileWriter:
                     stream << '%s\t' % (line_it + 1)
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % self.fh.chkNum(values(p))
+                stream << '%s' % chk_num(values(p))
 
             if values(0) == 6 or values(0) == 16:
-                stream << '\t%s' % self.fh.chkNum(values(9))
-                stream << '\t%s\n' % self.fh.chkNum(values(10))
+                stream << '\t%s' % chk_num(values(9))
+                stream << '\t%s\n' % chk_num(values(10))
             else:
                 stream << '\n'
 
@@ -438,7 +436,7 @@ class ProcFileWriter:
             for line_it in range(0, num_lines):
                 values = self.extrados_col_det_m.getRow(g + 1, line_it + 1)
                 stream << '%s' % (line_it + 1)
-                stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
+                stream << '\t%s\t0.\n' % chk_num(values(0))
 
         stream << separator
         stream << '*    16. Intrados colors\n'
@@ -456,7 +454,7 @@ class ProcFileWriter:
             for line_it in range(0, num_lines):
                 values = self.intrados_col_det_m.getRow(g + 1, line_it + 1)
                 stream << '%s' % (line_it + 1)
-                stream << '\t%s\t0.\n' % self.fh.chkNum(values(0))
+                stream << '\t%s\t0.\n' % chk_num(values(0))
 
         stream << separator
         stream << '*       17. Aditional rib points\n'
@@ -466,32 +464,32 @@ class ProcFileWriter:
 
         for line_it in range(0, num_lines):
             values = self.add_rib_pts_m.getRow(1, line_it + 1)
-            stream << '%s' % self.fh.chkNum(values(0))
-            stream << '\t%s\n' % self.fh.chkNum(values(1))
+            stream << '%s' % chk_num(values(0))
+            stream << '\t%s\n' % chk_num(values(1))
 
         stream << separator
         stream << '*       18. Elastic lines corrections\n'
         stream << separator
         values = self.el_lines_corr_m.getRow()
-        stream << '%s\n' % self.fh.chkNum(values(0))
+        stream << '%s\n' % chk_num(values(0))
 
-        stream << '%s' % self.fh.chkNum(values(1))
-        stream << '\t%s\n' % self.fh.chkNum(values(2))
+        stream << '%s' % chk_num(values(1))
+        stream << '\t%s\n' % chk_num(values(2))
 
-        stream << '%s' % self.fh.chkNum(values(3))
-        stream << '\t%s' % self.fh.chkNum(values(4))
-        stream << '\t%s\n' % self.fh.chkNum(values(5))
+        stream << '%s' % chk_num(values(3))
+        stream << '\t%s' % chk_num(values(4))
+        stream << '\t%s\n' % chk_num(values(5))
 
-        stream << '%s' % self.fh.chkNum(values(6))
-        stream << '\t%s' % self.fh.chkNum(values(7))
-        stream << '\t%s' % self.fh.chkNum(values(8))
-        stream << '\t%s\n' % self.fh.chkNum(values(9))
+        stream << '%s' % chk_num(values(6))
+        stream << '\t%s' % chk_num(values(7))
+        stream << '\t%s' % chk_num(values(8))
+        stream << '\t%s\n' % chk_num(values(9))
 
-        stream << '%s' % self.fh.chkNum(values(10))
-        stream << '\t%s' % self.fh.chkNum(values(11))
-        stream << '\t%s' % self.fh.chkNum(values(12))
-        stream << '\t%s' % self.fh.chkNum(values(13))
-        stream << '\t%s\n' % self.fh.chkNum(values(14))
+        stream << '%s' % chk_num(values(10))
+        stream << '\t%s' % chk_num(values(11))
+        stream << '\t%s' % chk_num(values(12))
+        stream << '\t%s' % chk_num(values(13))
+        stream << '\t%s\n' % chk_num(values(14))
 
         num_lines = self.el_lines_def_m.numRowsForConfig(1)
         for line_it in range(0, num_lines):
@@ -500,7 +498,7 @@ class ProcFileWriter:
             for p in range(0, 4):
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % self.fh.chkNum(values(p))
+                stream << '%s' % chk_num(values(p))
                 if p == 3:
                     stream << '\n'
 
@@ -516,7 +514,7 @@ class ProcFileWriter:
             for p in range(0, 2):
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % self.fh.chkStr(values(p))
+                stream << '%s' % chk_str(values(p))
                 if p == 1:
                     stream << '\n'
 
@@ -533,9 +531,9 @@ class ProcFileWriter:
                 if p > 0:
                     stream << '\t'
                 if p == 0:
-                    stream << '%s' % self.fh.chkStr(values(p))
+                    stream << '%s' % chk_str(values(p))
                 else:
-                    stream << '%s' % self.fh.chkNum(values(p))
+                    stream << '%s' % chk_num(values(p))
                 if p == 6:
                     stream << '\n'
 
@@ -562,31 +560,31 @@ class ProcFileWriter:
                     values = self.joncs_def_m.getRow(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.FirstRibCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.LastRibCol))
+                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.FirstRibCol))
+                    stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.LastRibCol))
 
                     # Line 1
-                    stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBACol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBBCol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBCCol))
+                    stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pBACol))
+                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBBCol))
+                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBCCol))
                     if scheme == 1:
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pBDCol))
                     else:
-                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBDCol))
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pBECol))
+                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pBECol))
 
                     if scheme == 1:
                         # Line 2
-                        stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCACol))
-                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCBCol))
-                        stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCCCol))
-                        stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pCDCol))
+                        stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pCACol))
+                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pCBCol))
+                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pCCCol))
+                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pCDCol))
 
                     # s values
-                    stream << '%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDACol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDBCol))
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDCCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.JoncsDefModel.pDDCol))
+                    stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pDACol))
+                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pDBCol))
+                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pDCCol))
+                    stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pDDCol))
 
         stream << separator
         stream << '*       22. NOSE MYLARS DEFINITION\n'
@@ -605,14 +603,14 @@ class ProcFileWriter:
                     values = self.nose_mylars_m.getRow(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
-                    stream << '\t%s' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.FirstRibCol))
-                    stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.LastRibCol))
+                    stream << '\t%s' % chk_num(values(ProcModel.NoseMylarsModel.FirstRibCol))
+                    stream << '\t%s\n' % chk_num(values(ProcModel.NoseMylarsModel.LastRibCol))
 
                     for p in range(0, 6):
                         if p > 0:
                             stream << '\t'
 
-                        stream << '%s' % self.fh.chkNum(values(ProcModel.NoseMylarsModel.xOneCol + p))
+                        stream << '%s' % chk_num(values(ProcModel.NoseMylarsModel.xOneCol + p))
 
                         if p == 5:
                             stream << '\n'
@@ -638,9 +636,9 @@ class ProcFileWriter:
                     if p > 0:
                         stream << '\t'
                     if p == 1:
-                        stream << '%s' % self.fh.chkNum(values(p))
+                        stream << '%s' % chk_num(values(p))
                     else:
-                        stream << '%s' % self.fh.chkStr(values(p))
+                        stream << '%s' % chk_str(values(p))
                     if p == 2:
                         stream << '\n'
 
@@ -654,9 +652,9 @@ class ProcFileWriter:
             for line_it in range(0, 6):
                 values = self.three_d_dxf_m.getRow(1, line_it + 1)
 
-                stream << '%s' % self.fh.chkStr(values(0))
-                stream << '\t%s' % self.fh.chkNum(values(2))
-                stream << '\t%s\n' % self.fh.chkStr(values(3))
+                stream << '%s' % chk_str(values(0))
+                stream << '\t%s' % chk_num(values(2))
+                stream << '\t%s\n' % chk_str(values(3))
 
             for line_it in range(6, 9):
                 values = self.three_d_dxf_m.getRow(1, line_it + 1)
@@ -664,9 +662,9 @@ class ProcFileWriter:
                     if p > 0:
                         stream << '\t'
                     if p == 1 or p == 2:
-                        stream << '%s' % self.fh.chkNum(values(p))
+                        stream << '%s' % chk_num(values(p))
                     else:
-                        stream << '%s' % self.fh.chkStr(values(p))
+                        stream << '%s' % chk_str(values(p))
                     if p == 3:
                         stream << '\n'
 
@@ -679,14 +677,30 @@ class ProcFileWriter:
             stream << '1\n'
             num_lines = self.glue_vent_m.numRowsForConfig(1)
 
+            # Since 3.17 we have a changing number of values
+            # Vents 0, 1 -1, -2. -3 no additional values
+            # Vents 4, -4, 6, -6    2  additional values
+            # Vents 5, -5           3  additional values
+            two_val_vents = [4, -4, 6, -6]
+            thr_val_vents = [5, -5]
+
             for line_it in range(0, num_lines):
                 values = self.glue_vent_m.get_row(1, line_it + 1)
 
-                for p in range(0, 2):
+                vent_type = chk_num(values.value(1))
+
+                if vent_type in two_val_vents:
+                    num_params = 4
+                elif vent_type in thr_val_vents:
+                    num_params = 5
+                else:
+                    num_params = 2
+
+                for p in range(0, num_params):
                     if p > 0:
                         stream << '\t'
-                    stream << '%s' % self.fh.chkNum(values(p))
-                    if p == 1:
+                    stream << '%s' % chk_num(values.value(p))
+                    if p == num_params - 1:
                         stream << '\n'
 
         stream << separator
@@ -698,8 +712,8 @@ class ProcFileWriter:
             stream << '1\n'
 
             values = self.spec_wing_tip_m.getRow(1, 1)
-            stream << 'AngleLE\t%s\n' % self.fh.chkNum(values(ProcModel.SpecWingTipModel.AngleLECol))
-            stream << 'AngleTE\t%s\n' % self.fh.chkNum(values(ProcModel.SpecWingTipModel.AngleTECol))
+            stream << 'AngleLE\t%s\n' % chk_num(values(ProcModel.SpecWingTipModel.AngleLECol))
+            stream << 'AngleTE\t%s\n' % chk_num(values(ProcModel.SpecWingTipModel.AngleTECol))
 
         stream << separator
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
@@ -710,19 +724,19 @@ class ProcFileWriter:
             stream << '1\n'
 
             values = self.calage_var_m.getRow(1, 1)
-            stream << '%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumRisersCol))
+            stream << '%s\n' % chk_num(values(ProcModel.CalageVarModel.NumRisersCol))
 
-            stream << '%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosACol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosBCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosCCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosDCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosECol))
-            stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.PosFCol))
+            stream << '%s' % chk_num(values(ProcModel.CalageVarModel.PosACol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosBCol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosCCol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosDCol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosECol))
+            stream << '\t%s\n' % chk_num(values(ProcModel.CalageVarModel.PosFCol))
 
-            stream << '%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.MaxNegAngCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumNegStepsCol))
-            stream << '\t%s' % self.fh.chkNum(values(ProcModel.CalageVarModel.MaxPosAngCol))
-            stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.CalageVarModel.NumPosStepsCol))
+            stream << '%s' % chk_num(values(ProcModel.CalageVarModel.MaxNegAngCol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.NumNegStepsCol))
+            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.MaxPosAngCol))
+            stream << '\t%s\n' % chk_num(values(ProcModel.CalageVarModel.NumPosStepsCol))
 
         stream << separator
         stream << '*       29. 3D SHAPING\n'
@@ -739,8 +753,8 @@ class ProcFileWriter:
             for g in range(0, num_groups):
                 values = self.three_d_sh_conf_m.getRow(g + 1, 1)
                 stream << 'group\t%s' % (g + 1)
-                stream << '\t%s' % self.fh.chkNum(values(ProcModel.ThreeDShConfModel.FirstRibCol))
-                stream << '\t%s\n' % self.fh.chkNum(values(ProcModel.ThreeDShConfModel.LastRibCol))
+                stream << '\t%s' % chk_num(values(ProcModel.ThreeDShConfModel.FirstRibCol))
+                stream << '\t%s\n' % chk_num(values(ProcModel.ThreeDShConfModel.LastRibCol))
 
                 num_lines = self.three_d_sh_up_det_M.numRowsForConfig(g + 1)
                 stream << 'upper\t%s\t1\n' % num_lines
@@ -750,7 +764,7 @@ class ProcFileWriter:
                     stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
-                        stream << '\t%s' % self.fh.chkNum(values(p))
+                        stream << '\t%s' % chk_num(values(p))
                         if p == 2:
                             stream << '\n'
 
@@ -762,7 +776,7 @@ class ProcFileWriter:
                     stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
-                        stream << '\t%s' % self.fh.chkNum(values(p))
+                        stream << '\t%s' % chk_num(values(p))
                         if p == 2:
                             stream << '\n'
 
@@ -775,9 +789,9 @@ class ProcFileWriter:
                     if p > 0:
                         stream << '\t'
                     if p == 0:
-                        stream << '%s' % self.fh.chkStr(values(p))
+                        stream << '%s' % chk_str(values(p))
                     else:
-                        stream << '%s' % self.fh.chkNum(values(p))
+                        stream << '%s' % chk_num(values(p))
                     if p == 4:
                         stream << '\n'
 
@@ -794,7 +808,7 @@ class ProcFileWriter:
                 values = self.airf_thickn_m.getRow(1, line_it + 1)
 
                 stream << '%s' % (line_it + 1)
-                stream << '\t%s\n' % self.fh.chkNum(values(0))
+                stream << '\t%s\n' % chk_num(values(0))
 
         stream << separator
         stream << '*       31. NEW SKIN TENSION MODULE\n'
@@ -812,8 +826,8 @@ class ProcFileWriter:
                 num_lines = self.new_skin_tens_det_m.numRowsForConfig(g + 1)
 
                 stream << '%s' % (g + 1)
-                stream << '\t%s' % self.fh.chkNum(values(ProcModel.NewSkinTensConfModel.InitialRibCol))
-                stream << '\t%s' % self.fh.chkNum(values(ProcModel.NewSkinTensConfModel.FinalRibCol))
+                stream << '\t%s' % chk_num(values(ProcModel.NewSkinTensConfModel.InitialRibCol))
+                stream << '\t%s' % chk_num(values(ProcModel.NewSkinTensConfModel.FinalRibCol))
                 stream << '\t%s' % num_lines
                 stream << '\t1\n'
 
@@ -823,7 +837,7 @@ class ProcFileWriter:
 
                     stream << '%s' % (line_it + 1)
                     for p in range(0, 4):
-                        stream << '\t%s' % self.fh.chkNum(values(p))
+                        stream << '\t%s' % chk_num(values(p))
                         if p == 3:
                             stream << '\n'
 

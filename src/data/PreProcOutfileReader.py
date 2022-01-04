@@ -134,12 +134,12 @@ class PreProcOutfileReader:
             if line.find('***************') >= 0:
                 valid_data = False
             else:
-                line_array.append(self.fh.splitLine(line))
+                line_array.append(split_line(line))
 
         for i in range(2):
             stream.readLine()
 
-        values = self.fh.splitLine(stream.readLine())
+        values = split_line(stream.readLine())
         num_cells = values[1]
 
         ##############################

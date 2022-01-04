@@ -274,16 +274,16 @@ class PreProcModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
 
-        one = self.fh.remTabSpaceQuot(stream.readLine())
-        two = self.fh.splitLine(stream.readLine())
-        thr = self.fh.splitLine(stream.readLine())
-        fou = self.fh.splitLine(stream.readLine())
-        fiv = self.fh.splitLine(stream.readLine())
-        six = self.fh.splitLine(stream.readLine())
-        sev = self.fh.splitLine(stream.readLine())
-        eig = self.fh.splitLine(stream.readLine())
-        nin = self.fh.splitLine(stream.readLine())
-        ten = self.fh.splitLine(stream.readLine())
+        one = rem_tab_space_quot(stream.readLine())
+        two = split_line(stream.readLine())
+        thr = split_line(stream.readLine())
+        fou = split_line(stream.readLine())
+        fiv = split_line(stream.readLine())
+        six = split_line(stream.readLine())
+        sev = split_line(stream.readLine())
+        eig = split_line(stream.readLine())
+        nin = split_line(stream.readLine())
+        ten = split_line(stream.readLine())
 
         self.leadingE_M.setNumConfigs(0)
         self.leadingE_M.setNumConfigs(1)
@@ -295,14 +295,14 @@ class PreProcModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
 
-        one = self.fh.remTabSpaceQuot(stream.readLine())
-        two = self.fh.splitLine(stream.readLine())
-        thr = self.fh.splitLine(stream.readLine())
-        fou = self.fh.splitLine(stream.readLine())
-        fiv = self.fh.splitLine(stream.readLine())
-        six = self.fh.splitLine(stream.readLine())
-        sev = self.fh.splitLine(stream.readLine())
-        eig = self.fh.splitLine(stream.readLine())
+        one = rem_tab_space_quot(stream.readLine())
+        two = split_line(stream.readLine())
+        thr = split_line(stream.readLine())
+        fou = split_line(stream.readLine())
+        fiv = split_line(stream.readLine())
+        six = split_line(stream.readLine())
+        sev = split_line(stream.readLine())
+        eig = split_line(stream.readLine())
 
         self.trailingE_M.setNumConfigs(0)
         self.trailingE_M.setNumConfigs(1)
@@ -316,12 +316,12 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         self.vault_M.setNumConfigs(0)
         self.vault_M.setNumConfigs(1)
-        vtype = int(self.fh.remTabSpaceQuot(stream.readLine()))
+        vtype = int(rem_tab_space_quot(stream.readLine()))
 
-        one = self.fh.splitLine(stream.readLine())
-        two = self.fh.splitLine(stream.readLine())
-        thr = self.fh.splitLine(stream.readLine())
-        fou = self.fh.splitLine(stream.readLine())
+        one = split_line(stream.readLine())
+        two = split_line(stream.readLine())
+        thr = split_line(stream.readLine())
+        fou = split_line(stream.readLine())
 
         if vtype == 1:
             self.vault_M.updateRow(1, 1, vtype, one[1], two[1], thr[1],
@@ -339,25 +339,25 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         self.cellsDistr_M.setNumConfigs(0)
 
-        distr_type = int(self.fh.remTabSpaceQuot(stream.readLine()))
+        distr_type = int(rem_tab_space_quot(stream.readLine()))
 
         if distr_type == 1:
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            num_cells = self.fh.remTabSpaceQuot(stream.readLine())
+            num_cells = rem_tab_space_quot(stream.readLine())
             self.cellsDistr_M.update_row(1, 1, distr_type, 0, 0, num_cells)
 
         elif (distr_type == 2) or (distr_type == 3):
             self.cellsDistr_M.setNumRowsForConfig(1, 1)
-            coef = self.fh.remTabSpaceQuot(stream.readLine())
-            num_cells = self.fh.remTabSpaceQuot(stream.readLine())
+            coef = rem_tab_space_quot(stream.readLine())
+            num_cells = rem_tab_space_quot(stream.readLine())
             self.cellsDistr_M.update_row(1, 1, distr_type, coef, 0, num_cells)
 
         elif distr_type == 4:
-            num_cells = int(self.fh.remTabSpaceQuot(stream.readLine()))
+            num_cells = int(rem_tab_space_quot(stream.readLine()))
             self.cellsDistr_M.setNumRowsForConfig(1, num_cells)
 
             for it in range(0, num_cells):
-                width = self.fh.splitLine(stream.readLine())
+                width = split_line(stream.readLine())
                 self.cellsDistr_M.update_row(1, it + 1, distr_type, 0, width[1],
                                              num_cells)
 
@@ -428,7 +428,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         stream << separator
 
         values = self.gen_M.getRow(1, 1)
-        stream << '%s\n' % (self.fh.chkStr(values(0), ''))
+        stream << '%s\n' % (chk_str(values(0), ''))
 
         stream << separator
         stream << '* 1. Leading edge parameters\n'
@@ -436,17 +436,17 @@ class PreProcModel(QObject, metaclass=Singleton):
         values = self.leadingE_M.get_row(1, 1)
         # Type is always 1
         # Column is hidden in the GUI, value will be hardcoded here
-        # stream << '%s\n' % (self.fh.chkNum(values(0), 1))
+        # stream << '%s\n' % (self.fh.chk_num(values(0), 1))
         stream << '1\n'
-        stream << 'a1= %s\n' % self.fh.chkNum(values(1))
-        stream << 'b1= %s\n' % self.fh.chkNum(values(2))
-        stream << 'x1= %s\n' % self.fh.chkNum(values(3))
-        stream << 'x2= %s\n' % self.fh.chkNum(values(4))
-        stream << 'xm= %s\n' % self.fh.chkNum(values(5))
-        stream << 'c0= %s\n' % self.fh.chkNum(values(6))
-        stream << 'ex1= %s\n' % self.fh.chkNum(values(7))
-        stream << 'c02= %s\n' % self.fh.chkNum(values(8))
-        stream << 'ex2= %s\n' % self.fh.chkNum(values(9))
+        stream << 'a1= %s\n' % chk_num(values(1))
+        stream << 'b1= %s\n' % chk_num(values(2))
+        stream << 'x1= %s\n' % chk_num(values(3))
+        stream << 'x2= %s\n' % chk_num(values(4))
+        stream << 'xm= %s\n' % chk_num(values(5))
+        stream << 'c0= %s\n' % chk_num(values(6))
+        stream << 'ex1= %s\n' % chk_num(values(7))
+        stream << 'c02= %s\n' % chk_num(values(8))
+        stream << 'ex2= %s\n' % chk_num(values(9))
 
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
@@ -454,22 +454,22 @@ class PreProcModel(QObject, metaclass=Singleton):
         values = self.trailingE_M.getRow(1, 1)
         # Type is always 1
         # Column is hidden in the GUI, value will be hardcoded here
-        # stream << '%s\n'        %(self.fh.chkNum(values(0),1))
+        # stream << '%s\n'        %(self.fh.chk_num(values(0),1))
         stream << '1\n'
-        stream << 'a1= %s\n' % self.fh.chkNum(values(1))
-        stream << 'b1= %s\n' % self.fh.chkNum(values(2))
-        stream << 'x1= %s\n' % self.fh.chkNum(values(3))
-        stream << 'xm= %s\n' % self.fh.chkNum(values(4))
-        stream << 'c0= %s\n' % self.fh.chkNum(values(5))
-        stream << 'y0= %s\n' % self.fh.chkNum(values(6))
-        stream << 'exp= %s\n' % self.fh.chkNum(values(7))
+        stream << 'a1= %s\n' % chk_num(values(1))
+        stream << 'b1= %s\n' % chk_num(values(2))
+        stream << 'x1= %s\n' % chk_num(values(3))
+        stream << 'xm= %s\n' % chk_num(values(4))
+        stream << 'c0= %s\n' % chk_num(values(5))
+        stream << 'y0= %s\n' % chk_num(values(6))
+        stream << 'exp= %s\n' % chk_num(values(7))
 
         stream << separator
         stream << '* 3. Vault\n'
         stream << separator
 
         values = self.vault_M.get_row(1, 1)
-        stream << '%s\n' % (self.fh.chkNum(values(0), 1))
+        stream << '%s\n' % (chk_num(values(0), 1))
 
         try:
             if int(values(0)) == 1:
@@ -492,7 +492,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         stream << '* 4. Cells distribution\n'
         stream << separator
         values = self.cellsDistr_M.get_row(1, 1)
-        stream << '%s\n' % self.fh.chkNum(values(0), 1)
+        stream << '%s\n' % chk_num(values(0), 1)
 
         try:
             if int(values(0)) == 1:

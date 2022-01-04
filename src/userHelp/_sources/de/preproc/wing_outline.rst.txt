@@ -14,7 +14,7 @@ wie er im Pre-Prozessor definiert und berechntet wurde.
 Einstellungen-> Beide Prozessoren
 ---------------------------------
 In diesem Fenster kann definiert werden ob das Fenster Flügel Kontur
-automatisch nach jedem Pre-Prozessor durchlauf geöffnet und aktualisiert
+automatisch nach jedem Pre-Prozessor Durchlauf geöffnet und aktualisiert
 werden soll.
 
 Nick +/ -
