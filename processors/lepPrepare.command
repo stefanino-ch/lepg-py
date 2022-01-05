@@ -8,7 +8,7 @@ mypath=$(dirname ${0:A})
 
 # Say hello
 echo "*********************"
-echo "Setup for epg on OSX"
+echo "Setup for lepg on OSX"
 echo "*********************"
 
 # Check if brew is installed
@@ -27,12 +27,12 @@ if [[ $? != 0 ]] ; then
 
     # Execute Homebrew installation script
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
+
     # now install gcc which contains Fortran
     echo ""
     echo "Now we install the package containing Fortran."
     echo 'Press any key to continue...'; read -k1 -s
-    
+
     brew install gcc
 
 else
