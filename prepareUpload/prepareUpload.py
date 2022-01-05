@@ -24,11 +24,22 @@ answ = input('Default= y ')
 
 if answ != 'n':
     os.system('python ../userHelp/buildUserHelp.py')  
-    
+
+
+print()
+print('*****************************************************')
+print('Reset processor directory? [y/ n]')
+answ = input('Default= y ')
+
+if answ != 'n':
+    os.system('python ../processors/setupProcessors.py')
+
+
 print()
 print('*****************************************************')
 print('Setup version number')
 os.system('python ./prepareVersionNumbers.py')
+
 
 print()
 print('*****************************************************')
@@ -36,7 +47,7 @@ print('Create new installer package? [y/ n]')
 answ = input('Default= n ')
 
 if answ == 'y':
-    if platform.system() == "gui":
+    if platform.system() == "Windows":
         os.system('python ../distribution/buildW64Package.py')
     elif platform.system() == ('Linux'):
         os.system('python ../distribution/buildLinuxPackage.py')
