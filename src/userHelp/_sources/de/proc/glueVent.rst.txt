@@ -11,7 +11,8 @@ verbunden werden.
 
 Für die Verschlussstücke wird der Nähsaum automatisch berechnet wo notwendig. 
 
-Die Segelspannung folgt automatisch den Parametern definiert *Tuchspannung*.
+Die Segelspannung folgt automatisch den Parametern definiert in
+**Tuchspannung**.
 
 .. image:: /images/proc/glueVent-de.png
    :width: 350

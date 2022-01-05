@@ -1,20 +1,23 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, QTabWidget, QHBoxLayout, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QTabWidget, QHBoxLayout, \
+                            QVBoxLayout, QPushButton
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
 
+
 class NewSkinTension(QMdiSubWindow):
-    '''
-    :class: Window to display and edit airfoils holes data  
-    '''
+    """
+    :class: Window to display and edit airfoils holes data
+    """
 
     __className = 'NewSkinTension'
     '''
@@ -22,291 +25,311 @@ class NewSkinTension(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        self.btn_bar = None
+        self.tabs = None
+        self.num_conf_s = None
+        self.help_bar = None
+        self.window_ly = None
+        self.win = None
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
         self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
-        self.newSkinTensConf_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
-        
+        self.newSkinTensConf_M.numRowsForConfigChanged.connect(self.model_num_configs_changed)
+
         self.newSkinTensDet_M = ProcModel.NewSkinTensDetModel()
-        self.newSkinTensDet_M.numRowsForConfigChanged.connect(self.updateTabs)
-        
+        self.newSkinTensDet_M.numRowsForConfigChanged.connect(self.update_tabs)
+
         self.confProxyModel = []
 
         self.detProxyModel = []
         self.numDet_S = []
 
-        self.buildWindow()
-    
+        self.build_window()
+
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
                     numConfSpin
-                    
+
                     Tabs
                         configTable
                         numDetSpin
                         detailTable
                     -------------------------
                             help_bar  | btn_bar
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui\\appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
 
-        self.windowLayout = QVBoxLayout()
-        
-        self.helpBar = WindowHelpBar()
-        
+        self.window_ly = QVBoxLayout()
+
+        self.help_bar = WindowHelpBar()
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("New skin tension"))
-        
-        numConf_L = QLabel(_('Number of groups'))
-        numConf_L.setAlignment(Qt.AlignRight)
-        numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0,999)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S.setValue( self.newSkinTensConf_M.numConfigs() )
-        confEdit = self.numConf_S.lineEdit()
-        confEdit.setReadOnly(True)
-        self.numConf_S.valueChanged.connect(self.confSpinChange)
-        
-        numConfLayout = QHBoxLayout()
-        numConfLayout.addWidget(numConf_L)
-        numConfLayout.addWidget(self.numConf_S)
-        numConfLayout.addStretch()
-        self.windowLayout.addLayout(numConfLayout)
-        
+
+        num_conf_l = QLabel(_('Number of groups'))
+        num_conf_l.setAlignment(Qt.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.num_conf_s = QSpinBox()
+        self.num_conf_s.setRange(0, 999)
+        self.num_conf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.num_conf_s.setValue(self.newSkinTensConf_M.numConfigs())
+        conf_edit = self.num_conf_s.lineEdit()
+        conf_edit.setReadOnly(True)
+        self.num_conf_s.valueChanged.connect(self.conf_spin_change)
+
+        num_conf_layout = QHBoxLayout()
+        num_conf_layout.addWidget(num_conf_l)
+        num_conf_layout.addWidget(self.num_conf_s)
+        num_conf_layout.addStretch()
+        self.window_ly.addLayout(num_conf_layout)
+
         self.tabs = QTabWidget()
-        self.windowLayout.addWidget(self.tabs)
-        
+        self.window_ly.addWidget(self.tabs)
+
         # check if there's already data
         if self.newSkinTensConf_M.numConfigs() > 0:
-            self.modelNumConfigsChanged() 
-        
-        sortBtn = QPushButton(_('Sort by order_num'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
+            self.model_num_configs_changed()
+
+        sort_btn = QPushButton(_('Sort by order_num'))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
-        self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
-        self.btnBar.setHelpPage('proc/newSkinTension.html')
-        
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
-        self.win.setLayout(self.windowLayout)
-        
-    def confSpinChange(self):
-        '''
-        :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
-        '''
-        logging.debug(self.__className+'.confSpinChange')
-        self.newSkinTensConf_M.setNumConfigs( self.numConf_S.value() )
-    
-    def modelNumConfigsChanged(self):
-        '''
-        :method: Called upon canges of the configs model. Does assure all GUI elements will follow the changes. 
-        '''
-        logging.debug(self.__className+'.modelNumConfigsChanged')
-        
-        currentNumConfigs = self.newSkinTensConf_M.numConfigs()
+        self.btn_bar = WindowBtnBar(0b0101)
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btn_bar.my_signal.connect(self.btn_press)
+        self.btn_bar.setHelpPage('proc/newSkinTension.html')
 
-        self.numConf_S.blockSignals(True)
-        self.numConf_S.setValue( currentNumConfigs )
-        self.numConf_S.blockSignals(False)
-            
-        diff = abs(currentNumConfigs - self.tabs.count() )
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(sort_btn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.help_bar)
+        bottom_layout.addWidget(self.btn_bar)
+        self.window_ly.addLayout(bottom_layout)
+
+        self.win.setLayout(self.window_ly)
+
+    def conf_spin_change(self):
+        """
+        :method: Called upon manual changes of the config spin. Does assure all
+                 elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.conf_spin_change')
+        self.newSkinTensConf_M.setNumConfigs(self.num_conf_s.value())
+
+    def model_num_configs_changed(self):
+        """
+        :method: Called upon changes of the configs model. Does assure all GUI
+                 elements will follow the changes.
+        """
+        logging.debug(self.__className + '.model_num_configs_changed')
+
+        current_num_configs = self.newSkinTensConf_M.numConfigs()
+
+        self.num_conf_s.blockSignals(True)
+        self.num_conf_s.setValue(current_num_configs)
+        self.num_conf_s.blockSignals(False)
+
+        diff = abs(current_num_configs - self.tabs.count())
         if diff != 0:
             # we have to update the tabs
-            i=0
-            if currentNumConfigs > self.tabs.count():
-                #add tabs
+            i = 0
+            if current_num_configs > self.tabs.count():
+                # add tabs
                 while i < diff:
-                    self.addTab()
+                    self.add_tab()
                     i += 1
             else:
-                #remove tabs
+                # remove tabs
                 while i < diff:
-                    self.removeTab()
+                    self.remove_tab()
                     i += 1
-                    
-    def detSpinChange(self): 
-        '''
-        :method: Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.detSpinChange')
-        self.newSkinTensDet_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numDet_S[self.tabs.currentIndex()].value() )
-    
-    def addTab(self):
-        '''
-        :method: Creates a new tab inculding all its widgets. 
-        '''
-        logging.debug(self.__className+'.addTab')
-        
-        currNumTabs = self.tabs.count()
-        
-        tabWidget = QWidget()
-        tabLayout = QVBoxLayout()
-        
+
+    def det_spin_change(self):
+        """
+        :method: Called upon manual changes of the detail spin. Does assure all
+                 elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.det_spin_change')
+        self.newSkinTensDet_M.setNumRowsForConfig(self.tabs.currentIndex() + 1,
+                                                  self.numDet_S[self.tabs.currentIndex()].value())
+
+    def add_tab(self):
+        """
+        :method: Creates a new tab including all its widgets.
+        """
+        logging.debug(self.__className + '.add_tab')
+
+        curr_num_tabs = self.tabs.count()
+
+        tab_widget = QWidget()
+        tab_layout = QVBoxLayout()
+
         # Configuration 
-        confTable = TableView()
+        conf_table = TableView()
         # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
-        self.confProxyModel[currNumTabs].setSourceModel(self.newSkinTensConf_M)
-        self.confProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.NewSkinTensConfModel.ConfigNumCol)
-        self.confProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
-        confTable.setModel( self.confProxyModel[currNumTabs] )
-        confTable.verticalHeader().setVisible(False)
-        confTable.hideColumn(self.newSkinTensConf_M.OrderNumCol )
-        confTable.hideColumn(self.newSkinTensConf_M.columnCount() -1 )
-        confTable.hideColumn(self.newSkinTensConf_M.columnCount() -2 )
-        
-        confTable.enableIntValidator(ProcModel.NewSkinTensConfModel.InitialRibCol, ProcModel.NewSkinTensConfModel.FinalRibCol, 1, 999)
-        confTable.enableIntValidator(ProcModel.NewSkinTensConfModel.TypeCol, ProcModel.NewSkinTensConfModel.TypeCol, 1, 1)
-        
-        confTable.setHelpBar(self.helpBar)
-        confTable.setHelpText(ProcModel.NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
-        confTable.setHelpText(ProcModel.NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
-        confTable.setHelpText(ProcModel.NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
-        
-        confLayout = QHBoxLayout()
-        confLayout.addWidget(confTable)
-        confLayout.addStretch()
-        confTable.setFixedWidth(2 + confTable.columnWidth(ProcModel.NewSkinTensConfModel.InitialRibCol) \
-                                + confTable.columnWidth(ProcModel.NewSkinTensConfModel.FinalRibCol) \
-                                + confTable.columnWidth(ProcModel.NewSkinTensConfModel.TypeCol))
-        confTable.setFixedHeight(2 + confTable.horizontalHeader().height() + confTable.rowHeight(0))
-        tabLayout.addLayout(confLayout)
-        
+        self.confProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensConf_M)
+        self.confProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensConfModel.ConfigNumCol)
+        self.confProxyModel[curr_num_tabs].setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        conf_table.setModel(self.confProxyModel[curr_num_tabs])
+        conf_table.verticalHeader().setVisible(False)
+        conf_table.hideColumn(self.newSkinTensConf_M.OrderNumCol)
+        conf_table.hideColumn(self.newSkinTensConf_M.columnCount() - 1)
+        conf_table.hideColumn(self.newSkinTensConf_M.columnCount() - 2)
+
+        conf_table.enableIntValidator(ProcModel.NewSkinTensConfModel.InitialRibCol,
+                                      ProcModel.NewSkinTensConfModel.FinalRibCol, 1, 999)
+        conf_table.enableIntValidator(ProcModel.NewSkinTensConfModel.TypeCol, ProcModel.NewSkinTensConfModel.TypeCol, 1,
+                                      1)
+
+        conf_table.setHelpBar(self.help_bar)
+        conf_table.setHelpText(ProcModel.NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
+        conf_table.setHelpText(ProcModel.NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
+        conf_table.setHelpText(ProcModel.NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
+
+        conf_layout = QHBoxLayout()
+        conf_layout.addWidget(conf_table)
+        conf_layout.addStretch()
+        conf_table.setFixedWidth(2 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.InitialRibCol)
+                                 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.FinalRibCol)
+                                 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.TypeCol))
+        conf_table.setFixedHeight(2 + conf_table.horizontalHeader().height() + conf_table.rowHeight(0))
+        tab_layout.addLayout(conf_layout)
+
         # Data lines
-        numDet_L = QLabel(_('Number of Lines'))
-        numDet_L.setAlignment(Qt.AlignRight)
-        numDet_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        tabLayout.addWidget(numDet_L)
+        num_det_l = QLabel(_('Number of Lines'))
+        num_det_l.setAlignment(Qt.AlignRight)
+        num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
-        self.numDet_S[currNumTabs].setRange(1,100)
-        self.numDet_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numDet_S[currNumTabs].valueChanged.connect(self.detSpinChange)
-        detEdit = self.numDet_S[currNumTabs].lineEdit()
-        detEdit.setReadOnly(True)
-        
-        detNumLayout = QHBoxLayout()
-        detNumLayout.addWidget(numDet_L)
-        detNumLayout.addWidget(self.numDet_S[currNumTabs])
-        detNumLayout.addStretch()
-        tabLayout.addLayout(detNumLayout)
-        
+        self.numDet_S[curr_num_tabs].setRange(1, 100)
+        self.numDet_S[curr_num_tabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.numDet_S[curr_num_tabs].valueChanged.connect(self.det_spin_change)
+        det_edit = self.numDet_S[curr_num_tabs].lineEdit()
+        det_edit.setReadOnly(True)
+
+        det_num_layout = QHBoxLayout()
+        det_num_layout.addWidget(num_det_l)
+        det_num_layout.addWidget(self.numDet_S[curr_num_tabs])
+        det_num_layout.addStretch()
+        tab_layout.addLayout(det_num_layout)
+
         # add here the code for the details table
-        detTable = TableView()
+        det_table = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
-        self.detProxyModel[currNumTabs].setSourceModel(self.newSkinTensDet_M)
-        self.detProxyModel[currNumTabs].setFilterKeyColumn(ProcModel.NewSkinTensDetModel.ConfigNumCol)
-        self.detProxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
-        detTable.setModel( self.detProxyModel[currNumTabs] )
-        detTable.verticalHeader().setVisible(False)
-        detTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        detTable.hideColumn(self.newSkinTensDet_M.columnCount() -1 )
-        detTable.hideColumn(self.newSkinTensDet_M.columnCount() -2 )
-        tabLayout.addWidget(detTable)
-         
-        detTable.setHelpBar(self.helpBar)
-        detTable.setHelpText(ProcModel.NewSkinTensDetModel.OrderNumCol, _('SkinTension-OrderNumDesc'))
-        detTable.setHelpText(ProcModel.NewSkinTensDetModel.TopDistLECol, _('SkinTension-TopDistLEDesc'))
-        detTable.setHelpText(ProcModel.NewSkinTensDetModel.TopWideCol, _('SkinTension-TopOverWideDesc'))
-        detTable.setHelpText(ProcModel.NewSkinTensDetModel.BottDistTECol, _('SkinTension-BottDistTEDesc'))
-        detTable.setHelpText(ProcModel.NewSkinTensDetModel.BottWideCol, _('SkinTension-BottOverWideDesc'))
+        self.detProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensDet_M)
+        self.detProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensDetModel.ConfigNumCol)
+        self.detProxyModel[curr_num_tabs].setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        det_table.setModel(self.detProxyModel[curr_num_tabs])
+        det_table.verticalHeader().setVisible(False)
+        det_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        det_table.hideColumn(self.newSkinTensDet_M.columnCount() - 1)
+        det_table.hideColumn(self.newSkinTensDet_M.columnCount() - 2)
+        tab_layout.addWidget(det_table)
 
-        detTable.enableDoubleValidator(ProcModel.NewSkinTensDetModel.TopDistLECol, ProcModel.NewSkinTensDetModel.BottWideCol, 0, 100, 3)
-        
+        det_table.setHelpBar(self.help_bar)
+        det_table.setHelpText(ProcModel.NewSkinTensDetModel.OrderNumCol,
+                              _('SkinTension-OrderNumDesc'))
+        det_table.setHelpText(ProcModel.NewSkinTensDetModel.TopDistLECol,
+                              _('SkinTension-TopDistLEDesc'))
+        det_table.setHelpText(ProcModel.NewSkinTensDetModel.TopWideCol,
+                              _('SkinTension-TopOverWideDesc'))
+        det_table.setHelpText(ProcModel.NewSkinTensDetModel.BottDistTECol,
+                              _('SkinTension-BottDistTEDesc'))
+        det_table.setHelpText(ProcModel.NewSkinTensDetModel.BottWideCol,
+                              _('SkinTension-BottOverWideDesc'))
+
+        det_table.enableDoubleValidator(ProcModel.NewSkinTensDetModel.TopDistLECol,
+                                        ProcModel.NewSkinTensDetModel.BottWideCol, 0, 100, 3)
+
         # then setup spin
-        if self.detProxyModel[currNumTabs].rowCount() ==0:
+        if self.detProxyModel[curr_num_tabs].rowCount() == 0:
             # a new tab was created from the gui
-            self.newSkinTensDet_M.setNumRowsForConfig(currNumTabs+1, 1 )
+            self.newSkinTensDet_M.setNumRowsForConfig(curr_num_tabs + 1, 1)
         # a new tab was added based on file load. The model has been updated already before. 
-        self.numDet_S[currNumTabs].setValue(self.detProxyModel[currNumTabs].rowCount())
-        tabWidget.setLayout(tabLayout)
+        self.numDet_S[curr_num_tabs].setValue(self.detProxyModel[curr_num_tabs].rowCount())
+        tab_widget.setLayout(tab_layout)
 
-        i =  self.tabs.addTab(tabWidget, str(currNumTabs+1) )
+        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
-    
-    def removeTab(self):
-        '''
-        :method: Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model. 
-        ''' 
-        logging.debug(self.__className+'.removeTab')
-        numTabs = self.tabs.count()
-        self.tabs.removeTab(numTabs-1)
+
+    def remove_tab(self):
+        """
+        :method: Removes the last tab from the GUI. Does take care at the same
+                 time of the class internal elements and the data model.
+        """
+        logging.debug(self.__className + '.remove_tab')
+        num_tabs = self.tabs.count()
+        self.tabs.remove_tab(num_tabs - 1)
         # cleanup arrays
-        self.confProxyModel.pop(numTabs-1)
-        self.detProxyModel.pop(numTabs-1)
-        self.numDet_S.pop(numTabs-1)
-        self.newSkinTensDet_M.setNumRowsForConfig(numTabs, 0 )
-    
-    def updateTabs(self):
-        '''
-        :method: called upon canges of the details model. Does assure all GUI elements will follow the changes. 
-        '''
-        logging.debug(self.__className+'.updateTabs')
-        
-        i=0
-        while i< self.tabs.count():
-            if self.numDet_S[i].value != self.newSkinTensDet_M.numRowsForConfig(i+1):
+        self.confProxyModel.pop(num_tabs - 1)
+        self.detProxyModel.pop(num_tabs - 1)
+        self.numDet_S.pop(num_tabs - 1)
+        self.newSkinTensDet_M.setNumRowsForConfig(num_tabs, 0)
+
+    def update_tabs(self):
+        """
+        :method: called upon changes of the details model. Does assure all GUI
+                 elements will follow the changes.
+        """
+        logging.debug(self.__className + '.update_tabs')
+
+        i = 0
+        while i < self.tabs.count():
+            if self.numDet_S[i].value != self.newSkinTensDet_M.numRowsForConfig(i + 1):
                 self.numDet_S[i].blockSignals(True)
-                self.numDet_S[i].setValue( self.newSkinTensDet_M.numRowsForConfig(i+1) )
+                self.numDet_S[i].setValue(self.newSkinTensDet_M.numRowsForConfig(i + 1))
                 self.numDet_S[i].blockSignals(False)
-            i+=1
-            
-    def sortBtnPress(self):
-        '''
-        :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
-        '''
-        logging.debug(self.__className+'.sortBtnPress')
-        
-        if self.tabs.count() >0:
-            currTab = self.tabs.currentIndex()
-            self.detProxyModel[currTab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.AscendingOrder)
-            self.detProxyModel[currTab].setDynamicSortFilter(False)
-    
-    def btnPress(self, q):
-        '''
+            i += 1
+
+    def sort_btn_press(self):
+        """
+        :method: Executed if the sort button is pressed. Does a one time sort
+                 based on the numbers in the OrderNum column.
+        """
+        logging.debug(self.__className + '.sort_btn_press')
+
+        if self.tabs.count() > 0:
+            curr_tab = self.tabs.currentIndex()
+            self.detProxyModel[curr_tab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.AscendingOrder)
+            self.detProxyModel[curr_tab].setDynamicSortFilter(False)
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className + '.btn_press unrecognized button press ' + q)

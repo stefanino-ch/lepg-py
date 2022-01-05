@@ -117,7 +117,7 @@ class Airfoils(QMdiSubWindow):
         '''
         : method : handles the sort of the table by rib number
         '''
-        logging.debug(self.__className+'.sortBtnPress')
+        logging.debug(self.__className+'.sort_btn_press')
         self.airf_M.sortTable(ProcModel.AirfoilsModel.RibNumCol, Qt.AscendingOrder)
     
     def btnPress(self, q):

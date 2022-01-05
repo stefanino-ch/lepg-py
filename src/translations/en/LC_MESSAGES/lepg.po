@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2022-01-03 15:58+0100\n"
-"PO-Revision-Date: 2022-01-03 16:06+0100\n"
+"POT-Creation-Date: 2022-01-05 18:05+0100\n"
+"PO-Revision-Date: 2022-01-05 18:08+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -29,7 +29,7 @@ msgstr ""
 "according processor is located."
 
 #: data/PreProcModel.py:146 data/PreProcOutfileReader.py:84
-#: data/ProcModel.py:195 data/ProcModel.py:258
+#: data/ProcModel.py:148 data/ProcModel.py:214
 msgid "File read error"
 msgstr ""
 
@@ -40,7 +40,7 @@ msgid ""
 msgstr ""
 
 #: data/PreProcModel.py:150 data/PreProcOutfileReader.py:88
-#: data/ProcModel.py:199 data/ProcModel.py:262
+#: data/ProcModel.py:152 data/ProcModel.py:218
 msgid ""
 "\n"
 "Title detected: "
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Cell Num"
 msgstr ""
 
-#: data/PreProcModel.py:548 data/ProcModel.py:1330
+#: data/PreProcModel.py:548 data/ProcModel.py:562
 msgid "Coef"
 msgstr ""
 
@@ -78,18 +78,18 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: data/PreProcModel.py:550 data/ProcModel.py:5433
+#: data/PreProcModel.py:550 data/ProcModel.py:4942
 #: gui/PreProcCellsDistribution.py:98
 msgid "Num cells"
 msgstr ""
 
-#: data/PreProcModel.py:685 data/ProcModel.py:5430
+#: data/PreProcModel.py:685 data/ProcModel.py:4939
 msgid "Wing name"
 msgstr ""
 
-#: data/PreProcModel.py:777 data/PreProcModel.py:914 data/ProcModel.py:2608
-#: data/ProcModel.py:3743 gui/AirfoilThickness.py:71 gui/CalageVar.py:73
-#: gui/GlueVent.py:71 gui/JoncsDefinition.py:218
+#: data/PreProcModel.py:777 data/PreProcModel.py:914 data/ProcModel.py:1892
+#: data/ProcModel.py:3027 gui/AirfoilThickness.py:71 gui/CalageVar.py:73
+#: gui/GlueVent.py:77 gui/JoncsDefinition.py:218 gui/PartsSeparation.py:76
 #: gui/PreProcCellsDistribution.py:83 gui/PreProcData.py:197
 #: gui/SpecWingTip.py:72 gui/ThreeDDxf.py:71 gui/TwoDDxf.py:72
 msgid "Type"
@@ -179,724 +179,777 @@ msgstr ""
 msgid "a4 [deg]"
 msgstr ""
 
-#: data/ProcFileReader.py:32
+#: data/ProcFileReader.py:33
 msgid "Please wait.. reading might take some time"
 msgstr ""
 
-#: data/ProcModel.py:197
+#: data/ProcModel.py:150
 msgid ""
 "File seems not to be a valid Pre-Proc output File! \n"
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:259
+#: data/ProcModel.py:215
 msgid ""
 "File seems not to be a valid Processor File!\n"
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:313
+#: data/ProcModel.py:269
 msgid "Open Proc file"
 msgstr "Opens a datafile from local storage"
 
-#: data/ProcModel.py:341
+#: data/ProcModel.py:297
 msgid "Save Processor file"
 msgstr ""
 
-#: data/ProcModel.py:361
+#: data/ProcModel.py:317
 msgid "Save Processor file as"
 msgstr ""
 
-#: data/ProcModel.py:1164 data/ProcModel.py:2318 data/ProcModel.py:2800
-#: data/ProcModel.py:3238
+#: data/ProcModel.py:396 data/ProcModel.py:1550 data/ProcModel.py:2084
+#: data/ProcModel.py:2522
 msgid "Order Num"
 msgstr ""
 
-#: data/ProcModel.py:1165
+#: data/ProcModel.py:397
 msgid "X-Coordinate"
 msgstr "Hor position [% chord]"
 
-#: data/ProcModel.py:1166
+#: data/ProcModel.py:398
 msgid "Y-Coordinate"
 msgstr "Vert position [% chord]"
 
-#: data/ProcModel.py:1265 data/ProcModel.py:1457 data/ProcModel.py:4201
+#: data/ProcModel.py:497 data/ProcModel.py:689 data/ProcModel.py:3710
 msgid "Rib Num"
 msgstr ""
 
-#: data/ProcModel.py:1266 data/ProcModel.py:5132
+#: data/ProcModel.py:498 data/ProcModel.py:4641
 msgid "Name"
 msgstr ""
 
-#: data/ProcModel.py:1267
+#: data/ProcModel.py:499
 msgid "Intake Start"
 msgstr "Intake start"
 
-#: data/ProcModel.py:1268
+#: data/ProcModel.py:500
 msgid "Intake End"
 msgstr "Intake end"
 
-#: data/ProcModel.py:1269
+#: data/ProcModel.py:501
 msgid "Open-close"
 msgstr "Open close"
 
-#: data/ProcModel.py:1270
+#: data/ProcModel.py:502
 msgid "Displac"
 msgstr "vert Displacement"
 
-#: data/ProcModel.py:1271
+#: data/ProcModel.py:503
 msgid "Rel weight"
 msgstr ""
 
-#: data/ProcModel.py:1272
+#: data/ProcModel.py:504
 msgid "rrw"
 msgstr ""
 
-#: data/ProcModel.py:1329 data/ProcModel.py:2248 data/ProcModel.py:2730
-#: data/ProcModel.py:3387
+#: data/ProcModel.py:561 data/ProcModel.py:1480 data/ProcModel.py:2014
+#: data/ProcModel.py:2671
 msgid "Rib num"
 msgstr ""
 
-#: data/ProcModel.py:1458
+#: data/ProcModel.py:690
 msgid "Num Anchors"
 msgstr ""
 
-#: data/ProcModel.py:1459
+#: data/ProcModel.py:691
 msgid "Pos A"
 msgstr ""
 
-#: data/ProcModel.py:1460
+#: data/ProcModel.py:692
 msgid "Pos B"
 msgstr ""
 
-#: data/ProcModel.py:1461
+#: data/ProcModel.py:693
 msgid "Pos C"
 msgstr ""
 
-#: data/ProcModel.py:1462
+#: data/ProcModel.py:694
 msgid "Pos D"
 msgstr ""
 
-#: data/ProcModel.py:1463
+#: data/ProcModel.py:695
 msgid "Pos E"
 msgstr ""
 
-#: data/ProcModel.py:1464
+#: data/ProcModel.py:696
 msgid "Pos F"
 msgstr "Brake lines"
 
-#: data/ProcModel.py:1559 data/ProcModel.py:2607 data/ProcModel.py:2922
-#: data/ProcModel.py:3376 data/ProcModel.py:3832 data/ProcModel.py:3946
+#: data/ProcModel.py:791 data/ProcModel.py:1891 data/ProcModel.py:2206
+#: data/ProcModel.py:2660 data/ProcModel.py:3116 data/ProcModel.py:3230
+#: data/ProcModel.py:3382
 msgid "Order num"
 msgstr ""
 
-#: data/ProcModel.py:1560
+#: data/ProcModel.py:792
 msgid "num Branches"
 msgstr "Num branches"
 
-#: data/ProcModel.py:1561
+#: data/ProcModel.py:793
 msgid "Branch lvl 1"
 msgstr ""
 
-#: data/ProcModel.py:1562
+#: data/ProcModel.py:794
 msgid "Order lvl 1"
 msgstr ""
 
-#: data/ProcModel.py:1563
+#: data/ProcModel.py:795
 msgid "Ramif lvl2"
 msgstr ""
 
-#: data/ProcModel.py:1564
+#: data/ProcModel.py:796
 msgid "Order lvl 2"
 msgstr ""
 
-#: data/ProcModel.py:1565
+#: data/ProcModel.py:797
 msgid "Ramif lvl3"
 msgstr ""
 
-#: data/ProcModel.py:1566
+#: data/ProcModel.py:798
 msgid "Order lvl 3"
 msgstr ""
 
-#: data/ProcModel.py:1567
+#: data/ProcModel.py:799
 msgid "Branch lvl 4"
 msgstr ""
 
-#: data/ProcModel.py:1568
+#: data/ProcModel.py:800
 msgid "Order lvl 4"
 msgstr ""
 
-#: data/ProcModel.py:1569 data/ProcModel.py:3386
+#: data/ProcModel.py:801 data/ProcModel.py:2670
 msgid "Anchor"
 msgstr ""
 
-#: data/ProcModel.py:1570
+#: data/ProcModel.py:802
 msgid "An. Rib num"
 msgstr ""
 
-#: data/ProcModel.py:1705
+#: data/ProcModel.py:937
 msgid "s1 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1706
+#: data/ProcModel.py:938
 msgid "s2 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1707
+#: data/ProcModel.py:939
 msgid "s3 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1708
+#: data/ProcModel.py:940
 msgid "s4 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1709
+#: data/ProcModel.py:941
 msgid "s5 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1710
+#: data/ProcModel.py:942
 msgid "d1 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1711
+#: data/ProcModel.py:943
 msgid "d2 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1712
+#: data/ProcModel.py:944
 msgid "d3 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1713
+#: data/ProcModel.py:945
 msgid "d4 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1714
+#: data/ProcModel.py:946
 msgid "d5 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1794
+#: data/ProcModel.py:1026
 msgid "Num risers"
 msgstr "Num risers"
 
-#: data/ProcModel.py:1795
+#: data/ProcModel.py:1027
 msgid "Pos r A"
 msgstr "Pos r A [% chord]"
 
-#: data/ProcModel.py:1796
+#: data/ProcModel.py:1028
 msgid "Pos r B"
 msgstr "Pos r B [% chord]"
 
-#: data/ProcModel.py:1797
+#: data/ProcModel.py:1029
 msgid "Pos r C"
 msgstr "Pos r C [% chord]"
 
-#: data/ProcModel.py:1798
+#: data/ProcModel.py:1030
 msgid "Pos r D"
 msgstr "Pos r D [% chord]"
 
-#: data/ProcModel.py:1799
+#: data/ProcModel.py:1031
 msgid "Pos r E"
 msgstr "Pos r E [% chord]"
 
-#: data/ProcModel.py:1800
+#: data/ProcModel.py:1032
 msgid "Pos r F"
 msgstr "Pos r F [% chord]"
 
-#: data/ProcModel.py:1801
+#: data/ProcModel.py:1033
 msgid "Max neg ang [deg]"
 msgstr ""
 
-#: data/ProcModel.py:1802
+#: data/ProcModel.py:1034
 msgid "Num neg steps"
 msgstr ""
 
-#: data/ProcModel.py:1803
+#: data/ProcModel.py:1035
 msgid "Max pos ang [deg]"
 msgstr ""
 
-#: data/ProcModel.py:1804
+#: data/ProcModel.py:1036
 msgid "Num pos steps"
 msgstr ""
 
-#: data/ProcModel.py:1960
+#: data/ProcModel.py:1192
 msgid "Layer name"
 msgstr ""
 
-#: data/ProcModel.py:1961
+#: data/ProcModel.py:1193
 msgid "Description"
 msgstr ""
 
-#: data/ProcModel.py:2155
+#: data/ProcModel.py:1387
 msgid "Num lines per rib"
 msgstr ""
 
-#: data/ProcModel.py:2156
+#: data/ProcModel.py:1388
 msgid "Def in lower level"
 msgstr ""
 
-#: data/ProcModel.py:2157
+#: data/ProcModel.py:1389
 msgid "Def in mid level"
 msgstr ""
 
-#: data/ProcModel.py:2158
+#: data/ProcModel.py:1390
 msgid "Def in higher level"
 msgstr ""
 
-#: data/ProcModel.py:2319 data/ProcModel.py:2801
+#: data/ProcModel.py:1551 data/ProcModel.py:2085
 msgid "Dist TE"
 msgstr "Dist TE [% chord]"
 
-#: data/ProcModel.py:2405
+#: data/ProcModel.py:1637
 msgid "Finesse [deg]"
 msgstr ""
 
-#: data/ProcModel.py:2406
+#: data/ProcModel.py:1638
 msgid "Center of Pressure"
 msgstr ""
 
-#: data/ProcModel.py:2407
+#: data/ProcModel.py:1639
 msgid "Calage"
 msgstr ""
 
-#: data/ProcModel.py:2408
+#: data/ProcModel.py:1640
 msgid "Risers [cm]"
 msgstr ""
 
-#: data/ProcModel.py:2409
+#: data/ProcModel.py:1641
 msgid "Lines [cm]"
 msgstr ""
 
-#: data/ProcModel.py:2410
+#: data/ProcModel.py:1642
 msgid "Karabiners [cm]"
 msgstr "Carabiners [cm]"
 
-#: data/ProcModel.py:2464
+#: data/ProcModel.py:1718
 msgid "Airfoil num"
 msgstr ""
 
-#: data/ProcModel.py:2465
+#: data/ProcModel.py:1721
 msgid "Vent param"
 msgstr ""
 
-#: data/ProcModel.py:2609
+#: data/ProcModel.py:1724
+msgid "Opt param 1"
+msgstr ""
+
+#: data/ProcModel.py:1727
+msgid "Opt param 2"
+msgstr ""
+
+#: data/ProcModel.py:1730
+msgid "Opt param 3"
+msgstr ""
+
+#: data/ProcModel.py:1893
 msgid "Ini Rib"
 msgstr ""
 
-#: data/ProcModel.py:2610
+#: data/ProcModel.py:1894
 msgid "Param A"
 msgstr ""
 
-#: data/ProcModel.py:2611
+#: data/ProcModel.py:1895
 msgid "Param B"
 msgstr ""
 
-#: data/ProcModel.py:2612
+#: data/ProcModel.py:1896
 msgid "Param C"
 msgstr ""
 
-#: data/ProcModel.py:2613
+#: data/ProcModel.py:1897
 msgid "Param D"
 msgstr ""
 
-#: data/ProcModel.py:2614
+#: data/ProcModel.py:1898
 msgid "Param E"
 msgstr ""
 
-#: data/ProcModel.py:2615
+#: data/ProcModel.py:1899
 msgid "Param F"
 msgstr ""
 
-#: data/ProcModel.py:2616
+#: data/ProcModel.py:1900
 msgid "Param G"
 msgstr ""
 
-#: data/ProcModel.py:2617
+#: data/ProcModel.py:1901
 msgid "Param H"
 msgstr ""
 
-#: data/ProcModel.py:2618
+#: data/ProcModel.py:1902
 msgid "Param I"
 msgstr ""
 
-#: data/ProcModel.py:2923 data/ProcModel.py:3741 data/ProcModel.py:3947
-#: data/ProcModel.py:4800
+#: data/ProcModel.py:2207 data/ProcModel.py:3025 data/ProcModel.py:3231
+#: data/ProcModel.py:4309
 msgid "First Rib"
 msgstr "First rib"
 
-#: data/ProcModel.py:2924 data/ProcModel.py:3742 data/ProcModel.py:3948
-#: data/ProcModel.py:4801
+#: data/ProcModel.py:2208 data/ProcModel.py:3026 data/ProcModel.py:3232
+#: data/ProcModel.py:4310
 msgid "Last Rib"
 msgstr "Last rib"
 
-#: data/ProcModel.py:2925
+#: data/ProcModel.py:2209
 msgid "Row 2 A"
 msgstr "Param A"
 
-#: data/ProcModel.py:2926
+#: data/ProcModel.py:2210
 msgid "Row 2 B"
 msgstr "Param B"
 
-#: data/ProcModel.py:2927
+#: data/ProcModel.py:2211
 msgid "Row 2 C"
 msgstr "Param C"
 
-#: data/ProcModel.py:2928
+#: data/ProcModel.py:2212
 msgid "Row 2 D"
 msgstr "Param D"
 
-#: data/ProcModel.py:2929
+#: data/ProcModel.py:2213
 msgid "Row 2 E"
 msgstr "Param E"
 
-#: data/ProcModel.py:2930
+#: data/ProcModel.py:2214
 msgid "Row 3 A"
 msgstr "Param F"
 
-#: data/ProcModel.py:2931
+#: data/ProcModel.py:2215
 msgid "Row 3 B"
 msgstr "Param G"
 
-#: data/ProcModel.py:2932
+#: data/ProcModel.py:2216
 msgid "Row 3 C"
 msgstr "Param H"
 
-#: data/ProcModel.py:2933
+#: data/ProcModel.py:2217
 msgid "Row 3 D"
 msgstr "Param I"
 
-#: data/ProcModel.py:2934
+#: data/ProcModel.py:2218
 msgid "Row 4 A"
 msgstr "S1"
 
-#: data/ProcModel.py:2935
+#: data/ProcModel.py:2219
 msgid "Row 4 B"
 msgstr "S2"
 
-#: data/ProcModel.py:2936
+#: data/ProcModel.py:2220
 msgid "Row 4 C"
 msgstr "S3"
 
-#: data/ProcModel.py:2937
+#: data/ProcModel.py:2221
 msgid "Row 4 D"
 msgstr "S4"
 
-#: data/ProcModel.py:3140
+#: data/ProcModel.py:2424
 msgid "Initial Rib"
 msgstr "Initial rib"
 
-#: data/ProcModel.py:3141
+#: data/ProcModel.py:2425
 msgid "Final Rib"
 msgstr "Final rib"
 
-#: data/ProcModel.py:3239
+#: data/ProcModel.py:2523
 msgid "Light Typ"
 msgstr "Light type"
 
-#: data/ProcModel.py:3240
+#: data/ProcModel.py:2524
 msgid "Dist LE"
 msgstr "Hor dist"
 
-#: data/ProcModel.py:3241
+#: data/ProcModel.py:2525
 msgid "Dist chord"
 msgstr "Vert dist"
 
-#: data/ProcModel.py:3242
+#: data/ProcModel.py:2526
 msgid "Hor axis"
 msgstr ""
 
-#: data/ProcModel.py:3243
+#: data/ProcModel.py:2527
 msgid "Vert axis"
 msgstr ""
 
-#: data/ProcModel.py:3244
+#: data/ProcModel.py:2528
 msgid "Rot angle"
 msgstr ""
 
-#: data/ProcModel.py:3245
+#: data/ProcModel.py:2529
 msgid "Opt "
 msgstr ""
 
-#: data/ProcModel.py:3377
+#: data/ProcModel.py:2661
 msgid "Num branches"
 msgstr ""
 
-#: data/ProcModel.py:3378
+#: data/ProcModel.py:2662
 msgid "Ramif 1"
 msgstr ""
 
-#: data/ProcModel.py:3379
+#: data/ProcModel.py:2663
 msgid "Node 1"
 msgstr ""
 
-#: data/ProcModel.py:3380
+#: data/ProcModel.py:2664
 msgid "Ramif 2"
 msgstr ""
 
-#: data/ProcModel.py:3381
+#: data/ProcModel.py:2665
 msgid "Node 2"
 msgstr ""
 
-#: data/ProcModel.py:3382
+#: data/ProcModel.py:2666
 msgid "Ramif 3"
 msgstr ""
 
-#: data/ProcModel.py:3383
+#: data/ProcModel.py:2667
 msgid "Node 3"
 msgstr ""
 
-#: data/ProcModel.py:3384
+#: data/ProcModel.py:2668
 msgid "Ramif 4"
 msgstr ""
 
-#: data/ProcModel.py:3385
+#: data/ProcModel.py:2669
 msgid "Node 4"
 msgstr ""
 
-#: data/ProcModel.py:3530
+#: data/ProcModel.py:2814
 msgid "Marks Spacing [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3531
+#: data/ProcModel.py:2815
 msgid "Point Radius [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3532
+#: data/ProcModel.py:2816
 msgid "Point Displacement [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3626
+#: data/ProcModel.py:2910
 msgid "Marks type"
 msgstr ""
 
-#: data/ProcModel.py:3627
+#: data/ProcModel.py:2911
 msgid "Form 1"
 msgstr ""
 
-#: data/ProcModel.py:3628
+#: data/ProcModel.py:2912
 msgid "Form 1 1st param"
 msgstr ""
 
-#: data/ProcModel.py:3629
+#: data/ProcModel.py:2913
 msgid "Form 1 2nd param"
 msgstr ""
 
-#: data/ProcModel.py:3630
+#: data/ProcModel.py:2914
 msgid "Form 2"
 msgstr ""
 
-#: data/ProcModel.py:3631
+#: data/ProcModel.py:2915
 msgid "Form 2 1st param"
 msgstr ""
 
-#: data/ProcModel.py:3632
+#: data/ProcModel.py:2916
 msgid "Form 2 2nd param"
 msgstr ""
 
-#: data/ProcModel.py:3833 data/ProcModel.py:4314
+#: data/ProcModel.py:3117 data/ProcModel.py:3823
 msgid "Top dist LE"
 msgstr ""
 
-#: data/ProcModel.py:3834 data/ProcModel.py:4315
+#: data/ProcModel.py:3118 data/ProcModel.py:3824
 msgid "Top widening"
 msgstr ""
 
-#: data/ProcModel.py:3835 data/ProcModel.py:4316
+#: data/ProcModel.py:3119 data/ProcModel.py:3825
 msgid "Bott dist TE"
 msgstr ""
 
-#: data/ProcModel.py:3836 data/ProcModel.py:4317
+#: data/ProcModel.py:3120 data/ProcModel.py:3826
 msgid "Bott widening"
 msgstr ""
 
-#: data/ProcModel.py:3949
+#: data/ProcModel.py:3233
 msgid "X1"
 msgstr "X1 [% chord]"
 
-#: data/ProcModel.py:3950
+#: data/ProcModel.py:3234
 msgid "U1"
 msgstr "U1 [% chord]"
 
-#: data/ProcModel.py:3951
+#: data/ProcModel.py:3235
 msgid "U2"
 msgstr "U1 [% chord]"
 
-#: data/ProcModel.py:3952
+#: data/ProcModel.py:3236
 msgid "X2"
 msgstr "X2 [% chord]"
 
-#: data/ProcModel.py:3953
+#: data/ProcModel.py:3237
 msgid "V1"
 msgstr "V1 [% chord]"
 
-#: data/ProcModel.py:3954
+#: data/ProcModel.py:3238
 msgid "V2"
 msgstr "V2 [% chord]"
 
-#: data/ProcModel.py:4062
+#: data/ProcModel.py:3385
+msgid "panel_x"
+msgstr ""
+
+#: data/ProcModel.py:3388
+msgid "panel_x_min"
+msgstr ""
+
+#: data/ProcModel.py:3391
+msgid "panel_y"
+msgstr ""
+
+#: data/ProcModel.py:3394
+msgid "rib_x"
+msgstr ""
+
+#: data/ProcModel.py:3397
+msgid "rib_y"
+msgstr ""
+
+#: data/ProcModel.py:3400
+msgid "parameter6"
+msgstr ""
+
+#: data/ProcModel.py:3403
+msgid "parameter7"
+msgstr ""
+
+#: data/ProcModel.py:3406
+msgid "parameter8"
+msgstr ""
+
+#: data/ProcModel.py:3409
+msgid "parameter9"
+msgstr ""
+
+#: data/ProcModel.py:3412
+msgid "parameter10"
+msgstr ""
+
+#: data/ProcModel.py:3571
 msgid "Rows"
 msgstr ""
 
-#: data/ProcModel.py:4063
+#: data/ProcModel.py:3572
 msgid "Third to sail [cm]"
 msgstr ""
 
-#: data/ProcModel.py:4064
+#: data/ProcModel.py:3573
 msgid "Fourth to sail [cm]"
 msgstr ""
 
-#: data/ProcModel.py:4202
+#: data/ProcModel.py:3711
 msgid "RP"
 msgstr ""
 
-#: data/ProcModel.py:4203
+#: data/ProcModel.py:3712
 msgid "Washin"
 msgstr ""
 
-#: data/ProcModel.py:4204
+#: data/ProcModel.py:3713
 msgid "Z Rotation"
 msgstr ""
 
-#: data/ProcModel.py:4205
+#: data/ProcModel.py:3714
 msgid "Z Position"
 msgstr ""
 
-#: data/ProcModel.py:4397
+#: data/ProcModel.py:3906
 msgid "Strain mini ribs"
 msgstr ""
 
-#: data/ProcModel.py:4398
+#: data/ProcModel.py:3907
 msgid "Num points"
 msgstr ""
 
-#: data/ProcModel.py:4399
+#: data/ProcModel.py:3908
 msgid "Coeff"
 msgstr ""
 
-#: data/ProcModel.py:4457
+#: data/ProcModel.py:3966
 msgid "Edge seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4458
+#: data/ProcModel.py:3967
 msgid "LE seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4459
+#: data/ProcModel.py:3968
 msgid "TE seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4532
+#: data/ProcModel.py:4041
 msgid "LE Angle [deg]"
 msgstr ""
 
-#: data/ProcModel.py:4533
+#: data/ProcModel.py:4042
 msgid "TE Angle [deg]"
 msgstr ""
 
-#: data/ProcModel.py:4661
+#: data/ProcModel.py:4170
 msgid "Line Name"
 msgstr ""
 
-#: data/ProcModel.py:4662
+#: data/ProcModel.py:4171
 msgid "Unifilar"
 msgstr ""
 
-#: data/ProcModel.py:4663 data/ProcModel.py:5235
+#: data/ProcModel.py:4172 data/ProcModel.py:4744
 msgid "Color code"
 msgstr ""
 
-#: data/ProcModel.py:4664
+#: data/ProcModel.py:4173
 msgid "Color name (opt)"
 msgstr ""
 
-#: data/ProcModel.py:4891 data/ProcModel.py:5005
+#: data/ProcModel.py:4400 data/ProcModel.py:4514
 msgid "Ini P"
 msgstr "Ini P [% chord]"
 
-#: data/ProcModel.py:4892 data/ProcModel.py:5006
+#: data/ProcModel.py:4401 data/ProcModel.py:4515
 msgid "Cut P"
 msgstr "Cut P [% chord]"
 
-#: data/ProcModel.py:4893 data/ProcModel.py:5007
+#: data/ProcModel.py:4402 data/ProcModel.py:4516
 msgid "Depth"
 msgstr "Depth [Coef]"
 
-#: data/ProcModel.py:5133
+#: data/ProcModel.py:4642
 msgid "Draw"
 msgstr ""
 
-#: data/ProcModel.py:5134
+#: data/ProcModel.py:4643
 msgid "First panel"
 msgstr ""
 
-#: data/ProcModel.py:5135
+#: data/ProcModel.py:4644
 msgid "Last panel"
 msgstr ""
 
-#: data/ProcModel.py:5136
+#: data/ProcModel.py:4645
 msgid "Symmetric"
 msgstr ""
 
-#: data/ProcModel.py:5234
+#: data/ProcModel.py:4743
 msgid "Line name"
 msgstr ""
 
-#: data/ProcModel.py:5236
+#: data/ProcModel.py:4745
 msgid "Color name"
 msgstr ""
 
-#: data/ProcModel.py:5429
+#: data/ProcModel.py:4938
 msgid "Brand name"
 msgstr ""
 
-#: data/ProcModel.py:5431
+#: data/ProcModel.py:4940
 msgid "Draw scale"
 msgstr ""
 
-#: data/ProcModel.py:5432
+#: data/ProcModel.py:4941
 msgid "Wing scale"
 msgstr ""
 
-#: data/ProcModel.py:5434
+#: data/ProcModel.py:4943
 msgid "Num ribs"
 msgstr ""
 
-#: data/ProcModel.py:5435
+#: data/ProcModel.py:4944
 msgid "Alpha max tip"
 msgstr ""
 
-#: data/ProcModel.py:5436
+#: data/ProcModel.py:4945
 msgid "Alpha mode"
 msgstr ""
 
-#: data/ProcModel.py:5437
+#: data/ProcModel.py:4946
 msgid "Alpha max cent"
 msgstr ""
 
-#: data/ProcModel.py:5438
+#: data/ProcModel.py:4947
 msgid "Para type"
 msgstr ""
 
-#: data/ProcModel.py:5439
+#: data/ProcModel.py:4948
 msgid "Para param"
 msgstr ""
 
-#: data/ProcModel.py:5440
+#: data/ProcModel.py:4949
 msgid "Lines Conc Type"
 msgstr ""
 
-#: data/ProcModel.py:5441
+#: data/ProcModel.py:4950
 msgid "Brake length"
 msgstr ""
 
-#: data/ProcModel.py:5442
+#: data/ProcModel.py:4951
 msgid "x-Spacing"
 msgstr ""
 
-#: data/ProcModel.py:5443
+#: data/ProcModel.py:4952
 msgid "y-Spacing"
 msgstr ""
 
-#: gui/AddRibPoints.py:83 lepg.py:464
+#: gui/AddRibPoints.py:83 lepg.py:466
 msgid "Additional rib points"
 msgstr ""
 
@@ -925,11 +978,11 @@ msgstr "Hor distance from LE in [% chord]"
 
 #: gui/AddRibPoints.py:134 gui/Brakes.py:195 gui/ExtradColors.py:106
 #: gui/HvVhRibs.py:162 gui/IntradColors.py:106 gui/JoncsDefinition.py:111
-#: gui/Lines.py:136 gui/NewSkinTension.py:106 gui/NoseMylars.py:119
+#: gui/Lines.py:136 gui/NewSkinTension.py:115 gui/NoseMylars.py:119
 msgid "Sort by order_num"
 msgstr ""
 
-#: gui/AirfoilThickness.py:69 lepg.py:501
+#: gui/AirfoilThickness.py:69 lepg.py:503
 msgid "Airfoil thickness"
 msgstr ""
 
@@ -937,8 +990,8 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: gui/AirfoilThickness.py:74 gui/GlueVent.py:74 gui/ThreeDDxf.py:74
-#: gui/TwoDDxf.py:75
+#: gui/AirfoilThickness.py:74 gui/GlueVent.py:80 gui/PartsSeparation.py:79
+#: gui/ThreeDDxf.py:74 gui/TwoDDxf.py:75
 msgid "User defined"
 msgstr ""
 
@@ -955,7 +1008,7 @@ msgstr ""
 "0.0 = thickness equals 0 (typical for wingtip)\n"
 "1.0 = thickness equally to definition in profile file"
 
-#: gui/Airfoils.py:70 lepg.py:418
+#: gui/Airfoils.py:70 lepg.py:420
 msgid "Airfoils"
 msgstr ""
 
@@ -1010,7 +1063,7 @@ msgstr ""
 msgid "Sort by Rib Number"
 msgstr ""
 
-#: gui/AnchorPoints.py:70 lepg.py:422
+#: gui/AnchorPoints.py:70 lepg.py:424
 msgid "Anchor points"
 msgstr ""
 
@@ -1338,7 +1391,7 @@ msgstr ""
 msgid "Data Status Overview"
 msgstr ""
 
-#: gui/DataStatusOverview.py:81 lepg.py:288
+#: gui/DataStatusOverview.py:81 lepg.py:290
 msgid "Pre Processor"
 msgstr ""
 
@@ -1350,7 +1403,7 @@ msgstr ""
 msgid "File version"
 msgstr ""
 
-#: gui/DataStatusOverview.py:109 lepg.py:516
+#: gui/DataStatusOverview.py:109 lepg.py:518
 msgid "Processor"
 msgstr ""
 
@@ -1374,7 +1427,7 @@ msgstr ""
 "The name of the layer which can bee freely chosen\n"
 "and later on indicated in the DXF file"
 
-#: gui/ElasticLinesCorr.py:72 lepg.py:468
+#: gui/ElasticLinesCorr.py:72 lepg.py:470
 msgid "Elastic lines correction"
 msgstr ""
 
@@ -1460,7 +1513,7 @@ msgstr ""
 "Deformation coefficient for high \n"
 "line level with 10 kg load"
 
-#: gui/ExtradColors.py:80 lepg.py:454
+#: gui/ExtradColors.py:80 lepg.py:456
 msgid "Colors upper sail"
 msgstr ""
 
@@ -1480,7 +1533,7 @@ msgstr ""
 "Distance from TE \n"
 "in [% chord]"
 
-#: gui/Geometry.py:73 lepg.py:414
+#: gui/Geometry.py:73 lepg.py:416
 msgid "Geometry"
 msgstr ""
 
@@ -1575,20 +1628,54 @@ msgstr ""
 msgid "GlobalAoA-KarabinersDesc"
 msgstr "Separation between main carabiners"
 
-#: gui/GlueVent.py:69
+#: gui/GlueVent.py:75
 msgid "Glue vent"
 msgstr ""
 
-#: gui/GlueVent.py:73 gui/ThreeDDxf.py:73 gui/TwoDDxf.py:74
+#: gui/GlueVent.py:79 gui/PartsSeparation.py:78 gui/ThreeDDxf.py:73
+#: gui/TwoDDxf.py:74
 msgid "Defaults"
 msgstr ""
 
-#: gui/GlueVent.py:95
+#: gui/GlueVent.py:113
 msgid "GlueVent-AirfoilNumDesc"
 msgstr "Number of the airfoil (cell) to configure"
 
-#: gui/GlueVent.py:96
+#: gui/GlueVent.py:116
 msgid "GlueVent-VentParamDesc"
+msgstr ""
+"1 glue vent to upper sail (single skin wings)\n"
+"0 not glue anywhere (open air inlet)\n"
+"-1 glue vent to lower sail (usually means closed cell)\n"
+"-2 diagonal vent 100% open left, glued to lower sail\n"
+"-3 diagonal vent 100% open right, glued to lower sail"
+
+#: gui/GlueVent.py:119
+#, fuzzy
+#| msgid "GlueVent-VentParamDesc"
+msgid "GlueVent-ParamADesc"
+msgstr ""
+"1 glue vent to upper sail (single skin wings)\n"
+"0 not glue anywhere (open air inlet)\n"
+"-1 glue vent to lower sail (usually means closed cell)\n"
+"-2 diagonal vent 100% open left, glued to lower sail\n"
+"-3 diagonal vent 100% open right, glued to lower sail"
+
+#: gui/GlueVent.py:122
+#, fuzzy
+#| msgid "GlueVent-VentParamDesc"
+msgid "GlueVent-ParamBDesc"
+msgstr ""
+"1 glue vent to upper sail (single skin wings)\n"
+"0 not glue anywhere (open air inlet)\n"
+"-1 glue vent to lower sail (usually means closed cell)\n"
+"-2 diagonal vent 100% open left, glued to lower sail\n"
+"-3 diagonal vent 100% open right, glued to lower sail"
+
+#: gui/GlueVent.py:125
+#, fuzzy
+#| msgid "GlueVent-VentParamDesc"
+msgid "GlueVent-ParamCDesc"
 msgstr ""
 "1 glue vent to upper sail (single skin wings)\n"
 "0 not glue anywhere (open air inlet)\n"
@@ -1711,7 +1798,7 @@ msgstr ""
 "Parameter I of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/IntradColors.py:80 lepg.py:459
+#: gui/IntradColors.py:80 lepg.py:461
 msgid "Colors lower sail"
 msgstr ""
 
@@ -1743,7 +1830,7 @@ msgstr ""
 msgid "2"
 msgstr ""
 
-#: gui/JoncsDefinition.py:229 gui/NewSkinTension.py:82 gui/ThreeDShaping.py:93
+#: gui/JoncsDefinition.py:229 gui/NewSkinTension.py:91 gui/ThreeDShaping.py:93
 msgid "Number of groups"
 msgstr ""
 
@@ -1928,7 +2015,7 @@ msgstr ""
 msgid "Lines-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
 
-#: gui/Marks.py:64 lepg.py:860
+#: gui/Marks.py:64 lepg.py:872
 msgid "Marks"
 msgstr ""
 
@@ -1944,7 +2031,7 @@ msgstr ""
 msgid "Marks-PointsDisplacementDesc"
 msgstr ""
 
-#: gui/MarksTypes.py:71 lepg.py:869
+#: gui/MarksTypes.py:71 lepg.py:881
 msgid "Marks types"
 msgstr ""
 
@@ -1995,51 +2082,51 @@ msgstr ""
 "Second param for Form 2\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/NewSkinTension.py:80 lepg.py:506
+#: gui/NewSkinTension.py:89 lepg.py:508
 msgid "New skin tension"
 msgstr ""
 
-#: gui/NewSkinTension.py:195
+#: gui/NewSkinTension.py:210
 msgid "NewSkinTens-InitialRibDesc"
 msgstr "Number of the first rib in the group"
 
-#: gui/NewSkinTension.py:196
+#: gui/NewSkinTension.py:211
 msgid "NewSkinTens-FinalRibDesc"
 msgstr "Number of the last rib in the group"
 
-#: gui/NewSkinTension.py:197
+#: gui/NewSkinTension.py:212
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
 "Calculation type\n"
 "The only allowed value is currently 1"
 
-#: gui/NewSkinTension.py:209
+#: gui/NewSkinTension.py:224
 msgid "Number of Lines"
 msgstr ""
 
-#: gui/NewSkinTension.py:240
+#: gui/NewSkinTension.py:256
 msgid "SkinTension-OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
 "during edit or file saving"
 
-#: gui/NewSkinTension.py:241 gui/SkinTension.py:75
+#: gui/NewSkinTension.py:258 gui/SkinTension.py:75
 msgid "SkinTension-TopDistLEDesc"
 msgstr "Distance from Leading Edge in [% chord]"
 
-#: gui/NewSkinTension.py:242 gui/SkinTension.py:76
+#: gui/NewSkinTension.py:260 gui/SkinTension.py:76
 msgid "SkinTension-TopOverWideDesc"
 msgstr "Over widening in [% chord]"
 
-#: gui/NewSkinTension.py:243 gui/SkinTension.py:77
+#: gui/NewSkinTension.py:262 gui/SkinTension.py:77
 msgid "SkinTension-BottDistTEDesc"
 msgstr "Distance from Trailing Edge in [% chord]"
 
-#: gui/NewSkinTension.py:244 gui/SkinTension.py:78
+#: gui/NewSkinTension.py:264 gui/SkinTension.py:78
 msgid "SkinTension-BottOverWideDesc"
 msgstr "Over widening in [% chord]"
 
-#: gui/NoseMylars.py:71 lepg.py:476
+#: gui/NoseMylars.py:71 lepg.py:478
 msgid "Nose mylars"
 msgstr ""
 
@@ -2078,6 +2165,40 @@ msgstr "Please check the online help for a detailed explanation"
 #: gui/NoseMylars.py:117
 msgid "NoseMylars-v2Desc"
 msgstr "Please check the online help for a detailed explanation"
+
+#: gui/PartsSeparation.py:74 lepg.py:894
+msgid "Parts separation"
+msgstr ""
+
+#: gui/PartsSeparation.py:110
+msgid "PartsSep-Panel_x_Desc"
+msgstr ""
+"Factor for x-direction\n"
+"panels separation"
+
+#: gui/PartsSeparation.py:112
+msgid "PartsSep-Panel_x_min_Desc"
+msgstr ""
+"Factor for x-direction panels\n"
+"minimum separation"
+
+#: gui/PartsSeparation.py:114
+msgid "PartsSep-Panel_y_Desc"
+msgstr ""
+"Factor for y-direction\n"
+"panels separation"
+
+#: gui/PartsSeparation.py:116
+msgid "PartsSep-Rib_x_Desc"
+msgstr ""
+"Factor for x-direction\n"
+"ribs separation"
+
+#: gui/PartsSeparation.py:118
+msgid "PartsSep-Rib_y_Desc"
+msgstr ""
+"Factor for y-direction\n"
+"ribs separation"
 
 #: gui/PreProcCellsDistribution.py:81
 msgid "Pre-Processor cells distribution"
@@ -2561,7 +2682,7 @@ msgstr ""
 msgid "latest"
 msgstr ""
 
-#: gui/SkinTension.py:66 lepg.py:430 lepg.py:529
+#: gui/SkinTension.py:66 lepg.py:432 lepg.py:531
 msgid "Skin tension"
 msgstr ""
 
@@ -2628,7 +2749,7 @@ msgstr ""
 "0= ovalized visualisation of the surfaces\n"
 "1= unifilar visualisation"
 
-#: gui/ThreeDShaping.py:91 lepg.py:496
+#: gui/ThreeDShaping.py:91 lepg.py:498
 msgid "3D shaping"
 msgstr ""
 
@@ -2722,430 +2843,434 @@ msgstr ""
 msgid "TwoDDxf-ColorNameDesc"
 msgstr "The Name of the Color as text"
 
-#: gui/elements/WindowBtnBar.py:77 lepg.py:1077
+#: gui/elements/WindowBtnBar.py:77 lepg.py:1095
 msgid "Help"
 msgstr ""
 
-#: lepg.py:171
+#: lepg.py:173
 msgid "Newer version found"
 msgstr ""
 
-#: lepg.py:172
+#: lepg.py:174
 msgid "Current Version: "
 msgstr ""
 
-#: lepg.py:174
+#: lepg.py:176
 msgid "Version on remote: "
 msgstr ""
 
-#: lepg.py:176
+#: lepg.py:178
 msgid "Maybe you should consider an update from"
 msgstr ""
 
-#: lepg.py:183
+#: lepg.py:185
 msgid ""
 "More info about the different versions you will find in the <br>online help: "
 "Help-> Online Help"
 msgstr ""
 
-#: lepg.py:187
+#: lepg.py:189
 msgid "Or in Settings-> Update checking"
 msgstr ""
 
-#: lepg.py:207
+#: lepg.py:209
 msgid "Show Data Status"
 msgstr ""
 
-#: lepg.py:208
+#: lepg.py:210
 msgid "Provides an overview about what data has (not) been saved"
 msgstr ""
 
-#: lepg.py:212
+#: lepg.py:214
 msgid "Restart"
 msgstr ""
 
-#: lepg.py:213
+#: lepg.py:215
 msgid "Restart the app"
 msgstr ""
 
-#: lepg.py:216
+#: lepg.py:218
 msgid "Exit"
 msgstr ""
 
-#: lepg.py:217
+#: lepg.py:219
 msgid "Leave the app"
 msgstr ""
 
-#: lepg.py:221
+#: lepg.py:223
 msgid "File"
 msgstr ""
 
-#: lepg.py:258
+#: lepg.py:260
 msgid "Open PreProc File"
 msgstr ""
 
-#: lepg.py:259
+#: lepg.py:261
 msgid "open_preProc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: lepg.py:262
+#: lepg.py:264
 msgid "Save PreProc File"
 msgstr ""
 
-#: lepg.py:263
+#: lepg.py:265
 msgid "save_preProc_file_desc"
 msgstr "Saves data to local file"
 
-#: lepg.py:266
+#: lepg.py:268
 msgid "Save PreProc File As .."
 msgstr ""
 
-#: lepg.py:267
+#: lepg.py:269
 msgid "save_preProc_file_as_desc"
 msgstr "Saves data under a new name"
 
-#: lepg.py:270
+#: lepg.py:272
 msgid "Name, LE, TE, Vault"
 msgstr ""
 
-#: lepg.py:271
+#: lepg.py:273
 msgid "edit_preProc_data_description"
 msgstr "Opens the window to edit name, LE, TE and vault settings"
 
-#: lepg.py:274
+#: lepg.py:276
 msgid "Cells distribution"
 msgstr ""
 
-#: lepg.py:276
+#: lepg.py:278
 msgid "edit_preProc_cellsDistr_description"
 msgstr "Opens the edit window for the cell distribution configuration"
 
-#: lepg.py:279
+#: lepg.py:281
 msgid "Run Pre-Processor"
 msgstr ""
 
-#: lepg.py:280
+#: lepg.py:282
 msgid "run_preProc_des"
 msgstr "Prepares the input file for the pre-processor and runs it"
 
-#: lepg.py:283
+#: lepg.py:285
 msgid "Show wing outline"
 msgstr ""
 
-#: lepg.py:284
+#: lepg.py:286
 msgid "show_WingOutline_des"
 msgstr "Opens the wing outline window"
 
-#: lepg.py:376 lepg.py:840
+#: lepg.py:378 lepg.py:852
 msgid "Potentially missing configuration!"
 msgstr ""
 
-#: lepg.py:377
+#: lepg.py:379
 msgid ""
 "For a successful pre-processor run you must configure\n"
 "the pre-processor in Setup ->Both Processors."
 msgstr ""
 
-#: lepg.py:394
+#: lepg.py:396
 msgid "Import Pre-Proc output file"
 msgstr ""
 
-#: lepg.py:395
+#: lepg.py:397
 msgid "import-pre-proc_file_desc"
 msgstr ""
 "Import the datafile created by the pre-processor to be further detailed"
 
-#: lepg.py:398
+#: lepg.py:400
 msgid "Open Processor File"
 msgstr ""
 
-#: lepg.py:399
+#: lepg.py:401
 msgid "open_Proc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: lepg.py:402
+#: lepg.py:404
 msgid "Save Processor File"
 msgstr ""
 
-#: lepg.py:403
+#: lepg.py:405
 msgid "save_proc_file_desc"
 msgstr "Saves data to local file"
 
-#: lepg.py:406
+#: lepg.py:408
 msgid "Save Processor File As .."
 msgstr ""
 
-#: lepg.py:407
+#: lepg.py:409
 msgid "save_proc_file_as_desc"
 msgstr "Saves the data under a new name"
 
-#: lepg.py:410
+#: lepg.py:412
 msgid "Basic data"
 msgstr ""
 
-#: lepg.py:411
+#: lepg.py:413
 msgid "Editing the wing basics"
 msgstr ""
 
-#: lepg.py:415
+#: lepg.py:417
 msgid "Edit wing geometry"
 msgstr ""
 
-#: lepg.py:419
+#: lepg.py:421
 msgid "Edit airfoils geometry"
 msgstr ""
 
-#: lepg.py:423
+#: lepg.py:425
 msgid "Edit Anchor points data"
 msgstr ""
 
-#: lepg.py:426
+#: lepg.py:428
 msgid "Rib holes"
 msgstr ""
 
-#: lepg.py:427
+#: lepg.py:429
 msgid "Edit rib holes (rib lightening) data"
 msgstr ""
 
-#: lepg.py:431
+#: lepg.py:433
 msgid "Edit skin tension data"
 msgstr ""
 
-#: lepg.py:434
+#: lepg.py:436
 msgid "Estimated general AoA"
 msgstr ""
 
-#: lepg.py:435
+#: lepg.py:437
 msgid "Edit global AoA data"
 msgstr ""
 
-#: lepg.py:438
+#: lepg.py:440
 msgid "Lines"
 msgstr ""
 
-#: lepg.py:439
+#: lepg.py:441
 msgid "Edit Lines data"
 msgstr ""
 
-#: lepg.py:442
+#: lepg.py:444
 msgid "Brakes"
 msgstr ""
 
-#: lepg.py:443
+#: lepg.py:445
 msgid "Edit Brake lines data"
 msgstr ""
 
-#: lepg.py:446
+#: lepg.py:448
 msgid "Ramifications length"
 msgstr ""
 
-#: lepg.py:447
+#: lepg.py:449
 msgid "Edit Ramification data"
 msgstr ""
 
-#: lepg.py:450
+#: lepg.py:452
 msgid "HV and VH ribs"
 msgstr "Diagonal ribs"
 
-#: lepg.py:451
+#: lepg.py:453
 msgid "Edit HV/ VH ribs data"
 msgstr ""
 
-#: lepg.py:455
+#: lepg.py:457
 msgid "Edit the color settings of the upper sail"
 msgstr ""
 
-#: lepg.py:460
+#: lepg.py:462
 msgid "Edit the color settings of the lower sail"
 msgstr ""
 
-#: lepg.py:465
+#: lepg.py:467
 msgid "Edit additional rib points data"
 msgstr ""
 
-#: lepg.py:469
+#: lepg.py:471
 msgid "Edit elastic lines correction data"
 msgstr ""
 
-#: lepg.py:472
+#: lepg.py:474
 msgid "Joncs definitions"
 msgstr ""
 
-#: lepg.py:473
+#: lepg.py:475
 msgid "Edit joncs (nylon rods) definition"
 msgstr ""
 
-#: lepg.py:477
+#: lepg.py:479
 msgid "Edit nose mylars definition"
 msgstr ""
 
-#: lepg.py:480
+#: lepg.py:482
 msgid "Tab reinforcements"
 msgstr ""
 
-#: lepg.py:483
+#: lepg.py:485
 msgid "Glue vents"
 msgstr ""
 
-#: lepg.py:484
+#: lepg.py:486
 msgid "Edit glue vent definitions"
 msgstr ""
 
-#: lepg.py:487
+#: lepg.py:489
 msgid "Special wingtip"
 msgstr ""
 
-#: lepg.py:488
+#: lepg.py:490
 msgid "Edit Special wing tip definitions"
 msgstr ""
 
-#: lepg.py:491
+#: lepg.py:493
 msgid "Calage variation"
 msgstr ""
 
-#: lepg.py:492
+#: lepg.py:494
 msgid "Edit parameters for calage variation study"
 msgstr ""
 
-#: lepg.py:497
+#: lepg.py:499
 msgid "Enable and edit parameters for 3D shaping"
 msgstr ""
 
-#: lepg.py:502
+#: lepg.py:504
 msgid "Edit parameters for airfoil thickness"
 msgstr ""
 
-#: lepg.py:507
+#: lepg.py:509
 msgid "Edit parameters for new skin tension"
 msgstr ""
 
-#: lepg.py:511
+#: lepg.py:513
 msgid "Run Processor"
 msgstr ""
 
-#: lepg.py:512
+#: lepg.py:514
 msgid "run_Processor_des"
 msgstr "Prepares the input file for the processor and runs it"
 
-#: lepg.py:540
+#: lepg.py:542
 msgid "Colors"
 msgstr ""
 
-#: lepg.py:841
+#: lepg.py:853
 msgid ""
 "For a successful processor run you must configure\n"
 "the processor in Setup->Both Processors."
 msgstr ""
 
-#: lepg.py:856
+#: lepg.py:868
 msgid "Seewing Allowance"
 msgstr ""
 
-#: lepg.py:857
+#: lepg.py:869
 msgid "Edit Seewing allowances"
 msgstr ""
 
-#: lepg.py:861
+#: lepg.py:873
 msgid "Edit the Marks parameters"
 msgstr ""
 
-#: lepg.py:864
+#: lepg.py:876
 msgid "DXF Layer names"
 msgstr ""
 
-#: lepg.py:865
+#: lepg.py:877
 msgid "Edit the names of the individual DXF layers"
 msgstr ""
 
-#: lepg.py:870
+#: lepg.py:882
 msgid "Edit individual parameters for the marks on the plans"
 msgstr ""
 
-#: lepg.py:874
+#: lepg.py:886
 msgid "2D DXF options"
 msgstr ""
 
-#: lepg.py:875
+#: lepg.py:887
 msgid "Edit for the 2D dxf plans"
 msgstr ""
 
-#: lepg.py:878
+#: lepg.py:890
 msgid "3D DXF options"
 msgstr ""
 
-#: lepg.py:879
+#: lepg.py:891
 msgid "Edit for the 3D dxf plans"
 msgstr ""
 
-#: lepg.py:883
+#: lepg.py:895
+msgid "Edit the parameters for  Parts separation"
+msgstr ""
+
+#: lepg.py:900
 msgid "Plan"
 msgstr ""
 
-#: lepg.py:956
+#: lepg.py:974
 msgid "Cascade"
 msgstr ""
 
-#: lepg.py:957
+#: lepg.py:975
 msgid "Cascade all windows"
 msgstr ""
 
-#: lepg.py:960
+#: lepg.py:978
 msgid "Tile"
 msgstr ""
 
-#: lepg.py:961
+#: lepg.py:979
 msgid "Tile all windows"
 msgstr ""
 
-#: lepg.py:964
+#: lepg.py:982
 msgid "View"
 msgstr ""
 
-#: lepg.py:995
+#: lepg.py:1013
 msgid "Both Processors"
 msgstr ""
 
-#: lepg.py:996
+#: lepg.py:1014
 msgid "Setup locations for both processors"
 msgstr ""
 
-#: lepg.py:999
+#: lepg.py:1017
 msgid "Update checking"
 msgstr ""
 
-#: lepg.py:1000
+#: lepg.py:1018
 msgid "Setup if and for which version to check for updates"
 msgstr ""
 
-#: lepg.py:1005
+#: lepg.py:1023
 msgid "Setup"
 msgstr ""
 
-#: lepg.py:1006
+#: lepg.py:1024
 msgid "Language"
 msgstr ""
 
-#: lepg.py:1037
+#: lepg.py:1055
 msgid "Switching language"
 msgstr ""
 
-#: lepg.py:1039
+#: lepg.py:1057
 msgid "Please restart the application."
 msgstr ""
 
-#: lepg.py:1068
+#: lepg.py:1086
 msgid "Online Help"
 msgstr ""
 
-#: lepg.py:1069
+#: lepg.py:1087
 msgid "Opens the online help in your browser"
 msgstr ""
 
-#: lepg.py:1072
+#: lepg.py:1090
 msgid "About"
 msgstr ""
 
-#: lepg.py:1073
+#: lepg.py:1091
 msgid "Short info about the program"
 msgstr ""
 

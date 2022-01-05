@@ -161,7 +161,7 @@ class NoseMylars(QMdiSubWindow):
         '''
         :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
         '''
-        logging.debug(self.__className+'.sortBtnPress')
+        logging.debug(self.__className+'.sort_btn_press')
 
         self.proxyModel.sort(ProcModel.NoseMylarsModel.OrderNumCol, Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)

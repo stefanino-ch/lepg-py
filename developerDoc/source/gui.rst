@@ -246,6 +246,13 @@ Plan Marks
    :members:
    :private-members:
 
+Parts Separation
+----------------
+.. automodule:: gui.PartsSeparation
+   :undoc-members:
+   :members:
+   :private-members:
+
 Setup Processors
 ----------------
 .. automodule:: gui.SetupProcessors

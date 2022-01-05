@@ -127,14 +127,14 @@ class ExtradColors(QMdiSubWindow):
         '''
         :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
         '''
-        logging.debug(self.__className+'.confSpinChange')
+        logging.debug(self.__className+'.conf_spin_change')
         self.extradColsConf_M.setNumConfigs( self.numConf_S.value() )
     
     def modelNumConfigsChanged(self):
         '''
         :method: Called upon canges of the configs model. Does assure all GUI elements will follow the changes. 
         '''
-        logging.debug(self.__className+'.modelNumConfigsChanged')
+        logging.debug(self.__className+'.model_num_configs_changed')
         
         currentNumConfigs = self.extradColsConf_M.numConfigs()
 
@@ -161,14 +161,14 @@ class ExtradColors(QMdiSubWindow):
         '''
         :method: Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration. 
         '''           
-        logging.debug(self.__className+'.detSpinChange')
+        logging.debug(self.__className+'.det_spin_change')
         self.extradColsDet_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numDet_S[self.tabs.currentIndex()].value() )
     
     def addTab(self):
         '''
         :method: Creates a new tab inculding all its widgets. 
         '''
-        logging.debug(self.__className+'.addTab')
+        logging.debug(self.__className+'.add_tab')
         
         currNumTabs = self.tabs.count()
         
@@ -252,7 +252,7 @@ class ExtradColors(QMdiSubWindow):
         '''
         :method: Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model. 
         ''' 
-        logging.debug(self.__className+'.removeTab')
+        logging.debug(self.__className+'.remove_tab')
         numTabs = self.tabs.count()
         self.tabs.removeTab(numTabs-1)
         # cleanup arrays
@@ -265,7 +265,7 @@ class ExtradColors(QMdiSubWindow):
         '''
         :method: called upon canges of the details model. Does assure all GUI elements will follow the changes. 
         '''
-        logging.debug(self.__className+'.updateTabs')
+        logging.debug(self.__className+'.update_tabs')
         
         i=0
         while i< self.tabs.count():
@@ -277,7 +277,7 @@ class ExtradColors(QMdiSubWindow):
         '''
         :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
         '''
-        logging.debug(self.__className+'.sortBtnPress')
+        logging.debug(self.__className+'.sort_btn_press')
         
         if self.tabs.count() >0:
             currTab = self.tabs.currentIndex()

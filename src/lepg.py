@@ -23,31 +23,34 @@ from ConfigReader.ConfigReader import ConfigReader
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
 
-from gui.DataStatusOverview import DataStatusOverview
-from gui.PreProcData import PreProcData
-from gui.PreProcWingOutline import PreProcWingOutline
-from gui.BasicData import BasicData
-from gui.Geometry import Geometry
-from gui.Airfoils import Airfoils
-from gui.RibHoles import RibHoles
-from gui.HelpAbout import HelpAbout
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
-from gui.ProcessorOutput import ProcessorOutput
+
+from gui.Airfoils import Airfoils
+from gui.AirfoilThickness import AirfoilThickness
 from gui.AnchorPoints import AnchorPoints
-from gui.SkinTension import SkinTension
-from gui.SeewingAllowances import SeewingAllowances
+from gui.BasicData import BasicData
+from gui.Brakes import Brakes
+from gui.DataStatusOverview import DataStatusOverview
+from gui.DxfLayerNames import DxfLayerNames
+from gui.Geometry import Geometry
+from gui.HelpAbout import HelpAbout
 from gui.Marks import Marks
+from gui.PartsSeparation import PartsSeparation
+from gui.ProcessorOutput import ProcessorOutput
+from gui.PreProcData import PreProcData
+from gui.PreProcWingOutline import PreProcWingOutline
+from gui.RibHoles import RibHoles
+from gui.SeewingAllowances import SeewingAllowances
+from gui.SkinTension import SkinTension
 from gui.GlobalAoA import GlobalAoA
 from gui.Lines import Lines
-from gui.Brakes import Brakes
 from gui.Ramification import Ramification
 from gui.HvVhRibs import HvVhRibs
 from gui.ExtradColors import ExtradColors
 from gui.IntradColors import IntradColors
 from gui.AddRibPoints import AddRibPoints
 from gui.ElasticLinesCorr import ElasticLinesCorr
-from gui.DxfLayerNames import DxfLayerNames
 from gui.MarksTypes import MarksTypes
 from gui.JoncsDefinition import JoncsDefinition
 from gui.NoseMylars import NoseMylars
@@ -57,7 +60,6 @@ from gui.GlueVent import GlueVent
 from gui.SpecWingTip import SpecWingTip
 from gui.CalageVar import CalageVar
 from gui.ThreeDShaping import ThreeDShaping
-from gui.AirfoilThickness import AirfoilThickness
 from gui.NewSkinTension import NewSkinTension
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.SetupProcessors import SetupProcessors
@@ -816,6 +818,16 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.new_skin_tens_w)
         self.new_skin_tens_w.show()
 
+    def proc_parts_sep_edit(self):
+        """
+        :method: Called if the user selects *Processor* -> *Parts separation*
+        """
+        if self.dws.windowExists('PartsSeparation') is False:
+            self.parts_separation_w = PartsSeparation()
+            self.dws.registerWindow('PartsSeparation')
+            self.mdi.addSubWindow(self.parts_separation_w)
+        self.parts_separation_w.show()
+
     def proc_run(self):
         """
         :method: Called if the user selects *Processor* -> *Run Processor*
@@ -879,6 +891,11 @@ class MainWindow(QMainWindow):
         proc_three_d_dxf_a.setStatusTip(_('Edit for the 3D dxf plans'))
         proc_three_d_dxf_a.triggered.connect(self.three_d_dxf_edit)
 
+        proc_parts_sep_a = QAction(_('Parts separation'), self)
+        proc_parts_sep_a.setStatusTip((_('Edit the parameters for '
+                                       ' Parts separation')))
+        proc_parts_sep_a.triggered.connect(self.proc_parts_sep_edit)
+
         # Build the menu
         plan_menu = self.mainMenu.addMenu(_('Plan'))
         plan_menu.addAction(plan_seewing_all_a)
@@ -887,6 +904,7 @@ class MainWindow(QMainWindow):
         plan_menu.addAction(proc_marks_t_a)
         plan_menu.addAction(proc_two_d_dxf_a)
         plan_menu.addAction(proc_three_d_dxf_a)
+        plan_menu.addAction(proc_parts_sep_a)
 
     def plan_seewing_all_edit(self):
         """

@@ -129,6 +129,7 @@
 <li><a class="reference internal" href="#id2">Plan Marks</a></li>
 <li><a class="reference internal" href="#module-gui.TwoDDxf">2D DFX Options</a></li>
 <li><a class="reference internal" href="#module-gui.ThreeDDxf">3D DFX Options</a></li>
+<li><a class="reference internal" href="#module-gui.PartsSeparation">Parts Separation</a></li>
 <li><a class="reference internal" href="#module-gui.SetupProcessors">Setup Processors</a></li>
 <li><a class="reference internal" href="#module-gui.SetupUpdateChecking">Setup Update Checker</a></li>
 <li><a class="reference internal" href="#module-gui.HelpAbout">Help About</a></li>
@@ -658,6 +659,16 @@ restarting-a-python-script-within-itself/</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="lepg.MainWindow.proc_parts_sep_edit">
+<code class="sig-name descname"><span class="pre">proc_parts_sep_edit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.proc_parts_sep_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called if the user selects <em>Processor</em> -&gt; <em>Parts separation</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="lepg.MainWindow.proc_ramification_edit">
 <code class="sig-name descname"><span class="pre">proc_ramification_edit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lepg.MainWindow.proc_ramification_edit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -856,8 +867,8 @@ restarting-a-python-script-within-itself/</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.DataStatusOverview.DataStatusOverview.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.DataStatusOverview.DataStatusOverview.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.DataStatusOverview.DataStatusOverview.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.DataStatusOverview.DataStatusOverview.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handels the button events from the window</p>
@@ -866,8 +877,8 @@ restarting-a-python-script-within-itself/</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.DataStatusOverview.DataStatusOverview.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.DataStatusOverview.DataStatusOverview.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.DataStatusOverview.DataStatusOverview.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.DataStatusOverview.DataStatusOverview.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the window.</p>
@@ -1415,8 +1426,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.BasicData.BasicData.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.BasicData.BasicData.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.BasicData.BasicData.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.BasicData.BasicData.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1425,8 +1436,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.BasicData.BasicData.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.BasicData.BasicData.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.BasicData.BasicData.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.BasicData.BasicData.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1495,8 +1506,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Geometry.Geometry.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Geometry.Geometry.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Geometry.Geometry.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Geometry.Geometry.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1505,8 +1516,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Geometry.Geometry.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Geometry.Geometry.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Geometry.Geometry.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Geometry.Geometry.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1575,8 +1586,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Airfoils.Airfoils.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Airfoils.Airfoils.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Airfoils.Airfoils.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Airfoils.Airfoils.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1585,8 +1596,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Airfoils.Airfoils.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Airfoils.Airfoils.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Airfoils.Airfoils.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Airfoils.Airfoils.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1655,8 +1666,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AnchorPoints.AnchorPoints.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AnchorPoints.AnchorPoints.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AnchorPoints.AnchorPoints.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AnchorPoints.AnchorPoints.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1665,8 +1676,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AnchorPoints.AnchorPoints.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AnchorPoints.AnchorPoints.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AnchorPoints.AnchorPoints.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AnchorPoints.AnchorPoints.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1745,8 +1756,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.RibHoles.RibHoles.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.RibHoles.RibHoles.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.RibHoles.RibHoles.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.RibHoles.RibHoles.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1755,8 +1766,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.RibHoles.RibHoles.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.RibHoles.RibHoles.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.RibHoles.RibHoles.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.RibHoles.RibHoles.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1879,8 +1890,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SkinTension.SkinTension.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SkinTension.SkinTension.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SkinTension.SkinTension.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SkinTension.SkinTension.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1889,8 +1900,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SkinTension.SkinTension.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SkinTension.SkinTension.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SkinTension.SkinTension.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SkinTension.SkinTension.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -1949,8 +1960,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.GlobalAoA.GlobalAoA.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.GlobalAoA.GlobalAoA.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.GlobalAoA.GlobalAoA.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.GlobalAoA.GlobalAoA.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -1959,8 +1970,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.GlobalAoA.GlobalAoA.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.GlobalAoA.GlobalAoA.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.GlobalAoA.GlobalAoA.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.GlobalAoA.GlobalAoA.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2029,8 +2040,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Lines.Lines.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Lines.Lines.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Lines.Lines.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Lines.Lines.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2039,8 +2050,8 @@ edges tho be displayed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Lines.Lines.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Lines.Lines.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Lines.Lines.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Lines.Lines.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2174,8 +2185,8 @@ the mapping again.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Brakes.Brakes.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Brakes.Brakes.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Brakes.Brakes.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Brakes.Brakes.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2184,8 +2195,8 @@ the mapping again.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Brakes.Brakes.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Brakes.Brakes.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Brakes.Brakes.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Brakes.Brakes.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2279,8 +2290,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Ramification.Ramification.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Ramification.Ramification.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Ramification.Ramification.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Ramification.Ramification.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2289,8 +2300,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Ramification.Ramification.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Ramification.Ramification.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Ramification.Ramification.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Ramification.Ramification.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2352,8 +2363,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.HvVhRibs.HvVhRibs.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.HvVhRibs.HvVhRibs.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.HvVhRibs.HvVhRibs.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.HvVhRibs.HvVhRibs.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2362,8 +2373,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.HvVhRibs.HvVhRibs.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.HvVhRibs.HvVhRibs.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.HvVhRibs.HvVhRibs.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.HvVhRibs.HvVhRibs.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2468,8 +2479,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ExtradColors.ExtradColors.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ExtradColors.ExtradColors.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ExtradColors.ExtradColors.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ExtradColors.ExtradColors.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2478,8 +2489,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ExtradColors.ExtradColors.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ExtradColors.ExtradColors.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ExtradColors.ExtradColors.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ExtradColors.ExtradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2612,8 +2623,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.IntradColors.IntradColors.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.IntradColors.IntradColors.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.IntradColors.IntradColors.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.IntradColors.IntradColors.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2622,8 +2633,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.IntradColors.IntradColors.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.IntradColors.IntradColors.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.IntradColors.IntradColors.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.IntradColors.IntradColors.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2746,8 +2757,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AddRibPoints.AddRibPoints.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AddRibPoints.AddRibPoints.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AddRibPoints.AddRibPoints.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AddRibPoints.AddRibPoints.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2756,8 +2767,8 @@ details equals brake line paths</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AddRibPoints.AddRibPoints.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AddRibPoints.AddRibPoints.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AddRibPoints.AddRibPoints.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AddRibPoints.AddRibPoints.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2853,8 +2864,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ElasticLinesCorr.ElasticLinesCorr.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ElasticLinesCorr.ElasticLinesCorr.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ElasticLinesCorr.ElasticLinesCorr.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ElasticLinesCorr.ElasticLinesCorr.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2863,8 +2874,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ElasticLinesCorr.ElasticLinesCorr.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ElasticLinesCorr.ElasticLinesCorr.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ElasticLinesCorr.ElasticLinesCorr.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ElasticLinesCorr.ElasticLinesCorr.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -2934,8 +2945,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.JoncsDefinition.JoncsDefinition.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.JoncsDefinition.JoncsDefinition.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.JoncsDefinition.JoncsDefinition.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.JoncsDefinition.JoncsDefinition.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -2944,8 +2955,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.JoncsDefinition.JoncsDefinition.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.JoncsDefinition.JoncsDefinition.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.JoncsDefinition.JoncsDefinition.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.JoncsDefinition.JoncsDefinition.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3092,8 +3103,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NoseMylars.NoseMylars.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.NoseMylars.NoseMylars.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NoseMylars.NoseMylars.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.NoseMylars.NoseMylars.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3102,8 +3113,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NoseMylars.NoseMylars.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NoseMylars.NoseMylars.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NoseMylars.NoseMylars.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NoseMylars.NoseMylars.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3252,7 +3263,8 @@ based on the numbers in the OrderNum column.</p>
 <code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.GlueVent.GlueVent.usage_update" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
+<dd class="field-odd"><p>Updates the GUI as soon in the model the usage
+flag has been changed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3289,8 +3301,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SpecWingTip.SpecWingTip.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SpecWingTip.SpecWingTip.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3299,8 +3311,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SpecWingTip.SpecWingTip.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SpecWingTip.SpecWingTip.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3331,8 +3343,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SpecWingTip.SpecWingTip.usage_cb_change">
-<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SpecWingTip.SpecWingTip.usageCbChange">
+<code class="sig-name descname"><span class="pre">usageCbChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.usageCbChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
@@ -3341,8 +3353,8 @@ based on the numbers in the OrderNum column.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SpecWingTip.SpecWingTip.usage_update">
-<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.usage_update" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SpecWingTip.SpecWingTip.usageUpdate">
+<code class="sig-name descname"><span class="pre">usageUpdate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SpecWingTip.SpecWingTip.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has
@@ -3383,8 +3395,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.CalageVar.CalageVar.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.CalageVar.CalageVar.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3393,8 +3405,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.CalageVar.CalageVar.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.CalageVar.CalageVar.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3427,8 +3439,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.CalageVar.CalageVar.usage_cb_change">
-<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.CalageVar.CalageVar.usageCbChange">
+<code class="sig-name descname"><span class="pre">usageCbChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.usageCbChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
@@ -3437,8 +3449,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.CalageVar.CalageVar.usage_update">
-<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.usage_update" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.CalageVar.CalageVar.usageUpdate">
+<code class="sig-name descname"><span class="pre">usageUpdate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.CalageVar.CalageVar.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
@@ -3488,8 +3500,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDShaping.ThreeDShaping.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDShaping.ThreeDShaping.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDShaping.ThreeDShaping.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDShaping.ThreeDShaping.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3498,8 +3510,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDShaping.ThreeDShaping.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDShaping.ThreeDShaping.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDShaping.ThreeDShaping.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDShaping.ThreeDShaping.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3626,8 +3638,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AirfoilThickness.AirfoilThickness.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AirfoilThickness.AirfoilThickness.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3636,8 +3648,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AirfoilThickness.AirfoilThickness.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AirfoilThickness.AirfoilThickness.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3668,8 +3680,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AirfoilThickness.AirfoilThickness.usage_cb_change">
-<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AirfoilThickness.AirfoilThickness.usageCbChange">
+<code class="sig-name descname"><span class="pre">usageCbChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.usageCbChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
@@ -3678,8 +3690,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.AirfoilThickness.AirfoilThickness.usage_update">
-<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.usage_update" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.AirfoilThickness.AirfoilThickness.usageUpdate">
+<code class="sig-name descname"><span class="pre">usageUpdate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.AirfoilThickness.AirfoilThickness.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
@@ -3719,11 +3731,11 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.addTab">
-<code class="sig-name descname"><span class="pre">addTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.addTab" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.add_tab">
+<code class="sig-name descname"><span class="pre">add_tab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.add_tab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Creates a new tab inculding all its widgets.</p>
+<dd class="field-odd"><p>Creates a new tab including all its widgets.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3772,61 +3784,67 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.confSpinChange">
-<code class="sig-name descname"><span class="pre">confSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.confSpinChange" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.conf_spin_change">
+<code class="sig-name descname"><span class="pre">conf_spin_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.conf_spin_change" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all elements will follow the user configuration.</p>
+<dd class="field-odd"><p>Called upon manual changes of the config spin. Does assure all
+elements will follow the user configuration.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.detSpinChange">
-<code class="sig-name descname"><span class="pre">detSpinChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.detSpinChange" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.det_spin_change">
+<code class="sig-name descname"><span class="pre">det_spin_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.det_spin_change" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration.</p>
+<dd class="field-odd"><p>Called upon manual changes of the detail spin. Does assure all
+elements will follow the user configuration.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.modelNumConfigsChanged">
-<code class="sig-name descname"><span class="pre">modelNumConfigsChanged</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.modelNumConfigsChanged" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.model_num_configs_changed">
+<code class="sig-name descname"><span class="pre">model_num_configs_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.model_num_configs_changed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Called upon canges of the configs model. Does assure all GUI elements will follow the changes.</p>
+<dd class="field-odd"><p>Called upon changes of the configs model. Does assure all GUI
+elements will follow the changes.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.removeTab">
-<code class="sig-name descname"><span class="pre">removeTab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.removeTab" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.remove_tab">
+<code class="sig-name descname"><span class="pre">remove_tab</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.remove_tab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model.</p>
+<dd class="field-odd"><p>Removes the last tab from the GUI. Does take care at the same
+time of the class internal elements and the data model.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.sortBtnPress">
-<code class="sig-name descname"><span class="pre">sortBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.sortBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.sort_btn_press">
+<code class="sig-name descname"><span class="pre">sort_btn_press</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.sort_btn_press" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.</p>
+<dd class="field-odd"><p>Executed if the sort button is pressed. Does a one time sort
+based on the numbers in the OrderNum column.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.NewSkinTension.NewSkinTension.updateTabs">
-<code class="sig-name descname"><span class="pre">updateTabs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.updateTabs" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.NewSkinTension.NewSkinTension.update_tabs">
+<code class="sig-name descname"><span class="pre">update_tabs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.NewSkinTension.NewSkinTension.update_tabs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>called upon canges of the details model. Does assure all GUI elements will follow the changes.</p>
+<dd class="field-odd"><p>called upon changes of the details model. Does assure all GUI
+elements will follow the changes.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3863,8 +3881,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SeewingAllowances.SeewingAllowances.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SeewingAllowances.SeewingAllowances.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SeewingAllowances.SeewingAllowances.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.SeewingAllowances.SeewingAllowances.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3873,8 +3891,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.SeewingAllowances.SeewingAllowances.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SeewingAllowances.SeewingAllowances.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.SeewingAllowances.SeewingAllowances.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.SeewingAllowances.SeewingAllowances.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -3936,8 +3954,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Marks.Marks.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Marks.Marks.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Marks.Marks.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.Marks.Marks.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -3946,8 +3964,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.Marks.Marks.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Marks.Marks.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.Marks.Marks.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.Marks.Marks.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -4005,8 +4023,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.DxfLayerNames.DxfLayerNames.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.DxfLayerNames.DxfLayerNames.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.DxfLayerNames.DxfLayerNames.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.DxfLayerNames.DxfLayerNames.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -4015,8 +4033,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.DxfLayerNames.DxfLayerNames.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.DxfLayerNames.DxfLayerNames.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.DxfLayerNames.DxfLayerNames.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.DxfLayerNames.DxfLayerNames.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -4099,8 +4117,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.MarksTypes.MarksTypes.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MarksTypes.MarksTypes.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MarksTypes.MarksTypes.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MarksTypes.MarksTypes.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -4109,8 +4127,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.MarksTypes.MarksTypes.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.MarksTypes.MarksTypes.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MarksTypes.MarksTypes.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.MarksTypes.MarksTypes.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -4193,8 +4211,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.TwoDDxf.TwoDDxfModel.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.TwoDDxf.TwoDDxfModel.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -4203,8 +4221,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.TwoDDxf.TwoDDxfModel.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.TwoDDxf.TwoDDxfModel.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -4235,8 +4253,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.TwoDDxf.TwoDDxfModel.usage_cb_change">
-<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.TwoDDxf.TwoDDxfModel.usageCbChange">
+<code class="sig-name descname"><span class="pre">usageCbChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.usageCbChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
@@ -4245,8 +4263,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.TwoDDxf.TwoDDxfModel.usage_update">
-<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.usage_update" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.TwoDDxf.TwoDDxfModel.usageUpdate">
+<code class="sig-name descname"><span class="pre">usageUpdate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.TwoDDxf.TwoDDxfModel.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
@@ -4286,8 +4304,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDDxf.ThreeDDxfModel.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDDxf.ThreeDDxfModel.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handling of all pressed buttons.</p>
@@ -4296,8 +4314,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDDxf.ThreeDDxfModel.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDDxf.ThreeDDxfModel.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates the window including all GUI elements.</p>
@@ -4328,8 +4346,8 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDDxf.ThreeDDxfModel.usage_cb_change">
-<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDDxf.ThreeDDxfModel.usageCbChange">
+<code class="sig-name descname"><span class="pre">usageCbChange</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.usageCbChange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
@@ -4338,11 +4356,101 @@ been changed</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ThreeDDxf.ThreeDDxfModel.usage_update">
-<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.usage_update" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ThreeDDxf.ThreeDDxfModel.usageUpdate">
+<code class="sig-name descname"><span class="pre">usageUpdate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ThreeDDxf.ThreeDDxfModel.usageUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gui.PartsSeparation">
+<span id="parts-separation"></span><h2>Parts Separation<a class="headerlink" href="#module-gui.PartsSeparation" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="gui.PartsSeparation.PartsSeparation">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.PartsSeparation.</span></code><code class="sig-name descname"><span class="pre">PartsSeparation</span></code><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Window to display and edit Brake line details</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="gui.PartsSeparation.PartsSeparation.__className">
+<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'PartsSeparation'</span></em><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.PartsSeparation.PartsSeparation.btn_press">
+<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.btn_press" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Handling of all pressed buttons.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.PartsSeparation.PartsSeparation.build_window">
+<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.build_window" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Creates the window including all GUI elements.</p>
+</dd>
+</dl>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span>
+    <span class="n">window_ly</span>
+        <span class="n">Table</span>
+        <span class="o">-------------------------</span>
+            <span class="n">help_bar</span>  <span class="o">|</span> <span class="n">btn_bar</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.PartsSeparation.PartsSeparation.closeEvent">
+<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called at the time the user closes the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.PartsSeparation.PartsSeparation.usage_cb_change">
+<code class="sig-name descname"><span class="pre">usage_cb_change</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.usage_cb_change" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates the model as soon the usage CB has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.PartsSeparation.PartsSeparation.usage_update">
+<code class="sig-name descname"><span class="pre">usage_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.PartsSeparation.PartsSeparation.usage_update" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Updates the GUI as soon in the model the usage flag has
+been changed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4563,13 +4671,13 @@ Does prepare and execute the according file change dialog.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="gui.HelpAbout.HelpAbout.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.HelpAbout.HelpAbout.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.HelpAbout.HelpAbout.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.HelpAbout.HelpAbout.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="gui.HelpAbout.HelpAbout.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.HelpAbout.HelpAbout.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.HelpAbout.HelpAbout.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.HelpAbout.HelpAbout.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds the window.</p>
 <dl>
 <dt>Structure:</dt><dd><dl>
@@ -4623,8 +4731,8 @@ helpAboutLicL</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ProcessorOutput.ProcessorOutput.btn_press">
-<code class="sig-name descname"><span class="pre">btn_press</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ProcessorOutput.ProcessorOutput.btn_press" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ProcessorOutput.ProcessorOutput.btnPress">
+<code class="sig-name descname"><span class="pre">btnPress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ProcessorOutput.ProcessorOutput.btnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Handles button functionality within the window.</p>
@@ -4633,8 +4741,8 @@ helpAboutLicL</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.ProcessorOutput.ProcessorOutput.build_window">
-<code class="sig-name descname"><span class="pre">build_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ProcessorOutput.ProcessorOutput.build_window" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.ProcessorOutput.ProcessorOutput.buildWindow">
+<code class="sig-name descname"><span class="pre">buildWindow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.ProcessorOutput.ProcessorOutput.buildWindow" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Builds the window.</p>

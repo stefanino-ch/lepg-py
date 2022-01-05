@@ -73,6 +73,7 @@ class ProcFileWriter:
         self.airf_thickn_m = ProcModel.AirfoilThicknessModel()
         self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
         self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
+        self.parts_sep_m = ProcModel.PartsSeparationModel()
 
     def set_file_path_name(self, file_path_name):
         """
@@ -841,6 +842,29 @@ class ProcFileWriter:
                         if p == 3:
                             stream << '\n'
 
+        stream << separator
+        stream << '*       32. PARAMETERS FOR PARTS SEPARATION\n'
+        stream << separator
+
+        if self.parts_sep_m.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            values = self.parts_sep_m.get_row(1, 1)
+            stream << 'panel_x\t%s\n' % values.value(0)
+            stream << 'panel_x_min\t%s\n' % values.value(1)
+            stream << 'panel_y\t%s\n' % values.value(2)
+            stream << 'rib_x\t%s\n' % values.value(3)
+            stream << 'rib_y\t%s\n' % values.value(4)
+            # following parameters are not used, therefore hardcoded here
+            stream << 'parameter6\t1.0\n'
+            stream << 'parameter7\t1.0\n'
+            stream << 'parameter8\t1.0\n'
+            stream << 'parameter9\t1.0\n'
+            stream << 'parameter10\t1.0\n'
+
+        stream << '\n'
         stream.flush()
         out_file.close()
 

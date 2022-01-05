@@ -8,20 +8,14 @@ https://doc.qt.io/qtforpython/overviews/sql-model.html
 
 https://www.datacamp.com/community/tutorials/inner-classes-python
 """
-import os
 import logging
 import math
-
-from datetime import date
 
 from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from ConfigReader.ConfigReader import ConfigReader
-
 from data.Database import Database
-from data.FileHelpers import FileHelpers
 from data.PreProcOutfileReader import PreProcOutfileReader
 from data.SqlTableModel import SqlTableModel
 
@@ -282,8 +276,8 @@ class ProcModel(QObject, metaclass=Singleton):
             if self.valid_file(file_name[0]):
                 self.set_file_name(file_name[0])
 
-                self.fileReader.set_file_path_name(file_name[0])
-                self.fileReader.read_file()
+                self.fileReader.read_file(self.get_file_name(),
+                                          self.get_file_version())
 
     def save_file(self):
         """
@@ -3381,6 +3375,8 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
+            self.setNumRowsForConfig(1, 1)
+
             self.setHeaderData(self.OrderNumCol,
                                Qt.Horizontal,
                                _("Order num"))
@@ -3481,6 +3477,7 @@ class ProcModel(QObject, metaclass=Singleton):
             """
             :method: Set the usage flag of the section
             :param is_used: True if section is in use, False otherwise
+            :type is_used: bool
             """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = is_used
@@ -3490,6 +3487,7 @@ class ProcModel(QObject, metaclass=Singleton):
             """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
+            :rtype: bool
             """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed

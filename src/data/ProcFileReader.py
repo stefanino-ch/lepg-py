@@ -44,7 +44,8 @@ class ProcFileReader(QObject):
     :attr: Does help to indicate the source of the log messages
     '''
 
-    __fileNamePath = ''
+    __fileNamePath = ''  # type: str
+    __fileVersion = 0.0  # type: float
 
     def __init__(self):
         """
@@ -95,19 +96,16 @@ class ProcFileReader(QObject):
         self.twoDDxf_M = ProcModel.TwoDDxfModel()
         self.wing_M = ProcModel.WingModel()
 
-    def set_file_path_name(self, file_path_name):
-        """
-        :method: Used to set the full path and filename to be read
-        """
-        self.__fileNamePath = file_path_name
-
-    def read_file(self):
+    def read_file(self, file_path_name, file_version):
         """
         :method: Reads the data file and saves the data in the internal
                  database.
         :warning: Filename and Path must be set first!
         """
         logging.debug(self.__className + '.read_file')
+
+        self.__fileNamePath = file_path_name
+        self.__fileVersion = float(file_version)
 
         self.wait_info_w = WaitWindow()
         self.wait_info_w.show()
@@ -1104,9 +1102,10 @@ class ProcFileReader(QObject):
         data = int(rem_tab_space(stream.readLine()))
 
         self.specWingTyp_M.setIsUsed(False)
-        self.specWingTyp_M.setNumRowsForConfig(1, 1)
 
-        if data != 0:
+        if data == 0:
+            self.specWingTyp_M.setIsUsed(False)
+        else:
             self.specWingTyp_M.setIsUsed(True)
 
             values_a = split_line(stream.readLine())
@@ -1125,7 +1124,6 @@ class ProcFileReader(QObject):
         data = int(rem_tab_space(stream.readLine()))
 
         self.calageVar_M.setIsUsed(False)
-        self.calageVar_M.setNumRowsForConfig(1, 1)
 
         if data != 0:
             self.calageVar_M.setIsUsed(True)
@@ -1192,7 +1190,7 @@ class ProcFileReader(QObject):
                 values = split_line(stream.readLine())
                 num_lo_cuts = int(values[1])
                 if num_lo_cuts == 1:
-                    self.threeDShLoDet_M.setNumRowsForConfig(g + 1, num_up_cuts)
+                    self.threeDShLoDet_M.setNumRowsForConfig(g + 1, num_lo_cuts)
 
                     values = split_line(stream.readLine())
                     self.threeDShLoDet_M.updateRow(g + 1, 1, values[1],
@@ -1239,25 +1237,61 @@ class ProcFileReader(QObject):
         self.newSkinTensConf_M.setNumConfigs(0)
         self.newSkinTensDet_M.setNumConfigs(0)
 
-        if data != 0:
-            num_groups = int(rem_tab_space(stream.readLine()))
-            self.newSkinTensConf_M.setNumConfigs(num_groups)
+        num_groups = int(rem_tab_space(stream.readLine()))
+        self.newSkinTensConf_M.setNumConfigs(num_groups)
 
-            for g in range(0, num_groups):
-                # comment line
+        for g in range(0, num_groups):
+            # comment line
+            stream.readLine()
+
+            values = split_line(stream.readLine())
+            self.newSkinTensConf_M.updateRow(g + 1, values[1], values[2],
+                                             values[4])
+
+            num_lines = int(values[3])
+            self.newSkinTensDet_M.setNumRowsForConfig(g + 1, num_lines)
+            for line_it in range(0, num_lines):
+                values = split_line(stream.readLine())
+                self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,
+                                                values[1], values[2],
+                                                values[3], values[4])
+        ##############################
+        # 32. PARTS SEPARATION
+        # Parts separation was introduced with 3.17
+
+        if self.__fileVersion - 3.17 > -1e-10:
+
+            logging.debug(self.__className + '.read_file: 31. NEW SKIN TENSION')
+
+            for line_it in range(3):
                 stream.readLine()
 
-                values = split_line(stream.readLine())
-                self.newSkinTensConf_M.updateRow(g + 1, values[1], values[2],
-                                                 values[4])
+            data = int(rem_tab_space(stream.readLine()))
 
-                num_lines = int(values[3])
-                self.newSkinTensDet_M.setNumRowsForConfig(g + 1, num_lines)
-                for line_it in range(0, num_lines):
-                    values = split_line(stream.readLine())
-                    self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,
-                                                    values[1], values[2],
-                                                    values[3], values[4])
+            self.partsSep_M.set_is_used(False)
+
+            if data != 0:
+                self.partsSep_M.set_is_used(True)
+                panel_x = split_line(stream.readLine())[1]
+                panel_x_min = split_line(stream.readLine())[1]
+                panel_y = split_line(stream.readLine())[1]
+                rib_x = split_line(stream.readLine())[1]
+                rib_y = split_line(stream.readLine())[1]
+                param6 = split_line(stream.readLine())[1]
+                param7 = split_line(stream.readLine())[1]
+                param8 = split_line(stream.readLine())[1]
+                param9 = split_line(stream.readLine())[1]
+                param10 = split_line(stream.readLine())[1]
+
+                self.partsSep_M.update_row(1, 1,
+                                           panel_x, panel_x_min, panel_y,
+                                           rib_x, rib_y,
+                                           param6, param7,
+                                           param8, param9,
+                                           param10)
+
+        else:
+            self.partsSep_M.set_is_used(False)
 
         ##############################
         # Cleanup

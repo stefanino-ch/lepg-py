@@ -41,6 +41,7 @@ Deutsche Anleitung
    proc/threeDShaping.rst
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
+   proc/partsSeparation.rst
    proc/procOutput.rst
    
    setup/language.rst

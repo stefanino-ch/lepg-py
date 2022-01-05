@@ -163,7 +163,7 @@ class Geometry(QMdiSubWindow):
         '''
         : method : handles the sort of the table by rib number
         '''
-        logging.debug(self.__className+'.sortBtnPress')
+        logging.debug(self.__className+'.sort_btn_press')
         self.rib_M.sortTable(ProcModel.RibModel.RibNumCol,
                              Qt.AscendingOrder)
 

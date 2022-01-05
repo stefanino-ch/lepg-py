@@ -161,7 +161,7 @@ class Lines(QMdiSubWindow):
         :method: Called upon manual changes of the config spin. Does assure
                  all elements will follow the user configuration.
         '''
-        logging.debug(self.__className+'.confSpinChange')
+        logging.debug(self.__className+'.conf_spin_change')
         currNumConfigs = self.lines_M.numConfigs()
         mustNumConfigs = self.numConf_S.value()
 
@@ -217,7 +217,7 @@ class Lines(QMdiSubWindow):
         '''
         :method: Creates a new tab inculding all its widgets.
         '''
-        logging.debug(self.__className+'.addTab')
+        logging.debug(self.__className+'.add_tab')
 
         currNumTabs = self.tabs.count()
 
@@ -335,7 +335,7 @@ class Lines(QMdiSubWindow):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         '''
-        logging.debug(self.__className+'.removeTab')
+        logging.debug(self.__className+'.remove_tab')
         numTabs = self.tabs.count()
         self.tabs.removeTab(numTabs-1)
         # cleanup arrays
@@ -366,7 +366,7 @@ class Lines(QMdiSubWindow):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         '''
-        logging.debug(self.__className+'.sortBtnPress')
+        logging.debug(self.__className+'.sort_btn_press')
 
         if self.tabs.count() > 0:
             currTab = self.tabs.currentIndex()
