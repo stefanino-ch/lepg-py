@@ -48,7 +48,7 @@ class ProcessorOutput(QMdiSubWindow):
 
                     btn_bar
         '''
-        self.setWindowIcon(QIcon('gui\\favicon.ico'))
+        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(700, 400)

@@ -15,7 +15,8 @@ from data.SqlTableModel import SqlTableModel
 from ConfigReader.ConfigReader import ConfigReader
 from data.Database import Database
 
-from data.FileHelpers import FileHelpers
+from data.FileHelpers import split_line, rem_tab_space_quot, \
+                             chk_str, chk_num
 
 
 class PreProcModel(QObject, metaclass=Singleton):
@@ -59,8 +60,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         self.db.openConnection()
 
         super().__init__()
-
-        self.fh = FileHelpers()
 
         self.leadingE_M = self.LeadingEdgeModel()
         self.trailingE_M = self.TrailingEdgeModel()
@@ -978,12 +977,12 @@ class PreProcModel(QObject, metaclass=Singleton):
             # to a select() to assure the model is updated properly
             self.select()
 
-        def getRow(self, configNum, orderNum):
+        def getRow(self, configNum, order_num):
             '''
             :method: Reads values back from the internal database for a
                      config and order number
             :param configNum: Starting with 1.
-            :param ordergNum: Starting with 1.
+            :param order_num: Starting with 1.
             :return: values read from internal database
             '''
             logging.debug(self.__className+'.get_row')
@@ -1001,7 +1000,7 @@ class PreProcModel(QObject, metaclass=Singleton):
                           "FROM TrailingEdge "
                           "WHERE (ConfigNum = :config AND OrderNum = :order)")
             query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":order", order_num)
             query.exec()
             query.next()
             return query.value

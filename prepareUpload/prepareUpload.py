@@ -32,7 +32,7 @@ print('Reset processor directory? [y/ n]')
 answ = input('Default= y ')
 
 if answ != 'n':
-    os.system('python ../processors/setupProcessors.py')
+    os.system('python ../processors/setupProcessor.py')
 
 
 print()
@@ -55,3 +55,5 @@ if answ == 'y':
         os.system('python ../distribution/buildOsxPackage.py')
     else:
         print('OS not supported currently.')
+
+print()

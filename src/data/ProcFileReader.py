@@ -1237,31 +1237,32 @@ class ProcFileReader(QObject):
         self.newSkinTensConf_M.setNumConfigs(0)
         self.newSkinTensDet_M.setNumConfigs(0)
 
-        num_groups = int(rem_tab_space(stream.readLine()))
-        self.newSkinTensConf_M.setNumConfigs(num_groups)
+        if data != 0:
+            num_groups = int(rem_tab_space(stream.readLine()))
+            self.newSkinTensConf_M.setNumConfigs(num_groups)
 
-        for g in range(0, num_groups):
-            # comment line
-            stream.readLine()
+            for g in range(0, num_groups):
+                # comment line
+                stream.readLine()
 
-            values = split_line(stream.readLine())
-            self.newSkinTensConf_M.updateRow(g + 1, values[1], values[2],
-                                             values[4])
-
-            num_lines = int(values[3])
-            self.newSkinTensDet_M.setNumRowsForConfig(g + 1, num_lines)
-            for line_it in range(0, num_lines):
                 values = split_line(stream.readLine())
-                self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,
-                                                values[1], values[2],
-                                                values[3], values[4])
+                self.newSkinTensConf_M.updateRow(g + 1, values[1], values[2],
+                                                 values[4])
+
+                num_lines = int(values[3])
+                self.newSkinTensDet_M.setNumRowsForConfig(g + 1, num_lines)
+                for line_it in range(0, num_lines):
+                    values = split_line(stream.readLine())
+                    self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,
+                                                    values[1], values[2],
+                                                    values[3], values[4])
         ##############################
         # 32. PARTS SEPARATION
         # Parts separation was introduced with 3.17
 
         if self.__fileVersion - 3.17 > -1e-10:
 
-            logging.debug(self.__className + '.read_file: 31. NEW SKIN TENSION')
+            logging.debug(self.__className + '.read_file: 32. PARTS SEPARATION')
 
             for line_it in range(3):
                 stream.readLine()

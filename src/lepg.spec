@@ -14,14 +14,14 @@ data_files_to_add = [
 					('logger.conf', '.' ),
 					('translations', 'translations' ),
 					('userHelp', 'userHelp' ),
-					(os.path.join('Windows','appIcon.ico'), 'Windows')
+					(os.path.join('gui','elements', 'appIcon.ico'), os.path.join('gui','elements'))
 					]
 
 processor_w64 = [
 			    (os.path.join('Processors',
-				'lep-3.16-win64'),
+				'lep-3.17-win64'),
 				os.path.join('Processors',
-			    'lep-3.16-win64'))
+			    'lep-3.17-win64'))
 				]
 					
 processor_lin64 = [ 	
@@ -72,7 +72,7 @@ main_exe = EXE(main_pyz,
                strip=False,
                upx=True,
                console=True,
-		       icon= os.path.join('Windows', 'appIcon.ico'))
+		       icon= os.path.join('gui', 'elements', 'appIcon.ico'))
 
 if platform.startswith('win'):
     coll = COLLECT(main_exe,

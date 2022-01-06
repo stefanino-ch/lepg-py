@@ -23,7 +23,7 @@ Ein Koeffizient > 1 bewirkt eine Vergrösserung des Abstandes, ein Koeffizient
    :width: 400
    :height: 153
    
-Raw data::
+Rohdaten::
 
     ***************************************************
     *       32. PARAMETERS FOR PARTS SEPARATION

@@ -26,32 +26,45 @@ curr_path = os.path.dirname(os.path.realpath(__file__))
 
 if platform.system() == "Windows":
     proc_src_path_name = os.path.join(curr_path, win_src_zip)
-    proc_tgt_path_name = os.path.join(curr_path, '..',
+    proc_del_path_name = os.path.join(curr_path, '..',
                                       'src',
                                       'Processors',
                                       win_proc_dir_name)
+    proc_zip_path_name = os.path.join(curr_path, '..',
+                                      'src',
+                                      'Processors')
 elif platform.system() == 'Linux':
     proc_src_path_name = os.path.join(curr_path, lin_src_zip)
-    proc_tgt_path_name = os.path.join(curr_path, '..',
+    proc_del_path_name = os.path.join(curr_path, '..',
                                       'src',
                                       'Processors',
                                       lin_proc_dir_name)
+    proc_zip_path_name = os.path.join(curr_path, '..',
+                                      'src',
+                                      'Processors')
 elif platform.system() == "Darwin":
     proc_src_path_name = os.path.join(curr_path, osx_src_zip)
-    proc_tgt_path_name = os.path.join(curr_path, '..',
+    proc_del_path_name = os.path.join(curr_path, '..',
+                                      'src',
+                                      'Processors',
+                                      osx_proc_dir_name)
+    proc_zip_path_name = os.path.join(curr_path, '..',
                                       'src',
                                       'Processors',
                                       osx_proc_dir_name)
 else:
     print('OS not supported')
     sys.exit(1)
+print()
+print(f'Removing old processor in {proc_del_path_name} ...')
 
-print('Removing old processor')
-print(f'Dir {proc_tgt_path_name}')
+if os.path.isdir(proc_del_path_name):
+    shutil.rmtree(proc_del_path_name)
 
-if os.path.isdir(proc_tgt_path_name):
-    shutil.rmtree(proc_tgt_path_name)
-
-print('Extracting processor')
+print()
+print('... extracting new processor ...')
 with zipfile.ZipFile(proc_src_path_name, 'r') as zip_ref:
-    zip_ref.extractall(proc_tgt_path_name)
+    zip_ref.extractall(proc_zip_path_name)
+
+print()
+print('... done')

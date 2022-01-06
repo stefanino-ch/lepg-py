@@ -99,7 +99,7 @@ class PreProcWingOutline(QMdiSubWindow):
         """
         logging.debug(self.__className + '.build_window')
 
-        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
+        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
         self.window.setMinimumSize(900, 400)

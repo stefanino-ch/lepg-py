@@ -66,7 +66,7 @@ class DataStatusOverview(QMdiSubWindow):
                     ---------------------------------
                     btn_bar
         '''
-        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
+        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
                 

@@ -85,6 +85,7 @@ class MainWindow(QMainWindow):
         :method: Constructor
         """
         # Delete old log file
+        self.view_wing_outline_w = None
         self.proc_out_w = None
         self.pre_proc_cells_distr_w = None
         self.pre_proc_wing_outline_w = None
@@ -92,11 +93,29 @@ class MainWindow(QMainWindow):
         self.delete_logfile()
 
         # Set up the logger
-        # Additional code needed due to pyinstaller. Check doc there.
-        bundle_dir = getattr(sys,
-                             '_MEIPASS',
-                             path.abspath(path.dirname(__file__)))
-        path_to_dat = path.abspath(path.join(bundle_dir, '../logger.conf'))
+        # Additional code needed due to pyinstaller.
+        # determine if application is a script file or frozen exe
+        # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
+        if getattr(sys, 'frozen', False):
+            bundle_dir = os.path.dirname(sys.executable)
+            running_mode = 'Frozen/executable'
+            path_to_dat = os.path.join(bundle_dir, 'logger.conf')
+            locale_path = os.path.join(bundle_dir, 'translations')
+        else:
+            try:
+                app_full_path = os.path.realpath(__file__)
+                bundle_dir = os.path.dirname(app_full_path)
+                running_mode = "Non-interactive (e.g. 'python myapp.py')"
+            except NameError:
+                bundle_dir = os.getcwd()
+                running_mode = 'Interactive'
+
+            path_to_dat = os.path.join(bundle_dir, '..', 'logger.conf')
+            locale_path = os.path.join(bundle_dir, '..', 'translations')
+
+        print('Running mode:', running_mode)
+        print('  Bundle dir  :', bundle_dir)
+        print('  Config full path :', path_to_dat)
 
         logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
         self.logger = logging.getLogger('root')
@@ -108,7 +127,6 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.__init__')
 
         # Setup languages
-        locale_path = path.abspath(path.join(bundle_dir, '../translations'))
 
         self.config_reader = ConfigReader()
 
@@ -135,7 +153,7 @@ class MainWindow(QMainWindow):
         self.dws = DataWindowStatus()
 
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('elements/appIcon.ico'))
+        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg-py %s" % __version__)
@@ -283,10 +301,6 @@ class MainWindow(QMainWindow):
         pre_proc_run_act.setStatusTip(_('run_preProc_des'))
         pre_proc_run_act.triggered.connect(self.pre_proc_run)
 
-        pre_proc_wing_outline = QAction(_('Show wing outline'), self)
-        pre_proc_wing_outline.setStatusTip(_('show_WingOutline_des'))
-        pre_proc_wing_outline.triggered.connect(self.pre_proc_wing_outline)
-
         # Build the menu
         pre_proc_menu = self.mainMenu.addMenu(_('Pre Processor'))
         pre_proc_menu.addAction(pre_proc_open_file_act)
@@ -297,8 +311,6 @@ class MainWindow(QMainWindow):
         pre_proc_menu.addAction(pre_proc_cells_distr_act)
         pre_proc_menu.addSeparator()
         pre_proc_menu.addAction(pre_proc_run_act)
-        pre_proc_menu.addSeparator()
-        pre_proc_menu.addAction(pre_proc_wing_outline)
 
     def pre_proc_open_file(self):
         """
@@ -343,17 +355,6 @@ class MainWindow(QMainWindow):
             self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
         self.pre_proc_cells_distr_w.show()
 
-    def pre_proc_wing_outline(self):
-        """
-        :method: Called if the user selects *Pre Processor*
-                 -> *Show wing outline*
-        """
-        if self.dws.windowExists('PreProcWingOutline') is False:
-            self.pre_proc_wing_outline_w = PreProcWingOutline()
-            self.dws.registerWindow('PreProcWingOutline')
-            self.mdi.addSubWindow(self.pre_proc_wing_outline_w)
-        self.pre_proc_wing_outline_w.show()
-
     def pre_proc_run(self):
         """
         :method: Called if the user selects *Pre Processor*
@@ -386,8 +387,8 @@ class MainWindow(QMainWindow):
         else:
             proc_runner.run_pre_proc()
             if self.config_reader.get_pre_proc_show_outline() is True:
-                self.pre_proc_wing_outline()
-                self.pre_proc_wing_outline_w.open_pre_proc_file()
+                self.view_wing_outline()
+                self.view_wing_outline_w.open_pre_proc_file()
 
     def build_proc_menu(self):
         """
@@ -972,6 +973,10 @@ class MainWindow(QMainWindow):
         :method: Builds the View menu
         """
         # Define the actions
+        view_wing_outline = QAction(_('Wing outline'), self)
+        view_wing_outline.setStatusTip(_('show_WingOutline_des'))
+        view_wing_outline.triggered.connect(self.view_wing_outline)
+
         view_cascade_act = QAction(_('Cascade'), self)
         view_cascade_act.setStatusTip(_('Cascade all windows'))
         view_cascade_act.triggered.connect(self.view_cascade)
@@ -979,11 +984,24 @@ class MainWindow(QMainWindow):
         view_tile_act = QAction(_('Tile'), self)
         view_tile_act.setStatusTip(_('Tile all windows'))
         view_tile_act.triggered.connect(self.view_tile)
+
         # Build the menu
         view_menu = self.mainMenu.addMenu(_('View'))
+        view_menu.addAction(view_wing_outline)
         view_menu.addSeparator()
         view_menu.addAction(view_cascade_act)
         view_menu.addAction(view_tile_act)
+
+    def view_wing_outline(self):
+        """
+        :method: Called if the user selects *View*
+                 -> *Wing outline*
+        """
+        if self.dws.windowExists('ViewWingOutline') is False:
+            self.view_wing_outline_w = PreProcWingOutline()
+            self.dws.registerWindow('ViewWingOutline')
+            self.mdi.addSubWindow(self.view_wing_outline_w)
+        self.view_wing_outline_w.show()
 
     def view_cascade(self):
         """

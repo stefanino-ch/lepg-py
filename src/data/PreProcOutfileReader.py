@@ -9,7 +9,7 @@ from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
-from data.FileHelpers import FileHelpers
+from data.FileHelpers import split_line
 
 
 class PreProcOutfileReader:
@@ -34,7 +34,6 @@ class PreProcOutfileReader:
         logging.debug(self.__className + '.__init__')
 
         self.config_reader = ConfigReader()
-        self.fh = FileHelpers()
 
     def __valid_file(self, file_path_name):
         """

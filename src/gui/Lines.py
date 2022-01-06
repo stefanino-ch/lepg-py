@@ -72,7 +72,7 @@ class Lines(QMdiSubWindow):
         '''
         logging.debug(self.__className + '.build_window')
 
-        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
+        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)

@@ -101,7 +101,7 @@ class ProcFileWriter:
             # PreProcessor resides
             config_reader = ConfigReader()
             file_path_name = os.path.join(config_reader
-                                          .get_pre_proc_directory(),
+                                          .get_proc_directory(),
                                           'leparagliding.txt')
         else:
             file_path_name = self.__fileNamePath

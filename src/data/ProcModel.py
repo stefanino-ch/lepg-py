@@ -15,11 +15,10 @@ from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from Singleton.Singleton import Singleton
 from data.Database import Database
 from data.PreProcOutfileReader import PreProcOutfileReader
 from data.SqlTableModel import SqlTableModel
-
-from Singleton.Singleton import Singleton
 
 
 class ProcModel(QObject, metaclass=Singleton):
@@ -68,6 +67,9 @@ class ProcModel(QObject, metaclass=Singleton):
         self.db.openConnection()
 
         super().__init__()
+
+        self.wing_m = ProcModel.WingModel()
+        self.rib_m = ProcModel.RibModel()
 
         self.fileReader = ProcFileReader()
         self.fileWriter = ProcFileWriter()
