@@ -26,18 +26,18 @@ print()
 curr_path = os.path.dirname(os.path.realpath(__file__))
 
 print('Removing old packages')
-pathName = os.path.join(curr_path, 'dist-Lin64/')
+pathName = os.path.join(curr_path, 'dist-lin64/')
 if os.path.isdir(pathName):
     shutil.rmtree(pathName)
     
-# create dist-W64 directory
+# create dist directory
 os.makedirs(pathName, exist_ok=True)
 
 print('Executing pyinstaller')
 
 os.chdir(curr_path)
 os.system('pyinstaller --noconfirm \
-            --distpath dist-Lin64 \
+            --distpath dist-lin64 \
             ../src/lepg.spec')
             
 # os.system('pyinstaller --noconfirm \
@@ -50,7 +50,7 @@ versFile = os.path.join(curr_path, '../src/__init__.py')
 vers = read_own_version(versFile)
 
 # setup config file
-destPathName = os.path.join(curr_path, 'dist-Lin64/lepg/configFile.txt')
+destPathName = os.path.join(curr_path, 'dist-lin64/lepg/configFile.txt')
 
 print()
 print('Setup config file')
@@ -64,31 +64,30 @@ if answ != 'l':
 else:
     version = "latest"
     sourcePathName = os.path.join(curr_path, 'latest-configFile.txt')
-    
 
 shutil.copyfile(sourcePathName, destPathName)
 print()
 print('Creating new package')
-# os.system('python -m zipfile -c dist-Lin64/lepg-Lin64-V'+vers+'-'+ver_str+'.zip dist-Lin64/lepg/*')
-os.system('python -m zipfile -c dist-Lin64/lepg.zip dist-Lin64/lepg/*')
+
+os.system('python -m zipfile -c dist-lin64/lepg.zip dist-lin64/lepg/*')
 
 print()
 print('Splitting .zip file')
-os.system('zipsplit -n $((70*1024*1024)) dist-Lin64/lepg.zip -b dist-Lin64/')
+os.system('zipsplit -n $((70*1024*1024)) dist-lin64/lepg.zip -b dist-lin64/')
 
 print()
 print('Renaming .zip files')
-os.system('mv dist-Lin64/lepg1.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-1.zip')
-os.system('mv dist-Lin64/lepg2.zip dist-Lin64/lepg-Lin64-V'+vers+'-'+version+'-2.zip')
+os.system('mv dist-lin64/lepg1.zip dist-lin64/lepg-lin64-V'+vers+'-'+version+'-1.zip')
+os.system('mv dist-lin64/lepg2.zip dist-lin64/lepg-lin64-V'+vers+'-'+version+'-2.zip')
 
 print()
 print('Copy howto')
-os.system('cp Linux-installation-howto.txt dist-Lin64/Linux-installation-howto.txt')
+os.system('cp Linux-installation-howto.txt dist-lin64/Linux-installation-howto.txt')
 
 print()
 print('Cleanup')
-os.system('rm -f dist-Lin64/lepg.zip')
-os.system('rm -rf dist-Lin64/lepg/')
+os.system('rm -f dist-lin64/lepg.zip')
+os.system('rm -rf dist-lin64/lepg/')
 
 print()
 print('done')

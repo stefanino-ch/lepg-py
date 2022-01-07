@@ -12,8 +12,8 @@ import zipfile
 win_src_zip = 'lep-3.17-win64.zip'
 win_proc_dir_name = 'lep-3.17-win64'
 
-lin_src_zip = ''
-lin_proc_dir_name = ''
+lin_src_zip = 'lep-3.17-lin64.zip'
+lin_proc_dir_name = 'lep-3.17-lin64'
 
 osx_src_zip = ''
 osx_proc_dir_name = ''
