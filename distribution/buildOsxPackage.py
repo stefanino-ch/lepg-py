@@ -17,7 +17,7 @@ def read_own_version(path_file):
         verstr = mo.group(1)
         return verstr
     else:
-        print("Unable to find version string in %s." % (path_file,))
+        print("Unable to find ver_str string in %s." % (path_file,))
         sys.exit()
 
 
@@ -46,7 +46,7 @@ os.system('pyinstaller --noconfirm \
 #            --clean \
 #            ../src/lepg.spec')
 
-# reading current version number
+# reading current ver_str number
 versFile = os.path.join(curr_path, '../src/__init__.py')
 vers = read_own_version(versFile)
 

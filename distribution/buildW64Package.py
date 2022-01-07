@@ -17,7 +17,7 @@ def read_own_version(path_file):
         verstr = mo.group(1)
         return verstr
     else:
-        print("Unable to find version string in %s." % (path_file,))
+        print("Unable to find ver_str string in %s." % (path_file,))
         sys.exit()
 
 
@@ -45,20 +45,20 @@ os.system('pyinstaller --noconfirm \
 #            --clean \
 #            ../src/lepg.spec')
 
-# reading current version number
+# reading current ver_str number
 versFile = os.path.join(curr_path, '../src/__init__.py')
 vers = read_own_version(versFile)
 
 # setup config file
-destPathName = os.path.join(curr_path, 'dist-W64/lepg/configFile.txt')
+dest_path_name = os.path.join(curr_path, 'dist-W64/lepg/configFile.txt')
 
 print()
 print('Setup config file')
 print('Create package for which branch? ')
 print('s: stable; l: latest') 
-answ = input('Default= s ')
+answer = input('Default= s ')
 
-if answ != 'l':
+if answer != 'l':
     version = "stable"
     sourcePathName = os.path.join(curr_path, 'stable-configFile.txt')
 else:
@@ -66,17 +66,17 @@ else:
     sourcePathName = os.path.join(curr_path, 'latest-configFile.txt')
     
 
-shutil.copyfile(sourcePathName, destPathName)
+shutil.copyfile(sourcePathName, dest_path_name)
 print()
-print('Creating new package')
+print('Creating new package...')
 os.system('python -m zipfile -c dist-W64/lepg-W64-V'
           + vers + '-' + version + '.zip dist-W64/lepg/.')
 
 print()
-print('Cleanup')
+print('... cleanup ...')
 pathName = os.path.join(curr_path, 'dist-W64/lepg/')
 if os.path.isdir(pathName):
     shutil.rmtree(pathName)
 
-print('done')
+print('... done')
 print()

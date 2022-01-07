@@ -1,35 +1,38 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import os
 import platform
 import re
 import sys
 
+
 # https://stackoverflow.com/questions/458550/standard-way-to-embed-version-into-python-package
-def readOwnVersion(pathFile):
-    verstrline = open(pathFile, "rt").read()
-    VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
-    mo = re.search(VSRE, verstrline, re.M)
+def read_own_version(path_file):
+    ver_str_line = open(path_file, "rt").read()
+    version_regex = r"^__version__ = ['\"]([^'\"]*)['\"]"
+    mo = re.search(version_regex, ver_str_line, re.M)
     if mo:
-        verstr = mo.group(1)
-        return(verstr)
+        ver_str = mo.group(1)
+        return ver_str
     else:
-        print("Unable to find version string in %s." % (pathFile,))
+        print("Unable to find ver_str string in %s." % (path_file,))
         sys.exit()
-    
+
+
 # https://stackoverflow.com/questions/52952905/python-increment-version-number-by-0-0-1
-def incrementVersion(ver):
-    ver = ver.split('.')
-    ver[2] = str(int(ver[2]) + 1)
-    return '.'.join(ver)
+def increment_version(ver_str):
+    ver_str = ver_str.split('.')
+    ver_str[2] = str(int(ver_str[2]) + 1)
+    return '.'.join(ver_str)
+
 
 # https://stackoverflow.com/questions/57108712/replace-updated-version-strings-in-files-via-python
-def updateOwnVersion(pathFile, ver):
+def update_own_version(path_file, ver):
     version_regex = re.compile(r"(^_*?version_*?\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
     
-    with open(pathFile, "r+") as f:
+    with open(path_file, "r+") as f:
         content = f.read()
         f.seek(0)
         f.write(
@@ -40,17 +43,21 @@ def updateOwnVersion(pathFile, ver):
             )
         )
         f.truncate()
-        
-def updateRemoteVersion(pathFile, ver):
-    # version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
-    if platform.system() == "gui":
-        version_regex = re.compile(r"(Latest_Windows_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
-    elif platform.system() == ('Linux'):
-        version_regex = re.compile(r"(Latest_Linux_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
-    elif platform.system() == ('Darwin'):
-        version_regex = re.compile(r"(Latest_Mac_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
 
-    with open(pathFile, "r+") as f:
+
+def update_remote_version(path_file, ver):
+    # version_regex = re.compile(r"(latestVersion\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    if platform.system() == "Windows":
+        version_regex = re.compile(r"(Latest_Windows_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    elif platform.system() == 'Linux':
+        version_regex = re.compile(r"(Latest_Linux_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    elif platform.system() == 'Darwin':
+        version_regex = re.compile(r"(Latest_Mac_Version\s*=\s*['\"])(\d+\.\d+\.\d+)", re.M)
+    else:
+        print('OS not supported')
+        version_regex = ''
+
+    with open(path_file, "r+") as f:
         content = f.read()
         f.seek(0)
         f.write(
@@ -61,22 +68,23 @@ def updateRemoteVersion(pathFile, ver):
             )
         )
         f.truncate()
+
 
 print()
-dirpath = os.path.dirname(os.path.realpath(__file__))
-versFile = os.path.join(dirpath, '../src/__init__.py')
-readmeFile = os.path.join(dirpath, '../README.md')
+curr_path = os.path.dirname(os.path.realpath(__file__))
+versFile = os.path.join(curr_path, '../src/__init__.py')
+readmeFile = os.path.join(curr_path, '../README.md')
 
-vers = readOwnVersion(versFile)
+vers = read_own_version(versFile)
 
-print('The current version is: %s' %(vers))   
-print('Update version number? [y/ n]')
-answ = input('Default= n ')
-if answ == 'y':
-    vers = incrementVersion(vers)
-    updateOwnVersion(versFile, vers)
+print('The current ver_str is: %s' % vers)
+print('Update ver_str number? [y/ n]')
+answer = input('Default= n ')
+if answer == 'y':
+    vers = increment_version(vers)
+    update_own_version(versFile, vers)
 
-updateRemoteVersion(readmeFile, vers)
+update_remote_version(readmeFile, vers)
 
-print('Version is now: %s' %(vers))
+print('Version is now: %s' % vers)
 print()

@@ -1,4 +1,5 @@
 [Defaults]
-checkforupdates = yes
-trackbranch = latest
+check_for_updates = True
+tracking_branch = latest
+pre_proc_show_outline = True
 

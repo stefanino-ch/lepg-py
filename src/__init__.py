@@ -1,4 +1,4 @@
-__version__ = '3.17.0'
+__version__ = '3.17.1'
 
 # 3.17.0
 # Type columns in PreProcData removed as they are always 1.
@@ -13,4 +13,4 @@ __version__ = '3.17.0'
 # 3.16.1 Updates in user and online help
 
 # 3.16.0
-# First version for lep 3.16
+# First ver_str for lep 3.16
