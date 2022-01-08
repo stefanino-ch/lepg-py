@@ -37,6 +37,7 @@ class PreProcData(QMdiSubWindow):
         super().__init__()
 
         self.gen_M = PreProcModel.GenModel()
+
         self.leadingE_M = PreProcModel.LeadingEdgeModel()
         self.trailingE_M = PreProcModel.TrailingEdgeModel()
 
@@ -338,6 +339,9 @@ class PreProcData(QMdiSubWindow):
         for i in range(PreProcModel.VaultModel.rOneRACol,
                        PreProcModel.VaultModel.aFouRACol + 1):
             self.vault_table.showColumn(i)
+
+    def data_changed(self):
+        print('data changed')
 
     def btn_press(self, q):
         """

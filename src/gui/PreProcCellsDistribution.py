@@ -197,15 +197,15 @@ class PreProcCellsDistribution(QMdiSubWindow):
         """
         logging.debug(self.__className+'.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
-            self.cellsDistr_M.setNumRowsForConfig(1, 1)
+            self.cellsDistr_M.set_num_rows_for_config(1, 1)
             self.cellsDistr_M.update_type(1, 1, 1)
             
         elif self.usage_cb.currentIndex() == 1:
-            self.cellsDistr_M.setNumRowsForConfig(1, 1)
+            self.cellsDistr_M.set_num_rows_for_config(1, 1)
             self.cellsDistr_M.update_type(1, 1, 2)
         
         elif self.usage_cb.currentIndex() == 2:
-            self.cellsDistr_M.setNumRowsForConfig(1, 1)
+            self.cellsDistr_M.set_num_rows_for_config(1, 1)
             self.cellsDistr_M.update_type(1, 1, 3)
             
         elif self.usage_cb.currentIndex() == 3:
@@ -216,7 +216,7 @@ class PreProcCellsDistribution(QMdiSubWindow):
         :method: Updates the model as soon the usage CB has been changed
         """
         logging.debug(self.__className+'.num_lines_change')
-        self.cellsDistr_M.setNumRowsForConfig(1, self.num_lines_s.value())
+        self.cellsDistr_M.set_num_rows_for_config(1, self.num_lines_s.value())
             
     def btn_press(self, q):
         """
@@ -271,7 +271,7 @@ class PreProcCellsDistribution(QMdiSubWindow):
         logging.debug(self.__className+'.set_type_fou_columns')
         
         self.num_lines_s.blockSignals(True)
-        self.num_lines_s.setValue(self.cellsDistr_M.numRowsForConfig(1))
+        self.num_lines_s.setValue(self.cellsDistr_M.num_rows_for_config(1))
         self.num_lines_s.blockSignals(False)
         
         self.num_lines_l.setVisible(True)

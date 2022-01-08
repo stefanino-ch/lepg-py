@@ -94,7 +94,7 @@ class NewSkinTension(QMdiSubWindow):
         self.num_conf_s = QSpinBox()
         self.num_conf_s.setRange(0, 999)
         self.num_conf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.num_conf_s.setValue(self.newSkinTensConf_M.numConfigs())
+        self.num_conf_s.setValue(self.newSkinTensConf_M.num_configs())
         conf_edit = self.num_conf_s.lineEdit()
         conf_edit.setReadOnly(True)
         self.num_conf_s.valueChanged.connect(self.conf_spin_change)
@@ -109,7 +109,7 @@ class NewSkinTension(QMdiSubWindow):
         self.window_ly.addWidget(self.tabs)
 
         # check if there's already data
-        if self.newSkinTensConf_M.numConfigs() > 0:
+        if self.newSkinTensConf_M.num_configs() > 0:
             self.model_num_configs_changed()
 
         sort_btn = QPushButton(_('Sort by order_num'))
@@ -138,7 +138,7 @@ class NewSkinTension(QMdiSubWindow):
                  elements will follow the user configuration.
         """
         logging.debug(self.__className + '.conf_spin_change')
-        self.newSkinTensConf_M.setNumConfigs(self.num_conf_s.value())
+        self.newSkinTensConf_M.set_num_configs(self.num_conf_s.value())
 
     def model_num_configs_changed(self):
         """
@@ -147,7 +147,7 @@ class NewSkinTension(QMdiSubWindow):
         """
         logging.debug(self.__className + '.model_num_configs_changed')
 
-        current_num_configs = self.newSkinTensConf_M.numConfigs()
+        current_num_configs = self.newSkinTensConf_M.num_configs()
 
         self.num_conf_s.blockSignals(True)
         self.num_conf_s.setValue(current_num_configs)
@@ -174,8 +174,8 @@ class NewSkinTension(QMdiSubWindow):
                  elements will follow the user configuration.
         """
         logging.debug(self.__className + '.det_spin_change')
-        self.newSkinTensDet_M.setNumRowsForConfig(self.tabs.currentIndex() + 1,
-                                                  self.numDet_S[self.tabs.currentIndex()].value())
+        self.newSkinTensDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1,
+                                                      self.numDet_S[self.tabs.currentIndex()].value())
 
     def add_tab(self):
         """
@@ -269,7 +269,7 @@ class NewSkinTension(QMdiSubWindow):
         # then setup spin
         if self.detProxyModel[curr_num_tabs].rowCount() == 0:
             # a new tab was created from the gui
-            self.newSkinTensDet_M.setNumRowsForConfig(curr_num_tabs + 1, 1)
+            self.newSkinTensDet_M.set_num_rows_for_config(curr_num_tabs + 1, 1)
         # a new tab was added based on file load. The model has been updated already before. 
         self.numDet_S[curr_num_tabs].setValue(self.detProxyModel[curr_num_tabs].rowCount())
         tab_widget.setLayout(tab_layout)
@@ -289,7 +289,7 @@ class NewSkinTension(QMdiSubWindow):
         self.confProxyModel.pop(num_tabs - 1)
         self.detProxyModel.pop(num_tabs - 1)
         self.numDet_S.pop(num_tabs - 1)
-        self.newSkinTensDet_M.setNumRowsForConfig(num_tabs, 0)
+        self.newSkinTensDet_M.set_num_rows_for_config(num_tabs, 0)
 
     def update_tabs(self):
         """
@@ -300,9 +300,9 @@ class NewSkinTension(QMdiSubWindow):
 
         i = 0
         while i < self.tabs.count():
-            if self.numDet_S[i].value != self.newSkinTensDet_M.numRowsForConfig(i + 1):
+            if self.numDet_S[i].value != self.newSkinTensDet_M.num_rows_for_config(i + 1):
                 self.numDet_S[i].blockSignals(True)
-                self.numDet_S[i].setValue(self.newSkinTensDet_M.numRowsForConfig(i + 1))
+                self.numDet_S[i].setValue(self.newSkinTensDet_M.num_rows_for_config(i + 1))
                 self.numDet_S[i].blockSignals(False)
             i += 1
 

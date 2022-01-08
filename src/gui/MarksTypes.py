@@ -113,7 +113,7 @@ class MarksTypes(QMdiSubWindow):
         marksTypes_T.setHelpText(ProcModel.MarksTypesModel.FormTwoPTwoCol, _('MarksTypes-FormTwoPTwoDesc'))
         
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.marksT_M.numRowsForConfig(1) )
+        self.numLines_S.setValue(self.marksT_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
 
         #############################
@@ -137,7 +137,7 @@ class MarksTypes(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.marksT_M.numRowsForConfig(1) )
+        self.numLines_S.setValue(self.marksT_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
         
                    
@@ -146,7 +146,7 @@ class MarksTypes(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.num_lines_change')
-        self.marksT_M.setNumRowsForConfig(1, self.numLines_S.value() )
+        self.marksT_M.set_num_rows_for_config(1, self.numLines_S.value())
     
     def btnPress(self, q):
         '''

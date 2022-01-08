@@ -89,7 +89,7 @@ class JoncsDefinition(QMdiSubWindow):
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0,20)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S.setValue( self.joncsDef_M.numConfigs() )
+        self.numConf_S.setValue(self.joncsDef_M.num_configs())
         
         edit = self.numConf_S.lineEdit()
         edit.setReadOnly(True)
@@ -105,7 +105,7 @@ class JoncsDefinition(QMdiSubWindow):
         self.windowLayout.addWidget(self.tabs)
          
         # check if there's already data
-        if self.joncsDef_M.numConfigs() > 0:
+        if self.joncsDef_M.num_configs() > 0:
             self.modelSizeChanged() 
          
         sortBtn = QPushButton(_('Sort by order_num'))
@@ -133,16 +133,16 @@ class JoncsDefinition(QMdiSubWindow):
         :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
         '''
         logging.debug(self.__className+'.conf_spin_change')
-        currNumConfigs = self.joncsDef_M.numConfigs()
+        currNumConfigs = self.joncsDef_M.num_configs()
         mustNumConfigs = self.numConf_S.value()
         
         if currNumConfigs > mustNumConfigs:
             # more tabs than we should have -> remove last
-            self.joncsDef_M.setNumRowsForConfig(currNumConfigs, 0)
+            self.joncsDef_M.set_num_rows_for_config(currNumConfigs, 0)
         
         if currNumConfigs < mustNumConfigs:
             # missing configs -> add one
-            self.joncsDef_M.setNumRowsForConfig(mustNumConfigs , 1)
+            self.joncsDef_M.set_num_rows_for_config(mustNumConfigs, 1)
             
     def modelSizeChanged(self):
         '''
@@ -150,7 +150,7 @@ class JoncsDefinition(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         
-        currNumConfigs = self.joncsDef_M.numConfigs() 
+        currNumConfigs = self.joncsDef_M.num_configs()
         
         # config (num plans) spinbox
         if self.numConf_S.value() != currNumConfigs:
@@ -177,9 +177,9 @@ class JoncsDefinition(QMdiSubWindow):
         # update lines (pahts) spin
         i=0
         while i< self.tabs.count():
-            if self.numLines_S[i].value != self.joncsDef_M.numRowsForConfig(i+1):
+            if self.numLines_S[i].value != self.joncsDef_M.num_rows_for_config(i + 1):
                 self.numLines_S[i].blockSignals(True)
-                self.numLines_S[i].setValue( self.joncsDef_M.numRowsForConfig(i+1) )
+                self.numLines_S[i].setValue(self.joncsDef_M.num_rows_for_config(i + 1))
                 self.numLines_S[i].blockSignals(False)
                 
             typeNum = self.joncsDef_M.getType(i+1)
@@ -321,7 +321,7 @@ class JoncsDefinition(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.num_lines_change')
-        self.joncsDef_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numLines_S[self.tabs.currentIndex()].value() )
+        self.joncsDef_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numLines_S[self.tabs.currentIndex()].value())
         
         currTab = self.tabs.currentIndex()
         if self.type_CB[currTab].currentIndex() == 0:

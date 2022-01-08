@@ -165,8 +165,8 @@ class PreProcModel(QObject, metaclass=Singleton):
         logging.debug(self.__className + '.open_read_file')
 
         # TODO: Make sure there is no unsaved/ unapplied data
-#         if not (self.dws.getWindowDataStatus('PreProcDataEdit')
-#                and self.dws.getFileStatus('PreProcFile')):
+#         if not (self.dws.get_window_data_status('PreProcDataEdit')
+#                and self.dws.get_file_status('PreProcFile')):
 #             # There is unsaved/ unapplied data, show a warning
 #             msgBox = QMessageBox()
 #             msgBox.setWindowTitle(_("Unsaved or unapplied data"))
@@ -261,10 +261,10 @@ class PreProcModel(QObject, metaclass=Singleton):
                 counter += 1
 
         # Wing Name
-        self.gen_M.setNumConfigs(0)
+        self.gen_M.set_num_configs(0)
 
         logging.debug(self.__className+'.read_file: Wing name')
-        self.gen_M.setNumRowsForConfig(1, 1)
+        self.gen_M.set_num_rows_for_config(1, 1)
         name = stream.readLine()
         self.gen_M.update_row(1, 1, name)
 
@@ -284,8 +284,8 @@ class PreProcModel(QObject, metaclass=Singleton):
         nin = split_line(stream.readLine())
         ten = split_line(stream.readLine())
 
-        self.leadingE_M.setNumConfigs(0)
-        self.leadingE_M.setNumConfigs(1)
+        self.leadingE_M.set_num_configs(0)
+        self.leadingE_M.set_num_configs(1)
         self.leadingE_M.update_row(1, 1, one, two[1], thr[1], fou[1], fiv[1],
                                    six[1], sev[1], eig[1], nin[1], ten[1])
 
@@ -303,8 +303,8 @@ class PreProcModel(QObject, metaclass=Singleton):
         sev = split_line(stream.readLine())
         eig = split_line(stream.readLine())
 
-        self.trailingE_M.setNumConfigs(0)
-        self.trailingE_M.setNumConfigs(1)
+        self.trailingE_M.set_num_configs(0)
+        self.trailingE_M.set_num_configs(1)
         self.trailingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1],
                                    six[1], sev[1], eig[1])
 
@@ -313,8 +313,8 @@ class PreProcModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
 
-        self.vault_M.setNumConfigs(0)
-        self.vault_M.setNumConfigs(1)
+        self.vault_M.set_num_configs(0)
+        self.vault_M.set_num_configs(1)
         vtype = int(rem_tab_space_quot(stream.readLine()))
 
         one = split_line(stream.readLine())
@@ -336,24 +336,24 @@ class PreProcModel(QObject, metaclass=Singleton):
         for i in range(3):  # @UnusedVariable
             line = stream.readLine()
 
-        self.cellsDistr_M.setNumConfigs(0)
+        self.cellsDistr_M.set_num_configs(0)
 
         distr_type = int(rem_tab_space_quot(stream.readLine()))
 
         if distr_type == 1:
-            self.cellsDistr_M.setNumRowsForConfig(1, 1)
+            self.cellsDistr_M.set_num_rows_for_config(1, 1)
             num_cells = rem_tab_space_quot(stream.readLine())
             self.cellsDistr_M.update_row(1, 1, distr_type, 0, 0, num_cells)
 
         elif (distr_type == 2) or (distr_type == 3):
-            self.cellsDistr_M.setNumRowsForConfig(1, 1)
+            self.cellsDistr_M.set_num_rows_for_config(1, 1)
             coef = rem_tab_space_quot(stream.readLine())
             num_cells = rem_tab_space_quot(stream.readLine())
             self.cellsDistr_M.update_row(1, 1, distr_type, coef, 0, num_cells)
 
         elif distr_type == 4:
             num_cells = int(rem_tab_space_quot(stream.readLine()))
-            self.cellsDistr_M.setNumRowsForConfig(1, num_cells)
+            self.cellsDistr_M.set_num_rows_for_config(1, num_cells)
 
             for it in range(0, num_cells):
                 width = split_line(stream.readLine())
@@ -548,7 +548,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Width"))
             self.setHeaderData(4, Qt.Horizontal, _("Num cells"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
         def create_table(self):
             """
@@ -676,16 +676,16 @@ class PreProcModel(QObject, metaclass=Singleton):
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("PreProcGen")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
             self.setHeaderData(1, Qt.Horizontal, _("Wing name"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the table
             """
@@ -784,7 +784,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(9, Qt.Horizontal, _("c02 [coef]"))
             self.setHeaderData(10, Qt.Horizontal, _("ex2 [coef]"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
         def create_table(self):
             """
@@ -919,7 +919,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(7, Qt.Horizontal, _("y0 [cm]"))
             self.setHeaderData(8, Qt.Horizontal, _("exp [coef]"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
         def create_table(self):
             """
@@ -1054,7 +1054,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(12, Qt.Horizontal, _("a3 [deg]"))
             self.setHeaderData(13, Qt.Horizontal, _("a4 [deg]"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
         def createTable(self):
             '''

@@ -1023,7 +1023,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
             self.setHeaderData(1, Qt.Horizontal, _("Num risers"))
             self.setHeaderData(2, Qt.Horizontal, _("Pos r A"))
@@ -1391,7 +1391,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Def in mid level"))
             self.setHeaderData(3, Qt.Horizontal, _("Def in higher level"))
 
-            self.setNumRowsForConfig(1, 5)
+            self.set_num_rows_for_config(1, 5)
 
         def updateRow(self, configNum, orderNum, defLow, defMid, defHigh):
             '''
@@ -2711,32 +2711,32 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec()
             self.select()  # to a select() to assure the model is updated
 
-        def setNumConfigs(self, mustNumConfigs):
+        def set_num_configs(self, must_num_configs):
             '''
             :method: Assures the model will be setup to hold the correct
                      number of configs based on parameters passed.
-            :param mustNumConfigs: Number of configs the model must provide.
+            :param must_num_configs: Number of configs the model must provide.
             '''
-            logging.debug(self.__className + '.setNumConfigs')
-            currNumConfigs = self.numConfigs()
+            logging.debug(self.__className + '.set_num_configs')
+            currNumConfigs = self.num_configs()
 
-            diff = abs(mustNumConfigs - currNumConfigs)
+            diff = abs(must_num_configs - currNumConfigs)
             if diff != 0:
                 # do it only if really the number has changed
                 i = 0
-                if mustNumConfigs > currNumConfigs:
+                if must_num_configs > currNumConfigs:
                     # add config lines
                     while i < diff:
-                        self.addRowForConfig(currNumConfigs + 1 + i)
+                        self.add_row_for_config(currNumConfigs + 1 + i)
                         i += 1
                 else:
                     # remove config lines
                     while i < diff:
-                        self.removeRowForConfig(currNumConfigs - i)
+                        self.remove_row_for_config(currNumConfigs - i)
                         i += 1
 
                 # emit the change signal
-                self.numConfigsChanged.emit(self.numConfigs())
+                self.numConfigsChanged.emit(self.num_configs())
 
         def getRow(self, configNum, orderNum):
             '''
@@ -2817,7 +2817,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("Point Radius [cm]"))
             self.setHeaderData(2, Qt.Horizontal, _("Point Displacement [cm]"))
 
-            self.addRows(-1, 1)
+            self.add_rows(-1, 1)
 
         def updateRow(self, marksSp, pointRad, pointDispl):
             '''
@@ -3377,7 +3377,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
             self.setHeaderData(self.OrderNumCol,
                                Qt.Horizontal,
@@ -3574,7 +3574,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Third to sail [cm]"))
             self.setHeaderData(3, Qt.Horizontal, _("Fourth to sail [cm]"))
 
-            self.setNumRowsForConfig(1, 4)
+            self.set_num_rows_for_config(1, 4)
 
         def updateDataRow(self, configNum, orderNum, rows, thirdToSail, fourthToSail):
             '''
@@ -3820,7 +3820,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setTable("SkinTension")
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
-            self.addRows(-1, 6)
+            self.add_rows(-1, 6)
 
             self.setHeaderData(0, Qt.Horizontal, _("Top dist LE"))
             self.setHeaderData(1, Qt.Horizontal, _("Top widening"))
@@ -3969,7 +3969,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("LE seem [mm]"))
             self.setHeaderData(2, Qt.Horizontal, _("TE seem [mm]"))
 
-            self.addRows(-1, 4)
+            self.add_rows(-1, 4)
 
         def updateRow(self, row, edgeSeam, leSeem=0, teSeem=0):
             '''
@@ -4043,7 +4043,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("LE Angle [deg]"))
             self.setHeaderData(2, Qt.Horizontal, _("TE Angle [deg]"))
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
@@ -4167,7 +4167,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumRowsForConfig(1, 9)
+            self.set_num_rows_for_config(1, 9)
 
             self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
             self.setHeaderData(2, Qt.Horizontal, _("Unifilar"))
@@ -4637,8 +4637,8 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumConfigs(1)
-            self.setNumRowsForConfig(1, 5)
+            self.set_num_configs(1)
+            self.set_num_rows_for_config(1, 5)
 
             self.setHeaderData(1, Qt.Horizontal, _("Name"))
             self.setHeaderData(2, Qt.Horizontal, _("Draw"))
@@ -4740,7 +4740,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumRowsForConfig(1, 6)
+            self.set_num_rows_for_config(1, 6)
 
             self.setHeaderData(1, Qt.Horizontal, _("Line name"))
             self.setHeaderData(2, Qt.Horizontal, _("Color code"))
@@ -4925,7 +4925,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
-            self.setNumRowsForConfig(1, 1)
+            self.set_num_rows_for_config(1, 1)
 
             self.rib_M = ProcModel.RibModel()
             self.anchPoints_M = ProcModel.AnchorPointsModel()
@@ -4934,7 +4934,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.glueVent_M = ProcModel.GlueVentModel()
             self.airfThick_M = ProcModel.AirfoilThicknessModel()
 
-            # self.dataChanged.connect(self.sync_rib_num_data)
+            # self.data_changed.connect(self.sync_rib_num_data)
             self.dataChanged.connect(self.man_data_change)
 
             self.setHeaderData(0, Qt.Horizontal, _("Brand name"))
@@ -4955,7 +4955,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def man_data_change(self, q):
             """
-            :method: If NumRibs is changed manually we must keep halfNumRibs
+            :method: If NumRibs is changed manually we must keep half_num_ribs
                      and Ribs table in sync.
             """
             logging.debug(self.__className + '.man_data_change')
@@ -4965,7 +4965,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def sync_rib_num_data(self):
             """
-            :method: If NumRibs is changed we must keep halfNumRibs and Ribs
+            :method: If NumRibs is changed we must keep half_num_ribs and Ribs
                      table in sync. This method will calculate the current
                      number of half ribs and calls the method to set up the
                      model accordingly.
@@ -4983,11 +4983,11 @@ class ProcModel(QObject, metaclass=Singleton):
             if go_on:
                 self.halfNumRibs = math.ceil(float(num_ribs) / 2)
 
-                self.rib_M.setupRibRows(self.halfNumRibs)
-                self.airf_M.setupRibRows(self.halfNumRibs)
-                self.anchPoints_M.setupRibRows(self.halfNumRibs)
-                self.glueVent_M.setNumRowsForConfig(1, self.halfNumRibs)
-                self.airfThick_M.setNumRowsForConfig(1, self.halfNumRibs)
+                self.rib_M.setup_rib_rows(self.halfNumRibs)
+                self.airf_M.setup_rib_rows(self.halfNumRibs)
+                self.anchPoints_M.setup_rib_rows(self.halfNumRibs)
+                self.glueVent_M.set_num_rows_for_config(1, self.halfNumRibs)
+                self.airfThick_M.set_num_rows_for_config(1, self.halfNumRibs)
 
         def update_num_cells(self, num_cells):
             """
