@@ -1,62 +1,70 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
-from PyQt5.QtWidgets import QLabel
-
-from gui.elements.WindowBtnBar import WindowBtnBar
 
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
+from gui.elements.WindowBtnBar import WindowBtnBar
+
 
 class DataStatusOverview(QMdiSubWindow):
-    '''
-    :class: Window displaying: Filenames, if files are saved, if data withing windows has been applied
-    '''
-    
+    """
+    :class: Window displaying: Filenames, if files are saved, if data withing
+            windows has been applied
+    """
+
     __className = 'DataStatusOverview'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        ''' 
-        logging.debug(self.__className+'.__init__')
+        """
+        self.btn_bar = None
+        self.pre_proc_name_e = None
+        self.proc_version_e = None
+        self.proc_filename_e = None
+        self.pre_proc_vers_e = None
+        self.__stringLength = 50
+        self.win = None
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
         self.dws = DataWindowStatus()
         self.ppm = PreProcModel()
         self.pm = ProcModel()
-        
-        self.buildWindow()
-        self.dws.statusUpdated.connect(self.updateStatus)
-        self.ppm.dataStatusUpdate.connect(self.dataChanged)
-        self.pm.dataStatusUpdate.connect(self.dataChanged)
-    
+
+        self.build_window()
+        self.dws.statusUpdated.connect(self.update_status)
+        self.ppm.dataStatusUpdate.connect(self.data_changed)
+        self.pm.dataStatusUpdate.connect(self.data_changed)
+
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called upon window close
-        '''
-        logging.debug(self.__className+'.closeEvent')
-    
-    def buildWindow(self):
-        '''
-        :method: Builds the window. 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Builds the window.
+
         Structure::
-        
+
             window
                 windowGrid
                     ---------------------------------
-                    preProcF
+                    pre_proc_grp
                         preProcG
                             all labels for PreProc
                     ---------------------------------
@@ -65,130 +73,131 @@ class DataStatusOverview(QMdiSubWindow):
                             all labels for Proc
                     ---------------------------------
                     btn_bar
-        '''
+        """
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-                
-        self.windowGrid = QGridLayout()
-        self.__winGridRow = 0
+
+        self.win.setMinimumWidth(450)
+
+        window_ly = QVBoxLayout()
 
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Data Status Overview"))
 
-        self.preProcF = QGroupBox()    
-        self.preProcF.setTitle(_("Pre Processor"))
-        self.preProcF.setFixedWidth(350)
-        self.windowGrid.addWidget(self.preProcF, self.__winGridRow, 0, Qt.AlignLeft)
-        self.__winGridRow += 1
-        
-        ##
-        self.preProcG = QGridLayout()
-        self.__preProcGridR = 0
-        self.preProcF.setLayout(self.preProcG)
-         
-        ##
-        self.preProcFilenameL = QLabel(_('Filename'))
-        self.preProcFilenameD = QLabel(self.shortenPath(self.ppm.get_file_name()))
-        self.preProcFilenameD.adjustSize()
+        pre_proc_grp = QGroupBox()
+        pre_proc_grp.setTitle(_("Pre Processor"))
+        window_ly.addWidget(pre_proc_grp)
 
-        self.preProcG.addWidget(self.preProcFilenameL, self.__preProcGridR , 0)
-        self.preProcG.addWidget(self.preProcFilenameD, self.__preProcGridR, 1)
-        self.__preProcGridR += 1
         ##
-        self.preProcFileversL = QLabel(_('File version'))
-        self.preProcFileversD = QLabel(self.ppm.get_file_version())
+        pre_proc_gly = QGridLayout()
+        pre_proc_grp.setLayout(pre_proc_gly)
 
-        self.preProcG.addWidget(self.preProcFileversL, self.__preProcGridR, 0)
-        self.preProcG.addWidget(self.preProcFileversD, self.__preProcGridR, 1)
-        self.__preProcGridR += 1
-        
+        ##
+        pre_proc_filename_l = QLabel(_('Filename'))
+        self.pre_proc_name_e = QLineEdit(
+            self.shorten_path(self.ppm.get_file_name()))
+        self.pre_proc_name_e.setReadOnly(True)
+        self.pre_proc_name_e.setAlignment(Qt.AlignRight)
+
+        pre_proc_gly.addWidget(pre_proc_filename_l, 0, 0)
+        pre_proc_gly.addWidget(self.pre_proc_name_e, 0, 1)
+        ##
+        pre_proc_vers_l = QLabel(_('File version'))
+        self.pre_proc_vers_e = QLineEdit()
+        self.pre_proc_vers_e.setReadOnly(True)
+
+        pre_proc_gly.addWidget(pre_proc_vers_l, 1, 0)
+        pre_proc_gly.addWidget(self.pre_proc_vers_e, 1, 1)
+
         #############################
-        self.procF = QGroupBox()    
-        self.procF.setTitle(_("Processor"))
-        self.procF.setFixedWidth(350)
-        self.windowGrid.addWidget(self.procF, self.__winGridRow, 0, Qt.AlignLeft)
-        self.__winGridRow += 1
-        
-        ##
-        self.procG = QGridLayout()
-        self.__procGridR = 0
-        self.procF.setLayout(self.procG)
-         
-        ##
-        self.procFilenameL = QLabel(_('Filename'))
-        self.procFilenameD = QLabel(self.shortenPath(self.pm.get_file_name()))
-        self.procFilenameD.adjustSize()
+        proc_grp = QGroupBox()
+        proc_grp.setTitle(_("Processor"))
+        window_ly.addWidget(proc_grp)
 
-        self.procG.addWidget(self.procFilenameL, self.__procGridR , 0)
-        self.procG.addWidget(self.procFilenameD, self.__procGridR, 1)
-        self.__procGridR += 1
         ##
-        self.procFileversL = QLabel(_('File version'))
-        self.procFileversD = QLabel(self.pm.get_file_version())
+        proc_gly = QGridLayout()
+        proc_grp.setLayout(proc_gly)
 
-        self.procG.addWidget(self.procFileversL, self.__procGridR, 0)
-        self.procG.addWidget(self.procFileversD, self.__procGridR, 1)
-        self.__procGridR += 1
-        
+        ##
+        proc_filename_l = QLabel(_('Filename'))
+        self.proc_filename_e = QLineEdit(
+            self.shorten_path(self.pm.get_file_name()))
+        self.proc_filename_e.setReadOnly(True)
+        self.proc_filename_e.setAlignment(Qt.AlignRight)
+
+        proc_gly.addWidget(proc_filename_l, 0, 0)
+        proc_gly.addWidget(self.proc_filename_e, 0, 1)
+        ##
+        proc_version_l = QLabel(_('File version'))
+        self.proc_version_e = QLineEdit(self.pm.get_file_version())
+        self.proc_version_e.setReadOnly(True)
+
+        proc_gly.addWidget(proc_version_l, 1, 0)
+        proc_gly.addWidget(self.proc_version_e, 1, 1)
+
         #############################
         # Rest of standard window setups
-        self.btnBar = WindowBtnBar( 0b0100 )
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
-        
-        self.windowGrid.addWidget(self.btnBar, self.__winGridRow ,0, Qt.AlignRight)
-        self.__winGridRow += 1
-        
-        self.win.setLayout(self.windowGrid)
-        
-    def shortenPath(self, path):
-        '''
-        :mathod: does shorten the path strings in a way that the filename at the end and only part of the path is shown. 
+        self.btn_bar = WindowBtnBar(0b0100)
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                               QSizePolicy.Fixed))
+        self.btn_bar.my_signal.connect(self.btn_press)
+
+        bottom_ly = QHBoxLayout()
+        bottom_ly.addStretch()
+        bottom_ly.addWidget(self.btn_bar)
+        window_ly.addLayout(bottom_ly)
+
+        self.win.setLayout(window_ly)
+
+    def shorten_path(self, path):
+        """
+        :method: does shorten the path strings in a way that the filename at
+                 the end and only part of the path is shown
         :parameter path: the full path to be shortened
         :returns: the short form of the path
-        '''
-        self.__stringLength = 50
+        """
         if len(path) > self.__stringLength:
-            return '...'+path[-(self.__stringLength-3):]
+            return '...' + path[-(self.__stringLength - 3):]
         else:
             return path
-        
-    def updateStatus(self, q):
-        '''
+
+    def update_status(self, q):
+        """
         :method: Updates the status information displayed in the window
-        '''
+        """
         if q == 'PreProcDataEdit':
             self.preProcDataStatusS.setText(self.dws.getWindowDataStatusChar('PreProcDataEdit'))
-        
-        elif q== 'PreProcFile':
+
+        elif q == 'PreProcFile':
             self.preProcFileStatD.setText(self.dws.getFileStatusChar('PreProcFile'))
-            
-    def dataChanged(self, n, q):
-        '''
+
+    def data_changed(self, n, q):
+        """
         :method: Updates the status information displayed in the window
-        '''
+        """
         if n == 'PreProcModel':
             if q == 'FileNamePath':
-                self.preProcFilenameD.setText(self.shortenPath(self.ppm.get_file_name()))
-        
+                self.pre_proc_name_e.setText(
+                    self.shorten_path(self.ppm.get_file_name()))
+
             elif q == 'FileVersion':
-                self.preProcFileversD.setText(self.ppm.get_file_version())
-        
+                self.pre_proc_vers_e.setText(self.ppm.get_file_version())
+
         elif n == 'ProcModel':
             if q == 'FileNamePath':
-                self.procFilenameD.setText(self.shortenPath(self.pm.get_file_name()))
-                
+                self.proc_filename_e.setText(self.shorten_path(self.pm.get_file_name()))
+
             elif q == 'FileVersion':
-                self.procFileversD.setText(self.pm.get_file_version())
-            
-    def btnPress(self, q):
-        '''
-        :method: Handels the button events from the window
-        '''
+                self.proc_version_e.setText(self.pm.get_file_version())
+
+    def btn_press(self, q):
+        """
+        :method: Takes care about the button events from the window
+        """
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__className+'.btn_press unrecognized button press '+q)
-        
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press ' + q)

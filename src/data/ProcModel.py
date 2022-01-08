@@ -4934,7 +4934,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.glueVent_M = ProcModel.GlueVentModel()
             self.airfThick_M = ProcModel.AirfoilThicknessModel()
 
-            # self.dataChanged.connect(self.sync_rib_num_data)
+            # self.data_changed.connect(self.sync_rib_num_data)
             self.dataChanged.connect(self.man_data_change)
 
             self.setHeaderData(0, Qt.Horizontal, _("Brand name"))
