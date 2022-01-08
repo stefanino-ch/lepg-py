@@ -1124,7 +1124,7 @@ class MainWindow(QMainWindow):
 
         webbrowser.open('file://'
                         + os.path.join(os.getcwd(),
-                                       '../userHelp',
+                                       'userHelp',
                                        config.get_language(),
                                        'introduction.html'))
 

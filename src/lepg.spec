@@ -33,9 +33,9 @@ processor_lin64 = [
 					
 processor_osx = [	
 				(os.path.join('Processors',
-				'lep-3.16-osx'),
+				'lep-3.17-osx'),
 				os.path.join('Processors',
-				'lep-3.16-osx'))
+				'lep-3.17-osx'))
 				] 
 
 if platform.startswith('win'):

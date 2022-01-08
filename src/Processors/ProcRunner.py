@@ -40,7 +40,8 @@ class ProcRunner:
         pre_proc = self.config_reader.get_pre_proc_path_name()
 
         # For Linux make sure x flag is set
-        if platform.system() == 'Linux':
+        if platform.system() == 'Linux'\
+                or platform.system() == 'Darwin':
             os.chmod(pre_proc, 0o744)
 
         set_path_cmd = 'cd ' + self.config_reader.get_pre_proc_directory()
@@ -76,7 +77,8 @@ class ProcRunner:
         proc = self.config_reader.get_proc_path_name()
 
         # For Linux make sure x flag is set
-        if platform.system() == 'Linux':
+        if platform.system() == 'Linux'\
+                or platform.system() == 'Darwin':
             os.chmod(proc, 0o744)
 
         set_path_cmd = 'cd ' + self.config_reader.get_proc_directory()

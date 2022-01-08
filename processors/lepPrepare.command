@@ -28,12 +28,7 @@ if [[ $? != 0 ]] ; then
     # Execute Homebrew installation script
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # now install gcc which contains Fortran
-    echo ""
-    echo "Now we install the package containing Fortran."
-    echo 'Press any key to continue...'; read -k1 -s
 
-    brew install gcc
 
 else
     # Brew is installed, we just do an update
@@ -45,6 +40,13 @@ else
     brew update
 fi
 
+# Now install gcc which contains Fortran
+echo ""
+echo "Now we install the package containing Fortran."
+echo 'Press any key to continue...'; read -k1 -s
+
+brew install gcc
+
 # We are ready to compile now
 echo ""
 echo "All libs we need are installed now and up to date."
@@ -53,13 +55,11 @@ echo 'Press any key to continue...'; read -k1 -s
 echo ""
 echo "Compiling the pre-processor..."
 
-outfile="pre-processor-osx.out"
 sourcefile="pre-processor.f"
+outfile="pre-processor-osx.o"
 locpath="pre1.6"
 
 gfortran -w -o ${mypath}/${locpath}/${outfile} ${mypath}/${locpath}/${sourcefile}
-
-chmod +x ${mypath}/${locpath}/${outfile}
 
 ls -al ${mypath}/${locpath}
 
@@ -70,13 +70,11 @@ echo 'Press any key to continue...'; read -k1 -s
 echo ""
 echo "Compiling the processor..."
 
-outfile="processor-osx.out"
 sourcefile="leparagliding.f"
+outfile="processor-osx.o"
 locpath="lep"
 
 gfortran -w -o ${mypath}/${locpath}/${outfile} ${mypath}/${locpath}/${sourcefile}
-
-chmod +x ${mypath}/${locpath}/${outfile}
 
 ls -al ${mypath}/${locpath}
 

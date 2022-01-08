@@ -1,4 +1,4 @@
-__version__ = '3.17.1'
+__version__ = '3.17.2'
 
 # 3.17.0
 # Type columns in PreProcData removed as they are always 1.
