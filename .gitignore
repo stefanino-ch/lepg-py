@@ -27,12 +27,14 @@ lines.txt
 
 # all Python chache files
 /__pycache__
+__MACOSX
 *.pyc
 
 # stuff from the development environment
 .pydevproject
 .pydevproject.bak
 /preTest.txt
+.idea
 
 # MAC specifics
 .DS_Store
