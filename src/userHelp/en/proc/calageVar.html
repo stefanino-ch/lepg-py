@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calage variation &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Calage variation &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -122,7 +123,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -138,7 +139,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="calage-variation">
+<section id="calage-variation">
 <h1>Calage variation<a class="headerlink" href="#calage-variation" title="Permalink to this headline">¶</a></h1>
 <p><em>Calage</em> is a French word, which describes very well the system used by lep to define
 the main angle adjustment of the wing.
@@ -169,26 +170,26 @@ and <em>Calage</em> when applying speed system or trim system.</p>
 <span class="o">-</span><span class="mi">4</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">10</span>
 </pre></div>
 </div>
-<div class="section" id="about-angles-and-number-of-steps">
+<section id="about-angles-and-number-of-steps">
 <h2>About angles and number of steps<a class="headerlink" href="#about-angles-and-number-of-steps" title="Permalink to this headline">¶</a></h2>
 <p>lep will calculate in total four different cases of variation, explained in detail in the sections
 <em>Speed system variation</em> and <em>Trim system variation</em> below.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg" style="width: 462px; height: 424px;" /></a>
-</div>
-<div class="section" id="type">
+</section>
+<section id="type">
 <h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
 <p><em>Calage variation</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the Type to <strong>None</strong>.</p>
-</div>
-<div class="section" id="num-risers">
+</section>
+<section id="num-risers">
 <h2>Num Risers<a class="headerlink" href="#num-risers" title="Permalink to this headline">¶</a></h2>
 <p>Number of risers to be considered (2,3,4,5 or 6).</p>
-</div>
-<div class="section" id="pos-r-a-f">
+</section>
+<section id="pos-r-a-f">
 <h2>Pos. R. A….F<a class="headerlink" href="#pos-r-a-f" title="Permalink to this headline">¶</a></h2>
 <p>% of central chord for riser A…F (it is not necessary to match anchor position).</p>
-</div>
-<div class="section" id="speed-system-variation">
+</section>
+<section id="speed-system-variation">
 <h2>Speed system variation<a class="headerlink" href="#speed-system-variation" title="Permalink to this headline">¶</a></h2>
 <p>The neg angle and the num of neg steps do define the calculations to be done for a speed
 system variation.</p>
@@ -197,16 +198,16 @@ system variation.</p>
 <li><p>the first risers length is changed, the pivot is in the last riser</p></li>
 <li><p>the last risers length is changed, the pivot is in the first riser</p></li>
 </ol>
-<div class="section" id="max-neg-ang">
+<section id="max-neg-ang">
 <h3>Max neg ang<a class="headerlink" href="#max-neg-ang" title="Permalink to this headline">¶</a></h3>
 <p>Here in you define the max negative angle alpha to be taken into the calculation. The study parameters will be adjusted to calculate the variation between the max neg angle and 0.</p>
-</div>
-<div class="section" id="num-neg-steps">
+</section>
+<section id="num-neg-steps">
 <h3>Num neg steps<a class="headerlink" href="#num-neg-steps" title="Permalink to this headline">¶</a></h3>
 <p>The number of steps to be calculated. A neg angle of -4 and 4 steps will provide 5 lines of output, one line per degree.</p>
-</div>
-</div>
-<div class="section" id="trim-system-variation">
+</section>
+</section>
+<section id="trim-system-variation">
 <h2>Trim system variation<a class="headerlink" href="#trim-system-variation" title="Permalink to this headline">¶</a></h2>
 <p>The poos angle and the num of pos steps do define the calculations to be done for a trim
 system variation.</p>
@@ -215,11 +216,11 @@ system variation.</p>
 <li><p>the last risers length is changed, the pivot is in the first riser</p></li>
 <li><p>the first risers length is changed, the pivot is in the last riser</p></li>
 </ol>
-<div class="section" id="max-pos-ang">
+<section id="max-pos-ang">
 <h3>Max pos ang<a class="headerlink" href="#max-pos-ang" title="Permalink to this headline">¶</a></h3>
 <p>Here in you define the max positive angle alpha to be taken into the calculation. The study parameters will be adjusted to calculate the variation between the max pos angle and 0.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>Num neg steps<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>The number of steps to be calculated. A pos angle of 5 and 10 steps will provide 11 lines of output, one line per .5 degree.</p>
 <p>Output:</p>
@@ -275,9 +276,9 @@ system variation.</p>
 </pre></div>
 </div>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.28" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -307,8 +308,8 @@ system variation.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

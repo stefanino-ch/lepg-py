@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zellen &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Zellen &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -120,7 +121,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -136,7 +137,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="zellen">
+<section id="zellen">
 <h1>Zellen<a class="headerlink" href="#zellen" title="Permalink to this headline">¶</a></h1>
 <p>Im Fenster Zellen editieren wir die Parameter aus dem 2. Abschnitt der lep Datei.</p>
 <a class="reference internal image-reference" href="../../_images/airfoils-de.png"><img alt="../../_images/airfoils-de.png" src="../../_images/airfoils-de.png" style="width: 602px; height: 225px;" /></a>
@@ -161,56 +162,56 @@
 <span class="mi">14</span>      <span class="n">gnuat</span><span class="o">.</span><span class="n">txt</span>       <span class="mf">0.0</span>     <span class="mf">6.3</span>     <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">1</span>       <span class="mi">1</span>
 </pre></div>
 </div>
-<div class="section" id="name">
+<section id="name">
 <h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
 <p>Der Name der Datei welche das Rippenprofil definiert. Bevor der Prozessor gestartet werden kann muss diese Datei in demselben Verzeichnis wie der Prozessor gespeichert werden.</p>
-</div>
-<div class="section" id="start-offnung">
+</section>
+<section id="start-offnung">
 <h2>Start Öffnung<a class="headerlink" href="#start-offnung" title="Permalink to this headline">¶</a></h2>
 <p>Position an der die Einlassöffnung startet. Wird angegeben in [% Flügeltiefe].</p>
-</div>
-<div class="section" id="ende-offnung">
+</section>
+<section id="ende-offnung">
 <h2>Ende Öffnung<a class="headerlink" href="#ende-offnung" title="Permalink to this headline">¶</a></h2>
 <p>Position an der die Einlassöffnung endet. Wird angegeben in [% Flügeltiefe].</p>
-</div>
-<div class="section" id="offen-geschl">
+</section>
+<section id="offen-geschl">
 <h2>Offen/ geschl.<a class="headerlink" href="#offen-geschl" title="Permalink to this headline">¶</a></h2>
 <p>Ein Wert von 0 oder 1 der definiert ob eine offene oder geschlossene Zelle links der Rippe erstellt werden soll.</p>
 <p><strong>“0”</strong> geschlossene Zelle</p>
 <p><strong>“1”</strong> offene Zelle</p>
-</div>
-<div class="section" id="vert-verstz">
+</section>
+<section id="vert-verstz">
 <h2>vert Verstz<a class="headerlink" href="#vert-verstz" title="Permalink to this headline">¶</a></h2>
 <p>Vertikaler Versatz einer Rippe in [cm]. Die Idee ist die Position von unbelasteten Rippen (ohne Aufhängepunkte) zu kontrollieren.
 Der Wert ist normalerweise 0.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" style="width: 532px; height: 375px;" /></a>
-</div>
-<div class="section" id="rel-gewicht">
+</section>
+<section id="rel-gewicht">
 <h2>Rel Gewicht<a class="headerlink" href="#rel-gewicht" title="Permalink to this headline">¶</a></h2>
 <p>Definiert die relative Belastung im Verhältnis zur Last.
 Der Wert ist normalerweise 1.</p>
-</div>
-<div class="section" id="rrw">
+</section>
+<section id="rrw">
 <h2>rrw<a class="headerlink" href="#rrw" title="Permalink to this headline">¶</a></h2>
 <p>Abhängig vom Flügeltyp gibt es hier zwei verschiedene Bedeutungen.</p>
-<div class="section" id="single-skin-flugel">
+<section id="single-skin-flugel">
 <h3>Single skin Flügel<a class="headerlink" href="#single-skin-flugel" title="Permalink to this headline">¶</a></h3>
 <p><strong>“0”</strong> Die Dreiecke der Aufhängungen werden nicht rotiert, sondern nur seitlich geneigt wie mit dem winkel “beta” im Fenster Geometrie definiert.</p>
 <p><strong>“1”</strong> Die Dreiecke der Aufhängungen werden automatisch abhängig vom Flügelprofil rotiert.</p>
-</div>
-<div class="section" id="double-skin-flugel">
+</section>
+<section id="double-skin-flugel">
 <h3>Double skin Flügel<a class="headerlink" href="#double-skin-flugel" title="Permalink to this headline">¶</a></h3>
 <p>Wenn der Wert grösser als 1 ist dann definiert er die Länge der Mini-Ribs. Dies ist nur bei nicht “ss” Flügeln möglich. Die Angabe der Länge erfolgt in [% Flügeltiefe].</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" style="width: 294px; height: 416px;" /></a>
-</div>
-</div>
-<div class="section" id="nach-rippen-nr-sortieren">
+</section>
+</section>
+<section id="nach-rippen-nr-sortieren">
 <h2>Nach Rippen Nr sortieren<a class="headerlink" href="#nach-rippen-nr-sortieren" title="Permalink to this headline">¶</a></h2>
 <p>Mit der Schaltfläche <strong>Nach Rippen Nr sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Rippen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
 <p><strong>BEACHTE</strong> die Zeilen müssen die Flügeldefinition von der Mitte nach aussen definieren.</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.2" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -240,8 +241,8 @@ Der Wert ist normalerweise 1.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

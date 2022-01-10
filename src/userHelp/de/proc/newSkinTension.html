@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tuchspannung - neu &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tuchspannung - neu &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -119,7 +120,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -135,7 +136,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="tuchspannung-neu">
+<section id="tuchspannung-neu">
 <h1>Tuchspannung - neu<a class="headerlink" href="#tuchspannung-neu" title="Permalink to this headline">¶</a></h1>
 <p>Im Fenster <em>Tuchspannung - neu</em> editieren wir die Parameter aus dem 31. Abschnitt der lep Datei.
 Prinzipiell handelt es sich hier um dieselben Definitionen und Parameter wie im originalen Tuchspannungs-Abschnitt mit dem Unterschied dass mehr als 6 Korrekturpunkte definiert werden können.</p>
@@ -158,47 +159,47 @@ Prinzipiell handelt es sich hier um dieselben Definitionen und Parameter wie im 
 </div>
 <p>Die Spannung von Ober- und Untersegel kann durch die Definition von zusätzlichen Verbreiterungen verändert werden. In der Basisversion können je 6 Punke definiert werden. Der Übergang zwischen den Punkten wird linear berechnet.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" />
-<div class="section" id="anzahl-der-konfigurationen">
+<section id="anzahl-der-konfigurationen">
 <h2>Anzahl der Konfigurationen<a class="headerlink" href="#anzahl-der-konfigurationen" title="Permalink to this headline">¶</a></h2>
 <p>In einer Konfiguration können die Werte für eine bestimmte Gruppe von Rippen zusammengefasst werden. Für alle Rippen innerhalb der Konfiguration gelten dieselben Werte.
 Tuchspannung - neu ist ein optionaler Abschnitt. Wenn er nicht verwendet werden soll, dann einfach die Anzahl der Konfigurationen auf 0 setzen.</p>
-</div>
-<div class="section" id="erste-rippe">
+</section>
+<section id="erste-rippe">
 <h2>Erste Rippe<a class="headerlink" href="#erste-rippe" title="Permalink to this headline">¶</a></h2>
 <p>Die Nummer der ersten Rippe für die die Konfiguration gilt.</p>
-</div>
-<div class="section" id="letzte-rippe">
+</section>
+<section id="letzte-rippe">
 <h2>Letzte Rippe<a class="headerlink" href="#letzte-rippe" title="Permalink to this headline">¶</a></h2>
 <p>Die Nummer der letzten Rippe für die die Konfiguration gilt.</p>
-</div>
-<div class="section" id="typ">
+</section>
+<section id="typ">
 <h2>Typ<a class="headerlink" href="#typ" title="Permalink to this headline">¶</a></h2>
 <p>Die Einzig mögliche Berechnungsart ist aktuell lineare Interpolation. Hier also immer 1 einsetzen.</p>
-</div>
-<div class="section" id="obere-dist-eintrittskante">
+</section>
+<section id="obere-dist-eintrittskante">
 <h2>Obere Dist Eintrittskante<a class="headerlink" href="#obere-dist-eintrittskante" title="Permalink to this headline">¶</a></h2>
 <p>Distanz von der Eintrittskante in [% Flügeltiefe]</p>
-</div>
-<div class="section" id="obere-verbr">
+</section>
+<section id="obere-verbr">
 <h2>Obere Verbr<a class="headerlink" href="#obere-verbr" title="Permalink to this headline">¶</a></h2>
 <p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
-</div>
-<div class="section" id="untere-dist-austrittskante">
+</section>
+<section id="untere-dist-austrittskante">
 <h2>Untere Dist Austrittskante<a class="headerlink" href="#untere-dist-austrittskante" title="Permalink to this headline">¶</a></h2>
 <p>Distanz von der Austrittskante in [% Flügeltiefe]</p>
-</div>
-<div class="section" id="untere-verbr">
+</section>
+<section id="untere-verbr">
 <h2>Untere Verbr<a class="headerlink" href="#untere-verbr" title="Permalink to this headline">¶</a></h2>
 <p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
-</div>
-<div class="section" id="spann-mini-ribs">
+</section>
+<section id="spann-mini-ribs">
 <h2>Spann mini ribs<a class="headerlink" href="#spann-mini-ribs" title="Permalink to this headline">¶</a></h2>
 <p><em>Tuchspannung - neu</em> verwendet denselben Konfigurationswert für Spann mini ribs wie die originale Definition. Damit die Berechnung korrekt funktioniert muss deshalb im Fenster Tuchspannung der Werte eingegeben werden.</p>
 <p>Hier geht es darum die Dehnung des Tuches zu korrigieren.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" />
 <p>Im Zweifelsfall setze hier den Standardwert von <strong>0.0114</strong></p>
-</div>
-<div class="section" id="anzahl-punkte-und-koeff">
+</section>
+<section id="anzahl-punkte-und-koeff">
 <h2>Anzahl Punkte und Koeff<a class="headerlink" href="#anzahl-punkte-und-koeff" title="Permalink to this headline">¶</a></h2>
 <p><em>Tuchspannung - neu</em> verwendet dieselben Konfigurationswerte für Anzahl Punkte und Koeff wie die originale Definition. Damit die Berechnung korrekt funktioniert müssen deshalb im Fenster Tuchspannung die Werte eingestellt werden.</p>
 <p>Prinzipiell gibt es zwei verschiedene Interpretationen der beiden Werte. Beschrieben wird hier nur der empfohlene Anwendungsfall.</p>
@@ -208,13 +209,13 @@ Tuchspannung - neu ist ein optionaler Abschnitt. Wenn er nicht verwendet werden 
 <p>Der zweite Wert beeinflusst noch einmal die Berechnung. Der Wert kann zwischen 0.0 und 1.0 verändert werden.</p>
 <p>“0.0” es werden keine Korrekturen berechnet, der erste Wert wird ausgehebelt.</p>
 <p><strong>“1.0”</strong> es wird mit maximaler Genauigkeit gerechnet.</p>
-</div>
-<div class="section" id="sortieren">
+</section>
+<section id="sortieren">
 <h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this headline">¶</a></h2>
 <p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.31" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -244,8 +245,8 @@ Tuchspannung - neu ist ein optionaler Abschnitt. Wenn er nicht verwendet werden 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>GUI Elements &#8212; lepg developer doc  documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx13.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx13.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -114,7 +115,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -128,11 +129,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="gui-elements">
+  <section id="gui-elements">
 <h1>GUI Elements<a class="headerlink" href="#gui-elements" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="module-gui.elements.CheckBox">
+<section id="module-gui.elements.CheckBox">
 <span id="checkbox"></span><h2>CheckBox<a class="headerlink" href="#module-gui.elements.CheckBox" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
@@ -143,16 +144,16 @@
 </dd>
 </dl>
 <dl class="py class">
-<dt id="gui.elements.CheckBox.CheckBox">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.CheckBox.</span></code><code class="sig-name descname"><span class="pre">CheckBox</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.CheckBox.CheckBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.CheckBox.</span></span><span class="sig-name descname"><span class="pre">CheckBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Subclasses QCheckBox to add additional functionality.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.CheckBox.CheckBox.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'LineEdit'</span></em><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.CheckBox.CheckBox.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LineEdit'</span></em><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -161,8 +162,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.CheckBox.CheckBox.eventFilter">
-<code class="sig-name descname"><span class="pre">eventFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.CheckBox.CheckBox.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.eventFilter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Catches specific events and controls the updates of the help
@@ -172,8 +173,8 @@ window and the validation of the user inputs.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.CheckBox.CheckBox.setHelpBar">
-<code class="sig-name descname"><span class="pre">setHelpBar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.setHelpBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.CheckBox.CheckBox.setHelpBar">
+<span class="sig-name descname"><span class="pre">setHelpBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.setHelpBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Configure the help bar of a specific window where the user
@@ -186,8 +187,8 @@ help text shall be displayed during program execution.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.CheckBox.CheckBox.setHelpText">
-<code class="sig-name descname"><span class="pre">setHelpText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.setHelpText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.CheckBox.CheckBox.setHelpText">
+<span class="sig-name descname"><span class="pre">setHelpText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.CheckBox.CheckBox.setHelpText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Herein you set the help text for each element which shall
@@ -201,8 +202,8 @@ be displayed if the mouse pointer is located over it.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-gui.elements.LineEdit">
+</section>
+<section id="module-gui.elements.LineEdit">
 <span id="lineedit"></span><h2>LineEdit<a class="headerlink" href="#module-gui.elements.LineEdit" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
@@ -216,16 +217,16 @@ be displayed if the mouse pointer is located over it.</p>
 <p><a class="reference external" href="https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4">https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4</a>-
 using-qvalidator/ for the qvalidator explanations</p>
 <dl class="py class">
-<dt id="gui.elements.LineEdit.LineEdit">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.LineEdit.</span></code><code class="sig-name descname"><span class="pre">LineEdit</span></code><a class="headerlink" href="#gui.elements.LineEdit.LineEdit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.LineEdit.</span></span><span class="sig-name descname"><span class="pre">LineEdit</span></span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Subclasses QLineEdit to add additional functionality.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.LineEdit.LineEdit.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'LineEdit'</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LineEdit'</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -234,8 +235,8 @@ using-qvalidator/ for the qvalidator explanations</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gui.elements.LineEdit.LineEdit.__hasDoubleValidator">
-<code class="sig-name descname"><span class="pre">__hasDoubleValidator</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.__hasDoubleValidator">
+<span class="sig-name descname"><span class="pre">__hasDoubleValidator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasDoubleValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>True if DoubleValidator has been set.</p>
@@ -244,8 +245,8 @@ using-qvalidator/ for the qvalidator explanations</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gui.elements.LineEdit.LineEdit.__hasIntValidator">
-<code class="sig-name descname"><span class="pre">__hasIntValidator</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasIntValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.__hasIntValidator">
+<span class="sig-name descname"><span class="pre">__hasIntValidator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasIntValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>True if IntValidator has been set.</p>
@@ -254,8 +255,8 @@ using-qvalidator/ for the qvalidator explanations</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gui.elements.LineEdit.LineEdit.__hasRegExpValidator">
-<code class="sig-name descname"><span class="pre">__hasRegExpValidator</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.__hasRegExpValidator">
+<span class="sig-name descname"><span class="pre">__hasRegExpValidator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.__hasRegExpValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>True if RegExpValidator has been set.</p>
@@ -264,8 +265,8 @@ using-qvalidator/ for the qvalidator explanations</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.checkContent">
-<code class="sig-name descname"><span class="pre">checkContent</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.checkContent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.checkContent">
+<span class="sig-name descname"><span class="pre">checkContent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.checkContent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Does check the content of a line edit with the help of the
@@ -276,8 +277,8 @@ background of the line edit is changed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.enableDoubleValidator">
-<code class="sig-name descname"><span class="pre">enableDoubleValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.enableDoubleValidator">
+<span class="sig-name descname"><span class="pre">enableDoubleValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates an DoubleValidator and sets it for the
@@ -294,8 +295,8 @@ current line edit.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.enableIntValidator">
-<code class="sig-name descname"><span class="pre">enableIntValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableIntValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.enableIntValidator">
+<span class="sig-name descname"><span class="pre">enableIntValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableIntValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Creates an IntValidator and sets it for the current line edit.</p>
@@ -310,8 +311,8 @@ current line edit.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.enableRegExpValidator">
-<code class="sig-name descname"><span class="pre">enableRegExpValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.enableRegExpValidator">
+<span class="sig-name descname"><span class="pre">enableRegExpValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an RegExpValidator and sets it to the current line edit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -321,8 +322,8 @@ current line edit.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.eventFilter">
-<code class="sig-name descname"><span class="pre">eventFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.eventFilter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Catches specific events and controls the updates of the help
@@ -332,8 +333,8 @@ window and the validation of the user inputs.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.setHelpBar">
-<code class="sig-name descname"><span class="pre">setHelpBar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setHelpBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.setHelpBar">
+<span class="sig-name descname"><span class="pre">setHelpBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setHelpBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Configure the help bar of a specific window where the user
@@ -346,8 +347,8 @@ help text shall be displayed during program execution.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.setHelpText">
-<code class="sig-name descname"><span class="pre">setHelpText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setHelpText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.setHelpText">
+<span class="sig-name descname"><span class="pre">setHelpText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setHelpText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall
@@ -361,8 +362,8 @@ LineEdit or during data edit.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.LineEdit.LineEdit.setText">
-<code class="sig-name descname"><span class="pre">setText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.LineEdit.LineEdit.setText">
+<span class="sig-name descname"><span class="pre">setText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.LineEdit.LineEdit.setText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Calls first the super class to set the text and triggers
@@ -374,8 +375,8 @@ according to the verification result.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-gui.elements.TableView">
+</section>
+<section id="module-gui.elements.TableView">
 <span id="tableview"></span><h2>TableView<a class="headerlink" href="#module-gui.elements.TableView" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
@@ -391,16 +392,16 @@ according to the verification result.</p>
 <p><a class="reference external" href="https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/">https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/</a></p>
 <p><a class="reference external" href="https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520">https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520</a></p>
 <dl class="py class">
-<dt id="gui.elements.TableView.TableView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></code><code class="sig-name descname"><span class="pre">TableView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></span><span class="sig-name descname"><span class="pre">TableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Subclasses QLineEdit to add additional functionality</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.TableView.TableView.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'TableView'</span></em><a class="headerlink" href="#gui.elements.TableView.TableView.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TableView'</span></em><a class="headerlink" href="#gui.elements.TableView.TableView.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -409,8 +410,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Constructor</p>
@@ -419,8 +420,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.enableDoubleValidator">
-<code class="sig-name descname"><span class="pre">enableDoubleValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.enableDoubleValidator">
+<span class="sig-name descname"><span class="pre">enableDoubleValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableDoubleValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Limits one ore multiple columns to a specific double input range</p>
@@ -438,8 +439,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.enableIntValidator">
-<code class="sig-name descname"><span class="pre">enableIntValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableIntValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.enableIntValidator">
+<span class="sig-name descname"><span class="pre">enableIntValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableIntValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Limits one ore multiple columns to a specific int input range</p>
@@ -456,8 +457,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.enableRegExpValidator">
-<code class="sig-name descname"><span class="pre">enableRegExpValidator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.enableRegExpValidator">
+<span class="sig-name descname"><span class="pre">enableRegExpValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.enableRegExpValidator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Limits one ore multiple columns to a specific RegExp</p>
@@ -473,8 +474,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.eventFilter">
-<code class="sig-name descname"><span class="pre">eventFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.eventFilter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Catches specific events and controls (the updates of the help window and the validation of the user inputs).</p>
@@ -483,8 +484,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.setHelpBar">
-<code class="sig-name descname"><span class="pre">setHelpBar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.setHelpBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.setHelpBar">
+<span class="sig-name descname"><span class="pre">setHelpBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpBar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.setHelpBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Configure the help bar of a specific window where the user help text shall be displayed during program execution.</p>
@@ -496,8 +497,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.TableView.setHelpText">
-<code class="sig-name descname"><span class="pre">setHelpText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.setHelpText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.TableView.setHelpText">
+<span class="sig-name descname"><span class="pre">setHelpText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.TableView.setHelpText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Herein you set the help text for each LineEdit which shall be displayed if the mouse pointer is located above the LineEdit or during data edit.</p>
@@ -514,16 +515,16 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="gui.elements.TableView.ValidatedDoubleItemDelegate">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></code><code class="sig-name descname"><span class="pre">ValidatedDoubleItemDelegate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedDoubleItemDelegate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></span><span class="sig-name descname"><span class="pre">ValidatedDoubleItemDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>creates a delegate limiting the input to a specific double range.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.TableView.ValidatedDoubleItemDelegate.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ValidatedDoubleItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedDoubleItemDelegate.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ValidatedDoubleItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -532,8 +533,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedDoubleItemDelegate.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedDoubleItemDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Constructor</p>
@@ -549,23 +550,23 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedDoubleItemDelegate.createEditor">
-<code class="sig-name descname"><span class="pre">createEditor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QWidget</span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedDoubleItemDelegate.createEditor">
+<span class="sig-name descname"><span class="pre">createEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QWidget</span></span></span><a class="headerlink" href="#gui.elements.TableView.ValidatedDoubleItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="gui.elements.TableView.ValidatedIntItemDelegate">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></code><code class="sig-name descname"><span class="pre">ValidatedIntItemDelegate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedIntItemDelegate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></span><span class="sig-name descname"><span class="pre">ValidatedIntItemDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>creates a delegate limiting the input to a specific int range.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.TableView.ValidatedIntItemDelegate.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ValidatedIntItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedIntItemDelegate.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ValidatedIntItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -574,8 +575,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedIntItemDelegate.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedIntItemDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Constructor</p>
@@ -590,23 +591,23 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedIntItemDelegate.createEditor">
-<code class="sig-name descname"><span class="pre">createEditor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QWidget</span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedIntItemDelegate.createEditor">
+<span class="sig-name descname"><span class="pre">createEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QWidget</span></span></span><a class="headerlink" href="#gui.elements.TableView.ValidatedIntItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="gui.elements.TableView.ValidatedRegExpItemDelegate">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></code><code class="sig-name descname"><span class="pre">ValidatedRegExpItemDelegate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedRegExpItemDelegate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.TableView.</span></span><span class="sig-name descname"><span class="pre">ValidatedRegExpItemDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>creates a delegate limiting the input to a specific RegExp.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="gui.elements.TableView.ValidatedRegExpItemDelegate.__className">
-<code class="sig-name descname"><span class="pre">__className</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'ValidatedRegExpItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedRegExpItemDelegate.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ValidatedRegExpItemDelegate'</span></em><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.__className" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
@@ -615,8 +616,8 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedRegExpItemDelegate.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedRegExpItemDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regexp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Constructor</p>
@@ -628,14 +629,14 @@ according to the verification result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.TableView.ValidatedRegExpItemDelegate.createEditor">
-<code class="sig-name descname"><span class="pre">createEditor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QWidget</span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.TableView.ValidatedRegExpItemDelegate.createEditor">
+<span class="sig-name descname"><span class="pre">createEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QWidget</span></span></span><a class="headerlink" href="#gui.elements.TableView.ValidatedRegExpItemDelegate.createEditor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-gui.elements.WindowBtnBar">
+</section>
+<section id="module-gui.elements.WindowBtnBar">
 <span id="windowbtnbar"></span><h2>WindowBtnBar<a class="headerlink" href="#module-gui.elements.WindowBtnBar" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
@@ -646,8 +647,8 @@ according to the verification result.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.WindowBtnBar.</span></code><code class="sig-name descname"><span class="pre">WindowBtnBar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buttons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.WindowBtnBar.</span></span><span class="sig-name descname"><span class="pre">WindowBtnBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buttons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Displays the standard buttons under each data window.</p>
@@ -666,8 +667,8 @@ according to the verification result.</p>
 </pre></div>
 </div>
 <dl class="py attribute">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.__helpPage">
-<code class="sig-name descname"><span class="pre">__helpPage</span></code><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.__helpPage" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.__helpPage">
+<span class="sig-name descname"><span class="pre">__helpPage</span></span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.__helpPage" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
 <dd class="field-odd"><p>The user help page which will be opened if not an individual
@@ -677,8 +678,8 @@ file was configured</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.applyBtnPress">
-<code class="sig-name descname"><span class="pre">applyBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.applyBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.applyBtnPress">
+<span class="sig-name descname"><span class="pre">applyBtnPress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.applyBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Called if the <em>Apply</em> button is pressed</p>
@@ -687,8 +688,8 @@ file was configured</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.cancelBtnPress">
-<code class="sig-name descname"><span class="pre">cancelBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.cancelBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.cancelBtnPress">
+<span class="sig-name descname"><span class="pre">cancelBtnPress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.cancelBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Called if the <em>Cancel</em> button is pressed</p>
@@ -697,8 +698,8 @@ file was configured</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.helpBtnPress">
-<code class="sig-name descname"><span class="pre">helpBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.helpBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.helpBtnPress">
+<span class="sig-name descname"><span class="pre">helpBtnPress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.helpBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Called if the <em>Help</em> button is pressed</p>
@@ -707,8 +708,8 @@ file was configured</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.my_signal">
-<code class="sig-name descname"><span class="pre">my_signal</span></code><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.my_signal" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.my_signal">
+<span class="sig-name descname"><span class="pre">my_signal</span></span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.my_signal" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Signal</dt>
 <dd class="field-odd"><p>Will be emitted upon button press. The string indicates the
@@ -718,8 +719,8 @@ name of the pressed button.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.okBtnPress">
-<code class="sig-name descname"><span class="pre">okBtnPress</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.okBtnPress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.okBtnPress">
+<span class="sig-name descname"><span class="pre">okBtnPress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.okBtnPress" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Called if the <em>Ok</em> button is pressed</p>
@@ -728,8 +729,8 @@ name of the pressed button.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowBtnBar.WindowBtnBar.setHelpPage">
-<code class="sig-name descname"><span class="pre">setHelpPage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpPage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.setHelpPage" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowBtnBar.WindowBtnBar.setHelpPage">
+<span class="sig-name descname"><span class="pre">setHelpPage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpPage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowBtnBar.WindowBtnBar.setHelpPage" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Set the html page to be displayed upon <em>Help</em> button press.</p>
@@ -744,22 +745,22 @@ will be opened.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>WindowBtnBar<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-gui.elements.WindowHelpBar"></span><p>&#64;Author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
 &#64;License: General Public License GNU GPL 3.0</p>
 <dl class="py class">
-<dt id="gui.elements.WindowHelpBar.WindowHelpBar">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gui.elements.WindowHelpBar.</span></code><code class="sig-name descname"><span class="pre">WindowHelpBar</span></code><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowHelpBar.WindowHelpBar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.WindowHelpBar.</span></span><span class="sig-name descname"><span class="pre">WindowHelpBar</span></span><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Displays the standard window showing the user help text.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="gui.elements.WindowHelpBar.WindowHelpBar.clearText">
-<code class="sig-name descname"><span class="pre">clearText</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar.clearText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowHelpBar.WindowHelpBar.clearText">
+<span class="sig-name descname"><span class="pre">clearText</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar.clearText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Clears the help window.</p>
@@ -768,8 +769,8 @@ will be opened.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gui.elements.WindowHelpBar.WindowHelpBar.setText">
-<code class="sig-name descname"><span class="pre">setText</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar.setText" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gui.elements.WindowHelpBar.WindowHelpBar.setText">
+<span class="sig-name descname"><span class="pre">setText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helpText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.WindowHelpBar.WindowHelpBar.setText" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
 <dd class="field-odd"><p>Displays a text message in the help window.</p>
@@ -782,8 +783,8 @@ will be opened.</p>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -816,7 +817,7 @@ will be opened.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

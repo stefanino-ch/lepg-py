@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calage variation &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Calage variation &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -122,7 +123,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -138,7 +139,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="calage-variation">
+<section id="calage-variation">
 <h1>Calage variation<a class="headerlink" href="#calage-variation" title="Permalink to this headline">¶</a></h1>
 <p><em>Calage</em> ist ein französisches Wort welches das System beschreibt wie in lep Pilotenposition und
 Winkel definiert werden.
@@ -168,26 +169,26 @@ Flügelgeometrie selbst.</p>
 <span class="o">-</span><span class="mi">4</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">10</span>
 </pre></div>
 </div>
-<div class="section" id="uber-winkel-und-anzahl-schritte">
+<section id="uber-winkel-und-anzahl-schritte">
 <h2>Über Winkel und Anzahl Schritte<a class="headerlink" href="#uber-winkel-und-anzahl-schritte" title="Permalink to this headline">¶</a></h2>
 <p>lep berechnet total vier verschiedene Fälle welche weiter unten erklärt werden.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S28b.jpg" style="width: 462px; height: 424px;" /></a>
-</div>
-<div class="section" id="typ">
+</section>
+<section id="typ">
 <h2>Typ<a class="headerlink" href="#typ" title="Permalink to this headline">¶</a></h2>
 <p><em>Calage Variation</em> ist eine <strong>optionale Konfiguration</strong>.</p>
 <p>Wenn Du keine speziellen Konfigurationen machen möchtest, dann setze den Wert von <strong>Typ</strong> auf <strong>keine</strong>.</p>
-</div>
-<div class="section" id="anzahl-aufhangepunkte">
+</section>
+<section id="anzahl-aufhangepunkte">
 <h2>Anzahl Aufhängepunkte<a class="headerlink" href="#anzahl-aufhangepunkte" title="Permalink to this headline">¶</a></h2>
 <p>Die Anzahl der Aufhängepunkte für die die Parameter berechnet werden sollen. (1…6)</p>
-</div>
-<div class="section" id="pos-a-f">
+</section>
+<section id="pos-a-f">
 <h2>Pos. A….F<a class="headerlink" href="#pos-a-f" title="Permalink to this headline">¶</a></h2>
 <p>Die Position der Aufhängepunkte in [% Flügeltiefe]. Da es sich hier um eine reine Studienberechnung
 handelt müssen die Punkte nicht exakt mit dem richtigen Flügel übereinstimmen.</p>
-</div>
-<div class="section" id="speed-system-variation">
+</section>
+<section id="speed-system-variation">
 <h2>Speed System Variation<a class="headerlink" href="#speed-system-variation" title="Permalink to this headline">¶</a></h2>
 <p>Die Parameter <em>Max neg Winkel</em> und <em>Anz neg Schritte</em> definieren die Kalkulation für eine
 Speed System Variation.</p>
@@ -196,17 +197,17 @@ Speed System Variation.</p>
 <li><p>die ersten Gurten werden verändert, der Drehpunkt ist im letzten Aufhängepunkt</p></li>
 <li><p>die letzten Gurten werden verändert, der Drehpunkt ist im ersten Aufhängepunkt</p></li>
 </ol>
-<div class="section" id="max-neg-winkel">
+<section id="max-neg-winkel">
 <h3>Max neg Winkel<a class="headerlink" href="#max-neg-winkel" title="Permalink to this headline">¶</a></h3>
 <p>Hier wird der maximale negative Winkel für die Studie definiert. Berechnet werden im Anschluss
 Winkel zwischen dem eingegebenen Wert und 0.</p>
-</div>
-<div class="section" id="num-neg-schritte">
+</section>
+<section id="num-neg-schritte">
 <h3>Num neg Schritte<a class="headerlink" href="#num-neg-schritte" title="Permalink to this headline">¶</a></h3>
 <p>Die Anzahl Schritte welche berechnet werden sollen. Ein neg Winkel von -4 und 4 Schritte ergeben am Schluss eine Berechnung pro Grad.</p>
-</div>
-</div>
-<div class="section" id="trimm-system-variation">
+</section>
+</section>
+<section id="trimm-system-variation">
 <h2>Trimm System Variation<a class="headerlink" href="#trimm-system-variation" title="Permalink to this headline">¶</a></h2>
 <p>Die Parameter <em>Max pos Winkel</em> und <em>Anz pos Schritte</em> definieren die Kalkulation für eine
 Trimm System Variation.</p>
@@ -215,12 +216,12 @@ Trimm System Variation.</p>
 <li><p>die letzten Gurten werden verändert, der Drehpunkt ist im ersten Aufhängepunkt</p></li>
 <li><p>die ersten Gurten werden verändert, der Drehpunkt ist im letzten Aufhängepunkt</p></li>
 </ol>
-<div class="section" id="max-pos-winkel">
+<section id="max-pos-winkel">
 <h3>Max pos Winkel<a class="headerlink" href="#max-pos-winkel" title="Permalink to this headline">¶</a></h3>
 <p>Hier wird der maximale positive Winkel für die Studie definiert. Berechnet werden im Anschluss
 Winkel zwischen dem eingegebenen Wert und 0.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>Num neg Schritte<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Die Anzahl Schritte welche berechnet werden sollen.
 Ein positiver Winkel von 5 und 10 Schritte ergeben am Schluss eine Berechnung in .5 Grad Schritten.</p>
@@ -277,9 +278,9 @@ Ein positiver Winkel von 5 und 10 Schritte ergeben am Schluss eine Berechnung in
 </pre></div>
 </div>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.28" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -309,8 +310,8 @@ Ein positiver Winkel von 5 und 10 Schritte ergeben am Schluss eine Berechnung in
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>
