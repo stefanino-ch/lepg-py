@@ -1,4 +1,4 @@
 [Defaults]
-checkforupdates = yes
-trackbranch = stable
-
+check_for_updates = True
+tracking_branch = stable
+pre_proc_show_outline = True

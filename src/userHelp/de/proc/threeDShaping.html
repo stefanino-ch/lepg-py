@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Shaping &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3D Shaping &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -120,7 +121,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -136,7 +137,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="d-shaping">
+<section id="d-shaping">
 <h1>3D Shaping<a class="headerlink" href="#d-shaping" title="Permalink to this headline">¶</a></h1>
 <p>3D Shapin in lep ist so umgesetzt dass nahe der Eintrittskante im Obersegel zwei und im Untersegel ein Bereich
 definiert werden können die “aufgeschnitten” und angepasst werden können.</p>
@@ -165,35 +166,35 @@ werden.</p>
 <span class="n">exteSTL</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
 </pre></div>
 </div>
-<div class="section" id="anzahl-der-konfigurationen">
+<section id="anzahl-der-konfigurationen">
 <h2>Anzahl der Konfigurationen<a class="headerlink" href="#anzahl-der-konfigurationen" title="Permalink to this headline">¶</a></h2>
 <p><em>3D Shaping</em> ist eine <strong>optionale Konfiguration</strong>.</p>
 <p>Wenn Du diese Funktion nicht verwenden willst, dann setzte den Wert für <strong>Anzahl der Konfigurationen</strong> auf <strong>0</strong>.</p>
-</div>
-<div class="section" id="erste-und-letzte-rippe">
+</section>
+<section id="erste-und-letzte-rippe">
 <h2>Erste und letzte  Rippe<a class="headerlink" href="#erste-und-letzte-rippe" title="Permalink to this headline">¶</a></h2>
 <p>Es ist möglich mehrere Gruppen mit verschiedenen 3D Shaping Parametern zu definieren.
 Mit diesen beiden Parametern bestimmst Du in welchem Flügelbereich die Parameter angewendet werden.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" style="width: 442px; height: 625px;" /></a>
-</div>
-<div class="section" id="anzahl-schnitte-im-obersegel">
+</section>
+<section id="anzahl-schnitte-im-obersegel">
 <h2>Anzahl Schnitte im Obersegel<a class="headerlink" href="#anzahl-schnitte-im-obersegel" title="Permalink to this headline">¶</a></h2>
 <p>Es können im Obersegel maximal zwei Schnitte definiert werden. Die Anzahl und Position der Schnitte
 beeinflussen die definitive Flügelform.</p>
-</div>
-<div class="section" id="ini-pt">
+</section>
+<section id="ini-pt">
 <h2>Ini Pt<a class="headerlink" href="#ini-pt" title="Permalink to this headline">¶</a></h2>
 <p>Das Flügelprofil ist definiert durch eine Anzahl Koordinatenpaare in x und y Richtung. Die Positionen von
 Ini und Schnitt Pt werden definiert durch die Nummer eines der Koordinatenpaare.</p>
 <p>Um die Nummer zu ermitteln musst Du entweder die Profildatei in einem CAD System oder einem Texteditor öffnen.
 Dann zählst Du ausgehend von der Flügelhinterkante, entlang des Obersegels die Punkte bis Du an der richtigen
 Profilposition angekommen bist.</p>
-</div>
-<div class="section" id="schnitt-pt">
+</section>
+<section id="schnitt-pt">
 <h2>Schnitt Pt<a class="headerlink" href="#schnitt-pt" title="Permalink to this headline">¶</a></h2>
 <p>Die Position des Schnitt Pt wird analog der Position des Ini Pt definiert.</p>
-</div>
-<div class="section" id="tiefe">
+</section>
+<section id="tiefe">
 <h2>Tiefe<a class="headerlink" href="#tiefe" title="Permalink to this headline">¶</a></h2>
 <p>Mit diesem Parameter definierts Du wie viel Stoff in der Längsrichtung hinzugefügt wird.
 Der Koeffizient hat einen Bereich von -1.0 bis +1.0.
@@ -201,14 +202,14 @@ Wenn Du 0.0 eingibst findet keine Längenveränderung statt.</p>
 <p>Die Längenveränderung passiert wie folgt: an der Kante des Panels wird die Originallänge beibehalten.
 Basierend auf dem Tiefenkoeffizient wird die Panellänge in der Mitte entsprechend verlängert oder
 verkürzt. Die beiden Eckpunkte sowie der (verlängerte) Punkt in der Mitte werden mit einem Kreissegment verbunden.</p>
-</div>
-<div class="section" id="number-of-cuts-in-the-lower-sail">
+</section>
+<section id="number-of-cuts-in-the-lower-sail">
 <h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Permalink to this headline">¶</a></h2>
 <p>Im Untersegel kann maximal ein Bereich mit 3D Shaping definiert werden.</p>
 <p>Die Definition von <em>Ini Pt</em>, <em>Schnitt Pt</em> und <em>Tiefe</em> erfolgt analog dem Obersegel.</p>
 <p>Im folgenden Abschnitt wird definiert wie die 3D Shaping Daten ausgegeben werden sollen.</p>
-</div>
-<div class="section" id="name">
+</section>
+<section id="name">
 <h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
 <p>Die Namen sind fix definiert und dürfen nicht verändert werden!</p>
 <p><strong>Inter3D</strong>: Darstellung der Zwischenpanels in 3D lep-3d.dxf</p>
@@ -219,27 +220,27 @@ verkürzt. Die beiden Eckpunkte sowie der (verlängerte) Punkt in der Mitte werd
 <p><strong>Bemerkung</strong>: Nur die erste Zeile ist in lep vollständig implementiert. An der Berechnung der Daten
 für die weiteren Zeilen wird aktuell noch gearbeitet, trotzdem müssen sie hier schon definiert werden.</p>
 <p>Für jede Zeile können folgende Werte definiert werden.</p>
-</div>
-<div class="section" id="zeichnen">
+</section>
+<section id="zeichnen">
 <h2>Zeichnen<a class="headerlink" href="#zeichnen" title="Permalink to this headline">¶</a></h2>
 <p><strong>0</strong>: nicht zeichnen</p>
 <p><strong>1</strong>: zeichnen</p>
-</div>
-<div class="section" id="erstes-panel">
+</section>
+<section id="erstes-panel">
 <h2>Erstes Panel<a class="headerlink" href="#erstes-panel" title="Permalink to this headline">¶</a></h2>
 <p>Nummer des ersten Panels für welches die Daten gezeichnet werden sollen.</p>
-</div>
-<div class="section" id="letztes-panel">
+</section>
+<section id="letztes-panel">
 <h2>Letztes Panel<a class="headerlink" href="#letztes-panel" title="Permalink to this headline">¶</a></h2>
 <p>Nummer des letzten Panels für welches die Daten gezeichnet werden sollen.</p>
-</div>
-<div class="section" id="symmetrisch">
+</section>
+<section id="symmetrisch">
 <h2>Symmetrisch<a class="headerlink" href="#symmetrisch" title="Permalink to this headline">¶</a></h2>
 <p><strong>0</strong>: die Panels werden symmetrisch gezeichnet</p>
 <p><strong>1</strong>: die Panels werden nur einseitig gezeichnet</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.29" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -269,8 +270,8 @@ für die weiteren Zeilen wird aktuell noch gearbeitet, trotzdem müssen sie hier
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

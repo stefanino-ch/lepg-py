@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skin tension &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Skin tension &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -114,7 +115,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -130,7 +131,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="skin-tension">
+<section id="skin-tension">
 <h1>Skin tension<a class="headerlink" href="#skin-tension" title="Permalink to this headline">¶</a></h1>
 <p>In the <em>Skin tension</em> window you can define the parameters from the 5th section of the lep file.</p>
 <a class="reference internal image-reference" href="../../_images/skinTension-en.png"><img alt="../../_images/skinTension-en.png" src="../../_images/skinTension-en.png" style="width: 602px; height: 286px;" /></a>
@@ -151,29 +152,29 @@
 </div>
 <p>The tension of the top surface and lower surface panels is achieved by creating tapers in the panels. The program allows you to define “over-wides” in 6 points along the edge of the panels. The transition between basis points of overwide is linear.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" />
-<div class="section" id="top-dist-le">
+<section id="top-dist-le">
 <h2>Top dist LE<a class="headerlink" href="#top-dist-le" title="Permalink to this headline">¶</a></h2>
 <p>Distance from Leading Edge in [% chord]</p>
-</div>
-<div class="section" id="top-widening">
+</section>
+<section id="top-widening">
 <h2>Top widening<a class="headerlink" href="#top-widening" title="Permalink to this headline">¶</a></h2>
 <p>Over widening in [% chord]</p>
-</div>
-<div class="section" id="bott-dist-te">
+</section>
+<section id="bott-dist-te">
 <h2>Bott dist TE<a class="headerlink" href="#bott-dist-te" title="Permalink to this headline">¶</a></h2>
 <p>Distance from Trailing Edge in [% chord]</p>
-</div>
-<div class="section" id="bott-widening">
+</section>
+<section id="bott-widening">
 <h2>Bott widening<a class="headerlink" href="#bott-widening" title="Permalink to this headline">¶</a></h2>
 <p>Over widening in [% chord]</p>
-</div>
-<div class="section" id="strain-mini-ribs">
+</section>
+<section id="strain-mini-ribs">
 <h2>Strain mini ribs<a class="headerlink" href="#strain-mini-ribs" title="Permalink to this headline">¶</a></h2>
 <p>The background here is to deal with the extension of the canvas.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" />
 <p>In case of doubt put the default value of <strong>0.0114</strong></p>
-</div>
-<div class="section" id="num-points-and-coeff">
+</section>
+<section id="num-points-and-coeff">
 <h2>Num Points and Coeff<a class="headerlink" href="#num-points-and-coeff" title="Permalink to this headline">¶</a></h2>
 <p>There are two different inperpretations of these parameters. Recommended for all designs is the setup described below.</p>
 <p>Set the parameters of the line to the values:</p>
@@ -181,8 +182,8 @@
 <p>First number <strong>“1000”</strong> is only a convention than signifies force the program to use maximal precision, reformating panels to achieve accuraccy better than 0.1 mm (lengths differences beetween rib and panels located at left and right).</p>
 <p>Second number is a coefficient between 0.0 and 1.0 that sets the intensity of the correction. If coefficient is set to “0.0” then no correction applies. If the coefficient is set to <strong>“1.0”</strong> the accuracy is maximal, aprox &lt; 0.01 mm.</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.5" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -212,8 +213,8 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

@@ -1,3 +1,0 @@
-Compiled in xubuntu amd64bit:
-
-gfortran-8 -std=legacy pre-procesor.f 

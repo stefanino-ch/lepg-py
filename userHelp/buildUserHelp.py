@@ -19,6 +19,7 @@ dirpath = os.path.dirname(os.path.realpath(__file__))
 pathName = os.path.join(dirpath, '_build/doctrees')
 srcPath = os.path.join(dirpath, '_build/html')
 staticPath = os.path.join(dirpath, '_static')
+buildPath = os.path.join(dirpath, '_build')
 
 print('Delete old doc to force a complete build? [y/ n]')
 answ = input('Default= n ')
@@ -34,16 +35,23 @@ if answ == 'y':
 if not os.path.isdir(staticPath):
     os.mkdir(staticPath)
 
+# Check if _build dir ist there
+if not os.path.isdir(buildPath):
+    os.mkdir(buildPath)
+
 print()
 print('...starting Sphinx...')
 if platform.system() == "Windows":
     pathName = os.path.join(dirpath, 'make.bat html')
     os.system(pathName)
-elif platform.system() == 'Linux':
+elif platform.system() == 'Linux'\
+        or platform.system() == 'Darwin':
     os.chdir(dirpath)
     os.system('python ./make.py')
+
 else:
     print('OS not supported currently.')
+    exit(1)
 
 print()
 print('...removing old help files in source tree...')

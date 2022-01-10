@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D shaping &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3D shaping &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -120,7 +121,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -136,7 +137,7 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="d-shaping">
+<section id="d-shaping">
 <h1>3D shaping<a class="headerlink" href="#d-shaping" title="Permalink to this headline">¶</a></h1>
 <p>The model of 3-Shaping proposed by the Laboratori, consists in making one or two transverse cuts in the
 upper surface, near the leading edge, and another optional cut on the bottom surface.</p>
@@ -168,45 +169,45 @@ near the nose, where the curvatures are greatest.</p>
 <span class="n">exteSTL</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">14</span>   <span class="mi">0</span>
 </pre></div>
 </div>
-<div class="section" id="number-of-groups">
+<section id="number-of-groups">
 <h2>Number of groups<a class="headerlink" href="#number-of-groups" title="Permalink to this headline">¶</a></h2>
 <p><em>3D shaping</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the <strong>Number of groups</strong> value to <strong>0</strong>.</p>
-</div>
-<div class="section" id="first-and-last-rib">
+</section>
+<section id="first-and-last-rib">
 <h2>First and last rib<a class="headerlink" href="#first-and-last-rib" title="Permalink to this headline">¶</a></h2>
 <p>You can define several groups with individual 3D shaping parameters. With the first and last rib parameters
 you define where in the wing the settings must be applied.</p>
 <a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" style="width: 442px; height: 625px;" /></a>
-</div>
-<div class="section" id="number-of-upper-cuts">
+</section>
+<section id="number-of-upper-cuts">
 <h2>Number of upper cuts<a class="headerlink" href="#number-of-upper-cuts" title="Permalink to this headline">¶</a></h2>
 <p>You can define max two cuts in the upper sail. Number and position of cuts do control the 3D shaping.</p>
-</div>
-<div class="section" id="ini-p">
+</section>
+<section id="ini-p">
 <h2>Ini P<a class="headerlink" href="#ini-p" title="Permalink to this headline">¶</a></h2>
 <p>The wing profile is defined by a number of x,y coordinates defining each a point on the profile edge.
 The Ini P is the number of the point where the <em>Zone of influence</em> starts. To derive the point number
 open the profile file either with a CAD or a text editor. To count the respective points you start at
 the trailing edge and then you must follow first the upper sail towards the leading edge.</p>
-</div>
-<div class="section" id="cut-p">
+</section>
+<section id="cut-p">
 <h2>Cut P<a class="headerlink" href="#cut-p" title="Permalink to this headline">¶</a></h2>
 <p>The cut point is the next point in the definition. Again here it is defined in the number of points
 of the profile definition starting from the trailing edge.</p>
-</div>
-<div class="section" id="depth">
+</section>
+<section id="depth">
 <h2>Depth<a class="headerlink" href="#depth" title="Permalink to this headline">¶</a></h2>
 <p>With the depth coefficient you control how much fabric is added or removed.</p>
 <p>The coefficient range starts at -1.0 and runs until +1.0.</p>
 <p>A value of 0.0 means no fabric is added or removed.</p>
-</div>
-<div class="section" id="number-of-cuts-in-the-lower-sail">
+</section>
+<section id="number-of-cuts-in-the-lower-sail">
 <h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Permalink to this headline">¶</a></h2>
 <p>There’s a maximum of one cut in the lower sail you can define.</p>
 <p>The definition of the three values <em>Ini P</em>, <em>Cut P</em> and <em>Depth</em> depth is identical to the values of the upper sail.</p>
-</div>
-<div class="section" id="name">
+</section>
+<section id="name">
 <h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
 <p>The names are fix, do not alter them!</p>
 <p><strong>Inter3D</strong>: representation of the intermediate airfoils in 3D lep-3d.dxf</p>
@@ -218,27 +219,27 @@ of the profile definition starting from the trailing edge.</p>
 have an effect yet, but you must define them for compatibility reasons!</p>
 <p>For each of the data lines you must define the parameters as described below.</p>
 <p>In the following section you define if an how the 3D Shaping data should be printed.</p>
-</div>
-<div class="section" id="draw">
+</section>
+<section id="draw">
 <h2>Draw<a class="headerlink" href="#draw" title="Permalink to this headline">¶</a></h2>
 <p><strong>0</strong>: do not draw</p>
 <p><strong>1</strong>: draw</p>
-</div>
-<div class="section" id="first-panel">
+</section>
+<section id="first-panel">
 <h2>First panel<a class="headerlink" href="#first-panel" title="Permalink to this headline">¶</a></h2>
 <p>Number of the first airfoil to draw</p>
-</div>
-<div class="section" id="last-panel">
+</section>
+<section id="last-panel">
 <h2>Last panel<a class="headerlink" href="#last-panel" title="Permalink to this headline">¶</a></h2>
 <p>Number of the last airfoil to draw</p>
-</div>
-<div class="section" id="symmetric">
+</section>
+<section id="symmetric">
 <h2>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h2>
 <p><strong>0</strong>: it indicates to draw with symmetry</p>
 <p><strong>1</strong>: draw only one side</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.29" target="_blank">Laboratori d'envol website</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -268,8 +269,8 @@ have an effect yet, but you must define them for compatibility reasons!</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

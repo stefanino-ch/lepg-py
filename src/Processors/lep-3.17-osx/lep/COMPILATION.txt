@@ -1,0 +1,11 @@
+Compiler avec:
+
+gfortran -static-libgfortran leparagliding.f
+
+On obtient: 
+
+a.out
+
+Renommer:
+
+lep-3.17-osx.out

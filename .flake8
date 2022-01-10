@@ -1,5 +1,0 @@
-[flake8]
-# i18nfuncs = gettext ngettext myfunny_gettext _
-
-builtins = _
-

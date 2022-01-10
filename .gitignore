@@ -34,7 +34,8 @@ __MACOSX
 .pydevproject
 .pydevproject.bak
 /preTest.txt
-.idea
+# PyCharm development environment
+/.idea
 
 # MAC specifics
 .DS_Store

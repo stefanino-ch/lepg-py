@@ -24,11 +24,22 @@ answ = input('Default= y ')
 
 if answ != 'n':
     os.system('python ../userHelp/buildUserHelp.py')  
-    
+
+
+print()
+print('*****************************************************')
+print('Reset processor directory? [y/ n]')
+answ = input('Default= y ')
+
+if answ != 'n':
+    os.system('python ../processors/setupProcessor.py')
+
+
 print()
 print('*****************************************************')
 print('Setup version number')
 os.system('python ./prepareVersionNumbers.py')
+
 
 print()
 print('*****************************************************')
@@ -40,5 +51,9 @@ if answ == 'y':
         os.system('python ../distribution/buildW64Package.py')
     elif platform.system() == ('Linux'):
         os.system('python ../distribution/buildLinuxPackage.py')
+    elif platform.system() == ('Darwin'):
+        os.system('python ../distribution/build_osx_package.py')
     else:
         print('OS not supported currently.')
+
+print()

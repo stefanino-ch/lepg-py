@@ -8,8 +8,9 @@ English Manual
 
    introduction.rst
 
-   preproc/nameLeTeVault.rst
-   preproc/cellDistribution.rst
+   preproc/name_le_te_vault.rst
+   preproc/cell_distribution.rst
+   preproc/wing_outline.rst
    
    proc/basicData.rst
    proc/geometry.rst
@@ -40,6 +41,7 @@ English Manual
    proc/threeDShaping.rst
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
+   proc/partsSeparation.rst
    proc/procOutput.rst
    
    setup/language.rst

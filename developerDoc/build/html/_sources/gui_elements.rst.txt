@@ -6,16 +6,23 @@ GUI Elements
    :maxdepth: 2
    :caption: Contents:
 
+CheckBox
+--------
+.. automodule:: gui.elements.CheckBox
+   :undoc-members:
+   :members:
+   :private-members:
+
 LineEdit
 --------
-.. automodule:: Windows.LineEdit
+.. automodule:: gui.elements.LineEdit
    :undoc-members:
    :members:
    :private-members:
    
 TableView
 ---------
-.. automodule:: Windows.TableView
+.. automodule:: gui.elements.TableView
    :undoc-members: 
    :members:
    :private-members: 
@@ -23,17 +30,19 @@ TableView
 
 WindowBtnBar
 ------------
-.. automodule:: Windows.WindowHelpBar
+.. automodule:: gui.elements.WindowBtnBar
    :undoc-members:
    :members:
    :private-members:
 
 WindowBtnBar
 ------------
-.. automodule:: Windows.WindowBtnBar
+.. automodule:: gui.elements.WindowHelpBar
    :undoc-members:
    :members:
    :private-members:
+
+
 
 
 

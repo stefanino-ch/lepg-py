@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Konfiguration der beiden Prozessoren &#8212; lepg 3.16.x documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Konfiguration der beiden Prozessoren &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -91,6 +92,14 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Konfiguration der beiden Prozessoren</a><ul>
+<li><a class="reference internal" href="#flugel-kontur-nach-prozessing-offnen">Flügel-Kontur nach Prozessing öffnen</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="language.html"
                         title="previous chapter">Spracheinstellungen</a></p>
@@ -101,7 +110,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -117,19 +126,25 @@
             
   <blockquote>
 <div></div></blockquote>
-<div class="section" id="konfiguration-der-beiden-prozessoren">
+<section id="konfiguration-der-beiden-prozessoren">
 <span id="processor-configuration-de"></span><h1>Konfiguration der beiden Prozessoren<a class="headerlink" href="#konfiguration-der-beiden-prozessoren" title="Permalink to this headline">¶</a></h1>
-<p>Bevor die Pre- und Prozessor ausgeführt werden können muss lepg wissen wo sie sind.</p>
+<p>Bevor die Pre- und Prozessor ausgeführt werden können muss lepg wissen
+wo diese sind.</p>
 <blockquote>
-<div><img alt="../../_images/setupProcessors.png" src="../../_images/setupProcessors.png" />
+<div><img alt="../../_images/setup_processors_de.png" src="../../_images/setup_processors_de.png" />
 </div></blockquote>
-<p>Mit der Schaltfläche hinter dem Anzeigefeld in dem der Pfad und der Prozessorname angezeigt wird kann der entsprechende Setup Dialog gestartet werden.</p>
-<p>Wenn du das fertige lepg Packet verwendest, findest du die Prozessoren im Unterverzeichnis <strong>Processors</strong>.</p>
-<p>Darin gibt es jeweils einen Unterordner <strong>pro Betriebssystem</strong>. Der Pre-Prozessor ist darin im Ordner pre… der Prozessor im Ordner lep.</p>
+<p>Mit der Schaltfläche hinter dem Anzeigefeld in dem der Pfad und der
+Prozessorname angezeigt wird kann der entsprechende Setup Dialog gestartet
+werden.</p>
+<p>Wenn du das fertige lepg Packet verwendest, findest du die Prozessoren im
+Unterverzeichnis <strong>Processors</strong>.</p>
+<p>Darin gibt es jeweils einen Unterordner <strong>pro Betriebssystem</strong>. Der
+Pre-Prozessor ist darin im Ordner pre… der Prozessor im Ordner lep.</p>
 <dl class="simple">
 <dt>Ausgewählt werden jeweils die ausführbaren Dateien:</dt><dd><ul class="simple">
 <li><p>Windows: .exe</p></li>
 <li><p>Linux: .out</p></li>
+<li><p>Mac: .o</p></li>
 </ul>
 </dd>
 </dl>
@@ -140,12 +155,21 @@
         <span class="o">|-</span><span class="n">lep</span><span class="o">-</span><span class="mf">3.16</span><span class="o">-</span><span class="n">win64</span><span class="o">.</span><span class="n">exe</span>    <span class="o">&lt;-</span> <span class="n">Prozessor</span>
     <span class="o">|-</span><span class="n">man</span>
     <span class="o">|-</span><span class="n">png</span>
-    <span class="o">|-</span><span class="n">pre1</span><span class="o">.</span><span class="mi">6</span>
+    <span class="o">|-</span><span class="n">pre1</span><span class="mf">.6</span>
         <span class="o">|-</span><span class="n">pre</span><span class="o">-</span><span class="mf">1.6</span><span class="o">-</span><span class="n">win64</span><span class="o">.</span><span class="n">exe</span>     <span class="o">&lt;-</span> <span class="n">Pre</span><span class="o">-</span><span class="n">Prozessor</span>
 </pre></div>
 </div>
-<p>In den Ordnern wo die Prozessoren sind werden jeweils auch die Ausgabedateien erzeugt. Wenn du also nach einem Prozessordurchlauf die Meldung erhälst, dass die Dateien erfolgreich erzeugt worden sind, dann findest du sie genau wieder in den oben beschriebenen Ordnern.</p>
-</div>
+<p>In den Ordnern wo die Prozessoren sind werden jeweils auch die
+Ausgabedateien erzeugt. Wenn du also nach einem Prozessordurchlauf die
+Meldung erhälst, dass die Dateien erfolgreich erzeugt worden sind, dann
+findest du sie genau wieder in den oben beschriebenen Ordnern.</p>
+<section id="flugel-kontur-nach-prozessing-offnen">
+<h2>Flügel-Kontur nach Prozessing öffnen<a class="headerlink" href="#flugel-kontur-nach-prozessing-offnen" title="Permalink to this headline">¶</a></h2>
+<p>Wenn diese Checkbox aktivert ist, dann wird nach einem Start des
+Pre-Prozessors automatisch das Fenster <strong>Flügel-Kontur</strong> geöffnet und
+aktualisiert.</p>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -175,8 +199,8 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>
