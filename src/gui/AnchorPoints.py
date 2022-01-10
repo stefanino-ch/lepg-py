@@ -115,7 +115,7 @@ class AnchorPoints(QMdiSubWindow):
         : method : handles the sort of the table by rib number
         '''
         logging.debug(self.__className+'.sort_btn_press')
-        self.anchPoints_M.sortTable(ProcModel.AnchorPointsModel.RibNumCol, Qt.AscendingOrder)
+        self.anchPoints_M.sort_table(ProcModel.AnchorPointsModel.RibNumCol, Qt.AscendingOrder)
     
     def btnPress(self, q):
         '''

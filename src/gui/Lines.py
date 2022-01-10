@@ -114,7 +114,7 @@ class Lines(QMdiSubWindow):
         self.numConf_S.setRange(0, 999)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                  QSizePolicy.Fixed))
-        self.numConf_S.setValue(self.lines_M.numConfigs())
+        self.numConf_S.setValue(self.lines_M.num_configs())
 
         edit = self.numConf_S.lineEdit()
         edit.setReadOnly(True)
@@ -130,7 +130,7 @@ class Lines(QMdiSubWindow):
         self.windowLayout.addWidget(self.tabs)
 
         # check if there's already data
-        if self.lines_M.numConfigs() > 0:
+        if self.lines_M.num_configs() > 0:
             self.modelSizeChanged()
 
         sortBtn = QPushButton(_('Sort by order_num'))
@@ -162,16 +162,16 @@ class Lines(QMdiSubWindow):
                  all elements will follow the user configuration.
         '''
         logging.debug(self.__className+'.conf_spin_change')
-        currNumConfigs = self.lines_M.numConfigs()
+        currNumConfigs = self.lines_M.num_configs()
         mustNumConfigs = self.numConf_S.value()
 
         if currNumConfigs > mustNumConfigs:
             # more tabs than we should have -> remove last
-            self.lines_M.setNumRowsForConfig(currNumConfigs, 0)
+            self.lines_M.set_num_rows_for_config(currNumConfigs, 0)
 
         if currNumConfigs < mustNumConfigs:
             # missing configs -> add one
-            self.lines_M.setNumRowsForConfig(mustNumConfigs, 1)
+            self.lines_M.set_num_rows_for_config(mustNumConfigs, 1)
 
     def modelSizeChanged(self):
         '''
@@ -180,7 +180,7 @@ class Lines(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
 
-        currNumConfigs = self.lines_M.numConfigs()
+        currNumConfigs = self.lines_M.num_configs()
 
         # config (num plans) spinbox
         if self.numConf_S.value() != currNumConfigs:
@@ -207,9 +207,9 @@ class Lines(QMdiSubWindow):
         # update lines (pahts) spin
         i = 0
         while i < self.tabs.count():
-            if self.numLines_S[i].value != self.lines_M.numRowsForConfig(i+1):
+            if self.numLines_S[i].value != self.lines_M.num_rows_for_config(i + 1):
                 self.numLines_S[i].blockSignals(True)
-                self.numLines_S[i].setValue(self.lines_M.numRowsForConfig(i+1))
+                self.numLines_S[i].setValue(self.lines_M.num_rows_for_config(i + 1))
                 self.numLines_S[i].blockSignals(False)
             i += 1
 
@@ -348,7 +348,7 @@ class Lines(QMdiSubWindow):
                  all elements will follow the user configuration.
         '''
         logging.debug(self.__className+'.num_lines_change')
-        self.lines_M.setNumRowsForConfig(
+        self.lines_M.set_num_rows_for_config(
                         self.tabs.currentIndex()+1,
                         self.numLines_S[self.tabs.currentIndex()].value())
 

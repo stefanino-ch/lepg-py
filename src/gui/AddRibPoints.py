@@ -137,7 +137,7 @@ class AddRibPoints(QMdiSubWindow):
         sortBtn.clicked.connect(self.sortBtnPress)
 
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.addRibPts_M.numRowsForConfig(1))
+        self.numLines_S.setValue(self.addRibPts_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
 
         #############################
@@ -164,7 +164,7 @@ class AddRibPoints(QMdiSubWindow):
         """
         logging.debug(self.__className + '.modelSizeChanged')
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.addRibPts_M.numRowsForConfig(1))
+        self.numLines_S.setValue(self.addRibPts_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
 
     def numLinesChange(self):
@@ -173,7 +173,7 @@ class AddRibPoints(QMdiSubWindow):
                  elements will follow the user configuration.
         """
         logging.debug(self.__className + '.num_lines_change')
-        self.addRibPts_M.setNumRowsForConfig(1, self.numLines_S.value())
+        self.addRibPts_M.set_num_rows_for_config(1, self.numLines_S.value())
 
     def sortBtnPress(self):
         """

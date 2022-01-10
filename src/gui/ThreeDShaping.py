@@ -96,7 +96,7 @@ class ThreeDShaping(QMdiSubWindow):
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0,999)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S.setValue( self.threeDShConf_M.numConfigs() )
+        self.numConf_S.setValue(self.threeDShConf_M.num_configs())
         confEdit = self.numConf_S.lineEdit()
         confEdit.setReadOnly(True)
         self.numConf_S.valueChanged.connect(self.confSpinChange)
@@ -111,7 +111,7 @@ class ThreeDShaping(QMdiSubWindow):
         self.window_Ly.addWidget(self.tabs)
         
         # check if there's already data
-        if self.threeDShConf_M.numConfigs() > 0:
+        if self.threeDShConf_M.num_configs() > 0:
             self.modelNumConfigsChanged() 
 
         printTable = TableView()
@@ -156,7 +156,7 @@ class ThreeDShaping(QMdiSubWindow):
         :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
         '''
         logging.debug(self.__className+'.conf_spin_change')
-        self.threeDShConf_M.setNumConfigs( self.numConf_S.value() )
+        self.threeDShConf_M.set_num_configs(self.numConf_S.value())
     
     def modelNumConfigsChanged(self):
         '''
@@ -164,7 +164,7 @@ class ThreeDShaping(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.model_num_configs_changed')
         
-        currentNumConfigs = self.threeDShConf_M.numConfigs()
+        currentNumConfigs = self.threeDShConf_M.num_configs()
 
         self.numConf_S.blockSignals(True)
         self.numConf_S.setValue( currentNumConfigs )
@@ -229,7 +229,7 @@ class ThreeDShaping(QMdiSubWindow):
         self.numUpC_S.append(QSpinBox())
         self.numUpC_S[currNumTabs].setRange(0,2)
         self.numUpC_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numUpC_S[currNumTabs].setValue( self.threeDShUpDet_M.numRowsForConfig(currNumTabs+1) )
+        self.numUpC_S[currNumTabs].setValue(self.threeDShUpDet_M.num_rows_for_config(currNumTabs + 1))
         confEdit = self.numUpC_S[currNumTabs].lineEdit()
         confEdit.setReadOnly(True)
         self.numUpC_S[currNumTabs].valueChanged.connect(self.upCChange)
@@ -273,7 +273,7 @@ class ThreeDShaping(QMdiSubWindow):
         self.numLoC_S.append(QSpinBox())
         self.numLoC_S[currNumTabs].setRange(0,1)
         self.numLoC_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLoC_S[currNumTabs].setValue( self.threeDShLoDet_M.numRowsForConfig(currNumTabs+1) )
+        self.numLoC_S[currNumTabs].setValue(self.threeDShLoDet_M.num_rows_for_config(currNumTabs + 1))
         confEdit = self.numLoC_S[currNumTabs].lineEdit()
         confEdit.setReadOnly(True)
         self.numLoC_S[currNumTabs].valueChanged.connect(self.loCChange)
@@ -333,9 +333,9 @@ class ThreeDShaping(QMdiSubWindow):
         self.numLoC_S.pop(numTabs-1)
         
         # cleanup database
-        self.threeDShConf_M.setNumRowsForConfig(numTabs, 0 )
-        self.threeDShUpDet_M.setNumRowsForConfig(numTabs, 0 )
-        self.threeDShLoDet_M.setNumRowsForConfig(numTabs, 0 )
+        self.threeDShConf_M.set_num_rows_for_config(numTabs, 0)
+        self.threeDShUpDet_M.set_num_rows_for_config(numTabs, 0)
+        self.threeDShLoDet_M.set_num_rows_for_config(numTabs, 0)
     
     def updateTabs(self):
         '''
@@ -345,14 +345,14 @@ class ThreeDShaping(QMdiSubWindow):
     
         i=0
         while i< self.tabs.count():
-            if self.numUpC_S[i].value != self.threeDShUpDet_M.numRowsForConfig(i+1):
+            if self.numUpC_S[i].value != self.threeDShUpDet_M.num_rows_for_config(i + 1):
                 self.numUpC_S[i].blockSignals(True)
-                self.numUpC_S[i].setValue( self.threeDShUpDet_M.numRowsForConfig(i+1) )
+                self.numUpC_S[i].setValue(self.threeDShUpDet_M.num_rows_for_config(i + 1))
                 self.numUpC_S[i].blockSignals(False)
             
-            if self.numLoC_S[i].value != self.threeDShLoDet_M.numRowsForConfig(i+1):
+            if self.numLoC_S[i].value != self.threeDShLoDet_M.num_rows_for_config(i + 1):
                 self.numLoC_S[i].blockSignals(True)
-                self.numLoC_S[i].setValue( self.threeDShLoDet_M.numRowsForConfig(i+1) )
+                self.numLoC_S[i].setValue(self.threeDShLoDet_M.num_rows_for_config(i + 1))
                 self.numLoC_S[i].blockSignals(False)
             i+=1
 
@@ -361,14 +361,14 @@ class ThreeDShaping(QMdiSubWindow):
         :method: Called upon manual changes of the number of lower cuts spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.upCChange')
-        self.threeDShUpDet_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numUpC_S[self.tabs.currentIndex()].value() )
+        self.threeDShUpDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numUpC_S[self.tabs.currentIndex()].value())
 
     def loCChange(self): 
         '''
         :method: Called upon manual changes of the number of lower cuts spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.loCChange')
-        self.threeDShLoDet_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numLoC_S[self.tabs.currentIndex()].value() )
+        self.threeDShLoDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numLoC_S[self.tabs.currentIndex()].value())
     
     def btnPress(self, q):
         '''

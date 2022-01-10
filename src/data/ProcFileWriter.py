@@ -223,7 +223,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*          4. AIRFOIL HOLES\n'
         stream << separator
-        num_configs = int(self.light_conf_m.numConfigs())
+        num_configs = int(self.light_conf_m.num_configs())
         stream << '%s\n' % num_configs
 
         for g in range(0, num_configs):
@@ -231,7 +231,7 @@ class ProcFileWriter:
             stream << '%s\n' % chk_num(values(0))
             stream << '%s\n' % chk_num(values(1))
 
-            num_lines = self.light_det_m.numRowsForConfig(g + 1)
+            num_lines = self.light_det_m.num_rows_for_config(g + 1)
             stream << '%s\n' % num_lines
             for line_it in range(0, num_lines):
                 values = self.light_det_m.getRow(g + 1, line_it + 1)
@@ -322,11 +322,11 @@ class ProcFileWriter:
         values = self.wing_m.get_row()
         stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.LinesConcTypeCol))
 
-        num_configs = self.lines_m.numConfigs()
+        num_configs = self.lines_m.num_configs()
         stream << '%s\n' % num_configs
 
         for g in range(0, num_configs):
-            num_lines = self.lines_m.numRowsForConfig(g + 1)
+            num_lines = self.lines_m.num_rows_for_config(g + 1)
             stream << '%s\n' % num_lines
 
             for line_it in range(0, num_lines):
@@ -346,7 +346,7 @@ class ProcFileWriter:
         values = self.wing_m.get_row()
         stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.BrakeLengthCol))
 
-        num_lines = self.brakes_m.numRowsForConfig(1)
+        num_lines = self.brakes_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
         for line_it in range(0, num_lines):
             values = self.brakes_m.getRow(1, line_it + 1)
@@ -399,7 +399,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*    12. H V and VH ribs\n'
         stream << separator
-        num_lines = self.hv_vh_ribs_m.numRowsForConfig(1)
+        num_lines = self.hv_vh_ribs_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
         values = self.wing_m.get_row()
         stream << '%s' % chk_num(values.value(ProcModel.WingModel.xSpacingCol))
@@ -424,11 +424,11 @@ class ProcFileWriter:
         stream << separator
         stream << '*    15. Extrados colors\n'
         stream << separator
-        num_groups = self.extrados_col_conf_m.numConfigs()
+        num_groups = self.extrados_col_conf_m.num_configs()
         stream << '%s\n' % num_groups
 
         for g in range(0, num_groups):
-            num_lines = self.extrados_col_det_m.numRowsForConfig(g + 1)
+            num_lines = self.extrados_col_det_m.num_rows_for_config(g + 1)
 
             values = self.extrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
@@ -442,11 +442,11 @@ class ProcFileWriter:
         stream << separator
         stream << '*    16. Intrados colors\n'
         stream << separator
-        num_groups = self.intrados_col_conf_m.numConfigs()
+        num_groups = self.intrados_col_conf_m.num_configs()
         stream << '%s\n' % num_groups
 
         for g in range(0, num_groups):
-            num_lines = self.intrados_col_det_m.numRowsForConfig(g + 1)
+            num_lines = self.intrados_col_det_m.num_rows_for_config(g + 1)
 
             values = self.intrados_col_conf_m.getRow(g + 1)
             stream << '%s' % values(0)
@@ -460,7 +460,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       17. Aditional rib points\n'
         stream << separator
-        num_lines = self.add_rib_pts_m.numRowsForConfig(1)
+        num_lines = self.add_rib_pts_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
@@ -492,7 +492,7 @@ class ProcFileWriter:
         stream << '\t%s' % chk_num(values(13))
         stream << '\t%s\n' % chk_num(values(14))
 
-        num_lines = self.el_lines_def_m.numRowsForConfig(1)
+        num_lines = self.el_lines_def_m.num_rows_for_config(1)
         for line_it in range(0, num_lines):
             values = self.el_lines_def_m.getRow(1, line_it + 1)
 
@@ -506,7 +506,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       19. DXF layer names\n'
         stream << separator
-        num_lines = self.dxf_lay_names_m.numRowsForConfig(1)
+        num_lines = self.dxf_lay_names_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
@@ -522,7 +522,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       20. Marks types\n'
         stream << separator
-        num_lines = self.marks_t_m.numRowsForConfig(1)
+        num_lines = self.marks_t_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
@@ -541,7 +541,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       21. JONCS DEFINITION (NYLON RODS)\n'
         stream << separator
-        num_groups = self.joncs_def_m.numConfigs()
+        num_groups = self.joncs_def_m.num_configs()
         if num_groups == 0:
             stream << '0\n'
         else:
@@ -549,7 +549,7 @@ class ProcFileWriter:
             stream << '%s\n' % num_groups
 
             for g in range(0, num_groups):
-                num_lines = self.joncs_def_m.numRowsForConfig(g + 1)
+                num_lines = self.joncs_def_m.num_rows_for_config(g + 1)
                 values = self.joncs_def_m.getRow(g + 1, 1)
                 scheme = values(ProcModel.JoncsDefModel.TypeCol)
 
@@ -590,7 +590,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       22. NOSE MYLARS DEFINITION\n'
         stream << separator
-        num_groups = self.nose_mylars_m.numConfigs()
+        num_groups = self.nose_mylars_m.num_configs()
         if num_groups == 0:
             stream << '0\n'
         else:
@@ -598,7 +598,7 @@ class ProcFileWriter:
             stream << '%s\n' % num_groups
 
             for g in range(0, num_groups):
-                num_lines = self.nose_mylars_m.numRowsForConfig(g + 1)
+                num_lines = self.nose_mylars_m.num_rows_for_config(g + 1)
 
                 for line_it in range(0, num_lines):
                     values = self.nose_mylars_m.getRow(g + 1, line_it + 1)
@@ -628,7 +628,7 @@ class ProcFileWriter:
             stream << '0\n'
         else:
             stream << '1\n'
-            num_lines = self.two_d_dxf_m.numRowsForConfig(1)
+            num_lines = self.two_d_dxf_m.num_rows_for_config(1)
 
             for line_it in range(0, num_lines):
                 values = self.two_d_dxf_m.getRow(1, line_it + 1)
@@ -676,7 +676,7 @@ class ProcFileWriter:
             stream << '0\n'
         else:
             stream << '1\n'
-            num_lines = self.glue_vent_m.numRowsForConfig(1)
+            num_lines = self.glue_vent_m.num_rows_for_config(1)
 
             # Since 3.17 we have a changing number of values
             # Vents 0, 1 -1, -2. -3 no additional values
@@ -742,7 +742,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       29. 3D SHAPING\n'
         stream << separator
-        num_groups = self.three_d_sh_conf_m.numConfigs()
+        num_groups = self.three_d_sh_conf_m.num_configs()
         if num_groups == 0:
             stream << '0\n'
         else:
@@ -757,7 +757,7 @@ class ProcFileWriter:
                 stream << '\t%s' % chk_num(values(ProcModel.ThreeDShConfModel.FirstRibCol))
                 stream << '\t%s\n' % chk_num(values(ProcModel.ThreeDShConfModel.LastRibCol))
 
-                num_lines = self.three_d_sh_up_det_M.numRowsForConfig(g + 1)
+                num_lines = self.three_d_sh_up_det_M.num_rows_for_config(g + 1)
                 stream << 'upper\t%s\t1\n' % num_lines
 
                 for line_it in range(0, num_lines):
@@ -769,7 +769,7 @@ class ProcFileWriter:
                         if p == 2:
                             stream << '\n'
 
-                num_lines = self.three_d_sh_lo_det_m.numRowsForConfig(g + 1)
+                num_lines = self.three_d_sh_lo_det_m.num_rows_for_config(g + 1)
                 stream << 'lower\t%s\t1\n' % num_lines
 
                 for line_it in range(0, num_lines):
@@ -782,7 +782,7 @@ class ProcFileWriter:
                             stream << '\n'
 
             stream << '* Print parameters\n'
-            num_lines = self.three_d_sh_print_m.numRowsForConfig(1)
+            num_lines = self.three_d_sh_print_m.num_rows_for_config(1)
             for line_it in range(0, num_lines):
                 values = self.three_d_sh_print_m.getRow(1, line_it + 1)
 
@@ -804,7 +804,7 @@ class ProcFileWriter:
         else:
             stream << '1\n'
 
-            num_lines = self.airf_thickn_m.numRowsForConfig(1)
+            num_lines = self.airf_thickn_m.num_rows_for_config(1)
             for line_it in range(0, num_lines):
                 values = self.airf_thickn_m.getRow(1, line_it + 1)
 
@@ -814,7 +814,7 @@ class ProcFileWriter:
         stream << separator
         stream << '*       31. NEW SKIN TENSION MODULE\n'
         stream << separator
-        num_groups = self.new_skin_tens_conf_m.numConfigs()
+        num_groups = self.new_skin_tens_conf_m.num_configs()
         if num_groups == 0:
             stream << '0\n'
         else:
@@ -824,7 +824,7 @@ class ProcFileWriter:
             for g in range(0, num_groups):
                 stream << '* Skin tension group\n'
                 values = self.new_skin_tens_conf_m.getRow(g + 1, 1)
-                num_lines = self.new_skin_tens_det_m.numRowsForConfig(g + 1)
+                num_lines = self.new_skin_tens_det_m.num_rows_for_config(g + 1)
 
                 stream << '%s' % (g + 1)
                 stream << '\t%s' % chk_num(values(ProcModel.NewSkinTensConfModel.InitialRibCol))

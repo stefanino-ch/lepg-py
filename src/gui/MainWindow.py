@@ -250,9 +250,9 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the File Data Status overview window.
         """
-        if self.dws.windowExists('DataStatusOverview') is False:
+        if self.dws.window_exists('DataStatusOverview') is False:
             self.file_data_status_w = DataStatusOverview()
-            self.dws.registerWindow('DataStatusOverview')
+            self.dws.register_window('DataStatusOverview')
             self.mdi.addSubWindow(self.file_data_status_w)
         self.file_data_status_w.show()
 
@@ -338,9 +338,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Name, LE, TE, Vault*
         """
-        if self.dws.windowExists('PreProcDataEdit') is False:
+        if self.dws.window_exists('PreProcDataEdit') is False:
             self.preProcEditW = PreProcData()
-            self.dws.registerWindow('PreProcDataEdit')
+            self.dws.register_window('PreProcDataEdit')
             self.mdi.addSubWindow(self.preProcEditW)
         self.preProcEditW.show()
 
@@ -349,9 +349,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Cells distribution*
         """
-        if self.dws.windowExists('PreProcCellsDistribution') is False:
+        if self.dws.window_exists('PreProcCellsDistribution') is False:
             self.pre_proc_cells_distr_w = PreProcCellsDistribution()
-            self.dws.registerWindow('PreProcCellsDistribution')
+            self.dws.register_window('PreProcCellsDistribution')
             self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
         self.pre_proc_cells_distr_w.show()
 
@@ -366,9 +366,9 @@ class MainWindow(QMainWindow):
         self.ppm.write_file(True)
 
         # Open the window for the user info
-        if self.dws.windowExists('ProcessorOutput') is False:
+        if self.dws.window_exists('ProcessorOutput') is False:
             self.proc_out_w = ProcessorOutput()
-            self.dws.registerWindow('ProcessorOutput')
+            self.dws.register_window('ProcessorOutput')
             self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
 
@@ -592,9 +592,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Basic data*
         """
-        if self.dws.windowExists('ProcBasicData') is False:
+        if self.dws.window_exists('ProcBasicData') is False:
             self.basic_data_w = BasicData()
-            self.dws.registerWindow('ProcBasicData')
+            self.dws.register_window('ProcBasicData')
             self.mdi.addSubWindow(self.basic_data_w)
         self.basic_data_w.show()
 
@@ -602,9 +602,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Geometry*
         """
-        if self.dws.windowExists('Geometry') is False:
+        if self.dws.window_exists('Geometry') is False:
             self.geometry_w = Geometry()
-            self.dws.registerWindow('Geometry')
+            self.dws.register_window('Geometry')
             self.mdi.addSubWindow(self.geometry_w)
         self.geometry_w.show()
 
@@ -612,9 +612,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.windowExists('Airfoils') is False:
+        if self.dws.window_exists('Airfoils') is False:
             self.airfoils_w = Airfoils()
-            self.dws.registerWindow('Airfoils')
+            self.dws.register_window('Airfoils')
             self.mdi.addSubWindow(self.airfoils_w)
         self.airfoils_w.show()
 
@@ -622,9 +622,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Anchor Points*
         """
-        if self.dws.windowExists('AnchorPoints') is False:
+        if self.dws.window_exists('AnchorPoints') is False:
             self.anchor_points_w = AnchorPoints()
-            self.dws.registerWindow('AnchorPoints')
+            self.dws.register_window('AnchorPoints')
             self.mdi.addSubWindow(self.anchor_points_w)
         self.anchor_points_w.show()
 
@@ -632,9 +632,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.windowExists('RibHoles') is False:
+        if self.dws.window_exists('RibHoles') is False:
             self.rib_holes_w = RibHoles()
-            self.dws.registerWindow('RibHoles')
+            self.dws.register_window('RibHoles')
             self.mdi.addSubWindow(self.rib_holes_w)
         self.rib_holes_w.show()
 
@@ -642,9 +642,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Skin tension*
         """
-        if self.dws.windowExists('SkinTension') is False:
+        if self.dws.window_exists('SkinTension') is False:
             self.skin_tension_w = SkinTension()
-            self.dws.registerWindow('SkinTension')
+            self.dws.register_window('SkinTension')
             self.mdi.addSubWindow(self.skin_tension_w)
         self.skin_tension_w.show()
 
@@ -652,9 +652,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Global AoA*
         """
-        if self.dws.windowExists('GlobalAoA') is False:
+        if self.dws.window_exists('GlobalAoA') is False:
             self.global_aoa_w = GlobalAoA()
-            self.dws.registerWindow('GlobalAoA')
+            self.dws.register_window('GlobalAoA')
             self.mdi.addSubWindow(self.global_aoa_w)
         self.global_aoa_w.show()
 
@@ -662,9 +662,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Lines*
         """
-        if self.dws.windowExists('Lines') is False:
+        if self.dws.window_exists('Lines') is False:
             self.lines_w = Lines()
-            self.dws.registerWindow('Lines')
+            self.dws.register_window('Lines')
             self.mdi.addSubWindow(self.lines_w)
         self.lines_w.show()
 
@@ -672,9 +672,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Brakes*
         """
-        if self.dws.windowExists('Brakes') is False:
+        if self.dws.window_exists('Brakes') is False:
             self.brakes_w = Brakes()
-            self.dws.registerWindow('Brakes')
+            self.dws.register_window('Brakes')
             self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
 
@@ -682,9 +682,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Ramification*
         """
-        if self.dws.windowExists('Ramification') is False:
+        if self.dws.window_exists('Ramification') is False:
             self.ramification_W = Ramification()
-            self.dws.registerWindow('Ramification')
+            self.dws.register_window('Ramification')
             self.mdi.addSubWindow(self.ramification_W)
         self.ramification_W.show()
 
@@ -692,9 +692,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *HV VH Ribs*
         """
-        if self.dws.windowExists('HvVhRibs') is False:
+        if self.dws.window_exists('HvVhRibs') is False:
             self.hv_vh_w = HvVhRibs()
-            self.dws.registerWindow('HvVhRibs')
+            self.dws.register_window('HvVhRibs')
             self.mdi.addSubWindow(self.hv_vh_w)
         self.hv_vh_w.show()
 
@@ -702,9 +702,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Colors upper sail*
         """
-        if self.dws.windowExists('ExtradosColors') is False:
+        if self.dws.window_exists('ExtradosColors') is False:
             self.extrados_colors_w = ExtradColors()
-            self.dws.registerWindow('ExtradosColors')
+            self.dws.register_window('ExtradosColors')
             self.mdi.addSubWindow(self.extrados_colors_w)
         self.extrados_colors_w.show()
 
@@ -712,9 +712,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Colors lower sail*
         """
-        if self.dws.windowExists('IntradosColors') is False:
+        if self.dws.window_exists('IntradosColors') is False:
             self.intrados_colors_w = IntradColors()
-            self.dws.registerWindow('IntradosColors')
+            self.dws.register_window('IntradosColors')
             self.mdi.addSubWindow(self.intrados_colors_w)
         self.intrados_colors_w.show()
 
@@ -723,9 +723,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor*
                  -> *Additional rib points*
         """
-        if self.dws.windowExists('AddRibPoints') is False:
+        if self.dws.window_exists('AddRibPoints') is False:
             self.add_rib_pts_w = AddRibPoints()
-            self.dws.registerWindow('AddRibPoints')
+            self.dws.register_window('AddRibPoints')
             self.mdi.addSubWindow(self.add_rib_pts_w)
         self.add_rib_pts_w.show()
 
@@ -734,9 +734,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor*
                  -> *Elastic lines correction*
         """
-        if self.dws.windowExists('ElasticLinesCorr') is False:
+        if self.dws.window_exists('ElasticLinesCorr') is False:
             self.el_lines_corr_w = ElasticLinesCorr()
-            self.dws.registerWindow('ElasticLinesCorr')
+            self.dws.register_window('ElasticLinesCorr')
             self.mdi.addSubWindow(self.el_lines_corr_w)
         self.el_lines_corr_w.show()
 
@@ -744,9 +744,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Joncs definition*
         """
-        if self.dws.windowExists('JoncsDef') is False:
+        if self.dws.window_exists('JoncsDef') is False:
             self.joncs_def_w = JoncsDefinition()
-            self.dws.registerWindow('JoncsDef')
+            self.dws.register_window('JoncsDef')
             self.mdi.addSubWindow(self.joncs_def_w)
         self.joncs_def_w.show()
 
@@ -754,9 +754,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Nose mylars*
         """
-        if self.dws.windowExists('NoseMylars') is False:
+        if self.dws.window_exists('NoseMylars') is False:
             self.nose_mylars_w = NoseMylars()
-            self.dws.registerWindow('NoseMylars')
+            self.dws.register_window('NoseMylars')
             self.mdi.addSubWindow(self.nose_mylars_w)
         self.nose_mylars_w.show()
 
@@ -764,9 +764,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Glue vents*
         """
-        if self.dws.windowExists('GlueVent') is False:
+        if self.dws.window_exists('GlueVent') is False:
             self.glue_vent_w = GlueVent()
-            self.dws.registerWindow('GlueVent')
+            self.dws.register_window('GlueVent')
             self.mdi.addSubWindow(self.glue_vent_w)
         self.glue_vent_w.show()
 
@@ -774,9 +774,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Special wing tip*
         """
-        if self.dws.windowExists('SpecWingTip') is False:
+        if self.dws.window_exists('SpecWingTip') is False:
             self.spec_wing_tip_w = SpecWingTip()
-            self.dws.registerWindow('SpecWingTip')
+            self.dws.register_window('SpecWingTip')
             self.mdi.addSubWindow(self.spec_wing_tip_w)
         self.spec_wing_tip_w.show()
 
@@ -784,9 +784,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Calage variation*
         """
-        if self.dws.windowExists('CalageVar') is False:
+        if self.dws.window_exists('CalageVar') is False:
             self.calage_var_w = CalageVar()
-            self.dws.registerWindow('CalageVar')
+            self.dws.register_window('CalageVar')
             self.mdi.addSubWindow(self.calage_var_w)
         self.calage_var_w.show()
 
@@ -794,9 +794,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *3D Shaping*
         """
-        if self.dws.windowExists('ThreeDShaping') is False:
+        if self.dws.window_exists('ThreeDShaping') is False:
             self.three_d_sh_w = ThreeDShaping()
-            self.dws.registerWindow('ThreeDShaping')
+            self.dws.register_window('ThreeDShaping')
             self.mdi.addSubWindow(self.three_d_sh_w)
         self.three_d_sh_w.show()
 
@@ -804,9 +804,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Airfoil thickness*
         """
-        if self.dws.windowExists('AirfoilThickness') is False:
+        if self.dws.window_exists('AirfoilThickness') is False:
             self.airfoil_thick_w = AirfoilThickness()
-            self.dws.registerWindow('AirfoilThickness')
+            self.dws.register_window('AirfoilThickness')
             self.mdi.addSubWindow(self.airfoil_thick_w)
         self.airfoil_thick_w.show()
 
@@ -814,9 +814,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *New skin tension*
         """
-        if self.dws.windowExists('NewSkinTension') is False:
+        if self.dws.window_exists('NewSkinTension') is False:
             self.new_skin_tens_w = NewSkinTension()
-            self.dws.registerWindow('NewSkinTension')
+            self.dws.register_window('NewSkinTension')
             self.mdi.addSubWindow(self.new_skin_tens_w)
         self.new_skin_tens_w.show()
 
@@ -824,9 +824,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Parts separation*
         """
-        if self.dws.windowExists('PartsSeparation') is False:
+        if self.dws.window_exists('PartsSeparation') is False:
             self.parts_separation_w = PartsSeparation()
-            self.dws.registerWindow('PartsSeparation')
+            self.dws.register_window('PartsSeparation')
             self.mdi.addSubWindow(self.parts_separation_w)
         self.parts_separation_w.show()
 
@@ -840,9 +840,9 @@ class MainWindow(QMainWindow):
         self.pm.write_file(True)
 
         # Open the window for the user info
-        if self.dws.windowExists('ProcessorOutput') is False:
+        if self.dws.window_exists('ProcessorOutput') is False:
             self.proc_out_w = ProcessorOutput()
-            self.dws.registerWindow('ProcessorOutput')
+            self.dws.register_window('ProcessorOutput')
             self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
 
@@ -912,9 +912,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         """
-        if self.dws.windowExists('SeewingAllowances') is False:
+        if self.dws.window_exists('SeewingAllowances') is False:
             self.seewing_all_w = SeewingAllowances()
-            self.dws.registerWindow('SeewingAllowances')
+            self.dws.register_window('SeewingAllowances')
             self.mdi.addSubWindow(self.seewing_all_w)
         self.seewing_all_w.show()
 
@@ -922,9 +922,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> *Marks*
         """
-        if self.dws.windowExists('Marks') is False:
+        if self.dws.window_exists('Marks') is False:
             self.marks_w = Marks()
-            self.dws.registerWindow('Marks')
+            self.dws.register_window('Marks')
             self.mdi.addSubWindow(self.marks_w)
         self.marks_w.show()
 
@@ -932,9 +932,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> *DXF Layer names*
         """
-        if self.dws.windowExists('DxfLayerNames') is False:
+        if self.dws.window_exists('DxfLayerNames') is False:
             self.dxf_layer_names_w = DxfLayerNames()
-            self.dws.registerWindow('DxfLayerNames')
+            self.dws.register_window('DxfLayerNames')
             self.mdi.addSubWindow(self.dxf_layer_names_w)
         self.dxf_layer_names_w.show()
 
@@ -942,9 +942,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> Marks types*
         """
-        if self.dws.windowExists('MarksTypes') is False:
+        if self.dws.window_exists('MarksTypes') is False:
             self.marks_types_w = MarksTypes()
-            self.dws.registerWindow('MarksTypes')
+            self.dws.register_window('MarksTypes')
             self.mdi.addSubWindow(self.marks_types_w)
         self.marks_types_w.show()
 
@@ -952,9 +952,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> 2D DFX *
         """
-        if self.dws.windowExists('TwoDDxf') is False:
+        if self.dws.window_exists('TwoDDxf') is False:
             self.two_d_dxf_w = TwoDDxfModel()
-            self.dws.registerWindow('TwoDDxf')
+            self.dws.register_window('TwoDDxf')
             self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
 
@@ -962,9 +962,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> 3D DFX*
         """
-        if self.dws.windowExists('ThreeDDxf') is False:
+        if self.dws.window_exists('ThreeDDxf') is False:
             self.three_d_dxf_w = ThreeDDxfModel()
-            self.dws.registerWindow('ThreeDDxf')
+            self.dws.register_window('ThreeDDxf')
             self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
 
@@ -997,9 +997,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *View*
                  -> *Wing outline*
         """
-        if self.dws.windowExists('ViewWingOutline') is False:
+        if self.dws.window_exists('ViewWingOutline') is False:
             self.view_wing_outline_w = PreProcWingOutline()
-            self.dws.registerWindow('ViewWingOutline')
+            self.dws.register_window('ViewWingOutline')
             self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
 
@@ -1082,9 +1082,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Setup* -> *Both processors*
         """
-        if self.dws.windowExists('SetupProcessors') is False:
+        if self.dws.window_exists('SetupProcessors') is False:
             self.setup_proc_w = SetupProcessors()
-            self.dws.registerWindow('SetupProcessors')
+            self.dws.register_window('SetupProcessors')
             self.mdi.addSubWindow(self.setup_proc_w)
         self.setup_proc_w.show()
 
@@ -1092,9 +1092,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Setup* -> *Update checking*
         """
-        if self.dws.windowExists('SetupUpdateChecking') is False:
+        if self.dws.window_exists('SetupUpdateChecking') is False:
             self.setup_update_check_w = SetupUpdateChecking()
-            self.dws.registerWindow('SetupUpdateChecking')
+            self.dws.register_window('SetupUpdateChecking')
             self.mdi.addSubWindow(self.setup_update_check_w)
         self.setup_update_check_w.show()
 
@@ -1124,7 +1124,7 @@ class MainWindow(QMainWindow):
 
         webbrowser.open('file://'
                         + os.path.join(os.getcwd(),
-                                       '../userHelp',
+                                       'userHelp',
                                        config.get_language(),
                                        'introduction.html'))
 
@@ -1132,9 +1132,9 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the Help About window.
         """
-        if self.dws.windowExists('HelpAbout') is False:
+        if self.dws.window_exists('HelpAbout') is False:
             self.helpAboutW = HelpAbout()
-            self.dws.registerWindow('HelpAbout')
+            self.dws.register_window('HelpAbout')
             self.mdi.addSubWindow(self.helpAboutW)
         self.helpAboutW.show()
 

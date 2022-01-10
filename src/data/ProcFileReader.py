@@ -263,15 +263,15 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.lightC_M.setNumConfigs(num_configs)
+        self.lightC_M.set_num_configs(num_configs)
         for i in range(0, num_configs):
             ini = int(rem_tab_space(stream.readLine()))
             fin = int(rem_tab_space(stream.readLine()))
             self.lightC_M.updateRow(i + 1, ini, fin)
 
             num_config_lines = int(rem_tab_space(stream.readLine()))
-            self.lightD_M.setNumRowsForConfig(i + 1, 0)
-            self.lightD_M.setNumRowsForConfig(i + 1, num_config_lines)
+            self.lightD_M.set_num_rows_for_config(i + 1, 0)
+            self.lightD_M.set_num_rows_for_config(i + 1, num_config_lines)
 
             # ConfigNum, order_num, LightTyp, DistLE, DisChord, HorAxis,
             # VertAxis, RotAngle, Opt1
@@ -431,8 +431,8 @@ class ProcFileReader(QObject):
 
         for i in range(0, num_configs):
             num_config_lines = int(rem_tab_space(stream.readLine()))
-            self.lines_M.setNumRowsForConfig(i + 1, 0)
-            self.lines_M.setNumRowsForConfig(i + 1, num_config_lines)
+            self.lines_M.set_num_rows_for_config(i + 1, 0)
+            self.lines_M.set_num_rows_for_config(i + 1, num_config_lines)
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
@@ -462,11 +462,11 @@ class ProcFileReader(QObject):
             rem_tab_space(stream.readLine()))
 
         # delete existing data
-        self.brakes_M.setNumRowsForConfig(1, 0)
+        self.brakes_M.set_num_rows_for_config(1, 0)
 
         # read new data
         num_config_lines = int(rem_tab_space(stream.readLine()))
-        self.brakes_M.setNumRowsForConfig(1, num_config_lines)
+        self.brakes_M.set_num_rows_for_config(1, num_config_lines)
 
         for line_it in range(0, num_config_lines):
             values = split_line(stream.readLine())
@@ -582,9 +582,9 @@ class ProcFileReader(QObject):
                           + '.read_file: H V and VH ribs data missing')
 
         # delete existing data
-        self.hVvHRibs_M.setNumRowsForConfig(1, 0)
+        self.hVvHRibs_M.set_num_rows_for_config(1, 0)
         # read new data
-        self.hVvHRibs_M.setNumRowsForConfig(1, num_config_lines)
+        self.hVvHRibs_M.set_num_rows_for_config(1, num_config_lines)
 
         for line_it in range(0, num_config_lines):
             values = split_line(stream.readLine())
@@ -621,7 +621,7 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.extradosColConf_M.setNumConfigs(num_configs)
+        self.extradosColConf_M.set_num_configs(num_configs)
 
         for configCounter in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -629,8 +629,8 @@ class ProcFileReader(QObject):
             self.extradosColConf_M.updateRow(configCounter + 1, values[0])
 
             num_config_lines = int(values[1])
-            self.extradosColDet_M.setNumRowsForConfig(configCounter + 1,
-                                                      num_config_lines)
+            self.extradosColDet_M.set_num_rows_for_config(configCounter + 1,
+                                                          num_config_lines)
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
@@ -646,7 +646,7 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.intradosColConf_M.setNumConfigs(num_configs)
+        self.intradosColConf_M.set_num_configs(num_configs)
 
         for configCounter in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -654,8 +654,8 @@ class ProcFileReader(QObject):
             self.intradosColConf_M.updateRow(configCounter + 1, values[0])
 
             num_config_lines = int(values[1])
-            self.intradosColDet_M.setNumRowsForConfig(configCounter + 1,
-                                                      num_config_lines)
+            self.intradosColDet_M.set_num_rows_for_config(configCounter + 1,
+                                                          num_config_lines)
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
@@ -672,8 +672,8 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.addRibPts_M.setNumRowsForConfig(1, 0)
-        self.addRibPts_M.setNumRowsForConfig(1, num_configs)
+        self.addRibPts_M.set_num_rows_for_config(1, 0)
+        self.addRibPts_M.set_num_rows_for_config(1, num_configs)
 
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -862,8 +862,8 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.dxfLayNames_M.setNumRowsForConfig(1, 0)
-        self.dxfLayNames_M.setNumRowsForConfig(1, num_configs)
+        self.dxfLayNames_M.set_num_rows_for_config(1, 0)
+        self.dxfLayNames_M.set_num_rows_for_config(1, num_configs)
 
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -878,8 +878,8 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.marksT_M.setNumRowsForConfig(1, 0)
-        self.marksT_M.setNumRowsForConfig(1, num_configs)
+        self.marksT_M.set_num_rows_for_config(1, 0)
+        self.marksT_M.set_num_rows_for_config(1, num_configs)
 
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -897,7 +897,7 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         # delete all what is there
-        self.joncsDef_M.setNumConfigs(0)
+        self.joncsDef_M.set_num_configs(0)
 
         scheme = int(rem_tab_space(stream.readLine()))
 
@@ -906,7 +906,7 @@ class ProcFileReader(QObject):
             config_num = 1
 
             num_groups = int(rem_tab_space(stream.readLine()))
-            self.joncsDef_M.setNumRowsForConfig(config_num, num_groups)
+            self.joncsDef_M.set_num_rows_for_config(config_num, num_groups)
 
             for g in range(0, num_groups):
                 values_a = split_line(stream.readLine())
@@ -931,7 +931,7 @@ class ProcFileReader(QObject):
                 bloc_type = int(values[1])
                 if bloc_type == 1:
                     num_groups = int(rem_tab_space(stream.readLine()))
-                    self.joncsDef_M.setNumRowsForConfig(b + 1, num_groups)
+                    self.joncsDef_M.set_num_rows_for_config(b + 1, num_groups)
 
                     for g in range(0, num_groups):
                         values_a = split_line(stream.readLine())
@@ -947,7 +947,7 @@ class ProcFileReader(QObject):
 
                 else:
                     num_groups = int(rem_tab_space(stream.readLine()))
-                    self.joncsDef_M.setNumRowsForConfig(b + 1, num_groups)
+                    self.joncsDef_M.set_num_rows_for_config(b + 1, num_groups)
 
                     for g in range(0, num_groups):
                         values_a = split_line(stream.readLine())
@@ -973,13 +973,13 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         data = int(rem_tab_space(stream.readLine()))
-        self.noseMylars_M.setNumConfigs(0)
+        self.noseMylars_M.set_num_configs(0)
 
         if data != 0:
             # we have data to read
 
             num_configs = int(rem_tab_space(stream.readLine()))
-            self.noseMylars_M.setNumRowsForConfig(1, num_configs)
+            self.noseMylars_M.set_num_rows_for_config(1, num_configs)
 
             for c in range(0, num_configs):
                 values_a = split_line(stream.readLine())
@@ -1014,7 +1014,7 @@ class ProcFileReader(QObject):
 
         if data != 0:
             self.twoDDxf_M.setIsUsed(True)
-            self.twoDDxf_M.setNumRowsForConfig(1, 6)
+            self.twoDDxf_M.set_num_rows_for_config(1, 6)
             # we have data to read
             for line_it in range(0, 6):
                 values = split_line(stream.readLine())
@@ -1035,7 +1035,7 @@ class ProcFileReader(QObject):
 
         if data != 0:
             self.threeDDxf_M.setIsUsed(True)
-            self.threeDDxf_M.setNumRowsForConfig(1, 9)
+            self.threeDDxf_M.set_num_rows_for_config(1, 9)
             # we have data to read
             for line_it in range(0, 6):
                 values = split_line(stream.readLine())
@@ -1147,9 +1147,9 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.threeDShConf_M.setNumConfigs(0)
-        self.threeDShUpDet_M.setNumConfigs(0)
-        self.threeDShLoDet_M.setNumConfigs(0)
+        self.threeDShConf_M.set_num_configs(0)
+        self.threeDShUpDet_M.set_num_configs(0)
+        self.threeDShLoDet_M.set_num_configs(0)
 
         if data != 0:
             # over-read type as it is always 1
@@ -1157,7 +1157,7 @@ class ProcFileReader(QObject):
 
             values = split_line(stream.readLine())
             num_groups = int(values[1])
-            self.threeDShConf_M.setNumConfigs(num_groups)
+            self.threeDShConf_M.set_num_configs(num_groups)
 
             for g in range(0, num_groups):
                 # ribs and so
@@ -1169,14 +1169,14 @@ class ProcFileReader(QObject):
                 values = split_line(stream.readLine())
                 num_up_cuts = int(values[1])
                 if num_up_cuts == 1:
-                    self.threeDShUpDet_M.setNumRowsForConfig(g + 1, num_up_cuts)
+                    self.threeDShUpDet_M.set_num_rows_for_config(g + 1, num_up_cuts)
 
                     values = split_line(stream.readLine())
                     self.threeDShUpDet_M.updateRow(g + 1, 1, values[1],
                                                    values[2], values[3])
 
                 elif num_up_cuts == 2:
-                    self.threeDShUpDet_M.setNumRowsForConfig(g + 1, num_up_cuts)
+                    self.threeDShUpDet_M.set_num_rows_for_config(g + 1, num_up_cuts)
 
                     values = split_line(stream.readLine())
                     self.threeDShUpDet_M.updateRow(g + 1, 1, values[1],
@@ -1190,7 +1190,7 @@ class ProcFileReader(QObject):
                 values = split_line(stream.readLine())
                 num_lo_cuts = int(values[1])
                 if num_lo_cuts == 1:
-                    self.threeDShLoDet_M.setNumRowsForConfig(g + 1, num_lo_cuts)
+                    self.threeDShLoDet_M.set_num_rows_for_config(g + 1, num_lo_cuts)
 
                     values = split_line(stream.readLine())
                     self.threeDShLoDet_M.updateRow(g + 1, 1, values[1],
@@ -1198,8 +1198,8 @@ class ProcFileReader(QObject):
 
             stream.readLine()
 
-            self.threeDShPr_M.setNumRowsForConfig(1, 0)
-            self.threeDShPr_M.setNumRowsForConfig(1, 5)
+            self.threeDShPr_M.set_num_rows_for_config(1, 0)
+            self.threeDShPr_M.set_num_rows_for_config(1, 5)
 
             for line_it in range(0, 5):
                 values = split_line(stream.readLine())
@@ -1234,12 +1234,12 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.newSkinTensConf_M.setNumConfigs(0)
-        self.newSkinTensDet_M.setNumConfigs(0)
+        self.newSkinTensConf_M.set_num_configs(0)
+        self.newSkinTensDet_M.set_num_configs(0)
 
         if data != 0:
             num_groups = int(rem_tab_space(stream.readLine()))
-            self.newSkinTensConf_M.setNumConfigs(num_groups)
+            self.newSkinTensConf_M.set_num_configs(num_groups)
 
             for g in range(0, num_groups):
                 # comment line
@@ -1250,7 +1250,7 @@ class ProcFileReader(QObject):
                                                  values[4])
 
                 num_lines = int(values[3])
-                self.newSkinTensDet_M.setNumRowsForConfig(g + 1, num_lines)
+                self.newSkinTensDet_M.set_num_rows_for_config(g + 1, num_lines)
                 for line_it in range(0, num_lines):
                     values = split_line(stream.readLine())
                     self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,

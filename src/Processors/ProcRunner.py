@@ -37,10 +37,16 @@ class ProcRunner:
         """
         logging.debug(self.__className+'.run_pre_proc')
 
-        set_path_cmd = 'cd ' + self.config_reader.get_pre_proc_directory()
-        cmd = self.config_reader.get_pre_proc_path_name()
+        pre_proc = self.config_reader.get_pre_proc_path_name()
 
-        args = [set_path_cmd, cmd]
+        # For Linux make sure x flag is set
+        if platform.system() == 'Linux'\
+                or platform.system() == 'Darwin':
+            os.chmod(pre_proc, 0o744)
+
+        set_path_cmd = 'cd ' + self.config_reader.get_pre_proc_directory()
+
+        args = [set_path_cmd, pre_proc]
         self.run_command(args)
 
     def pre_proc_configured(self):
@@ -68,10 +74,16 @@ class ProcRunner:
         """
         logging.debug(self.__className+'.run_proc')
 
-        set_path_cmd = 'cd ' + self.config_reader.get_proc_directory()
-        cmd = self.config_reader.get_proc_path_name()
+        proc = self.config_reader.get_proc_path_name()
 
-        args = [set_path_cmd, cmd]
+        # For Linux make sure x flag is set
+        if platform.system() == 'Linux'\
+                or platform.system() == 'Darwin':
+            os.chmod(proc, 0o744)
+
+        set_path_cmd = 'cd ' + self.config_reader.get_proc_directory()
+
+        args = [set_path_cmd, proc]
         self.run_command(args)
 
     def proc_configured(self):

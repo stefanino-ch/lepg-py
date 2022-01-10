@@ -85,7 +85,7 @@ class ExtradColors(QMdiSubWindow):
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0,999)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S.setValue( self.extradColsConf_M.numConfigs() )
+        self.numConf_S.setValue(self.extradColsConf_M.num_configs())
         confEdit = self.numConf_S.lineEdit()
         confEdit.setReadOnly(True)
         self.numConf_S.valueChanged.connect(self.confSpinChange)
@@ -100,7 +100,7 @@ class ExtradColors(QMdiSubWindow):
         self.windowLayout.addWidget(self.tabs)
         
         # check if there's already data
-        if self.extradColsConf_M.numConfigs() > 0:
+        if self.extradColsConf_M.num_configs() > 0:
             self.modelNumConfigsChanged() 
         
         sortBtn = QPushButton(_('Sort by order_num'))
@@ -128,7 +128,7 @@ class ExtradColors(QMdiSubWindow):
         :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
         '''
         logging.debug(self.__className+'.conf_spin_change')
-        self.extradColsConf_M.setNumConfigs( self.numConf_S.value() )
+        self.extradColsConf_M.set_num_configs(self.numConf_S.value())
     
     def modelNumConfigsChanged(self):
         '''
@@ -136,7 +136,7 @@ class ExtradColors(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.model_num_configs_changed')
         
-        currentNumConfigs = self.extradColsConf_M.numConfigs()
+        currentNumConfigs = self.extradColsConf_M.num_configs()
 
         self.numConf_S.blockSignals(True)
         self.numConf_S.setValue( currentNumConfigs )
@@ -162,7 +162,7 @@ class ExtradColors(QMdiSubWindow):
         :method: Called upon manual changes of the detail spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.det_spin_change')
-        self.extradColsDet_M.setNumRowsForConfig(self.tabs.currentIndex()+1, self.numDet_S[self.tabs.currentIndex()].value() )
+        self.extradColsDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numDet_S[self.tabs.currentIndex()].value())
     
     def addTab(self):
         '''
@@ -240,7 +240,7 @@ class ExtradColors(QMdiSubWindow):
         # then setup spin
         if self.detProxyModel[currNumTabs].rowCount() ==0:
             # a new tab was created from the gui
-            self.extradColsDet_M.setNumRowsForConfig(currNumTabs+1, 1 )
+            self.extradColsDet_M.set_num_rows_for_config(currNumTabs + 1, 1)
         # a new tab was added based on file load. The model has been updated already before. 
         self.numDet_S[currNumTabs].setValue(self.detProxyModel[currNumTabs].rowCount())
         tabWidget.setLayout(tabLayout)
@@ -259,7 +259,7 @@ class ExtradColors(QMdiSubWindow):
         self.confProxyModel.pop(numTabs-1)
         self.detProxyModel.pop(numTabs-1)
         self.numDet_S.pop(numTabs-1)
-        self.extradColsDet_M.setNumRowsForConfig(numTabs, 0 )
+        self.extradColsDet_M.set_num_rows_for_config(numTabs, 0)
     
     def updateTabs(self):
         '''
@@ -269,8 +269,8 @@ class ExtradColors(QMdiSubWindow):
         
         i=0
         while i< self.tabs.count():
-            if self.numDet_S[i].value != self.extradColsDet_M.numRowsForConfig(i+1):
-                self.numDet_S[i].setValue( self.extradColsDet_M.numRowsForConfig(i+1) )
+            if self.numDet_S[i].value != self.extradColsDet_M.num_rows_for_config(i + 1):
+                self.numDet_S[i].setValue(self.extradColsDet_M.num_rows_for_config(i + 1))
             i+=1
             
     def sortBtnPress(self):

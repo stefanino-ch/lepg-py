@@ -2,9 +2,9 @@
 
 Latest_Windows_Version = '3.17.1'
 
-Latest_Linux_Version = '3.16.1'
+Latest_Linux_Version = '3.17.1'
 
-Latest_Mac_Version = '3.16.1'
+Latest_Mac_Version = '3.17.2'
 
 
 ## English
@@ -20,19 +20,18 @@ Change into the unzipped folder.
 Execute (double click) the file lepg.exe.
 
 ### Installation - Linux
-In the folder distribution/dist-Lin64 you will find two zip files.
+In the folder distribution/dist-lin64 you will find two zip files.
 
 Download these files.
 
 Unzip them.
 
-Copy or move the content of both unzipped files into the same folder. The name of the folder does not matter.
+Copy or move the content of both unzipped files into the same folder.
+The name of the folder does not matter.
 
 Change into the folder containing all files.
 
-If you have a system running X11: Execute (double click) the file lepg.
-
-If you have a system running Wayland (e.g. Fedora or Ubuntu) or you have no idea about Wayland or X11: Execute (double click) the file lepgWayland.
+Execute (double click) the file lepg.
 
 
 ## Deutsch
@@ -48,16 +47,16 @@ In den entpackten Ordner wechseln.
 Die Datei lepg.exe ausführen (doppelklicken).
 
 ### Installation - Linux
-Im Ordner distribution/dist-W64 findest du zwei .zip Dateien.
+Im Ordner distribution/dist-lin64 findest du zwei .zip Dateien.
 
 Diese Dateien herunterladen.
 
 Beide entpacken.
 
-Kopiere/ verschiebe nun den Inhalt der beiden neuen Ordner in einen einzigen Ordner. Der Name dieses Ordners spielt keine Rolle. 
+Kopiere/ verschiebe nun den Inhalt der beiden neuen Ordner in einen einzigen Ordner.
+Der Name dieses Ordners spielt keine Rolle. 
 
 In den gemeinsamen Ordner wechseln.
 
-Wenn du ein Linux System mit X11 verwendest: starte (Doppelclick) die Datei lepg.
+Starte (Doppelclick) die Datei lepg.
 
-Wenn du ein System verwendest mit Wayland (z.B. Fedora oder Ubuntu) oder keine Ahnung hast welche Oberfläche du verwendest: starte (Doppelclick) die Datei lepgWayland.

@@ -64,7 +64,6 @@ if answer != 'l':
 else:
     version = "latest"
     sourcePathName = os.path.join(curr_path, 'latest-configFile.txt')
-    
 
 shutil.copyfile(sourcePathName, dest_path_name)
 print()

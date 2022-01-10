@@ -121,7 +121,7 @@ class NoseMylars(QMdiSubWindow):
         sortBtn.clicked.connect(self.sortBtnPress)
         
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.noseMylars_M.numRowsForConfig(1) )
+        self.numLines_S.setValue(self.noseMylars_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
 
         #############################
@@ -146,7 +146,7 @@ class NoseMylars(QMdiSubWindow):
         '''
         logging.debug(self.__className+'.modelSizeChanged')
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.noseMylars_M.numRowsForConfig(1) )
+        self.numLines_S.setValue(self.noseMylars_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
         
                    
@@ -155,7 +155,7 @@ class NoseMylars(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.num_lines_change')
-        self.noseMylars_M.setNumRowsForConfig(1, self.numLines_S.value() )
+        self.noseMylars_M.set_num_rows_for_config(1, self.numLines_S.value())
 
     def sortBtnPress(self):
         '''

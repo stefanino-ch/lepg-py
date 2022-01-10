@@ -196,7 +196,7 @@ class Brakes(QMdiSubWindow):
         sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         sortBtn.clicked.connect(self.sortBtnPress)
         
-        if self.brakes_M.numConfigs() > 0:
+        if self.brakes_M.num_configs() > 0:
             self.modelSizeChanged()
 
         #############################
@@ -222,7 +222,7 @@ class Brakes(QMdiSubWindow):
         logging.debug(self.__className+'.modelSizeChanged')
             
         self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue( self.brakes_M.numRowsForConfig(1) )
+        self.numLines_S.setValue(self.brakes_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
         
                    
@@ -231,7 +231,7 @@ class Brakes(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
         '''           
         logging.debug(self.__className+'.num_lines_change')
-        self.brakes_M.setNumRowsForConfig(1, self.numLines_S.value() )
+        self.brakes_M.set_num_rows_for_config(1, self.numLines_S.value())
 
     def sortBtnPress(self):
         '''
