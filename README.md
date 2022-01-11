@@ -1,6 +1,6 @@
 # lepg-py
 
-Latest_Windows_Version = '3.17.1'
+Latest_Windows_Version = '3.17.2'
 
 Latest_Linux_Version = '3.17.1'
 
@@ -33,6 +33,23 @@ Change into the folder containing all files.
 
 Execute (double click) the file lepg.
 
+### Installation - Mac
+In the folder distribution/dist-osx you will find a zip file.
+
+Download this file.
+
+Unzip it.
+
+Execute (double click) the file lepg.
+
+**BE AWARE:** Until now we have not found any way to provide an "all in one and 
+ready to use" package of pre- and processor. (Every help here is really 
+appreciated.)<br>
+In the folder processors you will find a script named "lepPrepare.command". If 
+execute this script all files needed to compile pre- and processor will be 
+downloaded. Afterwards the compilation will be started. You should be able to
+use lepg and lep on a Mac, it's just one step more you must do.
+
 ## Deutsch
 ### Installation - Windows
 Im Ordner distribution/dist-W64 findest du eine .zip Datei.
@@ -59,3 +76,20 @@ In den gemeinsamen Ordner wechseln.
 
 Starte (Doppelclick) die Datei lepg.
 
+### Installation - Mac
+Im Ordner distribution/dist-osx findest du eine .zip Datei.
+
+Diese Datei herunterladen.
+
+Entpacken.
+
+Die Datei lepg ausführen (doppelklicken).
+
+**BITTE BEACHTE:** Bis jetzt haben wir keinen Weg gefunden ein fertiges und 
+zur direkten Benutzung bereites Packet für Pre- und Prozessor zu erstellen 
+welches auf allen Mac's läuft. (Jede Hilfe hier ist sehr willkommen.)<br>
+Im Ordner processors findest du ein Script namens "lepPrepare.command". Wenn 
+du dieses Script ausführst werden automatisch alle notwendigen Dateien 
+heruntergeladen und im Anschluss Pre- und Prozessor lokal erstellt 
+(Kompiliert). Es ist möglich lepg und lep auf einem Mac zu benutzen, es 
+braucht nur einen Installationsschritt mehr. 
