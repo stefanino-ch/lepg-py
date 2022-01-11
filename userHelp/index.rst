@@ -9,5 +9,15 @@ The documentation is available in english and german.
 .. toctree::
    :maxdepth: 1
 
-   contents.rst
+   en/english.rst
+
+   de/deutsch.rst
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
