@@ -23,7 +23,8 @@ class PreProcModel(QObject, metaclass=Singleton):
     """
     :class: Does take care about the data handling for the pre-processor.
             Reads and writes the data files
-            Holds as a central point all temporary data during program execution
+            Holds as a central point all temporary data during program
+            execution
 
     Is implemented as a **Singleton**. Even if it is instantiated multiple
     times all data will be the same for all instances.

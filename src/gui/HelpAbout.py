@@ -3,13 +3,13 @@
 @License: General Public License GNU GPL 3.0
 """
 import logging
+import __init__
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 
-from __init__ import __version__
 from gui.elements.WindowBtnBar import WindowBtnBar
 
 
@@ -76,25 +76,35 @@ class HelpAbout(QMdiSubWindow):
                                   Qt.AlignLeft)
         self.__winGridRow += 1
 
-        self.helpAboutTextL = QLabel(_('A graphical frontend to lep\nCurrent Version \t\t\t%s') % __version__)
-        self.windowGrid.addWidget(self.helpAboutTextL, self.__winGridRow, 0, Qt.AlignLeft)
+        self.helpAboutTextL = QLabel(_('A graphical frontend to lep\n'
+                                       'Current Version \t\t\t%s')
+                                     % getattr(__init__, '__version__'))
+        self.windowGrid.addWidget(self.helpAboutTextL,
+                                  self.__winGridRow, 0,
+                                  Qt.AlignLeft)
         self.__winGridRow += 1
 
         self.helpAboutDevL = QLabel(_('Developers: \nStefan Feuz'))
-        self.windowGrid.addWidget(self.helpAboutDevL, self.__winGridRow, 0, Qt.AlignLeft)
+        self.windowGrid.addWidget(self.helpAboutDevL,
+                                  self.__winGridRow, 0,
+                                  Qt.AlignLeft)
         self.__winGridRow += 1
 
         self.helpAboutLicL = QLabel(_('General Public License GNU GPL 3.0'))
-        self.windowGrid.addWidget(self.helpAboutLicL, self.__winGridRow, 0, Qt.AlignLeft)
+        self.windowGrid.addWidget(self.helpAboutLicL,
+                                  self.__winGridRow, 0,
+                                  Qt.AlignLeft)
         self.__winGridRow += 1
 
         #############################
         # Rest of standard window setups
         self.btnBar = WindowBtnBar(0b0100)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
 
-        self.windowGrid.addWidget(self.btnBar, self.__winGridRow, 0, Qt.AlignRight)
+        self.windowGrid.addWidget(self.btnBar,
+                                  self.__winGridRow, 0, Qt.AlignRight)
         self.__winGridRow += 1
 
         self.win.setLayout(self.windowGrid)
@@ -103,4 +113,6 @@ class HelpAbout(QMdiSubWindow):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press ' + q)
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

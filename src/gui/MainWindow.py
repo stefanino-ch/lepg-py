@@ -3,29 +3,25 @@
 :License: General Public License GNU GPL 3.0
 """
 import os
-from os import path
 import webbrowser
-
 import gettext
 import logging.config
 import sys
-from packaging import version
 
+import __init__
+
+from packaging import version
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, \
     QMessageBox, QMenu
 
-from __init__ import __version__
 from VersionCheck.VersionCheck import VersionCheck
-
 from ConfigReader.ConfigReader import ConfigReader
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
-
 from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from Processors.ProcRunner import ProcRunner
-
 from gui.Airfoils import Airfoils
 from gui.AirfoilThickness import AirfoilThickness
 from gui.AnchorPoints import AnchorPoints
@@ -156,7 +152,8 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
-        self.setWindowTitle("lepg-py %s" % __version__)
+        #self.setWindowTitle("lepg-py %s" % __version__)
+        self.setWindowTitle("lepg-py %s" % getattr(__init__, '__version__'))
         self.mainMenu = self.menuBar()
 
         # Build the individual menus
@@ -184,14 +181,16 @@ class MainWindow(QMainWindow):
                               + remote_version + '\n')
                 logging.debug(self.__className
                               + ' Current Version:  '
-                              + __version__ + '\n')
+                              + getattr(__init__, '__version__')
+                              + '\n')
 
-                if version.parse(remote_version) > version.parse(__version__):
+                if version.parse(remote_version) > version.parse(getattr(__init__, '__version__')):
                     msg_box = QMessageBox()
                     msg_box.setTextFormat(Qt.RichText)
                     msg_box.setWindowTitle(_('Newer version found'))
                     msg_box.setText(_('Current Version: ')
-                                    + str(__version__) + '<br>'
+                                    + str(getattr(__init__, '__version__'))
+                                    + '<br>'
                                     + _('Version on remote: ')
                                     + str(remote_version) + '<br>'
                                     + _('Maybe you should consider an update '
