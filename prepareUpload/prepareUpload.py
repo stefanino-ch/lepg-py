@@ -50,7 +50,7 @@ if answ == 'y':
     if platform.system() == "Windows":
         os.system('python ../distribution/build_win64_package.py')
     elif platform.system() == ('Linux'):
-        os.system('python ../distribution/buildLinuxPackage.py')
+        os.system('python ../distribution/build_lin_package.py')
     elif platform.system() == ('Darwin'):
         os.system('python ../distribution/build_osx_package.py')
     else:
