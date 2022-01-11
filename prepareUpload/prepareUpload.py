@@ -48,7 +48,7 @@ answ = input('Default= n ')
 
 if answ == 'y':
     if platform.system() == "Windows":
-        os.system('python ../distribution/buildW64Package.py')
+        os.system('python ../distribution/build_win64_package.py')
     elif platform.system() == ('Linux'):
         os.system('python ../distribution/buildLinuxPackage.py')
     elif platform.system() == ('Darwin'):
