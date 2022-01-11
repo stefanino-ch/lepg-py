@@ -7,13 +7,15 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QSizePolicy, QHeaderView,\
                             QLabel, QComboBox
+
+from data.PreProcModel import PreProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from data.PreProcModel import PreProcModel
+from Singleton.Singleton import Singleton
 
 
-class PreProcData(QMdiSubWindow):
+class PreProcData(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Skin tension data
     """
@@ -27,14 +29,15 @@ class PreProcData(QMdiSubWindow):
         """
         :method: Constructor
         """
+        super().__init__()
+        logging.debug(self.__className+'.__init__')
+
         self.win = None
         self.window_ly = None
         self.help_bar = None
         self.vault_t_cb = None
         self.vault_table = None
         self.btnBar = None
-        logging.debug(self.__className+'.__init__')
-        super().__init__()
 
         self.gen_M = PreProcModel.GenModel()
 

@@ -6,13 +6,15 @@ import logging
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel, QSpinBox
+
+from data.PreProcModel import PreProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from data.PreProcModel import PreProcModel
+from Singleton.Singleton import Singleton
 
 
-class PreProcCellsDistribution(QMdiSubWindow):
+class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit the cells' distribution data
             for the pre-processor
