@@ -1,7 +1,7 @@
-'''
+"""
 @Author: Stefan Feuz; http://www.laboratoridenvol.com
 @License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 
 from PyQt5.QtCore import Qt
@@ -13,31 +13,33 @@ from PyQt5.QtWidgets import QMdiSubWindow,\
                             QSizePolicy
 
 from gui.elements.WindowBtnBar import WindowBtnBar
+from Singleton.Singleton import Singleton
 
 
-class ProcessorOutput(QMdiSubWindow):
-    '''
+class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
+    """
     :class: Window displaying the output of both of the processors
-    '''
+    """
     __className = 'ProcessorOutput'
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
+        """
+        self.win = None
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
-        self.buildWindow()
+        self.build_window()
 
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
+        """
         logging.debug(self.__className+'.closeEvent')
 
-    def buildWindow(self):
-        '''
+    def build_window(self):
+        """
         :method: Builds the window.
 
         Structure::
@@ -47,7 +49,7 @@ class ProcessorOutput(QMdiSubWindow):
                     debugOut
 
                     btn_bar
-        '''
+        """
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -76,7 +78,7 @@ class ProcessorOutput(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                               QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/procOutput.html')
 
         self.windowGrid.addWidget(self.btnBar,
@@ -87,16 +89,22 @@ class ProcessorOutput(QMdiSubWindow):
 
         self.win.setLayout(self.windowGrid)
 
-    def appendText(self, string):
-        '''
+    def append_text(self, string):
+        """
         :method: Does append text at the end of the message view.
-        '''
+        """
         self.debugOut.append(string)
 
-    def btnPress(self, q):
-        '''
+    def clear_text(self):
+        """
+        :method: Clears the message view.
+        """
+        self.debugOut.clear()
+
+    def btn_press(self, q):
+        """
         :method: Handles button functionality within the window.
-        '''
+        """
         if q == 'Ok':
             self.close()
         else:

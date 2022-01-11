@@ -11,6 +11,8 @@ import sys
 import __init__
 
 from packaging import version
+
+from PyQt5.Qt import QStatusBar
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, \
@@ -60,8 +62,6 @@ from gui.NewSkinTension import NewSkinTension
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
-from PyQt5.Qt import QStatusBar
-
 
 # TODO: bring windows to front if they are called
 
@@ -80,12 +80,13 @@ class MainWindow(QMainWindow):
         """
         :method: Constructor
         """
-        # Delete old log file
+        self.preProcEdit_w = None
         self.view_wing_outline_w = None
         self.proc_out_w = None
-        self.pre_proc_cells_distr_w = None
+        self.preProcCellsDistr_w = None
         self.pre_proc_wing_outline_w = None
-        
+
+        # Delete old log file
         self.delete_logfile()
 
         # Set up the logger
@@ -337,22 +338,18 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Name, LE, TE, Vault*
         """
-        if self.dws.window_exists('PreProcDataEdit') is False:
-            self.preProcEditW = PreProcData()
-            self.dws.register_window('PreProcDataEdit')
-            self.mdi.addSubWindow(self.preProcEditW)
-        self.preProcEditW.show()
+        self.preProcEdit_w = PreProcData()
+        self.mdi.addSubWindow(self.preProcEdit_w)
+        self.preProcEdit_w.show()
 
     def pre_proc_cells_distr_edit(self):
         """
         :method: Called if the user selects *Pre Processor*
                  -> *Cells distribution*
         """
-        if self.dws.window_exists('PreProcCellsDistribution') is False:
-            self.pre_proc_cells_distr_w = PreProcCellsDistribution()
-            self.dws.register_window('PreProcCellsDistribution')
-            self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
-        self.pre_proc_cells_distr_w.show()
+        self.preProcCellsDistr_w = PreProcCellsDistribution()
+        self.mdi.addSubWindow(self.preProcCellsDistr_w)
+        self.preProcCellsDistr_w.show()
 
     def pre_proc_run(self):
         """
@@ -365,11 +362,10 @@ class MainWindow(QMainWindow):
         self.ppm.write_file(True)
 
         # Open the window for the user info
-        if self.dws.window_exists('ProcessorOutput') is False:
-            self.proc_out_w = ProcessorOutput()
-            self.dws.register_window('ProcessorOutput')
-            self.mdi.addSubWindow(self.proc_out_w)
+        self.proc_out_w = ProcessorOutput()
+        self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.proc_out_w.clear_text()
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
@@ -839,11 +835,10 @@ class MainWindow(QMainWindow):
         self.pm.write_file(True)
 
         # Open the window for the user info
-        if self.dws.window_exists('ProcessorOutput') is False:
-            self.proc_out_w = ProcessorOutput()
-            self.dws.register_window('ProcessorOutput')
-            self.mdi.addSubWindow(self.proc_out_w)
+        self.proc_out_w = ProcessorOutput()
+        self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.proc_out_w.clear_text()
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
