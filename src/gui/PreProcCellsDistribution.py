@@ -39,7 +39,8 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.btn_bar = None
         logging.debug(self.__className+'.__init__')
         super().__init__()
-        
+
+        self.ppm = PreProcModel()
         self.cellsDistr_M = PreProcModel.CellsDistrModel()
         self.cellsDistr_M.didSelect.connect(self.model_change)
         self.build_window()
@@ -212,6 +213,8 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
             
         elif self.usage_cb.currentIndex() == 3:
             self.cellsDistr_M.update_type(1, 1, 4)
+
+        self.ppm.set_file_saved(False)
             
     def num_lines_change(self):
         """
@@ -219,6 +222,8 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className+'.num_lines_change')
         self.cellsDistr_M.set_num_rows_for_config(1, self.num_lines_s.value())
+
+        self.ppm.set_file_saved(False)
             
     def btn_press(self, q):
         """

@@ -9,7 +9,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
 
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -30,6 +29,7 @@ class DataStatusOverview(QMdiSubWindow):
         """
         :method: Constructor
         """
+        self.pre_proc_saved_e = None
         self.btn_bar = None
         self.pre_proc_name_e = None
         self.proc_version_e = None
@@ -40,12 +40,11 @@ class DataStatusOverview(QMdiSubWindow):
         logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.dws = DataWindowStatus()
         self.ppm = PreProcModel()
         self.pm = ProcModel()
 
         self.build_window()
-        self.dws.statusUpdated.connect(self.update_status)
+
         self.ppm.dataStatusUpdate.connect(self.data_changed)
         self.pm.dataStatusUpdate.connect(self.data_changed)
 
@@ -107,9 +106,18 @@ class DataStatusOverview(QMdiSubWindow):
         pre_proc_vers_l = QLabel(_('File version'))
         self.pre_proc_vers_e = QLineEdit()
         self.pre_proc_vers_e.setReadOnly(True)
+        self.pre_proc_vers_e.setText(self.ppm.get_file_version())
 
         pre_proc_gly.addWidget(pre_proc_vers_l, 1, 0)
         pre_proc_gly.addWidget(self.pre_proc_vers_e, 1, 1)
+
+        pre_proc_saved_l = QLabel(_('File saved'))
+        self.pre_proc_saved_e = QLineEdit()
+        self.pre_proc_saved_e.setReadOnly(True)
+        self.pre_proc_saved_e.setText(self.ppm.file_saved_char())
+
+        pre_proc_gly.addWidget(pre_proc_saved_l, 2, 0)
+        pre_proc_gly.addWidget(self.pre_proc_saved_e, 2, 1)
 
         #############################
         proc_grp = QGroupBox()
@@ -163,16 +171,6 @@ class DataStatusOverview(QMdiSubWindow):
         else:
             return path
 
-    def update_status(self, q):
-        """
-        :method: Updates the status information displayed in the window
-        """
-        if q == 'PreProcDataEdit':
-            self.preProcDataStatusS.setText(self.dws.get_window_data_status_char('PreProcDataEdit'))
-
-        elif q == 'PreProcFile':
-            self.preProcFileStatD.setText(self.dws.get_file_status_char('PreProcFile'))
-
     def data_changed(self, n, q):
         """
         :method: Updates the status information displayed in the window
@@ -184,6 +182,9 @@ class DataStatusOverview(QMdiSubWindow):
 
             elif q == 'FileVersion':
                 self.pre_proc_vers_e.setText(self.ppm.get_file_version())
+
+            elif q == 'SaveStatus':
+                self.pre_proc_saved_e.setText(self.ppm.file_saved_char())
 
         elif n == 'ProcModel':
             if q == 'FileNamePath':
