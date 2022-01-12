@@ -264,11 +264,33 @@ class MainWindow(QMainWindow):
         """
         os.execv(sys.executable, ['python'] + sys.argv)
 
+    def closeEvent(self, event):
+        event.ignore()
+        self.file_exit()
+
     def file_exit(self):
         """
         :method: Does all the work to close properly the application.
         """
         logging.debug(self.__className + '.file_exit')
+
+        ppm = PreProcModel()
+
+        if ppm.file_saved() is not True:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to quit anyway.\n"
+                              "Press Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
+
         sys.exit()
 
     def build_pre_proc_menu(self):

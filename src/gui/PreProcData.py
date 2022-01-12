@@ -39,6 +39,8 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         self.vault_table = None
         self.btnBar = None
 
+        self.ppm = PreProcModel()
+
         self.gen_M = PreProcModel.GenModel()
 
         self.leadingE_M = PreProcModel.LeadingEdgeModel()
@@ -293,6 +295,8 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         else:
             self.vault_M.update_type(1, 1, 2)
             self.set_type_two_columns()
+
+        self.ppm.set_file_saved(False)
 
     def vault_model_change(self):
         """
