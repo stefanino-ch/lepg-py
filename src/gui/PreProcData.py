@@ -115,7 +115,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addLayout(gen_ly)
 
         # Leading Edge
-        # TODO: remove type as the only allowed value is 1
         le_l = QLabel(_("Leading edge"))
         le_table = TableView()
         le_table.setModel(self.leadingE_M)
@@ -159,7 +158,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addWidget(le_table)
 
         # Trailing Edge
-        # TODO: remove type as the only allowed value is 1
         te_l = QLabel(_("Trailing edge"))
         te_table = TableView()
         te_table.setModel(self.trailingE_M)
@@ -346,9 +344,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         for i in range(PreProcModel.VaultModel.rOneRACol,
                        PreProcModel.VaultModel.aFouRACol + 1):
             self.vault_table.showColumn(i)
-
-    def data_changed(self):
-        print('data changed')
 
     def btn_press(self, q):
         """

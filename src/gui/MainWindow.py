@@ -15,8 +15,8 @@ from packaging import version
 from PyQt5.Qt import QStatusBar
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, \
-    QMessageBox, QMenu
+from PyQt5.QtWidgets import QMainWindow, QMdiArea, QAction, \
+    QMessageBox, QMenu, QLabel
 
 from VersionCheck.VersionCheck import VersionCheck
 from ConfigReader.ConfigReader import ConfigReader
@@ -124,7 +124,6 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.__init__')
 
         # Setup languages
-
         self.config_reader = ConfigReader()
 
         if self.config_reader.get_language() == "de":
@@ -144,8 +143,10 @@ class MainWindow(QMainWindow):
             lang_en.install()
 
         self.ppm = PreProcModel()
+        self.ppm.dataStatusUpdate.connect(self.update_save_status)
 
         self.pm = ProcModel()
+        self.pm.dataStatusUpdate.connect(self.update_save_status)
 
         self.dws = DataWindowStatus()
 
@@ -153,7 +154,6 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
-        #self.setWindowTitle("lepg-py %s" % __version__)
         self.setWindowTitle("lepg-py %s" % getattr(__init__, '__version__'))
         self.mainMenu = self.menuBar()
 
@@ -168,7 +168,11 @@ class MainWindow(QMainWindow):
 
         # Create the status bar
         self.statusBar = QStatusBar()
+        self.statusBar_l = QLabel()
+        self.statusBar_l.setStyleSheet("border :1px solid;")
+        self.statusBar.addPermanentWidget(self.statusBar_l)
         self.setStatusBar(self.statusBar)
+        self.update_save_status()
 
         # VersionCheck
         if self.config_reader.get_check_for_updates() is True:
@@ -219,6 +223,14 @@ class MainWindow(QMainWindow):
         else:
             logging.debug(self.__className
                           + ' Update check disabled in config file.\n')
+
+    def update_save_status(self):
+        """
+        :method:
+        """
+        self.statusBar_l.setText(_('File saved: Pre Proc %s  |  Proc %s')
+                                 % (self.ppm.file_saved_char(),
+                                    self.pm.file_saved_char()))
 
     def build_file_menu(self):
         """
@@ -275,8 +287,10 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.file_exit')
 
         ppm = PreProcModel()
+        pm = ProcModel()
 
-        if ppm.file_saved() is not True:
+        if ppm.file_saved() is not True\
+                or pm.file_saved() is not True:
             # There is unsaved data, show a warning
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_("Unsaved data"))
@@ -1163,4 +1177,3 @@ class MainWindow(QMainWindow):
 
         if os.path.isfile(log_path_name):
             os.remove(log_path_name)
-

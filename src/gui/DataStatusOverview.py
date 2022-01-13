@@ -29,6 +29,7 @@ class DataStatusOverview(QMdiSubWindow):
         """
         :method: Constructor
         """
+        self.proc_saved_e = None
         self.pre_proc_saved_e = None
         self.btn_bar = None
         self.pre_proc_name_e = None
@@ -41,12 +42,12 @@ class DataStatusOverview(QMdiSubWindow):
         super().__init__()
 
         self.ppm = PreProcModel()
+        self.ppm.dataStatusUpdate.connect(self.data_changed)
+
         self.pm = ProcModel()
+        self.pm.dataStatusUpdate.connect(self.data_changed)
 
         self.build_window()
-
-        self.ppm.dataStatusUpdate.connect(self.data_changed)
-        self.pm.dataStatusUpdate.connect(self.data_changed)
 
     def closeEvent(self, event):  # @UnusedVariable
         """
@@ -145,6 +146,14 @@ class DataStatusOverview(QMdiSubWindow):
         proc_gly.addWidget(proc_version_l, 1, 0)
         proc_gly.addWidget(self.proc_version_e, 1, 1)
 
+        proc_saved_l = QLabel(_('File saved'))
+        self.proc_saved_e = QLineEdit()
+        self.proc_saved_e.setReadOnly(True)
+        self.proc_saved_e.setText(self.pm.file_saved_char())
+
+        proc_gly.addWidget(proc_saved_l, 2, 0)
+        proc_gly.addWidget(self.proc_saved_e, 2, 1)
+
         #############################
         # Rest of standard window setups
         self.btn_bar = WindowBtnBar(0b0100)
@@ -192,6 +201,9 @@ class DataStatusOverview(QMdiSubWindow):
 
             elif q == 'FileVersion':
                 self.proc_version_e.setText(self.pm.get_file_version())
+
+            elif q == 'SaveStatus':
+                self.proc_saved_e.setText(self.pm.file_saved_char())
 
     def btn_press(self, q):
         """

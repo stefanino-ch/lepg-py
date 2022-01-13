@@ -51,7 +51,7 @@ class PreProcModel(QObject, metaclass=Singleton):
     :attr: version number of the file currently in use
     '''
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self, parent=None):
         """
         :method: Constructor
         """
@@ -102,9 +102,9 @@ class PreProcModel(QObject, metaclass=Singleton):
         self.dataStatusUpdate.emit(self.__className, 'FileVersion')
 
     def get_file_version(self):
-        '''
+        """
         :method: Returns the version info of the data file currently in use
-        '''
+        """
         return self.__fileVersion
 
     def data_edit(self):
@@ -119,6 +119,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         :method: Changes the internal flag to
                  File saved = True
                  Unsaved data = False
+                 Emits a signal after every change.
         """
         self.__fileSaved = file_saved_status
         self.dataStatusUpdate.emit(self.__className, 'SaveStatus')
@@ -208,7 +209,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def open_file(self):
         """
-        :method: Checks for unapplied/ unsaved data, and appropriate handling.
+        :method: Checks for unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         """
         logging.debug(self.__className + '.open_read_file')
