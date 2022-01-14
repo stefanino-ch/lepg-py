@@ -13,6 +13,7 @@ from data.PreProcOutfileReader import PreProcOutfileReader
 
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
+from Singleton.Singleton import Singleton
 
 
 class Rib:
@@ -40,7 +41,7 @@ class Rib:
         self.te = Point3D(te_x, te_y, te_z)
 
 
-class PreProcWingOutline(QMdiSubWindow):
+class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display the wing outline calculated by the
             PreProcessor.

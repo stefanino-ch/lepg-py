@@ -13,9 +13,10 @@ from gui.elements.CheckBox import CheckBox
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
+from Singleton.Singleton import Singleton
 
 
-class SetupProcessors(QMdiSubWindow):
+class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and setup pre-proc and proc settings.
     """

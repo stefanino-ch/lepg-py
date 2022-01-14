@@ -23,6 +23,7 @@ from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
 class AddRibPoints(QMdiSubWindow):
@@ -35,7 +36,7 @@ class AddRibPoints(QMdiSubWindow):
     :attr: Does help to indicate the source of the log messages
     '''
 
-    def __init__(self):
+    def __init__(self, metaclass=Singleton):
         """
         :method: Constructor
         """

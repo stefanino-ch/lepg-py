@@ -8,9 +8,10 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QComboBox, QCheckBox
 from gui.elements.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
+from Singleton.Singleton import Singleton
 
 
-class SetupUpdateChecking(QMdiSubWindow):
+class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit the Basic Data
     """

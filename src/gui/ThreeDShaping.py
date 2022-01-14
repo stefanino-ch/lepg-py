@@ -13,9 +13,10 @@ from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
-class ThreeDShaping(QMdiSubWindow):
+class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit airfoils holes data
     """

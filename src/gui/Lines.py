@@ -13,9 +13,10 @@ from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
+from Singleton.Singleton import Singleton
 
 
-class Lines(QMdiSubWindow):
+class Lines(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit lines data
     """
@@ -339,7 +340,7 @@ class Lines(QMdiSubWindow):
 
         tab_widget.setLayout(tab_layout)
 
-        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
+        i = self.tabs.addTab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
     def remove_tab(self):

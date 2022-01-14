@@ -15,9 +15,10 @@ from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
-class JoncsDefinition(QMdiSubWindow):
+class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit airfoils holes data
     """
@@ -328,7 +329,7 @@ class JoncsDefinition(QMdiSubWindow):
 
         tab_widget.setLayout(tab_layout)
 
-        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
+        i = self.tabs.addTab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
         type_num = self.joncsDef_M.getType(curr_num_tabs + 1)
@@ -357,7 +358,7 @@ class JoncsDefinition(QMdiSubWindow):
         logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
 
-        self.tabs.remove_tab(num_tabs - 1)
+        self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
         self.type_CB.pop(num_tabs - 1)
         self.numLines_s.pop(num_tabs - 1)

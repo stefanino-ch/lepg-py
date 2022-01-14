@@ -7,14 +7,16 @@ import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QHBoxLayout
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QGroupBox
+from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
+    QGroupBox
 
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
 from gui.elements.WindowBtnBar import WindowBtnBar
+from Singleton.Singleton import Singleton
 
 
-class DataStatusOverview(QMdiSubWindow):
+class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window displaying: Filenames, if files are saved, if data withing
             windows has been applied

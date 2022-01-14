@@ -11,9 +11,10 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 
 from gui.elements.WindowBtnBar import WindowBtnBar
+from Singleton.Singleton import Singleton
 
 
-class HelpAbout(QMdiSubWindow):
+class HelpAbout(QMdiSubWindow, metaclass=Singleton):
     """
     Window displaying
         The help about information

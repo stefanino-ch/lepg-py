@@ -1,20 +1,25 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QSizePolicy, QGridLayout, QLabel, QWidget, QHeaderView
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
-from data.ProcModel import ProcModel
 
-class Ramification(QMdiSubWindow):
-    '''
-    :class: Window to display and edit Seewing allowances data  
-    '''
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
+    QSizePolicy, QGridLayout, QLabel, QWidget, QHeaderView
+
+from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
+
+
+class Ramification(QMdiSubWindow, metaclass=Singleton):
+    """
+    :class: Window to display and edit Seewing allowances data
+    """
 
     __className = 'Ramification'
     '''
@@ -22,214 +27,263 @@ class Ramification(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
         self.ramif_M = ProcModel.RamificationModel()
-        self.buildWindow()
-    
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+        self.build_window()
+
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
-                    editGrid_L
-                        threeLineRows_T
+                    edit_grid_l
+                        three_line_rows_t
                         FourLineRows_T
                         ThreeBrakeRows_T
-                        fourBrakeRows_T
+                        four_brake_rows_t
                 ---------------------------
                             help_bar | btn_bar
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(450, 400)
 
-        self.windowLayout = QVBoxLayout()
-        
+        self.window_ly = QVBoxLayout()
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Ramification"))
-        
-        editGrid_L = QGridLayout()
-        
-        ##### 3 line rows
-        threeLineRows_L = QLabel(_('3 Line rows'))
-        threeLineRows_L.setAlignment(Qt.AlignRight)
-        
-        threeLineRows_T = TableView()
-        threeLineRows_T.setModel( self.ramif_M )
-        threeLineRows_T.hideRow(1)
-        threeLineRows_T.hideRow(2)
-        threeLineRows_T.hideRow(3)
-        
-        threeLineRows_T.hideColumn( 0 ) # hide the OrderNum column
-        threeLineRows_T.hideColumn( 1 ) # hide the Rows column
-        threeLineRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
-        threeLineRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        threeLineRows_T.hideColumn(self.ramif_M.columnCount() -3 ) # hide the Config column
-        
-        threeLineRows_T.verticalHeader().setVisible(False)
-        threeLineRows_T.setHelpBar(self.helpBar)
-        
-        #threeLineRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeLineRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdLineToSailDesc'))
 
-        #threeLineRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
-        threeLineRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        
-        threeLineRows_T.setFixedHeight(2 + threeLineRows_T.horizontalHeader().height() + threeLineRows_T.rowHeight(0))
-        threeLineRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        edit_grid_l = QGridLayout()
 
-        editGrid_L.addWidget(threeLineRows_L,0,0)
-        editGrid_L.addWidget(threeLineRows_T,0,1)
-        editGrid_L.addWidget(QWidget(),0,2)
-        editGrid_L.addWidget(QWidget(),0,3)
-        
-        ##### 4 line rows
-        fourLineRows_L = QLabel(_('4 Line rows'))
-        fourLineRows_L.setAlignment(Qt.AlignRight)
-        
-        fourLineRows_T = TableView()
-        fourLineRows_T.setModel( self.ramif_M )
-        fourLineRows_T.hideRow(0)
-        fourLineRows_T.hideRow(2)
-        fourLineRows_T.hideRow(3)
-        
-        fourLineRows_T.hideColumn( 0 ) # hide the OrderNum column
-        fourLineRows_T.hideColumn( 1 ) # hide the Rows column
-        fourLineRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
-        fourLineRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        
-        fourLineRows_T.verticalHeader().setVisible(False)
-        fourLineRows_T.setHelpBar(self.helpBar)
-        
-        # fourLineRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourLineRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdLineToSailDesc'))
-        fourLineRows_T.setHelpText(ProcModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthLineToSailDesc'))
+        # 3 line rows
+        three_line_rows_l = QLabel(_('3 Line rows'))
+        three_line_rows_l.setAlignment(Qt.AlignRight)
 
-        # fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
-        fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        fourLineRows_T.enableIntValidator(ProcModel.RamificationModel.FourthToSailCol, ProcModel.RamificationModel.FourthToSailCol, 1, 2000)
-        
-        fourLineRows_T.setFixedHeight(2 + fourLineRows_T.horizontalHeader().height() + fourLineRows_T.rowHeight(1))
-        fourLineRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        three_line_rows_t = TableView()
+        three_line_rows_t.setModel(self.ramif_M)
+        three_line_rows_t.hideRow(1)
+        three_line_rows_t.hideRow(2)
+        three_line_rows_t.hideRow(3)
 
-        editGrid_L.addWidget(fourLineRows_L,1,0)
-        editGrid_L.addWidget(fourLineRows_T,1,1,1,2)
-        editGrid_L.addWidget(QWidget(),1,3)
-        
-        ##### 3 brake rows
-        threeBrakeRows_L = QLabel(_('3 Brake rows'))
-        threeBrakeRows_L.setAlignment(Qt.AlignRight)
-        
-        threeBrakeRows_T = TableView()
-        threeBrakeRows_T.setModel( self.ramif_M )
-        threeBrakeRows_T.hideRow(0)
-        threeBrakeRows_T.hideRow(1)
-        threeBrakeRows_T.hideRow(3)
-        
-        threeBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
-        threeBrakeRows_T.hideColumn( 1 ) # hide the Rows column
-        threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
-        threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        threeBrakeRows_T.hideColumn(self.ramif_M.columnCount() -3 ) # hide the Config column
-        threeBrakeRows_T.verticalHeader().setVisible(False)
-        threeBrakeRows_T.setHelpBar(self.helpBar)
-        
-        # threeBrakeRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        threeBrakeRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdBrakeToSailDesc'))
+        three_line_rows_t.hideColumn(0)  # hide the OrderNum column
+        three_line_rows_t.hideColumn(1)  # hide the Rows column
+        # hide the ID column
+        three_line_rows_t.hideColumn(self.ramif_M.columnCount() - 1)
+        # hide the Config column
+        three_line_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
+        # hide the Config column
+        three_line_rows_t.hideColumn(self.ramif_M.columnCount() - 3)
 
-        # threeBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
-        threeBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        
-        threeBrakeRows_T.setFixedHeight(2 + threeBrakeRows_T.horizontalHeader().height() + threeBrakeRows_T.rowHeight(2))
-        threeBrakeRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        three_line_rows_t.verticalHeader().setVisible(False)
+        three_line_rows_t.setHelpBar(self.helpBar)
 
-        editGrid_L.addWidget(threeBrakeRows_L,2,0)
-        editGrid_L.addWidget(threeBrakeRows_T,2,1)
-        editGrid_L.addWidget(QWidget(),2,2)
-        editGrid_L.addWidget(QWidget(),2,3)
-        
-        ##### 4 brake rows
-        fourBrakeRows_L = QLabel(_('4 Brake rows'))
-        fourBrakeRows_L.setAlignment(Qt.AlignRight)
-        
-        fourBrakeRows_T = TableView()
-        fourBrakeRows_T.setModel( self.ramif_M )
-        fourBrakeRows_T.hideRow(0)
-        fourBrakeRows_T.hideRow(1)
-        fourBrakeRows_T.hideRow(2)
-        
-        fourBrakeRows_T.hideColumn( 0 ) # hide the OrderNum column
-        fourBrakeRows_T.hideColumn( 1 ) # hide the Rows column
-        fourBrakeRows_T.hideColumn(self.ramif_M.columnCount() -1 ) # hide the ID column
-        fourBrakeRows_T.hideColumn(self.ramif_M.columnCount() -2 ) # hide the Config column
-        fourBrakeRows_T.verticalHeader().setVisible(False)
-        fourBrakeRows_T.setHelpBar(self.helpBar)
-        
-        # fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.RowsCol, _('Ramification-RowsDesc'))
-        fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdBrakeToSailDesc'))
-        fourBrakeRows_T.setHelpText(ProcModel.RamificationModel.FourthToSailCol, _('Ramification-4L-FourthBrakeToSailDesc'))
+        three_line_rows_t.setHelpText(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            _('Ramification-3L-ThirdLineToSailDesc'))
 
-        # fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.RowsCol, ProcModel.RamificationModel.RowsCol, 3, 4)
-        fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.ThirdToSailCol, ProcModel.RamificationModel.ThirdToSailCol, 1, 2000)
-        fourBrakeRows_T.enableIntValidator(ProcModel.RamificationModel.FourthToSailCol, ProcModel.RamificationModel.FourthToSailCol, 1, 2000)
-        
-        fourBrakeRows_T.setFixedHeight(2 + fourBrakeRows_T.horizontalHeader().height() + fourBrakeRows_T.rowHeight(3))
-        fourBrakeRows_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        three_line_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            ProcModel.RamificationModel.ThirdToSailCol,
+            1, 2000)
 
-        editGrid_L.addWidget(fourBrakeRows_L,3,0)
-        editGrid_L.addWidget(fourBrakeRows_T,3,1,1,2)
-        editGrid_L.addWidget(QWidget(),3,3)
+        three_line_rows_t.setFixedHeight(
+            2
+            + three_line_rows_t.horizontalHeader().height()
+            + three_line_rows_t.rowHeight(0))
+        three_line_rows_t.horizontalHeader().\
+            setSectionResizeMode(QHeaderView.Stretch)
 
-        self.windowLayout.addLayout(editGrid_L)
+        edit_grid_l.addWidget(three_line_rows_l, 0, 0)
+        edit_grid_l.addWidget(three_line_rows_t, 0, 1)
+        edit_grid_l.addWidget(QWidget(), 0, 2)
+        edit_grid_l.addWidget(QWidget(), 0, 3)
+
+        # 4 line rows
+        four_line_rows_l = QLabel(_('4 Line rows'))
+        four_line_rows_l.setAlignment(Qt.AlignRight)
+
+        four_line_rows_t = TableView()
+        four_line_rows_t.setModel(self.ramif_M)
+        four_line_rows_t.hideRow(0)
+        four_line_rows_t.hideRow(2)
+        four_line_rows_t.hideRow(3)
+
+        four_line_rows_t.hideColumn(0)  # hide the OrderNum column
+        four_line_rows_t.hideColumn(1)  # hide the Rows column
+        # hide the ID column
+        four_line_rows_t.hideColumn(self.ramif_M.columnCount() - 1)
+        # hide the Config column
+        four_line_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
+
+        four_line_rows_t.verticalHeader().setVisible(False)
+        four_line_rows_t.setHelpBar(self.helpBar)
+
+        four_line_rows_t.setHelpText(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            _('Ramification-4L-ThirdLineToSailDesc'))
+        four_line_rows_t.setHelpText(
+            ProcModel.RamificationModel.FourthToSailCol,
+            _('Ramification-4L-FourthLineToSailDesc'))
+
+        four_line_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            ProcModel.RamificationModel.ThirdToSailCol,
+            1, 2000)
+        four_line_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.FourthToSailCol,
+            ProcModel.RamificationModel.FourthToSailCol,
+            1, 2000)
+
+        four_line_rows_t.setFixedHeight(
+            2
+            + four_line_rows_t.horizontalHeader().height()
+            + four_line_rows_t.rowHeight(1))
+        four_line_rows_t.horizontalHeader().\
+            setSectionResizeMode(QHeaderView.Stretch)
+
+        edit_grid_l.addWidget(four_line_rows_l, 1, 0)
+        edit_grid_l.addWidget(four_line_rows_t, 1, 1, 1, 2)
+        edit_grid_l.addWidget(QWidget(), 1, 3)
+
+        # 3 brake rows
+        three_brake_rows_l = QLabel(_('3 Brake rows'))
+        three_brake_rows_l.setAlignment(Qt.AlignRight)
+
+        three_brake_rows_t = TableView()
+        three_brake_rows_t.setModel(self.ramif_M)
+        three_brake_rows_t.hideRow(0)
+        three_brake_rows_t.hideRow(1)
+        three_brake_rows_t.hideRow(3)
+
+        three_brake_rows_t.hideColumn(0)  # hide the OrderNum column
+        three_brake_rows_t.hideColumn(1)  # hide the Rows column
+        # hide the ID column
+        three_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 1)
+        # hide the Config column
+        three_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
+        # hide the Config column
+        three_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 3)
+        three_brake_rows_t.verticalHeader().setVisible(False)
+        three_brake_rows_t.setHelpBar(self.helpBar)
+
+        three_brake_rows_t.setHelpText(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            _('Ramification-3L-ThirdBrakeToSailDesc'))
+
+        three_brake_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            ProcModel.RamificationModel.ThirdToSailCol,
+            1, 2000)
+
+        three_brake_rows_t.setFixedHeight(
+            2
+            + three_brake_rows_t.horizontalHeader().height()
+            + three_brake_rows_t.rowHeight(2))
+        three_brake_rows_t.horizontalHeader().\
+            setSectionResizeMode(QHeaderView.Stretch)
+
+        edit_grid_l.addWidget(three_brake_rows_l, 2, 0)
+        edit_grid_l.addWidget(three_brake_rows_t, 2, 1)
+        edit_grid_l.addWidget(QWidget(), 2, 2)
+        edit_grid_l.addWidget(QWidget(), 2, 3)
+
+        # 4 brake rows
+        four_brake_rows_l = QLabel(_('4 Brake rows'))
+        four_brake_rows_l.setAlignment(Qt.AlignRight)
+
+        four_brake_rows_t = TableView()
+        four_brake_rows_t.setModel(self.ramif_M)
+        four_brake_rows_t.hideRow(0)
+        four_brake_rows_t.hideRow(1)
+        four_brake_rows_t.hideRow(2)
+
+        four_brake_rows_t.hideColumn(0)  # hide the OrderNum column
+        four_brake_rows_t.hideColumn(1)  # hide the Rows column
+        # hide the ID column
+        four_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 1)
+        # hide the Config column
+        four_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
+        four_brake_rows_t.verticalHeader().setVisible(False)
+        four_brake_rows_t.setHelpBar(self.helpBar)
+
+        four_brake_rows_t.setHelpText(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            _('Ramification-4L-ThirdBrakeToSailDesc'))
+        four_brake_rows_t.setHelpText(
+            ProcModel.RamificationModel.FourthToSailCol,
+            _('Ramification-4L-FourthBrakeToSailDesc'))
+
+        four_brake_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.ThirdToSailCol,
+            ProcModel.RamificationModel.ThirdToSailCol,
+            1, 2000)
+        four_brake_rows_t.enableIntValidator(
+            ProcModel.RamificationModel.FourthToSailCol,
+            ProcModel.RamificationModel.FourthToSailCol,
+            1, 2000)
+
+        four_brake_rows_t.setFixedHeight(2
+                                         + four_brake_rows_t.horizontalHeader().height()
+                                         + four_brake_rows_t.rowHeight(3))
+        four_brake_rows_t.horizontalHeader().\
+            setSectionResizeMode(QHeaderView.Stretch)
+
+        edit_grid_l.addWidget(four_brake_rows_l, 3, 0)
+        edit_grid_l.addWidget(four_brake_rows_t, 3, 1, 1, 2)
+        edit_grid_l.addWidget(QWidget(), 3, 3)
+
+        self.window_ly.addLayout(edit_grid_l)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/ramification.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addStretch()        
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
-        self.win.setLayout(self.windowLayout)
-    
-    def btnPress(self, q):
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.window_ly.addLayout(bottom_layout)
+
+        self.win.setLayout(self.window_ly)
+
+    def btn_press(self, q):
         '''
         :method: Handling of all pressed buttons.
         '''
-        logging.debug(self.__className+'.btn_press')
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)
