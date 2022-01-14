@@ -128,6 +128,7 @@ class ProcModel(QObject, metaclass=Singleton):
         self.noseMylars_m = ProcModel.NoseMylarsModel()
         self.noseMylars_m.dataChanged.connect(self.data_edit)
         self.partsSep_m = ProcModel.PartsSeparationModel()
+        self.partsSep_m.dataChanged.connect(self.data_edit)
         self.ramif_m = ProcModel.RamificationModel()
         self.ramif_m.dataChanged.connect(self.data_edit)
         self.skinTens_m = ProcModel.SkinTensionModel()
@@ -147,9 +148,9 @@ class ProcModel(QObject, metaclass=Singleton):
         self.thrDShLoDet_m = ProcModel.ThreeDShLoDetModel()
         self.thrDShLoDet_m.dataChanged.connect(self.data_edit)
         self.thrDShPrint_m = ProcModel.ThreeDShPrintModel()
+        self.thrDShPrint_m.dataChanged.connect(self.data_edit)
         self.twoDDxf_m = ProcModel.TwoDDxfModel()
         self.twoDDxf_m.dataChanged.connect(self.data_edit)
-
 
         self.fileReader = ProcFileReader()
         self.fileWriter = ProcFileWriter()

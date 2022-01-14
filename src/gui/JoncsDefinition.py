@@ -1,21 +1,26 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, \
-    QTabWidget, QHBoxLayout, QVBoxLayout, QPushButton, QComboBox
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, \
+    QHeaderView, QSpinBox, QLabel, \
+    QTabWidget, QHBoxLayout, QVBoxLayout, \
+    QPushButton, QComboBox
+
 from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+
 
 class JoncsDefinition(QMdiSubWindow):
-    '''
-    :class: Window to display and edit airfoils holes data  
-    '''
+    """
+    :class: Window to display and edit airfoils holes data
+    """
 
     __className = 'JoncsDefinition'
     '''
@@ -23,35 +28,44 @@ class JoncsDefinition(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
-        self.joncsDef_M = ProcModel.JoncsDefModel()
-        self.joncsDef_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
 
-        self.type_CB = []        
-        self.numLines_S = []
-        
+        self.win = None
+        self.windowLayout = None
+        self.helpBar = None
+        self.tabs = None
+        self.btnBar = None
+        self.numConf_S = None
+
+        self.pm = ProcModel()
+
+        self.joncsDef_M = ProcModel.JoncsDefModel()
+        self.joncsDef_M.numRowsForConfigChanged.connect(self.model_size_changed)
+
+        self.type_CB = []
+        self.numLines_s = []
+
         self.proxyModel = []
         self.table = []
 
-        self.buildWindow()
-    
+        self.build_window()
+
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
                     config edit (blocs)
@@ -62,341 +76,389 @@ class JoncsDefinition(QMdiSubWindow):
                         LinesTable
                     -------------------------
                         OrderBtn | help_bar  | btn_bar
-                            
+
         Naming:
-        
+
             conf equals blocs
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
 
         self.windowLayout = QVBoxLayout()
-        
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Joncs definition (Nylon rods)"))
-        
-        numConf_L = QLabel(_('Number of blocs'))
-        numConf_L.setAlignment(Qt.AlignRight)
-        numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        
+
+        num_conf_l = QLabel(_('Number of blocs'))
+        num_conf_l.setAlignment(Qt.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed))
+
         self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0,20)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.numConf_S.setRange(0, 20)
+        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                                 QSizePolicy.Fixed))
         self.numConf_S.setValue(self.joncsDef_M.num_configs())
-        
+
         edit = self.numConf_S.lineEdit()
         edit.setReadOnly(True)
-        self.numConf_S.valueChanged.connect(self.confSpinChange)
-         
-        numConfLayout = QHBoxLayout()
-        numConfLayout.addWidget(numConf_L)
-        numConfLayout.addWidget(self.numConf_S)
-        numConfLayout.addStretch()
-        self.windowLayout.addLayout(numConfLayout)
-         
+        self.numConf_S.valueChanged.connect(self.conf_spin_change)
+
+        num_conf_layout = QHBoxLayout()
+        num_conf_layout.addWidget(num_conf_l)
+        num_conf_layout.addWidget(self.numConf_S)
+        num_conf_layout.addStretch()
+        self.windowLayout.addLayout(num_conf_layout)
+
         self.tabs = QTabWidget()
         self.windowLayout.addWidget(self.tabs)
-         
+
         # check if there's already data
         if self.joncsDef_M.num_configs() > 0:
-            self.modelSizeChanged() 
-         
-        sortBtn = QPushButton(_('Sort by order_num'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
+            self.model_size_changed()
+
+        sort_btn = QPushButton(_('Sort by order_num'))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed))
+        sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/joncsDefinition.html')
-        
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
+
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(sort_btn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.windowLayout.addLayout(bottom_layout)
+
         self.win.setLayout(self.windowLayout)
 
-    def confSpinChange(self):
-        '''
-        :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
-        '''
-        logging.debug(self.__className+'.conf_spin_change')
-        currNumConfigs = self.joncsDef_M.num_configs()
-        mustNumConfigs = self.numConf_S.value()
-        
-        if currNumConfigs > mustNumConfigs:
+    def conf_spin_change(self):
+        """
+        :method: Called upon manual changes of the config spin. Does assure all
+                 elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.conf_spin_change')
+        curr_num_configs = self.joncsDef_M.num_configs()
+        must_num_configs = self.numConf_S.value()
+
+        if curr_num_configs > must_num_configs:
             # more tabs than we should have -> remove last
-            self.joncsDef_M.set_num_rows_for_config(currNumConfigs, 0)
-        
-        if currNumConfigs < mustNumConfigs:
+            self.joncsDef_M.set_num_rows_for_config(curr_num_configs, 0)
+
+        if curr_num_configs < must_num_configs:
             # missing configs -> add one
-            self.joncsDef_M.set_num_rows_for_config(mustNumConfigs, 1)
-            
-    def modelSizeChanged(self):
-        '''
-        :method: Called after the model has been changed it's size. Herein we assure the GUI follows the model.
-        '''
-        logging.debug(self.__className+'.modelSizeChanged')
-        
-        currNumConfigs = self.joncsDef_M.num_configs()
-        
+            self.joncsDef_M.set_num_rows_for_config(must_num_configs, 1)
+
+        self.pm.set_file_saved(False)
+
+    def model_size_changed(self):
+        """
+        :method: Called after the model has been changed it's size. Herein we
+                 assure the GUI follows the model.
+        """
+        logging.debug(self.__className + '.model_size_changed')
+
+        curr_num_configs = self.joncsDef_M.num_configs()
+
         # config (num plans) spinbox
-        if self.numConf_S.value() != currNumConfigs:
+        if self.numConf_S.value() != curr_num_configs:
             self.numConf_S.blockSignals(True)
-            self.numConf_S.setValue(currNumConfigs)
+            self.numConf_S.setValue(curr_num_configs)
             self.numConf_S.blockSignals(False)
-            
+
         # number of tabs
-        diff = abs(currNumConfigs - self.tabs.count() )
+        diff = abs(curr_num_configs - self.tabs.count())
         if diff != 0:
             # we have to update the tabs
-            i=0
-            if currNumConfigs > self.tabs.count():
-                #add tabs
+            i = 0
+            if curr_num_configs > self.tabs.count():
+                # add tabs
                 while i < diff:
-                    self.addTab()
+                    self.add_tab()
                     i += 1
             else:
-                #remove tabs
+                # remove tabs
                 while i < diff:
-                    self.removeTab()
+                    self.remove_tab()
                     i += 1
 
-        # update lines (pahts) spin
-        i=0
-        while i< self.tabs.count():
-            if self.numLines_S[i].value != self.joncsDef_M.num_rows_for_config(i + 1):
-                self.numLines_S[i].blockSignals(True)
-                self.numLines_S[i].setValue(self.joncsDef_M.num_rows_for_config(i + 1))
-                self.numLines_S[i].blockSignals(False)
-                
-            typeNum = self.joncsDef_M.getType(i+1)
-            if typeNum == 0:
+        # update lines (path) spin
+        i = 0
+        while i < self.tabs.count():
+            if self.numLines_s[i].value != self.joncsDef_M.\
+                    num_rows_for_config(i + 1):
+                self.numLines_s[i].blockSignals(True)
+                self.numLines_s[i].setValue(self.joncsDef_M.
+                                            num_rows_for_config(i + 1))
+                self.numLines_s[i].blockSignals(False)
+
+            type_num = self.joncsDef_M.getType(i + 1)
+            if type_num == 0:
                 # new empty row
-                self.joncsDef_M.setType(i+1, 1)
-                self.setTypeOneColumns()
-            elif typeNum == 1:
-                # there is vaild type 1 data
+                self.joncsDef_M.setType(i + 1, 1)
+                self.set_type_one_columns()
+            elif type_num == 1:
+                # there is valid type 1 data
                 self.type_CB[i].blockSignals(True)
                 self.type_CB[i].setCurrentIndex(0)
                 self.type_CB[i].blockSignals(False)
-                self.setTypeOneColumns()
-            elif typeNum == 2:
-                # there is vaild type 1 data
+                self.set_type_one_columns()
+            elif type_num == 2:
+                # there is valid type 1 data
                 self.type_CB[i].blockSignals(True)
                 self.type_CB[i].setCurrentIndex(1)
                 self.type_CB[i].blockSignals(False)
-                self.setTypeTwoColumns()
+                self.set_type_two_columns()
 
-            i+=1
-    
-    def addTab(self):
-        '''
-        :method: Creates a new tab inculding all its widgets. 
-        '''
-        logging.debug(self.__className+'.add_tab')
-        
-        currNumTabs = self.tabs.count()
-         
-        tabWidget = QWidget()
-        tabLayout = QVBoxLayout()
+            i += 1
+
+    def add_tab(self):
+        """
+        :method: Creates a new tab including all its widgets.
+        """
+        logging.debug(self.__className + '.add_tab')
+
+        curr_num_tabs = self.tabs.count()
+
+        tab_widget = QWidget()
+        tab_layout = QVBoxLayout()
 
         # Data lines
-        typeLayout = QHBoxLayout()
-        type_L = QLabel(_('Type'))
+        type_layout = QHBoxLayout()
+        type_l = QLabel(_('Type'))
         self.type_CB.append(QComboBox())
-        self.type_CB[currNumTabs].addItem(_("1"))
-        self.type_CB[currNumTabs].addItem(_("2"))
-        self.type_CB[currNumTabs].currentIndexChanged.connect(self.typeCbChange)
-        typeLayout.addWidget(type_L)
-        typeLayout.addWidget(self.type_CB[currNumTabs])
-        typeLayout.addStretch()
-        tabLayout.addLayout(typeLayout)
-        
-        linesLayout = QHBoxLayout()
-        numLines_L = QLabel(_('Number of groups'))
-        numLines_L.setAlignment(Qt.AlignRight)
-        numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLines_S.append(QSpinBox())
-        self.numLines_S[currNumTabs].setRange(1,100)
-        self.numLines_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLines_S[currNumTabs].valueChanged.connect(self.numLinesChange)
-        pathEdit = self.numLines_S[currNumTabs].lineEdit()
-        pathEdit.setReadOnly(True)
-        linesLayout.addWidget(numLines_L)
-        linesLayout.addWidget(self.numLines_S[currNumTabs])
-        linesLayout.addStretch()
-        tabLayout.addLayout(linesLayout)
+        self.type_CB[curr_num_tabs].addItem(_("1"))
+        self.type_CB[curr_num_tabs].addItem(_("2"))
+        self.type_CB[curr_num_tabs].currentIndexChanged.\
+            connect(self.type_cb_change)
+        type_layout.addWidget(type_l)
+        type_layout.addWidget(self.type_CB[curr_num_tabs])
+        type_layout.addStretch()
+        tab_layout.addLayout(type_layout)
+
+        lines_layout = QHBoxLayout()
+        num_lines_l = QLabel(_('Number of groups'))
+        num_lines_l.setAlignment(Qt.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.numLines_s.append(QSpinBox())
+        self.numLines_s[curr_num_tabs].setRange(1, 100)
+        self.numLines_s[curr_num_tabs].setSizePolicy(
+            QSizePolicy(QSizePolicy.Fixed,
+                        QSizePolicy.Fixed))
+        self.numLines_s[curr_num_tabs].\
+            valueChanged.connect(self.num_lines_change)
+        path_edit = self.numLines_s[curr_num_tabs].lineEdit()
+        path_edit.setReadOnly(True)
+        lines_layout.addWidget(num_lines_l)
+        lines_layout.addWidget(self.numLines_s[curr_num_tabs])
+        lines_layout.addStretch()
+        tab_layout.addLayout(lines_layout)
 
         self.proxyModel.append(QSortFilterProxyModel())
-        self.proxyModel[currNumTabs].setSourceModel(self.joncsDef_M)
-        self.proxyModel[currNumTabs].setFilterKeyColumn(ProcModel.JoncsDefModel.ConfigNumCol)
-        self.proxyModel[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )        
-        
+        self.proxyModel[curr_num_tabs].setSourceModel(self.joncsDef_M)
+        self.proxyModel[curr_num_tabs].\
+            setFilterKeyColumn(ProcModel.JoncsDefModel.ConfigNumCol)
+        self.proxyModel[curr_num_tabs].\
+            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+
         self.table.append(TableView())
-        self.table[currNumTabs].setModel(self.proxyModel[currNumTabs])
-        self.table[currNumTabs].verticalHeader().setVisible(False)
-        self.table[currNumTabs].horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.table[currNumTabs].hideColumn( self.joncsDef_M.columnCount()-1 )
-        self.table[currNumTabs].hideColumn( self.joncsDef_M.columnCount()-2 )
-        tabLayout.addWidget(self.table[currNumTabs])
-        
+        self.table[curr_num_tabs].setModel(self.proxyModel[curr_num_tabs])
+        self.table[curr_num_tabs].verticalHeader().setVisible(False)
+        self.table[curr_num_tabs].horizontalHeader().\
+            setSectionResizeMode(QHeaderView.Stretch)
+        self.table[curr_num_tabs].hideColumn(self.joncsDef_M.columnCount() - 1)
+        self.table[curr_num_tabs].hideColumn(self.joncsDef_M.columnCount() - 2)
+        tab_layout.addWidget(self.table[curr_num_tabs])
 
-# TODO: enable validators
-#         branchTable.enableIntValidator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
-#         branchTable.enableIntValidator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
-#         branchTable.enableIntValidator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
-#         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
-#         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
-#         
-        self.table[currNumTabs].setHelpBar(self.helpBar)
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol, _('OrderNumDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.FirstRibCol, _('JoncsDef-FirstRibDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.LastRibCol, _('JoncsDef-LastRibDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBACol, _('JoncsDef-pBADesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBBCol, _('JoncsDef-pBBDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBCCol, _('JoncsDef-pBCDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBDCol, _('JoncsDef-pBDDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pBECol, _('JoncsDef-pBEDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCACol, _('JoncsDef-pCADesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCBCol, _('JoncsDef-pCBDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCCCol, _('JoncsDef-pCCDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pCDCol, _('JoncsDef-pCDDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDACol, _('JoncsDef-pDADesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDBCol, _('JoncsDef-pDBDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDCCol, _('JoncsDef-pDCDesc'))
-        self.table[currNumTabs].setHelpText(ProcModel.JoncsDefModel.pDDCol, _('JoncsDef-pDDDesc'))
-        
-        tabWidget.setLayout(tabLayout)
- 
-        i =  self.tabs.addTab(tabWidget, str(currNumTabs+1) )
+        # TODO: enable validators
+        #         branchTable.enableIntValidator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
+        #         branchTable.enableIntValidator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
+        #         branchTable.enableIntValidator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
+        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
+        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
+        #
+        self.table[curr_num_tabs].setHelpBar(self.helpBar)
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol,
+                                              _('OrderNumDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.FirstRibCol,
+                                              _('JoncsDef-FirstRibDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.LastRibCol,
+                                              _('JoncsDef-LastRibDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBACol,
+                                              _('JoncsDef-pBADesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBBCol,
+                                              _('JoncsDef-pBBDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBCCol,
+                                              _('JoncsDef-pBCDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBDCol,
+                                              _('JoncsDef-pBDDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBECol,
+                                              _('JoncsDef-pBEDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCACol,
+                                              _('JoncsDef-pCADesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCBCol,
+                                              _('JoncsDef-pCBDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCCCol,
+                                              _('JoncsDef-pCCDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCDCol,
+                                              _('JoncsDef-pCDDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDACol,
+                                              _('JoncsDef-pDADesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDBCol,
+                                              _('JoncsDef-pDBDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDCCol,
+                                              _('JoncsDef-pDCDesc'))
+        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDDCol,
+                                              _('JoncsDef-pDDDesc'))
+
+        tab_widget.setLayout(tab_layout)
+
+        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
-        
-        typeNum = self.joncsDef_M.getType(currNumTabs+1)
-        if typeNum == 0:
-            # new empty row
-            self.joncsDef_M.setType(currNumTabs+1, 1)
-            self.setTypeOneColumns()
-        elif typeNum == 1:
-            # there is vaild type 1 data
-            self.type_CB[currNumTabs].blockSignals(True)
-            self.type_CB[currNumTabs].setCurrentIndex(0)
-            self.type_CB[currNumTabs].blockSignals(False)
-            self.setTypeOneColumns()
-        elif typeNum == 2:
-            # there is vaild type 1 data
-            self.type_CB[currNumTabs].blockSignals(True)
-            self.type_CB[currNumTabs].setCurrentIndex(1)
-            self.type_CB[currNumTabs].blockSignals(False)
-            self.setTypeTwoColumns()
-    
-    def removeTab(self):
-        '''
-        :method: Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model. 
-        ''' 
-        logging.debug(self.__className+'.remove_tab')
-        numTabs = self.tabs.count()
-        
-        self.tabs.removeTab(numTabs-1)
-        # cleanup arrays
-        self.type_CB.pop(numTabs-1)
-        self.numLines_S.pop(numTabs-1)
-        self.proxyModel.pop(numTabs-1)
-        self.table.pop(numTabs-1)
-                   
-    def numLinesChange(self): 
-        '''
-        :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.num_lines_change')
-        self.joncsDef_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numLines_S[self.tabs.currentIndex()].value())
-        
-        currTab = self.tabs.currentIndex()
-        if self.type_CB[currTab].currentIndex() == 0:
-            self.joncsDef_M.setType(currTab+1, 1)
-        else:
-            self.joncsDef_M.setType(currTab+1, 2)
 
-    def typeCbChange(self):
-        '''
-        :method: Called upon manual changes of the type combo. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.typeCbChange')
-        
-        currTab = self.tabs.currentIndex()
-        
-        if self.type_CB[currTab].currentIndex() == 0:
+        type_num = self.joncsDef_M.getType(curr_num_tabs + 1)
+        if type_num == 0:
+            # new empty row
+            self.joncsDef_M.setType(curr_num_tabs + 1, 1)
+            self.set_type_one_columns()
+        elif type_num == 1:
+            # there is valid type 1 data
+            self.type_CB[curr_num_tabs].blockSignals(True)
+            self.type_CB[curr_num_tabs].setCurrentIndex(0)
+            self.type_CB[curr_num_tabs].blockSignals(False)
+            self.set_type_one_columns()
+        elif type_num == 2:
+            # there is valid type 1 data
+            self.type_CB[curr_num_tabs].blockSignals(True)
+            self.type_CB[curr_num_tabs].setCurrentIndex(1)
+            self.type_CB[curr_num_tabs].blockSignals(False)
+            self.set_type_two_columns()
+
+    def remove_tab(self):
+        """
+        :method: Removes the last tab from the GUI. Does take care at the same
+                 time of the class internal elements and the data model.
+        """
+        logging.debug(self.__className + '.remove_tab')
+        num_tabs = self.tabs.count()
+
+        self.tabs.remove_tab(num_tabs - 1)
+        # cleanup arrays
+        self.type_CB.pop(num_tabs - 1)
+        self.numLines_s.pop(num_tabs - 1)
+        self.proxyModel.pop(num_tabs - 1)
+        self.table.pop(num_tabs - 1)
+
+    def num_lines_change(self):
+        """
+        :method: Called upon manual changes of the lines spin. Does assure all
+                elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.num_lines_change')
+        self.joncsDef_M.set_num_rows_for_config(
+            self.tabs.currentIndex() + 1,
+            self.numLines_s[self.tabs.currentIndex()].value())
+
+        curr_tab = self.tabs.currentIndex()
+        if self.type_CB[curr_tab].currentIndex() == 0:
+            self.joncsDef_M.setType(curr_tab + 1, 1)
+        else:
+            self.joncsDef_M.setType(curr_tab + 1, 2)
+
+        self.pm.set_file_saved(False)
+
+    def type_cb_change(self):
+        """
+        :method: Called upon manual changes of the type combo. Does assure all
+                 elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.type_cb_change')
+
+        curr_tab = self.tabs.currentIndex()
+
+        if self.type_CB[curr_tab].currentIndex() == 0:
             # show rows for type 1
-            self.setTypeOneColumns()
-            self.joncsDef_M.setType(currTab+1, 1) 
-            
+            self.set_type_one_columns()
+            self.joncsDef_M.setType(curr_tab + 1, 1)
+
         else:
             # show rows for type 2
-            self.setTypeTwoColumns()
-            self.joncsDef_M.setType(currTab+1, 2)  
-    
-    def setTypeOneColumns(self): 
-        '''
-        :method: Enables disables table columns to be accurate for type one tables
-        '''
-        currTab = self.tabs.currentIndex()     
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pBECol)
+            self.set_type_two_columns()
+            self.joncsDef_M.setType(curr_tab + 1, 2)
 
-        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCACol)
-        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCBCol)
-        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCCCol)
-        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pCDCol)
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
-        
-    def setTypeTwoColumns(self):
-        '''
-        :method: Enables disables table columns to be accurate for type two tables
-        '''
-        currTab = self.tabs.currentIndex()
-        self.table[currTab].showColumn(ProcModel.JoncsDefModel.pBECol)
+        self.pm.set_file_saved(False)
 
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCACol)
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCBCol)
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCCCol)
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.pCDCol)
-        self.table[currTab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
+    def set_type_one_columns(self):
+        """
+        :method: Enables disables table columns to be accurate for type
+                 one tables
+        """
+        curr_tab = self.tabs.currentIndex()
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pBECol)
 
-    def sortBtnPress(self):
-        '''
-        :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
-        '''
-        logging.debug(self.__className+'.sort_btn_press')
-                
-        if self.tabs.count() >0:
-            currTab = self.tabs.currentIndex()
-            self.proxyModel[currTab].sort(ProcModel.JoncsDefModel.OrderNumCol, Qt.AscendingOrder)
-            self.proxyModel[currTab].setDynamicSortFilter(False)
-    
-    def btnPress(self, q):
-        '''
+        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCACol)
+        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCBCol)
+        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCCCol)
+        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCDCol)
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
+
+    def set_type_two_columns(self):
+        """
+        :method: Enables disables table columns to be accurate for type
+                 two tables
+        """
+        curr_tab = self.tabs.currentIndex()
+        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pBECol)
+
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCACol)
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCBCol)
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCCCol)
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCDCol)
+        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
+
+    def sort_btn_press(self):
+        """
+        :method: Executed if the sort button is pressed. Does a one time sort
+                 based on the numbers in the OrderNum column.
+        """
+        logging.debug(self.__className + '.sort_btn_press')
+
+        if self.tabs.count() > 0:
+            curr_tab = self.tabs.currentIndex()
+            self.proxyModel[curr_tab].sort(
+                ProcModel.JoncsDefModel.OrderNumCol,
+                Qt.AscendingOrder)
+            self.proxyModel[curr_tab].setDynamicSortFilter(False)
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

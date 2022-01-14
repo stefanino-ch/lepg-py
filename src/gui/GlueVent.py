@@ -31,8 +31,11 @@ class GlueVent(QMdiSubWindow):
         self.help_bar = None
         self.window_ly = None
         self.win = None
+
         logging.debug(self.__className + '.__init__')
         super().__init__()
+
+        self.pm = ProcModel()
 
         self.glueVent_M = ProcModel.GlueVentModel()
         self.glueVent_M.usageUpd.connect(self.usage_update)
@@ -163,6 +166,7 @@ class GlueVent(QMdiSubWindow):
             self.glueVent_M.set_is_used(False)
         else:
             self.glueVent_M.set_is_used(True)
+        self.pm.set_file_saved(False)
 
     def btn_press(self, q):
         """

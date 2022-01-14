@@ -28,14 +28,17 @@ class NewSkinTension(QMdiSubWindow):
         """
         :method: Constructor
         """
+        logging.debug(self.__className + '.__init__')
+        super().__init__()
+
         self.btn_bar = None
         self.tabs = None
         self.num_conf_s = None
         self.help_bar = None
         self.window_ly = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
-        super().__init__()
+
+        self.pm = ProcModel()
 
         self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
         self.newSkinTensConf_M.numRowsForConfigChanged.connect(self.model_num_configs_changed)
@@ -139,6 +142,7 @@ class NewSkinTension(QMdiSubWindow):
         """
         logging.debug(self.__className + '.conf_spin_change')
         self.newSkinTensConf_M.set_num_configs(self.num_conf_s.value())
+        self.pm.set_file_saved(False)
 
     def model_num_configs_changed(self):
         """
@@ -176,6 +180,7 @@ class NewSkinTension(QMdiSubWindow):
         logging.debug(self.__className + '.det_spin_change')
         self.newSkinTensDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1,
                                                       self.numDet_S[self.tabs.currentIndex()].value())
+        self.pm.set_file_saved(False)
 
     def add_tab(self):
         """

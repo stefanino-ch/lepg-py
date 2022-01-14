@@ -1,20 +1,23 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
+
 from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+
 
 class CalageVar(QMdiSubWindow):
-    '''
-    :class: Window to display and edit Brake line details  
-    '''
+    """
+    :class: Window to display and edit Brake line details
+    """
 
     __className = 'CalageVar'
     '''
@@ -22,28 +25,36 @@ class CalageVar(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
+        self.btnBar = None
+        self.usage_cb = None
+        self.helpBar = None
+        self.window_ly = None
+        self.win = None
+
+        self.pm = ProcModel()
+
         self.calageVar_M = ProcModel.CalageVarModel()
-        self.calageVar_M.usageUpd.connect( self.usageUpdate )
-        self.buildWindow()
-    
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+        self.calageVar_M.usageUpd.connect(self.usage_update)
+        self.build_window()
+
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
                     Table
@@ -51,161 +62,197 @@ class CalageVar(QMdiSubWindow):
                     Table
                     -------------------------
                         help_bar  | btn_bar
-                            
+
         Naming:
             Conf is always one as there is only one configuration possible
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(600, 200)
 
-        self.windowLayout = QVBoxLayout()
-        
+        self.window_ly = QVBoxLayout()
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Calage variation "))
-        
-        usage_L = QLabel(_('Type'))
-        self.usage_CB = QComboBox()
-        self.usage_CB.addItem(_("None"))
-        self.usage_CB.addItem(_("Type 1"))
-        self.usage_CB.currentIndexChanged.connect(self.usageCbChange)
-        usage_Lo = QHBoxLayout()
-        usage_Lo.addWidget(usage_L)
-        usage_Lo.addWidget(self.usage_CB)
-        usage_Lo.addStretch()
-        
-        self.windowLayout.addLayout(usage_Lo)
-        
-        one_T = TableView()
-        one_T.setModel( self.calageVar_M )
-        one_T.verticalHeader().setVisible(False)
-        one_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        one_T.hideColumn( 0 )
-        for i in range (ProcModel.CalageVarModel.PosACol, ProcModel.CalageVarModel.NumPosStepsCol + 1):
-            one_T.hideColumn( i )
-        one_T.hideColumn( self.calageVar_M.columnCount()-2 )
-        one_T.hideColumn( self.calageVar_M.columnCount()-1 )
 
-        one_T.setFixedHeight(2 + one_T.horizontalHeader().height() + one_T.rowHeight(0))
-        oneT_Lo = QHBoxLayout()
-        oneT_Lo.addWidget(one_T)
-        oneT_Lo.addStretch()
-        oneT_Lo.addStretch()
-        self.windowLayout.addLayout(oneT_Lo)
-        
-        one_T.enableIntValidator(ProcModel.CalageVarModel.NumRisersCol, ProcModel.CalageVarModel.NumRisersCol, 2, 6)
+        usage_l = QLabel(_('Type'))
+        self.usage_cb = QComboBox()
+        self.usage_cb.addItem(_("None"))
+        self.usage_cb.addItem(_("Type 1"))
+        self.usage_cb.currentIndexChanged.connect(self.usage_cb_change)
+        usage_ly = QHBoxLayout()
+        usage_ly.addWidget(usage_l)
+        usage_ly.addWidget(self.usage_cb)
+        usage_ly.addStretch()
 
-        one_T.setHelpBar(self.helpBar)
-        one_T.setHelpText(ProcModel.CalageVarModel.NumRisersCol, _('CalageVar-NumRisersDesc'))
+        self.window_ly.addLayout(usage_ly)
 
-        two_T = TableView()
-        two_T.setModel( self.calageVar_M )
-        two_T.verticalHeader().setVisible(False)
-        two_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        for i in range (0, ProcModel.CalageVarModel.NumRisersCol + 1):
-            two_T.hideColumn( i )
-        for i in range (ProcModel.CalageVarModel.MaxNegAngCol, ProcModel.CalageVarModel.NumPosStepsCol + 1):
-            two_T.hideColumn( i )
-        two_T.hideColumn( self.calageVar_M.columnCount()-2 )
-        two_T.hideColumn( self.calageVar_M.columnCount()-1 )
+        one_t = TableView()
+        one_t.setModel(self.calageVar_M)
+        one_t.verticalHeader().setVisible(False)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.hideColumn(0)
+        for i in range(ProcModel.CalageVarModel.PosACol,
+                       ProcModel.CalageVarModel.NumPosStepsCol + 1):
+            one_t.hideColumn(i)
+        one_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        one_t.hideColumn(self.calageVar_M.columnCount() - 1)
 
-        two_T.setFixedHeight(2 + two_T.horizontalHeader().height() + two_T.rowHeight(0))
-        twoT_Lo = QHBoxLayout()
-        twoT_Lo.addWidget(two_T)
-        self.windowLayout.addLayout(twoT_Lo)
-        
-        two_T.enableDoubleValidator(ProcModel.CalageVarModel.PosACol, ProcModel.CalageVarModel.PosFCol, 0, 100, 2)
+        one_t.setFixedHeight(2
+                             + one_t.horizontalHeader().height()
+                             + one_t.rowHeight(0))
+        one_t_ly = QHBoxLayout()
+        one_t_ly.addWidget(one_t)
+        one_t_ly.addStretch()
+        one_t_ly.addStretch()
+        self.window_ly.addLayout(one_t_ly)
 
-        two_T.setHelpBar(self.helpBar)
-        two_T.setHelpText(ProcModel.CalageVarModel.PosACol, _('CalageVar-PosADesc'))
-        two_T.setHelpText(ProcModel.CalageVarModel.PosBCol, _('CalageVar-PosBDesc'))
-        two_T.setHelpText(ProcModel.CalageVarModel.PosCCol, _('CalageVar-PosCDesc'))
-        two_T.setHelpText(ProcModel.CalageVarModel.PosDCol, _('CalageVar-PosDDesc'))
-        two_T.setHelpText(ProcModel.CalageVarModel.PosECol, _('CalageVar-PosEDesc'))
-        two_T.setHelpText(ProcModel.CalageVarModel.PosFCol, _('CalageVar-PosFDesc'))
+        one_t.enableIntValidator(ProcModel.CalageVarModel.NumRisersCol,
+                                 ProcModel.CalageVarModel.NumRisersCol,
+                                 2, 6)
 
-        three_T = TableView()
-        three_T.setModel( self.calageVar_M )
-        three_T.verticalHeader().setVisible(False)
-        three_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        for i in range (0, ProcModel.CalageVarModel.PosFCol + 1):
-            three_T.hideColumn( i )
-        three_T.hideColumn( self.calageVar_M.columnCount()-2 )
-        three_T.hideColumn( self.calageVar_M.columnCount()-1 )
+        one_t.setHelpBar(self.helpBar)
+        one_t.setHelpText(ProcModel.CalageVarModel.NumRisersCol,
+                          _('CalageVar-NumRisersDesc'))
 
-        three_T.setFixedHeight(2 + three_T.horizontalHeader().height() + three_T.rowHeight(0))
-        threeT_Lo = QHBoxLayout()
-        threeT_Lo.addWidget(three_T)
-        self.windowLayout.addLayout(threeT_Lo)
+        two_t = TableView()
+        two_t.setModel(self.calageVar_M)
+        two_t.verticalHeader().setVisible(False)
+        two_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        for i in range(0, ProcModel.CalageVarModel.NumRisersCol + 1):
+            two_t.hideColumn(i)
+        for i in range(ProcModel.CalageVarModel.MaxNegAngCol,
+                       ProcModel.CalageVarModel.NumPosStepsCol + 1):
+            two_t.hideColumn(i)
+        two_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        two_t.hideColumn(self.calageVar_M.columnCount() - 1)
 
-        three_T.enableDoubleValidator(ProcModel.CalageVarModel.MaxNegAngCol, ProcModel.CalageVarModel.MaxNegAngCol, -45, 0, 2)
-        three_T.enableIntValidator(ProcModel.CalageVarModel.NumNegStepsCol, ProcModel.CalageVarModel.NumNegStepsCol, 1, 100)
-        three_T.enableDoubleValidator(ProcModel.CalageVarModel.MaxPosAngCol, ProcModel.CalageVarModel.MaxPosAngCol, 0, 45, 2)
-        three_T.enableIntValidator(ProcModel.CalageVarModel.NumPosStepsCol, ProcModel.CalageVarModel.NumPosStepsCol, 1, 100)
+        two_t.setFixedHeight(2
+                             + two_t.horizontalHeader().height()
+                             + two_t.rowHeight(0))
+        two_t_ly = QHBoxLayout()
+        two_t_ly.addWidget(two_t)
+        self.window_ly.addLayout(two_t_ly)
 
-        three_T.setHelpBar(self.helpBar)
-        three_T.setHelpText(ProcModel.CalageVarModel.MaxNegAngCol, _('CalageVar-MaxNegAngDesc'))
-        three_T.setHelpText(ProcModel.CalageVarModel.NumNegStepsCol, _('CalageVar-NumNegStepsDesc'))
-        three_T.setHelpText(ProcModel.CalageVarModel.MaxPosAngCol, _('CalageVar-MaxPosAngDesc'))
-        three_T.setHelpText(ProcModel.CalageVarModel.NumPosStepsCol, _('CalageVar-NumPosStepsDesc'))
+        two_t.enableDoubleValidator(ProcModel.CalageVarModel.PosACol,
+                                    ProcModel.CalageVarModel.PosFCol,
+                                    0, 100, 2)
 
-        self.usageUpdate()
-        
+        two_t.setHelpBar(self.helpBar)
+        two_t.setHelpText(ProcModel.CalageVarModel.PosACol,
+                          _('CalageVar-PosADesc'))
+        two_t.setHelpText(ProcModel.CalageVarModel.PosBCol,
+                          _('CalageVar-PosBDesc'))
+        two_t.setHelpText(ProcModel.CalageVarModel.PosCCol,
+                          _('CalageVar-PosCDesc'))
+        two_t.setHelpText(ProcModel.CalageVarModel.PosDCol,
+                          _('CalageVar-PosDDesc'))
+        two_t.setHelpText(ProcModel.CalageVarModel.PosECol,
+                          _('CalageVar-PosEDesc'))
+        two_t.setHelpText(ProcModel.CalageVarModel.PosFCol,
+                          _('CalageVar-PosFDesc'))
+
+        three_t = TableView()
+        three_t.setModel(self.calageVar_M)
+        three_t.verticalHeader().setVisible(False)
+        three_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        for i in range(0, ProcModel.CalageVarModel.PosFCol + 1):
+            three_t.hideColumn(i)
+        three_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        three_t.hideColumn(self.calageVar_M.columnCount() - 1)
+
+        three_t.setFixedHeight(2
+                               + three_t.horizontalHeader().height()
+                               + three_t.rowHeight(0))
+        three_t_ly = QHBoxLayout()
+        three_t_ly.addWidget(three_t)
+        self.window_ly.addLayout(three_t_ly)
+
+        three_t.enableDoubleValidator(ProcModel.CalageVarModel.MaxNegAngCol,
+                                      ProcModel.CalageVarModel.MaxNegAngCol,
+                                      -45, 0, 2)
+        three_t.enableIntValidator(ProcModel.CalageVarModel.NumNegStepsCol,
+                                   ProcModel.CalageVarModel.NumNegStepsCol,
+                                   1, 100)
+        three_t.enableDoubleValidator(ProcModel.CalageVarModel.MaxPosAngCol,
+                                      ProcModel.CalageVarModel.MaxPosAngCol,
+                                      0, 45, 2)
+        three_t.enableIntValidator(ProcModel.CalageVarModel.NumPosStepsCol,
+                                   ProcModel.CalageVarModel.NumPosStepsCol,
+                                   1, 100)
+
+        three_t.setHelpBar(self.helpBar)
+        three_t.setHelpText(ProcModel.CalageVarModel.MaxNegAngCol,
+                            _('CalageVar-MaxNegAngDesc'))
+        three_t.setHelpText(ProcModel.CalageVarModel.NumNegStepsCol,
+                            _('CalageVar-NumNegStepsDesc'))
+        three_t.setHelpText(ProcModel.CalageVarModel.MaxPosAngCol,
+                            _('CalageVar-MaxPosAngDesc'))
+        three_t.setHelpText(ProcModel.CalageVarModel.NumPosStepsCol,
+                            _('CalageVar-NumPosStepsDesc'))
+
+        self.usage_update()
+
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/calageVar.html')
-        
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
-        self.win.setLayout(self.windowLayout)
 
-    def usageUpdate(self):
-        '''
-        :method: Updates the GUI as soon in the model the usage flag has been changed
-        '''
-        logging.debug(self.__className+'.usage_update')
-        
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.window_ly.addLayout(bottom_layout)
+
+        self.win.setLayout(self.window_ly)
+
+    def usage_update(self):
+        """
+        :method: Updates the GUI as soon in the model the usage flag has
+                 been changed
+        """
+        logging.debug(self.__className + '.usage_update')
+
         if self.calageVar_M.isUsed():
-            self.usage_CB.setCurrentIndex(1)
+            self.usage_cb.setCurrentIndex(1)
         else:
-            self.usage_CB.setCurrentIndex(0)
-            
-    def usageCbChange(self):
-        '''
+            self.usage_cb.setCurrentIndex(0)
+
+    def usage_cb_change(self):
+        """
         :method: Updates the model as soon the usage CB has been changed
-        '''
-        logging.debug(self.__className+'.usage_cb_change')
-        if self.usage_CB.currentIndex() == 0:
+        """
+        logging.debug(self.__className + '.usage_cb_change')
+        if self.usage_cb.currentIndex() == 0:
             self.calageVar_M.setIsUsed(False)
         else:
             self.calageVar_M.setIsUsed(True)
-            
-    def btnPress(self, q):
-        '''
+
+        self.pm.set_file_saved(False)
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

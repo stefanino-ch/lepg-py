@@ -1,7 +1,7 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtGui import QIcon
@@ -16,9 +16,9 @@ from data.ProcModel import ProcModel
 
 
 class Lines(QMdiSubWindow):
-    '''
+    """
     :class: Window to display and edit lines data
-    '''
+    """
 
     __className = 'Lines'
     '''
@@ -26,31 +26,41 @@ class Lines(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
+        """
+        self.tabs = None
+        self.numConf_s = None
+        self.btnBar = None
+        self.control_e = None
+        self.helpBar = None
+        self.window_ly = None
+        self.win = None
+        self.wrapper = None
         logging.debug(self.__className+'.__init__')
         super().__init__()
 
+        self.pm = ProcModel()
+
         self.wing_M = ProcModel.WingModel()
-        self.wing_M.dataChanged.connect(self.wingModelDataChange)
+        self.wing_M.dataChanged.connect(self.wing_model_data_change)
 
         self.lines_M = ProcModel.LinesModel()
-        self.lines_M.numRowsForConfigChanged.connect(self.modelSizeChanged)
+        self.lines_M.numRowsForConfigChanged.connect(self.model_size_changed)
 
         self.proxyModel = []
-        self.numLines_S = []
+        self.numLines_s = []
 
-        self.buildWindow()
+        self.build_window()
 
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
+        """
         logging.debug(self.__className+'.closeEvent')
 
-    def buildWindow(self):
-        '''
+    def build_window(self):
+        """
         :method: Creates the window including all GUI elements.
 
         Structure::
@@ -69,7 +79,7 @@ class Lines(QMdiSubWindow):
 
             conf equals plans
             details equals line paths
-        '''
+        """
         logging.debug(self.__className + '.build_window')
 
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
@@ -77,7 +87,7 @@ class Lines(QMdiSubWindow):
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
 
-        self.windowLayout = QVBoxLayout()
+        self.window_ly = QVBoxLayout()
 
         self.helpBar = WindowHelpBar()
 
@@ -88,55 +98,55 @@ class Lines(QMdiSubWindow):
         self.wrapper = QDataWidgetMapper()
         self.wrapper.setModel(self.wing_M)
 
-        contr_L = QLabel(_('Lines control parameter'))
-        contr_L.setAlignment(Qt.AlignRight)
-        self.contr_E = LineEdit()
-        self.contr_E.setFixedWidth(40)
-        self.wrapper.addMapping(self.contr_E,
+        control_l = QLabel(_('Lines control parameter'))
+        control_l.setAlignment(Qt.AlignRight)
+        self.control_e = LineEdit()
+        self.control_e.setFixedWidth(40)
+        self.wrapper.addMapping(self.control_e,
                                 ProcModel.WingModel.LinesConcTypeCol)
-        self.contr_E.enableIntValidator(0, 3)
-        self.contr_E.setHelpText(_('Lines-LinesControlParamDesc'))
-        self.contr_E.setHelpBar(self.helpBar)
+        self.control_e.enableIntValidator(0, 3)
+        self.control_e.setHelpText(_('Lines-LinesControlParamDesc'))
+        self.control_e.setHelpBar(self.helpBar)
 
-        contrLayout = QHBoxLayout()
-        contrLayout.addWidget(contr_L)
-        contrLayout.addWidget(self.contr_E)
-        contrLayout.addStretch()
+        control_layout = QHBoxLayout()
+        control_layout.addWidget(control_l)
+        control_layout.addWidget(self.control_e)
+        control_layout.addStretch()
 
-        self.windowLayout.addLayout(contrLayout)
+        self.window_ly.addLayout(control_layout)
 
-        numConf_L = QLabel(_('Number of Line plans'))
-        numConf_L.setAlignment(Qt.AlignRight)
-        numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed))
+        num_conf_l = QLabel(_('Number of Line plans'))
+        num_conf_l.setAlignment(Qt.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed))
 
-        self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0, 999)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+        self.numConf_s = QSpinBox()
+        self.numConf_s.setRange(0, 999)
+        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                  QSizePolicy.Fixed))
-        self.numConf_S.setValue(self.lines_M.num_configs())
+        self.numConf_s.setValue(self.lines_M.num_configs())
 
-        edit = self.numConf_S.lineEdit()
+        edit = self.numConf_s.lineEdit()
         edit.setReadOnly(True)
-        self.numConf_S.valueChanged.connect(self.confSpinChange)
+        self.numConf_s.valueChanged.connect(self.conf_spin_change)
 
-        numConfLayout = QHBoxLayout()
-        numConfLayout.addWidget(numConf_L)
-        numConfLayout.addWidget(self.numConf_S)
-        numConfLayout.addStretch()
-        self.windowLayout.addLayout(numConfLayout)
+        num_conf_layout = QHBoxLayout()
+        num_conf_layout.addWidget(num_conf_l)
+        num_conf_layout.addWidget(self.numConf_s)
+        num_conf_layout.addStretch()
+        self.window_ly.addLayout(num_conf_layout)
 
         self.tabs = QTabWidget()
-        self.windowLayout.addWidget(self.tabs)
+        self.window_ly.addWidget(self.tabs)
 
         # check if there's already data
         if self.lines_M.num_configs() > 0:
-            self.modelSizeChanged()
+            self.model_size_changed()
 
-        sortBtn = QPushButton(_('Sort by order_num'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                          QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
+        sort_btn = QPushButton(_('Sort by order_num'))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed))
+        sort_btn.clicked.connect(self.sort_btn_press)
 
         self.wrapper.toFirst()
         #############################
@@ -144,241 +154,244 @@ class Lines(QMdiSubWindow):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                               QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/lines.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
-        bottomLayout.addStretch()
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(sort_btn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.window_ly.addLayout(bottom_layout)
 
-        self.win.setLayout(self.windowLayout)
+        self.win.setLayout(self.window_ly)
 
-    def confSpinChange(self):
-        '''
+    def conf_spin_change(self):
+        """
         :method: Called upon manual changes of the config spin. Does assure
                  all elements will follow the user configuration.
-        '''
+        """
         logging.debug(self.__className+'.conf_spin_change')
-        currNumConfigs = self.lines_M.num_configs()
-        mustNumConfigs = self.numConf_S.value()
+        curr_num_configs = self.lines_M.num_configs()
+        must_num_configs = self.numConf_s.value()
 
-        if currNumConfigs > mustNumConfigs:
+        if curr_num_configs > must_num_configs:
             # more tabs than we should have -> remove last
-            self.lines_M.set_num_rows_for_config(currNumConfigs, 0)
+            self.lines_M.set_num_rows_for_config(curr_num_configs, 0)
 
-        if currNumConfigs < mustNumConfigs:
+        if curr_num_configs < must_num_configs:
             # missing configs -> add one
-            self.lines_M.set_num_rows_for_config(mustNumConfigs, 1)
+            self.lines_M.set_num_rows_for_config(must_num_configs, 1)
 
-    def modelSizeChanged(self):
-        '''
+        self.pm.set_file_saved(False)
+
+    def model_size_changed(self):
+        """
         :method: Called after the model has been changed it's size.
                  Herein we assure the GUI follows the model.
-        '''
-        logging.debug(self.__className+'.modelSizeChanged')
+        """
+        logging.debug(self.__className+'.model_size_changed')
 
-        currNumConfigs = self.lines_M.num_configs()
+        curr_num_configs = self.lines_M.num_configs()
 
         # config (num plans) spinbox
-        if self.numConf_S.value() != currNumConfigs:
-            self.numConf_S.blockSignals(True)
-            self.numConf_S.setValue(currNumConfigs)
-            self.numConf_S.blockSignals(False)
+        if self.numConf_s.value() != curr_num_configs:
+            self.numConf_s.blockSignals(True)
+            self.numConf_s.setValue(curr_num_configs)
+            self.numConf_s.blockSignals(False)
 
         # number of tabs
-        diff = abs(currNumConfigs - self.tabs.count())
+        diff = abs(curr_num_configs - self.tabs.count())
         if diff != 0:
             # we have to update the tabs
             i = 0
-            if currNumConfigs > self.tabs.count():
+            if curr_num_configs > self.tabs.count():
                 # add tabs
                 while i < diff:
-                    self.addTab()
+                    self.add_tab()
                     i += 1
             else:
                 # remove tabs
                 while i < diff:
-                    self.removeTab()
+                    self.remove_tab()
                     i += 1
 
-        # update lines (pahts) spin
+        # update lines (path) spin
         i = 0
         while i < self.tabs.count():
-            if self.numLines_S[i].value != self.lines_M.num_rows_for_config(i + 1):
-                self.numLines_S[i].blockSignals(True)
-                self.numLines_S[i].setValue(self.lines_M.num_rows_for_config(i + 1))
-                self.numLines_S[i].blockSignals(False)
+            if self.numLines_s[i].value != self.lines_M.num_rows_for_config(i + 1):
+                self.numLines_s[i].blockSignals(True)
+                self.numLines_s[i].setValue(self.lines_M.num_rows_for_config(i + 1))
+                self.numLines_s[i].blockSignals(False)
             i += 1
 
-    def addTab(self):
-        '''
-        :method: Creates a new tab inculding all its widgets.
-        '''
+    def add_tab(self):
+        """
+        :method: Creates a new tab including all its widgets.
+        """
         logging.debug(self.__className+'.add_tab')
 
-        currNumTabs = self.tabs.count()
+        curr_num_tabs = self.tabs.count()
 
-        tabWidget = QWidget()
-        tabLayout = QVBoxLayout()
+        tab_widget = QWidget()
+        tab_layout = QVBoxLayout()
 
         # Data lines
-        numLinesLayout = QHBoxLayout()
+        num_lines_layout = QHBoxLayout()
 
-        numLines_L = QLabel(_('Number of Line paths'))
-        numLines_L.setAlignment(Qt.AlignRight)
-        numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
-        self.numLines_S.append(QSpinBox())
-        self.numLines_S[currNumTabs].setRange(1, 999)
-        self.numLines_S[currNumTabs].setSizePolicy(QSizePolicy(
-                                                    QSizePolicy.Fixed,
-                                                    QSizePolicy.Fixed))
-        self.numLines_S[currNumTabs].valueChanged.connect(self.numLinesChange)
-        pathEdit = self.numLines_S[currNumTabs].lineEdit()
-        pathEdit.setReadOnly(True)
-        numLinesLayout.addWidget(numLines_L)
-        numLinesLayout.addWidget(self.numLines_S[currNumTabs])
-        numLinesLayout.addStretch()
-        tabLayout.addLayout(numLinesLayout)
+        num_lines_l = QLabel(_('Number of Line paths'))
+        num_lines_l.setAlignment(Qt.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.numLines_s.append(QSpinBox())
+        self.numLines_s[curr_num_tabs].setRange(1, 999)
+        self.numLines_s[curr_num_tabs].setSizePolicy(QSizePolicy(
+                                                     QSizePolicy.Fixed,
+                                                     QSizePolicy.Fixed))
+        self.numLines_s[curr_num_tabs].valueChanged.connect(self.num_lines_change)
+        path_edit = self.numLines_s[curr_num_tabs].lineEdit()
+        path_edit.setReadOnly(True)
+        num_lines_layout.addWidget(num_lines_l)
+        num_lines_layout.addWidget(self.numLines_s[curr_num_tabs])
+        num_lines_layout.addStretch()
+        tab_layout.addLayout(num_lines_layout)
 
         self.proxyModel.append(QSortFilterProxyModel())
-        self.proxyModel[currNumTabs].setSourceModel(self.lines_M)
-        self.proxyModel[currNumTabs].setFilterKeyColumn(
+        self.proxyModel[curr_num_tabs].setSourceModel(self.lines_M)
+        self.proxyModel[curr_num_tabs].setFilterKeyColumn(
                                         ProcModel.LinesModel.ConfigNumCol)
 
-        self.proxyModel[currNumTabs].setFilterRegExp(
-                                        QRegExp(str(currNumTabs+1)))
+        self.proxyModel[curr_num_tabs].setFilterRegExp(
+                                        QRegExp(str(curr_num_tabs+1)))
 
-        branchTable = TableView()
-        branchTable.setModel(self.proxyModel[currNumTabs])
-        branchTable.verticalHeader().setVisible(False)
-        branchTable.horizontalHeader().setSectionResizeMode(
+        branch_table = TableView()
+        branch_table.setModel(self.proxyModel[curr_num_tabs])
+        branch_table.verticalHeader().setVisible(False)
+        branch_table.horizontalHeader().setSectionResizeMode(
                                             QHeaderView.Stretch)
-        branchTable.hideColumn(self.lines_M.columnCount()-1)
-        branchTable.hideColumn(self.lines_M.columnCount()-2)
-        tabLayout.addWidget(branchTable)
+        branch_table.hideColumn(self.lines_M.columnCount()-1)
+        branch_table.hideColumn(self.lines_M.columnCount()-2)
+        tab_layout.addWidget(branch_table)
 
-        branchTable.enableIntValidator(
+        branch_table.enableIntValidator(
                         ProcModel.LinesModel.OrderNumCol,
                         ProcModel.LinesModel.OrderNumCol,
                         1,
                         999)
-        branchTable.enableIntValidator(
+        branch_table.enableIntValidator(
                         ProcModel.LinesModel.NumBranchesCol,
                         ProcModel.LinesModel.NumBranchesCol,
                         1,
                         4)
-        branchTable.enableIntValidator(
+        branch_table.enableIntValidator(
                         ProcModel.LinesModel.BranchLvlOneCol,
                         ProcModel.LinesModel.OrderLvlFourCol,
                         1,
                         99)
-        branchTable.enableIntValidator(
+        branch_table.enableIntValidator(
                         ProcModel.LinesModel.AnchorLineCol,
                         ProcModel.LinesModel.AnchorLineCol,
                         1,
                         6)
-        branchTable.enableIntValidator(
+        branch_table.enableIntValidator(
                         ProcModel.LinesModel.AnchorRibNumCol,
                         ProcModel.LinesModel.AnchorRibNumCol,
                         1,
                         999)
 
-        branchTable.setHelpBar(self.helpBar)
-        branchTable.setHelpText(
+        branch_table.setHelpBar(self.helpBar)
+        branch_table.setHelpText(
                         ProcModel.LinesModel.OrderNumCol,
                         _('OrderNumDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.NumBranchesCol,
                         _('Lines-NumBranchesDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.BranchLvlOneCol,
                         _('Lines-BranchLvlOneDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.OrderLvlOneCol,
                         _('Lines-OrderLvlOneDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.LevelOfRamTwoCol,
                         _('Lines-LevelOfRamTwoDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.OrderLvlTwoCol,
                         _('Lines-OrderLvlTwoDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.LevelOfRamThreeCol,
                         _('Lines-LevelOfRamThreeDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.OrderLvlThreeCol,
                         _('Lines-OrderLvlThreeDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.BranchLvlFourCol,
                         _('Lines-BranchLvlFourDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.OrderLvlFourCol,
                         _('Lines-OrderLvlFourDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.AnchorLineCol,
                         _('Lines-AnchorLineDesc'))
-        branchTable.setHelpText(
+        branch_table.setHelpText(
                         ProcModel.LinesModel.AnchorRibNumCol,
                         _('Lines-AnchorRibNumDesc'))
 
-        tabWidget.setLayout(tabLayout)
+        tab_widget.setLayout(tab_layout)
 
-        i = self.tabs.addTab(tabWidget, str(currNumTabs+1))
+        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
-    def removeTab(self):
-        '''
+    def remove_tab(self):
+        """
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
-        '''
+        """
         logging.debug(self.__className+'.remove_tab')
-        numTabs = self.tabs.count()
-        self.tabs.removeTab(numTabs-1)
+        num_tabs = self.tabs.count()
+        self.tabs.remove_tab(num_tabs - 1)
         # cleanup arrays
-        self.proxyModel.pop(numTabs-1)
-        self.numLines_S.pop(numTabs-1)
+        self.proxyModel.pop(num_tabs-1)
+        self.numLines_s.pop(num_tabs - 1)
 
-    def numLinesChange(self):
-        '''
+    def num_lines_change(self):
+        """
         :method: Called upon manual changes of the lines spin. Does assure
                  all elements will follow the user configuration.
-        '''
+        """
         logging.debug(self.__className+'.num_lines_change')
         self.lines_M.set_num_rows_for_config(
                         self.tabs.currentIndex()+1,
-                        self.numLines_S[self.tabs.currentIndex()].value())
+                        self.numLines_s[self.tabs.currentIndex()].value())
+        self.pm.set_file_saved(False)
 
-    def wingModelDataChange(self):
-        '''
+    def wing_model_data_change(self):
+        """
         :method: Called if data in wing model changes. As mappings are lost
-                 upon the use of select we have potentially to re establish
+                 upon the use of select we have potentially to re-establish
                  the mapping again.
-        '''
-        self.wrapper.addMapping(self.contr_E,
+        """
+        self.wrapper.addMapping(self.control_e,
                                 ProcModel.WingModel.LinesConcTypeCol)
 
-    def sortBtnPress(self):
-        '''
+    def sort_btn_press(self):
+        """
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
-        '''
+        """
         logging.debug(self.__className+'.sort_btn_press')
 
         if self.tabs.count() > 0:
-            currTab = self.tabs.currentIndex()
-            self.proxyModel[currTab].sort(
+            curr_tab = self.tabs.currentIndex()
+            self.proxyModel[curr_tab].sort(
                                     ProcModel.LinesModel.OrderNumCol,
                                     Qt.AscendingOrder)
-            self.proxyModel[currTab].setDynamicSortFilter(False)
+            self.proxyModel[curr_tab].setDynamicSortFilter(False)
 
-    def btnPress(self, q):
-        '''
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
+        """
         logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
