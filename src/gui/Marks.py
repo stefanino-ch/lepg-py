@@ -81,6 +81,8 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         marks_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         marks_t.setHelpBar(self.helpBar)
 
+        # TODO: englische& deutsche Hilfetexte fehlen
+
         marks_t.setHelpText(ProcModel.MarksModel.MarksSpCol,
                             _('Marks-MarksSpacingDesc'))
         marks_t.setHelpText(ProcModel.MarksModel.PointRadCol,

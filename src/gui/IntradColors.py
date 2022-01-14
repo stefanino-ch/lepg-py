@@ -304,7 +304,7 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
-        self.tabs.remove_tab(num_tabs - 1)
+        self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
         self.confProxyModel.pop(num_tabs - 1)
         self.detProxyModel.pop(num_tabs - 1)

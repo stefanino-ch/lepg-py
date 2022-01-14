@@ -76,6 +76,7 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------------
                     btn_bar
         """
+        # TODO: deutsch Uebersetzung für File saved info (Fenster und Statuszeile)
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)

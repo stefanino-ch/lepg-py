@@ -94,6 +94,9 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         upper_p_t.verticalHeader().setVisible(False)
         upper_p_t.setHelpBar(self.helpBar)
 
+        # TODO: Hilfetexte englisch fehlen
+        # TODO: deutsche Spaltentitel
+        # TODO: resizing komisch
         upper_p_t.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol,
                               _('SewingAllowances-EdgeSeamDesc'))
         upper_p_t.setHelpText(ProcModel.SewingAllowancesModel.LeSeemCol,

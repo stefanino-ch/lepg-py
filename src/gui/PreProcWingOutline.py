@@ -211,6 +211,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         :method: Opens the data file from the pre-proc directory and updates
                  the window
         """
+        # TODO: im Reader kontrollieren ob der Pfad wirklich existiert
         pre_proc_reader = PreProcOutfileReader()
         data, num_cells = pre_proc_reader.open_read_file(True)
 

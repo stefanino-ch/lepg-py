@@ -79,6 +79,7 @@ class AddRibPoints(QMdiSubWindow):
         Naming:
             Conf is always one as there is only one configuration possible
         """
+        # TODO: für Y fehlt die deutsche Beschreibung
         logging.debug(self.__className + '.build_window')
 
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))

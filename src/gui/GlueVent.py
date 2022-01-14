@@ -118,6 +118,8 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         one_t.setHelpText(
             ProcModel.GlueVentModel.VentParamCol,
             _('GlueVent-VentParamDesc'))
+
+        # TODO: ParamA...C Description fehlt
         one_t.setHelpText(
             ProcModel.GlueVentModel.ParamACol,
             _('GlueVent-ParamADesc'))
