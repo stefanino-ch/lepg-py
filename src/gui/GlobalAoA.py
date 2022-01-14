@@ -1,19 +1,23 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
-from data.ProcModel import ProcModel
 
-class GlobalAoA(QMdiSubWindow):
-    '''
-    :class: Window to display and edit global AoA data  
-    '''
+from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
+
+
+class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
+    """
+    :class: Window to display and edit global AoA data
+    """
 
     __className = 'GlobalAoA'
     '''
@@ -21,122 +25,142 @@ class GlobalAoA(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
         self.globAoA_M = ProcModel.GlobAoAModel()
-        self.buildWindow()
-    
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+        self.build_window()
+
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
-                    calage_T
+                    calage_t
                     length_T
                 ---------------------------
                             help_bar | btn_bar
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(250, 200)
 
         self.windowLayout = QVBoxLayout()
-        
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Global AoA"))
 
-        calage_T = TableView()
-        calage_T.setModel( self.globAoA_M )
-      
-        calage_T.hideColumn(self.globAoA_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
-        calage_T.verticalHeader().setVisible(False)
-        calage_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        calage_T.setHelpBar(self.helpBar)
-        calage_T.hideColumn(3)
-        calage_T.hideColumn(4)
-        calage_T.hideColumn(5)
-        
-        calage_T.setHelpText(ProcModel.GlobAoAModel.FinesseCol, _('GlobalAoA-FinesseDesc'))
-        calage_T.setHelpText(ProcModel.GlobAoAModel.CentOfPressCol, _('GlobalAoA-CenterOfPressureDesc'))
-        calage_T.setHelpText(ProcModel.GlobAoAModel.CalageCol, _('GlobalAoA-CalageDesc'))
+        calage_t = TableView()
+        calage_t.setModel(self.globAoA_M)
+        # hide the ID column which is always at the end of the model
+        calage_t.hideColumn(self.globAoA_M.columnCount() - 1)
+        calage_t.verticalHeader().setVisible(False)
+        calage_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        calage_t.setHelpBar(self.helpBar)
+        calage_t.hideColumn(3)
+        calage_t.hideColumn(4)
+        calage_t.hideColumn(5)
 
-        calage_T.enableDoubleValidator(ProcModel.GlobAoAModel.FinesseCol, ProcModel.GlobAoAModel.FinesseCol, 0, 100, 2)
-        calage_T.enableIntValidator(ProcModel.GlobAoAModel.CentOfPressCol, ProcModel.GlobAoAModel.CalageCol, 0, 100)
-                
-        calage_T.setFixedHeight(2 + calage_T.horizontalHeader().height() + calage_T.rowHeight(0))
+        calage_t.setHelpText(ProcModel.GlobAoAModel.FinesseCol,
+                             _('GlobalAoA-FinesseDesc'))
+        calage_t.setHelpText(ProcModel.GlobAoAModel.CentOfPressCol,
+                             _('GlobalAoA-CenterOfPressureDesc'))
+        calage_t.setHelpText(ProcModel.GlobAoAModel.CalageCol,
+                             _('GlobalAoA-CalageDesc'))
 
-        self.windowLayout.addWidget(calage_T)
-        
+        calage_t.enableDoubleValidator(ProcModel.GlobAoAModel.FinesseCol,
+                                       ProcModel.GlobAoAModel.FinesseCol,
+                                       0, 100, 2)
+        calage_t.enableIntValidator(ProcModel.GlobAoAModel.CentOfPressCol,
+                                    ProcModel.GlobAoAModel.CalageCol,
+                                    0, 100)
+
+        calage_t.setFixedHeight(2
+                                + calage_t.horizontalHeader().height()
+                                + calage_t.rowHeight(0))
+
+        self.windowLayout.addWidget(calage_t)
+
         #####
-        lenght_T = TableView()
-        lenght_T.setModel( self.globAoA_M )
-      
-        lenght_T.hideColumn(self.globAoA_M.columnCount() -1 ) # hide the ID column which is always at the end of the model
-        lenght_T.verticalHeader().setVisible(False)
-        lenght_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        lenght_T.setHelpBar(self.helpBar)
-        lenght_T.hideColumn(0)
-        lenght_T.hideColumn(1)
-        lenght_T.hideColumn(2)
-        
-        lenght_T.setHelpText(ProcModel.GlobAoAModel.RisersCol, _('GlobalAoA-RisersDesc'))
-        lenght_T.setHelpText(ProcModel.GlobAoAModel.LinesCol, _('GlobalAoA-LinesDesc'))
-        lenght_T.setHelpText(ProcModel.GlobAoAModel.KarabinersCol, _('GlobalAoA-KarabinersDesc'))
+        lenght_t = TableView()
+        lenght_t.setModel(self.globAoA_M)
+        # hide the ID column which is always at the end of the model
+        lenght_t.hideColumn(self.globAoA_M.columnCount() - 1)
+        lenght_t.verticalHeader().setVisible(False)
+        lenght_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        lenght_t.setHelpBar(self.helpBar)
+        lenght_t.hideColumn(0)
+        lenght_t.hideColumn(1)
+        lenght_t.hideColumn(2)
 
-        lenght_T.enableIntValidator(ProcModel.GlobAoAModel.RisersCol, ProcModel.GlobAoAModel.LinesCol, 0, 2000)
-        lenght_T.enableIntValidator(ProcModel.GlobAoAModel.KarabinersCol, ProcModel.GlobAoAModel.KarabinersCol, 0, 100)
-                
-        lenght_T.setFixedHeight(2 + lenght_T.horizontalHeader().height() + lenght_T.rowHeight(0))
+        lenght_t.setHelpText(ProcModel.GlobAoAModel.RisersCol,
+                             _('GlobalAoA-RisersDesc'))
+        lenght_t.setHelpText(ProcModel.GlobAoAModel.LinesCol,
+                             _('GlobalAoA-LinesDesc'))
+        lenght_t.setHelpText(ProcModel.GlobAoAModel.KarabinersCol,
+                             _('GlobalAoA-KarabinersDesc'))
 
-        self.windowLayout.addWidget(lenght_T)
+        lenght_t.enableIntValidator(ProcModel.GlobAoAModel.RisersCol,
+                                    ProcModel.GlobAoAModel.LinesCol,
+                                    0, 2000)
+        lenght_t.enableIntValidator(ProcModel.GlobAoAModel.KarabinersCol,
+                                    ProcModel.GlobAoAModel.KarabinersCol,
+                                    0, 100)
+
+        lenght_t.setFixedHeight(2
+                                + lenght_t.horizontalHeader().height()
+                                + lenght_t.rowHeight(0))
+
+        self.windowLayout.addWidget(lenght_t)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/globalAoA.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addStretch()        
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.windowLayout.addLayout(bottom_layout)
+
         self.win.setLayout(self.windowLayout)
-    
-    def btnPress(self, q):
-        '''
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

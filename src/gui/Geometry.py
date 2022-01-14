@@ -1,22 +1,25 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
-                            QSizePolicy, QHeaderView, QPushButton
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
+from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+    QSizePolicy, QHeaderView, QPushButton
+
 from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
-class Geometry(QMdiSubWindow):
-    '''
+class Geometry(QMdiSubWindow, metaclass=Singleton):
+    """
     :class: Window to display and edit geometry data
-    '''
+    """
 
     __className = 'Geometry'
     '''
@@ -24,23 +27,29 @@ class Geometry(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        self.btnBar = None
+        self.sortBtn = None
+        self.table = None
+        self.helpBar = None
+        self.window_ly = None
+        self.win = None
+        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.rib_M = ProcModel.RibModel()
-        self.buildWindow()
+        self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
-        '''
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent')
+        """
+        logging.debug(self.__className + '.closeEvent')
 
-    def buildWindow(self):
-        '''
+    def build_window(self):
+        """
         :method: Creates the window including all GUI elements.
 
         Layout::
@@ -56,7 +65,7 @@ class Geometry(QMdiSubWindow):
                     --------------------------
                     SortBtn | help_bar | btn_bar
 
-        '''
+        """
         logging.debug(self.__className + '.build_window')
 
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
@@ -64,7 +73,7 @@ class Geometry(QMdiSubWindow):
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 300)
 
-        self.windowLayout = QVBoxLayout()
+        self.window_ly = QVBoxLayout()
 
         self.helpBar = WindowHelpBar()
 
@@ -134,44 +143,44 @@ class Geometry(QMdiSubWindow):
                                          ProcModel.RibModel.PosZCol,
                                          0, 100, 3)
 
-        self.windowLayout.addWidget(self.table)
+        self.window_ly.addWidget(self.table)
 
         self.sortBtn = QPushButton(_('Sort by Rib Number'))
         self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                QSizePolicy.Fixed))
-        self.sortBtn.clicked.connect(self.sortBtnPress)
+        self.sortBtn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                               QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/geometry.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(self.sortBtn)
-        bottomLayout.addStretch()
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(self.sortBtn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
 
-        self.windowLayout.addLayout(bottomLayout)
+        self.window_ly.addLayout(bottom_layout)
 
-        self.win.setLayout(self.windowLayout)
+        self.win.setLayout(self.window_ly)
 
-    def sortBtnPress(self):
-        '''
+    def sort_btn_press(self):
+        """
         : method : handles the sort of the table by rib number
-        '''
-        logging.debug(self.__className+'.sort_btn_press')
+        """
+        logging.debug(self.__className + '.sort_btn_press')
         self.rib_M.sort_table(ProcModel.RibModel.RibNumCol,
                               Qt.AscendingOrder)
 
-    def btnPress(self, q):
-        '''
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

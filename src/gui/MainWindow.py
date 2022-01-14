@@ -623,100 +623,80 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Basic data*
         """
-        if self.dws.window_exists('ProcBasicData') is False:
-            self.basic_data_w = BasicData()
-            self.dws.register_window('ProcBasicData')
-            self.mdi.addSubWindow(self.basic_data_w)
+        self.basic_data_w = BasicData()
+        self.mdi.addSubWindow(self.basic_data_w)
         self.basic_data_w.show()
 
     def proc_geometry_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Geometry*
         """
-        if self.dws.window_exists('Geometry') is False:
-            self.geometry_w = Geometry()
-            self.dws.register_window('Geometry')
-            self.mdi.addSubWindow(self.geometry_w)
+        self.geometry_w = Geometry()
+        self.mdi.addSubWindow(self.geometry_w)
         self.geometry_w.show()
 
     def proc_airfoils_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.window_exists('Airfoils') is False:
-            self.airfoils_w = Airfoils()
-            self.dws.register_window('Airfoils')
-            self.mdi.addSubWindow(self.airfoils_w)
+        self.airfoils_w = Airfoils()
+        self.mdi.addSubWindow(self.airfoils_w)
         self.airfoils_w.show()
 
     def proc_anchor_points_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Anchor Points*
         """
-        if self.dws.window_exists('AnchorPoints') is False:
-            self.anchor_points_w = AnchorPoints()
-            self.dws.register_window('AnchorPoints')
-            self.mdi.addSubWindow(self.anchor_points_w)
+        self.anchor_points_w = AnchorPoints()
+        self.mdi.addSubWindow(self.anchor_points_w)
         self.anchor_points_w.show()
 
     def proc_rib_holes_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.window_exists('RibHoles') is False:
-            self.rib_holes_w = RibHoles()
-            self.dws.register_window('RibHoles')
-            self.mdi.addSubWindow(self.rib_holes_w)
+        self.rib_holes_w = RibHoles()
+        self.mdi.addSubWindow(self.rib_holes_w)
         self.rib_holes_w.show()
 
     def proc_skin_tension_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Skin tension*
         """
-        if self.dws.window_exists('SkinTension') is False:
-            self.skin_tension_w = SkinTension()
-            self.dws.register_window('SkinTension')
-            self.mdi.addSubWindow(self.skin_tension_w)
+        self.skin_tension_w = SkinTension()
+        self.mdi.addSubWindow(self.skin_tension_w)
         self.skin_tension_w.show()
 
     def proc_global_aoa_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Global AoA*
         """
-        if self.dws.window_exists('GlobalAoA') is False:
-            self.global_aoa_w = GlobalAoA()
-            self.dws.register_window('GlobalAoA')
-            self.mdi.addSubWindow(self.global_aoa_w)
+        self.global_aoa_w = GlobalAoA()
+        self.mdi.addSubWindow(self.global_aoa_w)
         self.global_aoa_w.show()
 
     def proc_lines_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Lines*
         """
-        if self.dws.window_exists('Lines') is False:
-            self.lines_w = Lines()
-            self.dws.register_window('Lines')
-            self.mdi.addSubWindow(self.lines_w)
+        self.lines_w = Lines()
+        self.mdi.addSubWindow(self.lines_w)
         self.lines_w.show()
 
     def proc_brakes_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Brakes*
         """
-        if self.dws.window_exists('Brakes') is False:
-            self.brakes_w = Brakes()
-            self.dws.register_window('Brakes')
-            self.mdi.addSubWindow(self.brakes_w)
+        self.brakes_w = Brakes()
+        self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
 
     def proc_ramification_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Ramification*
         """
-        if self.dws.window_exists('Ramification') is False:
-            self.ramification_W = Ramification()
-            self.dws.register_window('Ramification')
-            self.mdi.addSubWindow(self.ramification_W)
+        self.ramification_W = Ramification()
+        self.mdi.addSubWindow(self.ramification_W)
         self.ramification_W.show()
 
     def proc_hv_vh_edit(self):

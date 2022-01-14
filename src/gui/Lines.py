@@ -13,9 +13,10 @@ from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
+from Singleton.Singleton import Singleton
 
 
-class Lines(QMdiSubWindow):
+class Lines(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit lines data
     """
