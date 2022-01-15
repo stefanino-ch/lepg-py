@@ -2,69 +2,63 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 """
-import os
-from os import path
-import webbrowser
-
 import gettext
 import logging.config
+import os
 import sys
-from packaging import version
+import webbrowser
 
+from PyQt5.Qt import QStatusBar
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMdiArea, QAction, \
-    QMessageBox, QMenu
+from PyQt5.QtWidgets import QMainWindow, QMdiArea, QAction, \
+    QMessageBox, QMenu, QLabel
+from packaging import version
 
-from __init__ import __version__
-from VersionCheck.VersionCheck import VersionCheck
-
+import __init__
 from ConfigReader.ConfigReader import ConfigReader
+from Processors.ProcRunner import ProcRunner
+from VersionCheck.VersionCheck import VersionCheck
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
-
-from DataWindowStatus.DataWindowStatus import DataWindowStatus
-from Processors.ProcRunner import ProcRunner
-
-from gui.Airfoils import Airfoils
+from gui.AddRibPoints import AddRibPoints
 from gui.AirfoilThickness import AirfoilThickness
+from gui.Airfoils import Airfoils
 from gui.AnchorPoints import AnchorPoints
 from gui.BasicData import BasicData
 from gui.Brakes import Brakes
+from gui.CalageVar import CalageVar
 from gui.DataStatusOverview import DataStatusOverview
 from gui.DxfLayerNames import DxfLayerNames
+from gui.ElasticLinesCorr import ElasticLinesCorr
+from gui.ExtradColors import ExtradColors
 from gui.Geometry import Geometry
+from gui.GlobalAoA import GlobalAoA
+from gui.GlueVent import GlueVent
 from gui.HelpAbout import HelpAbout
+from gui.HvVhRibs import HvVhRibs
+from gui.IntradColors import IntradColors
+from gui.JoncsDefinition import JoncsDefinition
+from gui.Lines import Lines
 from gui.Marks import Marks
+from gui.MarksTypes import MarksTypes
+from gui.NewSkinTension import NewSkinTension
+from gui.NoseMylars import NoseMylars
 from gui.PartsSeparation import PartsSeparation
-from gui.ProcessorOutput import ProcessorOutput
+from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.PreProcData import PreProcData
 from gui.PreProcWingOutline import PreProcWingOutline
+from gui.ProcessorOutput import ProcessorOutput
+from gui.Ramification import Ramification
 from gui.RibHoles import RibHoles
 from gui.SeewingAllowances import SeewingAllowances
-from gui.SkinTension import SkinTension
-from gui.GlobalAoA import GlobalAoA
-from gui.Lines import Lines
-from gui.Ramification import Ramification
-from gui.HvVhRibs import HvVhRibs
-from gui.ExtradColors import ExtradColors
-from gui.IntradColors import IntradColors
-from gui.AddRibPoints import AddRibPoints
-from gui.ElasticLinesCorr import ElasticLinesCorr
-from gui.MarksTypes import MarksTypes
-from gui.JoncsDefinition import JoncsDefinition
-from gui.NoseMylars import NoseMylars
-from gui.TwoDDxf import TwoDDxfModel
-from gui.ThreeDDxf import ThreeDDxfModel
-from gui.GlueVent import GlueVent
-from gui.SpecWingTip import SpecWingTip
-from gui.CalageVar import CalageVar
-from gui.ThreeDShaping import ThreeDShaping
-from gui.NewSkinTension import NewSkinTension
-from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
-from PyQt5.Qt import QStatusBar
+from gui.SkinTension import SkinTension
+from gui.SpecWingTip import SpecWingTip
+from gui.ThreeDDxf import ThreeDDxfModel
+from gui.ThreeDShaping import ThreeDShaping
+from gui.TwoDDxf import TwoDDxfModel
 
 
 # TODO: bring windows to front if they are called
@@ -84,12 +78,13 @@ class MainWindow(QMainWindow):
         """
         :method: Constructor
         """
-        # Delete old log file
+        self.preProcEdit_w = None
         self.view_wing_outline_w = None
         self.proc_out_w = None
-        self.pre_proc_cells_distr_w = None
+        self.preProcCellsDistr_w = None
         self.pre_proc_wing_outline_w = None
-        
+
+        # Delete old log file
         self.delete_logfile()
 
         # Set up the logger
@@ -114,8 +109,8 @@ class MainWindow(QMainWindow):
             locale_path = os.path.join(bundle_dir, '..', 'translations')
 
         print('Running mode:', running_mode)
-        print('  Bundle dir  :', bundle_dir)
-        print('  Config full path :', path_to_dat)
+        # print('  Bundle dir  :', bundle_dir)
+        # print('  Config full path :', path_to_dat)
 
         logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
         self.logger = logging.getLogger('root')
@@ -127,7 +122,6 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.__init__')
 
         # Setup languages
-
         self.config_reader = ConfigReader()
 
         if self.config_reader.get_language() == "de":
@@ -147,16 +141,16 @@ class MainWindow(QMainWindow):
             lang_en.install()
 
         self.ppm = PreProcModel()
+        self.ppm.dataStatusUpdate.connect(self.update_save_status)
 
         self.pm = ProcModel()
-
-        self.dws = DataWindowStatus()
+        self.pm.dataStatusUpdate.connect(self.update_save_status)
 
         super(MainWindow, self).__init__(parent)
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
-        self.setWindowTitle("lepg-py %s" % __version__)
+        self.setWindowTitle("lepg-py %s" % getattr(__init__, '__version__'))
         self.mainMenu = self.menuBar()
 
         # Build the individual menus
@@ -170,7 +164,11 @@ class MainWindow(QMainWindow):
 
         # Create the status bar
         self.statusBar = QStatusBar()
+        self.statusBar_l = QLabel()
+        self.statusBar_l.setStyleSheet("border :1px solid;")
+        self.statusBar.addPermanentWidget(self.statusBar_l)
         self.setStatusBar(self.statusBar)
+        self.update_save_status()
 
         # VersionCheck
         if self.config_reader.get_check_for_updates() is True:
@@ -184,14 +182,16 @@ class MainWindow(QMainWindow):
                               + remote_version + '\n')
                 logging.debug(self.__className
                               + ' Current Version:  '
-                              + __version__ + '\n')
+                              + getattr(__init__, '__version__')
+                              + '\n')
 
-                if version.parse(remote_version) > version.parse(__version__):
+                if version.parse(remote_version) > version.parse(getattr(__init__, '__version__')):
                     msg_box = QMessageBox()
                     msg_box.setTextFormat(Qt.RichText)
                     msg_box.setWindowTitle(_('Newer version found'))
                     msg_box.setText(_('Current Version: ')
-                                    + str(__version__) + '<br>'
+                                    + str(getattr(__init__, '__version__'))
+                                    + '<br>'
                                     + _('Version on remote: ')
                                     + str(remote_version) + '<br>'
                                     + _('Maybe you should consider an update '
@@ -219,6 +219,14 @@ class MainWindow(QMainWindow):
         else:
             logging.debug(self.__className
                           + ' Update check disabled in config file.\n')
+
+    def update_save_status(self):
+        """
+        :method:
+        """
+        self.statusBar_l.setText(_('File saved: Pre Proc %s  |  Proc %s')
+                                 % (self.ppm.file_saved_char(),
+                                    self.pm.file_saved_char()))
 
     def build_file_menu(self):
         """
@@ -250,10 +258,8 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the File Data Status overview window.
         """
-        if self.dws.window_exists('DataStatusOverview') is False:
-            self.file_data_status_w = DataStatusOverview()
-            self.dws.register_window('DataStatusOverview')
-            self.mdi.addSubWindow(self.file_data_status_w)
+        self.file_data_status_w = DataStatusOverview()
+        self.mdi.addSubWindow(self.file_data_status_w)
         self.file_data_status_w.show()
 
     def file_restart(self):
@@ -262,13 +268,51 @@ class MainWindow(QMainWindow):
             Thanks to: https://blog.petrzemek.net/2014/03/23/
             restarting-a-python-script-within-itself/
         """
+
+        if self.ppm.file_saved() is not True\
+                or self.pm.file_saved() is not True:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to restart anyway.\n"
+                              "Press Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
+
         os.execv(sys.executable, ['python'] + sys.argv)
+
+    def closeEvent(self, event):
+        event.ignore()
+        self.file_exit()
 
     def file_exit(self):
         """
         :method: Does all the work to close properly the application.
         """
         logging.debug(self.__className + '.file_exit')
+
+        if self.ppm.file_saved() is not True\
+                or self.pm.file_saved() is not True:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to quit anyway.\n"
+                              "Press Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
+
         sys.exit()
 
     def build_pre_proc_menu(self):
@@ -338,22 +382,18 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Name, LE, TE, Vault*
         """
-        if self.dws.window_exists('PreProcDataEdit') is False:
-            self.preProcEditW = PreProcData()
-            self.dws.register_window('PreProcDataEdit')
-            self.mdi.addSubWindow(self.preProcEditW)
-        self.preProcEditW.show()
+        self.preProcEdit_w = PreProcData()
+        self.mdi.addSubWindow(self.preProcEdit_w)
+        self.preProcEdit_w.show()
 
     def pre_proc_cells_distr_edit(self):
         """
         :method: Called if the user selects *Pre Processor*
                  -> *Cells distribution*
         """
-        if self.dws.window_exists('PreProcCellsDistribution') is False:
-            self.pre_proc_cells_distr_w = PreProcCellsDistribution()
-            self.dws.register_window('PreProcCellsDistribution')
-            self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
-        self.pre_proc_cells_distr_w.show()
+        self.preProcCellsDistr_w = PreProcCellsDistribution()
+        self.mdi.addSubWindow(self.preProcCellsDistr_w)
+        self.preProcCellsDistr_w.show()
 
     def pre_proc_run(self):
         """
@@ -366,11 +406,10 @@ class MainWindow(QMainWindow):
         self.ppm.write_file(True)
 
         # Open the window for the user info
-        if self.dws.window_exists('ProcessorOutput') is False:
-            self.proc_out_w = ProcessorOutput()
-            self.dws.register_window('ProcessorOutput')
-            self.mdi.addSubWindow(self.proc_out_w)
+        self.proc_out_w = ProcessorOutput()
+        self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.proc_out_w.clear_text()
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
@@ -592,130 +631,104 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Basic data*
         """
-        if self.dws.window_exists('ProcBasicData') is False:
-            self.basic_data_w = BasicData()
-            self.dws.register_window('ProcBasicData')
-            self.mdi.addSubWindow(self.basic_data_w)
+        self.basic_data_w = BasicData()
+        self.mdi.addSubWindow(self.basic_data_w)
         self.basic_data_w.show()
 
     def proc_geometry_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Geometry*
         """
-        if self.dws.window_exists('Geometry') is False:
-            self.geometry_w = Geometry()
-            self.dws.register_window('Geometry')
-            self.mdi.addSubWindow(self.geometry_w)
+        self.geometry_w = Geometry()
+        self.mdi.addSubWindow(self.geometry_w)
         self.geometry_w.show()
 
     def proc_airfoils_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.window_exists('Airfoils') is False:
-            self.airfoils_w = Airfoils()
-            self.dws.register_window('Airfoils')
-            self.mdi.addSubWindow(self.airfoils_w)
+        self.airfoils_w = Airfoils()
+        self.mdi.addSubWindow(self.airfoils_w)
         self.airfoils_w.show()
 
     def proc_anchor_points_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Anchor Points*
         """
-        if self.dws.window_exists('AnchorPoints') is False:
-            self.anchor_points_w = AnchorPoints()
-            self.dws.register_window('AnchorPoints')
-            self.mdi.addSubWindow(self.anchor_points_w)
+        self.anchor_points_w = AnchorPoints()
+        self.mdi.addSubWindow(self.anchor_points_w)
         self.anchor_points_w.show()
 
     def proc_rib_holes_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Airfoils*
         """
-        if self.dws.window_exists('RibHoles') is False:
-            self.rib_holes_w = RibHoles()
-            self.dws.register_window('RibHoles')
-            self.mdi.addSubWindow(self.rib_holes_w)
+        self.rib_holes_w = RibHoles()
+        self.mdi.addSubWindow(self.rib_holes_w)
         self.rib_holes_w.show()
 
     def proc_skin_tension_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Skin tension*
         """
-        if self.dws.window_exists('SkinTension') is False:
-            self.skin_tension_w = SkinTension()
-            self.dws.register_window('SkinTension')
-            self.mdi.addSubWindow(self.skin_tension_w)
+        self.skin_tension_w = SkinTension()
+        self.mdi.addSubWindow(self.skin_tension_w)
         self.skin_tension_w.show()
 
     def proc_global_aoa_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Global AoA*
         """
-        if self.dws.window_exists('GlobalAoA') is False:
-            self.global_aoa_w = GlobalAoA()
-            self.dws.register_window('GlobalAoA')
-            self.mdi.addSubWindow(self.global_aoa_w)
+        self.global_aoa_w = GlobalAoA()
+        self.mdi.addSubWindow(self.global_aoa_w)
         self.global_aoa_w.show()
 
     def proc_lines_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Lines*
         """
-        if self.dws.window_exists('Lines') is False:
-            self.lines_w = Lines()
-            self.dws.register_window('Lines')
-            self.mdi.addSubWindow(self.lines_w)
+        self.lines_w = Lines()
+        self.mdi.addSubWindow(self.lines_w)
         self.lines_w.show()
 
     def proc_brakes_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Brakes*
         """
-        if self.dws.window_exists('Brakes') is False:
-            self.brakes_w = Brakes()
-            self.dws.register_window('Brakes')
-            self.mdi.addSubWindow(self.brakes_w)
+        self.brakes_w = Brakes()
+        self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
 
     def proc_ramification_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Ramification*
         """
-        if self.dws.window_exists('Ramification') is False:
-            self.ramification_W = Ramification()
-            self.dws.register_window('Ramification')
-            self.mdi.addSubWindow(self.ramification_W)
+        self.ramification_W = Ramification()
+        self.mdi.addSubWindow(self.ramification_W)
         self.ramification_W.show()
 
     def proc_hv_vh_edit(self):
         """
         :method: Called if the user selects *Processor* -> *HV VH Ribs*
         """
-        if self.dws.window_exists('HvVhRibs') is False:
-            self.hv_vh_w = HvVhRibs()
-            self.dws.register_window('HvVhRibs')
-            self.mdi.addSubWindow(self.hv_vh_w)
+        self.hv_vh_w = HvVhRibs()
+        self.mdi.addSubWindow(self.hv_vh_w)
         self.hv_vh_w.show()
 
     def proc_extrados_colors_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Colors upper sail*
         """
-        if self.dws.window_exists('ExtradosColors') is False:
-            self.extrados_colors_w = ExtradColors()
-            self.dws.register_window('ExtradosColors')
-            self.mdi.addSubWindow(self.extrados_colors_w)
+        self.extrados_colors_w = ExtradColors()
+        self.mdi.addSubWindow(self.extrados_colors_w)
         self.extrados_colors_w.show()
 
     def proc_intrados_colors_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Colors lower sail*
         """
-        if self.dws.window_exists('IntradosColors') is False:
-            self.intrados_colors_w = IntradColors()
-            self.dws.register_window('IntradosColors')
-            self.mdi.addSubWindow(self.intrados_colors_w)
+        self.intrados_colors_w = IntradColors()
+        self.mdi.addSubWindow(self.intrados_colors_w)
         self.intrados_colors_w.show()
 
     def proc_add_rib_pts_edit(self):
@@ -723,10 +736,8 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor*
                  -> *Additional rib points*
         """
-        if self.dws.window_exists('AddRibPoints') is False:
-            self.add_rib_pts_w = AddRibPoints()
-            self.dws.register_window('AddRibPoints')
-            self.mdi.addSubWindow(self.add_rib_pts_w)
+        self.add_rib_pts_w = AddRibPoints()
+        self.mdi.addSubWindow(self.add_rib_pts_w)
         self.add_rib_pts_w.show()
 
     def proc_el_lines_corr_edit(self):
@@ -734,100 +745,80 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Processor*
                  -> *Elastic lines correction*
         """
-        if self.dws.window_exists('ElasticLinesCorr') is False:
-            self.el_lines_corr_w = ElasticLinesCorr()
-            self.dws.register_window('ElasticLinesCorr')
-            self.mdi.addSubWindow(self.el_lines_corr_w)
+        self.el_lines_corr_w = ElasticLinesCorr()
+        self.mdi.addSubWindow(self.el_lines_corr_w)
         self.el_lines_corr_w.show()
 
     def proc_joncs_def_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Joncs definition*
         """
-        if self.dws.window_exists('JoncsDef') is False:
-            self.joncs_def_w = JoncsDefinition()
-            self.dws.register_window('JoncsDef')
-            self.mdi.addSubWindow(self.joncs_def_w)
+        self.joncs_def_w = JoncsDefinition()
+        self.mdi.addSubWindow(self.joncs_def_w)
         self.joncs_def_w.show()
 
     def proc_nose_mylars_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Nose mylars*
         """
-        if self.dws.window_exists('NoseMylars') is False:
-            self.nose_mylars_w = NoseMylars()
-            self.dws.register_window('NoseMylars')
-            self.mdi.addSubWindow(self.nose_mylars_w)
+        self.nose_mylars_w = NoseMylars()
+        self.mdi.addSubWindow(self.nose_mylars_w)
         self.nose_mylars_w.show()
 
     def proc_glue_vent_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Glue vents*
         """
-        if self.dws.window_exists('GlueVent') is False:
-            self.glue_vent_w = GlueVent()
-            self.dws.register_window('GlueVent')
-            self.mdi.addSubWindow(self.glue_vent_w)
+        self.glue_vent_w = GlueVent()
+        self.mdi.addSubWindow(self.glue_vent_w)
         self.glue_vent_w.show()
 
     def proc_spec_wing_tip_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Special wing tip*
         """
-        if self.dws.window_exists('SpecWingTip') is False:
-            self.spec_wing_tip_w = SpecWingTip()
-            self.dws.register_window('SpecWingTip')
-            self.mdi.addSubWindow(self.spec_wing_tip_w)
+        self.spec_wing_tip_w = SpecWingTip()
+        self.mdi.addSubWindow(self.spec_wing_tip_w)
         self.spec_wing_tip_w.show()
 
     def proc_calage_var_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Calage variation*
         """
-        if self.dws.window_exists('CalageVar') is False:
-            self.calage_var_w = CalageVar()
-            self.dws.register_window('CalageVar')
-            self.mdi.addSubWindow(self.calage_var_w)
+        self.calage_var_w = CalageVar()
+        self.mdi.addSubWindow(self.calage_var_w)
         self.calage_var_w.show()
 
     def proc_three_d_shaping_edit(self):
         """
         :method: Called if the user selects *Processor* -> *3D Shaping*
         """
-        if self.dws.window_exists('ThreeDShaping') is False:
-            self.three_d_sh_w = ThreeDShaping()
-            self.dws.register_window('ThreeDShaping')
-            self.mdi.addSubWindow(self.three_d_sh_w)
+        self.three_d_sh_w = ThreeDShaping()
+        self.mdi.addSubWindow(self.three_d_sh_w)
         self.three_d_sh_w.show()
 
     def proc_airfoil_thick_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Airfoil thickness*
         """
-        if self.dws.window_exists('AirfoilThickness') is False:
-            self.airfoil_thick_w = AirfoilThickness()
-            self.dws.register_window('AirfoilThickness')
-            self.mdi.addSubWindow(self.airfoil_thick_w)
+        self.airfoil_thick_w = AirfoilThickness()
+        self.mdi.addSubWindow(self.airfoil_thick_w)
         self.airfoil_thick_w.show()
 
     def proc_new_skin_tension_edit(self):
         """
         :method: Called if the user selects *Processor* -> *New skin tension*
         """
-        if self.dws.window_exists('NewSkinTension') is False:
-            self.new_skin_tens_w = NewSkinTension()
-            self.dws.register_window('NewSkinTension')
-            self.mdi.addSubWindow(self.new_skin_tens_w)
+        self.new_skin_tens_w = NewSkinTension()
+        self.mdi.addSubWindow(self.new_skin_tens_w)
         self.new_skin_tens_w.show()
 
     def proc_parts_sep_edit(self):
         """
         :method: Called if the user selects *Processor* -> *Parts separation*
         """
-        if self.dws.window_exists('PartsSeparation') is False:
-            self.parts_separation_w = PartsSeparation()
-            self.dws.register_window('PartsSeparation')
-            self.mdi.addSubWindow(self.parts_separation_w)
+        self.parts_separation_w = PartsSeparation()
+        self.mdi.addSubWindow(self.parts_separation_w)
         self.parts_separation_w.show()
 
     def proc_run(self):
@@ -837,14 +828,13 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.proc_run')
 
         # Save current file into processor directory
-        self.pm.write_file(True)
+        self.pm.write_for_proc_file()
 
         # Open the window for the user info
-        if self.dws.window_exists('ProcessorOutput') is False:
-            self.proc_out_w = ProcessorOutput()
-            self.dws.register_window('ProcessorOutput')
-            self.mdi.addSubWindow(self.proc_out_w)
+        self.proc_out_w = ProcessorOutput()
+        self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.proc_out_w.clear_text()
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
@@ -912,60 +902,48 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         """
-        if self.dws.window_exists('SeewingAllowances') is False:
-            self.seewing_all_w = SeewingAllowances()
-            self.dws.register_window('SeewingAllowances')
-            self.mdi.addSubWindow(self.seewing_all_w)
+        self.seewing_all_w = SeewingAllowances()
+        self.mdi.addSubWindow(self.seewing_all_w)
         self.seewing_all_w.show()
 
     def plan_marks_edit(self):
         """
         :method: Called if the user selects *Plan* -> *Marks*
         """
-        if self.dws.window_exists('Marks') is False:
-            self.marks_w = Marks()
-            self.dws.register_window('Marks')
-            self.mdi.addSubWindow(self.marks_w)
+        self.marks_w = Marks()
+        self.mdi.addSubWindow(self.marks_w)
         self.marks_w.show()
 
     def plan_dxf_layer_names_edit(self):
         """
         :method: Called if the user selects *Plan* -> *DXF Layer names*
         """
-        if self.dws.window_exists('DxfLayerNames') is False:
-            self.dxf_layer_names_w = DxfLayerNames()
-            self.dws.register_window('DxfLayerNames')
-            self.mdi.addSubWindow(self.dxf_layer_names_w)
+        self.dxf_layer_names_w = DxfLayerNames()
+        self.mdi.addSubWindow(self.dxf_layer_names_w)
         self.dxf_layer_names_w.show()
 
     def marks_types_edit(self):
         """
         :method: Called if the user selects *Plan* -> Marks types*
         """
-        if self.dws.window_exists('MarksTypes') is False:
-            self.marks_types_w = MarksTypes()
-            self.dws.register_window('MarksTypes')
-            self.mdi.addSubWindow(self.marks_types_w)
+        self.marks_types_w = MarksTypes()
+        self.mdi.addSubWindow(self.marks_types_w)
         self.marks_types_w.show()
 
     def two_d_dxf_edit(self):
         """
         :method: Called if the user selects *Plan* -> 2D DFX *
         """
-        if self.dws.window_exists('TwoDDxf') is False:
-            self.two_d_dxf_w = TwoDDxfModel()
-            self.dws.register_window('TwoDDxf')
-            self.mdi.addSubWindow(self.two_d_dxf_w)
+        self.two_d_dxf_w = TwoDDxfModel()
+        self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
 
     def three_d_dxf_edit(self):
         """
         :method: Called if the user selects *Plan* -> 3D DFX*
         """
-        if self.dws.window_exists('ThreeDDxf') is False:
-            self.three_d_dxf_w = ThreeDDxfModel()
-            self.dws.register_window('ThreeDDxf')
-            self.mdi.addSubWindow(self.three_d_dxf_w)
+        self.three_d_dxf_w = ThreeDDxfModel()
+        self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
 
     def build_view_menu(self):
@@ -997,10 +975,8 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *View*
                  -> *Wing outline*
         """
-        if self.dws.window_exists('ViewWingOutline') is False:
-            self.view_wing_outline_w = PreProcWingOutline()
-            self.dws.register_window('ViewWingOutline')
-            self.mdi.addSubWindow(self.view_wing_outline_w)
+        self.view_wing_outline_w = PreProcWingOutline()
+        self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
 
     def view_cascade(self):
@@ -1082,20 +1058,16 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Setup* -> *Both processors*
         """
-        if self.dws.window_exists('SetupProcessors') is False:
-            self.setup_proc_w = SetupProcessors()
-            self.dws.register_window('SetupProcessors')
-            self.mdi.addSubWindow(self.setup_proc_w)
+        self.setup_proc_w = SetupProcessors()
+        self.mdi.addSubWindow(self.setup_proc_w)
         self.setup_proc_w.show()
 
     def setup_update_checking(self):
         """
         :method: Called if the user selects *Setup* -> *Update checking*
         """
-        if self.dws.window_exists('SetupUpdateChecking') is False:
-            self.setup_update_check_w = SetupUpdateChecking()
-            self.dws.register_window('SetupUpdateChecking')
-            self.mdi.addSubWindow(self.setup_update_check_w)
+        self.setup_update_check_w = SetupUpdateChecking()
+        self.mdi.addSubWindow(self.setup_update_check_w)
         self.setup_update_check_w.show()
 
     def build_help_menu(self):
@@ -1145,10 +1117,8 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the Help About window.
         """
-        if self.dws.window_exists('HelpAbout') is False:
-            self.helpAboutW = HelpAbout()
-            self.dws.register_window('HelpAbout')
-            self.mdi.addSubWindow(self.helpAboutW)
+        self.helpAboutW = HelpAbout()
+        self.mdi.addSubWindow(self.helpAboutW)
         self.helpAboutW.show()
 
     def delete_logfile(self):
@@ -1160,4 +1130,3 @@ class MainWindow(QMainWindow):
 
         if os.path.isfile(log_path_name):
             os.remove(log_path_name)
-

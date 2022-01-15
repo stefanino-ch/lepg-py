@@ -12,9 +12,10 @@ from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
+from Singleton.Singleton import Singleton
 
 
-class NewSkinTension(QMdiSubWindow):
+class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit airfoils holes data
     """
@@ -28,14 +29,17 @@ class NewSkinTension(QMdiSubWindow):
         """
         :method: Constructor
         """
+        logging.debug(self.__className + '.__init__')
+        super().__init__()
+
         self.btn_bar = None
         self.tabs = None
         self.num_conf_s = None
         self.help_bar = None
         self.window_ly = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
-        super().__init__()
+
+        self.pm = ProcModel()
 
         self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
         self.newSkinTensConf_M.numRowsForConfigChanged.connect(self.model_num_configs_changed)
@@ -139,6 +143,7 @@ class NewSkinTension(QMdiSubWindow):
         """
         logging.debug(self.__className + '.conf_spin_change')
         self.newSkinTensConf_M.set_num_configs(self.num_conf_s.value())
+        self.pm.set_file_saved(False)
 
     def model_num_configs_changed(self):
         """
@@ -176,6 +181,7 @@ class NewSkinTension(QMdiSubWindow):
         logging.debug(self.__className + '.det_spin_change')
         self.newSkinTensDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1,
                                                       self.numDet_S[self.tabs.currentIndex()].value())
+        self.pm.set_file_saved(False)
 
     def add_tab(self):
         """
@@ -274,7 +280,7 @@ class NewSkinTension(QMdiSubWindow):
         self.numDet_S[curr_num_tabs].setValue(self.detProxyModel[curr_num_tabs].rowCount())
         tab_widget.setLayout(tab_layout)
 
-        i = self.tabs.add_tab(tab_widget, str(curr_num_tabs + 1))
+        i = self.tabs.addTab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
     def remove_tab(self):
@@ -284,7 +290,7 @@ class NewSkinTension(QMdiSubWindow):
         """
         logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
-        self.tabs.remove_tab(num_tabs - 1)
+        self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
         self.confProxyModel.pop(num_tabs - 1)
         self.detProxyModel.pop(num_tabs - 1)

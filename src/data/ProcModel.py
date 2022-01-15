@@ -35,9 +35,9 @@ class ProcModel(QObject, metaclass=Singleton):
     :signal:  Sent out as soon a file was opened or saved
         The first string indicates the class name
         The second string indicates
-        - if a file was opened
-        - if a file was saved
-        - Filename and Path has been changed
+        - Data status changes saved/ edited
+        - Filename and path has been changed
+        - File version has been changed
     '''
 
     __className = 'ProcModel'
@@ -46,22 +46,24 @@ class ProcModel(QObject, metaclass=Singleton):
     '''
     __fileNamePath = ''
     '''
-    :attr: full path and name of the data file currently in use
+    :attr: Full path and name of the data file currently in use
     '''
     __fileVersion = ''
     '''
-    :attr: version number of the file currently in use
+    :attr: Version number of the file currently in use
     '''
-    __statusBar = ''
+    __latestFileVersion = '3.17'
     '''
-    :attr: Reference to the main window needed for status bar update
+    :attr: Version number of the currently supported processor
     '''
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self, parent=None):
         """
         :method: Constructor
         """
         logging.debug(self.__className + '.__init__')
+
+        self.__fileSaved = True
 
         self.db = Database()
         self.db.openConnection()
@@ -69,7 +71,86 @@ class ProcModel(QObject, metaclass=Singleton):
         super().__init__()
 
         self.wing_m = ProcModel.WingModel()
+        self.wing_m.dataChanged.connect(self.data_edit)
         self.rib_m = ProcModel.RibModel()
+        self.rib_m.dataChanged.connect(self.data_edit)
+
+        self.addRibPoints_m = ProcModel.AddRibPointsModel()
+        self.addRibPoints_m.dataChanged.connect(self.data_edit)
+        self.airf_m = ProcModel.AirfoilsModel()
+        self.airf_m.dataChanged.connect(self.data_edit)
+        self.airfThick_m = ProcModel.AirfoilThicknessModel()
+        self.airfThick_m.dataChanged.connect(self.data_edit)
+        self.anchPoints_m = ProcModel.AnchorPointsModel()
+        self.anchPoints_m.dataChanged.connect(self.data_edit)
+        self.brakes_m = ProcModel.BrakesModel()
+        self.brakes_m.dataChanged.connect(self.data_edit)
+        self.brakeLength_m = ProcModel.BrakeLengthModel()
+        self.brakeLength_m.dataChanged.connect(self.data_edit)
+        self.calageVar_m = ProcModel.CalageVarModel()
+        self.calageVar_m.dataChanged.connect(self.data_edit)
+        self.dxfLayerNames_m = ProcModel.DxfLayerNamesModel()
+        self.dxfLayerNames_m.dataChanged.connect(self.data_edit)
+        self.elLinesCorr_m = ProcModel.ElLinesCorrModel()
+        self.elLinesCorr_m.dataChanged.connect(self.data_edit)
+        self.elLinesDef_m = ProcModel.ElLinesDefModel()
+        self.elLinesDef_m.dataChanged.connect(self.data_edit)
+        self.extradosColConf_m = ProcModel.ExtradosColConfModel()
+        self.extradosColConf_m.dataChanged.connect(self.data_edit)
+        self.extradosColDet_m = ProcModel.ExtradosColDetModel()
+        self.extradosColDet_m.dataChanged.connect(self.data_edit)
+        self.globAoA_m = ProcModel.GlobAoAModel()
+        self.globAoA_m.dataChanged.connect(self.data_edit)
+        self.glueVent_m = ProcModel.GlueVentModel()
+        self.glueVent_m.dataChanged.connect(self.data_edit)
+        self.hvvhRibs_m = ProcModel.HvVhRibsModel()
+        self.hvvhRibs_m.dataChanged.connect(self.data_edit)
+        self.intradosColConf_m = ProcModel.IntradosColsConfModel()
+        self.intradosColConf_m.dataChanged.connect(self.data_edit)
+        self.intradosColDet_m = ProcModel.IntradosColsDetModel()
+        self.intradosColDet_m.dataChanged.connect(self.data_edit)
+        self.joncsDef_m = ProcModel.JoncsDefModel()
+        self.joncsDef_m.dataChanged.connect(self.data_edit)
+        self.ligthConf_m = ProcModel.LightConfModel()
+        self.ligthConf_m.dataChanged.connect(self.data_edit)
+        self.ligthDet_m = ProcModel.LightDetModel()
+        self.ligthDet_m.dataChanged.connect(self.data_edit)
+        self.lines_m = ProcModel.LinesModel()
+        self.lines_m.dataChanged.connect(self.data_edit)
+        self.marks_m = ProcModel.MarksModel()
+        self.marks_m.dataChanged.connect(self.data_edit)
+        self.marksTypes_m = ProcModel.MarksTypesModel()
+        self.marksTypes_m.dataChanged.connect(self.data_edit)
+        self.newSkinTensConf_m = ProcModel.NewSkinTensConfModel()
+        self.newSkinTensConf_m.dataChanged.connect(self.data_edit)
+        self.newSkinTensDet_m = ProcModel.NewSkinTensDetModel()
+        self.newSkinTensDet_m.dataChanged.connect(self.data_edit)
+        self.noseMylars_m = ProcModel.NoseMylarsModel()
+        self.noseMylars_m.dataChanged.connect(self.data_edit)
+        self.partsSep_m = ProcModel.PartsSeparationModel()
+        self.partsSep_m.dataChanged.connect(self.data_edit)
+        self.ramif_m = ProcModel.RamificationModel()
+        self.ramif_m.dataChanged.connect(self.data_edit)
+        self.skinTens_m = ProcModel.SkinTensionModel()
+        self.skinTens_m.dataChanged.connect(self.data_edit)
+        self.skinTensParams_m = ProcModel.SkinTensionParamsModel()
+        self.skinTensParams_m.dataChanged.connect(self.data_edit)
+        self.seewinAllowances_m = ProcModel.SewingAllowancesModel()
+        self.seewinAllowances_m.dataChanged.connect(self.data_edit)
+        self.specWingTyp_m = ProcModel.SpecWingTipModel()
+        self.specWingTyp_m.dataChanged.connect(self.data_edit)
+        self.thrDDxf_m = ProcModel.ThreeDDxfModel()
+        self.thrDDxf_m.dataChanged.connect(self.data_edit)
+        self.thrDShConf_m = ProcModel.ThreeDShConfModel()
+        self.thrDShConf_m.dataChanged.connect(self.data_edit)
+        self.thrDShUpDet_m = ProcModel.ThreeDShUpDetModel()
+        self.thrDShUpDet_m.dataChanged.connect(self.data_edit)
+        self.thrDShLoDet_m = ProcModel.ThreeDShLoDetModel()
+        self.thrDShLoDet_m.dataChanged.connect(self.data_edit)
+        self.thrDShPrint_m = ProcModel.ThreeDShPrintModel()
+        self.thrDShPrint_m.dataChanged.connect(self.data_edit)
+        self.twoDDxf_m = ProcModel.TwoDDxfModel()
+        self.twoDDxf_m.dataChanged.connect(self.data_edit)
 
         self.fileReader = ProcFileReader()
         self.fileWriter = ProcFileWriter()
@@ -101,6 +182,44 @@ class ProcModel(QObject, metaclass=Singleton):
         :method: Returns the version info of the data file currently in use
         """
         return self.__fileVersion
+
+    def data_edit(self):
+        """
+        :method: Called upon data edit activities within the proc model.
+                 Does set the internal flags to track the data status
+        """
+        self.set_file_saved(False)
+
+    def set_file_saved(self, file_saved_status: bool):
+        """
+        :method: Changes the internal flag to
+                 File saved = True
+                 Unsaved data = False
+                 Emits a signal after every change.
+        """
+        self.__fileSaved = file_saved_status
+        self.dataStatusUpdate.emit(self.__className, 'SaveStatus')
+
+    def file_saved(self):
+        """
+        :method: Returns the current status of the proc file
+        :retval: File saved = True
+                 Unsaved data = False
+        :rtype: bool
+        """
+        return self.__fileSaved
+
+    def file_saved_char(self):
+        """
+        :method: Returns the current status of the proc file as character
+        :retval: Y = File saved
+                 N = Unsaved data
+        :rtype: str
+        """
+        if self.__fileSaved is True:
+            return 'Y'
+        else:
+            return 'N'
 
     def is_valid_pre_proc_file(self, file_name):
         """
@@ -236,7 +355,20 @@ class ProcModel(QObject, metaclass=Singleton):
         """
         logging.debug(self.__className + '.import_pre_proc_file')
 
-        # TODO: Make sure there is no unsaved/ un applied data
+        if not self.__fileSaved:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to open the new file and overwrite "
+                              "the current changes.\nPress Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
 
         pre_proc_reader = PreProcOutfileReader()
         data, num_cells = pre_proc_reader.open_read_file(False)
@@ -257,6 +389,9 @@ class ProcModel(QObject, metaclass=Singleton):
                                      data[line_it][8],
                                      0,
                                      0)
+            self.set_file_name('')
+            self.set_file_version('')
+            self.set_file_saved(True)
 
     def open_file(self):
         """
@@ -264,7 +399,21 @@ class ProcModel(QObject, metaclass=Singleton):
                  Does the File Open dialog handling.
         """
         logging.debug(self.__className + '.open_read_file')
-        # TODO: Make sure there is no unsaved/ un applied data
+
+        if not self.__fileSaved:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to open the new file and overwrite "
+                              "the current changes.\nPress Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
 
         file_name = QFileDialog.getOpenFileName(
             None,
@@ -280,6 +429,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
                 self.fileReader.read_file(self.get_file_name(),
                                           self.get_file_version())
+                self.set_file_saved(True)
 
     def save_file(self):
         """
@@ -291,7 +441,10 @@ class ProcModel(QObject, metaclass=Singleton):
         file_name = self.get_file_name()
         if len(file_name) > 0:
             # We do have already a valid filename
-            self.write_file()
+            self.set_file_version(self.__latestFileVersion)
+            self.fileWriter.set_file_path_name(file_name)
+            self.fileWriter.write_file()
+            self.set_file_saved(True)
         else:
             # Ask first for the filename
             file_name = QFileDialog.getSaveFileName(
@@ -303,8 +456,11 @@ class ProcModel(QObject, metaclass=Singleton):
             if file_name != ('', ''):
                 # User has really selected a file, if it had
                 # aborted the dialog an empty tuple is returned
+                self.set_file_version(self.__latestFileVersion)
+                self.set_file_name(file_name[0])
                 self.fileWriter.set_file_path_name(file_name[0])
                 self.fileWriter.write_file()
+                self.set_file_saved(True)
 
     def save_file_as(self):
         """
@@ -323,35 +479,17 @@ class ProcModel(QObject, metaclass=Singleton):
         if file_name != ('', ''):
             # User has really selected a file, if it had
             # aborted the dialog an empty tuple is returned
+            self.set_file_version(self.__latestFileVersion)
+            self.set_file_name(file_name[0])
             self.fileWriter.set_file_path_name(file_name[0])
             self.fileWriter.write_file()
+            self.set_file_saved(True)
 
-    def write_file(self, for_proc=False):
+    def write_for_proc_file(self):
         """
-        :method: Writes all the values into a data file.
-        :warning: Filename must have been set already before, unless the file
-                  shall be written for the PreProcessor.
-        :param for_proc: Set this to True if the file must be saved in the
-                        directory where the PreProcessor resides
+        :class: Writes the file directly to the proc directory
         """
-        separator = '***************************************************\n'
-
-        logging.debug(self.__className + '.write_file')
-
-        if for_proc is True:
-            # Special file write into the directory where the
-            # PreProcessor resides
-            self.fileWriter.write_file(True)
-        else:
-            self.fileWriter.set_file_path_name(self.get_file_name())
-            self.fileWriter.write_file()
-
-        if for_proc is False:
-            # Then we need to set the right file version
-            self.set_file_version('3.17')
-
-            # Make flags in order
-            # self.dataStatusUpdate.emit(self.__className,'Open')
+        self.fileWriter.write_file(True)
 
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
         """

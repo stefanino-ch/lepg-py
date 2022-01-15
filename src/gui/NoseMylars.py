@@ -1,21 +1,26 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, \
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+    QSpinBox, QLabel, \
     QHBoxLayout, QVBoxLayout, QPushButton, QDataWidgetMapper
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
-from data.ProcModel import ProcModel
 
-class NoseMylars(QMdiSubWindow):
-    '''
+from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
+
+
+class NoseMylars(QMdiSubWindow, metaclass=Singleton):
+    """
     :class: Window to display and edit Brake line details  
-    '''
+    """
 
     __className = 'NoseMylars'
     '''
@@ -23,24 +28,34 @@ class NoseMylars(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
+        self.numLines_s = None
+        self.helpBar = None
+        self.window_ly = None
+        self.btnBar = None
+        self.proxyModel = None
+        self.wrapper = None
+        self.win = None
+
+        self.pm = ProcModel()
         self.noseMylars_M = ProcModel.NoseMylarsModel()
-        self.noseMylars_M.numRowsForConfigChanged.connect( self.modelSizeChanged )
-        self.buildWindow()
-    
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+        self.noseMylars_M.numRowsForConfigChanged. \
+            connect(self.model_size_changed)
+        self.build_window()
+
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
         :method: Creates the window including all GUI elements. 
             
         Structure:: 
@@ -54,131 +69,153 @@ class NoseMylars(QMdiSubWindow):
                             
         Naming:
             Conf is always one as there is only one configuration possible
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(700, 400)
 
-        self.windowLayout = QVBoxLayout()
-        
+        self.window_ly = QVBoxLayout()
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("Nose mylars"))
-        
+
         self.wrapper = QDataWidgetMapper()
         self.wrapper.setModel(self.noseMylars_M)
-        
-        numLines_L = QLabel(_('Number of configs'))
-        numLines_L.setAlignment(Qt.AlignRight)
-        numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        
-        self.numLines_S = QSpinBox()
-        self.numLines_S.setRange(0,999)
-        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLines_S.valueChanged.connect(self.numLinesChange)
-        numLinesEdit = self.numLines_S.lineEdit()
-        numLinesEdit.setReadOnly(True)
-         
-        numLinesLayout = QHBoxLayout()
-        numLinesLayout.addWidget(numLines_L)
-        numLinesLayout.addWidget(self.numLines_S)
-        numLinesLayout.addStretch()
-        self.windowLayout.addLayout(numLinesLayout)
+
+        num_lines_l = QLabel(_('Number of configs'))
+        num_lines_l.setAlignment(Qt.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+
+        self.numLines_s = QSpinBox()
+        self.numLines_s.setRange(0, 999)
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                                  QSizePolicy.Fixed))
+        self.numLines_s.valueChanged.connect(self.num_lines_change)
+        num_lines_edit = self.numLines_s.lineEdit()
+        num_lines_edit.setReadOnly(True)
+
+        num_lines_layout = QHBoxLayout()
+        num_lines_layout.addWidget(num_lines_l)
+        num_lines_layout.addWidget(self.numLines_s)
+        num_lines_layout.addStretch()
+        self.window_ly.addLayout(num_lines_layout)
         ###############
-        
+
         self.proxyModel = QSortFilterProxyModel()
         self.proxyModel.setSourceModel(self.noseMylars_M)
-        
-        table_T = TableView()
-        table_T.setModel( self.proxyModel )
-        table_T.verticalHeader().setVisible(False)
-        table_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        table_T.hideColumn( self.noseMylars_M.columnCount()-1 )
-        table_T.hideColumn( self.noseMylars_M.columnCount()-2 )
-        self.windowLayout.addWidget(table_T)
-         
-        table_T.enableIntValidator(ProcModel.NoseMylarsModel.OrderNumCol, ProcModel.NoseMylarsModel.LastRibCol, 1, 999)
-        table_T.enableDoubleValidator(ProcModel.NoseMylarsModel.xOneCol, ProcModel.NoseMylarsModel.vTwoCol, 1, 100, 1)
-          
-        table_T.setHelpBar(self.helpBar)
-        table_T.setHelpText(ProcModel.NoseMylarsModel.OrderNumCol, _('OrderNumDesc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.FirstRibCol, _('NoseMylars-FirstRibDesc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.LastRibCol, _('NoseMylars-LastRibDesc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.xOneCol, _('NoseMylars-x1Desc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.uOneCol, _('NoseMylars-u1Desc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.uTwoCol, _('NoseMylars-u2Desc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.xTwoCol, _('NoseMylars-x2Desc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.vOneCol, _('NoseMylars-v1Desc'))
-        table_T.setHelpText(ProcModel.NoseMylarsModel.vTwoCol, _('NoseMylars-v2Desc'))
-        
-        sortBtn = QPushButton(_('Sort by order_num'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
-        
-        self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.noseMylars_M.num_rows_for_config(1))
-        self.numLines_S.blockSignals(False)
+
+        table_t = TableView()
+        table_t.setModel(self.proxyModel)
+        table_t.verticalHeader().setVisible(False)
+        table_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table_t.hideColumn(self.noseMylars_M.columnCount() - 1)
+        table_t.hideColumn(self.noseMylars_M.columnCount() - 2)
+        self.window_ly.addWidget(table_t)
+
+        table_t.enableIntValidator(ProcModel.NoseMylarsModel.OrderNumCol,
+                                   ProcModel.NoseMylarsModel.LastRibCol,
+                                   1, 999)
+        table_t.enableDoubleValidator(ProcModel.NoseMylarsModel.xOneCol,
+                                      ProcModel.NoseMylarsModel.vTwoCol,
+                                      1, 100, 1)
+
+        table_t.setHelpBar(self.helpBar)
+        table_t.setHelpText(ProcModel.NoseMylarsModel.OrderNumCol,
+                            _('OrderNumDesc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.FirstRibCol,
+                            _('NoseMylars-FirstRibDesc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.LastRibCol,
+                            _('NoseMylars-LastRibDesc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.xOneCol,
+                            _('NoseMylars-x1Desc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.uOneCol,
+                            _('NoseMylars-u1Desc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.uTwoCol,
+                            _('NoseMylars-u2Desc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.xTwoCol,
+                            _('NoseMylars-x2Desc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.vOneCol,
+                            _('NoseMylars-v1Desc'))
+        table_t.setHelpText(ProcModel.NoseMylarsModel.vTwoCol,
+                            _('NoseMylars-v2Desc'))
+
+        sort_btn = QPushButton(_('Sort by order_num'))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed))
+        sort_btn.clicked.connect(self.sort_btn_press)
+
+        self.numLines_s.blockSignals(True)
+        self.numLines_s.setValue(self.noseMylars_M.num_rows_for_config(1))
+        self.numLines_s.blockSignals(False)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/noseMylars.html')
-        
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
-        
-        self.win.setLayout(self.windowLayout)
-            
-    def modelSizeChanged(self):
-        '''
-        :method: Called after the model has been changed it's size. Herein we assure the GUI follows the model.
-        '''
-        logging.debug(self.__className+'.modelSizeChanged')
-        self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.noseMylars_M.num_rows_for_config(1))
-        self.numLines_S.blockSignals(False)
-        
-                   
-    def numLinesChange(self): 
-        '''
-        :method: Called upon manual changes of the lines spin. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.num_lines_change')
-        self.noseMylars_M.set_num_rows_for_config(1, self.numLines_S.value())
 
-    def sortBtnPress(self):
-        '''
-        :method: Executed if the sort button is pressed. Does a one time sort based on the numbers in the OrderNum column.
-        '''
-        logging.debug(self.__className+'.sort_btn_press')
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(sort_btn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.window_ly.addLayout(bottom_layout)
 
-        self.proxyModel.sort(ProcModel.NoseMylarsModel.OrderNumCol, Qt.AscendingOrder)
+        self.win.setLayout(self.window_ly)
+
+    def model_size_changed(self):
+        """
+        :method: Called after the model has been changed it's size. Herein we 
+                 assure the GUI follows the model.
+        """
+        logging.debug(self.__className + '.model_size_changed')
+        self.numLines_s.blockSignals(True)
+        self.numLines_s.setValue(self.noseMylars_M.num_rows_for_config(1))
+        self.numLines_s.blockSignals(False)
+
+    def num_lines_change(self):
+        """
+        :method: Called upon manual changes of the lines spin. Does assure all 
+                 elements will follow the user configuration. 
+        """
+        logging.debug(self.__className + '.num_lines_change')
+        self.noseMylars_M.set_num_rows_for_config(1, self.numLines_s.value())
+        self.pm.set_file_saved(False)
+
+    def sort_btn_press(self):
+        """
+        :method: Executed if the sort button is pressed. Does a one time sort 
+                 based on the numbers in the OrderNum column.
+        """
+        logging.debug(self.__className + '.sort_btn_press')
+
+        self.proxyModel.sort(ProcModel.NoseMylarsModel.OrderNumCol,
+                             Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
-    
-    def btnPress(self, q):
-        '''
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

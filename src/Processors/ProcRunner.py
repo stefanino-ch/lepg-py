@@ -136,12 +136,12 @@ class ProcRunner:
 
             if output == '' and process.poll() is not None:
                 # TODO: Linux does not display path where files are saved
-                self.userInfo.appendText(_('proc_terminating_msg'))
+                self.userInfo.append_text(_('proc_terminating_msg'))
                 break
 
             if output:
                 logging.debug(self.__className+'.run_command '
                               + output.strip())
-                self.userInfo.appendText(output.strip())
+                self.userInfo.append_text(output.strip())
 
         return

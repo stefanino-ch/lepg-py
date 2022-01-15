@@ -23,7 +23,8 @@ class PreProcModel(QObject, metaclass=Singleton):
     """
     :class: Does take care about the data handling for the pre-processor.
             Reads and writes the data files
-            Holds as a central point all temporary data during program execution
+            Holds as a central point all temporary data during program
+            execution
 
     Is implemented as a **Singleton**. Even if it is instantiated multiple
     times all data will be the same for all instances.
@@ -33,9 +34,9 @@ class PreProcModel(QObject, metaclass=Singleton):
     :signal:  Sent out as soon a file was opened or saved
         The first string indicates the class name
         The second string indicates
-        - if a file was opened
-        - if a file was saved
-        - Filename and Path has been changed
+        - Data status changes saved/ edited
+        - Filename and path has been changed
+        - File version has been changed
     '''
     __className = 'PreProcModel'
     '''
@@ -50,11 +51,13 @@ class PreProcModel(QObject, metaclass=Singleton):
     :attr: version number of the file currently in use
     '''
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self, parent=None):
         """
         :method: Constructor
         """
         logging.debug(self.__className + '.__init__')
+
+        self.__fileSaved = True
 
         self.db = Database()
         self.db.openConnection()
@@ -62,10 +65,19 @@ class PreProcModel(QObject, metaclass=Singleton):
         super().__init__()
 
         self.leadingE_M = self.LeadingEdgeModel()
+        self.leadingE_M.dataChanged.connect(self.data_edit)
+
         self.trailingE_M = self.TrailingEdgeModel()
+        self.trailingE_M.dataChanged.connect(self.data_edit)
+
         self.vault_M = self.VaultModel()
+        self.vault_M.dataChanged.connect(self.data_edit)
+
         self.gen_M = self.GenModel()
+        self.gen_M.dataChanged.connect(self.data_edit)
+
         self.cellsDistr_M = self.CellsDistrModel()
+        self.cellsDistr_M.dataChanged.connect(self.data_edit)
 
     def set_file_name(self, file_name):
         """
@@ -90,10 +102,48 @@ class PreProcModel(QObject, metaclass=Singleton):
         self.dataStatusUpdate.emit(self.__className, 'FileVersion')
 
     def get_file_version(self):
-        '''
+        """
         :method: Returns the version info of the data file currently in use
-        '''
+        """
         return self.__fileVersion
+
+    def data_edit(self):
+        """
+        :method: Called upon data edit activities within the PreProcModel.
+                 Does set the internal flags to track the data status
+        """
+        self.set_file_saved(False)
+
+    def set_file_saved(self, file_saved_status: bool):
+        """
+        :method: Changes the internal flag to
+                 File saved = True
+                 Unsaved data = False
+                 Emits a signal after every change.
+        """
+        self.__fileSaved = file_saved_status
+        self.dataStatusUpdate.emit(self.__className, 'SaveStatus')
+
+    def file_saved(self):
+        """
+        :method: Returns the current status of the pre-proc file
+        :retval: File saved = True
+                 Unsaved data = False
+        :rtype: bool
+        """
+        return self.__fileSaved
+
+    def file_saved_char(self):
+        """
+        :method: Returns the current status of the pre-proc file as character
+        :retval: Y = File saved
+                 N = Unsaved data
+        :rtype: str
+        """
+        if self.__fileSaved is True:
+            return 'Y'
+        else:
+            return 'N'
 
     def valid_file(self, file_name):
         """
@@ -159,27 +209,25 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def open_file(self):
         """
-        :method: Checks for unapplied/ unsaved data, and appropriate handling.
+        :method: Checks for unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         """
         logging.debug(self.__className + '.open_read_file')
 
-        # TODO: Make sure there is no unsaved/ unapplied data
-#         if not (self.dws.get_window_data_status('PreProcDataEdit')
-#                and self.dws.get_file_status('PreProcFile')):
-#             # There is unsaved/ unapplied data, show a warning
-#             msgBox = QMessageBox()
-#             msgBox.setWindowTitle(_("Unsaved or unapplied data"))
-#             msgBox.setText(_("You have unsaved or unapplied data. \n\n"
-#                              "Press OK to open the new file and overwrite "
-#                              "the changes.\nPress Cancel to abort. "))
-#             msgBox.setIcon(QMessageBox.Warning)
-#             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-#             answer = msgBox.exec()
-#
-#             if answer == QMessageBox.Cancel:
-#                 # User wants to abort
-#                 return
+        if not self.__fileSaved:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to open the new file and overwrite "
+                              "the current changes.\nPress Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
 
         file_name = QFileDialog.getOpenFileName(
                         None,
@@ -193,6 +241,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             if self.valid_file(file_name[0]):
                 self.set_file_name(file_name[0])
                 self.read_file()
+                self.set_file_saved(True)
 
     def save_file(self):
         """
@@ -205,6 +254,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         if len(file_name) != 0:
             # We do have already a valid filename
             self.write_file()
+            self.set_file_saved(True)
         else:
             # Ask first for the filename
             file_name = QFileDialog.getSaveFileName(
@@ -218,6 +268,7 @@ class PreProcModel(QObject, metaclass=Singleton):
                 # the dialog an empty tuple is retured
                 self.set_file_name(file_name[0])
                 self.write_file()
+                self.set_file_saved(True)
 
     def save_file_as(self):
         """
@@ -238,6 +289,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             # the dialog an empty tuple is returned
             self.set_file_name(file_name[0])
             self.write_file()
+            self.set_file_saved(True)
 
     def read_file(self):
         """
@@ -515,7 +567,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         if for_proc is False:
             # Then we need to set the right file version
-            self.set_file_version('3.10')
+            self.set_file_version('1.6')
 
     class CellsDistrModel(SqlTableModel, metaclass=Singleton):
         """

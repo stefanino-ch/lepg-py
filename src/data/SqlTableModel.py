@@ -4,7 +4,6 @@
 """
 import logging
 
-from PyQt5 import Qt
 from PyQt5.QtCore import pyqtSignal, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
@@ -79,6 +78,7 @@ class SqlTableModel(QSqlTableModel):
         logging.debug(self.__className+'.remove_rows_at_end')
 
         i = 0
+        res = 0
         start = self.rowCount()-1
         while i < num_to_remove:
             res = self.removeRows(start-i, 1)

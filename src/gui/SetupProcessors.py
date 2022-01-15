@@ -13,9 +13,10 @@ from gui.elements.CheckBox import CheckBox
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
+from Singleton.Singleton import Singleton
 
 
-class SetupProcessors(QMdiSubWindow):
+class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and setup pre-proc and proc settings.
     """
@@ -194,10 +195,8 @@ class SetupProcessors(QMdiSubWindow):
         :method: Called at the time the pre-processor show outline checkbox
                  is changed. Does set up the config reader property.
         """
-        if self.outline_chkb.isChecked() is True:
-            self.config_reader.set_pre_proc_show_outline('yes')
-        else:
-            self.config_reader.set_pre_proc_show_outline('no')
+        self.config_reader.set_pre_proc_show_outline(
+            self.outline_chkb.isChecked())
 
     def proc_btn_press(self):
         """

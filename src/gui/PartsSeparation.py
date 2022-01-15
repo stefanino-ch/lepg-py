@@ -12,9 +12,10 @@ from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
-class PartsSeparation(QMdiSubWindow):
+class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Brake line details
     """
@@ -28,13 +29,16 @@ class PartsSeparation(QMdiSubWindow):
         """
         :method: Constructor
         """
+        logging.debug(self.__className + '.__init__')
+        super().__init__()
+
         self.btn_bar = None
         self.usage_cb = None
         self.help_bar = None
         self.window_ly = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
-        super().__init__()
+
+        self.pm = ProcModel()
 
         self.parts_sep_m = ProcModel.PartsSeparationModel()
         self.parts_sep_m.usageUpd.connect(self.usage_update)
@@ -156,6 +160,7 @@ class PartsSeparation(QMdiSubWindow):
             self.parts_sep_m.set_is_used(False)
         else:
             self.parts_sep_m.set_is_used(True)
+        self.pm.set_file_saved(False)
 
     def btn_press(self, q):
         """

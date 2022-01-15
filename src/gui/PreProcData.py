@@ -7,13 +7,15 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QSizePolicy, QHeaderView,\
                             QLabel, QComboBox
+
+from data.PreProcModel import PreProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
-from data.PreProcModel import PreProcModel
+from Singleton.Singleton import Singleton
 
 
-class PreProcData(QMdiSubWindow):
+class PreProcData(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Skin tension data
     """
@@ -27,14 +29,17 @@ class PreProcData(QMdiSubWindow):
         """
         :method: Constructor
         """
+        super().__init__()
+        logging.debug(self.__className+'.__init__')
+
         self.win = None
         self.window_ly = None
         self.help_bar = None
         self.vault_t_cb = None
         self.vault_table = None
         self.btnBar = None
-        logging.debug(self.__className+'.__init__')
-        super().__init__()
+
+        self.ppm = PreProcModel()
 
         self.gen_M = PreProcModel.GenModel()
 
@@ -110,7 +115,6 @@ class PreProcData(QMdiSubWindow):
         self.window_ly.addLayout(gen_ly)
 
         # Leading Edge
-        # TODO: remove type as the only allowed value is 1
         le_l = QLabel(_("Leading edge"))
         le_table = TableView()
         le_table.setModel(self.leadingE_M)
@@ -154,7 +158,6 @@ class PreProcData(QMdiSubWindow):
         self.window_ly.addWidget(le_table)
 
         # Trailing Edge
-        # TODO: remove type as the only allowed value is 1
         te_l = QLabel(_("Trailing edge"))
         te_table = TableView()
         te_table.setModel(self.trailingE_M)
@@ -291,6 +294,8 @@ class PreProcData(QMdiSubWindow):
             self.vault_M.update_type(1, 1, 2)
             self.set_type_two_columns()
 
+        self.ppm.set_file_saved(False)
+
     def vault_model_change(self):
         """
         :method:
@@ -339,9 +344,6 @@ class PreProcData(QMdiSubWindow):
         for i in range(PreProcModel.VaultModel.rOneRACol,
                        PreProcModel.VaultModel.aFouRACol + 1):
             self.vault_table.showColumn(i)
-
-    def data_changed(self):
-        print('data changed')
 
     def btn_press(self, q):
         """

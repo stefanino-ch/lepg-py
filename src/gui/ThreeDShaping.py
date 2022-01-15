@@ -1,20 +1,25 @@
-'''
+"""
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
-'''
+"""
 import logging
+
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, QTabWidget, QHBoxLayout, QVBoxLayout
-from gui.elements.TableView import TableView
-from gui.elements.WindowHelpBar import WindowHelpBar
-from gui.elements.WindowBtnBar import WindowBtnBar
-from data.ProcModel import ProcModel
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+    QSpinBox, QLabel, QTabWidget, QHBoxLayout, QVBoxLayout
 
-class ThreeDShaping(QMdiSubWindow):
-    '''
-    :class: Window to display and edit airfoils holes data  
-    '''
+from data.ProcModel import ProcModel
+from gui.elements.TableView import TableView
+from gui.elements.WindowBtnBar import WindowBtnBar
+from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
+
+
+class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
+    """
+    :class: Window to display and edit airfoils holes data
+    """
 
     __className = 'ThreeDShaping'
     '''
@@ -22,367 +27,441 @@ class ThreeDShaping(QMdiSubWindow):
     '''
 
     def __init__(self):
-        '''
+        """
         :method: Constructor
-        '''
-        logging.debug(self.__className+'.__init__')
+        """
+        self.btnBar = None
+        self.tabs = None
+        self.numConf_s = None
+        self.helpBar = None
+        self.window_ly = None
+        self.win = None
+        logging.debug(self.__className + '.__init__')
         super().__init__()
-        
+
         self.threeDShConf_M = ProcModel.ThreeDShConfModel()
-        self.threeDShConf_M.numRowsForConfigChanged.connect( self.modelNumConfigsChanged )
-        
+        self.threeDShConf_M.numRowsForConfigChanged.\
+            connect(self.model_num_configs_changed)
+
         self.threeDShUpDet_M = ProcModel.ThreeDShUpDetModel()
-        self.threeDShUpDet_M.numRowsForConfigChanged.connect( self.updateTabs)
-        
+        self.threeDShUpDet_M.numRowsForConfigChanged.connect(self.update_tabs)
+
         self.threeDShLoDet_M = ProcModel.ThreeDShLoDetModel()
-        self.threeDShLoDet_M.numRowsForConfigChanged.connect( self.updateTabs)
-        
+        self.threeDShLoDet_M.numRowsForConfigChanged.connect(self.update_tabs)
+
         self.threeDShPr_M = ProcModel.ThreeDShPrintModel()
-        
+
+        self.pm = ProcModel()
+
         self.rib_PM = []
         self.upC_PM = []
         self.loC_PM = []
 
-        self.numUpC_S = []
-        self.numLoC_S = []
+        self.numUpC_s = []
+        self.numLoC_s = []
 
-        self.buildWindow()
-    
-    def closeEvent(self, event):  # @UnusedVariable
-        '''
+        self.build_window()
+
+    def closeEvent(self, event):
+        """
         :method: Called at the time the user closes the window.
-        '''
-        logging.debug(self.__className+'.closeEvent') 
-        
-    def buildWindow(self):
-        '''
-        :method: Creates the window including all GUI elements. 
-            
-        Structure:: 
-        
+        """
+        logging.debug(self.__className + '.closeEvent')
+
+    def build_window(self):
+        """
+        :method: Creates the window including all GUI elements.
+
+        Structure::
+
             window
                 window_ly
                     numConfSpin
-                    
+
                     Tabs
                         ribTable
                         numUpSpin
                         upTable
                         numLoSpin
                         loTable
-                        
-                    printTable
+
+                    print_table
                     -------------------------
                             help_bar  | btn_bar
-        '''
+        """
         logging.debug(self.__className + '.build_window')
-        
+
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(750, 600)
 
-        self.window_Ly = QVBoxLayout()
-        
+        self.window_ly = QVBoxLayout()
+
         self.helpBar = WindowHelpBar()
-        
+
         #############################
         # Add window specifics here
         self.setWindowTitle(_("3D shaping"))
-        
-        numConf_L = QLabel(_('Number of groups'))
-        numConf_L.setAlignment(Qt.AlignRight)
-        numConf_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0,999)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numConf_S.setValue(self.threeDShConf_M.num_configs())
-        confEdit = self.numConf_S.lineEdit()
-        confEdit.setReadOnly(True)
-        self.numConf_S.valueChanged.connect(self.confSpinChange)
-        
-        numConfLayout = QHBoxLayout()
-        numConfLayout.addWidget(numConf_L)
-        numConfLayout.addWidget(self.numConf_S)
-        numConfLayout.addStretch()
-        self.window_Ly.addLayout(numConfLayout)
-        
+
+        num_conf_l = QLabel(_('Number of groups'))
+        num_conf_l.setAlignment(Qt.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed))
+        self.numConf_s = QSpinBox()
+        self.numConf_s.setRange(0, 999)
+        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                                 QSizePolicy.Fixed))
+        self.numConf_s.setValue(self.threeDShConf_M.num_configs())
+        conf_edit = self.numConf_s.lineEdit()
+        conf_edit.setReadOnly(True)
+        self.numConf_s.valueChanged.connect(self.conf_spin_change)
+
+        num_conf_layout = QHBoxLayout()
+        num_conf_layout.addWidget(num_conf_l)
+        num_conf_layout.addWidget(self.numConf_s)
+        num_conf_layout.addStretch()
+        self.window_ly.addLayout(num_conf_layout)
+
         self.tabs = QTabWidget()
-        self.window_Ly.addWidget(self.tabs)
-        
+        self.window_ly.addWidget(self.tabs)
+
         # check if there's already data
         if self.threeDShConf_M.num_configs() > 0:
-            self.modelNumConfigsChanged() 
+            self.model_num_configs_changed()
 
-        printTable = TableView()
-        printTable.setModel( self.threeDShPr_M )
-        printTable.verticalHeader().setVisible(False)
-        printTable.hideColumn(self.threeDShPr_M.OrderNumCol )
-        printTable.hideColumn(self.threeDShPr_M.columnCount() -2 )
-        printTable.hideColumn(self.threeDShPr_M.columnCount() -1 )
-        
+        print_table = TableView()
+        print_table.setModel(self.threeDShPr_M)
+        print_table.verticalHeader().setVisible(False)
+        print_table.hideColumn(self.threeDShPr_M.OrderNumCol)
+        print_table.hideColumn(self.threeDShPr_M.columnCount() - 2)
+        print_table.hideColumn(self.threeDShPr_M.columnCount() - 1)
+
         # TODO: remove currently not supported rows
-        printTable.setHelpBar(self.helpBar)
-        printTable.setHelpText(ProcModel.ThreeDShPrintModel.NameCol, _('3DShPrint-NameDesc'))
-        printTable.setHelpText(ProcModel.ThreeDShPrintModel.DrawCol, _('3DShPrint-DrawDesc'))
-        printTable.setHelpText(ProcModel.ThreeDShPrintModel.FirstPanelCol, _('3DShPrint-FirstPanelDesc'))
-        printTable.setHelpText(ProcModel.ThreeDShPrintModel.LastPanelCol, _('3DShPrint-LastPanelDesc'))
-        printTable.setHelpText(ProcModel.ThreeDShPrintModel.SymmetricCol, _('3DShPrint-SymmetricDesc'))
-        
-        printLayout = QHBoxLayout()
-        printLayout.addWidget(printTable)
-        printTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        printTable.setFixedHeight(2 + printTable.horizontalHeader().height() + 5*printTable.rowHeight(0))
-        self.window_Ly.addLayout(printLayout)
+        print_table.setHelpBar(self.helpBar)
+        print_table.setHelpText(ProcModel.ThreeDShPrintModel.NameCol,
+                                _('3DShPrint-NameDesc'))
+        print_table.setHelpText(ProcModel.ThreeDShPrintModel.DrawCol,
+                                _('3DShPrint-DrawDesc'))
+        print_table.setHelpText(ProcModel.ThreeDShPrintModel.FirstPanelCol,
+                                _('3DShPrint-FirstPanelDesc'))
+        print_table.setHelpText(ProcModel.ThreeDShPrintModel.LastPanelCol,
+                                _('3DShPrint-LastPanelDesc'))
+        print_table.setHelpText(ProcModel.ThreeDShPrintModel.SymmetricCol,
+                                _('3DShPrint-SymmetricDesc'))
+
+        print_layout = QHBoxLayout()
+        print_layout.addWidget(print_table)
+        print_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        print_table.setFixedHeight(2
+                                   + print_table.horizontalHeader().height()
+                                   + 5 * print_table.rowHeight(0))
+        self.window_ly.addLayout(print_layout)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/threeDShaping.html')
-        
-        bottomLayout = QHBoxLayout()
 
-        bottomLayout.addStretch() 
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.window_Ly.addLayout(bottomLayout)
-        
-        self.win.setLayout(self.window_Ly)
-        
-    def confSpinChange(self):
-        '''
-        :method: Called upon manual changes of the config spin. Does assure all elements will follow the user configuration. 
-        '''
-        logging.debug(self.__className+'.conf_spin_change')
-        self.threeDShConf_M.set_num_configs(self.numConf_S.value())
-    
-    def modelNumConfigsChanged(self):
-        '''
-        :method: Called upon canges of the configs model. Does assure all GUI elements will follow the changes. 
-        '''
-        logging.debug(self.__className+'.model_num_configs_changed')
-        
-        currentNumConfigs = self.threeDShConf_M.num_configs()
+        bottom_layout = QHBoxLayout()
 
-        self.numConf_S.blockSignals(True)
-        self.numConf_S.setValue( currentNumConfigs )
-        self.numConf_S.blockSignals(False)
-            
-        diff = abs(currentNumConfigs - self.tabs.count() )
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.window_ly.addLayout(bottom_layout)
+
+        self.win.setLayout(self.window_ly)
+
+    def conf_spin_change(self):
+        """
+        :method: Called upon manual changes of the config spin. Does assure all
+                 elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.conf_spin_change')
+        self.threeDShConf_M.set_num_configs(self.numConf_s.value())
+        self.pm.set_file_saved(False)
+
+    def model_num_configs_changed(self):
+        """
+        :method: Called upon changes of the configs model. Does assure all GUI
+                 elements will follow the changes.
+        """
+        logging.debug(self.__className + '.model_num_configs_changed')
+
+        current_num_configs = self.threeDShConf_M.num_configs()
+
+        self.numConf_s.blockSignals(True)
+        self.numConf_s.setValue(current_num_configs)
+        self.numConf_s.blockSignals(False)
+
+        diff = abs(current_num_configs - self.tabs.count())
         if diff != 0:
             # we have to update the tabs
-            i=0
-            if currentNumConfigs > self.tabs.count():
-                #add tabs
+            i = 0
+            if current_num_configs > self.tabs.count():
+                # add tabs
                 while i < diff:
-                    self.addTab()
+                    self.add_tab()
                     i += 1
             else:
-                #remove tabs
+                # remove tabs
                 while i < diff:
-                    self.removeTab()
+                    self.remove_tab()
                     i += 1
-    
-    def addTab(self):
-        '''
-        :method: Creates a new tab inculding all its widgets. 
-        '''
-        logging.debug(self.__className+'.add_tab')
-        
-        currNumTabs = self.tabs.count()
-        
-        tabWidget = QWidget()
-        tab_Ly = QVBoxLayout()
-        
+
+    def add_tab(self):
+        """
+        :method: Creates a new tab including all its widgets.
+        """
+        logging.debug(self.__className + '.add_tab')
+
+        curr_num_tabs = self.tabs.count()
+
+        tab_widget = QWidget()
+        tab_ly = QVBoxLayout()
+
         # Configuration 
-        ribTable = TableView()
+        rib_table = TableView()
         self.rib_PM.append(QSortFilterProxyModel())
-        self.rib_PM[currNumTabs].setSourceModel(self.threeDShConf_M)
-        self.rib_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShConfModel.ConfigNumCol)
-        self.rib_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
-        ribTable.setModel( self.rib_PM[currNumTabs] )
-        ribTable.verticalHeader().setVisible(False)
-        ribTable.hideColumn(self.threeDShConf_M.OrderNumCol )
-        ribTable.hideColumn(self.threeDShConf_M.columnCount() -1 )
-        ribTable.hideColumn(self.threeDShConf_M.columnCount() -2 )
-        
-        ribTable.enableIntValidator(ProcModel.ThreeDShConfModel.FirstRibCol, ProcModel.ThreeDShConfModel.LastRibCol, 1, 999)
-        
-        ribTable.setHelpBar(self.helpBar)
-        ribTable.setHelpText(ProcModel.ThreeDShConfModel.FirstRibCol, _('3DSh-FirstRibDesc'))
-        ribTable.setHelpText(ProcModel.ThreeDShConfModel.LastRibCol, _('3DSh-LastRibDesc'))
-        
-        rib_Ly = QHBoxLayout()
-        rib_Ly.addWidget(ribTable)
-        rib_Ly.addStretch()
-        ribTable.setFixedWidth(2 + ribTable.columnWidth(ProcModel.ThreeDShConfModel.FirstRibCol) \
-                               + ribTable.columnWidth(ProcModel.ThreeDShConfModel.LastRibCol))
-        ribTable.setFixedHeight(2 + ribTable.horizontalHeader().height() + ribTable.rowHeight(0))
-        tab_Ly.addLayout(rib_Ly)
-        
-        ############### upper cuts
-        numUpC_L = QLabel(_('Number of upper cuts'))
-        numUpC_L.setAlignment(Qt.AlignRight)
-        numUpC_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numUpC_S.append(QSpinBox())
-        self.numUpC_S[currNumTabs].setRange(0,2)
-        self.numUpC_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numUpC_S[currNumTabs].setValue(self.threeDShUpDet_M.num_rows_for_config(currNumTabs + 1))
-        confEdit = self.numUpC_S[currNumTabs].lineEdit()
-        confEdit.setReadOnly(True)
-        self.numUpC_S[currNumTabs].valueChanged.connect(self.upCChange)
-        
-        numUpC_Ly = QHBoxLayout()
-        numUpC_Ly.addWidget(numUpC_L)
-        numUpC_Ly.addWidget(self.numUpC_S[currNumTabs])
-        numUpC_Ly.addStretch()
-        tab_Ly.addLayout(numUpC_Ly)
-        
-        upC_T = TableView()
+        self.rib_PM[curr_num_tabs].setSourceModel(self.threeDShConf_M)
+        self.rib_PM[curr_num_tabs].\
+            setFilterKeyColumn(ProcModel.ThreeDShConfModel.ConfigNumCol)
+        self.rib_PM[curr_num_tabs].\
+            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        rib_table.setModel(self.rib_PM[curr_num_tabs])
+        rib_table.verticalHeader().setVisible(False)
+        rib_table.hideColumn(self.threeDShConf_M.OrderNumCol)
+        rib_table.hideColumn(self.threeDShConf_M.columnCount() - 1)
+        rib_table.hideColumn(self.threeDShConf_M.columnCount() - 2)
+
+        rib_table.enableIntValidator(ProcModel.ThreeDShConfModel.FirstRibCol,
+                                     ProcModel.ThreeDShConfModel.LastRibCol,
+                                     1, 999)
+
+        rib_table.setHelpBar(self.helpBar)
+        rib_table.setHelpText(ProcModel.ThreeDShConfModel.FirstRibCol,
+                              _('3DSh-FirstRibDesc'))
+        rib_table.setHelpText(ProcModel.ThreeDShConfModel.LastRibCol,
+                              _('3DSh-LastRibDesc'))
+
+        rib_ly = QHBoxLayout()
+        rib_ly.addWidget(rib_table)
+        rib_ly.addStretch()
+        rib_table.setFixedWidth(2
+                                + rib_table.columnWidth(
+                                    ProcModel.ThreeDShConfModel.FirstRibCol)
+                                + rib_table.columnWidth(
+                                    ProcModel.ThreeDShConfModel.LastRibCol))
+        rib_table.setFixedHeight(2
+                                 + rib_table.horizontalHeader().height()
+                                 + rib_table.rowHeight(0))
+        tab_ly.addLayout(rib_ly)
+
+        # upper cuts
+        num_up_c_l = QLabel(_('Number of upper cuts'))
+        num_up_c_l.setAlignment(Qt.AlignRight)
+        num_up_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed))
+        self.numUpC_s.append(QSpinBox())
+        self.numUpC_s[curr_num_tabs].setRange(0, 2)
+        self.numUpC_s[curr_num_tabs].\
+            setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                      QSizePolicy.Fixed))
+        self.numUpC_s[curr_num_tabs].setValue(
+            self.threeDShUpDet_M.num_rows_for_config(curr_num_tabs + 1))
+        conf_edit = self.numUpC_s[curr_num_tabs].lineEdit()
+        conf_edit.setReadOnly(True)
+        self.numUpC_s[curr_num_tabs].valueChanged.connect(self.up_c_change)
+
+        num_up_c_ly = QHBoxLayout()
+        num_up_c_ly.addWidget(num_up_c_l)
+        num_up_c_ly.addWidget(self.numUpC_s[curr_num_tabs])
+        num_up_c_ly.addStretch()
+        tab_ly.addLayout(num_up_c_ly)
+
+        up_c_t = TableView()
         self.upC_PM.append(QSortFilterProxyModel())
-        self.upC_PM[currNumTabs].setSourceModel(self.threeDShUpDet_M)
-        self.upC_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShUpDetModel.ConfigNumCol)
-        self.upC_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
-        upC_T.setModel( self.upC_PM[currNumTabs] )
-        upC_T.verticalHeader().setVisible(False)
-        upC_T.hideColumn(self.threeDShUpDet_M.OrderNumCol )
-        upC_T.hideColumn(self.threeDShUpDet_M.columnCount() -1 )
-        upC_T.hideColumn(self.threeDShUpDet_M.columnCount() -2 )
-        
-        upC_T.enableIntValidator(ProcModel.ThreeDShUpDetModel.IniPointCol, ProcModel.ThreeDShUpDetModel.CutPointCol, 0, 100)
-        upC_T.enableDoubleValidator(ProcModel.ThreeDShUpDetModel.DepthCol, ProcModel.ThreeDShUpDetModel.DepthCol, -1, 1, 1)
-        
-        upC_T.setHelpBar(self.helpBar)
-        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.IniPointCol, _('3DSh-IniPointDesc'))
-        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.CutPointCol, _('3DSh-CutPointDesc'))
-        upC_T.setHelpText(ProcModel.ThreeDShUpDetModel.DepthCol, _('3DSh-DepthDesc'))
-        
-        upC_Ly = QHBoxLayout()
-        upC_Ly.addWidget(upC_T)
-        upC_Ly.addStretch()
-        upC_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        upC_T.setFixedHeight(2 + 3*upC_T.horizontalHeader().height())
-        tab_Ly.addLayout(upC_Ly)
-        
-        ############### lower cuts
-        numLoC_L = QLabel(_('Number of lower cuts'))
-        numLoC_L.setAlignment(Qt.AlignRight)
-        numLoC_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLoC_S.append(QSpinBox())
-        self.numLoC_S[currNumTabs].setRange(0,1)
-        self.numLoC_S[currNumTabs].setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.numLoC_S[currNumTabs].setValue(self.threeDShLoDet_M.num_rows_for_config(currNumTabs + 1))
-        confEdit = self.numLoC_S[currNumTabs].lineEdit()
-        confEdit.setReadOnly(True)
-        self.numLoC_S[currNumTabs].valueChanged.connect(self.loCChange)
-        
-        numLoC_Ly = QHBoxLayout()
-        numLoC_Ly.addWidget(numLoC_L)
-        numLoC_Ly.addWidget(self.numLoC_S[currNumTabs])
-        numLoC_Ly.addStretch()
-        tab_Ly.addLayout(numLoC_Ly)
-        
-        loC_T = TableView()
+        self.upC_PM[curr_num_tabs].setSourceModel(self.threeDShUpDet_M)
+        self.upC_PM[curr_num_tabs].\
+            setFilterKeyColumn(ProcModel.ThreeDShUpDetModel.ConfigNumCol)
+        self.upC_PM[curr_num_tabs].\
+            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        up_c_t.setModel(self.upC_PM[curr_num_tabs])
+        up_c_t.verticalHeader().setVisible(False)
+        up_c_t.hideColumn(self.threeDShUpDet_M.OrderNumCol)
+        up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 1)
+        up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 2)
+
+        up_c_t.enableIntValidator(ProcModel.ThreeDShUpDetModel.IniPointCol,
+                                  ProcModel.ThreeDShUpDetModel.CutPointCol,
+                                  0, 100)
+        up_c_t.enableDoubleValidator(ProcModel.ThreeDShUpDetModel.DepthCol,
+                                     ProcModel.ThreeDShUpDetModel.DepthCol,
+                                     -1, 1, 1)
+
+        up_c_t.setHelpBar(self.helpBar)
+        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.IniPointCol,
+                           _('3DSh-IniPointDesc'))
+        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.CutPointCol,
+                           _('3DSh-CutPointDesc'))
+        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.DepthCol,
+                           _('3DSh-DepthDesc'))
+
+        up_c_ly = QHBoxLayout()
+        up_c_ly.addWidget(up_c_t)
+        up_c_ly.addStretch()
+        up_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        up_c_t.setFixedHeight(2 + 3 * up_c_t.horizontalHeader().height())
+        tab_ly.addLayout(up_c_ly)
+
+        # lower cuts
+        num_lo_c_l = QLabel(_('Number of lower cuts'))
+        num_lo_c_l.setAlignment(Qt.AlignRight)
+        num_lo_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed))
+        self.numLoC_s.append(QSpinBox())
+        self.numLoC_s[curr_num_tabs].setRange(0, 1)
+        self.numLoC_s[curr_num_tabs].\
+            setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                      QSizePolicy.Fixed))
+        self.numLoC_s[curr_num_tabs].\
+            setValue(self.threeDShLoDet_M.num_rows_for_config(curr_num_tabs + 1))
+        conf_edit = self.numLoC_s[curr_num_tabs].lineEdit()
+        conf_edit.setReadOnly(True)
+        self.numLoC_s[curr_num_tabs].valueChanged.connect(self.lo_c_change)
+
+        num_lo_c_ly = QHBoxLayout()
+        num_lo_c_ly.addWidget(num_lo_c_l)
+        num_lo_c_ly.addWidget(self.numLoC_s[curr_num_tabs])
+        num_lo_c_ly.addStretch()
+        tab_ly.addLayout(num_lo_c_ly)
+
+        lo_c_t = TableView()
         self.loC_PM.append(QSortFilterProxyModel())
-        self.loC_PM[currNumTabs].setSourceModel(self.threeDShLoDet_M)
-        self.loC_PM[currNumTabs].setFilterKeyColumn(ProcModel.ThreeDShLoDetModel.ConfigNumCol)
-        self.loC_PM[currNumTabs].setFilterRegExp( QRegExp( str(currNumTabs+1) ) )
-        loC_T.setModel( self.loC_PM[currNumTabs] )
-        loC_T.verticalHeader().setVisible(False)
-        loC_T.hideColumn(self.threeDShLoDet_M.OrderNumCol )
-        loC_T.hideColumn(self.threeDShLoDet_M.columnCount() -1 )
-        loC_T.hideColumn(self.threeDShLoDet_M.columnCount() -2 )
-        
-        loC_T.enableIntValidator(ProcModel.ThreeDShLoDetModel.IniPointCol, ProcModel.ThreeDShLoDetModel.CutPointCol, 0, 100)
-        loC_T.enableDoubleValidator(ProcModel.ThreeDShLoDetModel.DepthCol, ProcModel.ThreeDShLoDetModel.DepthCol, -1, 1, 1)
-        
-        loC_T.setHelpBar(self.helpBar)
-        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.IniPointCol, _('3DSh-IniPointDesc'))
-        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.CutPointCol, _('3DSh-CutPointDesc'))
-        loC_T.setHelpText(ProcModel.ThreeDShLoDetModel.DepthCol, _('3DSh-DepthDesc'))
-        
-        loC_Ly = QHBoxLayout()
-        loC_Ly.addWidget(loC_T)
-        loC_Ly.addStretch()
-        loC_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        loC_T.setFixedHeight(2 + 2*loC_T.horizontalHeader().height())
-        tab_Ly.addLayout(loC_Ly)
-        
-        tabWidget.setLayout(tab_Ly)
- 
-        i =  self.tabs.addTab(tabWidget, str(currNumTabs+1) )
+        self.loC_PM[curr_num_tabs].setSourceModel(self.threeDShLoDet_M)
+        self.loC_PM[curr_num_tabs].\
+            setFilterKeyColumn(ProcModel.ThreeDShLoDetModel.ConfigNumCol)
+        self.loC_PM[curr_num_tabs].\
+            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        lo_c_t.setModel(self.loC_PM[curr_num_tabs])
+        lo_c_t.verticalHeader().setVisible(False)
+        lo_c_t.hideColumn(self.threeDShLoDet_M.OrderNumCol)
+        lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 1)
+        lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 2)
+
+        lo_c_t.enableIntValidator(ProcModel.ThreeDShLoDetModel.IniPointCol,
+                                  ProcModel.ThreeDShLoDetModel.CutPointCol,
+                                  0, 100)
+        lo_c_t.enableDoubleValidator(ProcModel.ThreeDShLoDetModel.DepthCol,
+                                     ProcModel.ThreeDShLoDetModel.DepthCol,
+                                     -1, 1, 1)
+
+        lo_c_t.setHelpBar(self.helpBar)
+        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.IniPointCol,
+                           _('3DSh-IniPointDesc'))
+        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.CutPointCol,
+                           _('3DSh-CutPointDesc'))
+        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.DepthCol,
+                           _('3DSh-DepthDesc'))
+
+        lo_c_ly = QHBoxLayout()
+        lo_c_ly.addWidget(lo_c_t)
+        lo_c_ly.addStretch()
+        lo_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        lo_c_t.setFixedHeight(2 + 2 * lo_c_t.horizontalHeader().height())
+        tab_ly.addLayout(lo_c_ly)
+
+        tab_widget.setLayout(tab_ly)
+
+        i = self.tabs.addTab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
-    def removeTab(self):
-        '''
-        :method: Removes the last tab from the GUI. Does take care at the same time of the class internal elements and the data model. 
-        ''' 
-        logging.debug(self.__className+'.remove_tab')
+    def remove_tab(self):
+        """
+        :method: Removes the last tab from the GUI. Does take care at the same
+                 time of the class internal elements and the data model.
+        """
+        logging.debug(self.__className + '.remove_tab')
 
-        numTabs = self.tabs.count()
-        self.tabs.removeTab(numTabs-1)
+        num_tabs = self.tabs.count()
+        self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
-        
-        self.rib_PM.pop(numTabs-1)
-        self.upC_PM.pop(numTabs-1)
-        self.loC_PM.pop(numTabs-1)
 
-        self.numUpC_S.pop(numTabs-1)
-        self.numLoC_S.pop(numTabs-1)
-        
+        self.rib_PM.pop(num_tabs - 1)
+        self.upC_PM.pop(num_tabs - 1)
+        self.loC_PM.pop(num_tabs - 1)
+
+        self.numUpC_s.pop(num_tabs - 1)
+        self.numLoC_s.pop(num_tabs - 1)
+
         # cleanup database
-        self.threeDShConf_M.set_num_rows_for_config(numTabs, 0)
-        self.threeDShUpDet_M.set_num_rows_for_config(numTabs, 0)
-        self.threeDShLoDet_M.set_num_rows_for_config(numTabs, 0)
-    
-    def updateTabs(self):
-        '''
-        :method: called upon canges of the details models. Does assure all GUI elements will follow the changes. 
-        '''
-        logging.debug(self.__className+'.update_tabs')
-    
-        i=0
-        while i< self.tabs.count():
-            if self.numUpC_S[i].value != self.threeDShUpDet_M.num_rows_for_config(i + 1):
-                self.numUpC_S[i].blockSignals(True)
-                self.numUpC_S[i].setValue(self.threeDShUpDet_M.num_rows_for_config(i + 1))
-                self.numUpC_S[i].blockSignals(False)
-            
-            if self.numLoC_S[i].value != self.threeDShLoDet_M.num_rows_for_config(i + 1):
-                self.numLoC_S[i].blockSignals(True)
-                self.numLoC_S[i].setValue(self.threeDShLoDet_M.num_rows_for_config(i + 1))
-                self.numLoC_S[i].blockSignals(False)
-            i+=1
+        self.threeDShConf_M.set_num_rows_for_config(num_tabs, 0)
+        self.threeDShUpDet_M.set_num_rows_for_config(num_tabs, 0)
+        self.threeDShLoDet_M.set_num_rows_for_config(num_tabs, 0)
 
-    def upCChange(self): 
-        '''
-        :method: Called upon manual changes of the number of lower cuts spin. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.upCChange')
-        self.threeDShUpDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numUpC_S[self.tabs.currentIndex()].value())
+    def update_tabs(self):
+        """
+        :method: called upon changes of the details models. Does assure all
+                 GUI elements will follow the changes.
+        """
+        logging.debug(self.__className + '.update_tabs')
 
-    def loCChange(self): 
-        '''
-        :method: Called upon manual changes of the number of lower cuts spin. Does assure all elements will follow the user configuration. 
-        '''           
-        logging.debug(self.__className+'.loCChange')
-        self.threeDShLoDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1, self.numLoC_S[self.tabs.currentIndex()].value())
-    
-    def btnPress(self, q):
-        '''
+        i = 0
+        while i < self.tabs.count():
+            if self.numUpC_s[i].value != \
+                    self.threeDShUpDet_M.num_rows_for_config(i + 1):
+                self.numUpC_s[i].blockSignals(True)
+                self.numUpC_s[i].setValue(
+                    self.threeDShUpDet_M.num_rows_for_config(i + 1))
+                self.numUpC_s[i].blockSignals(False)
+
+            if self.numLoC_s[i].value != \
+                    self.threeDShLoDet_M.num_rows_for_config(i + 1):
+                self.numLoC_s[i].blockSignals(True)
+                self.numLoC_s[i].setValue(
+                    self.threeDShLoDet_M.num_rows_for_config(i + 1))
+                self.numLoC_s[i].blockSignals(False)
+            i += 1
+
+    def up_c_change(self):
+        """
+        :method: Called upon manual changes of the number of lower cuts spin.
+                 Does assure all elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.up_c_change')
+        self.threeDShUpDet_M.set_num_rows_for_config(
+            self.tabs.currentIndex() + 1,
+            self.numUpC_s[self.tabs.currentIndex()].value())
+        self.pm.set_file_saved(False)
+
+    def lo_c_change(self):
+        """
+        :method: Called upon manual changes of the number of lower cuts spin.
+                 Does assure all elements will follow the user configuration.
+        """
+        logging.debug(self.__className + '.lo_c_change')
+        self.threeDShLoDet_M.set_num_rows_for_config(
+            self.tabs.currentIndex() + 1,
+            self.numLoC_s[self.tabs.currentIndex()].value())
+        self.pm.set_file_saved(False)
+
+    def btn_press(self, q):
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className+'.btn_press')
+        """
+        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
-                        
+
         elif q == 'Ok':
             self.close()
-            
+
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press '+q)
-    
+            logging.error(self.__className
+                          + '.btn_press unrecognized button press '
+                          + q)

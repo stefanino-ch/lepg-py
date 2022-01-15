@@ -10,9 +10,10 @@ from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
+from Singleton.Singleton import Singleton
 
 
-class GlueVent(QMdiSubWindow):
+class GlueVent(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Glue vent data
     """
@@ -31,8 +32,11 @@ class GlueVent(QMdiSubWindow):
         self.help_bar = None
         self.window_ly = None
         self.win = None
+
         logging.debug(self.__className + '.__init__')
         super().__init__()
+
+        self.pm = ProcModel()
 
         self.glueVent_M = ProcModel.GlueVentModel()
         self.glueVent_M.usageUpd.connect(self.usage_update)
@@ -163,6 +167,7 @@ class GlueVent(QMdiSubWindow):
             self.glueVent_M.set_is_used(False)
         else:
             self.glueVent_M.set_is_used(True)
+        self.pm.set_file_saved(False)
 
     def btn_press(self, q):
         """

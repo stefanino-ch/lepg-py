@@ -5,7 +5,6 @@
 
 import logging
 
-from data.ProcModel import ProcModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QMdiSubWindow,
@@ -19,9 +18,12 @@ from PyQt5.QtWidgets import (QMdiSubWindow,
                              QPushButton,
                              QDataWidgetMapper,
                              )
+
+from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
+from Singleton.Singleton import Singleton
 
 
 class AddRibPoints(QMdiSubWindow):
@@ -34,16 +36,26 @@ class AddRibPoints(QMdiSubWindow):
     :attr: Does help to indicate the source of the log messages
     '''
 
-    def __init__(self):
+    def __init__(self, metaclass=Singleton):
         """
         :method: Constructor
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
 
+        self.proxyModel = None
+        self.helpBar = None
+        self.windowLayout = None
+        self.win = None
+        self.btnBar = None
+        self.wrapper = None
+        self.numLines_s = None
+
+        self.pm = ProcModel()
+
         self.addRibPts_M = ProcModel.AddRibPointsModel()
-        self.addRibPts_M.numRowsForConfigChanged.connect(self.modelSizeChanged)
-        self.buildWindow()
+        self.addRibPts_M.numRowsForConfigChanged.connect(self.model_size_changed)
+        self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
         """
@@ -51,7 +63,7 @@ class AddRibPoints(QMdiSubWindow):
         """
         logging.debug(self.__className + '.closeEvent')
 
-    def buildWindow(self):
+    def build_window(self):
         """
         :method: Creates the window including all GUI elements.
 
@@ -85,97 +97,98 @@ class AddRibPoints(QMdiSubWindow):
         self.wrapper = QDataWidgetMapper()
         self.wrapper.setModel(self.addRibPts_M)
 
-        numLines_L = QLabel(_('Number of configs'))
-        numLines_L.setAlignment(Qt.AlignRight)
-        numLines_L.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_lines_l = QLabel(_('Number of configs'))
+        num_lines_l.setAlignment(Qt.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed))
 
-        self.numLines_S = QSpinBox()
-        self.numLines_S.setRange(0, 999)
-        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+        self.numLines_s = QSpinBox()
+        self.numLines_s.setRange(0, 999)
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                   QSizePolicy.Fixed))
-        self.numLines_S.valueChanged.connect(self.numLinesChange)
-        numLinesEdit = self.numLines_S.lineEdit()
-        numLinesEdit.setReadOnly(True)
+        self.numLines_s.valueChanged.connect(self.num_lines_change)
+        num_lines_edit = self.numLines_s.lineEdit()
+        num_lines_edit.setReadOnly(True)
 
-        numLinesLayout = QHBoxLayout()
-        numLinesLayout.addWidget(numLines_L)
-        numLinesLayout.addWidget(self.numLines_S)
-        numLinesLayout.addStretch()
-        self.windowLayout.addLayout(numLinesLayout)
+        num_lines_layout = QHBoxLayout()
+        num_lines_layout.addWidget(num_lines_l)
+        num_lines_layout.addWidget(self.numLines_s)
+        num_lines_layout.addStretch()
+        self.windowLayout.addLayout(num_lines_layout)
         ###############
 
         self.proxyModel = QSortFilterProxyModel()
         self.proxyModel.setSourceModel(self.addRibPts_M)
 
-        ribs_T = TableView()
-        ribs_T.setModel(self.proxyModel)
-        ribs_T.verticalHeader().setVisible(False)
-        ribs_T.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        ribs_T.hideColumn(self.addRibPts_M.columnCount() - 1)
-        ribs_T.hideColumn(self.addRibPts_M.columnCount() - 2)
-        self.windowLayout.addWidget(ribs_T)
+        ribs_t = TableView()
+        ribs_t.setModel(self.proxyModel)
+        ribs_t.verticalHeader().setVisible(False)
+        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        ribs_t.hideColumn(self.addRibPts_M.columnCount() - 1)
+        ribs_t.hideColumn(self.addRibPts_M.columnCount() - 2)
+        self.windowLayout.addWidget(ribs_t)
 
-        ribs_T.enableIntValidator(ProcModel.AddRibPointsModel.OrderNumCol,
+        ribs_t.enableIntValidator(ProcModel.AddRibPointsModel.OrderNumCol,
                                   ProcModel.AddRibPointsModel.OrderNumCol,
                                   1, 999)
-        ribs_T.enableDoubleValidator(ProcModel.AddRibPointsModel.XCoordCol,
+        ribs_t.enableDoubleValidator(ProcModel.AddRibPointsModel.XCoordCol,
                                      ProcModel.AddRibPointsModel.YCoordCol,
                                      1, 100, 2)
 
-        ribs_T.setHelpBar(self.helpBar)
-        ribs_T.setHelpText(ProcModel.AddRibPointsModel.OrderNumCol,
+        ribs_t.setHelpBar(self.helpBar)
+        ribs_t.setHelpText(ProcModel.AddRibPointsModel.OrderNumCol,
                            _('OrderNumDesc'))
-        ribs_T.setHelpText(ProcModel.AddRibPointsModel.XCoordCol,
+        ribs_t.setHelpText(ProcModel.AddRibPointsModel.XCoordCol,
                            _('AddRibPts-XCoordDesc'))
-        ribs_T.setHelpText(ProcModel.AddRibPointsModel.YCoordCol,
+        ribs_t.setHelpText(ProcModel.AddRibPointsModel.YCoordCol,
                            _('AddRibPts-YCoordDesc'))
 
-        sortBtn = QPushButton(_('Sort by order_num'))
-        sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                          QSizePolicy.Fixed))
-        sortBtn.clicked.connect(self.sortBtnPress)
+        sort_btn = QPushButton(_('Sort by order_num'))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed))
+        sort_btn.clicked.connect(self.sort_btn_press)
 
-        self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.addRibPts_M.num_rows_for_config(1))
-        self.numLines_S.blockSignals(False)
+        self.numLines_s.blockSignals(True)
+        self.numLines_s.setValue(self.addRibPts_M.num_rows_for_config(1))
+        self.numLines_s.blockSignals(False)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                               QSizePolicy.Fixed))
-        self.btnBar.my_signal.connect(self.btnPress)
+        self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/addRibPoints.html')
 
-        bottomLayout = QHBoxLayout()
-        bottomLayout.addWidget(sortBtn)
-        bottomLayout.addStretch()
-        bottomLayout.addWidget(self.helpBar)
-        bottomLayout.addWidget(self.btnBar)
-        self.windowLayout.addLayout(bottomLayout)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(sort_btn)
+        bottom_layout.addStretch()
+        bottom_layout.addWidget(self.helpBar)
+        bottom_layout.addWidget(self.btnBar)
+        self.windowLayout.addLayout(bottom_layout)
 
         self.win.setLayout(self.windowLayout)
 
-    def modelSizeChanged(self):
+    def model_size_changed(self):
         """
         :method: Called after the model has been changed it's size. Herein we
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.modelSizeChanged')
-        self.numLines_S.blockSignals(True)
-        self.numLines_S.setValue(self.addRibPts_M.num_rows_for_config(1))
-        self.numLines_S.blockSignals(False)
+        logging.debug(self.__className + '.model_size_changed')
+        self.numLines_s.blockSignals(True)
+        self.numLines_s.setValue(self.addRibPts_M.num_rows_for_config(1))
+        self.numLines_s.blockSignals(False)
 
-    def numLinesChange(self):
+    def num_lines_change(self):
         """
         :method: Called upon manual changes of the lines spin. Does assure all
                  elements will follow the user configuration.
         """
         logging.debug(self.__className + '.num_lines_change')
-        self.addRibPts_M.set_num_rows_for_config(1, self.numLines_S.value())
+        self.addRibPts_M.set_num_rows_for_config(1, self.numLines_s.value())
+        self.pm.set_file_saved(False)
 
-    def sortBtnPress(self):
+    def sort_btn_press(self):
         """
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
@@ -186,7 +199,7 @@ class AddRibPoints(QMdiSubWindow):
                              Qt.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
-    def btnPress(self, q):
+    def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """

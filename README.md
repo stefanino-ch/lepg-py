@@ -1,8 +1,8 @@
 # lepg-py
 
-Latest_Windows_Version = '3.17.2'
+Latest_Windows_Version = '3.17.3'
 
-Latest_Linux_Version = '3.17.2'
+Latest_Linux_Version = '3.17.1'
 
 Latest_Mac_Version = '3.17.2'
 
