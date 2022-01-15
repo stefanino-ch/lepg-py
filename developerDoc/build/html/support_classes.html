@@ -742,7 +742,8 @@ for the given parameters.</p>
 <dt class="field-odd">Class</dt>
 <dd class="field-odd"><p>Does take care about the data handling for the pre-processor.
 Reads and writes the data files
-Holds as a central point all temporary data during program execution</p>
+Holds as a central point all temporary data during program
+execution</p>
 </dd>
 </dl>
 <p>Is implemented as a <strong>Singleton</strong>. Even if it is instantiated multiple
@@ -1408,9 +1409,54 @@ they should be well known.</p>
 <dd class="field-odd"><p>Sent out as soon a file was opened or saved
 The first string indicates the class name
 The second string indicates
-- if a file was opened
-- if a file was saved
-- Filename and Path has been changed</p>
+- Data status changes saved/ edited
+- Filename and path has been changed
+- File version has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.PreProcModel.PreProcModel.data_edit">
+<span class="sig-name descname"><span class="pre">data_edit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.PreProcModel.PreProcModel.data_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon data edit activities within the PreProcModel.
+Does set the internal flags to track the data status</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.PreProcModel.PreProcModel.file_saved">
+<span class="sig-name descname"><span class="pre">file_saved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.PreProcModel.PreProcModel.file_saved" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the current status of the pre-proc file</p>
+</dd>
+<dt class="field-even">Retval</dt>
+<dd class="field-even"><p>File saved = True
+Unsaved data = False</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.PreProcModel.PreProcModel.file_saved_char">
+<span class="sig-name descname"><span class="pre">file_saved_char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.PreProcModel.PreProcModel.file_saved_char" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the current status of the pre-proc file as character</p>
+</dd>
+<dt class="field-even">Retval</dt>
+<dd class="field-even"><p>Y = File saved
+N = Unsaved data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1440,7 +1486,7 @@ The second string indicates
 <span class="sig-name descname"><span class="pre">open_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.PreProcModel.PreProcModel.open_file" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks for unapplied/ unsaved data, and appropriate handling.
+<dd class="field-odd"><p>Checks for unsaved data, and appropriate handling.
 Does the File Open dialog handling.</p>
 </dd>
 </dl>
@@ -1491,6 +1537,19 @@ writing process.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>file_name</strong> – String containing full path and filename</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.PreProcModel.PreProcModel.set_file_saved">
+<span class="sig-name descname"><span class="pre">set_file_saved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_saved_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.PreProcModel.PreProcModel.set_file_saved" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Changes the internal flag to
+File saved = True
+Unsaved data = False
+Emits a signal after every change.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7484,7 +7543,7 @@ as they should be well known.</p>
 <span class="sig-name descname"><span class="pre">__fileNamePath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcModel.ProcModel.__fileNamePath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>full path and name of the data file currently in use</p>
+<dd class="field-odd"><p>Full path and name of the data file currently in use</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7494,17 +7553,17 @@ as they should be well known.</p>
 <span class="sig-name descname"><span class="pre">__fileVersion</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcModel.ProcModel.__fileVersion" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>version number of the file currently in use</p>
+<dd class="field-odd"><p>Version number of the file currently in use</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="data.ProcModel.ProcModel.__statusBar">
-<span class="sig-name descname"><span class="pre">__statusBar</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcModel.ProcModel.__statusBar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.__latestFileVersion">
+<span class="sig-name descname"><span class="pre">__latestFileVersion</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3.17'</span></em><a class="headerlink" href="#data.ProcModel.ProcModel.__latestFileVersion" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Reference to the main window needed for status bar update</p>
+<dd class="field-odd"><p>Version number of the currently supported processor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7522,9 +7581,54 @@ as they should be well known.</p>
 <dd class="field-odd"><p>Sent out as soon a file was opened or saved
 The first string indicates the class name
 The second string indicates
-- if a file was opened
-- if a file was saved
-- Filename and Path has been changed</p>
+- Data status changes saved/ edited
+- Filename and path has been changed
+- File version has been changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.data_edit">
+<span class="sig-name descname"><span class="pre">data_edit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.data_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Called upon data edit activities within the proc model.
+Does set the internal flags to track the data status</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.file_saved">
+<span class="sig-name descname"><span class="pre">file_saved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.file_saved" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the current status of the proc file</p>
+</dd>
+<dt class="field-even">Retval</dt>
+<dd class="field-even"><p>File saved = True
+Unsaved data = False</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.file_saved_char">
+<span class="sig-name descname"><span class="pre">file_saved_char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.file_saved_char" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Returns the current status of the proc file as character</p>
+</dd>
+<dt class="field-even">Retval</dt>
+<dd class="field-even"><p>Y = File saved
+N = Unsaved data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7621,6 +7725,19 @@ writing process.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.set_file_saved">
+<span class="sig-name descname"><span class="pre">set_file_saved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_saved_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.set_file_saved" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Changes the internal flag to
+File saved = True
+Unsaved data = False
+Emits a signal after every change.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="data.ProcModel.ProcModel.set_file_version">
 <span class="sig-name descname"><span class="pre">set_file_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.set_file_version" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -7648,19 +7765,11 @@ known version number.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="data.ProcModel.ProcModel.write_file">
-<span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_proc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.write_file" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data.ProcModel.ProcModel.write_for_proc_file">
+<span class="sig-name descname"><span class="pre">write_for_proc_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcModel.ProcModel.write_for_proc_file" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Writes all the values into a data file.</p>
-</dd>
-<dt class="field-even">Warning</dt>
-<dd class="field-even"><p>Filename must have been set already before, unless the file
-shall be written for the PreProcessor.</p>
-</dd>
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>for_proc</strong> – Set this to True if the file must be saved in the
-directory where the PreProcessor resides</p>
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Writes the file directly to the proc directory</p>
 </dd>
 </dl>
 </dd></dl>
