@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2022-01-14 11:50+0100\n"
-"PO-Revision-Date: 2022-01-14 11:50+0100\n"
+"POT-Creation-Date: 2022-01-15 06:50+0100\n"
+"PO-Revision-Date: 2022-01-15 08:05+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -29,7 +29,7 @@ msgstr ""
 "according processor is located."
 
 #: data/PreProcModel.py:195 data/PreProcOutfileReader.py:83
-#: data/ProcModel.py:268 data/ProcModel.py:334
+#: data/ProcModel.py:269 data/ProcModel.py:335
 msgid "File read error"
 msgstr ""
 
@@ -40,18 +40,18 @@ msgid ""
 msgstr ""
 
 #: data/PreProcModel.py:199 data/PreProcOutfileReader.py:87
-#: data/ProcModel.py:272 data/ProcModel.py:338
+#: data/ProcModel.py:273 data/ProcModel.py:339
 msgid ""
 "\n"
 "Title detected: "
 msgstr ""
 
-#: data/PreProcModel.py:220 data/ProcModel.py:360 data/ProcModel.py:404
-#: gui/MainWindow.py:296
+#: data/PreProcModel.py:220 data/ProcModel.py:361 data/ProcModel.py:405
+#: gui/MainWindow.py:291
 msgid "Unsaved data"
 msgstr ""
 
-#: data/PreProcModel.py:221 data/ProcModel.py:361 data/ProcModel.py:405
+#: data/PreProcModel.py:221 data/ProcModel.py:362 data/ProcModel.py:406
 msgid ""
 "You have unsaved data. \n"
 "\n"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Cell Num"
 msgstr ""
 
-#: data/PreProcModel.py:599 data/ProcModel.py:694
+#: data/PreProcModel.py:599 data/ProcModel.py:695
 msgid "Coef"
 msgstr ""
 
@@ -91,20 +91,20 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: data/PreProcModel.py:601 data/ProcModel.py:5074
+#: data/PreProcModel.py:601 data/ProcModel.py:5075
 #: gui/PreProcCellsDistribution.py:103
 msgid "Num cells"
 msgstr ""
 
-#: data/PreProcModel.py:736 data/ProcModel.py:5071
+#: data/PreProcModel.py:736 data/ProcModel.py:5072
 msgid "Wing name"
 msgstr ""
 
-#: data/PreProcModel.py:828 data/PreProcModel.py:965 data/ProcModel.py:2024
-#: data/ProcModel.py:3159 gui/AirfoilThickness.py:71 gui/CalageVar.py:73
-#: gui/GlueVent.py:77 gui/JoncsDefinition.py:218 gui/PartsSeparation.py:76
+#: data/PreProcModel.py:828 data/PreProcModel.py:965 data/ProcModel.py:2025
+#: data/ProcModel.py:3160 gui/AirfoilThickness.py:83 gui/CalageVar.py:85
+#: gui/GlueVent.py:81 gui/JoncsDefinition.py:243 gui/PartsSeparation.py:80
 #: gui/PreProcCellsDistribution.py:87 gui/PreProcData.py:201
-#: gui/SpecWingTip.py:72 gui/ThreeDDxf.py:71 gui/TwoDDxf.py:72
+#: gui/SpecWingTip.py:83 gui/ThreeDDxf.py:83 gui/TwoDDxf.py:83
 msgid "Type"
 msgstr ""
 
@@ -196,874 +196,872 @@ msgstr ""
 msgid "Please wait.. reading might take some time"
 msgstr ""
 
-#: data/ProcModel.py:270
+#: data/ProcModel.py:271
 msgid ""
 "File seems not to be a valid Pre-Proc output File! \n"
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:335
+#: data/ProcModel.py:336
 msgid ""
 "File seems not to be a valid Processor File!\n"
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:418
+#: data/ProcModel.py:419
 msgid "Open Proc file"
 msgstr "Opens a datafile from local storage"
 
-#: data/ProcModel.py:450
+#: data/ProcModel.py:451
 msgid "Save Processor file"
 msgstr ""
 
-#: data/ProcModel.py:473
+#: data/ProcModel.py:474
 msgid "Save Processor file as"
 msgstr ""
 
-#: data/ProcModel.py:528 data/ProcModel.py:1682 data/ProcModel.py:2216
-#: data/ProcModel.py:2654
+#: data/ProcModel.py:529 data/ProcModel.py:1683 data/ProcModel.py:2217
+#: data/ProcModel.py:2655
 msgid "Order Num"
 msgstr ""
 
-#: data/ProcModel.py:529
+#: data/ProcModel.py:530
 msgid "X-Coordinate"
 msgstr "Hor position [% chord]"
 
-#: data/ProcModel.py:530
+#: data/ProcModel.py:531
 msgid "Y-Coordinate"
 msgstr "Vert position [% chord]"
 
-#: data/ProcModel.py:629 data/ProcModel.py:821 data/ProcModel.py:3842
+#: data/ProcModel.py:630 data/ProcModel.py:822 data/ProcModel.py:3843
 msgid "Rib Num"
 msgstr ""
 
-#: data/ProcModel.py:630 data/ProcModel.py:4773
+#: data/ProcModel.py:631 data/ProcModel.py:4774
 msgid "Name"
 msgstr ""
 
-#: data/ProcModel.py:631
+#: data/ProcModel.py:632
 msgid "Intake Start"
 msgstr "Intake start"
 
-#: data/ProcModel.py:632
+#: data/ProcModel.py:633
 msgid "Intake End"
 msgstr "Intake end"
 
-#: data/ProcModel.py:633
+#: data/ProcModel.py:634
 msgid "Open-close"
 msgstr "Open close"
 
-#: data/ProcModel.py:634
+#: data/ProcModel.py:635
 msgid "Displac"
 msgstr "vert Displacement"
 
-#: data/ProcModel.py:635
+#: data/ProcModel.py:636
 msgid "Rel weight"
 msgstr ""
 
-#: data/ProcModel.py:636
+#: data/ProcModel.py:637
 msgid "rrw"
 msgstr ""
 
-#: data/ProcModel.py:693 data/ProcModel.py:1612 data/ProcModel.py:2146
-#: data/ProcModel.py:2803
+#: data/ProcModel.py:694 data/ProcModel.py:1613 data/ProcModel.py:2147
+#: data/ProcModel.py:2804
 msgid "Rib num"
 msgstr ""
 
-#: data/ProcModel.py:822
+#: data/ProcModel.py:823
 msgid "Num Anchors"
 msgstr ""
 
-#: data/ProcModel.py:823
+#: data/ProcModel.py:824
 msgid "Pos A"
 msgstr ""
 
-#: data/ProcModel.py:824
+#: data/ProcModel.py:825
 msgid "Pos B"
 msgstr ""
 
-#: data/ProcModel.py:825
+#: data/ProcModel.py:826
 msgid "Pos C"
 msgstr ""
 
-#: data/ProcModel.py:826
+#: data/ProcModel.py:827
 msgid "Pos D"
 msgstr ""
 
-#: data/ProcModel.py:827
+#: data/ProcModel.py:828
 msgid "Pos E"
 msgstr ""
 
-#: data/ProcModel.py:828
+#: data/ProcModel.py:829
 msgid "Pos F"
 msgstr "Brake lines"
 
-#: data/ProcModel.py:923 data/ProcModel.py:2023 data/ProcModel.py:2338
-#: data/ProcModel.py:2792 data/ProcModel.py:3248 data/ProcModel.py:3362
-#: data/ProcModel.py:3514
+#: data/ProcModel.py:924 data/ProcModel.py:2024 data/ProcModel.py:2339
+#: data/ProcModel.py:2793 data/ProcModel.py:3249 data/ProcModel.py:3363
+#: data/ProcModel.py:3515
 msgid "Order num"
 msgstr ""
 
-#: data/ProcModel.py:924
+#: data/ProcModel.py:925
 msgid "num Branches"
 msgstr "Num branches"
 
-#: data/ProcModel.py:925
+#: data/ProcModel.py:926
 msgid "Branch lvl 1"
 msgstr ""
 
-#: data/ProcModel.py:926
+#: data/ProcModel.py:927
 msgid "Order lvl 1"
 msgstr ""
 
-#: data/ProcModel.py:927
+#: data/ProcModel.py:928
 msgid "Ramif lvl2"
 msgstr ""
 
-#: data/ProcModel.py:928
+#: data/ProcModel.py:929
 msgid "Order lvl 2"
 msgstr ""
 
-#: data/ProcModel.py:929
+#: data/ProcModel.py:930
 msgid "Ramif lvl3"
 msgstr ""
 
-#: data/ProcModel.py:930
+#: data/ProcModel.py:931
 msgid "Order lvl 3"
 msgstr ""
 
-#: data/ProcModel.py:931
+#: data/ProcModel.py:932
 msgid "Branch lvl 4"
 msgstr ""
 
-#: data/ProcModel.py:932
+#: data/ProcModel.py:933
 msgid "Order lvl 4"
 msgstr ""
 
-#: data/ProcModel.py:933 data/ProcModel.py:2802
+#: data/ProcModel.py:934 data/ProcModel.py:2803
 msgid "Anchor"
 msgstr ""
 
-#: data/ProcModel.py:934
+#: data/ProcModel.py:935
 msgid "An. Rib num"
 msgstr ""
 
-#: data/ProcModel.py:1069
+#: data/ProcModel.py:1070
 msgid "s1 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1070
+#: data/ProcModel.py:1071
 msgid "s2 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1071
+#: data/ProcModel.py:1072
 msgid "s3 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1072
+#: data/ProcModel.py:1073
 msgid "s4 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1073
+#: data/ProcModel.py:1074
 msgid "s5 [\\u0025]"
 msgstr ""
 
-#: data/ProcModel.py:1074
+#: data/ProcModel.py:1075
 msgid "d1 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1075
+#: data/ProcModel.py:1076
 msgid "d2 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1076
+#: data/ProcModel.py:1077
 msgid "d3 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1077
+#: data/ProcModel.py:1078
 msgid "d4 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1078
+#: data/ProcModel.py:1079
 msgid "d5 [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1158
+#: data/ProcModel.py:1159
 msgid "Num risers"
 msgstr "Num risers"
 
-#: data/ProcModel.py:1159
+#: data/ProcModel.py:1160
 msgid "Pos r A"
 msgstr "Pos r A [% chord]"
 
-#: data/ProcModel.py:1160
+#: data/ProcModel.py:1161
 msgid "Pos r B"
 msgstr "Pos r B [% chord]"
 
-#: data/ProcModel.py:1161
+#: data/ProcModel.py:1162
 msgid "Pos r C"
 msgstr "Pos r C [% chord]"
 
-#: data/ProcModel.py:1162
+#: data/ProcModel.py:1163
 msgid "Pos r D"
 msgstr "Pos r D [% chord]"
 
-#: data/ProcModel.py:1163
+#: data/ProcModel.py:1164
 msgid "Pos r E"
 msgstr "Pos r E [% chord]"
 
-#: data/ProcModel.py:1164
+#: data/ProcModel.py:1165
 msgid "Pos r F"
 msgstr "Pos r F [% chord]"
 
-#: data/ProcModel.py:1165
+#: data/ProcModel.py:1166
 msgid "Max neg ang [deg]"
 msgstr ""
 
-#: data/ProcModel.py:1166
+#: data/ProcModel.py:1167
 msgid "Num neg steps"
 msgstr ""
 
-#: data/ProcModel.py:1167
+#: data/ProcModel.py:1168
 msgid "Max pos ang [deg]"
 msgstr ""
 
-#: data/ProcModel.py:1168
+#: data/ProcModel.py:1169
 msgid "Num pos steps"
 msgstr ""
 
-#: data/ProcModel.py:1324
+#: data/ProcModel.py:1325
 msgid "Layer name"
 msgstr ""
 
-#: data/ProcModel.py:1325
+#: data/ProcModel.py:1326
 msgid "Description"
 msgstr ""
 
-#: data/ProcModel.py:1519
+#: data/ProcModel.py:1520
 msgid "Num lines per rib"
 msgstr ""
 
-#: data/ProcModel.py:1520
+#: data/ProcModel.py:1521
 msgid "Def in lower level"
 msgstr ""
 
-#: data/ProcModel.py:1521
+#: data/ProcModel.py:1522
 msgid "Def in mid level"
 msgstr ""
 
-#: data/ProcModel.py:1522
+#: data/ProcModel.py:1523
 msgid "Def in higher level"
 msgstr ""
 
-#: data/ProcModel.py:1683 data/ProcModel.py:2217
+#: data/ProcModel.py:1684 data/ProcModel.py:2218
 msgid "Dist TE"
 msgstr "Dist TE [% chord]"
 
-#: data/ProcModel.py:1769
+#: data/ProcModel.py:1770
 msgid "Finesse [deg]"
 msgstr ""
 
-#: data/ProcModel.py:1770
+#: data/ProcModel.py:1771
 msgid "Center of Pressure"
 msgstr ""
 
-#: data/ProcModel.py:1771
+#: data/ProcModel.py:1772
 msgid "Calage"
 msgstr ""
 
-#: data/ProcModel.py:1772
+#: data/ProcModel.py:1773
 msgid "Risers [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1773
+#: data/ProcModel.py:1774
 msgid "Lines [cm]"
 msgstr ""
 
-#: data/ProcModel.py:1774
+#: data/ProcModel.py:1775
 msgid "Karabiners [cm]"
 msgstr "Carabiners [cm]"
 
-#: data/ProcModel.py:1850
+#: data/ProcModel.py:1851
 msgid "Airfoil num"
 msgstr ""
 
-#: data/ProcModel.py:1853
+#: data/ProcModel.py:1854
 msgid "Vent param"
 msgstr ""
 
-#: data/ProcModel.py:1856
+#: data/ProcModel.py:1857
 msgid "Opt param 1"
 msgstr ""
 
-#: data/ProcModel.py:1859
+#: data/ProcModel.py:1860
 msgid "Opt param 2"
 msgstr ""
 
-#: data/ProcModel.py:1862
+#: data/ProcModel.py:1863
 msgid "Opt param 3"
 msgstr ""
 
-#: data/ProcModel.py:2025
+#: data/ProcModel.py:2026
 msgid "Ini Rib"
 msgstr ""
 
-#: data/ProcModel.py:2026
+#: data/ProcModel.py:2027
 msgid "Param A"
 msgstr ""
 
-#: data/ProcModel.py:2027
+#: data/ProcModel.py:2028
 msgid "Param B"
 msgstr ""
 
-#: data/ProcModel.py:2028
+#: data/ProcModel.py:2029
 msgid "Param C"
 msgstr ""
 
-#: data/ProcModel.py:2029
+#: data/ProcModel.py:2030
 msgid "Param D"
 msgstr ""
 
-#: data/ProcModel.py:2030
+#: data/ProcModel.py:2031
 msgid "Param E"
 msgstr ""
 
-#: data/ProcModel.py:2031
+#: data/ProcModel.py:2032
 msgid "Param F"
 msgstr ""
 
-#: data/ProcModel.py:2032
+#: data/ProcModel.py:2033
 msgid "Param G"
 msgstr ""
 
-#: data/ProcModel.py:2033
+#: data/ProcModel.py:2034
 msgid "Param H"
 msgstr ""
 
-#: data/ProcModel.py:2034
+#: data/ProcModel.py:2035
 msgid "Param I"
 msgstr ""
 
-#: data/ProcModel.py:2339 data/ProcModel.py:3157 data/ProcModel.py:3363
-#: data/ProcModel.py:4441
+#: data/ProcModel.py:2340 data/ProcModel.py:3158 data/ProcModel.py:3364
+#: data/ProcModel.py:4442
 msgid "First Rib"
 msgstr "First rib"
 
-#: data/ProcModel.py:2340 data/ProcModel.py:3158 data/ProcModel.py:3364
-#: data/ProcModel.py:4442
+#: data/ProcModel.py:2341 data/ProcModel.py:3159 data/ProcModel.py:3365
+#: data/ProcModel.py:4443
 msgid "Last Rib"
 msgstr "Last rib"
 
-#: data/ProcModel.py:2341
+#: data/ProcModel.py:2342
 msgid "Row 2 A"
 msgstr "Param A"
 
-#: data/ProcModel.py:2342
+#: data/ProcModel.py:2343
 msgid "Row 2 B"
 msgstr "Param B"
 
-#: data/ProcModel.py:2343
+#: data/ProcModel.py:2344
 msgid "Row 2 C"
 msgstr "Param C"
 
-#: data/ProcModel.py:2344
+#: data/ProcModel.py:2345
 msgid "Row 2 D"
 msgstr "Param D"
 
-#: data/ProcModel.py:2345
+#: data/ProcModel.py:2346
 msgid "Row 2 E"
 msgstr "Param E"
 
-#: data/ProcModel.py:2346
+#: data/ProcModel.py:2347
 msgid "Row 3 A"
 msgstr "Param F"
 
-#: data/ProcModel.py:2347
+#: data/ProcModel.py:2348
 msgid "Row 3 B"
 msgstr "Param G"
 
-#: data/ProcModel.py:2348
+#: data/ProcModel.py:2349
 msgid "Row 3 C"
 msgstr "Param H"
 
-#: data/ProcModel.py:2349
+#: data/ProcModel.py:2350
 msgid "Row 3 D"
 msgstr "Param I"
 
-#: data/ProcModel.py:2350
+#: data/ProcModel.py:2351
 msgid "Row 4 A"
 msgstr "S1"
 
-#: data/ProcModel.py:2351
+#: data/ProcModel.py:2352
 msgid "Row 4 B"
 msgstr "S2"
 
-#: data/ProcModel.py:2352
+#: data/ProcModel.py:2353
 msgid "Row 4 C"
 msgstr "S3"
 
-#: data/ProcModel.py:2353
+#: data/ProcModel.py:2354
 msgid "Row 4 D"
 msgstr "S4"
 
-#: data/ProcModel.py:2556
+#: data/ProcModel.py:2557
 msgid "Initial Rib"
 msgstr "Initial rib"
 
-#: data/ProcModel.py:2557
+#: data/ProcModel.py:2558
 msgid "Final Rib"
 msgstr "Final rib"
 
-#: data/ProcModel.py:2655
+#: data/ProcModel.py:2656
 msgid "Light Typ"
 msgstr "Light type"
 
-#: data/ProcModel.py:2656
+#: data/ProcModel.py:2657
 msgid "Dist LE"
 msgstr "Hor dist"
 
-#: data/ProcModel.py:2657
+#: data/ProcModel.py:2658
 msgid "Dist chord"
 msgstr "Vert dist"
 
-#: data/ProcModel.py:2658
+#: data/ProcModel.py:2659
 msgid "Hor axis"
 msgstr ""
 
-#: data/ProcModel.py:2659
+#: data/ProcModel.py:2660
 msgid "Vert axis"
 msgstr ""
 
-#: data/ProcModel.py:2660
+#: data/ProcModel.py:2661
 msgid "Rot angle"
 msgstr ""
 
-#: data/ProcModel.py:2661
+#: data/ProcModel.py:2662
 msgid "Opt "
 msgstr ""
 
-#: data/ProcModel.py:2793
+#: data/ProcModel.py:2794
 msgid "Num branches"
 msgstr ""
 
-#: data/ProcModel.py:2794
+#: data/ProcModel.py:2795
 msgid "Ramif 1"
 msgstr ""
 
-#: data/ProcModel.py:2795
+#: data/ProcModel.py:2796
 msgid "Node 1"
 msgstr ""
 
-#: data/ProcModel.py:2796
+#: data/ProcModel.py:2797
 msgid "Ramif 2"
 msgstr ""
 
-#: data/ProcModel.py:2797
+#: data/ProcModel.py:2798
 msgid "Node 2"
 msgstr ""
 
-#: data/ProcModel.py:2798
+#: data/ProcModel.py:2799
 msgid "Ramif 3"
 msgstr ""
 
-#: data/ProcModel.py:2799
+#: data/ProcModel.py:2800
 msgid "Node 3"
 msgstr ""
 
-#: data/ProcModel.py:2800
+#: data/ProcModel.py:2801
 msgid "Ramif 4"
 msgstr ""
 
-#: data/ProcModel.py:2801
+#: data/ProcModel.py:2802
 msgid "Node 4"
 msgstr ""
 
-#: data/ProcModel.py:2946
+#: data/ProcModel.py:2947
 msgid "Marks Spacing [cm]"
 msgstr ""
 
-#: data/ProcModel.py:2947
+#: data/ProcModel.py:2948
 msgid "Point Radius [cm]"
 msgstr ""
 
-#: data/ProcModel.py:2948
+#: data/ProcModel.py:2949
 msgid "Point Displacement [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3042
+#: data/ProcModel.py:3043
 msgid "Marks type"
 msgstr ""
 
-#: data/ProcModel.py:3043
+#: data/ProcModel.py:3044
 msgid "Form 1"
 msgstr ""
 
-#: data/ProcModel.py:3044
+#: data/ProcModel.py:3045
 msgid "Form 1 1st param"
 msgstr ""
 
-#: data/ProcModel.py:3045
+#: data/ProcModel.py:3046
 msgid "Form 1 2nd param"
 msgstr ""
 
-#: data/ProcModel.py:3046
+#: data/ProcModel.py:3047
 msgid "Form 2"
 msgstr ""
 
-#: data/ProcModel.py:3047
+#: data/ProcModel.py:3048
 msgid "Form 2 1st param"
 msgstr ""
 
-#: data/ProcModel.py:3048
+#: data/ProcModel.py:3049
 msgid "Form 2 2nd param"
 msgstr ""
 
-#: data/ProcModel.py:3249 data/ProcModel.py:3955
+#: data/ProcModel.py:3250 data/ProcModel.py:3956
 msgid "Top dist LE"
 msgstr ""
 
-#: data/ProcModel.py:3250 data/ProcModel.py:3956
+#: data/ProcModel.py:3251 data/ProcModel.py:3957
 msgid "Top widening"
 msgstr ""
 
-#: data/ProcModel.py:3251 data/ProcModel.py:3957
+#: data/ProcModel.py:3252 data/ProcModel.py:3958
 msgid "Bott dist TE"
 msgstr ""
 
-#: data/ProcModel.py:3252 data/ProcModel.py:3958
+#: data/ProcModel.py:3253 data/ProcModel.py:3959
 msgid "Bott widening"
 msgstr ""
 
-#: data/ProcModel.py:3365
+#: data/ProcModel.py:3366
 msgid "X1"
 msgstr "X1 [% chord]"
 
-#: data/ProcModel.py:3366
+#: data/ProcModel.py:3367
 msgid "U1"
 msgstr "U1 [% chord]"
 
-#: data/ProcModel.py:3367
-msgid "U2"
-msgstr "U1 [% chord]"
-
 #: data/ProcModel.py:3368
+msgid "U2"
+msgstr "U2 [% chord]"
+
+#: data/ProcModel.py:3369
 msgid "X2"
 msgstr "X2 [% chord]"
 
-#: data/ProcModel.py:3369
+#: data/ProcModel.py:3370
 msgid "V1"
 msgstr "V1 [% chord]"
 
-#: data/ProcModel.py:3370
+#: data/ProcModel.py:3371
 msgid "V2"
 msgstr "V2 [% chord]"
 
-#: data/ProcModel.py:3517
+#: data/ProcModel.py:3518
 msgid "panel_x"
 msgstr ""
 
-#: data/ProcModel.py:3520
+#: data/ProcModel.py:3521
 msgid "panel_x_min"
 msgstr ""
 
-#: data/ProcModel.py:3523
+#: data/ProcModel.py:3524
 msgid "panel_y"
 msgstr ""
 
-#: data/ProcModel.py:3526
+#: data/ProcModel.py:3527
 msgid "rib_x"
 msgstr ""
 
-#: data/ProcModel.py:3529
+#: data/ProcModel.py:3530
 msgid "rib_y"
 msgstr ""
 
-#: data/ProcModel.py:3532
+#: data/ProcModel.py:3533
 msgid "parameter6"
 msgstr ""
 
-#: data/ProcModel.py:3535
+#: data/ProcModel.py:3536
 msgid "parameter7"
 msgstr ""
 
-#: data/ProcModel.py:3538
+#: data/ProcModel.py:3539
 msgid "parameter8"
 msgstr ""
 
-#: data/ProcModel.py:3541
+#: data/ProcModel.py:3542
 msgid "parameter9"
 msgstr ""
 
-#: data/ProcModel.py:3544
+#: data/ProcModel.py:3545
 msgid "parameter10"
 msgstr ""
 
-#: data/ProcModel.py:3703
+#: data/ProcModel.py:3704
 msgid "Rows"
 msgstr ""
 
-#: data/ProcModel.py:3704
+#: data/ProcModel.py:3705
 msgid "Third to sail [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3705
+#: data/ProcModel.py:3706
 msgid "Fourth to sail [cm]"
 msgstr ""
 
-#: data/ProcModel.py:3843
+#: data/ProcModel.py:3844
 msgid "RP"
 msgstr ""
 
-#: data/ProcModel.py:3844
+#: data/ProcModel.py:3845
 msgid "Washin"
 msgstr ""
 
-#: data/ProcModel.py:3845
+#: data/ProcModel.py:3846
 msgid "Z Rotation"
 msgstr ""
 
-#: data/ProcModel.py:3846
+#: data/ProcModel.py:3847
 msgid "Z Position"
 msgstr ""
 
-#: data/ProcModel.py:4038
+#: data/ProcModel.py:4039
 msgid "Strain mini ribs"
 msgstr ""
 
-#: data/ProcModel.py:4039
+#: data/ProcModel.py:4040
 msgid "Num points"
 msgstr ""
 
-#: data/ProcModel.py:4040
+#: data/ProcModel.py:4041
 msgid "Coeff"
 msgstr ""
 
-#: data/ProcModel.py:4098
+#: data/ProcModel.py:4099
 msgid "Edge seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4099
+#: data/ProcModel.py:4100
 msgid "LE seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4100
+#: data/ProcModel.py:4101
 msgid "TE seem [mm]"
 msgstr ""
 
-#: data/ProcModel.py:4173
+#: data/ProcModel.py:4174
 msgid "LE Angle [deg]"
 msgstr ""
 
-#: data/ProcModel.py:4174
+#: data/ProcModel.py:4175
 msgid "TE Angle [deg]"
 msgstr ""
 
-#: data/ProcModel.py:4302
+#: data/ProcModel.py:4303
 msgid "Line Name"
 msgstr ""
 
-#: data/ProcModel.py:4303
+#: data/ProcModel.py:4304
 msgid "Unifilar"
 msgstr ""
 
-#: data/ProcModel.py:4304 data/ProcModel.py:4876
+#: data/ProcModel.py:4305 data/ProcModel.py:4877
 msgid "Color code"
 msgstr ""
 
-#: data/ProcModel.py:4305
+#: data/ProcModel.py:4306
 msgid "Color name (opt)"
 msgstr ""
 
-#: data/ProcModel.py:4532 data/ProcModel.py:4646
+#: data/ProcModel.py:4533 data/ProcModel.py:4647
 msgid "Ini P"
 msgstr "Ini P [% chord]"
 
-#: data/ProcModel.py:4533 data/ProcModel.py:4647
+#: data/ProcModel.py:4534 data/ProcModel.py:4648
 msgid "Cut P"
 msgstr "Cut P [% chord]"
 
-#: data/ProcModel.py:4534 data/ProcModel.py:4648
+#: data/ProcModel.py:4535 data/ProcModel.py:4649
 msgid "Depth"
 msgstr "Depth [Coef]"
 
-#: data/ProcModel.py:4774
+#: data/ProcModel.py:4775
 msgid "Draw"
 msgstr ""
 
-#: data/ProcModel.py:4775
+#: data/ProcModel.py:4776
 msgid "First panel"
 msgstr ""
 
-#: data/ProcModel.py:4776
+#: data/ProcModel.py:4777
 msgid "Last panel"
 msgstr ""
 
-#: data/ProcModel.py:4777
+#: data/ProcModel.py:4778
 msgid "Symmetric"
 msgstr ""
 
-#: data/ProcModel.py:4875
+#: data/ProcModel.py:4876
 msgid "Line name"
 msgstr ""
 
-#: data/ProcModel.py:4877
+#: data/ProcModel.py:4878
 msgid "Color name"
 msgstr ""
 
-#: data/ProcModel.py:5070
+#: data/ProcModel.py:5071
 msgid "Brand name"
 msgstr ""
 
-#: data/ProcModel.py:5072
+#: data/ProcModel.py:5073
 msgid "Draw scale"
 msgstr ""
 
-#: data/ProcModel.py:5073
+#: data/ProcModel.py:5074
 msgid "Wing scale"
 msgstr ""
 
-#: data/ProcModel.py:5075
+#: data/ProcModel.py:5076
 msgid "Num ribs"
 msgstr ""
 
-#: data/ProcModel.py:5076
+#: data/ProcModel.py:5077
 msgid "Alpha max tip"
 msgstr ""
 
-#: data/ProcModel.py:5077
+#: data/ProcModel.py:5078
 msgid "Alpha mode"
 msgstr ""
 
-#: data/ProcModel.py:5078
+#: data/ProcModel.py:5079
 msgid "Alpha max cent"
 msgstr ""
 
-#: data/ProcModel.py:5079
+#: data/ProcModel.py:5080
 msgid "Para type"
 msgstr ""
 
-#: data/ProcModel.py:5080
+#: data/ProcModel.py:5081
 msgid "Para param"
 msgstr ""
 
-#: data/ProcModel.py:5081
+#: data/ProcModel.py:5082
 msgid "Lines Conc Type"
 msgstr ""
 
-#: data/ProcModel.py:5082
+#: data/ProcModel.py:5083
 msgid "Brake length"
 msgstr ""
 
-#: data/ProcModel.py:5083
+#: data/ProcModel.py:5084
 msgid "x-Spacing"
 msgstr ""
 
-#: data/ProcModel.py:5084
+#: data/ProcModel.py:5085
 msgid "y-Spacing"
 msgstr ""
 
-#: gui/AddRibPoints.py:83 gui/MainWindow.py:499
+#: gui/AddRibPoints.py:96 gui/MainWindow.py:494
 msgid "Additional rib points"
 msgstr ""
 
-#: gui/AddRibPoints.py:88 gui/ExtradColors.py:82 gui/HvVhRibs.py:113
-#: gui/IntradColors.py:82 gui/NoseMylars.py:76
+#: gui/AddRibPoints.py:101 gui/ExtradColors.py:99 gui/HvVhRibs.py:127
+#: gui/IntradColors.py:98 gui/NoseMylars.py:92
 msgid "Number of configs"
 msgstr ""
 
-#: gui/AddRibPoints.py:128 gui/Brakes.py:139 gui/ExtradColors.py:237
-#: gui/HvVhRibs.py:149 gui/IntradColors.py:237 gui/JoncsDefinition.py:265
-#: gui/Lines.py:293 gui/NoseMylars.py:109 gui/RibHoles.py:287
+#: gui/AddRibPoints.py:141 gui/Brakes.py:155 gui/ExtradColors.py:286
+#: gui/HvVhRibs.py:176 gui/IntradColors.py:283 gui/JoncsDefinition.py:298
+#: gui/Lines.py:306 gui/NoseMylars.py:132 gui/RibHoles.py:288
 msgid "OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
 "during edit or file saving"
 
-#: gui/AddRibPoints.py:130
+#: gui/AddRibPoints.py:143
 msgid "AddRibPts-XCoordDesc"
 msgstr "Hor distance from LE in [% chord]"
 
-#: gui/AddRibPoints.py:132
-#, fuzzy
-#| msgid "AddRibPts-XCoordDesc"
+#: gui/AddRibPoints.py:145
 msgid "AddRibPts-YCoordDesc"
-msgstr "Hor distance from LE in [% chord]"
+msgstr "Ver distance from LE in [% chord]"
 
-#: gui/AddRibPoints.py:134 gui/Brakes.py:195 gui/ExtradColors.py:106
-#: gui/HvVhRibs.py:162 gui/IntradColors.py:106 gui/JoncsDefinition.py:111
-#: gui/Lines.py:136 gui/NewSkinTension.py:115 gui/NoseMylars.py:119
+#: gui/AddRibPoints.py:147 gui/Brakes.py:211 gui/ExtradColors.py:125
+#: gui/HvVhRibs.py:200 gui/IntradColors.py:124 gui/JoncsDefinition.py:128
+#: gui/Lines.py:147 gui/NewSkinTension.py:119 gui/NoseMylars.py:150
 msgid "Sort by order_num"
 msgstr ""
 
-#: gui/AirfoilThickness.py:69 gui/MainWindow.py:536
+#: gui/AirfoilThickness.py:81 gui/MainWindow.py:531
 msgid "Airfoil thickness"
 msgstr ""
 
-#: gui/AirfoilThickness.py:73 gui/CalageVar.py:75 gui/SpecWingTip.py:74
+#: gui/AirfoilThickness.py:85 gui/CalageVar.py:87 gui/SpecWingTip.py:85
 msgid "None"
 msgstr ""
 
-#: gui/AirfoilThickness.py:74 gui/GlueVent.py:80 gui/PartsSeparation.py:79
-#: gui/ThreeDDxf.py:74 gui/TwoDDxf.py:75
+#: gui/AirfoilThickness.py:86 gui/GlueVent.py:84 gui/PartsSeparation.py:83
+#: gui/ThreeDDxf.py:86 gui/TwoDDxf.py:86
 msgid "User defined"
 msgstr ""
 
-#: gui/AirfoilThickness.py:95
+#: gui/AirfoilThickness.py:112
 msgid "AirfThick-RibNumDesc"
 msgstr ""
 "Rib num for which the coefficient\n"
 "is defined"
 
-#: gui/AirfoilThickness.py:96
+#: gui/AirfoilThickness.py:114
 msgid "AirfThick-CoeffDesc"
 msgstr ""
 "Coefficient describing the thickness modification\n"
 "0.0 = thickness equals 0 (typical for wingtip)\n"
 "1.0 = thickness equally to definition in profile file"
 
-#: gui/Airfoils.py:70 gui/MainWindow.py:453
+#: gui/Airfoils.py:80 gui/MainWindow.py:448
 msgid "Airfoils"
 msgstr ""
 
-#: gui/Airfoils.py:78 gui/Geometry.py:84
+#: gui/Airfoils.py:90 gui/Geometry.py:93
 msgid "Proc-RibNumDesc"
 msgstr "Rib number"
 
-#: gui/Airfoils.py:79
+#: gui/Airfoils.py:92
 msgid "Proc-AirfoilNameDesc"
 msgstr ""
 "Name of the file in which defines the profile of the rib.\n"
 "This file must be saved prior the processing in the same\n"
 "folder where the processor is saved"
 
-#: gui/Airfoils.py:80
+#: gui/Airfoils.py:94
 msgid "Proc-IntakeStartDesc"
 msgstr "Start of the air inlet in [% chord]"
 
-#: gui/Airfoils.py:81
+#: gui/Airfoils.py:96
 msgid "Proc-IntakeEnDesc"
 msgstr "End of the air inlet in [% chord]"
 
-#: gui/Airfoils.py:82
+#: gui/Airfoils.py:98
 msgid "Proc-OpenCloseDesc"
 msgstr ""
 "Defines the form of the cell left of the rib\n"
 "\"0\" indicates closed-cell \n"
 "\"1\" open cell)"
 
-#: gui/Airfoils.py:83
+#: gui/Airfoils.py:100
 msgid "Proc-DisplacDesc"
 msgstr ""
 "Vertical displacement of the rib in [cm]\n"
 "Usually the value is 0"
 
-#: gui/Airfoils.py:84
+#: gui/Airfoils.py:102
 msgid "Proc-RelWeightDesc"
 msgstr ""
 "Relative weight of the chord, in relation to the load \n"
 "Value is usually 1"
 
-#: gui/Airfoils.py:85
+#: gui/Airfoils.py:104
 msgid "Proc-rrwDesc"
 msgstr ""
 "Single Skin wings:\n"
@@ -1072,191 +1070,191 @@ msgstr ""
 "Double Skin Wings:\n"
 "Value > 1 => Lenght of mini ribs in [% chord]"
 
-#: gui/Airfoils.py:96 gui/AnchorPoints.py:93 gui/Geometry.py:139
+#: gui/Airfoils.py:128 gui/AnchorPoints.py:120 gui/Geometry.py:148
 msgid "Sort by Rib Number"
 msgstr ""
 
-#: gui/AnchorPoints.py:70 gui/MainWindow.py:457
+#: gui/AnchorPoints.py:82 gui/MainWindow.py:452
 msgid "Anchor points"
 msgstr ""
 
-#: gui/AnchorPoints.py:78
+#: gui/AnchorPoints.py:92
 msgid "AnchPoints-RibNumDesc"
 msgstr "Rib number"
 
-#: gui/AnchorPoints.py:79
+#: gui/AnchorPoints.py:94
 msgid "AnchPoints-NumAnchorsDesc"
 msgstr ""
 "Number of anchors (A...E) defined on the line\n"
 "Must not include brake lines"
 
-#: gui/AnchorPoints.py:80
+#: gui/AnchorPoints.py:96
 msgid "AnchPoints-PosADesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/AnchorPoints.py:81
+#: gui/AnchorPoints.py:98
 msgid "AnchPoints-PosBDesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/AnchorPoints.py:82
+#: gui/AnchorPoints.py:100
 msgid "AnchPoints-PosCDesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/AnchorPoints.py:83
+#: gui/AnchorPoints.py:102
 msgid "AnchPoints-PosDDesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/AnchorPoints.py:84
+#: gui/AnchorPoints.py:104
 msgid "AnchPoints-PosEDesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/AnchorPoints.py:85
+#: gui/AnchorPoints.py:106
 msgid "AnchPoints-PosFDesc"
 msgstr ""
 "Position in [% chord]\n"
 "Insert 0 if not used"
 
-#: gui/BasicData.py:68
+#: gui/BasicData.py:80
 msgid "Basic Data"
 msgstr ""
 
-#: gui/BasicData.py:81
+#: gui/BasicData.py:98
 msgid "Proc-BrandNameDesc"
 msgstr "Brand Name or the Name of the designer"
 
-#: gui/BasicData.py:99
+#: gui/BasicData.py:123
 msgid "Proc-WingNameDesc"
 msgstr "The name of the wing"
 
-#: gui/BasicData.py:118
+#: gui/BasicData.py:148
 msgid "Proc-DrawScaleDesc"
 msgstr "The drawing scale used during plan generation"
 
-#: gui/BasicData.py:119
+#: gui/BasicData.py:150
 msgid "Proc-WingScaleDesc"
 msgstr "Can be used to scale the whole desing at once"
 
-#: gui/BasicData.py:138
+#: gui/BasicData.py:178
 msgid "Proc-NumCellsDesc"
 msgstr "Number of cells in the design"
 
-#: gui/BasicData.py:139
+#: gui/BasicData.py:180
 msgid "Proc-NumRibsDesc"
 msgstr "Number of ribs in the design"
 
-#: gui/BasicData.py:158
+#: gui/BasicData.py:207
 msgid "Proc-AlphaModeDesc"
 msgstr ""
 "0: manual Definition\n"
 "1: proportional to chord\n"
 "2: automatic center->tip"
 
-#: gui/BasicData.py:159
+#: gui/BasicData.py:209
 msgid "Proc-AlphaMaxCentDesc"
 msgstr ""
 "Washing angle in the\n"
 "center airfoil"
 
-#: gui/BasicData.py:160
+#: gui/BasicData.py:211
 msgid "Proc-AlphaMaxTipDesc"
 msgstr "Washing angle of the tip"
 
-#: gui/BasicData.py:181
+#: gui/BasicData.py:244
 msgid "Proc-ParaTypeDesc"
 msgstr ""
 "ds: double skin\n"
 "ss: single skin\n"
 "pc: parachute"
 
-#: gui/BasicData.py:182
+#: gui/BasicData.py:246
 msgid "Proc-ParaParamDesc"
 msgstr ""
 "0: triangles in TE will be rotated \n"
 "1: triangles in TE will not be rotated"
 
-#: gui/Brakes.py:79
+#: gui/Brakes.py:94
 msgid "Edit Brake lines"
 msgstr ""
 
-#: gui/Brakes.py:84
-msgid "Brake lenght [cm]"
+#: gui/Brakes.py:99
+msgid "Brake length [cm]"
 msgstr ""
 
-#: gui/Brakes.py:90
+#: gui/Brakes.py:105
 msgid "Brakes-LineLengthDesc"
 msgstr ""
 "Length of the main brake\n"
 "line in [cm]"
 
-#: gui/Brakes.py:102
+#: gui/Brakes.py:117
 msgid "Number of Brake paths"
 msgstr ""
 
-#: gui/Brakes.py:140
+#: gui/Brakes.py:156
 msgid "Brakes-NumBranchesDesc"
 msgstr ""
 "Number of branches defined on \n"
 "this line"
 
-#: gui/Brakes.py:141
+#: gui/Brakes.py:157
 msgid "Brakes-BranchLvlOneDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:142
+#: gui/Brakes.py:158
 msgid "Brakes-OrderLvlOneDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:143
+#: gui/Brakes.py:159
 msgid "Brakes-LevelOfRamTwoDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:144
+#: gui/Brakes.py:160
 msgid "Brakes-OrderLvlTwoDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:145
+#: gui/Brakes.py:161
 msgid "Brakes-LevelOfRamThreeDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:146
+#: gui/Brakes.py:162
 msgid "Brakes-OrderLvlThreeDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:147
+#: gui/Brakes.py:163
 msgid "Brakes-BranchLvlFourDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:148
+#: gui/Brakes.py:164
 msgid "Brakes-OrderLvlFourDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:149
+#: gui/Brakes.py:165
 msgid "Brakes-AnchorLineDesc"
 msgstr ""
 "Number of the anchor\n"
@@ -1264,692 +1262,681 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: gui/Brakes.py:150
+#: gui/Brakes.py:166
 msgid "Brakes-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
 
-#: gui/Brakes.py:167
+#: gui/Brakes.py:183
 msgid "Brakes-s1Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:168
+#: gui/Brakes.py:184
 msgid "Brakes-s2Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:169
+#: gui/Brakes.py:185
 msgid "Brakes-s3Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:170
+#: gui/Brakes.py:186
 msgid "Brakes-s4Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:171
+#: gui/Brakes.py:187
 msgid "Brakes-s5Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:189
+#: gui/Brakes.py:205
 msgid "Brakes-d1Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:190
+#: gui/Brakes.py:206
 msgid "Brakes-d2Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:191
+#: gui/Brakes.py:207
 msgid "Brakes-d3Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:192
+#: gui/Brakes.py:208
 msgid "Brakes-d4Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:193
+#: gui/Brakes.py:209
 msgid "Brakes-d5Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/CalageVar.py:71
+#: gui/CalageVar.py:83
 msgid "Calage variation "
 msgstr ""
 
-#: gui/CalageVar.py:76 gui/SpecWingTip.py:75
+#: gui/CalageVar.py:88 gui/SpecWingTip.py:86
 msgid "Type 1"
 msgstr ""
 
-#: gui/CalageVar.py:105
+#: gui/CalageVar.py:123
 msgid "CalageVar-NumRisersDesc"
 msgstr "Number of risers to calculate"
 
-#: gui/CalageVar.py:126
+#: gui/CalageVar.py:150
 msgid "CalageVar-PosADesc"
 msgstr ""
 "Dist from LE to riser A [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:127
+#: gui/CalageVar.py:152
 msgid "CalageVar-PosBDesc"
 msgstr ""
 "Dist from LE to riser B [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:128
+#: gui/CalageVar.py:154
 msgid "CalageVar-PosCDesc"
 msgstr ""
 "Dist from LE to riser C [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:129
+#: gui/CalageVar.py:156
 msgid "CalageVar-PosDDesc"
 msgstr ""
 "Dist from LE to riser D [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:130
+#: gui/CalageVar.py:158
 msgid "CalageVar-PosEDesc"
 msgstr ""
 "Dist from LE to riser E [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:131
+#: gui/CalageVar.py:160
 msgid "CalageVar-PosFDesc"
 msgstr ""
 "Dist from LE to riser F [% chord]\n"
 "It is not necessary to match anchor position"
 
-#: gui/CalageVar.py:153
+#: gui/CalageVar.py:193
 msgid "CalageVar-MaxNegAngDesc"
 msgstr ""
 "Max negative angle to calculate for \n"
 "speed system study"
 
-#: gui/CalageVar.py:154
+#: gui/CalageVar.py:195
 msgid "CalageVar-NumNegStepsDesc"
 msgstr ""
 "Number of steps to calculate for speed\n"
 "system study"
 
-#: gui/CalageVar.py:155
+#: gui/CalageVar.py:197
 msgid "CalageVar-MaxPosAngDesc"
 msgstr ""
 "Max positive angle to calculate for \n"
 "trim system study"
 
-#: gui/CalageVar.py:156
+#: gui/CalageVar.py:199
 msgid "CalageVar-NumPosStepsDesc"
 msgstr ""
 "Number of steps to calculate for trim\n"
 "system study"
 
-#: gui/DataStatusOverview.py:87
+#: gui/DataStatusOverview.py:90
 msgid "Data Status Overview"
 msgstr ""
 
-#: gui/DataStatusOverview.py:90 gui/MainWindow.py:341
+#: gui/DataStatusOverview.py:93 gui/MainWindow.py:336
 msgid "Pre Processor"
 msgstr ""
 
-#: gui/DataStatusOverview.py:98 gui/DataStatusOverview.py:133
+#: gui/DataStatusOverview.py:101 gui/DataStatusOverview.py:136
 msgid "Filename"
 msgstr ""
 
-#: gui/DataStatusOverview.py:107 gui/DataStatusOverview.py:142
+#: gui/DataStatusOverview.py:110 gui/DataStatusOverview.py:145
 msgid "File version"
 msgstr ""
 
-#: gui/DataStatusOverview.py:115 gui/DataStatusOverview.py:149
+#: gui/DataStatusOverview.py:118 gui/DataStatusOverview.py:152
 msgid "File saved"
 msgstr ""
 
-#: gui/DataStatusOverview.py:125 gui/MainWindow.py:551
+#: gui/DataStatusOverview.py:128 gui/MainWindow.py:546
 msgid "Processor"
 msgstr ""
 
-#: gui/DxfLayerNames.py:71
+#: gui/DxfLayerNames.py:85
 msgid "DXF layer names"
 msgstr ""
 
-#: gui/DxfLayerNames.py:73
+#: gui/DxfLayerNames.py:87
 msgid "Number of layers"
 msgstr ""
 
-#: gui/DxfLayerNames.py:103
+#: gui/DxfLayerNames.py:124
 msgid "DxfLayNames-LayerDesc"
 msgstr ""
 "Original layer names as used inside lep\n"
 "A complete list is given on the help page"
 
-#: gui/DxfLayerNames.py:104
+#: gui/DxfLayerNames.py:126
 msgid "DxfLayNames-DescriptionDesc"
 msgstr ""
 "The name of the layer which can bee freely chosen\n"
 "and later on indicated in the DXF file"
 
-#: gui/ElasticLinesCorr.py:72 gui/MainWindow.py:503
+#: gui/ElasticLinesCorr.py:98 gui/MainWindow.py:498
 msgid "Elastic lines correction"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:80
+#: gui/ElasticLinesCorr.py:106
 msgid "In flight load [kg]"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:85
+#: gui/ElasticLinesCorr.py:112
 msgid "ElLinesCorr-LoadDesc"
 msgstr "Total in flight load of the wing in [kg]"
 
-#: gui/ElasticLinesCorr.py:91 gui/ElasticLinesCorr.py:92
-#: gui/ElasticLinesCorr.py:93 gui/ElasticLinesCorr.py:94
-#: gui/ElasticLinesCorr.py:95
+#: gui/ElasticLinesCorr.py:118 gui/ElasticLinesCorr.py:119
+#: gui/ElasticLinesCorr.py:120 gui/ElasticLinesCorr.py:121
+#: gui/ElasticLinesCorr.py:122
 msgid "Load distr [%]"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:99
+#: gui/ElasticLinesCorr.py:126
 msgid "Two Lines"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:104 gui/ElasticLinesCorr.py:110
+#: gui/ElasticLinesCorr.py:132 gui/ElasticLinesCorr.py:139
 msgid "ElLinesCorr-TwoLineDistDesc"
 msgstr ""
 "Load distribution across the 2 anchors\n"
 "in a 2 line configuration"
 
-#: gui/ElasticLinesCorr.py:119
+#: gui/ElasticLinesCorr.py:148
 msgid "Three Lines"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:124 gui/ElasticLinesCorr.py:130
-#: gui/ElasticLinesCorr.py:136
+#: gui/ElasticLinesCorr.py:154 gui/ElasticLinesCorr.py:161
+#: gui/ElasticLinesCorr.py:168
 msgid "ElLinesCorr-ThreeLineDistDesc"
 msgstr ""
 "Load distribution across the 3 anchors\n"
 "in a 3 line configuration"
 
-#: gui/ElasticLinesCorr.py:146
+#: gui/ElasticLinesCorr.py:178
 msgid "Four Lines"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:151 gui/ElasticLinesCorr.py:157
-#: gui/ElasticLinesCorr.py:163 gui/ElasticLinesCorr.py:169
+#: gui/ElasticLinesCorr.py:184 gui/ElasticLinesCorr.py:191
+#: gui/ElasticLinesCorr.py:198 gui/ElasticLinesCorr.py:205
 msgid "ElLinesCorr-FourLineDistDesc"
 msgstr ""
 "Load distribution across the 4 anchors\n"
 "in a 4 line configuration"
 
-#: gui/ElasticLinesCorr.py:180
+#: gui/ElasticLinesCorr.py:216
 msgid "Five Lines"
 msgstr ""
 
-#: gui/ElasticLinesCorr.py:185 gui/ElasticLinesCorr.py:191
-#: gui/ElasticLinesCorr.py:197 gui/ElasticLinesCorr.py:203
-#: gui/ElasticLinesCorr.py:209
+#: gui/ElasticLinesCorr.py:222 gui/ElasticLinesCorr.py:229
+#: gui/ElasticLinesCorr.py:236 gui/ElasticLinesCorr.py:243
+#: gui/ElasticLinesCorr.py:250
 msgid "ElLinesCorr-FiveLineDistDesc"
 msgstr ""
 "Load distribution across the 5 anchors\n"
 "in a 5 line configuration"
 
-#: gui/ElasticLinesCorr.py:235
+#: gui/ElasticLinesCorr.py:283
 msgid "ElLinesCorr-NumOfLinesDesc"
 msgstr ""
 "Number of lines per rib\n"
 "Values 1...5, one value per line"
 
-#: gui/ElasticLinesCorr.py:236
+#: gui/ElasticLinesCorr.py:285
 msgid "ElLinesCorr-LowColDesc"
 msgstr ""
 "Deformation coefficient for lower \n"
 "line level with 10 kg load"
 
-#: gui/ElasticLinesCorr.py:237
+#: gui/ElasticLinesCorr.py:287
 msgid "ElLinesCorr-MidColDesc"
 msgstr ""
 "Deformation coefficient for middle \n"
 "line level with 10 kg load"
 
-#: gui/ElasticLinesCorr.py:238
+#: gui/ElasticLinesCorr.py:289
 msgid "ElLinesCorr-HigColDesc"
 msgstr ""
 "Deformation coefficient for high \n"
 "line level with 10 kg load"
 
-#: gui/ExtradColors.py:80 gui/MainWindow.py:489
+#: gui/ExtradColors.py:97 gui/MainWindow.py:484
 msgid "Colors upper sail"
 msgstr ""
 
-#: gui/ExtradColors.py:193
+#: gui/ExtradColors.py:228
 msgid "ExtradCols-FirstRibDesc"
 msgstr ""
 "Number of the rib currently \n"
 "for which the configuration applies"
 
-#: gui/ExtradColors.py:203 gui/IntradColors.py:203
+#: gui/ExtradColors.py:242 gui/IntradColors.py:240
 msgid "Number of config lines"
 msgstr ""
 
-#: gui/ExtradColors.py:238
+#: gui/ExtradColors.py:288
 msgid "ExtradCols-DistTeDesc"
 msgstr ""
 "Distance from TE \n"
 "in [% chord]"
 
-#: gui/Geometry.py:73 gui/MainWindow.py:449
+#: gui/Geometry.py:82 gui/MainWindow.py:444
 msgid "Geometry"
 msgstr ""
 
-#: gui/Geometry.py:86
+#: gui/Geometry.py:95
 msgid "Proc-xribDesc"
 msgstr ""
 "Distance on x-axis\n"
 "of the flat wing"
 
-#: gui/Geometry.py:88
+#: gui/Geometry.py:97
 msgid "Proc-yLEDesc"
 msgstr ""
 "Position on y-axis of the\n"
 "leading edge (depth)"
 
-#: gui/Geometry.py:90
+#: gui/Geometry.py:99
 msgid "Proc-yTEDesc"
 msgstr ""
 "Position on y-axis of the\n"
 "trailing edge (depth)"
 
-#: gui/Geometry.py:92
+#: gui/Geometry.py:101
 msgid "Proc-xpDesc"
 msgstr ""
 "Distance on x-axis\n"
 "of the wing in its final form"
 
-#: gui/Geometry.py:94
+#: gui/Geometry.py:103
 msgid "Proc-zDesc"
 msgstr ""
 "Position on z-axis \n"
 "(height)"
 
-#: gui/Geometry.py:96
+#: gui/Geometry.py:105
 msgid "Proc-betaDesc"
 msgstr "Lateral angle of the rib"
 
-#: gui/Geometry.py:98
+#: gui/Geometry.py:107
 msgid "Proc-RPDesc"
 msgstr ""
 "Rotation point of the ribs\n"
 "for the washin"
 
-#: gui/Geometry.py:100
+#: gui/Geometry.py:109
 msgid "Proc-WashinDesc"
 msgstr "Washing angle of the rib"
 
-#: gui/Geometry.py:102
+#: gui/Geometry.py:111
 msgid "Proc-RotZDesc"
 msgstr ""
 "Rotation in deg of the rib\n"
 "in z-axis"
 
-#: gui/Geometry.py:104
+#: gui/Geometry.py:113
 msgid "Proc-PosZDesc"
 msgstr ""
 "% chord defining the position\n"
 "of the rotation point"
 
-#: gui/GlobalAoA.py:65
+#: gui/GlobalAoA.py:69
 msgid "Global AoA"
 msgstr ""
 
-#: gui/GlobalAoA.py:78
+#: gui/GlobalAoA.py:83
 msgid "GlobalAoA-FinesseDesc"
 msgstr "Finesse goal"
 
-#: gui/GlobalAoA.py:79
+#: gui/GlobalAoA.py:85
 msgid "GlobalAoA-CenterOfPressureDesc"
 msgstr ""
 "Position of the wing center of \n"
 "pressure estimated"
 
-#: gui/GlobalAoA.py:80
+#: gui/GlobalAoA.py:87
 msgid "GlobalAoA-CalageDesc"
 msgstr ""
 "Distance from the leading edge point \n"
 "to the perpendicular to the central \n"
 "chord from the pilot position"
 
-#: gui/GlobalAoA.py:101
+#: gui/GlobalAoA.py:115
 msgid "GlobalAoA-RisersDesc"
 msgstr "Riser basic length"
 
-#: gui/GlobalAoA.py:102
+#: gui/GlobalAoA.py:117
 msgid "GlobalAoA-LinesDesc"
 msgstr ""
 "Basic length of lines \n"
 "(carabiners to sail)"
 
-#: gui/GlobalAoA.py:103
+#: gui/GlobalAoA.py:119
 msgid "GlobalAoA-KarabinersDesc"
 msgstr "Separation between main carabiners"
 
-#: gui/GlueVent.py:75
+#: gui/GlueVent.py:79
 msgid "Glue vent"
 msgstr ""
 
-#: gui/GlueVent.py:79 gui/PartsSeparation.py:78 gui/ThreeDDxf.py:73
-#: gui/TwoDDxf.py:74
+#: gui/GlueVent.py:83 gui/PartsSeparation.py:82 gui/ThreeDDxf.py:85
+#: gui/TwoDDxf.py:85
 msgid "Defaults"
 msgstr ""
 
-#: gui/GlueVent.py:113
+#: gui/GlueVent.py:117
 msgid "GlueVent-AirfoilNumDesc"
 msgstr "Number of the airfoil (cell) to configure"
 
-#: gui/GlueVent.py:116
+#: gui/GlueVent.py:120
 msgid "GlueVent-VentParamDesc"
 msgstr ""
-"1 glue vent to upper sail (single skin wings)\n"
-"0 not glue anywhere (open air inlet)\n"
-"-1 glue vent to lower sail (usually means closed cell)\n"
-"-2 diagonal vent 100% open left, glued to lower sail\n"
-"-3 diagonal vent 100% open right, glued to lower sail"
-
-#: gui/GlueVent.py:119
-#, fuzzy
-#| msgid "GlueVent-VentParamDesc"
-msgid "GlueVent-ParamADesc"
-msgstr ""
-"1 glue vent to upper sail (single skin wings)\n"
-"0 not glue anywhere (open air inlet)\n"
-"-1 glue vent to lower sail (usually means closed cell)\n"
-"-2 diagonal vent 100% open left, glued to lower sail\n"
-"-3 diagonal vent 100% open right, glued to lower sail"
-
-#: gui/GlueVent.py:122
-#, fuzzy
-#| msgid "GlueVent-VentParamDesc"
-msgid "GlueVent-ParamBDesc"
-msgstr ""
-"1 glue vent to upper sail (single skin wings)\n"
-"0 not glue anywhere (open air inlet)\n"
-"-1 glue vent to lower sail (usually means closed cell)\n"
-"-2 diagonal vent 100% open left, glued to lower sail\n"
-"-3 diagonal vent 100% open right, glued to lower sail"
+"Defines the shape of the vent.\n"
+"A detailed description you will find in the\n"
+"Online Help: Help-> Online Help"
 
 #: gui/GlueVent.py:125
-#, fuzzy
-#| msgid "GlueVent-VentParamDesc"
+msgid "GlueVent-ParamADesc"
+msgstr ""
+"Additional Parameter depending\n"
+"of the vent shape. \n"
+"A detailed description you will find in the\n"
+"Online Help: Help-> Online Help"
+
+#: gui/GlueVent.py:128
+msgid "GlueVent-ParamBDesc"
+msgstr ""
+"Additional Parameter depending\n"
+"of the vent shape. \n"
+"A detailed description you will find in the\n"
+"Online Help: Help-> Online Help"
+
+#: gui/GlueVent.py:131
 msgid "GlueVent-ParamCDesc"
 msgstr ""
-"1 glue vent to upper sail (single skin wings)\n"
-"0 not glue anywhere (open air inlet)\n"
-"-1 glue vent to lower sail (usually means closed cell)\n"
-"-2 diagonal vent 100% open left, glued to lower sail\n"
-"-3 diagonal vent 100% open right, glued to lower sail"
+"Additional Parameter depending\n"
+"of the vent shape. \n"
+"A detailed description you will find in the\n"
+"Online Help: Help-> Online Help"
 
-#: gui/HelpAbout.py:64
+#: gui/HelpAbout.py:65
 msgid "About lepg-py"
 msgstr ""
 
-#: gui/HelpAbout.py:66
+#: gui/HelpAbout.py:67
 msgid "lepg-py"
 msgstr ""
 
-#: gui/HelpAbout.py:79
+#: gui/HelpAbout.py:80
 #, python-format
 msgid ""
 "A graphical frontend to lep\n"
 "Current Version \t\t\t%s"
 msgstr ""
 
-#: gui/HelpAbout.py:87
+#: gui/HelpAbout.py:88
 msgid ""
 "Developers: \n"
 "Stefan Feuz"
 msgstr ""
 
-#: gui/HelpAbout.py:93
+#: gui/HelpAbout.py:94
 msgid "General Public License GNU GPL 3.0"
 msgstr ""
 
-#: gui/HvVhRibs.py:77
+#: gui/HvVhRibs.py:91
 msgid "HV VH Ribs"
 msgstr "Diagonal ribs"
 
-#: gui/HvVhRibs.py:82
+#: gui/HvVhRibs.py:96
 msgid "x Spacing"
 msgstr ""
 
-#: gui/HvVhRibs.py:88
+#: gui/HvVhRibs.py:102
 msgid "HvVhRibs-xSpacingDesc"
 msgstr ""
 "Horizontal distance in [cm] between\n"
 "the ribs on the final drawing"
 
-#: gui/HvVhRibs.py:96
+#: gui/HvVhRibs.py:110
 msgid "y Spacing"
 msgstr ""
 
-#: gui/HvVhRibs.py:102
+#: gui/HvVhRibs.py:116
 msgid "HvVhRibs-ySpacingDesc"
 msgstr ""
 "Vertical distance in [cm] between\n"
 "the ribs on the final drawing"
 
-#: gui/HvVhRibs.py:150
+#: gui/HvVhRibs.py:178
 msgid "HvVhRibs-TypeDesc"
 msgstr ""
 "Number of the rib type defined \n"
 "on this line"
 
-#: gui/HvVhRibs.py:151
+#: gui/HvVhRibs.py:180
 msgid "HvVhRibs-IniRibDesc"
 msgstr ""
 "Number of the initial rib for\n"
 "which this line applies"
 
-#: gui/HvVhRibs.py:152
+#: gui/HvVhRibs.py:182
 msgid "HvVhRibs-ParamADesc"
 msgstr ""
 "Parameter A of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:153
+#: gui/HvVhRibs.py:184
 msgid "HvVhRibs-ParamBDesc"
 msgstr ""
 "Parameter B of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:154
+#: gui/HvVhRibs.py:186
 msgid "HvVhRibs-ParamCDesc"
 msgstr ""
 "Parameter C of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:155
+#: gui/HvVhRibs.py:188
 msgid "HvVhRibs-ParamDDesc"
 msgstr ""
 "Parameter D of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:156
+#: gui/HvVhRibs.py:190
 msgid "HvVhRibs-ParamEDesc"
 msgstr ""
 "Parameter E of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:157
+#: gui/HvVhRibs.py:192
 msgid "HvVhRibs-ParamFDesc"
 msgstr ""
 "Parameter F of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:158
+#: gui/HvVhRibs.py:194
 msgid "HvVhRibs-ParamGDesc"
 msgstr ""
 "Parameter G of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:159
+#: gui/HvVhRibs.py:196
 msgid "HvVhRibs-ParamHDesc"
 msgstr ""
 "Parameter H of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/HvVhRibs.py:160
+#: gui/HvVhRibs.py:198
 msgid "HvVhRibs-ParamIDesc"
 msgstr ""
 "Parameter I of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/IntradColors.py:80 gui/MainWindow.py:494
+#: gui/IntradColors.py:96 gui/MainWindow.py:489
 msgid "Colors lower sail"
 msgstr ""
 
-#: gui/IntradColors.py:193
+#: gui/IntradColors.py:226
 msgid "IntradCols-FirstRibDesc"
 msgstr ""
 "Number of the rib currently \n"
 "for which the configuration applies"
 
-#: gui/IntradColors.py:238
+#: gui/IntradColors.py:285
 msgid "IntradCols-DistTeDesc"
 msgstr ""
 "Distance from TE \n"
 "in [% chord]"
 
-#: gui/JoncsDefinition.py:83
+#: gui/JoncsDefinition.py:98
 msgid "Joncs definition (Nylon rods)"
 msgstr ""
 
-#: gui/JoncsDefinition.py:85
+#: gui/JoncsDefinition.py:100
 msgid "Number of blocs"
 msgstr ""
 
-#: gui/JoncsDefinition.py:220
+#: gui/JoncsDefinition.py:245
 msgid "1"
 msgstr ""
 
-#: gui/JoncsDefinition.py:221
+#: gui/JoncsDefinition.py:246
 msgid "2"
 msgstr ""
 
-#: gui/JoncsDefinition.py:229 gui/NewSkinTension.py:91 gui/ThreeDShaping.py:93
+#: gui/JoncsDefinition.py:255 gui/NewSkinTension.py:95 gui/ThreeDShaping.py:107
 msgid "Number of groups"
 msgstr ""
 
-#: gui/JoncsDefinition.py:266
+#: gui/JoncsDefinition.py:300
 msgid "JoncsDef-FirstRibDesc"
 msgstr ""
 "Number of the initial rib for\n"
 "which this line applies"
 
-#: gui/JoncsDefinition.py:267
+#: gui/JoncsDefinition.py:302
 msgid "JoncsDef-LastRibDesc"
 msgstr ""
 "Number of the last rib for\n"
 "which this line applies"
 
-#: gui/JoncsDefinition.py:268
+#: gui/JoncsDefinition.py:304
 msgid "JoncsDef-pBADesc"
 msgstr ""
 "Parameter A of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:269
+#: gui/JoncsDefinition.py:306
 msgid "JoncsDef-pBBDesc"
 msgstr ""
 "Parameter B of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:270
+#: gui/JoncsDefinition.py:308
 msgid "JoncsDef-pBCDesc"
 msgstr ""
 "Parameter C of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:271
+#: gui/JoncsDefinition.py:310
 msgid "JoncsDef-pBDDesc"
 msgstr ""
 "Parameter D of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:272
+#: gui/JoncsDefinition.py:312
 msgid "JoncsDef-pBEDesc"
 msgstr ""
 "Parameter E of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:273
+#: gui/JoncsDefinition.py:314
 msgid "JoncsDef-pCADesc"
 msgstr ""
 "Parameter F of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:274
+#: gui/JoncsDefinition.py:316
 msgid "JoncsDef-pCBDesc"
 msgstr ""
 "Parameter G of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:275
+#: gui/JoncsDefinition.py:318
 msgid "JoncsDef-pCCDesc"
 msgstr ""
 "Parameter H of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:276
+#: gui/JoncsDefinition.py:320
 msgid "JoncsDef-pCDDesc"
 msgstr ""
 "Parameter I of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:277
+#: gui/JoncsDefinition.py:322
 msgid "JoncsDef-pDADesc"
 msgstr ""
 "Parameter S1 of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:278
+#: gui/JoncsDefinition.py:324
 msgid "JoncsDef-pDBDesc"
 msgstr ""
 "Parameter S2 of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:279
+#: gui/JoncsDefinition.py:326
 msgid "JoncsDef-pDCDesc"
 msgstr ""
 "Parameter S3 of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/JoncsDefinition.py:280
+#: gui/JoncsDefinition.py:328
 msgid "JoncsDef-pDDDesc"
 msgstr ""
 "Parameter S4 of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/Lines.py:86
+#: gui/Lines.py:97
 msgid "Edit Lines"
 msgstr ""
 
-#: gui/Lines.py:91
+#: gui/Lines.py:102
 msgid "Lines control parameter"
 msgstr ""
 
-#: gui/Lines.py:98
+#: gui/Lines.py:109
 msgid "Lines-LinesControlParamDesc"
 msgstr ""
 "Lower branches lined\n"
@@ -1958,69 +1945,69 @@ msgstr ""
 "2 = by weighting type 2\n"
 "3 = by weighting type 3 (span and chord optimization)"
 
-#: gui/Lines.py:108
+#: gui/Lines.py:119
 msgid "Number of Line plans"
 msgstr "Number of line plans"
 
-#: gui/Lines.py:230
+#: gui/Lines.py:243
 msgid "Number of Line paths"
 msgstr ""
 
-#: gui/Lines.py:296
+#: gui/Lines.py:309
 msgid "Lines-NumBranchesDesc"
 msgstr ""
 "Number of branches defined on \n"
 "this line"
 
-#: gui/Lines.py:299
+#: gui/Lines.py:312
 msgid "Lines-BranchLvlOneDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:302
+#: gui/Lines.py:315
 msgid "Lines-OrderLvlOneDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:305
+#: gui/Lines.py:318
 msgid "Lines-LevelOfRamTwoDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:308
+#: gui/Lines.py:321
 msgid "Lines-OrderLvlTwoDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:311
+#: gui/Lines.py:324
 msgid "Lines-LevelOfRamThreeDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:314
+#: gui/Lines.py:327
 msgid "Lines-OrderLvlThreeDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:317
+#: gui/Lines.py:330
 msgid "Lines-BranchLvlFourDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:320
+#: gui/Lines.py:333
 msgid "Lines-OrderLvlFourDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:323
+#: gui/Lines.py:336
 msgid "Lines-AnchorLineDesc"
 msgstr ""
 "Number of the anchor\n"
@@ -2028,70 +2015,70 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: gui/Lines.py:326
+#: gui/Lines.py:339
 msgid "Lines-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
 
-#: gui/MainWindow.py:195
+#: gui/MainWindow.py:192
 msgid "Newer version found"
 msgstr ""
 
-#: gui/MainWindow.py:196
+#: gui/MainWindow.py:193
 msgid "Current Version: "
 msgstr ""
 
-#: gui/MainWindow.py:199
+#: gui/MainWindow.py:196
 msgid "Version on remote: "
 msgstr ""
 
-#: gui/MainWindow.py:201
+#: gui/MainWindow.py:198
 msgid "Maybe you should consider an update from"
 msgstr ""
 
-#: gui/MainWindow.py:208
+#: gui/MainWindow.py:205
 msgid ""
 "More info about the different versions you will find in the <br>online help: "
 "Help-> Online Help"
 msgstr ""
 
-#: gui/MainWindow.py:212
+#: gui/MainWindow.py:209
 msgid "Or in Settings-> Update checking"
 msgstr ""
 
-#: gui/MainWindow.py:231
+#: gui/MainWindow.py:228
 #, python-format
 msgid "File saved: Pre Proc %s  |  Proc %s"
 msgstr ""
 
-#: gui/MainWindow.py:240
+#: gui/MainWindow.py:237
 msgid "Show Data Status"
 msgstr ""
 
-#: gui/MainWindow.py:241
+#: gui/MainWindow.py:238
 msgid "Provides an overview about what data has (not) been saved"
 msgstr ""
 
-#: gui/MainWindow.py:245
+#: gui/MainWindow.py:242
 msgid "Restart"
 msgstr ""
 
-#: gui/MainWindow.py:246
+#: gui/MainWindow.py:243
 msgid "Restart the app"
 msgstr ""
 
-#: gui/MainWindow.py:249
+#: gui/MainWindow.py:246
 msgid "Exit"
 msgstr ""
 
-#: gui/MainWindow.py:250
+#: gui/MainWindow.py:247
 msgid "Leave the app"
 msgstr ""
 
-#: gui/MainWindow.py:254
+#: gui/MainWindow.py:251
 msgid "File"
 msgstr ""
 
-#: gui/MainWindow.py:297
+#: gui/MainWindow.py:292
 msgid ""
 "You have unsaved data. \n"
 "\n"
@@ -2099,571 +2086,575 @@ msgid ""
 "Press Cancel to abort. "
 msgstr ""
 
-#: gui/MainWindow.py:315
+#: gui/MainWindow.py:310
 msgid "Open PreProc File"
 msgstr ""
 
-#: gui/MainWindow.py:316
+#: gui/MainWindow.py:311
 msgid "open_preProc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: gui/MainWindow.py:319
+#: gui/MainWindow.py:314
 msgid "Save PreProc File"
 msgstr ""
 
-#: gui/MainWindow.py:320
+#: gui/MainWindow.py:315
 msgid "save_preProc_file_desc"
 msgstr "Saves data to local file"
 
-#: gui/MainWindow.py:323
+#: gui/MainWindow.py:318
 msgid "Save PreProc File As .."
 msgstr ""
 
-#: gui/MainWindow.py:324
+#: gui/MainWindow.py:319
 msgid "save_preProc_file_as_desc"
 msgstr "Saves data under a new name"
 
-#: gui/MainWindow.py:327
+#: gui/MainWindow.py:322
 msgid "Name, LE, TE, Vault"
 msgstr ""
 
-#: gui/MainWindow.py:328
+#: gui/MainWindow.py:323
 msgid "edit_preProc_data_description"
 msgstr "Opens the window to edit name, LE, TE and vault settings"
 
-#: gui/MainWindow.py:331
+#: gui/MainWindow.py:326
 msgid "Cells distribution"
 msgstr ""
 
-#: gui/MainWindow.py:333
+#: gui/MainWindow.py:328
 msgid "edit_preProc_cellsDistr_description"
 msgstr "Opens the edit window for the cell distribution configuration"
 
-#: gui/MainWindow.py:336
+#: gui/MainWindow.py:331
 msgid "Run Pre-Processor"
 msgstr ""
 
-#: gui/MainWindow.py:337
+#: gui/MainWindow.py:332
 msgid "run_preProc_des"
 msgstr "Prepares the input file for the pre-processor and runs it"
 
-#: gui/MainWindow.py:411 gui/MainWindow.py:884
+#: gui/MainWindow.py:406 gui/MainWindow.py:831
 msgid "Potentially missing configuration!"
 msgstr ""
 
-#: gui/MainWindow.py:412
+#: gui/MainWindow.py:407
 msgid ""
 "For a successful pre-processor run you must configure\n"
 "the pre-processor in Setup ->Both Processors."
 msgstr ""
 
-#: gui/MainWindow.py:429
+#: gui/MainWindow.py:424
 msgid "Import Pre-Proc output file"
 msgstr ""
 
-#: gui/MainWindow.py:430
+#: gui/MainWindow.py:425
 msgid "import-pre-proc_file_desc"
 msgstr ""
 "Import the datafile created by the pre-processor to be further detailed"
 
-#: gui/MainWindow.py:433
+#: gui/MainWindow.py:428
 msgid "Open Processor File"
 msgstr ""
 
-#: gui/MainWindow.py:434
+#: gui/MainWindow.py:429
 msgid "open_Proc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: gui/MainWindow.py:437
+#: gui/MainWindow.py:432
 msgid "Save Processor File"
 msgstr ""
 
-#: gui/MainWindow.py:438
+#: gui/MainWindow.py:433
 msgid "save_proc_file_desc"
 msgstr "Saves data to local file"
 
-#: gui/MainWindow.py:441
+#: gui/MainWindow.py:436
 msgid "Save Processor File As .."
 msgstr ""
 
-#: gui/MainWindow.py:442
+#: gui/MainWindow.py:437
 msgid "save_proc_file_as_desc"
 msgstr "Saves the data under a new name"
 
-#: gui/MainWindow.py:445
+#: gui/MainWindow.py:440
 msgid "Basic data"
 msgstr ""
 
-#: gui/MainWindow.py:446
+#: gui/MainWindow.py:441
 msgid "Editing the wing basics"
 msgstr ""
 
-#: gui/MainWindow.py:450
+#: gui/MainWindow.py:445
 msgid "Edit wing geometry"
 msgstr ""
 
-#: gui/MainWindow.py:454
+#: gui/MainWindow.py:449
 msgid "Edit airfoils geometry"
 msgstr ""
 
-#: gui/MainWindow.py:458
+#: gui/MainWindow.py:453
 msgid "Edit Anchor points data"
 msgstr ""
 
-#: gui/MainWindow.py:461
+#: gui/MainWindow.py:456
 msgid "Rib holes"
 msgstr ""
 
-#: gui/MainWindow.py:462
+#: gui/MainWindow.py:457
 msgid "Edit rib holes (rib lightening) data"
 msgstr ""
 
-#: gui/MainWindow.py:465 gui/MainWindow.py:564 gui/SkinTension.py:66
+#: gui/MainWindow.py:460 gui/MainWindow.py:559 gui/SkinTension.py:76
 msgid "Skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:466
+#: gui/MainWindow.py:461
 msgid "Edit skin tension data"
 msgstr ""
 
-#: gui/MainWindow.py:469
+#: gui/MainWindow.py:464
 msgid "Estimated general AoA"
 msgstr ""
 
-#: gui/MainWindow.py:470
+#: gui/MainWindow.py:465
 msgid "Edit global AoA data"
 msgstr ""
 
-#: gui/MainWindow.py:473
+#: gui/MainWindow.py:468
 msgid "Lines"
 msgstr ""
 
-#: gui/MainWindow.py:474
+#: gui/MainWindow.py:469
 msgid "Edit Lines data"
 msgstr ""
 
-#: gui/MainWindow.py:477
+#: gui/MainWindow.py:472
 msgid "Brakes"
 msgstr ""
 
-#: gui/MainWindow.py:478
+#: gui/MainWindow.py:473
 msgid "Edit Brake lines data"
 msgstr ""
 
-#: gui/MainWindow.py:481
+#: gui/MainWindow.py:476
 msgid "Ramifications length"
 msgstr ""
 
-#: gui/MainWindow.py:482
+#: gui/MainWindow.py:477
 msgid "Edit Ramification data"
 msgstr ""
 
-#: gui/MainWindow.py:485
+#: gui/MainWindow.py:480
 msgid "HV and VH ribs"
 msgstr "Diagonal ribs"
 
-#: gui/MainWindow.py:486
+#: gui/MainWindow.py:481
 msgid "Edit HV/ VH ribs data"
 msgstr ""
 
-#: gui/MainWindow.py:490
+#: gui/MainWindow.py:485
 msgid "Edit the color settings of the upper sail"
 msgstr ""
 
-#: gui/MainWindow.py:495
+#: gui/MainWindow.py:490
 msgid "Edit the color settings of the lower sail"
 msgstr ""
 
-#: gui/MainWindow.py:500
+#: gui/MainWindow.py:495
 msgid "Edit additional rib points data"
 msgstr ""
 
-#: gui/MainWindow.py:504
+#: gui/MainWindow.py:499
 msgid "Edit elastic lines correction data"
 msgstr ""
 
-#: gui/MainWindow.py:507
+#: gui/MainWindow.py:502
 msgid "Joncs definitions"
 msgstr ""
 
-#: gui/MainWindow.py:508
+#: gui/MainWindow.py:503
 msgid "Edit joncs (nylon rods) definition"
 msgstr ""
 
-#: gui/MainWindow.py:511 gui/NoseMylars.py:71
+#: gui/MainWindow.py:506 gui/NoseMylars.py:87
 msgid "Nose mylars"
 msgstr ""
 
-#: gui/MainWindow.py:512
+#: gui/MainWindow.py:507
 msgid "Edit nose mylars definition"
 msgstr ""
 
-#: gui/MainWindow.py:515
+#: gui/MainWindow.py:510
 msgid "Tab reinforcements"
 msgstr ""
 
-#: gui/MainWindow.py:518
+#: gui/MainWindow.py:513
 msgid "Glue vents"
 msgstr ""
 
-#: gui/MainWindow.py:519
+#: gui/MainWindow.py:514
 msgid "Edit glue vent definitions"
 msgstr ""
 
-#: gui/MainWindow.py:522
+#: gui/MainWindow.py:517
 msgid "Special wingtip"
 msgstr ""
 
-#: gui/MainWindow.py:523
+#: gui/MainWindow.py:518
 msgid "Edit Special wing tip definitions"
 msgstr ""
 
-#: gui/MainWindow.py:526
+#: gui/MainWindow.py:521
 msgid "Calage variation"
 msgstr ""
 
-#: gui/MainWindow.py:527
+#: gui/MainWindow.py:522
 msgid "Edit parameters for calage variation study"
 msgstr ""
 
-#: gui/MainWindow.py:531 gui/ThreeDShaping.py:91
+#: gui/MainWindow.py:526 gui/ThreeDShaping.py:105
 msgid "3D shaping"
 msgstr ""
 
-#: gui/MainWindow.py:532
+#: gui/MainWindow.py:527
 msgid "Enable and edit parameters for 3D shaping"
 msgstr ""
 
-#: gui/MainWindow.py:537
+#: gui/MainWindow.py:532
 msgid "Edit parameters for airfoil thickness"
 msgstr ""
 
-#: gui/MainWindow.py:541 gui/NewSkinTension.py:89
+#: gui/MainWindow.py:536 gui/NewSkinTension.py:93
 msgid "New skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:542
+#: gui/MainWindow.py:537
 msgid "Edit parameters for new skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:546
+#: gui/MainWindow.py:541
 msgid "Run Processor"
 msgstr ""
 
-#: gui/MainWindow.py:547
+#: gui/MainWindow.py:542
 msgid "run_Processor_des"
 msgstr "Prepares the input file for the processor and runs it"
 
-#: gui/MainWindow.py:575
+#: gui/MainWindow.py:570
 msgid "Colors"
 msgstr ""
 
-#: gui/MainWindow.py:885
+#: gui/MainWindow.py:832
 msgid ""
 "For a successful processor run you must configure\n"
 "the processor in Setup->Both Processors."
 msgstr ""
 
-#: gui/MainWindow.py:900
+#: gui/MainWindow.py:847
 msgid "Seewing Allowance"
 msgstr ""
 
-#: gui/MainWindow.py:901
+#: gui/MainWindow.py:848
 msgid "Edit Seewing allowances"
 msgstr ""
 
-#: gui/MainWindow.py:904 gui/Marks.py:64
+#: gui/MainWindow.py:851 gui/Marks.py:74
 msgid "Marks"
 msgstr ""
 
-#: gui/MainWindow.py:905
+#: gui/MainWindow.py:852
 msgid "Edit the Marks parameters"
 msgstr ""
 
-#: gui/MainWindow.py:908
+#: gui/MainWindow.py:855
 msgid "DXF Layer names"
 msgstr ""
 
-#: gui/MainWindow.py:909
+#: gui/MainWindow.py:856
 msgid "Edit the names of the individual DXF layers"
 msgstr ""
 
-#: gui/MainWindow.py:913 gui/MarksTypes.py:71
+#: gui/MainWindow.py:860 gui/MarksTypes.py:84
 msgid "Marks types"
 msgstr ""
 
-#: gui/MainWindow.py:914
+#: gui/MainWindow.py:861
 msgid "Edit individual parameters for the marks on the plans"
 msgstr ""
 
-#: gui/MainWindow.py:918
+#: gui/MainWindow.py:865
 msgid "2D DXF options"
 msgstr ""
 
-#: gui/MainWindow.py:919
+#: gui/MainWindow.py:866
 msgid "Edit for the 2D dxf plans"
 msgstr ""
 
-#: gui/MainWindow.py:922
+#: gui/MainWindow.py:869
 msgid "3D DXF options"
 msgstr ""
 
-#: gui/MainWindow.py:923
+#: gui/MainWindow.py:870
 msgid "Edit for the 3D dxf plans"
 msgstr ""
 
-#: gui/MainWindow.py:926 gui/PartsSeparation.py:74
+#: gui/MainWindow.py:873 gui/PartsSeparation.py:78
 msgid "Parts separation"
 msgstr ""
 
-#: gui/MainWindow.py:927
+#: gui/MainWindow.py:874
 msgid "Edit the parameters for  Parts separation"
 msgstr ""
 
-#: gui/MainWindow.py:932
+#: gui/MainWindow.py:879
 msgid "Plan"
 msgstr ""
 
-#: gui/MainWindow.py:1006 gui/PreProcWingOutline.py:113
+#: gui/MainWindow.py:941 gui/PreProcWingOutline.py:114
 msgid "Wing outline"
 msgstr ""
 
-#: gui/MainWindow.py:1007
+#: gui/MainWindow.py:942
 msgid "show_WingOutline_des"
 msgstr "Opens the wing outline window"
 
-#: gui/MainWindow.py:1010
+#: gui/MainWindow.py:945
 msgid "Cascade"
 msgstr ""
 
-#: gui/MainWindow.py:1011
+#: gui/MainWindow.py:946
 msgid "Cascade all windows"
 msgstr ""
 
-#: gui/MainWindow.py:1014
+#: gui/MainWindow.py:949
 msgid "Tile"
 msgstr ""
 
-#: gui/MainWindow.py:1015
+#: gui/MainWindow.py:950
 msgid "Tile all windows"
 msgstr ""
 
-#: gui/MainWindow.py:1019
+#: gui/MainWindow.py:954
 msgid "View"
 msgstr ""
 
-#: gui/MainWindow.py:1062
+#: gui/MainWindow.py:995
 msgid "Both Processors"
 msgstr ""
 
-#: gui/MainWindow.py:1063
+#: gui/MainWindow.py:996
 msgid "Setup locations for both processors"
 msgstr ""
 
-#: gui/MainWindow.py:1066
+#: gui/MainWindow.py:999
 msgid "Update checking"
 msgstr ""
 
-#: gui/MainWindow.py:1067
+#: gui/MainWindow.py:1000
 msgid "Setup if and for which version to check for updates"
 msgstr ""
 
-#: gui/MainWindow.py:1072
+#: gui/MainWindow.py:1005
 msgid "Setup"
 msgstr ""
 
-#: gui/MainWindow.py:1073
+#: gui/MainWindow.py:1006
 msgid "Language"
 msgstr ""
 
-#: gui/MainWindow.py:1104
+#: gui/MainWindow.py:1037
 msgid "Switching language"
 msgstr ""
 
-#: gui/MainWindow.py:1106
+#: gui/MainWindow.py:1039
 msgid "Please restart the application."
 msgstr ""
 
-#: gui/MainWindow.py:1135
+#: gui/MainWindow.py:1064
 msgid "Online Help"
 msgstr ""
 
-#: gui/MainWindow.py:1136
+#: gui/MainWindow.py:1065
 msgid "Opens the online help in your browser"
 msgstr ""
 
-#: gui/MainWindow.py:1139
+#: gui/MainWindow.py:1068
 msgid "About"
 msgstr ""
 
-#: gui/MainWindow.py:1140
+#: gui/MainWindow.py:1069
 msgid "Short info about the program"
 msgstr ""
 
-#: gui/MainWindow.py:1144 gui/elements/WindowBtnBar.py:77
+#: gui/MainWindow.py:1073 gui/elements/WindowBtnBar.py:77
 msgid "Help"
 msgstr ""
 
-#: gui/Marks.py:74
+#: gui/Marks.py:87
 msgid "Marks-MarksSpacingDesc"
 msgstr ""
+"Distance [cm] along the seew between\n"
+"the diffenent markings"
 
-#: gui/Marks.py:75
+#: gui/Marks.py:89
 msgid "Marks-PointRadiusDesc"
-msgstr ""
+msgstr "Radius of the point in [cm]"
 
-#: gui/Marks.py:76
+#: gui/Marks.py:91
 msgid "Marks-PointsDisplacementDesc"
 msgstr ""
+"Distance of the point sideways of the \n"
+"seew [cm]"
 
-#: gui/MarksTypes.py:73
+#: gui/MarksTypes.py:86
 msgid "Number of marks"
 msgstr ""
 
-#: gui/MarksTypes.py:107
+#: gui/MarksTypes.py:139
 msgid "MarksTypes-TypeDesc"
 msgstr ""
 "Name of the setting\n"
 "The valid names you find in\n"
 "the online help"
 
-#: gui/MarksTypes.py:108
+#: gui/MarksTypes.py:141
 msgid "MarksTypes-FormOneDesc"
 msgstr ""
 "Form 1\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/MarksTypes.py:109
+#: gui/MarksTypes.py:143
 msgid "MarksTypes-FormOnePOneDesc"
 msgstr ""
 "First param for Form 1\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/MarksTypes.py:110
+#: gui/MarksTypes.py:145
 msgid "MarksTypes-FormOnePTwoDesc"
 msgstr ""
 "Second param for Form 1\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/MarksTypes.py:111
+#: gui/MarksTypes.py:147
 msgid "MarksTypes-FormTwoDesc"
 msgstr ""
 "Form 2\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/MarksTypes.py:112
+#: gui/MarksTypes.py:149
 msgid "MarksTypes-FormTwoPOneDesc"
 msgstr ""
 "First param for Form 2\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/MarksTypes.py:113
+#: gui/MarksTypes.py:151
 msgid "MarksTypes-FormTwoPTwoDesc"
 msgstr ""
 "Second param for Form 2\n"
 "Please check the online help for a detailed explanation"
 
-#: gui/NewSkinTension.py:210
+#: gui/NewSkinTension.py:216
 msgid "NewSkinTens-InitialRibDesc"
 msgstr "Number of the first rib in the group"
 
-#: gui/NewSkinTension.py:211
+#: gui/NewSkinTension.py:217
 msgid "NewSkinTens-FinalRibDesc"
 msgstr "Number of the last rib in the group"
 
-#: gui/NewSkinTension.py:212
+#: gui/NewSkinTension.py:218
 msgid "NewSkinTens-TypeDesc"
 msgstr ""
 "Calculation type\n"
 "The only allowed value is currently 1"
 
-#: gui/NewSkinTension.py:224
+#: gui/NewSkinTension.py:230
 msgid "Number of Lines"
 msgstr ""
 
-#: gui/NewSkinTension.py:256
+#: gui/NewSkinTension.py:262
 msgid "SkinTension-OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
 "during edit or file saving"
 
-#: gui/NewSkinTension.py:258 gui/SkinTension.py:75
+#: gui/NewSkinTension.py:264 gui/SkinTension.py:87
 msgid "SkinTension-TopDistLEDesc"
 msgstr "Distance from Leading Edge in [% chord]"
 
-#: gui/NewSkinTension.py:260 gui/SkinTension.py:76
+#: gui/NewSkinTension.py:266 gui/SkinTension.py:89
 msgid "SkinTension-TopOverWideDesc"
 msgstr "Over widening in [% chord]"
 
-#: gui/NewSkinTension.py:262 gui/SkinTension.py:77
+#: gui/NewSkinTension.py:268 gui/SkinTension.py:91
 msgid "SkinTension-BottDistTEDesc"
 msgstr "Distance from Trailing Edge in [% chord]"
 
-#: gui/NewSkinTension.py:264 gui/SkinTension.py:78
+#: gui/NewSkinTension.py:270 gui/SkinTension.py:93
 msgid "SkinTension-BottOverWideDesc"
 msgstr "Over widening in [% chord]"
 
-#: gui/NoseMylars.py:110
+#: gui/NoseMylars.py:134
 msgid "NoseMylars-FirstRibDesc"
 msgstr ""
 "Number of the initial rib for\n"
 "which this line applies"
 
-#: gui/NoseMylars.py:111
+#: gui/NoseMylars.py:136
 msgid "NoseMylars-LastRibDesc"
 msgstr ""
 "Number of the last rib for\n"
 "which this line applies"
 
-#: gui/NoseMylars.py:112
+#: gui/NoseMylars.py:138
 msgid "NoseMylars-x1Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/NoseMylars.py:113
+#: gui/NoseMylars.py:140
 msgid "NoseMylars-u1Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/NoseMylars.py:114
+#: gui/NoseMylars.py:142
 msgid "NoseMylars-u2Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/NoseMylars.py:115
+#: gui/NoseMylars.py:144
 msgid "NoseMylars-x2Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/NoseMylars.py:116
+#: gui/NoseMylars.py:146
 msgid "NoseMylars-v1Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/NoseMylars.py:117
+#: gui/NoseMylars.py:148
 msgid "NoseMylars-v2Desc"
 msgstr "Please check the online help for a detailed explanation"
 
-#: gui/PartsSeparation.py:110
+#: gui/PartsSeparation.py:114
 msgid "PartsSep-Panel_x_Desc"
 msgstr ""
 "Factor for x-direction\n"
 "panels separation"
 
-#: gui/PartsSeparation.py:112
+#: gui/PartsSeparation.py:116
 msgid "PartsSep-Panel_x_min_Desc"
 msgstr ""
 "Factor for x-direction panels\n"
 "minimum separation"
 
-#: gui/PartsSeparation.py:114
+#: gui/PartsSeparation.py:118
 msgid "PartsSep-Panel_y_Desc"
 msgstr ""
 "Factor for y-direction\n"
 "panels separation"
 
-#: gui/PartsSeparation.py:116
+#: gui/PartsSeparation.py:120
 msgid "PartsSep-Rib_x_Desc"
 msgstr ""
 "Factor for x-direction\n"
 "ribs separation"
 
-#: gui/PartsSeparation.py:118
+#: gui/PartsSeparation.py:122
 msgid "PartsSep-Rib_y_Desc"
 msgstr ""
 "Factor for y-direction\n"
@@ -2867,135 +2858,135 @@ msgstr "Angle of 3rd angular section"
 msgid "PreProc-Vault-ra4-Desc"
 msgstr "Angle of 4th angular section"
 
-#: gui/PreProcWingOutline.py:116
+#: gui/PreProcWingOutline.py:117
 msgid "Pitch -"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:118
+#: gui/PreProcWingOutline.py:119
 msgid "Pitch +"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:125
+#: gui/PreProcWingOutline.py:126
 msgid "Yaw BB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:127
+#: gui/PreProcWingOutline.py:128
 msgid "Yaw StB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:134
+#: gui/PreProcWingOutline.py:135
 msgid "Roll StB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:136
+#: gui/PreProcWingOutline.py:137
 msgid "Roll BB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:143
+#: gui/PreProcWingOutline.py:144
 msgid "Top"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:147
+#: gui/PreProcWingOutline.py:148
 msgid "StB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:149
+#: gui/PreProcWingOutline.py:150
 msgid "BB"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:156
+#: gui/PreProcWingOutline.py:157
 msgid "Rear"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:185
+#: gui/PreProcWingOutline.py:186
 msgid "Pre-Proc file"
 msgstr ""
 
-#: gui/PreProcWingOutline.py:187
+#: gui/PreProcWingOutline.py:188
 msgid "Own file"
 msgstr ""
 
-#: gui/Ramification.py:69
+#: gui/Ramification.py:74
 msgid "Ramification"
 msgstr ""
 
-#: gui/Ramification.py:74
+#: gui/Ramification.py:79
 msgid "3 Line rows"
 msgstr ""
 
-#: gui/Ramification.py:93
+#: gui/Ramification.py:102
 msgid "Ramification-3L-ThirdLineToSailDesc"
 msgstr ""
 "Dist lower end of 3. level to Sail\n"
 "(Image in user help: l2)"
 
-#: gui/Ramification.py:107
+#: gui/Ramification.py:122
 msgid "4 Line rows"
 msgstr ""
 
-#: gui/Ramification.py:125
+#: gui/Ramification.py:143
 msgid "Ramification-4L-ThirdLineToSailDesc"
 msgstr ""
 "Dist lower end of 3. level to Sail\n"
 "(Image in user help: l3)"
 
-#: gui/Ramification.py:126
+#: gui/Ramification.py:146
 msgid "Ramification-4L-FourthLineToSailDesc"
 msgstr ""
 "Dist lower end of 4. level to sail\n"
 "(Image in user help: l2)"
 
-#: gui/Ramification.py:140
+#: gui/Ramification.py:169
 msgid "3 Brake rows"
 msgstr ""
 
-#: gui/Ramification.py:158
+#: gui/Ramification.py:191
 msgid "Ramification-3L-ThirdBrakeToSailDesc"
 msgstr ""
 "Dist lower end of 3. level to Sail\n"
 "(Image in user help: l2)"
 
-#: gui/Ramification.py:172
+#: gui/Ramification.py:211
 msgid "4 Brake rows"
 msgstr ""
 
-#: gui/Ramification.py:189
+#: gui/Ramification.py:231
 msgid "Ramification-4L-ThirdBrakeToSailDesc"
 msgstr ""
 "Dist lower end of 3. level to Sail\n"
 "(Image in user help: l3)"
 
-#: gui/Ramification.py:190
+#: gui/Ramification.py:234
 msgid "Ramification-4L-FourthBrakeToSailDesc"
 msgstr ""
 "Dist lower end of 4. level to sail\n"
 "(Image in user help: l2)"
 
-#: gui/RibHoles.py:91
+#: gui/RibHoles.py:92
 msgid "Edit rib holes (rib lightening)"
 msgstr ""
 
-#: gui/RibHoles.py:93
+#: gui/RibHoles.py:94
 msgid "Number of configurations"
 msgstr ""
 
-#: gui/RibHoles.py:119
+#: gui/RibHoles.py:120
 msgid "Sort by Order Num"
 msgstr ""
 
-#: gui/RibHoles.py:216
+#: gui/RibHoles.py:217
 msgid "Proc-InitialRibDesc"
 msgstr "First rib for which the configuration applies"
 
-#: gui/RibHoles.py:218
+#: gui/RibHoles.py:219
 msgid "Proc-FinalRibDesc"
 msgstr "Last rib for which the configuration applies"
 
-#: gui/RibHoles.py:234
+#: gui/RibHoles.py:235
 msgid "Number of configuration lines"
 msgstr ""
 
-#: gui/RibHoles.py:289
+#: gui/RibHoles.py:290
 msgid "RibHoles-LightTypeDesc"
 msgstr ""
 "Typ of lightening configuration\n"
@@ -3036,267 +3027,267 @@ msgstr ""
 "Type 2: Width of strip in  [cm]\n"
 "Type 3: Radius of corners in [cm]"
 
-#: gui/SeewingAllowances.py:70
+#: gui/SeewingAllowances.py:79
 msgid "Sewing allowances"
 msgstr ""
 
-#: gui/SeewingAllowances.py:75
+#: gui/SeewingAllowances.py:84
 msgid "Upper panel"
 msgstr ""
 
-#: gui/SeewingAllowances.py:88 gui/SeewingAllowances.py:114
+#: gui/SeewingAllowances.py:101 gui/SeewingAllowances.py:138
 msgid "SewingAllowances-EdgeSeamDesc"
-msgstr ""
+msgstr "Edge seam [mm] on the panel side"
 
-#: gui/SeewingAllowances.py:89 gui/SeewingAllowances.py:115
+#: gui/SeewingAllowances.py:103 gui/SeewingAllowances.py:140
 msgid "SewingAllowances-LeSeamDesc"
-msgstr ""
+msgstr "Seem [mm] at leading edge"
 
-#: gui/SeewingAllowances.py:90 gui/SeewingAllowances.py:116
+#: gui/SeewingAllowances.py:105 gui/SeewingAllowances.py:142
 msgid "SewingAllowances-TeSeamDesc"
-msgstr ""
+msgstr "Seem [mm] at trailing edge"
 
-#: gui/SeewingAllowances.py:101
+#: gui/SeewingAllowances.py:124
 msgid "Lower panel"
 msgstr ""
 
-#: gui/SeewingAllowances.py:127
+#: gui/SeewingAllowances.py:161
 msgid "Ribs"
 msgstr ""
 
-#: gui/SeewingAllowances.py:142
+#: gui/SeewingAllowances.py:177
 msgid "SewingAllowances-RibsSeemDesc"
 msgstr ""
 
-#: gui/SeewingAllowances.py:153
+#: gui/SeewingAllowances.py:192
 msgid "V-Ribs"
 msgstr ""
 
-#: gui/SeewingAllowances.py:168
+#: gui/SeewingAllowances.py:208
 msgid "SewingAllowances-V-RibsSeemDesc"
 msgstr ""
 
-#: gui/SetupProcessors.py:84
+#: gui/SetupProcessors.py:85
 msgid "Setup processors"
 msgstr ""
 
-#: gui/SetupProcessors.py:86
+#: gui/SetupProcessors.py:87
 msgid "Pre-processor"
 msgstr ""
 
-#: gui/SetupProcessors.py:94
+#: gui/SetupProcessors.py:95
 msgid "SetupProc-PreProcPathNameDesc"
 msgstr ""
 "Fully qualified path and name of the\n"
-"pre-processor executable. "
+"pre-processor executable."
 
-#: gui/SetupProcessors.py:97 gui/SetupProcessors.py:124
+#: gui/SetupProcessors.py:98 gui/SetupProcessors.py:125
 msgid "Change"
 msgstr ""
 
-#: gui/SetupProcessors.py:107
+#: gui/SetupProcessors.py:108
 msgid "Open wing outline after processing"
 msgstr ""
 
-#: gui/SetupProcessors.py:109
+#: gui/SetupProcessors.py:110
 msgid "SetupProc-PreProcWingOutline"
 msgstr ""
 "Open and update the Wing outline window\n"
-"automatically after a pre-processor run. "
+"automatically after a pre-processor run."
 
-#: gui/SetupProcessors.py:113
+#: gui/SetupProcessors.py:114
 msgid "Processor (lep)"
 msgstr ""
 
-#: gui/SetupProcessors.py:121
+#: gui/SetupProcessors.py:122
 msgid "SetupProc-ProcPathNameDesc"
 msgstr ""
 "Fully qualified path and name of the\n"
-"processor executable. "
+"processor executable."
 
-#: gui/SetupProcessors.py:162
+#: gui/SetupProcessors.py:163
 msgid "Select Pre-Processor"
 msgstr ""
 
-#: gui/SetupProcessors.py:168 gui/SetupProcessors.py:174
+#: gui/SetupProcessors.py:169 gui/SetupProcessors.py:175
 msgid "Select Pre_Processor"
 msgstr ""
 
-#: gui/SetupProcessors.py:213 gui/SetupProcessors.py:219
-#: gui/SetupProcessors.py:225
+#: gui/SetupProcessors.py:214 gui/SetupProcessors.py:220
+#: gui/SetupProcessors.py:226
 msgid "Select Processor"
 msgstr ""
 
-#: gui/SetupUpdateChecking.py:73
+#: gui/SetupUpdateChecking.py:74
 msgid "Setup update checking"
 msgstr ""
 
-#: gui/SetupUpdateChecking.py:75
+#: gui/SetupUpdateChecking.py:76
 msgid "Perform update checks at start"
 msgstr ""
 
-#: gui/SetupUpdateChecking.py:84
+#: gui/SetupUpdateChecking.py:85
 msgid "Branch"
 msgstr ""
 
-#: gui/SetupUpdateChecking.py:87
+#: gui/SetupUpdateChecking.py:88
 msgid "stable"
 msgstr ""
 
-#: gui/SetupUpdateChecking.py:88
+#: gui/SetupUpdateChecking.py:89
 msgid "latest"
 msgstr ""
 
-#: gui/SkinTension.py:91
+#: gui/SkinTension.py:114
 msgid "SkinTension-StrainMiniRibsDesc"
 msgstr ""
 "Compensation of canvas elasticity.\n"
 "Default is 0,0114"
 
-#: gui/SkinTension.py:92
+#: gui/SkinTension.py:117
 msgid "SkinTension-NumPointsDesc"
 msgstr ""
 "Num correction points\n"
 "Default 1000"
 
-#: gui/SkinTension.py:93
+#: gui/SkinTension.py:120
 msgid "SkinTension-CoeffDesc"
 msgstr ""
 "Intensity of the correction\n"
 "0.0 None\n"
 "1.0 maximal"
 
-#: gui/SpecWingTip.py:70
+#: gui/SpecWingTip.py:81
 msgid "Special wing tip"
 msgstr ""
 
-#: gui/SpecWingTip.py:105
+#: gui/SpecWingTip.py:116
 msgid "SpecWingTyp-AngleLEDesc"
 msgstr ""
 "Angle in [deg] of the leading edge \n"
 "in the last cell"
 
-#: gui/SpecWingTip.py:107
+#: gui/SpecWingTip.py:118
 msgid "SpecWingTyp-AngleTEDesc"
 msgstr ""
 "Angle in [deg] of the trailing edge \n"
 "in the last cell"
 
-#: gui/ThreeDDxf.py:69
+#: gui/ThreeDDxf.py:81
 msgid "3D DXF Options"
 msgstr ""
 
-#: gui/ThreeDDxf.py:101 gui/ThreeDDxf.py:123
+#: gui/ThreeDDxf.py:122 gui/ThreeDDxf.py:157
 msgid "ThreeDDxf-LineNameDesc"
 msgstr ""
 "Name of the layer\n"
 "The valid descriptors you find in\n"
 "the online help"
 
-#: gui/ThreeDDxf.py:102 gui/ThreeDDxf.py:125
+#: gui/ThreeDDxf.py:124 gui/ThreeDDxf.py:161
 msgid "ThreeDDxf-ColorCodeDesc"
 msgstr ""
 "1= red, 2=yellow, 3=green, 4=cyan, \n"
 "5=blue, 6=magenta, 7=white, 8=dark grey,\n"
 "9= grey,... up to 255"
 
-#: gui/ThreeDDxf.py:103 gui/ThreeDDxf.py:126
+#: gui/ThreeDDxf.py:126 gui/ThreeDDxf.py:163
 msgid "ThreeDDxf-ColorNameDesc"
 msgstr "The Name of the Color as text"
 
-#: gui/ThreeDDxf.py:124
+#: gui/ThreeDDxf.py:159
 msgid "ThreeDDxf-UnifilarDesc"
 msgstr ""
 "0= ovalized visualisation of the surfaces\n"
 "1= unifilar visualisation"
 
-#: gui/ThreeDShaping.py:126
+#: gui/ThreeDShaping.py:143
 msgid "3DShPrint-NameDesc"
 msgstr ""
 "Name of the setting\n"
 "The valid names you find in\n"
 "the online help"
 
-#: gui/ThreeDShaping.py:127
+#: gui/ThreeDShaping.py:145
 msgid "3DShPrint-DrawDesc"
 msgstr ""
 "Controls if it will be drawn or not\n"
 "0 = don't draw\n"
 "1 = draw"
 
-#: gui/ThreeDShaping.py:128
+#: gui/ThreeDShaping.py:147
 msgid "3DShPrint-FirstPanelDesc"
 msgstr "First panel for the setting"
 
-#: gui/ThreeDShaping.py:129
+#: gui/ThreeDShaping.py:149
 msgid "3DShPrint-LastPanelDesc"
 msgstr "Last panel for the setting"
 
-#: gui/ThreeDShaping.py:130
+#: gui/ThreeDShaping.py:151
 msgid "3DShPrint-SymmetricDesc"
 msgstr ""
 "Controls if it shall be drawn symetrical\n"
 "0 = draw with symmetry\n"
 "1 = only one side"
 
-#: gui/ThreeDShaping.py:214
+#: gui/ThreeDShaping.py:246
 msgid "3DSh-FirstRibDesc"
 msgstr ""
 "Number of the initial rib for\n"
 "which this configuration applies"
 
-#: gui/ThreeDShaping.py:215
+#: gui/ThreeDShaping.py:248
 msgid "3DSh-LastRibDesc"
 msgstr ""
 "Number of the last rib for\n"
 "which this configuration applies"
 
-#: gui/ThreeDShaping.py:226
+#: gui/ThreeDShaping.py:264
 msgid "Number of upper cuts"
 msgstr ""
 
-#: gui/ThreeDShaping.py:258 gui/ThreeDShaping.py:302
+#: gui/ThreeDShaping.py:307 gui/ThreeDShaping.py:364
 msgid "3DSh-IniPointDesc"
 msgstr ""
 "Starting point of the \n"
 "3D shaping panel"
 
-#: gui/ThreeDShaping.py:259 gui/ThreeDShaping.py:303
+#: gui/ThreeDShaping.py:309 gui/ThreeDShaping.py:366
 msgid "3DSh-CutPointDesc"
 msgstr ""
 "Point (position) at which the  cut for the \n"
 "3D shaping will be applied"
 
-#: gui/ThreeDShaping.py:260 gui/ThreeDShaping.py:304
+#: gui/ThreeDShaping.py:311 gui/ThreeDShaping.py:368
 msgid "3DSh-DepthDesc"
 msgstr ""
 "Depth (intensity) of the shaping\n"
 "Coef -1.0 ….+1.0\n"
 "0.0 no effect"
 
-#: gui/ThreeDShaping.py:270
+#: gui/ThreeDShaping.py:321
 msgid "Number of lower cuts"
 msgstr "Number of cuts in the lower sail"
 
-#: gui/TwoDDxf.py:70
+#: gui/TwoDDxf.py:81
 msgid "2D DXF Options"
 msgstr ""
 
-#: gui/TwoDDxf.py:99
+#: gui/TwoDDxf.py:119
 msgid "TwoDDxf-LineNameDesc"
 msgstr ""
 "Name of the layer\n"
 "The valid descriptors you find in\n"
 "the online help"
 
-#: gui/TwoDDxf.py:100
+#: gui/TwoDDxf.py:121
 msgid "TwoDDxf-ColorCodeDesc"
 msgstr ""
 "1= red, 2=yellow, 3=green, 4=cyan, \n"
 "5=blue, 6=magenta, 7=white, 8=dark grey,\n"
 "9= grey,... up to 255"
 
-#: gui/TwoDDxf.py:101
+#: gui/TwoDDxf.py:123
 msgid "TwoDDxf-ColorNameDesc"
 msgstr "The Name of the Color as text"
 

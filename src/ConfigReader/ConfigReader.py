@@ -232,7 +232,14 @@ class ConfigReader(QObject, metaclass=Singleton):
                  automatically after processing.
         :param show: True or False
         """
-        self.__pre_proc_show_outline = show
+        if isinstance(show, bool):
+            self.__pre_proc_show_outline = show
+        else:
+            if show.casefold() == 'yes' \
+                    or show.casefold() == 'true':
+                self.__pre_proc_show_outline = True
+            else:
+                self.__pre_proc_show_outline = False
         self.write_config_file()
 
     def get_pre_proc_show_outline(self):

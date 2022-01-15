@@ -2,65 +2,64 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 """
-import os
-import webbrowser
 import gettext
 import logging.config
+import os
 import sys
-
-import __init__
-
-from packaging import version
+import webbrowser
 
 from PyQt5.Qt import QStatusBar
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMdiArea, QAction, \
     QMessageBox, QMenu, QLabel
+from packaging import version
 
-from VersionCheck.VersionCheck import VersionCheck
+import __init__
 from ConfigReader.ConfigReader import ConfigReader
+from Processors.ProcRunner import ProcRunner
+from VersionCheck.VersionCheck import VersionCheck
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
-from Processors.ProcRunner import ProcRunner
-from gui.Airfoils import Airfoils
+from gui.AddRibPoints import AddRibPoints
 from gui.AirfoilThickness import AirfoilThickness
+from gui.Airfoils import Airfoils
 from gui.AnchorPoints import AnchorPoints
 from gui.BasicData import BasicData
 from gui.Brakes import Brakes
+from gui.CalageVar import CalageVar
 from gui.DataStatusOverview import DataStatusOverview
 from gui.DxfLayerNames import DxfLayerNames
+from gui.ElasticLinesCorr import ElasticLinesCorr
+from gui.ExtradColors import ExtradColors
 from gui.Geometry import Geometry
+from gui.GlobalAoA import GlobalAoA
+from gui.GlueVent import GlueVent
 from gui.HelpAbout import HelpAbout
+from gui.HvVhRibs import HvVhRibs
+from gui.IntradColors import IntradColors
+from gui.JoncsDefinition import JoncsDefinition
+from gui.Lines import Lines
 from gui.Marks import Marks
+from gui.MarksTypes import MarksTypes
+from gui.NewSkinTension import NewSkinTension
+from gui.NoseMylars import NoseMylars
 from gui.PartsSeparation import PartsSeparation
-from gui.ProcessorOutput import ProcessorOutput
+from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.PreProcData import PreProcData
 from gui.PreProcWingOutline import PreProcWingOutline
+from gui.ProcessorOutput import ProcessorOutput
+from gui.Ramification import Ramification
 from gui.RibHoles import RibHoles
 from gui.SeewingAllowances import SeewingAllowances
-from gui.SkinTension import SkinTension
-from gui.GlobalAoA import GlobalAoA
-from gui.Lines import Lines
-from gui.Ramification import Ramification
-from gui.HvVhRibs import HvVhRibs
-from gui.ExtradColors import ExtradColors
-from gui.IntradColors import IntradColors
-from gui.AddRibPoints import AddRibPoints
-from gui.ElasticLinesCorr import ElasticLinesCorr
-from gui.MarksTypes import MarksTypes
-from gui.JoncsDefinition import JoncsDefinition
-from gui.NoseMylars import NoseMylars
-from gui.TwoDDxf import TwoDDxfModel
-from gui.ThreeDDxf import ThreeDDxfModel
-from gui.GlueVent import GlueVent
-from gui.SpecWingTip import SpecWingTip
-from gui.CalageVar import CalageVar
-from gui.ThreeDShaping import ThreeDShaping
-from gui.NewSkinTension import NewSkinTension
-from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
+from gui.SkinTension import SkinTension
+from gui.SpecWingTip import SpecWingTip
+from gui.ThreeDDxf import ThreeDDxfModel
+from gui.ThreeDShaping import ThreeDShaping
+from gui.TwoDDxf import TwoDDxfModel
+
 
 # TODO: bring windows to front if they are called
 
@@ -110,8 +109,8 @@ class MainWindow(QMainWindow):
             locale_path = os.path.join(bundle_dir, '..', 'translations')
 
         print('Running mode:', running_mode)
-        print('  Bundle dir  :', bundle_dir)
-        print('  Config full path :', path_to_dat)
+        # print('  Bundle dir  :', bundle_dir)
+        # print('  Config full path :', path_to_dat)
 
         logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
         self.logger = logging.getLogger('root')
@@ -269,6 +268,23 @@ class MainWindow(QMainWindow):
             Thanks to: https://blog.petrzemek.net/2014/03/23/
             restarting-a-python-script-within-itself/
         """
+
+        if self.ppm.file_saved() is not True\
+                or self.pm.file_saved() is not True:
+            # There is unsaved data, show a warning
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_("Unsaved data"))
+            msg_box.setText(_("You have unsaved data. \n\n"
+                              "Press OK to restart anyway.\n"
+                              "Press Cancel to abort. "))
+            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            answer = msg_box.exec()
+
+            if answer == QMessageBox.Cancel:
+                # User wants to abort
+                return
+
         os.execv(sys.executable, ['python'] + sys.argv)
 
     def closeEvent(self, event):
@@ -281,11 +297,8 @@ class MainWindow(QMainWindow):
         """
         logging.debug(self.__className + '.file_exit')
 
-        ppm = PreProcModel()
-        pm = ProcModel()
-
-        if ppm.file_saved() is not True\
-                or pm.file_saved() is not True:
+        if self.ppm.file_saved() is not True\
+                or self.pm.file_saved() is not True:
             # There is unsaved data, show a warning
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_("Unsaved data"))
@@ -815,7 +828,7 @@ class MainWindow(QMainWindow):
         logging.debug(self.__className + '.proc_run')
 
         # Save current file into processor directory
-        self.pm.write_file(True)
+        self.pm.write_for_proc_file()
 
         # Open the window for the user info
         self.proc_out_w = ProcessorOutput()

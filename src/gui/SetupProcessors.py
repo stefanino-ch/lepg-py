@@ -195,10 +195,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         :method: Called at the time the pre-processor show outline checkbox
                  is changed. Does set up the config reader property.
         """
-        if self.outline_chkb.isChecked() is True:
-            self.config_reader.set_pre_proc_show_outline('yes')
-        else:
-            self.config_reader.set_pre_proc_show_outline('no')
+        self.config_reader.set_pre_proc_show_outline(
+            self.outline_chkb.isChecked())
 
     def proc_btn_press(self):
         """

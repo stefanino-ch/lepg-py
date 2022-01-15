@@ -7,7 +7,7 @@ import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
-    QSizePolicy, QGridLayout, QLabel, QWidget
+    QSizePolicy, QGridLayout, QLabel, QWidget, QHeaderView
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -92,11 +92,9 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         upper_p_t.hideColumn(self.sewAll_M.columnCount() - 1)
         upper_p_t.verticalHeader().setVisible(False)
+        upper_p_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         upper_p_t.setHelpBar(self.helpBar)
 
-        # TODO: Hilfetexte englisch fehlen
-        # TODO: deutsche Spaltentitel
-        # TODO: resizing komisch
         upper_p_t.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol,
                               _('SewingAllowances-EdgeSeamDesc'))
         upper_p_t.setHelpText(ProcModel.SewingAllowancesModel.LeSeemCol,
@@ -111,10 +109,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         upper_p_t.setFixedHeight(2
                                  + upper_p_t.horizontalHeader().height()
                                  + upper_p_t.rowHeight(0))
-        upper_p_t.setFixedWidth(2
-                                + upper_p_t.columnWidth(0)
-                                + upper_p_t.columnWidth(1)
-                                + upper_p_t.columnWidth(2))
 
         edit_grid_l.addWidget(upper_p_l, 0, 0)
         edit_grid_l.addWidget(upper_p_t, 0, 1)
@@ -132,6 +126,7 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         lower_p_t.hideColumn(self.sewAll_M.columnCount() - 1)
         lower_p_t.verticalHeader().setVisible(False)
+        lower_p_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         lower_p_t.setHelpBar(self.helpBar)
 
         lower_p_t.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol,
@@ -148,10 +143,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         lower_p_t.setFixedHeight(2
                                  + upper_p_t.horizontalHeader().height()
                                  + upper_p_t.rowHeight(0))
-        lower_p_t.setFixedWidth(2
-                                + upper_p_t.columnWidth(0)
-                                + upper_p_t.columnWidth(1)
-                                + upper_p_t.columnWidth(2))
 
         edit_grid_l.addWidget(lower_p_l, 1, 0)
         edit_grid_l.addWidget(lower_p_t, 1, 1)
@@ -171,6 +162,7 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         ribs_t.hideColumn(self.sewAll_M.columnCount() - 1)
         ribs_t.verticalHeader().setVisible(False)
+        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         ribs_t.setHelpBar(self.helpBar)
 
         ribs_t.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol,
@@ -182,7 +174,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         ribs_t.setFixedHeight(2
                               + upper_p_t.horizontalHeader().height()
                               + upper_p_t.rowHeight(0))
-        ribs_t.setFixedWidth(2 + upper_p_t.columnWidth(0))
 
         edit_grid_l.addWidget(ribs_l, 2, 0)
         edit_grid_l.addWidget(ribs_t, 2, 1)
@@ -202,6 +193,7 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         v_ribs_t.hideColumn(self.sewAll_M.columnCount() - 1)
         v_ribs_t.verticalHeader().setVisible(False)
+        v_ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         v_ribs_t.setHelpBar(self.helpBar)
 
         v_ribs_t.setHelpText(ProcModel.SewingAllowancesModel.EdgeSeamCol,
@@ -214,7 +206,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         v_ribs_t.setFixedHeight(2
                                 + upper_p_t.horizontalHeader().height()
                                 + upper_p_t.rowHeight(0))
-        v_ribs_t.setFixedWidth(2 + upper_p_t.columnWidth(0))
 
         edit_grid_l.addWidget(v_ribs_l, 3, 0)
         edit_grid_l.addWidget(v_ribs_t, 3, 1)

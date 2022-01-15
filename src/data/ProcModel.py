@@ -389,8 +389,9 @@ class ProcModel(QObject, metaclass=Singleton):
                                      data[line_it][8],
                                      0,
                                      0)
-            self.set_file_saved(True)
+            self.set_file_name('')
             self.set_file_version('')
+            self.set_file_saved(True)
 
     def open_file(self):
         """
@@ -483,6 +484,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.fileWriter.set_file_path_name(file_name[0])
             self.fileWriter.write_file()
             self.set_file_saved(True)
+
+    def write_for_proc_file(self):
+        """
+        :class: Writes the file directly to the proc directory
+        """
+        self.fileWriter.write_file(True)
 
     class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
         """

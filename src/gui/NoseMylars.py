@@ -70,7 +70,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        # TODO: deutsche Spaltentitel stimmen nicht
         logging.debug(self.__className + '.build_window')
 
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
