@@ -6,6 +6,7 @@ import logging
 import os
 
 from PyQt5.QtCore import Qt
+
 from PyQt5.QtGui import QIcon, QPainter, QPen, QColor
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView, QGraphicsLineItem, QMessageBox, QFileDialog
