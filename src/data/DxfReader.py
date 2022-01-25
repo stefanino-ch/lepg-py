@@ -1,16 +1,37 @@
+"""
+:Author: Stefan Feuz; http://www.laboratoridenvol.com
+:License: General Public License GNU GPL 3.0
+"""
 
 import ezdxf
-from Line3d import Line3D
+import logging
+
+from data.Entities3d import Line3D
 
 
 class DxfReader:
     """
     :class: Reads content from a DXF file
     """
+
+    __className = 'DxfReader'
+    '''
+    :attr: Does help to indicate the source of the log messages
+    '''
+
     def __init__(self):
+        """
+        :method: Constructor
+        """
         self.doc = None
 
     def open_doc(self, doc_name):
+        """
+        :method: Opens a dxf file
+        :param doc_name: fully qualified path& name of the file
+        :retval: Reference to the document object
+                 None if document can not be opened
+        """
         if len(doc_name) == 0:
             return None
 
@@ -19,12 +40,14 @@ class DxfReader:
             return self.doc
 
         except IOError:
-            print(f"Not a DXF file or a generic I/O error.")
-            # sys.exit(1)
+            logging.error(self.__className
+                          + '.open_doc'
+                          + 'Not a DXF file or a generic I/O error.')
             return None
         except ezdxf.DXFStructureError:
-            print(f"Invalid or corrupted DXF file.")
-            # sys.exit(2)
+            logging.error(self.__className
+                          + '.open_doc'
+                          + 'Invalid or corrupted DXF file.')
             return None
 
     def get_layer_list(self):
@@ -57,10 +80,10 @@ class DxfReader:
             del entities_distinct[:]
 
             for entity in entities:
-                dxftype = entity.dxftype()
+                dxf_type = entity.dxftype()
 
-                if dxftype not in entities_distinct:
-                    entities_distinct.append(dxftype)
+                if dxf_type not in entities_distinct:
+                    entities_distinct.append(dxf_type)
 
             inventory[layer] = entities_distinct.copy()
 
@@ -68,8 +91,7 @@ class DxfReader:
 
     def print_inventory_distinct(self, inventory):
         """
-        :method: Prints a inventory dict
-
+        :method: Prints an inventory dict
         :param inventory: Dict with
                           key= layer name,
                           values= list with entity types found
@@ -105,10 +127,12 @@ class DxfReader:
                 if dxf_type == 'LINE':
                     line = Line3D(*entity.dxf.start,
                                   *entity.dxf.end,
-                                  entity.dxf.color)
+                                  *ezdxf.colors.aci2rgb(entity.dxf.color))
                     entities_list.append(line)
                 else:
-                    print(f'unknown element found: {dxf_type}')
+                    logging.info(self.__className
+                                 + '.open_doc'
+                                 + f'unknown element found: {dxf_type}')
 
             inventory[layer] = entities_list.copy()
 
@@ -117,7 +141,6 @@ class DxfReader:
     def print_inventory(self, inventory):
         """
         :method: Prints an inventory dict
-
         :param inventory: Dict with
                           key= layer name,
                           values= list with entity types found
@@ -133,21 +156,3 @@ class DxfReader:
                 if type(entity) is Line3D:
                     print(f'\tLine '
                           f'S: {entity.start.x3d, entity.start.y3d, entity.start.z3d}')
-
-
-if __name__ == '__main__':
-    print('start reading...')
-
-    dxf_reader = DxfReader()
-    dxf_doc = dxf_reader.open_doc("geometry.dxf")
-    # dxf_doc = dxf_reader.open_doc("leparagliding.dxf")
-    # dxf_doc = dxf_reader.open_doc("lep-3d.dxf")
-
-    if dxf_doc:
-        # inv = dxf_reader.read_layers_entities_distinct()
-        # dxf_reader.print_inventory_distinct(inv)
-
-        inv = dxf_reader.read_layers_entities()
-        dxf_reader.print_inventory(inv)
-
-    print('...done')
