@@ -107,6 +107,7 @@ class Point3D:
         factor = fov / (viewer_distance + self.z3d)
         x3d = self.x3d * factor + win_width / 2
         y3d = -self.y3d * factor + win_height / 2
+
         return Point3D(x3d, y3d, self.z3d)
 
     def transform(self, x_ang, y_ang, z_ang,
@@ -200,4 +201,3 @@ class Line3D:
         self.start = Point3D(start_x, start_y, start_z)
         self.end = Point3D(end_x, end_y, end_z)
         self.color = Color(r, g, b)
-

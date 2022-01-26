@@ -3,10 +3,15 @@
 :License: General Public License GNU GPL 3.0
 """
 
+
+
 import math
 
 
 class Point3D:
+    # TODO: Klasse hier wird nur von WingOutlineViewer verwendet. Diesen so
+    # umbauen dass er auch Entities3d verwendet.
+
     """
     :class: Holds the coordinates of a point in 3D space. Provides all
             methods for the transformation of the point in space and the

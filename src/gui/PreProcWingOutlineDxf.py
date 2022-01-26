@@ -5,7 +5,7 @@
 import logging
 import os
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRectF
 
 from PyQt5.QtGui import QIcon, QPainter, QPen, QColor
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
@@ -17,6 +17,9 @@ from data.DxfReader import DxfReader
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
+
+# TODO: Mouse wheel zoom
+# https://stackoverflow.com/questions/19113532/qgraphicsview-zooming-in-and-out-under-mouse-position-using-mouse-wheel
 
 
 class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
@@ -104,8 +107,8 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         zoom_hbox.addWidget(zoom_in_btn)
         btn_ly.addLayout(zoom_hbox)
 
-        res_btn = QPushButton("Reset")
-        res_btn.clicked.connect(self.reset_scene)
+        res_btn = QPushButton("Fit")
+        res_btn.clicked.connect(self.fit_scene)
         btn_ly.addWidget(res_btn)
 
         self.scene = QGraphicsScene(0, 0,
@@ -153,7 +156,7 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
-            self.reset_scene()
+            self.fit_scene()
 
     def open_file(self):
         """
@@ -163,7 +166,7 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
-            self.reset_scene()
+            self.fit_scene()
 
     def open_read_file(self, read_from_pre_proc_dir=False):
         """
@@ -258,7 +261,6 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
             max_y = max(max_y,
                         edge[0].start.get_y2d(*self.proj_params),
                         edge[0].end.get_y2d(*self.proj_params))
-            print(f'max_x {max_x} max_y {max_y}')
 
             edge[1].setLine(edge[0].start.get_x2d(*self.proj_params),
                             edge[0].start.get_y2d(*self.proj_params),
@@ -271,16 +273,41 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
     def zoom_out(self):
         self.view.scale(.9, .9)
 
-    def reset_scene(self):
+    def min_bounding_rect(self, rect_list):
+        if not rect_list:
+            return None
+
+        min_x = rect_list[0].left()
+        min_y = rect_list[0].top()
+        max_x = rect_list[0].right()
+        max_y = rect_list[0].bottom()
+
+        for k in range(1, len(rect_list)):
+            min_x = min(min_x, rect_list[k].left())
+            min_y = min(min_y, rect_list[k].top())
+            max_x = max(max_x, rect_list[k].right())
+            max_y = max(max_y, rect_list[k].bottom())
+
+        return QRectF(min_x,
+                      min_y,
+                      max_x - min_x,
+                      max_y - min_y)
+
+    # TODO: check if same trick works also in WingOutlineViewer
+    def fit_scene(self):
         self.angle_x = self.ini_angle_x
         self.angle_y = self.ini_angle_y
         self.angle_z = self.ini_angle_z
         self.update_scene()
 
-        # QGraphicsView::fitInView(scene()->sceneRect(), Qt::KeepAspectRatio );
+        # make sure scene covers all items
+        items = self.scene.items()
+        rects = [item.mapToScene(item.boundingRect()).boundingRect() for item in items]
+        rect = self.min_bounding_rect(rects)
+        self.scene.setSceneRect(rect)
+
+        # fit view to scene
         self.view.fitInView(self.scene.sceneRect(), Qt.KeepAspectRatio)
-        print(self.scene.sceneRect())
-        # self.view.fitInView(self.scene.itemsBoundingRect(), Qt.KeepAspectRatio)
 
     def button_press(self, q):
         """
