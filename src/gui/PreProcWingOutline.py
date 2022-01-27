@@ -9,7 +9,7 @@ from PyQt5.QtGui import QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem
 
-from data.Point3d import Point3D
+from data.Entities3d import Point3D
 from data.PreProcOutfileReader import PreProcOutfileReader
 
 from gui.elements.GraphicsView import GraphicsView

@@ -7,13 +7,15 @@ import os
 
 from PyQt5.QtCore import Qt, QRectF
 
-from PyQt5.QtGui import QIcon, QPainter, QPen, QColor
+from PyQt5.QtGui import QIcon, QPainter, QPen, QColor, QFont, QBrush
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem, QMessageBox, \
-    QFileDialog
+    QFileDialog, QGraphicsSimpleTextItem
 
 from ConfigReader.ConfigReader import ConfigReader
+
 from data.DxfReader import DxfReader
+from data.Entities3d import Line3D, Text3D
 
 from gui.elements.GraphicsView import GraphicsView
 from gui.elements.WindowHelpBar import WindowHelpBar
@@ -21,7 +23,7 @@ from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
 
 
-class DxfFile():
+class DxfFile:
     pre_proc = 0
     proc = 1
     user_defined = 2
@@ -55,7 +57,8 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.window = None
 
         self.wing = []
-        self.edges = []
+        self.lines = []
+        self.texts = []
         self.ini_angle_x = 0
         self.ini_angle_y = 0
         self.ini_angle_z = 0
@@ -261,48 +264,71 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
 
         # In the pre-proc dxf the only layer is 'default'
 
-        # empty edge list
-        del self.edges[:]
+        # empty all lists
+        del self.lines[:]
+        del self.texts[:]
         self.scene.clear()
 
-        # create edges
-        entities = dxf_data.get('default')
+        # create all lines
+        keys = dxf_data.keys()
+        text_font = QFont()
 
-        for entity in entities:
-            line_item = QGraphicsLineItem()
+        for key in keys:
+            entities = dxf_data.get(key)
 
-            pen = QPen(QColor(entity.color.r, entity.color.g, entity.color.b))
-            pen.setCosmetic(True)
-            line_item.setPen(pen)
+            for entity in entities:
+                if type(entity) is Line3D:
+                    line_item = QGraphicsLineItem()
+                    pen = QPen(QColor(entity.color.r,
+                                      entity.color.g,
+                                      entity.color.b))
+                    pen.setCosmetic(True)
+                    line_item.setPen(pen)
+                    line = (entity,
+                            line_item)
+                    self.lines.append(line)
+                elif type(entity) is Text3D:
+                    # text_item = QGraphicsTextItem()
+                    # text_item.setPlainText(entity.text)
+                    # text_font.setPixelSize(entity.height)
+                    # text_item.setFont(text_font)
+                    # text_item.setDefaultTextColor(QColor(entity.color.r,
+                    #                                      entity.color.g,
+                    #                                      entity.color.b))
 
-            edge = (entity,
-                    line_item)
-            self.edges.append(edge)
+                    text_item = QGraphicsSimpleTextItem()
+                    text_item.setText(entity.text)
+                    text_font.setPixelSize(entity.height * .35)
+                    text_item.setFont(text_font)
+                    text_item.setBrush(QBrush(QColor(entity.color.r,
+                                                     entity.color.g,
+                                                     entity.color.b)))
+                    # text_item.setBrush(brush)
 
-        # add all edges to the scene
-        for edge in self.edges:
-            self.scene.addItem(edge[1])
+                    text = (entity,
+                            text_item)
+                    self.texts.append(text)
+
+        # add all lines to the scene
+        for line in self.lines:
+            self.scene.addItem(line[1])
+        # add all texts to the scene
+        for text in self.texts:
+            self.scene.addItem(text[1])
 
     def update_scene(self):
         self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
                             self.view.width(), self.view.height(),
                             self.ini_fov, self.ini_distance]
-        max_x = 0
-        max_y = 0
 
-        for edge in self.edges:
-
-            max_x = max(max_x,
-                        edge[0].start.get_x2d(*self.proj_params),
-                        edge[0].end.get_x2d(*self.proj_params))
-            max_y = max(max_y,
-                        edge[0].start.get_y2d(*self.proj_params),
-                        edge[0].end.get_y2d(*self.proj_params))
-
-            edge[1].setLine(edge[0].start.get_x2d(*self.proj_params),
-                            edge[0].start.get_y2d(*self.proj_params),
-                            edge[0].end.get_x2d(*self.proj_params),
-                            edge[0].end.get_y2d(*self.proj_params))
+        for line in self.lines:
+            line[1].setLine(line[0].start.get_x2d(*self.proj_params),
+                            line[0].start.get_y2d(*self.proj_params),
+                            line[0].end.get_x2d(*self.proj_params),
+                            line[0].end.get_y2d(*self.proj_params))
+        for text in self.texts:
+            text[1].setPos(text[0].position.get_x2d(*self.proj_params),
+                           text[0].position.get_y2d(*self.proj_params),)
 
     def zoom_in(self):
         self.view.scale(1.1, 1.1)
