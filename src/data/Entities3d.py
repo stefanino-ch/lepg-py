@@ -201,3 +201,21 @@ class Line3D:
         self.start = Point3D(start_x, start_y, start_z)
         self.end = Point3D(end_x, end_y, end_z)
         self.color = Color(r, g, b)
+
+
+class Text3D:
+    position = None
+    text = None
+    height = None
+    color = None
+
+    def __init__(self,
+                 x, y, z,
+                 text,
+                 height,
+                 r, g, b):
+
+        self.position = Point3D(x, y, z)
+        self.text = text
+        self.height = height
+        self.color = Color(r, g, b)

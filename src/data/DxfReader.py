@@ -6,7 +6,7 @@
 import ezdxf
 import logging
 
-from data.Entities3d import Line3D
+from data.Entities3d import Line3D, Text3D
 
 
 class DxfReader:
@@ -129,6 +129,16 @@ class DxfReader:
                                   *entity.dxf.end,
                                   *ezdxf.colors.aci2rgb(entity.dxf.color))
                     entities_list.append(line)
+                elif dxf_type == 'TEXT':
+                    text = Text3D(*entity.dxf.insert,
+                                  entity.dxf.text,
+                                  entity.dxf.height,
+                                  *ezdxf.colors.aci2rgb(entity.dxf.color))
+                    entities_list.append(text)
+
+                elif dxf_type == 'CIRCLE':
+                    print('circle found')
+
                 else:
                     logging.info(self.__className
                                  + '.open_doc'
