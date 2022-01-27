@@ -48,7 +48,7 @@ from gui.PartsSeparation import PartsSeparation
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.PreProcData import PreProcData
 from gui.PreProcWingOutline import PreProcWingOutline
-from gui.PreProcWingOutlineDxf import PreProcWingOutlineDxf
+from gui.TwoDDxfViewer import TwoDDxfViewer
 from gui.ProcessorOutput import ProcessorOutput
 from gui.Ramification import Ramification
 from gui.RibHoles import RibHoles
@@ -79,7 +79,7 @@ class MainWindow(QMainWindow):
         """
         :method: Constructor
         """
-        self.view_wing_outline_dxf_w = None
+        self.two_d_dxf_w = None
         self.nose_mylars_w = None
         self.glue_vent_w = None
         self.spec_wing_tip_w = None
@@ -991,8 +991,8 @@ class MainWindow(QMainWindow):
         view_wing_outline.setStatusTip(_('show_WingOutline_des'))
         view_wing_outline.triggered.connect(self.view_wing_outline)
 
-        view_wing_outline_dxf = QAction(_('Wing outline DXF'), self)
-        view_wing_outline_dxf.setStatusTip(_('show_WingOutlineDxf_des'))
+        view_wing_outline_dxf = QAction(_('2D DXF Viewer'), self)
+        view_wing_outline_dxf.setStatusTip(_('show_2d_Dxf_des'))
         view_wing_outline_dxf.triggered.connect(self.view_wing_outline_dxf)
 
         view_cascade_act = QAction(_('Cascade'), self)
@@ -1025,9 +1025,9 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *View*
                  -> *Wing outline DXF*
         """
-        self.view_wing_outline_dxf_w = PreProcWingOutlineDxf()
-        self.mdi.addSubWindow(self.view_wing_outline_dxf_w)
-        self.view_wing_outline_dxf_w.show()
+        self.two_d_dxf_w = TwoDDxfViewer()
+        self.mdi.addSubWindow(self.two_d_dxf_w)
+        self.two_d_dxf_w.show()
 
     def view_cascade(self):
         """

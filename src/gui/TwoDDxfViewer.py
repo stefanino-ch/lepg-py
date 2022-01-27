@@ -9,25 +9,30 @@ from PyQt5.QtCore import Qt, QRectF
 
 from PyQt5.QtGui import QIcon, QPainter, QPen, QColor
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView, QGraphicsLineItem, QMessageBox, QFileDialog
+    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem, QMessageBox, \
+    QFileDialog
 
 from ConfigReader.ConfigReader import ConfigReader
 from data.DxfReader import DxfReader
 
+from gui.elements.GraphicsView import GraphicsView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
 
-# TODO: Mouse wheel zoom
-# https://stackoverflow.com/questions/19113532/qgraphicsview-zooming-in-and-out-under-mouse-position-using-mouse-wheel
+
+class DxfFile():
+    pre_proc = 0
+    proc = 1
+    user_defined = 2
 
 
-class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
+class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display the wing outline calculated by the
             PreProcessor.
     """
-    __className = 'PreProcWingOutlineDxf'
+    __className = 'TwoD_DXF_Viewer'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -94,9 +99,10 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
 
         #############################
         # Add window specifics here
-        self.setWindowTitle(_("Wing outline DXF"))
+        self.setWindowTitle(_("2D DXF viewer"))
 
         btn_ly = QVBoxLayout()
+        btn_ly.addStretch()
 
         zoom_in_btn = QPushButton("Zoom +")
         zoom_in_btn.clicked.connect(self.zoom_in)
@@ -111,11 +117,13 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         res_btn.clicked.connect(self.fit_scene)
         btn_ly.addWidget(res_btn)
 
+        btn_ly.addStretch()
+
         self.scene = QGraphicsScene(0, 0,
                                     self.ini_scene_width,
                                     self.ini_scene_height)
-        self.view = QGraphicsView(self.scene)
-        self.view.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.view = GraphicsView(self.scene)
+        self.view.setDragMode(GraphicsView.ScrollHandDrag)
         self.view.setRenderHint(QPainter.Antialiasing)
 
         hbox_ly = QHBoxLayout()
@@ -126,6 +134,8 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
 
         pre_proc_file_btn = QPushButton(_("Pre-Proc file"))
         pre_proc_file_btn.clicked.connect(self.open_pre_proc_file)
+        proc_file_btn = QPushButton(_("Proc file"))
+        proc_file_btn.clicked.connect(self.open_proc_file)
         own_file_btn = QPushButton(_("Own file"))
         own_file_btn.clicked.connect(self.open_file)
 
@@ -139,6 +149,7 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(pre_proc_file_btn)
+        bottom_layout.addWidget(proc_file_btn)
         bottom_layout.addWidget(own_file_btn)
         bottom_layout.addStretch()
         bottom_layout.addWidget(self.help_bar)
@@ -152,7 +163,18 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         :method: Opens the data file from the pre-proc directory and updates
                  the window
         """
-        dxf_data = self.open_read_file(True)
+        dxf_data = self.open_read_file(DxfFile.pre_proc)
+        if dxf_data:
+            self.prepare_data(dxf_data)
+            self.update_scene()
+            self.fit_scene()
+
+    def open_proc_file(self):
+        """
+        :method: Opens the data file from the proc directory and updates
+                 the window
+        """
+        dxf_data = self.open_read_file(DxfFile.proc)
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
@@ -162,25 +184,24 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Opens a user specific data file and updates the window
         """
-        dxf_data = self.open_read_file()
+        dxf_data = self.open_read_file(DxfFile.user_defined)
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
             self.fit_scene()
 
-    def open_read_file(self, read_from_pre_proc_dir=False):
+    def open_read_file(self, file):
         """
         :method: File Open dialog handling.
                  Checks if the file header specifies a valid file
-        :param read_from_pre_proc_dir: Set this to True if the file in the
-                 configured pre-proc dir shall be read.
+        :param : File to be read. Use DxfFile enum to specify
 
         :returns: Data read from the file
                   None if file could not be read
         """
         logging.debug(self.__className + '.open_read_file')
 
-        if read_from_pre_proc_dir is True:
+        if file is DxfFile.pre_proc:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_pre_proc_directory(),
                              'geometry.dxf')
@@ -189,6 +210,21 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
                 msg_box.setWindowTitle(_('Ups!'))
                 msg_box.setText(_('Either the file does not exist,\n'
                                   'or the pre-processor location\n'
+                                  'is not setup.\n'
+                                  '(Setup->Both Processors)'))
+                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.exec()
+                return None
+        elif file is DxfFile.proc:
+            self.__file_path_name = \
+                os.path.join(self.config_reader.get_proc_directory(),
+                             'leparagliding.dxf')
+            if not os.path.isfile(self.__file_path_name):
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle(_('Ups!'))
+                msg_box.setText(_('Either the file does not exist,\n'
+                                  'or the processor location\n'
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
                 msg_box.setIcon(QMessageBox.Warning)
@@ -227,15 +263,16 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
 
         # empty edge list
         del self.edges[:]
+        self.scene.clear()
 
         # create edges
         entities = dxf_data.get('default')
 
-        # lines for the ribs
         for entity in entities:
             line_item = QGraphicsLineItem()
 
             pen = QPen(QColor(entity.color.r, entity.color.g, entity.color.b))
+            pen.setCosmetic(True)
             line_item.setPen(pen)
 
             edge = (entity,
@@ -248,7 +285,7 @@ class PreProcWingOutlineDxf(QMdiSubWindow, metaclass=Singleton):
 
     def update_scene(self):
         self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
-                            self.scene.width(), self.scene.height(),
+                            self.view.width(), self.view.height(),
                             self.ini_fov, self.ini_distance]
         max_x = 0
         max_y = 0
