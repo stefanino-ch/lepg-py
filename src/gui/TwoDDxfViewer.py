@@ -10,12 +10,12 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtGui import QIcon, QPainter, QPen, QColor, QFont, QBrush
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem, QMessageBox, \
-    QFileDialog, QGraphicsSimpleTextItem
+    QFileDialog, QGraphicsSimpleTextItem, QGraphicsEllipseItem
 
 from ConfigReader.ConfigReader import ConfigReader
 
 from data.DxfReader import DxfReader
-from data.Entities3d import Line3D, Text3D
+from data.Entities3d import Line3D, Text3D, Circle3D
 
 from gui.elements.GraphicsView import GraphicsView
 from gui.elements.WindowHelpBar import WindowHelpBar
@@ -59,6 +59,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.wing = []
         self.lines = []
         self.texts = []
+        self.circles = []
         self.ini_angle_x = 0
         self.ini_angle_y = 0
         self.ini_angle_z = 0
@@ -262,11 +263,10 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         # Dict key = layer
         #      values = list with all entities found in layer
 
-        # In the pre-proc dxf the only layer is 'default'
-
         # empty all lists
         del self.lines[:]
         del self.texts[:]
+        del self.circles[:]
         self.scene.clear()
 
         # create all lines
@@ -288,14 +288,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                             line_item)
                     self.lines.append(line)
                 elif type(entity) is Text3D:
-                    # text_item = QGraphicsTextItem()
-                    # text_item.setPlainText(entity.text)
-                    # text_font.setPixelSize(entity.height)
-                    # text_item.setFont(text_font)
-                    # text_item.setDefaultTextColor(QColor(entity.color.r,
-                    #                                      entity.color.g,
-                    #                                      entity.color.b))
-
                     text_item = QGraphicsSimpleTextItem()
                     text_item.setText(entity.text)
                     text_font.setPixelSize(entity.height * .35)
@@ -303,18 +295,29 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     text_item.setBrush(QBrush(QColor(entity.color.r,
                                                      entity.color.g,
                                                      entity.color.b)))
-                    # text_item.setBrush(brush)
-
+                    text_item.setRotation(entity.rotation)
                     text = (entity,
                             text_item)
                     self.texts.append(text)
+                elif type(entity) is Circle3D:
+                    circle_item = QGraphicsEllipseItem()
+                    # pen = QPen(QColor(entity.color.r,
+                    #                   entity.color.g,
+                    #                   entity.color.b))
+                    pen = QPen(QColor(198, 3, 52))
+                    # pen.setCosmetic(True)
+                    circle_item.setPen(pen)
+                    circle = (entity,
+                              circle_item)
+                    self.circles.append(circle)
 
-        # add all lines to the scene
+        # add all items to the scene
         for line in self.lines:
             self.scene.addItem(line[1])
-        # add all texts to the scene
         for text in self.texts:
             self.scene.addItem(text[1])
+        for circle in self.circles:
+            self.scene.addItem(circle[1])
 
     def update_scene(self):
         self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
@@ -328,7 +331,12 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                             line[0].end.get_y2d(*self.proj_params))
         for text in self.texts:
             text[1].setPos(text[0].position.get_x2d(*self.proj_params),
-                           text[0].position.get_y2d(*self.proj_params),)
+                           text[0].position.get_y2d(*self.proj_params))
+        for circle in self.circles:
+            circle[1].setRect(circle[0].start.get_x2d(*self.proj_params),
+                              circle[0].start.get_y2d(*self.proj_params),
+                              circle[0].end.get_x2d(*self.proj_params),
+                              circle[0].end.get_y2d(*self.proj_params))
 
     def zoom_in(self):
         self.view.scale(1.1, 1.1)

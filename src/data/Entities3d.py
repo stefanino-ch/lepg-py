@@ -15,14 +15,17 @@ class Color:
                  r: int = 0,
                  g: int = 0,
                  b: int = 0):
-        self.r = r
-        self.g = g
-        self.b = b
+        self.set_color(r, g, b)
 
     def set_color(self, r, g, b):
-        self.r = r
-        self.g = g
-        self.b = b
+        if r == 255 and g == 255 and b == 255:
+            self.r = 0
+            self.g = 0
+            self.b = 0
+        else:
+            self.r = r
+            self.g = g
+            self.b = b
 
 
 class Point3D:
@@ -136,10 +139,9 @@ class Point3D:
                 or (view_height != self.curr_view_height)
                 or (fov != self.curr_fov)
                 or (view_dist != self.curr_view_dist)):
-
-            self.rotPoint = self.rotate_x(x_ang)\
-                            .rotate_y(y_ang)\
-                            .rotate_z(z_ang)
+            self.rotPoint = self.rotate_x(x_ang) \
+                .rotate_y(y_ang) \
+                .rotate_z(z_ang)
             self.curr_x_ang = x_ang
             self.curr_y_ang = y_ang
             self.curr_z_ang = z_ang
@@ -194,7 +196,6 @@ class Point3D:
 
 
 class Line3D:
-
     start = None
     end = None
     color = None
@@ -213,16 +214,35 @@ class Text3D:
     text = None
     height = None
     color = None
+    rotation = None
 
     def __init__(self,
                  x, y, z,
                  text,
                  height,
-                 r, g, b):
-
+                 r, g, b,
+                 rotation):
         self.position = Point3D(x, y, z)
         self.text = text
         self.height = height
+        self.color = Color(r, g, b)
+        self.rotation = rotation
+
+    def set_color(self, r, g, b):
+        self.color.set_color(r, g, b)
+
+
+class Circle3D:
+    center = None
+    radius = None
+    color = None
+
+    def __init__(self,
+                 start_x, start_y, start_z,
+                 end_x, end_y, end_z,
+                 r=0, g=0, b=0):
+        self.start = Point3D(start_x, start_y, start_z)
+        self.end = Point3D(end_x, end_y, end_z)
         self.color = Color(r, g, b)
 
     def set_color(self, r, g, b):
