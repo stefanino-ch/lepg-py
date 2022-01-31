@@ -1,6 +1,6 @@
 .. support_classes
 
-Supporting Classes
+Supporting classes
 ==================
 .. toctree::
    :maxdepth: 2
@@ -13,6 +13,27 @@ Database
    :members:
    :private-members:
 
+DXF File type
+-------------
+.. automodule:: data.DxfFileType
+   :undoc-members:
+   :members:
+   :private-members:  
+   
+DXF Reader
+----------
+.. automodule:: data.DxfReader
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Entities in 3D
+--------------
+.. automodule:: data.Entities3d
+   :undoc-members:
+   :members:
+   :private-members:
+ 
 SqlTableModel
 -------------
 .. automodule:: data.SqlTableModel
@@ -23,13 +44,6 @@ SqlTableModel
 File helpers
 ------------
 .. automodule:: data.FileHelpers
-   :undoc-members:
-   :members:
-   :private-members:
-
-Point3d
--------
-.. automodule:: data.Point3d
    :undoc-members:
    :members:
    :private-members:
@@ -48,6 +62,20 @@ Pre-Processor Outfile Reader
    :members:
    :private-members:
 
+Processor File Reader
+---------------------
+.. automodule:: data.ProcFileReader
+   :undoc-members:
+   :members:
+   :private-members:
+   
+Processor File Writer
+---------------------
+.. automodule:: data.ProcFileWriter
+   :undoc-members:
+   :members:
+   :private-members:
+   
 Processor Model
 ---------------
 .. automodule:: data.ProcModel
@@ -55,12 +83,6 @@ Processor Model
    :members:
    :private-members:
 
-Processor Proc File Reader
---------------------------
-.. automodule:: data.ProcFileReader
-   :undoc-members:
-   :members:
-   :private-members:
 
 Proc Runner
 -----------

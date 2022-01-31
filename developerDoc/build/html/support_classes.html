@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Supporting Classes &#8212; lepg developer doc  documentation</title>
+    <title>Supporting classes &#8212; lepg developer doc  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx13.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -84,31 +84,38 @@
         <li><a href="contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="contents.html" accesskey="U">Doc overview</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Supporting Classes</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Supporting classes</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Supporting Classes</a><ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Supporting classes</a><ul>
 <li><a class="reference internal" href="#module-data.Database">Database</a></li>
+<li><a class="reference internal" href="#module-data.DxfFileType">DXF File type</a></li>
+<li><a class="reference internal" href="#module-data.DxfReader">DXF Reader</a></li>
+<li><a class="reference internal" href="#module-data.Entities3d">Entities in 3D</a></li>
 <li><a class="reference internal" href="#module-data.SqlTableModel">SqlTableModel</a></li>
 <li><a class="reference internal" href="#module-data.FileHelpers">File helpers</a></li>
-<li><a class="reference internal" href="#module-data.Point3d">Point3d</a></li>
 <li><a class="reference internal" href="#module-data.PreProcModel">Pre-Processor Model</a></li>
 <li><a class="reference internal" href="#module-data.PreProcOutfileReader">Pre-Processor Outfile Reader</a></li>
+<li><a class="reference internal" href="#module-data.ProcFileReader">Processor File Reader</a></li>
+<li><a class="reference internal" href="#module-data.ProcFileWriter">Processor File Writer</a></li>
 <li><a class="reference internal" href="#module-data.ProcModel">Processor Model</a></li>
-<li><a class="reference internal" href="#module-data.ProcFileReader">Processor Proc File Reader</a></li>
 <li><a class="reference internal" href="#module-Processors.ProcRunner">Proc Runner</a></li>
 <li><a class="reference internal" href="#module-ConfigReader.ConfigReader">ConfigReader</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="gui_elements.html"
-                        title="previous chapter">GUI Elements</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="gui_elements.html"
+                          title="previous chapter">GUI Elements</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -128,7 +135,7 @@
           <div class="body" role="main">
             
   <section id="supporting-classes">
-<h1>Supporting Classes<a class="headerlink" href="#supporting-classes" title="Permalink to this headline">¶</a></h1>
+<h1>Supporting classes<a class="headerlink" href="#supporting-classes" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <section id="module-data.Database">
@@ -170,6 +177,554 @@ Implemented in a way that there is only one connection to the database opened at
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-data.DxfFileType">
+<span id="dxf-file-type"></span><h2>DXF File type<a class="headerlink" href="#module-data.DxfFileType" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="data.DxfFileType.DxfFileType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.DxfFileType.</span></span><span class="sig-name descname"><span class="pre">DxfFileType</span></span><a class="headerlink" href="#data.DxfFileType.DxfFileType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Used to specify the type of file to be displayed</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.DxfFileType.DxfFileType.pre_proc">
+<span class="sig-name descname"><span class="pre">pre_proc</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.DxfFileType.DxfFileType.pre_proc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.DxfFileType.DxfFileType.proc">
+<span class="sig-name descname"><span class="pre">proc</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#data.DxfFileType.DxfFileType.proc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.DxfFileType.DxfFileType.user_defined">
+<span class="sig-name descname"><span class="pre">user_defined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#data.DxfFileType.DxfFileType.user_defined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-data.DxfReader">
+<span id="dxf-reader"></span><h2>DXF Reader<a class="headerlink" href="#module-data.DxfReader" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="data.DxfReader.DxfReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.DxfReader.</span></span><span class="sig-name descname"><span class="pre">DxfReader</span></span><a class="headerlink" href="#data.DxfReader.DxfReader" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Reads content from a DXF file</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.DxfReader.DxfReader.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DxfReader'</span></em><a class="headerlink" href="#data.DxfReader.DxfReader.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.DxfReader.DxfReader.open_doc">
+<span class="sig-name descname"><span class="pre">open_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.DxfReader.DxfReader.open_doc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Opens a dxf file</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>doc_name</strong> – fully qualified path&amp; name of the file</p>
+</dd>
+<dt class="field-odd">Retval</dt>
+<dd class="field-odd"><p>Reference to the document object
+None if document can not be opened</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.DxfReader.DxfReader.read_layers_entities">
+<span class="sig-name descname"><span class="pre">read_layers_entities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.DxfReader.DxfReader.read_layers_entities" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Reads all layers and entity types from a dxf file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dict, key= layer name, values= list with all entities found
+in layer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-data.Entities3d">
+<span id="entities-in-3d"></span><h2>Entities in 3D<a class="headerlink" href="#module-data.Entities3d" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">Circle3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Circle3D" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Represents a circle in 3D space</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.center">
+<span class="sig-name descname"><span class="pre">center</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Circle3D.center" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.color">
+<span class="sig-name descname"><span class="pre">color</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Circle3D.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.cornerOne">
+<span class="sig-name descname"><span class="pre">cornerOne</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Circle3D.cornerOne" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.cornerTwo">
+<span class="sig-name descname"><span class="pre">cornerTwo</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Circle3D.cornerTwo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.get_height">
+<span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Circle3D.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>As all object will be scaled in the view, we cannot use the
+radius given in the dxf file for drawing. Instead, we calculate
+the height of the circle with the help of the two opposite
+corners of the bounding rect.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>height of the bounding rect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.get_width">
+<span class="sig-name descname"><span class="pre">get_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Circle3D.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>As all object will be scaled in the view, we cannot use the
+radius given in the dxf file for drawing. Instead, we calculate
+the width of the circle with the help of the two opposite
+corners of the bounding rect.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>width of the bounding rect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.radius">
+<span class="sig-name descname"><span class="pre">radius</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Circle3D.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Circle3D.set_color">
+<span class="sig-name descname"><span class="pre">set_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Circle3D.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the color values. If white (255, 255, 255) black will be
+used, as all drawing backgrounds are white</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>r</strong> – red part of the color</p></li>
+<li><p><strong>g</strong> – green part of the color</p></li>
+<li><p><strong>b</strong> – blue part of the color</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data.Entities3d.Color">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">Color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Color" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Represents a color in r, g, b</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Color.b">
+<span class="sig-name descname"><span class="pre">b</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Color.b" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Color.g">
+<span class="sig-name descname"><span class="pre">g</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Color.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Color.r">
+<span class="sig-name descname"><span class="pre">r</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Color.r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Color.set_color">
+<span class="sig-name descname"><span class="pre">set_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Color.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the color values. If white (255, 255, 255) black will be
+used, as all drawing backgrounds are white</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>r</strong> – red part of the color</p></li>
+<li><p><strong>g</strong> – green part of the color</p></li>
+<li><p><strong>b</strong> – blue part of the color</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data.Entities3d.Line3D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">Line3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Line3D" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Represents a line in 3D space</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Line3D.color">
+<span class="sig-name descname"><span class="pre">color</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Line3D.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Line3D.end">
+<span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Line3D.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Line3D.start">
+<span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Line3D.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">Point3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Holds the coordinates of a point in 3D space. Provides all
+methods for the transformation of the point in space and the
+projection on a 2D surface.</p>
+<p>Two ways of working are possible:
+1. Create the point. Make sure it gets informed about every
+transformation, use .x3d, .y3d, .z3d, .x2d, y2d to find the
+position</p>
+<p>2. Create the point. Use x2d(), y2d() to find the 2d coordinates
+for the given parameters.</p>
+<dl class="simple">
+<dt>ATTENTION: if you call x2d() and y2d() also .x3d, .y3d, .z3d, .x2d,</dt><dd><p>y2d will be updated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_fov">
+<span class="sig-name descname"><span class="pre">curr_fov</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_fov" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_view_dist">
+<span class="sig-name descname"><span class="pre">curr_view_dist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_view_dist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_view_height">
+<span class="sig-name descname"><span class="pre">curr_view_height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_view_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_view_width">
+<span class="sig-name descname"><span class="pre">curr_view_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_view_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_x_ang">
+<span class="sig-name descname"><span class="pre">curr_x_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_x_ang" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_y_ang">
+<span class="sig-name descname"><span class="pre">curr_y_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_y_ang" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.curr_z_ang">
+<span class="sig-name descname"><span class="pre">curr_z_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.curr_z_ang" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.get_x2d">
+<span class="sig-name descname"><span class="pre">get_x2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.get_x2d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
+2D coordinates where needed</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
+<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
+<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
+<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
+<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
+<li><p><strong>fov</strong> – Field of view</p></li>
+<li><p><strong>view_dist</strong> – Viewer distance</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>x value of the point in the 2D projection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.get_y2d">
+<span class="sig-name descname"><span class="pre">get_y2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.get_y2d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
+2D coordinates where needed</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
+<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
+<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
+<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
+<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
+<li><p><strong>fov</strong> – Field of view</p></li>
+<li><p><strong>view_dist</strong> – Viewer distance</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>y value of the point in the 2D projection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.projPoint">
+<span class="sig-name descname"><span class="pre">projPoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Point3D.projPoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.project">
+<span class="sig-name descname"><span class="pre">project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewer_distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.project" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Transforms this 3D point to 2D using a perspective projection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New Point 3D Object fitted into the given parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.rotPoint">
+<span class="sig-name descname"><span class="pre">rotPoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Point3D.rotPoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.rotate_x">
+<span class="sig-name descname"><span class="pre">rotate_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.rotate_x" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Rotates this point around the X axis the given number
+of degrees</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>angle</strong> – The current rotation angle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.rotate_y">
+<span class="sig-name descname"><span class="pre">rotate_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.rotate_y" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Rotates this point around the Y axis the given number
+of degrees</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>angle</strong> – The current rotation angle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.rotate_z">
+<span class="sig-name descname"><span class="pre">rotate_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.rotate_z" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Rotates this point around the Z axis the given number
+of degrees</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>angle</strong> – The current rotation angle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Point3D.transform" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
+2D coordinates where needed</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
+<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
+<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
+<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
+<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
+<li><p><strong>fov</strong> – Field of view</p></li>
+<li><p><strong>view_dist</strong> – Viewer distance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.x2d">
+<span class="sig-name descname"><span class="pre">x2d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.x2d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.x3d">
+<span class="sig-name descname"><span class="pre">x3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.x3d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.y2d">
+<span class="sig-name descname"><span class="pre">y2d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.y2d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.y3d">
+<span class="sig-name descname"><span class="pre">y3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.y3d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Point3D.z3d">
+<span class="sig-name descname"><span class="pre">z3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Entities3d.Point3D.z3d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">Text3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Text3D" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Represents a text in 3D space</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.color">
+<span class="sig-name descname"><span class="pre">color</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Text3D.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.height">
+<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Text3D.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Text3D.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.rotation">
+<span class="sig-name descname"><span class="pre">rotation</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Text3D.rotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.set_color">
+<span class="sig-name descname"><span class="pre">set_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.Text3D.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Set the color values. If white (255, 255, 255) black will be
+used, as all drawing backgrounds are white</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>r</strong> – red part of the color</p></li>
+<li><p><strong>g</strong> – green part of the color</p></li>
+<li><p><strong>b</strong> – blue part of the color</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.Entities3d.Text3D.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Entities3d.Text3D.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data.Entities3d.min_bounding_rect">
+<span class="sig-prename descclassname"><span class="pre">data.Entities3d.</span></span><span class="sig-name descname"><span class="pre">min_bounding_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rect_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Entities3d.min_bounding_rect" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Function</dt>
+<dd class="field-odd"><p>calculates the 2d bounding rect needed to display all items</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>rect_list</strong> – a list of all items for which the bounding rect must be
+calculated</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -523,205 +1078,6 @@ delimiters could be spaces and tabs.</p>
 <dd class="field-odd"><p>A list of values.</p>
 </dd>
 </dl>
-</dd></dl>
-
-</section>
-<section id="module-data.Point3d">
-<span id="point3d"></span><h2>Point3d<a class="headerlink" href="#module-data.Point3d" title="Permalink to this headline">¶</a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">Author</dt>
-<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
-</dd>
-<dt class="field-even">License</dt>
-<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="data.Point3d.Point3D">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.Point3d.</span></span><span class="sig-name descname"><span class="pre">Point3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list">
-<dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Holds the coordinates of a point in 3D space. Provides all
-methods for the transformation of the point in space and the
-projection on a 2D surface.</p>
-<p>Two ways of working are possible:
-1. Create the point. Make sure it gets informed about every
-transformation, use .x3d, .y3d, .z3d, .x2d, y2d to find the
-position</p>
-<p>2. Create the point. Use x2d(), y2d() to find the 2d coordinates
-for the given parameters.</p>
-<dl class="simple">
-<dt>ATTENTION: if you call x2d() and y2d() also .x3d, .y3d, .z3d, .x2d,</dt><dd><p>y2d will be updated.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_fov">
-<span class="sig-name descname"><span class="pre">curr_fov</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_fov" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_view_dist">
-<span class="sig-name descname"><span class="pre">curr_view_dist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_view_dist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_view_height">
-<span class="sig-name descname"><span class="pre">curr_view_height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_view_height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_view_width">
-<span class="sig-name descname"><span class="pre">curr_view_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_view_width" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_x_ang">
-<span class="sig-name descname"><span class="pre">curr_x_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_x_ang" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_y_ang">
-<span class="sig-name descname"><span class="pre">curr_y_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_y_ang" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.curr_z_ang">
-<span class="sig-name descname"><span class="pre">curr_z_ang</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.curr_z_ang" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.get_x2d">
-<span class="sig-name descname"><span class="pre">get_x2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.get_x2d" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
-2D coordinates where needed</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
-<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
-<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
-<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
-<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
-<li><p><strong>fov</strong> – Field of view</p></li>
-<li><p><strong>view_dist</strong> – Viewer distance</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>x value of the point in the 2D projection</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.get_y2d">
-<span class="sig-name descname"><span class="pre">get_y2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.get_y2d" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
-2D coordinates where needed</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
-<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
-<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
-<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
-<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
-<li><p><strong>fov</strong> – Field of view</p></li>
-<li><p><strong>view_dist</strong> – Viewer distance</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>y value of the point in the 2D projection</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.projPoint">
-<span class="sig-name descname"><span class="pre">projPoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Point3d.Point3D.projPoint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.project">
-<span class="sig-name descname"><span class="pre">project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewer_distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.project" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transforms this 3D point to 2D using a perspective projection.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.rotPoint">
-<span class="sig-name descname"><span class="pre">rotPoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#data.Point3d.Point3D.rotPoint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.rotate_x">
-<span class="sig-name descname"><span class="pre">rotate_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.rotate_x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotates this point around the X axis the given number of degrees.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.rotate_y">
-<span class="sig-name descname"><span class="pre">rotate_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.rotate_y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotates this point around the Y axis the given number of degrees.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.rotate_z">
-<span class="sig-name descname"><span class="pre">rotate_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.rotate_z" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotates this point around the Z axis the given number of degrees.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.Point3d.Point3D.transform" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Checks what angles have been changed and calculates the new
-2D coordinates where needed</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>x_ang</strong> – x angle in 0..360 degrees</p></li>
-<li><p><strong>y_ang</strong> – y angle in 0..360 degrees</p></li>
-<li><p><strong>z_ang</strong> – z angle in 0..360 degrees</p></li>
-<li><p><strong>view_width</strong> – Width of the view displaying the data</p></li>
-<li><p><strong>view_height</strong> – Height of the view displaying the data</p></li>
-<li><p><strong>fov</strong> – Field of view</p></li>
-<li><p><strong>view_dist</strong> – Viewer distance</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.x2d">
-<span class="sig-name descname"><span class="pre">x2d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.x2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.x3d">
-<span class="sig-name descname"><span class="pre">x3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.x3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.y2d">
-<span class="sig-name descname"><span class="pre">y2d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.y2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.y3d">
-<span class="sig-name descname"><span class="pre">y3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.y3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.Point3d.Point3D.z3d">
-<span class="sig-name descname"><span class="pre">z3d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#data.Point3d.Point3D.z3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1701,6 +2057,143 @@ configured pre-proc dir shall be read.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-data.ProcFileReader">
+<span id="processor-file-reader"></span><h2>Processor File Reader<a class="headerlink" href="#module-data.ProcFileReader" title="Permalink to this headline">¶</a></h2>
+<p>”
+:Author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
+:License: General Public License GNU GPL 3.0
+‘</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.ProcFileReader.</span></span><span class="sig-name descname"><span class="pre">ProcFileReader</span></span><a class="headerlink" href="#data.ProcFileReader.ProcFileReader" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Covers the operations to read a processor file and write the data
+into the according models.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ProcFileReader'</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__fileNamePath">
+<span class="sig-name descname"><span class="pre">__fileNamePath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__fileNamePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__fileVersion">
+<span class="sig-name descname"><span class="pre">__fileVersion</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__fileVersion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.read_file">
+<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Reads the data file and saves the data in the internal
+database.</p>
+</dd>
+<dt class="field-even">Warning</dt>
+<dd class="field-even"><p>Filename and Path must be set first!</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="data.ProcFileReader.WaitWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.ProcFileReader.</span></span><span class="sig-name descname"><span class="pre">WaitWindow</span></span><a class="headerlink" href="#data.ProcFileReader.WaitWindow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Builds a minimized window to inform the user that file reading
+does take some time.
+All information is shown in the window title due to this discussion:
+<a class="reference external" href="https://stackoverflow.com/questions/67934352/window-opened-from-a">https://stackoverflow.com/questions/67934352/window-opened-from-a</a>-
+class-is-not-displaying-correctly/67937507#67937507</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-data.ProcFileWriter">
+<span id="processor-file-writer"></span><h2>Processor File Writer<a class="headerlink" href="#module-data.ProcFileWriter" title="Permalink to this headline">¶</a></h2>
+<p>”
+:Author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
+:License: General Public License GNU GPL 3.0
+‘</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="data.ProcFileWriter.ProcFileWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.ProcFileWriter.</span></span><span class="sig-name descname"><span class="pre">ProcFileWriter</span></span><a class="headerlink" href="#data.ProcFileWriter.ProcFileWriter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Covers the operations to write a processor file.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.ProcFileWriter.ProcFileWriter.__className">
+<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ProcFileWriter'</span></em><a class="headerlink" href="#data.ProcFileWriter.ProcFileWriter.__className" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data.ProcFileWriter.ProcFileWriter.__fileNamePath">
+<span class="sig-name descname"><span class="pre">__fileNamePath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcFileWriter.ProcFileWriter.__fileNamePath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attr</dt>
+<dd class="field-odd"><p>Fully qualified path and name of the file to write</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcFileWriter.ProcFileWriter.set_file_path_name">
+<span class="sig-name descname"><span class="pre">set_file_path_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcFileWriter.ProcFileWriter.set_file_path_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Used to set the full path and filename to be written</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="data.ProcFileWriter.ProcFileWriter.write_file">
+<span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_proc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcFileWriter.ProcFileWriter.write_file" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Writes all the values into a data file.</p>
+</dd>
+<dt class="field-even">Warning</dt>
+<dd class="field-even"><p>Filename must have been set already before, unless the file
+shall be written for the PreProcessor.</p>
+</dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>for_proc</strong> – Set this to True if the file must be saved in the
+directory where the PreProcessor resides</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if file was written successfully, False else</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7777,72 +8270,6 @@ known version number.</p>
 </dd></dl>
 
 </section>
-<section id="module-data.ProcFileReader">
-<span id="processor-proc-file-reader"></span><h2>Processor Proc File Reader<a class="headerlink" href="#module-data.ProcFileReader" title="Permalink to this headline">¶</a></h2>
-<p>”
-:Author: Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a>
-:License: General Public License GNU GPL 3.0
-‘</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.ProcFileReader.</span></span><span class="sig-name descname"><span class="pre">ProcFileReader</span></span><a class="headerlink" href="#data.ProcFileReader.ProcFileReader" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Covers the operations to read a processor file and write the data
-into the according models.</p>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__className">
-<span class="sig-name descname"><span class="pre">__className</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ProcFileReader'</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__className" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Attr</dt>
-<dd class="field-odd"><p>Does help to indicate the source of the log messages</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__fileNamePath">
-<span class="sig-name descname"><span class="pre">__fileNamePath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__fileNamePath" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.__fileVersion">
-<span class="sig-name descname"><span class="pre">__fileVersion</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.__fileVersion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.ProcFileReader.ProcFileReader.read_file">
-<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data.ProcFileReader.ProcFileReader.read_file" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Method</dt>
-<dd class="field-odd"><p>Reads the data file and saves the data in the internal
-database.</p>
-</dd>
-<dt class="field-even">Warning</dt>
-<dd class="field-even"><p>Filename and Path must be set first!</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="data.ProcFileReader.WaitWindow">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data.ProcFileReader.</span></span><span class="sig-name descname"><span class="pre">WaitWindow</span></span><a class="headerlink" href="#data.ProcFileReader.WaitWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Builds a minimized window to inform the user that file reading
-does take some time.
-All information is shown in the window title due to this discussion:
-<a class="reference external" href="https://stackoverflow.com/questions/67934352/window-opened-from-a">https://stackoverflow.com/questions/67934352/window-opened-from-a</a>-
-class-is-not-displaying-correctly/67937507#67937507</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="module-Processors.ProcRunner">
 <span id="proc-runner"></span><h2>Proc Runner<a class="headerlink" href="#module-Processors.ProcRunner" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
@@ -8206,12 +8633,12 @@ write operation as well.</p>
         <li><a href="contents.html">Documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="contents.html" >Doc overview</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Supporting Classes</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Supporting classes</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

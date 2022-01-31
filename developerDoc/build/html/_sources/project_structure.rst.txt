@@ -12,10 +12,10 @@ The project structure is build as shown below::
 
   developerDoc          -> All files needed to build the developer doc you're looking currently at;-)
   
+  distribution          -> All files need to build the final distribution packages. Packages itself will be saved also here. 
+  
   importTestFiles       -> Test files for development. Some are fully compliant to spec.
                            Others do have errors to check the error handling.
-  
-  installer             -> pyinstaller files
   
   prepareUpload         -> one single script which collects all the updated to be done before a new version is uploaded. 
                            - updating developer doc
@@ -23,8 +23,6 @@ The project structure is build as shown below::
                            - increasing the version number by x.x.1
   
   src                   -> the project sources
-  
-  translation			-> some notes about the GUI translation
   
   userHelp              -> All files needed to build the html help files displayed from lepg
   |- _build             -> Herein the complete help files will be generated

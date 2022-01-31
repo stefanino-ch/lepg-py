@@ -136,6 +136,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         self.numLines_S.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_S.lineEdit()
         num_lines_edit.setReadOnly(True)
+        self.numLines_S.setValue(self.ribs_M.num_rows_for_config(1))
 
         num_lines_layout = QHBoxLayout()
         num_lines_layout.addWidget(num_lines_l)

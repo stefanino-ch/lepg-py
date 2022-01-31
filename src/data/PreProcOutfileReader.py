@@ -165,6 +165,18 @@ class PreProcOutfileReader:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_pre_proc_directory(),
                              'geometry-out.txt')
+            if not os.path.isfile(self.__file_path_name):
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle(_('Ups!'))
+                msg_box.setText(_('Either the file does not exist,\n'
+                                  'or the pre-processor location\n'
+                                  'is not setup.\n'
+                                  '(Setup->Both Processors)'))
+                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.exec()
+                return [], 0
+
         else:
             file_name = QFileDialog.getOpenFileName(
                             None,

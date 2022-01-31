@@ -48,6 +48,8 @@ from gui.PartsSeparation import PartsSeparation
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.PreProcData import PreProcData
 from gui.PreProcWingOutline import PreProcWingOutline
+from gui.ThreeDDxfViewer import ThreeDDxfViewer
+from gui.TwoDDxfViewer import TwoDDxfViewer
 from gui.ProcessorOutput import ProcessorOutput
 from gui.Ramification import Ramification
 from gui.RibHoles import RibHoles
@@ -78,10 +80,45 @@ class MainWindow(QMainWindow):
         """
         :method: Constructor
         """
-        self.preProcEdit_w = None
+        self.two_d_dxf_w = None
+        self.nose_mylars_w = None
+        self.glue_vent_w = None
+        self.spec_wing_tip_w = None
+        self.calage_var_w = None
+        self.three_d_sh_w = None
+        self.airfoil_thick_w = None
+        self.new_skin_tens_w = None
+        self.parts_separation_w = None
+        self.seewing_all_w = None
+        self.marks_w = None
+        self.dxf_layer_names_w = None
+        self.marks_types_w = None
+        self.two_d_dxf_w = None
+        self.three_d_dxf_w = None
+        self.setup_proc_w = None
+        self.setup_update_check_w = None
+        self.help_about_w = None
+        self.joncs_def_w = None
+        self.el_lines_corr_w = None
+        self.add_rib_pts_w = None
+        self.intrados_colors_w = None
+        self.extrados_colors_w = None
+        self.hv_vh_w = None
+        self.ramification_w = None
+        self.brakes_w = None
+        self.lines_w = None
+        self.global_aoa_w = None
+        self.skin_tension_w = None
+        self.rib_holes_w = None
+        self.anchor_points_w = None
+        self.airfoils_w = None
+        self.geometry_w = None
+        self.basic_data_w = None
+        self.file_data_status_w = None
+        self.pre_proc_edit_w = None
         self.view_wing_outline_w = None
         self.proc_out_w = None
-        self.preProcCellsDistr_w = None
+        self.pre_proc_cells_distr_w = None
         self.pre_proc_wing_outline_w = None
 
         # Delete old log file
@@ -382,18 +419,18 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Name, LE, TE, Vault*
         """
-        self.preProcEdit_w = PreProcData()
-        self.mdi.addSubWindow(self.preProcEdit_w)
-        self.preProcEdit_w.show()
+        self.pre_proc_edit_w = PreProcData()
+        self.mdi.addSubWindow(self.pre_proc_edit_w)
+        self.pre_proc_edit_w.show()
 
     def pre_proc_cells_distr_edit(self):
         """
         :method: Called if the user selects *Pre Processor*
                  -> *Cells distribution*
         """
-        self.preProcCellsDistr_w = PreProcCellsDistribution()
-        self.mdi.addSubWindow(self.preProcCellsDistr_w)
-        self.preProcCellsDistr_w.show()
+        self.pre_proc_cells_distr_w = PreProcCellsDistribution()
+        self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
+        self.pre_proc_cells_distr_w.show()
 
     def pre_proc_run(self):
         """
@@ -703,9 +740,9 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Ramification*
         """
-        self.ramification_W = Ramification()
-        self.mdi.addSubWindow(self.ramification_W)
-        self.ramification_W.show()
+        self.ramification_w = Ramification()
+        self.mdi.addSubWindow(self.ramification_w)
+        self.ramification_w.show()
 
     def proc_hv_vh_edit(self):
         """
@@ -955,6 +992,14 @@ class MainWindow(QMainWindow):
         view_wing_outline.setStatusTip(_('show_WingOutline_des'))
         view_wing_outline.triggered.connect(self.view_wing_outline)
 
+        two_d_dxf_viewer = QAction(_('2D DXF viewer'), self)
+        two_d_dxf_viewer.setStatusTip(_('show_2d_Dxf_des'))
+        two_d_dxf_viewer.triggered.connect(self.view_2d_dxf)
+
+        three_d_dxf_viewer = QAction(_('3D DXF viewer'), self)
+        three_d_dxf_viewer.setStatusTip(_('show_3d_Dxf_des'))
+        three_d_dxf_viewer.triggered.connect(self.view_3d_dxf)
+
         view_cascade_act = QAction(_('Cascade'), self)
         view_cascade_act.setStatusTip(_('Cascade all windows'))
         view_cascade_act.triggered.connect(self.view_cascade)
@@ -966,6 +1011,8 @@ class MainWindow(QMainWindow):
         # Build the menu
         view_menu = self.mainMenu.addMenu(_('View'))
         view_menu.addAction(view_wing_outline)
+        view_menu.addAction(two_d_dxf_viewer)
+        view_menu.addAction(three_d_dxf_viewer)
         view_menu.addSeparator()
         view_menu.addAction(view_cascade_act)
         view_menu.addAction(view_tile_act)
@@ -978,6 +1025,24 @@ class MainWindow(QMainWindow):
         self.view_wing_outline_w = PreProcWingOutline()
         self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
+
+    def view_2d_dxf(self):
+        """
+        :method: Called if the user selects *View*
+                 -> *2D DXF*
+        """
+        self.two_d_dxf_w = TwoDDxfViewer()
+        self.mdi.addSubWindow(self.two_d_dxf_w)
+        self.two_d_dxf_w.show()
+
+    def view_3d_dxf(self):
+        """
+        :method: Called if the user selects *View*
+                 -> *3D DXF*
+        """
+        self.three_d_dxf_w = ThreeDDxfViewer()
+        self.mdi.addSubWindow(self.three_d_dxf_w)
+        self.three_d_dxf_w.show()
 
     def view_cascade(self):
         """
@@ -1117,9 +1182,9 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the Help About window.
         """
-        self.helpAboutW = HelpAbout()
-        self.mdi.addSubWindow(self.helpAboutW)
-        self.helpAboutW.show()
+        self.help_about_w = HelpAbout()
+        self.mdi.addSubWindow(self.help_about_w)
+        self.help_about_w.show()
 
     def delete_logfile(self):
         """

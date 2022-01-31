@@ -15,7 +15,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Supporting Classes" href="support_classes.html" />
+    <link rel="next" title="Supporting classes" href="support_classes.html" />
     <link rel="prev" title="Windows" href="gui.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
@@ -79,7 +79,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="support_classes.html" title="Supporting Classes"
+          <a href="support_classes.html" title="Supporting classes"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="gui.html" title="Windows"
@@ -93,10 +93,12 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">GUI Elements</a><ul>
 <li><a class="reference internal" href="#module-gui.elements.CheckBox">CheckBox</a></li>
+<li><a class="reference internal" href="#module-gui.elements.GraphicsView">GraphicsView</a></li>
 <li><a class="reference internal" href="#module-gui.elements.LineEdit">LineEdit</a></li>
 <li><a class="reference internal" href="#module-gui.elements.TableView">TableView</a></li>
 <li><a class="reference internal" href="#module-gui.elements.WindowBtnBar">WindowBtnBar</a></li>
@@ -105,12 +107,17 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="gui.html"
-                        title="previous chapter">Windows</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="support_classes.html"
-                        title="next chapter">Supporting Classes</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="gui.html"
+                          title="previous chapter">Windows</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="support_classes.html"
+                          title="next chapter">Supporting classes</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -196,6 +203,40 @@ be displayed if the mouse pointer is located over it.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>helpText</strong> – Help text to be displayed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gui.elements.GraphicsView">
+<span id="graphicsview"></span><h2>GraphicsView<a class="headerlink" href="#module-gui.elements.GraphicsView" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Stefan Feuz; <a class="reference external" href="http://www.laboratoridenvol.com">http://www.laboratoridenvol.com</a></p>
+</dd>
+<dt class="field-even">License</dt>
+<dd class="field-even"><p>General Public License GNU GPL 3.0</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.elements.GraphicsView.GraphicsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.elements.GraphicsView.</span></span><span class="sig-name descname"><span class="pre">GraphicsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.GraphicsView.GraphicsView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Class</dt>
+<dd class="field-odd"><p>Subclass of QGraphicsView. Enables mouse wheel zoom.</p>
+</dd>
+</dl>
+<p>A more detailed description of the basics can be found here:
+<a class="reference external" href="https://stackoverflow.com/questions/19113532/qgraphicsview-zooming-in-and">https://stackoverflow.com/questions/19113532/qgraphicsview-zooming-in-and</a>-
+out-under-mouse-position-using-mouse-wheel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.elements.GraphicsView.GraphicsView.wheelEvent">
+<span class="sig-name descname"><span class="pre">wheelEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.elements.GraphicsView.GraphicsView.wheelEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Method</dt>
+<dd class="field-odd"><p>Here in all the zoom magic happens</p>
 </dd>
 </dl>
 </dd></dl>
@@ -803,7 +844,7 @@ will be opened.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="support_classes.html" title="Supporting Classes"
+          <a href="support_classes.html" title="Supporting classes"
              >next</a> |</li>
         <li class="right" >
           <a href="gui.html" title="Windows"
@@ -817,7 +858,7 @@ will be opened.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

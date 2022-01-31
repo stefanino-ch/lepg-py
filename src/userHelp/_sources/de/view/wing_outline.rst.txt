@@ -1,0 +1,66 @@
+ .. Author: Stefan Feuz; http://www.laboratoridenvol.com
+
+ .. Copyright: General Public License GNU GPL 3.0
+
+Flügel Kontur
+=============
+Das Fenster Flügel Kontur zeigt eine grobe Ansicht des Flügelumrisses
+wie er im Pre-Prozessor definiert und berechntet wurde.
+
+.. image:: /images/view/wing_outline_de.png
+   :width: 652
+   :height: 318
+
+Einstellungen-> Beide Prozessoren
+---------------------------------
+In diesem Fenster kann definiert werden ob das Fenster Flügel Kontur
+automatisch nach jedem Pre-Prozessor Durchlauf geöffnet und aktualisiert
+werden soll.
+
+Nick +/ -
+---------
+Dreht den Flügel um die Nick-Achse.
+
+Hoch BB/ StB
+------------
+Dreht den Flügel um die Hoch-Achse.
+
+Roll BB/ StB
+------------
+Dreht den Flügel um die Roll-Achse.
+
+Grundr
+------
+Ein-Klick Grundriss des Flügels.
+
+BB/ StB
+-------
+Ein-Klick Backbord- (links)/ Steuerbord- (rechts) Ansicht des Flügels.
+
+Rückans
+-------
+Ein-Klick Rückansicht des Flügels.
+
+Zoom -/ +
+---------
+Zoomfunktion.
+
+Fit
+---
+Verkleinert oder Vergrössert die Ansicht automatisch so, dass das 
+Anzeigefenster bestmöglich ausgenützt wird.
+
+Reset
+-----
+Setzt die Perspektive auf die ursprüngliche Position zurück.
+
+Pre-Proz Datei
+--------------
+Nach dem Klicken dieser Schaltfläche wird automatisch die Pre-Prozessor
+Ausgabedatei im aktuell konfigurierten Pre-Prozessor Verzeichnis geladen
+und dargestellt.
+
+Eigene Datei
+------------
+Mit dieser Schaltfläche kann eine beliebige Pre-Prozessor Ausgabedatei
+welche sich irgendwo auf dem Computer geöffnet und dargestellt werden.
