@@ -21,7 +21,7 @@ class DxfReader:
 
     def __init__(self):
         """
-        :method: Constructor
+        :constructor:
         """
         self.doc = None
 
@@ -83,14 +83,8 @@ class DxfReader:
                     entities_list.append(text)
 
                 elif dxf_type == 'CIRCLE':
-                    x, y, z = entity.dxf.center
-
-                    circle = Circle3D(x - entity.dxf.radius,
-                                      y - entity.dxf.radius,
-                                      z,
-                                      x + entity.dxf.radius,
-                                      y + entity.dxf.radius,
-                                      z,
+                    circle = Circle3D(*entity.dxf.center,
+                                      entity.dxf.radius,
                                       *ezdxf.colors.aci2rgb(entity.dxf.color))
                     entities_list.append(circle)
                 else:

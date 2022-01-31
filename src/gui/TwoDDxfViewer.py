@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
 from ConfigReader.ConfigReader import ConfigReader
 
 from data.DxfReader import DxfReader
-from data.Entities3d import Line3D, Text3D, Circle3D
+from data.Entities3d import Line3D, Text3D, Circle3D, min_bounding_rect
 
 from gui.elements.GraphicsView import GraphicsView
 from gui.elements.WindowHelpBar import WindowHelpBar
@@ -24,6 +24,9 @@ from Singleton.Singleton import Singleton
 
 
 class DxfFile:
+    """
+    :class: Used to specify the type of file to be displayed
+    """
     pre_proc = 0
     proc = 1
     user_defined = 2
@@ -41,7 +44,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :constructor:
         """
         super().__init__()
         self.__file_path_name = None
@@ -295,17 +298,16 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     text_item.setBrush(QBrush(QColor(entity.color.r,
                                                      entity.color.g,
                                                      entity.color.b)))
-                    text_item.setRotation(entity.rotation)
+                    text_item.setRotation(entity.rotation * -1)
                     text = (entity,
                             text_item)
                     self.texts.append(text)
                 elif type(entity) is Circle3D:
                     circle_item = QGraphicsEllipseItem()
-                    # pen = QPen(QColor(entity.color.r,
-                    #                   entity.color.g,
-                    #                   entity.color.b))
-                    pen = QPen(QColor(198, 3, 52))
-                    # pen.setCosmetic(True)
+                    pen = QPen(QColor(entity.color.r,
+                                      entity.color.g,
+                                      entity.color.b))
+                    pen.setCosmetic(True)
                     circle_item.setPen(pen)
                     circle = (entity,
                               circle_item)
@@ -333,39 +335,28 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
             text[1].setPos(text[0].position.get_x2d(*self.proj_params),
                            text[0].position.get_y2d(*self.proj_params))
         for circle in self.circles:
-            circle[1].setRect(circle[0].start.get_x2d(*self.proj_params),
-                              circle[0].start.get_y2d(*self.proj_params),
-                              circle[0].end.get_x2d(*self.proj_params),
-                              circle[0].end.get_y2d(*self.proj_params))
+            circle[1].setRect(QRectF(
+                              circle[0].cornerOne.get_x2d(*self.proj_params),
+                              circle[0].cornerOne.get_y2d(*self.proj_params),
+                              circle[0].get_width(*self.proj_params),
+                              circle[0].get_height(*self.proj_params)))
 
     def zoom_in(self):
+        """
+        :method: Called upon Zoom + button press. Changes view scale.
+        """
         self.view.scale(1.1, 1.1)
 
     def zoom_out(self):
+        """
+        :method: Called upon Zoom - button press. Changes view scale.
+        """
         self.view.scale(.9, .9)
 
-    def min_bounding_rect(self, rect_list):
-        if not rect_list:
-            return None
-
-        min_x = rect_list[0].left()
-        min_y = rect_list[0].top()
-        max_x = rect_list[0].right()
-        max_y = rect_list[0].bottom()
-
-        for k in range(1, len(rect_list)):
-            min_x = min(min_x, rect_list[k].left())
-            min_y = min(min_y, rect_list[k].top())
-            max_x = max(max_x, rect_list[k].right())
-            max_y = max(max_y, rect_list[k].bottom())
-
-        return QRectF(min_x,
-                      min_y,
-                      max_x - min_x,
-                      max_y - min_y)
-
-    # TODO: check if same trick works also in WingOutlineViewer
     def fit_scene(self):
+        """
+        :method: Fits all objects into the given window
+        """
         self.angle_x = self.ini_angle_x
         self.angle_y = self.ini_angle_y
         self.angle_z = self.ini_angle_z
@@ -374,7 +365,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         # make sure scene covers all items
         items = self.scene.items()
         rects = [item.mapToScene(item.boundingRect()).boundingRect() for item in items]
-        rect = self.min_bounding_rect(rects)
+        rect = min_bounding_rect(rects)
         self.scene.setSceneRect(rect)
 
         # fit view to scene

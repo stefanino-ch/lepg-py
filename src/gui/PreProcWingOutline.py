@@ -4,12 +4,12 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem
 
-from data.Entities3d import Point3D
+from data.Entities3d import Point3D, min_bounding_rect
 from data.PreProcOutfileReader import PreProcOutfileReader
 
 from gui.elements.GraphicsView import GraphicsView
@@ -245,7 +245,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
     def prepare_wing_data(self, data, num_cells):
         """
         :method: Builds with the one-sided data read from the data file all
-                 edges tho be displayed.
+                 edges tho be displayed
         :param data: Data read from the data file
         :param num_cells: Number of cells read from the data file
         """
@@ -410,32 +410,22 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.update_scene()
 
     def zoom_in(self):
+        """
+        :method: Called upon Zoom + button press. Changes view scale.
+        """
         self.view.scale(1.1, 1.1)
 
     def zoom_out(self):
+        """
+        :method: Called upon Zoom - button press. Changes view scale.
+        """
         self.view.scale(.9, .9)
 
-    def min_bounding_rect(self, rect_list):
-        if not rect_list:
-            return None
-
-        min_x = rect_list[0].left()
-        min_y = rect_list[0].top()
-        max_x = rect_list[0].right()
-        max_y = rect_list[0].bottom()
-
-        for k in range(1, len(rect_list)):
-            min_x = min(min_x, rect_list[k].left())
-            min_y = min(min_y, rect_list[k].top())
-            max_x = max(max_x, rect_list[k].right())
-            max_y = max(max_y, rect_list[k].bottom())
-
-        return QRectF(min_x,
-                      min_y,
-                      max_x - min_x,
-                      max_y - min_y)
-
     def reset_scene(self):
+        """
+        :method: Resets the view angle to the default one at window opening.
+                 Fits the whole scene into the window.
+        """
         self.angle_x = self.ini_angle_x
         self.angle_y = self.ini_angle_y
         self.angle_z = self.ini_angle_z
@@ -443,10 +433,12 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.fit_scene()
 
     def fit_scene(self):
-        # make sure scene covers all items
+        """
+        :method: Fits all objects into the given window
+        """
         items = self.scene.items()
         rects = [item.mapToScene(item.boundingRect()).boundingRect() for item in items]
-        rect = self.min_bounding_rect(rects)
+        rect = min_bounding_rect(rects)
         self.scene.setSceneRect(rect)
 
         # fit view to scene

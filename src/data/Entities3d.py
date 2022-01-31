@@ -4,9 +4,39 @@
 """
 
 import math
+from PyQt5.QtCore import QRectF
+
+
+def min_bounding_rect(rect_list):
+    """
+    :function: calculates the 2d bounding rect needed to display all items
+    :param rect_list: a list of all items for which the bounding rect must be
+                      calculated
+    """
+    if not rect_list:
+        return None
+
+    min_x = rect_list[0].left()
+    min_y = rect_list[0].top()
+    max_x = rect_list[0].right()
+    max_y = rect_list[0].bottom()
+
+    for k in range(1, len(rect_list)):
+        min_x = min(min_x, rect_list[k].left())
+        min_y = min(min_y, rect_list[k].top())
+        max_x = max(max_x, rect_list[k].right())
+        max_y = max(max_y, rect_list[k].bottom())
+
+    return QRectF(min_x,
+                  min_y,
+                  max_x - min_x,
+                  max_y - min_y)
 
 
 class Color:
+    """
+    :class: Represents a color in r, g, b
+    """
     r = 0
     g = 0
     b = 0
@@ -15,9 +45,22 @@ class Color:
                  r: int = 0,
                  g: int = 0,
                  b: int = 0):
+        """
+        :method: Constructor
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
         self.set_color(r, g, b)
 
     def set_color(self, r, g, b):
+        """
+        :method: Set the color values. If white (255, 255, 255) black will be
+                 used, as all drawing backgrounds are white
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
         if r == 255 and g == 255 and b == 255:
             self.r = 0
             self.g = 0
@@ -79,7 +122,9 @@ class Point3D:
 
     def rotate_x(self, angle):
         """
-        Rotates this point around the X axis the given number of degrees.
+        :method: Rotates this point around the X axis the given number
+                 of degrees
+        :param angle: The current rotation angle
         """
         rad = angle * math.pi / 180
         cosa = math.cos(rad)
@@ -90,7 +135,9 @@ class Point3D:
 
     def rotate_y(self, angle):
         """
-        Rotates this point around the Y axis the given number of degrees.
+        :method: Rotates this point around the Y axis the given number
+                 of degrees
+        :param angle: The current rotation angle
         """
         rad = angle * math.pi / 180
         cosa = math.cos(rad)
@@ -101,7 +148,9 @@ class Point3D:
 
     def rotate_z(self, angle):
         """
-        Rotates this point around the Z axis the given number of degrees.
+        :method: Rotates this point around the Z axis the given number
+                 of degrees
+        :param angle: The current rotation angle
         """
         rad = angle * math.pi / 180
         cosa = math.cos(rad)
@@ -111,7 +160,10 @@ class Point3D:
         return Point3D(x3d, y3d, self.z3d)
 
     def project(self, win_width, win_height, fov, viewer_distance):
-        """ Transforms this 3D point to 2D using a perspective projection. """
+        """
+        :method: Transforms this 3D point to 2D using a perspective projection
+        :returns: New Point 3D Object fitted into the given parameters
+        """
         factor = fov / (viewer_distance + self.z3d)
         x3d = self.x3d * factor + win_width / 2
         y3d = -self.y3d * factor + win_height / 2
@@ -196,6 +248,9 @@ class Point3D:
 
 
 class Line3D:
+    """
+    :class: Represents a line in 3D space
+    """
     start = None
     end = None
     color = None
@@ -204,12 +259,27 @@ class Line3D:
                  start_x, start_y, start_z,
                  end_x, end_y, end_z,
                  r=0, g=0, b=0):
+        """
+        :constructor: Creates a new line object
+        :param start_x: x coordinate of start point
+        :param start_y: y coordinate of start point
+        :param start_z: z coordinate of start point
+        :param end_x: x coordinate of end point
+        :param end_y: y coordinate of end point
+        :param end_z: z coordinate of end point
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
         self.start = Point3D(start_x, start_y, start_z)
         self.end = Point3D(end_x, end_y, end_z)
         self.color = Color(r, g, b)
 
 
 class Text3D:
+    """
+    :class: Represents a text in 3D space
+    """
     position = None
     text = None
     height = None
@@ -222,6 +292,18 @@ class Text3D:
                  height,
                  r, g, b,
                  rotation):
+        """
+        :constructor: Creates a new text object
+        :param x: x coordinate of text
+        :param y: y coordinate of text
+        :param z: z coordinate of text
+        :param text: the text as string
+        :height: text height
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        :param rotation: Rotation angle of the text
+        """
         self.position = Point3D(x, y, z)
         self.text = text
         self.height = height
@@ -229,21 +311,89 @@ class Text3D:
         self.rotation = rotation
 
     def set_color(self, r, g, b):
+        """
+        :method: Set the color values. If white (255, 255, 255) black will be
+                 used, as all drawing backgrounds are white
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
         self.color.set_color(r, g, b)
 
 
 class Circle3D:
+    """
+    :class: Represents a circle in 3D space
+    """
     center = None
     radius = None
+
+    cornerOne = None
+    cornerTwo = None
     color = None
 
     def __init__(self,
-                 start_x, start_y, start_z,
-                 end_x, end_y, end_z,
+                 center_x, center_y, center_z,
+                 radius,
                  r=0, g=0, b=0):
-        self.start = Point3D(start_x, start_y, start_z)
-        self.end = Point3D(end_x, end_y, end_z)
+        """
+        :constructor: Creates a new circle object
+        :param center_x: x coordinate of the center
+        :param center_y: y coordinate of the center
+        :param center_z: z coordinate of the center
+        :param radius: circle radius
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
+        self.center = Point3D(center_x, center_y, center_z)
+        self.radius = radius
+        self.cornerOne = Point3D(center_x - radius,
+                                 center_y - radius,
+                                 0)
+        self.cornerTwo = Point3D(center_x + radius,
+                                 center_y + radius,
+                                 0)
         self.color = Color(r, g, b)
 
     def set_color(self, r, g, b):
+        """
+        :method: Set the color values. If white (255, 255, 255) black will be
+                 used, as all drawing backgrounds are white
+        :param r: red part of the color
+        :param g: green part of the color
+        :param b: blue part of the color
+        """
         self.color.set_color(r, g, b)
+
+    def get_width(self, x_ang, y_ang, z_ang,
+                  view_width, view_height, fov, view_dist):
+        """
+        :method: As all object will be scaled in the view, we cannot use the
+                 radius given in the dxf file for drawing. Instead, we calculate
+                 the width of the circle with the help of the two opposite
+                 corners of the bounding rect.
+        :returns: width of the bounding rect
+        """
+        return self.cornerOne.get_x2d(
+                    x_ang, y_ang, z_ang,
+                    view_width, view_height, fov, view_dist) \
+            - self.cornerTwo.get_x2d(
+                    x_ang, y_ang, z_ang,
+                    view_width, view_height, fov, view_dist)
+
+    def get_height(self, x_ang, y_ang, z_ang,
+                   view_width, view_height, fov, view_dist):
+        """
+        :method: As all object will be scaled in the view, we cannot use the
+                 radius given in the dxf file for drawing. Instead, we calculate
+                 the height of the circle with the help of the two opposite
+                 corners of the bounding rect.
+        :returns: height of the bounding rect
+        """
+        return self.cornerOne.get_y2d(
+                x_ang, y_ang, z_ang,
+                view_width, view_height, fov, view_dist) \
+            - self.cornerTwo.get_y2d(
+                x_ang, y_ang, z_ang,
+                view_width, view_height, fov, view_dist)
