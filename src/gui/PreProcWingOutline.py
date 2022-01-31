@@ -204,7 +204,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                   QSizePolicy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
-        self.button_bar.setHelpPage('preproc/wing_outline.html')
+        self.button_bar.setHelpPage('view/wing_outline.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(pre_proc_file_btn)
@@ -255,6 +255,10 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
 
         # Empty wing list
         del self.wing[:]
+        # empty edge list
+        del self.edges[:]
+
+        # clear scene
         self.scene.clear()
 
         if int(num_cells) % 2 == 0:
@@ -294,12 +298,6 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                                      float(data[rib_it][1]),
                                      float(data[rib_it][3]) - delta_y,
                                      float(data[rib_it][5])))
-
-        # delete old edges
-        for edge_it in range(len(self.edges)-1, -1, -1):
-            self.scene.removeItem(self.edges[edge_it][2])
-        # empty edge list
-        del self.edges[:]
 
         # create edges
         # lines for the ribs

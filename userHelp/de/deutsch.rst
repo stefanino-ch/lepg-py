@@ -10,7 +10,6 @@ Deutsche Anleitung
    
    preproc/name_le_te_vault.rst
    preproc/cell_distribution.rst
-   preproc/wing_outline.rst
    
    proc/basicData.rst
    proc/geometry.rst
@@ -43,6 +42,10 @@ Deutsche Anleitung
    proc/newSkinTension.rst
    proc/partsSeparation.rst
    proc/procOutput.rst
+   
+   view/wing_outline.rst
+   view/two_d_dxf.rst
+   view/three_d_dxf.rst
    
    setup/language.rst
    setup/processors.rst

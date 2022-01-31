@@ -48,6 +48,7 @@ from gui.PartsSeparation import PartsSeparation
 from gui.PreProcCellsDistribution import PreProcCellsDistribution
 from gui.PreProcData import PreProcData
 from gui.PreProcWingOutline import PreProcWingOutline
+from gui.ThreeDDxfViewer import ThreeDDxfViewer
 from gui.TwoDDxfViewer import TwoDDxfViewer
 from gui.ProcessorOutput import ProcessorOutput
 from gui.Ramification import Ramification
@@ -991,9 +992,13 @@ class MainWindow(QMainWindow):
         view_wing_outline.setStatusTip(_('show_WingOutline_des'))
         view_wing_outline.triggered.connect(self.view_wing_outline)
 
-        view_wing_outline_dxf = QAction(_('2D DXF Viewer'), self)
-        view_wing_outline_dxf.setStatusTip(_('show_2d_Dxf_des'))
-        view_wing_outline_dxf.triggered.connect(self.view_wing_outline_dxf)
+        two_d_dxf_viewer = QAction(_('2D DXF viewer'), self)
+        two_d_dxf_viewer.setStatusTip(_('show_2d_Dxf_des'))
+        two_d_dxf_viewer.triggered.connect(self.view_2d_dxf)
+
+        three_d_dxf_viewer = QAction(_('3D DXF viewer'), self)
+        three_d_dxf_viewer.setStatusTip(_('show_3d_Dxf_des'))
+        three_d_dxf_viewer.triggered.connect(self.view_3d_dxf)
 
         view_cascade_act = QAction(_('Cascade'), self)
         view_cascade_act.setStatusTip(_('Cascade all windows'))
@@ -1006,7 +1011,8 @@ class MainWindow(QMainWindow):
         # Build the menu
         view_menu = self.mainMenu.addMenu(_('View'))
         view_menu.addAction(view_wing_outline)
-        view_menu.addAction(view_wing_outline_dxf)
+        view_menu.addAction(two_d_dxf_viewer)
+        view_menu.addAction(three_d_dxf_viewer)
         view_menu.addSeparator()
         view_menu.addAction(view_cascade_act)
         view_menu.addAction(view_tile_act)
@@ -1020,14 +1026,23 @@ class MainWindow(QMainWindow):
         self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
 
-    def view_wing_outline_dxf(self):
+    def view_2d_dxf(self):
         """
         :method: Called if the user selects *View*
-                 -> *Wing outline DXF*
+                 -> *2D DXF*
         """
         self.two_d_dxf_w = TwoDDxfViewer()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
+
+    def view_3d_dxf(self):
+        """
+        :method: Called if the user selects *View*
+                 -> *3D DXF*
+        """
+        self.three_d_dxf_w = ThreeDDxfViewer()
+        self.mdi.addSubWindow(self.three_d_dxf_w)
+        self.three_d_dxf_w.show()
 
     def view_cascade(self):
         """

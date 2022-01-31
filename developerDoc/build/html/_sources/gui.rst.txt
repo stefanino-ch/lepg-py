@@ -12,6 +12,13 @@ Main file
    :undoc-members:
    :members:
    :private-members:
+   
+Main window
+-----------
+.. automodule::    gui.MainWindow
+   :undoc-members:
+   :members:
+   :private-members:
 
 Data Status Overview
 ---------------------
@@ -232,16 +239,30 @@ Plan Marks
    :members:
    :private-members:
    
-2D DFX Options
+2D DXF Options
 --------------
 .. automodule:: gui.TwoDDxf
    :undoc-members:
    :members:
    :private-members:
    
-3D DFX Options
+2D DXF Viewer
+-------------
+.. automodule:: gui.TwoDDxfViewer
+   :undoc-members:
+   :members:
+   :private-members:
+   
+3D DXF Options
 --------------
 .. automodule:: gui.ThreeDDxf
+   :undoc-members:
+   :members:
+   :private-members:
+   
+3D DXF Viewer
+-------------
+.. automodule:: gui.ThreeDDxfViewer
    :undoc-members:
    :members:
    :private-members:

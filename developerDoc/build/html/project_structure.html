@@ -92,12 +92,16 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">lepg developer doc’s</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="contents.html"
-                        title="next chapter">Doc overview</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">lepg developer doc’s</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="contents.html"
+                          title="next chapter">Doc overview</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -123,10 +127,10 @@
 <p>The project structure is build as shown below:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>developerDoc          -&gt; All files needed to build the developer doc you&#39;re looking currently at;-)
 
+distribution          -&gt; All files need to build the final distribution packages. Packages itself will be saved also here.
+
 importTestFiles       -&gt; Test files for development. Some are fully compliant to spec.
                          Others do have errors to check the error handling.
-
-installer             -&gt; pyinstaller files
 
 prepareUpload         -&gt; one single script which collects all the updated to be done before a new version is uploaded.
                          - updating developer doc
@@ -134,8 +138,6 @@ prepareUpload         -&gt; one single script which collects all the updated to 
                          - increasing the version number by x.x.1
 
 src                   -&gt; the project sources
-
-translation                   -&gt; some notes about the GUI translation
 
 userHelp              -&gt; All files needed to build the html help files displayed from lepg
 |- _build             -&gt; Herein the complete help files will be generated
@@ -188,7 +190,7 @@ userHelp              -&gt; All files needed to build the html help files displa
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Stefan.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

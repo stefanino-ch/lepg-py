@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
 
 from ConfigReader.ConfigReader import ConfigReader
 
+from data.DxfFileType import DxfFileType
 from data.DxfReader import DxfReader
 from data.Entities3d import Line3D, Text3D, Circle3D, min_bounding_rect
 
@@ -23,21 +24,12 @@ from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
 
 
-class DxfFile:
-    """
-    :class: Used to specify the type of file to be displayed
-    """
-    pre_proc = 0
-    proc = 1
-    user_defined = 2
-
-
 class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display the wing outline calculated by the
             PreProcessor.
     """
-    __className = 'TwoD_DXF_Viewer'
+    __className = 'TwoDDxfViewer'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -53,7 +45,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.proj_params = None
         logging.debug(self.__className + '.__init__')
 
-        self.__open_pre_proc_file = False  # type: bool
         self.button_bar = None
         self.help_bar = None
         self.window_ly = None
@@ -152,7 +143,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                   QSizePolicy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
-        self.button_bar.setHelpPage('preproc/wing_outline.html')
+        self.button_bar.setHelpPage('view/two_d_dxf.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(pre_proc_file_btn)
@@ -170,7 +161,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         :method: Opens the data file from the pre-proc directory and updates
                  the window
         """
-        dxf_data = self.open_read_file(DxfFile.pre_proc)
+        dxf_data = self.open_read_file(DxfFileType.pre_proc)
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
@@ -181,7 +172,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         :method: Opens the data file from the proc directory and updates
                  the window
         """
-        dxf_data = self.open_read_file(DxfFile.proc)
+        dxf_data = self.open_read_file(DxfFileType.proc)
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
@@ -191,7 +182,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Opens a user specific data file and updates the window
         """
-        dxf_data = self.open_read_file(DxfFile.user_defined)
+        dxf_data = self.open_read_file(DxfFileType.user_defined)
         if dxf_data:
             self.prepare_data(dxf_data)
             self.update_scene()
@@ -201,14 +192,13 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         """
         :method: File Open dialog handling.
                  Checks if the file header specifies a valid file
-        :param : File to be read. Use DxfFile enum to specify
-
+        :param file: File to be read. Use DxfFile enum to specify
         :returns: Data read from the file
                   None if file could not be read
         """
         logging.debug(self.__className + '.open_read_file')
 
-        if file is DxfFile.pre_proc:
+        if file is DxfFileType.pre_proc:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_pre_proc_directory(),
                              'geometry.dxf')
@@ -223,7 +213,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                 msg_box.setStandardButtons(QMessageBox.Ok)
                 msg_box.exec()
                 return None
-        elif file is DxfFile.proc:
+        elif file is DxfFileType.proc:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_proc_directory(),
                              'leparagliding.dxf')
