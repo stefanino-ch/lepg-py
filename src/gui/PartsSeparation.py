@@ -94,7 +94,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         one_t.verticalHeader().setVisible(False)
         one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         one_t.hideColumn(0)
-        for i in range(ProcModel.PartsSeparationModel.Param6_col,
+        for i in range(ProcModel.PartsSeparationModel.Param7_col,
                        ProcModel.PartsSeparationModel.Param10_col+1):
             one_t.hideColumn(i)
         one_t.hideColumn(self.parts_sep_m.columnCount() - 2)
@@ -106,7 +106,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addWidget(one_t)
 
         one_t.enableDoubleValidator(ProcModel.PartsSeparationModel.Panel_x_col,
-                                    ProcModel.PartsSeparationModel.Rib_y_col,
+                                    ProcModel.PartsSeparationModel.Rib_1y_col,
                                     0, 10, 2)
 
         one_t.setHelpBar(self.help_bar)
@@ -120,6 +120,8 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
                           _('PartsSep-Rib_x_Desc'))
         one_t.setHelpText(ProcModel.PartsSeparationModel.Rib_y_col,
                           _('PartsSep-Rib_y_Desc'))
+        one_t.setHelpText(ProcModel.PartsSeparationModel.Rib_1y_col,
+                          _('PartsSep-Rib_1y_Desc'))
 
         self.usage_update()
 

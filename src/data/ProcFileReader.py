@@ -1278,7 +1278,7 @@ class ProcFileReader(QObject):
                 panel_y = split_line(stream.readLine())[1]
                 rib_x = split_line(stream.readLine())[1]
                 rib_y = split_line(stream.readLine())[1]
-                param6 = split_line(stream.readLine())[1]
+                rib_1y = split_line(stream.readLine())[1]
                 param7 = split_line(stream.readLine())[1]
                 param8 = split_line(stream.readLine())[1]
                 param9 = split_line(stream.readLine())[1]
@@ -1287,7 +1287,7 @@ class ProcFileReader(QObject):
                 self.partsSep_M.update_row(1, 1,
                                            panel_x, panel_x_min, panel_y,
                                            rib_x, rib_y,
-                                           param6, param7,
+                                           rib_1y, param7,
                                            param8, param9,
                                            param10)
 
