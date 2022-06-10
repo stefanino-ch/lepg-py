@@ -20,8 +20,8 @@ which is equivalent to maintaining the default default values.
     :height: 290
 
 .. image:: /images/proc/parts_separation-en.png
-   :width: 400
-   :height: 153
+   :width: 407
+   :height: 155
    
 Raw data::
 
@@ -34,7 +34,7 @@ Raw data::
     panel_y     1.4
     rib_x       1.5
     rib_y       1.6
-    parameter6  1.0
+    rib_1y      1.0
     parameter7  1.0
     parameter8  1.0
     parameter9  1.0
@@ -66,7 +66,12 @@ rib_y
 -----
 Multiplication factor for y-direction ribs separation.
 
-parameter6...10
+rib_1y
+------
+Multiplication factor to adjust the separation in y-direction for the
+horizontals straps type 1 or 11.
+
+parameter7...10
 ---------------
 These parameters are currently not used. If you edit directly the data file
 you need to define a valid value. If you use lepg, the SW will take care
