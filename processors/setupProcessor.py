@@ -9,14 +9,14 @@ import sys
 import zipfile
 
 # Adapt the following variables for processor adaptation
-win_src_zip = 'lep-3.17-win64.zip'
-win_proc_dir_name = 'lep-3.17-win64'
+win_src_zip = 'lep-3.19-win64.zip'
+win_proc_dir_name = 'lep-3.19-win64'
 
-lin_src_zip = 'lep-3.17-lin64.zip'
-lin_proc_dir_name = 'lep-3.17-lin64'
+lin_src_zip = 'lep-3.19-lin64.zip'
+lin_proc_dir_name = 'lep-3.19-lin64'
 
-osx_src_zip = 'lep-3.17-osx.zip'
-osx_proc_dir_name = 'lep-3.17-osx'
+osx_src_zip = 'lep-3.19-osx.zip'
+osx_proc_dir_name = 'lep-3.19-osx'
 osx_pre_dir_name = 'pre1.6'
 osx_lep_dir_name = 'lep'
 
@@ -31,38 +31,38 @@ if platform.system() == "Windows":
     proc_src_path_name = os.path.join(curr_path, win_src_zip)
     proc_del_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors',
+                                      'processors',
                                       win_proc_dir_name)
     proc_zip_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors')
+                                      'processors')
 elif platform.system() == 'Linux':
     proc_src_path_name = os.path.join(curr_path, lin_src_zip)
     proc_del_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors',
+                                      'processors',
                                       lin_proc_dir_name)
     proc_zip_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors')
+                                      'processors')
 
 elif platform.system() == "Darwin":
     proc_src_path_name = os.path.join(curr_path, osx_src_zip)
     proc_del_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors',
+                                      'processors',
                                       osx_proc_dir_name)
     proc_zip_path_name = os.path.join(curr_path, '..',
                                       'src',
-                                      'Processors')
+                                      'processors')
     pre_path_name = os.path.join(curr_path, '..',
                                  'src',
-                                 'Processors',
+                                 'processors',
                                  osx_proc_dir_name,
                                  osx_pre_dir_name)
     lep_path_name = os.path.join(curr_path, '..',
                                  'src',
-                                 'Processors',
+                                 'processors',
                                  osx_proc_dir_name,
                                  osx_lep_dir_name)
 else:
@@ -96,7 +96,7 @@ if platform.system() == "Darwin":
     script_src_path_name = os.path.join(curr_path, 'lepPrepare.command')
     script_tgt_path_name = os.path.join(curr_path, '..',
                                         'src',
-                                        'Processors',
+                                        'processors',
                                         osx_proc_dir_name,
                                         'lepPrepare.command')
 

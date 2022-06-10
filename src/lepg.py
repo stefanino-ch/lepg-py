@@ -18,7 +18,7 @@ from gui.MainWindow import MainWindow
 # Wayland needs special environment setting to run lepg
 # Check environment an make sure wayland settings apply if needed
 
-if platform.system() == ('Linux'):
+if platform.system() == 'Linux':
     retVal = subprocess.check_output(['echo $XDG_SESSION_TYPE'], shell=True, text=True)
     if 'wayland' in retVal:
         # os.system('export QT_QPA_PLATFORM="xcb"')

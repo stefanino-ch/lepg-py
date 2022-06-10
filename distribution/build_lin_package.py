@@ -38,6 +38,7 @@ print('Executing pyinstaller')
 os.chdir(curr_path)
 os.system('pyinstaller --noconfirm \
             --distpath dist-lin64 \
+            --clean \
             ../src/lepg.spec')
             
 # os.system('pyinstaller --noconfirm \

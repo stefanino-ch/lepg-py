@@ -13,6 +13,13 @@ CheckBox
    :members:
    :private-members:
 
+GraphicsView
+------------
+.. automodule:: gui.elements.GraphicsView
+   :undoc-members:
+   :members:
+   :private-members:
+
 LineEdit
 --------
 .. automodule:: gui.elements.LineEdit
@@ -41,10 +48,3 @@ WindowBtnBar
    :undoc-members:
    :members:
    :private-members:
-
-
-
-
-
-
- 

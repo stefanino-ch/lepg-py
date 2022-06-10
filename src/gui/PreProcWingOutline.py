@@ -7,10 +7,12 @@ import logging
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsView, QGraphicsLineItem
-from data.Point3d import Point3D
+    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem
+
+from data.Entities3d import Point3D, min_bounding_rect
 from data.PreProcOutfileReader import PreProcOutfileReader
 
+from gui.elements.GraphicsView import GraphicsView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
@@ -114,6 +116,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Wing outline"))
 
         btn_ly = QVBoxLayout()
+        btn_ly.addStretch()
         x_min_btn = QPushButton(_("Pitch -"))
         x_min_btn.clicked.connect(self.x_min)
         x_plu_btn = QPushButton(_("Pitch +"))
@@ -167,14 +170,21 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         zoom_hbox.addWidget(zoom_in_btn)
         btn_ly.addLayout(zoom_hbox)
 
+        fit_btn = QPushButton("Fit")
+        fit_btn.clicked.connect(self.fit_scene)
+        btn_ly.addWidget(fit_btn)
+
         res_btn = QPushButton("Reset")
         res_btn.clicked.connect(self.reset_scene)
         btn_ly.addWidget(res_btn)
 
+        btn_ly.addStretch()
+
         self.scene = QGraphicsScene(0, 0,
                                     self.ini_scene_width,
                                     self.ini_scene_height)
-        self.view = QGraphicsView(self.scene)
+        self.view = GraphicsView(self.scene)
+        self.view.setDragMode(GraphicsView.ScrollHandDrag)
         self.view.setRenderHint(QPainter.Antialiasing)
 
         hbox_ly = QHBoxLayout()
@@ -194,7 +204,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
                                                   QSizePolicy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
-        self.button_bar.setHelpPage('preproc/wing_outline.html')
+        self.button_bar.setHelpPage('view/wing_outline.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(pre_proc_file_btn)
@@ -211,12 +221,12 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         :method: Opens the data file from the pre-proc directory and updates
                  the window
         """
-        # TODO: im Reader kontrollieren ob der Pfad wirklich existiert
         pre_proc_reader = PreProcOutfileReader()
         data, num_cells = pre_proc_reader.open_read_file(True)
 
         if len(data) > 0 and num_cells != 0:
             self.prepare_wing_data(data, num_cells)
+            self.update_scene()
             self.update_scene()
             self.reset_scene()
 
@@ -229,13 +239,13 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
 
         if len(data) > 0 and num_cells != 0:
             self.prepare_wing_data(data, num_cells)
-            self.update_scene()
+            # self.update_scene()
             self.reset_scene()
 
     def prepare_wing_data(self, data, num_cells):
         """
         :method: Builds with the one-sided data read from the data file all
-                 edges tho be displayed.
+                 edges tho be displayed
         :param data: Data read from the data file
         :param num_cells: Number of cells read from the data file
         """
@@ -245,6 +255,11 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
 
         # Empty wing list
         del self.wing[:]
+        # empty edge list
+        del self.edges[:]
+
+        # clear scene
+        self.scene.clear()
 
         if int(num_cells) % 2 == 0:
             # num_cells even/ gerade Anzahl
@@ -284,12 +299,6 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                                      float(data[rib_it][3]) - delta_y,
                                      float(data[rib_it][5])))
 
-        # delete old edges
-        for edge_it in range(len(self.edges)-1, -1, -1):
-            self.scene.removeItem(self.edges[edge_it][2])
-        # empty edge list
-        del self.edges[:]
-
         # create edges
         # lines for the ribs
         for rib_it in range(0, len(self.wing)):
@@ -304,6 +313,8 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                 pen = QPen(Qt.red)
             else:
                 pen = QPen(Qt.black)
+
+            pen.setCosmetic(True)
             line_item.setPen(pen)
 
             edge = (self.wing[rib_it].le,
@@ -312,17 +323,26 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
             self.edges.append(edge)
 
         # leading edge
+        black_pen = QPen(Qt.black)
+        black_pen.setCosmetic(True)
+
         for rib_it in range(0, len(self.wing)-1):
+            line_item = QGraphicsLineItem()
+            line_item.setPen(black_pen)
+
             edge = (self.wing[rib_it].le,
                     self.wing[rib_it+1].le,
-                    QGraphicsLineItem())
+                    line_item)
             self.edges.append(edge)
 
         # trailing edge
         for rib_it in range(0, len(self.wing)-1):
+            line_item = QGraphicsLineItem()
+            line_item.setPen(black_pen)
+
             edge = (self.wing[rib_it].te,
                     self.wing[rib_it+1].te,
-                    QGraphicsLineItem())
+                    line_item)
             self.edges.append(edge)
 
         for edge in self.edges:
@@ -330,7 +350,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
 
     def update_scene(self):
         self.proj_params = [self.angle_x, self.angle_y, self.angle_z,
-                            self.scene.width(), self.scene.height(),
+                            self.view.width(), self.view.height(),
                             self.ini_fov, self.ini_distance]
 
         for edge in self.edges:
@@ -338,8 +358,6 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                             edge[0].get_y2d(*self.proj_params),
                             edge[1].get_x2d(*self.proj_params),
                             edge[1].get_y2d(*self.proj_params))
-
-        # print(f'x: {self.angle_x}\t y: {self.angle_y}\t z: {self.angle_z}')
 
     def x_min(self):
         self.angle_x -= 10
@@ -390,16 +408,39 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.update_scene()
 
     def zoom_in(self):
+        """
+        :method: Called upon Zoom + button press. Changes view scale.
+        """
         self.view.scale(1.1, 1.1)
 
     def zoom_out(self):
+        """
+        :method: Called upon Zoom - button press. Changes view scale.
+        """
         self.view.scale(.9, .9)
 
     def reset_scene(self):
+        """
+        :method: Resets the view angle to the default one at window opening.
+                 Fits the whole scene into the window.
+        """
         self.angle_x = self.ini_angle_x
         self.angle_y = self.ini_angle_y
         self.angle_z = self.ini_angle_z
         self.update_scene()
+        self.fit_scene()
+
+    def fit_scene(self):
+        """
+        :method: Fits all objects into the given window
+        """
+        items = self.scene.items()
+        rects = [item.mapToScene(item.boundingRect()).boundingRect() for item in items]
+        rect = min_bounding_rect(rects)
+        self.scene.setSceneRect(rect)
+
+        # fit view to scene
+        self.view.fitInView(self.scene.sceneRect(), Qt.KeepAspectRatio)
 
     def button_press(self, q):
         """

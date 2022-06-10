@@ -1,4 +1,7 @@
-__version__ = '3.17.3'
+__version__ = '3.19.0'
+
+# 3.19.0
+# New parameter in section 32: rib_1y
 
 # 3.17.0
 # Type columns in PreProcData removed as they are always 1.
