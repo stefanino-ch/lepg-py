@@ -4,7 +4,7 @@ Latest_Windows_Version = '3.19.0'
 
 Latest_Linux_Version = '3.19.0'
 
-Latest_Mac_Version = '3.17.2'
+Latest_Mac_Version = '3.19.0'
 
 
 ## English

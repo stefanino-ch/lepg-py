@@ -15,8 +15,8 @@ win_proc_dir_name = 'lep-3.19-win64'
 lin_src_zip = 'lep-3.19-lin64.zip'
 lin_proc_dir_name = 'lep-3.19-lin64'
 
-osx_src_zip = 'lep-3.17-osx.zip'
-osx_proc_dir_name = 'lep-3.17-osx'
+osx_src_zip = 'lep-3.19-osx.zip'
+osx_proc_dir_name = 'lep-3.19-osx'
 osx_pre_dir_name = 'pre1.6'
 osx_lep_dir_name = 'lep'
 

@@ -4,6 +4,9 @@ src/logfile.txt
 # Config file
 src/configFile.txt
 
+# Database
+lepgModel.sqlite
+
 # Intermediate files from help system
 userHelp/.escapecodecache
 userHelp/_build
@@ -38,3 +41,4 @@ lines.txt
 
 # MAC specifics
 .DS_Store
+__MACOSX
