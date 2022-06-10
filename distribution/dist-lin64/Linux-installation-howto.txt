@@ -1,0 +1,32 @@
+ENGLISH: Installation - Linux
+-----------------------------
+
+In the folder distribution/dist-lin64 you will find two zip files.
+
+Download these files.
+
+Unzip them.
+
+Copy or move the content of both unzipped files into the same folder.
+The name of the folder does not matter.
+
+Change into the folder containing all files.
+
+Execute (double click) the file lepg.
+
+
+DEUTSCH: Installation - Linux
+-----------------------------
+
+Im Ordner distribution/dist-lin64 findest du zwei .zip Dateien.
+
+Diese Dateien herunterladen.
+
+Beide entpacken.
+
+Kopiere/ verschiebe nun den Inhalt der beiden neuen Ordner in einen einzigen Ordner.
+Der Name dieses Ordners spielt keine Rolle.
+
+In den gemeinsamen Ordner wechseln.
+
+Starte (Doppelclick) die Datei lepg.

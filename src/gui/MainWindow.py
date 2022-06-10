@@ -17,7 +17,7 @@ from packaging import version
 
 import __init__
 from ConfigReader.ConfigReader import ConfigReader
-from Processors.ProcRunner import ProcRunner
+from processors.ProcRunner import ProcRunner
 from VersionCheck.VersionCheck import VersionCheck
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel

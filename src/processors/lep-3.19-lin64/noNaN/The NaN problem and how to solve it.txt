@@ -1,0 +1,9 @@
+Unable to open dxf file. The NaN problem.
+
+I mentioned this problem earlier. Sometimes, when doing mathematical calculations, with a certain angle or numerical value, there is a division by zero or another illegal operation. When this happens, the Fortran executable writes the value "NaN", which means "Not a Number". When writing the NaN value to the DXF file, some CAD programs do not know how to interpret it correctly and cannot open the file. For example, this happens with Autocad, but not with LibreCAD. To resolve this issue, you can open the dxf file with a word processor (for example, Word, or gvim) and automatically replace the NaN text string with the numeric value 0.0 
+This solves the problem. If you are using a Linux operating system, Mac OSX with console, or Windows with cygwin console, copy the noNAN.sh script to the lep folder and run the script as ./noNAN.sh
+This will automatically change the NaN values to 0.0 and repair the dxf file.
+
+This script can also be run directly from the console as:
+
+sed -i 's/NaN/0.0/g' leparagliding.dxf

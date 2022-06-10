@@ -1,0 +1,5 @@
+Compiled in Cygwin console Windows 10 amdd64bit:
+
+gfortran -static-libgfortran leparagliding.f 
+
+If you compile using Cygwin, then remove all .dll in /lep folder
