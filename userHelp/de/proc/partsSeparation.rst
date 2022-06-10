@@ -20,8 +20,8 @@ Ein Koeffizient > 1 bewirkt eine Vergrösserung des Abstandes, ein Koeffizient
     :height: 290
 
 .. image:: /images/proc/parts_separation-en.png
-   :width: 400
-   :height: 153
+   :width: 407
+   :height: 155
    
 Rohdaten::
 
@@ -34,7 +34,7 @@ Rohdaten::
     panel_y     1.4
     rib_x       1.5
     rib_y       1.6
-    parameter6  1.0
+    rib_1y      1.0
     parameter7  1.0
     parameter8  1.0
     parameter9  1.0
@@ -65,7 +65,11 @@ rib_y
 -----
 Separierungsfaktor für die Rippen in y-Richtung.
 
-parameter6...10
+rib_1y
+------
+Separierungsfaktor für die y-Richtung der Rippen vom Typ 1 und 11.
+
+parameter7...10
 ---------------
 Diese Parameter werden aktuell nicht verwendet. Wenn du die Datei manuell
 bearbeitest muss ein gültiger Wert gesetzt werden. Verwendest du Lepg, dann

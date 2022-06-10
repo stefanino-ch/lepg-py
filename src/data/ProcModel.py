@@ -157,7 +157,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
     def set_file_name(self, file_name):
         """
-        :method: Does set the file name the data store shall work with.
+        :method: Does set the file name the data store shall work with
         :param file_name: String containing full path and filename
         """
         self.__fileNamePath = file_name
@@ -224,7 +224,7 @@ class ProcModel(QObject, metaclass=Singleton):
     def is_valid_pre_proc_file(self, file_name):
         """
         :method: Checks if a file can be opened and contains a valid title
-                 and known version number.
+                 and known version number
         :param file_name: the name of the file to be checked
         """
         logging.debug(self.__className + '.is_valid_pre_proc_file')
@@ -281,7 +281,7 @@ class ProcModel(QObject, metaclass=Singleton):
     def valid_file(self, file_name):
         """
         :method: Checks if a file can be opened and contains a valid title and
-                 known version number.
+                 known version number
         :param file_name: the name of the file to be checked
         """
         logging.debug(self.__className + '.valid_file')
@@ -315,6 +315,12 @@ class ProcModel(QObject, metaclass=Singleton):
                 version_ok = True
             elif line.find('3.17') >= 0:
                 self.set_file_version('3.17')
+                version_ok = True
+            elif line.find('3.18') >= 0:
+                self.set_file_version('3.18')
+                version_ok = True
+            elif line.find('3.19') >= 0:
+                self.set_file_version('3.19')
                 version_ok = True
 
             if line.find('Input data file') >= 0:
@@ -508,9 +514,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -523,9 +529,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -538,9 +544,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate"))
 
         def updateRow(self, configNum, orderNum, xCoord, yCoord):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -556,12 +563,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -580,9 +587,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class AirfoilsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the individual ribs. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding all data related to the individual ribs.
+        """
         __className = 'AirfoilsModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -605,9 +612,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column for the rrw config'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty anchor points table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -624,9 +631,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -644,11 +651,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(7, Qt.Horizontal, _("rrw"))
 
         def getRow(self, ribNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific rib number
-            :param ribNum: Rib number. Starting with 1. 
+            :param ribNum: Rib number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -667,9 +674,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class AirfoilThicknessModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'AirfoilThicknessModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
@@ -687,10 +694,10 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 2
         ''':attr: num of column for config number (always 1)'''
 
-        def __init__(self, parent=None):  # @UnusedVariable
-            '''
+        def __init__(self, parent=None):
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -702,9 +709,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Horizontal, _("Coef"))
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -716,9 +723,10 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def updateRow(self, configNum, orderNum, coeff):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -732,29 +740,29 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def setIsUsed(self, isUsed):
-            '''
+            """
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
-            '''
+            :param isUsed: True if section is in use, False otherwise
+            """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = isUsed
             self.usageUpd.emit()
 
         def isUsed(self):
-            '''
+            """
             :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
-            '''
+            :returns: True if section is in use, false otherwise
+            """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -772,9 +780,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the Anchor points. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding all data related to the Anchor points.
+        """
         __className = 'AnchorPointsModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -797,9 +805,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Number the column holding Pos F'''
 
         def createAnchorPointsTable(self):
-            '''
+            """
             :method: Creates initially the empty anchor points table
-            '''
+            """
             logging.debug(self.__className + '.createAnchorPointsTable')
             query = QSqlQuery()
 
@@ -816,9 +824,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createAnchorPointsTable()
@@ -836,11 +844,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(7, Qt.Horizontal, _("Pos F"))
 
         def getRow(self, ribNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific rib number
-            :param ribNum: Rib number. Starting with 1. 
+            :param ribNum: Rib number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -859,9 +867,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class BrakesModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the lines parameters. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the lines parameters.
+        """
         __className = 'BrakesModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -893,9 +901,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Lines table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -918,9 +926,9 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -943,11 +951,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
                       i7, i8, i9, i10, i11):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -981,12 +989,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1014,9 +1022,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class BrakeLengthModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the Marks parameters. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the Marks parameters.
+        """
         __className = 'BrakeLengthModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -1042,9 +1050,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Number of the col holding the d5 value'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Brake length table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1064,9 +1072,9 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec("INSERT into BrakeLenght (ID) Values( '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1086,10 +1094,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1111,9 +1119,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class CalageVarModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'CalageVarModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
@@ -1151,9 +1159,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1176,9 +1184,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(11, Qt.Horizontal, _("Num pos steps"))
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1201,9 +1209,10 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, configNum, orderNum, numRisers, posA, posB, posC, posD, posE, posF, maxNegAng, numNegSteps,
                       maxPosAng, numPosSteps):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -1237,29 +1246,29 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def setIsUsed(self, isUsed):
-            '''
+            """
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise 
-            '''
+            :param isUsed: True if section is in use, False otherwise
+            """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = isUsed
             self.usageUpd.emit()
 
         def isUsed(self):
-            '''
+            """
             :method: Returns the information if the section is in use or not
-            :returns: True if section is in use, false otherwise 
-            '''
+            :returns: True if section is in use, false otherwise
+            """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1288,9 +1297,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'DxfLayerNamesModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -1304,9 +1313,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1319,9 +1328,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1333,9 +1342,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Description"))
 
         def updateRow(self, configNum, orderNum, layer, desc):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -1351,12 +1361,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1375,9 +1385,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ElLinesCorrModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the parameters for the elastic lines correction. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the parameters for the elastic lines correction.
+        """
         __className = 'ElLinesCorrModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -1413,9 +1423,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Num of column for 5th five line load distr'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1440,9 +1450,9 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec("INSERT into ElaslticLinesCorr (ID) Values( '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1451,10 +1461,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1480,9 +1490,10 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ElLinesDefModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic lines correction)
-        '''
+        """
+        :class: Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic
+                lines correction)
+        """
         __className = 'ElLinesDefModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -1498,9 +1509,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1514,9 +1525,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1532,9 +1543,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.set_num_rows_for_config(1, 5)
 
         def updateRow(self, configNum, orderNum, defLow, defMid, defHigh):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -1552,12 +1564,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1578,9 +1590,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all data related to the Extrados colors configuration 
-        '''
+        """
+        :class: provides a SqlTableModel holding all data related to the Extrados colors configuration
+        """
         __className = 'ExtradosColConfModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -1593,9 +1605,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1607,9 +1619,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1630,12 +1642,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param order_num: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1648,9 +1659,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ExtradosColDetModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all detail data related to the Extrados colors 
-        '''
+        """
+        :class: provides a SqlTableModel holding all detail data related to the Extrados colors
+        """
         __className = 'ExtradosColDetModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -1663,9 +1674,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1677,9 +1688,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1703,12 +1714,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1726,9 +1737,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class GlobAoAModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the global AoA parameters. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the global AoA parameters.
+        """
         __className = 'GlobAoAModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -1746,9 +1757,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Number of the col holding the karabiners length value'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty GlobalAoA table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -1764,9 +1775,9 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec("INSERT into GlobalAoA (ID) Values( '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -1782,10 +1793,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -1932,8 +1943,8 @@ class ProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param config_num: Configuration number. Starting with 1.
-            :param order_num: Order number. Starting with 1.
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
 
             :return: Values read from internal database
             :rtype: QRecord
@@ -1994,9 +2005,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Lines table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2018,9 +2029,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2043,9 +2054,10 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateDataRow(self, configNum, orderNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF,
                           paramG, paramH=0, paramI=0):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.updateLineRow')
 
             query = QSqlQuery()
@@ -2079,12 +2091,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2112,9 +2124,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all data related to the Intrados colors configuration 
-        '''
+        """
+        :class: provides a SqlTableModel holding all data related to the Intrados colors configuration
+        """
         __className = 'IntradosColsConfModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -2127,9 +2139,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2141,9 +2153,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2164,12 +2176,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param order_num: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2182,9 +2193,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class IntradosColsDetModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all detail data related to the Intrados colors 
-        '''
+        """
+        :class: provides a SqlTableModel holding all detail data related to the Intrados colors
+        """
         __className = 'IntradosColsDetModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -2197,9 +2208,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2211,9 +2222,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2237,12 +2248,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2260,9 +2271,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class JoncsDefModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the Joncs definition data
-        '''
+        """
         __className = 'JoncsDefModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -2304,9 +2315,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2333,9 +2344,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2362,9 +2373,10 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateTypeOneRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pCA, pCB, pCC, pCD, pDA,
                              pDB, pDC, pDD):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.updateTypeOneRow')
 
             query = QSqlQuery()
@@ -2406,9 +2418,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def updateTypeTwoRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pBE, pDA, pDB, pDC, pDD):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.updateTypeTwoRow')
 
             query = QSqlQuery()
@@ -2443,10 +2456,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def setType(self, configNum, typeNum):
-            '''
-            :method: Sets for all rows of a specific config the type num 
+            """
+            :method: Sets for all rows of a specific config the type num
+            :param configNum: Number of the configuration to read from
             :param typeNum: 1: type== 1; 2: type== 2
-            '''
+            """
             logging.debug(self.__className + '.setType')
 
             query = QSqlQuery()
@@ -2458,10 +2472,10 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec()
 
         def getType(self, configNum):
-            '''
-            :method: Detects for a defined config if the type is set. 
+            """
+            :method: Detects for a defined config if the type is set.
             :return: 0: type is empty; 1: type== 1; 2: type== 2
-            '''
+            """
             logging.debug(self.__className + '.get_type')
 
             query = QSqlQuery()
@@ -2477,12 +2491,12 @@ class ProcModel(QObject, metaclass=Singleton):
             return typeNum
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2516,9 +2530,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class LightConfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all data related to the global lightening config parameters 
-        '''
+        """
+        :class: provides a SqlTableModel holding all data related to the global lightening config parameters
+        """
 
         __className = 'LightConfModel'
         '''
@@ -2536,9 +2550,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty LightConf table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2551,9 +2565,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2576,11 +2590,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config number
-            :param configNum: Configuration number. Starting with 1. 
+            :param configNum: Configuration number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2594,9 +2608,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class LightDetModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to the indivudual lightening config parameters.
-        '''
+        """
+        :class: Provides a SqlTableModel holding all data related to the individual lightening config parameters.
+        """
         # numDetailsChanged = pyqtSignal(int, int)
         '''
         :Signal: Emitted at the moment the number of data lines in the model is changed. \
@@ -2617,9 +2631,12 @@ class ProcModel(QObject, metaclass=Singleton):
         DisChordCol = 3
         ''':attr: num of column for 1..3: distance from the center of hole to the chord line in % of chord'''
         HorAxisCol = 4
-        ''':attr: num of column for 1..2: horizontal axis of the ellipse as % of chord; 3: traingle base as % of chord'''
+        '''
+        :attr: num of column for 1..2: horizontal axis of the ellipse as % of chord; 
+                  3: triangle base as % of chord
+        '''
         VertAxisCol = 5
-        ''':attr: num of column for 1..2: ellipse vertical axis as % of chord; 3: triangle heigth as % of chord'''
+        ''':attr: num of column for 1..2: ellipse vertical axis as % of chord; 3: triangle height as % of chord'''
         RotAngleCol = 6
         ''':attr: num of column 1..3:  for rotation angle of the ellipse'''
         Opt1Col = 7
@@ -2628,9 +2645,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for 1..3: config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty lightening details table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2649,9 +2666,9 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec("INSERT into LightDet (ConfigNum, OrderNum) Values( '1', '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2669,13 +2686,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(7, Qt.Horizontal, _("Opt "))
 
         def updateRow(self, configNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
-            # query.prepare("UPDATE LightDet SET LightTyp= :light, DistLE= :dist, DisChord= :dis, HorAxis= :hor, VertAxis= :vert, RotAngle: rot, Opt= :opt WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.prepare("UPDATE LightDet SET LightTyp= :light, "
                           "DistLE= :dist, DisChord= :dis, HorAxis= :hor, "
                           "VertAxis= :vert, RotAngle= :rot, Opt1= :opt1 "
@@ -2693,12 +2710,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2722,9 +2739,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class LinesModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the lines parameters.
-        '''
+        """
         __className = 'LinesModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -2763,9 +2780,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Lines table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2787,9 +2804,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2812,11 +2829,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateLineRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
                           i7, i8, i9, i10, i11):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here
+                     passed. Parameters are not explicitly explained here
                      as they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.updateLineRow')
 
             query = QSqlQuery()
@@ -2850,11 +2867,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated
 
         def set_num_configs(self, must_num_configs):
-            '''
+            """
             :method: Assures the model will be setup to hold the correct
-                     number of configs based on parameters passed.
-            :param must_num_configs: Number of configs the model must provide.
-            '''
+                     number of configs based on parameters passed
+            :param must_num_configs: Number of configs the model must provide
+            """
             logging.debug(self.__className + '.set_num_configs')
             currNumConfigs = self.num_configs()
 
@@ -2877,13 +2894,13 @@ class ProcModel(QObject, metaclass=Singleton):
                 self.numConfigsChanged.emit(self.num_configs())
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2913,9 +2930,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class MarksModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the Marks parameters.
-        '''
+        """
         __className = 'MarksModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -2927,9 +2944,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Number of the col holding the points displacement value'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Marks table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -2941,9 +2958,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -2958,9 +2975,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.add_rows(-1, 1)
 
         def updateRow(self, marksSp, pointRad, pointDispl):
-            '''
+            """
             :method: updates a specific row with the parameters passed.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -2974,10 +2991,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -2991,9 +3008,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class MarksTypesModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'MarksTypesModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -3017,9 +3034,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3037,9 +3054,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3057,9 +3074,10 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, configNum, orderNum, pType, formOne, formOnePOne, formOnePTwo, formTwo, formTwoPOne,
                       formTwoPTwo):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -3085,12 +3103,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3114,9 +3132,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: provides a SqlTableModel holding all data related to the group wide parameters for New Skin Tension 
-        '''
+        """
+        :class: provides a SqlTableModel holding all data related to the group wide parameters for New Skin Tension
+        """
 
         __className = 'NewSkinTensConfModel'
         '''
@@ -3136,9 +3154,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table.
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3152,9 +3170,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3180,12 +3198,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3206,9 +3224,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all detail data related to New skin tension. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding all detail data related to New skin tension.
+        """
         __className = 'NewSkinTensionDetModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -3226,9 +3244,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: number of the column holding the config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Skin tension table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3243,9 +3261,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3260,9 +3278,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(4, Qt.Horizontal, _("Bott widening"))
 
         def updateRow(self, configNum, orderNum, topDistLE, topWide, botDistTE, botWide):
-            '''
+            """
             :method: updates a specific row with the parameters passed.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -3282,12 +3300,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3308,9 +3326,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'NoseMylarsModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -3336,9 +3354,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3357,9 +3375,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3378,9 +3396,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(8, Qt.Horizontal, _("V2"))
 
         def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -3408,12 +3427,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3479,7 +3498,7 @@ class ProcModel(QObject, metaclass=Singleton):
         '''
         :attr: Multiplication factor for y-direction ribs separation
         '''
-        Param6_col = 6
+        Rib_1y_col = 6
         '''
         :attr: Parameter still not used
         '''
@@ -3526,7 +3545,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(self.Panel_x_min_col,
                                Qt.Horizontal,
                                _("panel_x_min"))
-            self.setHeaderData(self.Panel_x_col,
+            self.setHeaderData(self.Panel_y_col,
                                Qt.Horizontal,
                                _("panel_y"))
             self.setHeaderData(self.Rib_x_col,
@@ -3535,9 +3554,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(self.Rib_y_col,
                                Qt.Horizontal,
                                _("rib_y"))
-            self.setHeaderData(self.Param6_col,
+            self.setHeaderData(self.Rib_1y_col,
                                Qt.Horizontal,
-                               _("parameter6"))
+                               _("rib_1y"))
             self.setHeaderData(self.Param7_col,
                                Qt.Horizontal,
                                _("parameter7"))
@@ -3566,7 +3585,7 @@ class ProcModel(QObject, metaclass=Singleton):
                        "panel_y REAL, "
                        "rib_x REAL, "
                        "rib_y REAL, "
-                       "param6 REAL, "
+                       "rib_1y REAL, "
                        "param7 REAL, "
                        "param8 REAL, "
                        "param9 REAL, "
@@ -3577,7 +3596,7 @@ class ProcModel(QObject, metaclass=Singleton):
         def update_row(self, config_num, order_num,
                        panel_x, panel_x_min, panel_y,
                        rib_x, rib_y,
-                       param6, param7, param8, param9, param10):
+                       rib_1y, param7, param8, param9, param10):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here
@@ -3592,7 +3611,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "panel_y= :panel_y, "
                           "rib_x= :rib_x, "
                           "rib_y= :rib_y, "
-                          "param6= :param6, "
+                          "rib_1y= :rib_1y, "
                           "param7= :param7, "
                           "param8= :param8, "
                           "param9= :param9, "
@@ -3603,7 +3622,7 @@ class ProcModel(QObject, metaclass=Singleton):
             query.bindValue(":panel_y", panel_y)
             query.bindValue(":rib_x", rib_x)
             query.bindValue(":rib_y", rib_y)
-            query.bindValue(":param6", param6)
+            query.bindValue(":rib_1y", rib_1y)
             query.bindValue(":param7", param7)
             query.bindValue(":param8", param8)
             query.bindValue(":param9", param9)
@@ -3636,8 +3655,8 @@ class ProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param config_num: Configuration number. Starting with 1.
-            :param order_num: Order number. Starting with 1.
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
 
             :return: Values read from internal database
             :rtype: QRecord
@@ -3651,7 +3670,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "panel_y, "
                           "rib_x, "
                           "rib_y, "
-                          "param6, "
+                          "rib_1y, "
                           "param7, "
                           "param8, "
                           "param9, "
@@ -3682,9 +3701,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Ramification table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3698,9 +3717,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3715,9 +3734,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.set_num_rows_for_config(1, 4)
 
         def updateDataRow(self, configNum, orderNum, rows, thirdToSail, fourthToSail):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.updateDataRow')
 
             query = QSqlQuery()
@@ -3735,12 +3755,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3756,10 +3776,10 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class RibModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding all data related to the
                 individual ribs.
-        '''
+        """
         __className = 'RibModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -3791,7 +3811,7 @@ class ProcModel(QObject, metaclass=Singleton):
         betaCol = 6
         '''
         :attr: number of the column providing the angle "beta" of the
-               rib to the vertical (degres)
+               rib to the vertical (degrees)
         '''
         RPCol = 7
         '''
@@ -3815,9 +3835,9 @@ class ProcModel(QObject, metaclass=Singleton):
         '''
 
         def createRibTable(self):
-            '''
+            """
             :method: Creates initially the empty rib table.
-            '''
+            """
             logging.debug(self.__className + '.createRibTable')
             query = QSqlQuery()
 
@@ -3837,9 +3857,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createRibTable()
@@ -3855,11 +3875,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, ribNum, xrib, yLE, yTE, xp, z, beta, RP, Washin,
                       rotZ, posZ):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -3891,12 +3911,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
 
         def getRow(self, ribNum):
-            '''
+            """
             :method: reads values back from the internal database for a
                      specific rib number
             :param ribNum: Rib number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -3918,9 +3938,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class SkinTensionModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding all data related to Skin tension. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding all data related to Skin tension.
+        """
         __className = 'SkinTensionModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -3934,9 +3954,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Intrados over-wide corresponding in % of chord'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Skin tension table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -3949,9 +3969,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -3966,9 +3986,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Bott widening"))
 
         def updateRow(self, row, topDistLE, topWide, bottDistTE, bottWide):
-            '''
+            """
             :method: updates a specific row with the parameters passed.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -3983,11 +4003,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config number
-            :param configNum: Configuration number. Starting with 1. 
+            :param configNum: Configuration number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4003,9 +4023,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class SkinTensionParamsModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the three individual params of the Skin tension setup. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the three individual params of the Skin tension setup.
+        """
         __className = 'SkinTensionParamsModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -4017,9 +4037,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: The coefficient'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Skin tension params table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4033,9 +4053,9 @@ class ProcModel(QObject, metaclass=Singleton):
                 "INSERT into SkinTensionParams (StrainMiniRibs, NumPoints, Coeff,  ID) Values( '0.0114', '1000', '1.0', 1 );")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4048,10 +4068,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Coeff"))
 
         def getRow(self):
-            '''
+            """
             :method: reads values back from the internal database
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4065,9 +4085,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
-        '''
-        :class: Provides a SqlTableModel holding the Sewing allowances parameters. 
-        '''
+        """
+        :class: Provides a SqlTableModel holding the Sewing allowances parameters.
+        """
         __className = 'SewingAllowancesModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -4079,9 +4099,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: Number of the col holding the TE seem values'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty Sewing allowances table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4093,9 +4113,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4110,9 +4130,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.add_rows(-1, 4)
 
         def updateRow(self, row, edgeSeam, leSeem=0, teSeem=0):
-            '''
+            """
             :method: updates a specific row with the parameters passed.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4126,11 +4146,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum):
-            '''
-            :method: reads values back from the internal database for a specific rib number
-            :param ribNum: Rib number. Starting with 1. 
+            """
+            :method: reads values back from the internal database for a specific config number
+            :param configNum: Rib number. Starting with 1.
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4145,9 +4165,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'SpecWingTipModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
@@ -4170,9 +4190,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4186,9 +4206,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setEditStrategy(QSqlTableModel.OnFieldChange)
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4201,11 +4221,11 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def updateRow(self, configNum, orderNum, angleLE, angleTE):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4221,30 +4241,30 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated
 
         def setIsUsed(self, isUsed):
-            '''
+            """
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise
-            '''
+            :param isUsed: True if section is in use, False otherwise
+            """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = isUsed
             self.usageUpd.emit()
 
         def isUsed(self):
-            '''
+            """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
-            '''
+            """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4265,9 +4285,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ThreeDDxfModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'ThreeDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
@@ -4295,9 +4315,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4313,9 +4333,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(4, Qt.Horizontal, _("Color name (opt)"))
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4336,11 +4356,11 @@ class ProcModel(QObject, metaclass=Singleton):
                       colorCode,
                       colorName,
                       unifilar=0):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here
+                     passed. Parameters are not explicitly explained here
                      as they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4360,30 +4380,30 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated
 
         def setIsUsed(self, isUsed):
-            '''
+            """
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise
-            '''
+            :param isUsed: True if section is in use, False otherwise
+            """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = isUsed
             self.usageUpd.emit()
 
         def isUsed(self):
-            '''
+            """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
-            '''
+            """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4405,9 +4425,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ThreeDShConfModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the 3d Shaping configuration
-        '''
+        """
         __className = 'ThreeDShConfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -4421,9 +4441,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4436,9 +4456,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4450,9 +4470,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
 
         def updateRow(self, configNum, orderNum, firstRib, lastRib):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4468,12 +4489,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4493,9 +4514,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ThreeDShUpDetModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the 3d Shaping data for the upper panels
-        '''
+        """
         __className = 'ThreeDShUpDetModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
 
@@ -4511,9 +4532,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number'''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4527,9 +4548,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4542,9 +4563,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Depth"))
 
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
-            '''
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitely explained here as they should be well known. 
-            '''
+            """
+            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
+                     explained here as they should be well known.
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4562,12 +4584,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()  # to a select() to assure the model is updated properly
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.  
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4587,10 +4609,10 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ThreeDShLoDetModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the 3d Shaping data for
                 the lower panels
-        '''
+        """
         __className = 'ThreeDShLoDetModel'
         '''
         :attr: Does help to indicate the source of the log messages.
@@ -4625,9 +4647,9 @@ class ProcModel(QObject, metaclass=Singleton):
         '''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4641,9 +4663,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4656,11 +4678,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Horizontal, _("Depth"))
 
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here
+                     passed. Parameters are not explicitly explained here
                      as they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4679,13 +4701,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4705,9 +4727,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class ThreeDShPrintModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the Print data for 3d Shaping
-        '''
+        """
         __className = 'ThreeDShPrintModel'
         '''
         :attr: Does help to indicate the source of the log messages.
@@ -4747,9 +4769,9 @@ class ProcModel(QObject, metaclass=Singleton):
         '''
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4765,9 +4787,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4786,11 +4808,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, configNum, orderNum, name, draw,
                       firstPanel, lastPanel, symmetric):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here
+                     passed. Parameters are not explicitly explained here
                      as they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4813,13 +4835,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -4841,9 +4863,9 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.value
 
     class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding the DXF layer names
-        '''
+        """
         __className = 'TwoDDxfModel'
         ''' :attr: Does help to indicate the source of the log messages. '''
         __isUsed = False
@@ -4868,9 +4890,9 @@ class ProcModel(QObject, metaclass=Singleton):
         ''':attr: num of column for config number (always 1)'''
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className + '.__init__')
             super().__init__()
             self.createTable()
@@ -4889,9 +4911,9 @@ class ProcModel(QObject, metaclass=Singleton):
             # TODO prefill table with correct names.
 
         def createTable(self):
-            '''
+            """
             :method: Creates initially the empty table
-            '''
+            """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
@@ -4906,11 +4928,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def updateRow(self, configNum, orderNum, lineName,
                       colorCode, colorName):
-            '''
+            """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
-            '''
+            """
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
@@ -4929,30 +4951,30 @@ class ProcModel(QObject, metaclass=Singleton):
             self.select()
 
         def setIsUsed(self, isUsed):
-            '''
+            """
             :method: Set the usage flag of the section
-            :param isUse: True if section is in use, False otherwise.
-            '''
+            :param isUsed: True if section is in use, False otherwise.
+            """
             logging.debug(self.__className + '.set_is_used')
             self.__isUsed = isUsed
             self.usageUpd.emit()
 
         def isUsed(self):
-            '''
+            """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
-            '''
+            """
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
         def getRow(self, configNum, orderNum):
-            '''
+            """
             :method: Reads values back from the internal database for
                      a specific config and order number
-            :param configNum: Configuration number. Starting with 1.
-            :param orderNum: Order number. Starting with 1.
+            :param configNum: Configuration number. Starting with 1
+            :param orderNum: Order number. Starting with 1
             :return: specific values read from internal database
-            '''
+            """
             logging.debug(self.__className + '.get_row')
 
             query = QSqlQuery()
@@ -5052,7 +5074,7 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER,"
                        "ID INTEGER PRIMARY KEY);")
 
-        def __init__(self, parent=None):  # @UnusedVariable
+        def __init__(self, parent=None):
             """
             :method: Constructor
             """
@@ -5190,5 +5212,5 @@ class ProcModel(QObject, metaclass=Singleton):
             return query.record()
 
 
-from data.ProcFileReader import ProcFileReader
-from data.ProcFileWriter import ProcFileWriter
+from data.ProcFileReader import ProcFileReader  # noqa E402
+from data.ProcFileWriter import ProcFileWriter  # noqa E402
