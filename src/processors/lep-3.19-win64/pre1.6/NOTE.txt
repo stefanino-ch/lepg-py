@@ -1,0 +1,6 @@
+Note 2022-04-30:
+
+If you have Cygwin console https://www.cygwin.com/ installed in your comptuter, 
+then it will probably be necessary to delete all the dlls from the / lep and /pre-1.6 folder
+
+Apparently, with static compilation, the executable still fails to make Windows independent of dll's. I will keep researching.

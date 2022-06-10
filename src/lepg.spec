@@ -18,23 +18,23 @@ data_files_to_add = [
 					]
 
 processor_w64 = [
-			    (os.path.join('Processors',
+			    (os.path.join('processors',
 				'lep-3.19-win64'),
-				os.path.join('Processors',
+				os.path.join('processors',
 			    'lep-3.19-win64'))
 				]
 					
 processor_lin64 = [ 	
-				  (os.path.join('Processors',
-				  'lep-3.17-lin64'),
-				  os.path.join('Processors',
-			      'lep-3.17-lin64'))
+				  (os.path.join('processors',
+				  'lep-3.19-lin64'),
+				  os.path.join('processors',
+			      'lep-3.19-lin64'))
 				  ]
 					
 processor_osx = [	
-				(os.path.join('Processors',
+				(os.path.join('processors',
 				'lep-3.17-osx'),
-				os.path.join('Processors',
+				os.path.join('processors',
 				'lep-3.17-osx'))
 				] 
 

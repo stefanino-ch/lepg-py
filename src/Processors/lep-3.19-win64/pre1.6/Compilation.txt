@@ -1,3 +1,0 @@
-Compiled in Windows 10 amd64bit, using Cygwin:
-
-gfortran -static-libgfortran pre-processor.f 
