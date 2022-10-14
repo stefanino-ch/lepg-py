@@ -4,10 +4,10 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
-    QSizePolicy, QHeaderView, QPushButton
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
+                            QSizePolicy, QHeaderView, QPushButton
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -86,47 +86,47 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         self.table.hideColumn(self.anchPoints_M.columnCount() - 1)
         self.table.verticalHeader().setVisible(False)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.table.setHelpBar(self.helpBar)
-        self.table.setHelpText(ProcModel.AnchorPointsModel.RibNumCol,
-                               _('AnchPoints-RibNumDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.NumAnchCol,
-                               _('AnchPoints-NumAnchorsDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosACol,
-                               _('AnchPoints-PosADesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosBCol,
-                               _('AnchPoints-PosBDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosCCol,
-                               _('AnchPoints-PosCDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosDCol,
-                               _('AnchPoints-PosDDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosECol,
-                               _('AnchPoints-PosEDesc'))
-        self.table.setHelpText(ProcModel.AnchorPointsModel.PosFCol,
-                               _('AnchPoints-PosFDesc'))
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.table.set_help_bar(self.helpBar)
+        self.table.set_help_text(ProcModel.AnchorPointsModel.RibNumCol,
+                                 _('AnchPoints-RibNumDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.NumAnchCol,
+                                 _('AnchPoints-NumAnchorsDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosACol,
+                                 _('AnchPoints-PosADesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosBCol,
+                                 _('AnchPoints-PosBDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosCCol,
+                                 _('AnchPoints-PosCDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosDCol,
+                                 _('AnchPoints-PosDDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosECol,
+                                 _('AnchPoints-PosEDesc'))
+        self.table.set_help_text(ProcModel.AnchorPointsModel.PosFCol,
+                                 _('AnchPoints-PosFDesc'))
 
-        self.table.enableIntValidator(ProcModel.AnchorPointsModel.RibNumCol,
-                                      ProcModel.AnchorPointsModel.RibNumCol,
-                                      1, 999)
-        self.table.enableIntValidator(ProcModel.AnchorPointsModel.NumAnchCol,
-                                      ProcModel.AnchorPointsModel.NumAnchCol,
-                                      1, 5)
-        self.table.enableDoubleValidator(ProcModel.AnchorPointsModel.PosACol,
-                                         ProcModel.AnchorPointsModel.PosFCol, 0,
-                                         100, 3)
+        self.table.en_int_validator(ProcModel.AnchorPointsModel.RibNumCol,
+                                    ProcModel.AnchorPointsModel.RibNumCol,
+                                    1, 999)
+        self.table.en_int_validator(ProcModel.AnchorPointsModel.NumAnchCol,
+                                    ProcModel.AnchorPointsModel.NumAnchCol,
+                                    1, 5)
+        self.table.en_double_validator(ProcModel.AnchorPointsModel.PosACol,
+                                       ProcModel.AnchorPointsModel.PosFCol, 0,
+                                       100, 3)
 
         self.window_ly.addWidget(self.table)
 
         self.sortBtn = QPushButton(_('Sort by Rib Number'))
-        self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.sortBtn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/anchorPoints.html')
 

@@ -4,10 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
     QSizePolicy, QHeaderView
-
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -80,21 +79,21 @@ class SkinTension(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         table.hideColumn(self.skinTens_M.columnCount() - 1)
         table.verticalHeader().setVisible(False)
-        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        table.setHelpBar(self.helpBar)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.set_help_bar(self.helpBar)
 
-        table.setHelpText(ProcModel.SkinTensionModel.TopDistLECol,
-                          _('SkinTension-TopDistLEDesc'))
-        table.setHelpText(ProcModel.SkinTensionModel.TopWideCol,
-                          _('SkinTension-TopOverWideDesc'))
-        table.setHelpText(ProcModel.SkinTensionModel.BottDistTECol,
-                          _('SkinTension-BottDistTEDesc'))
-        table.setHelpText(ProcModel.SkinTensionModel.BottWideCol,
-                          _('SkinTension-BottOverWideDesc'))
+        table.set_help_text(ProcModel.SkinTensionModel.TopDistLECol,
+                            _('SkinTension-TopDistLEDesc'))
+        table.set_help_text(ProcModel.SkinTensionModel.TopWideCol,
+                            _('SkinTension-TopOverWideDesc'))
+        table.set_help_text(ProcModel.SkinTensionModel.BottDistTECol,
+                            _('SkinTension-BottDistTEDesc'))
+        table.set_help_text(ProcModel.SkinTensionModel.BottWideCol,
+                            _('SkinTension-BottOverWideDesc'))
 
-        table.enableDoubleValidator(ProcModel.SkinTensionModel.TopDistLECol,
-                                    ProcModel.SkinTensionModel.BottWideCol,
-                                    0, 100, 3)
+        table.en_double_validator(ProcModel.SkinTensionModel.TopDistLECol,
+                                  ProcModel.SkinTensionModel.BottWideCol,
+                                  0, 100, 3)
         table.setFixedHeight(2
                              + table.horizontalHeader().height()
                              + 6 * table.rowHeight(0))
@@ -106,28 +105,28 @@ class SkinTension(QMdiSubWindow, metaclass=Singleton):
         params_table.hideColumn(self.skinTensParams_M.columnCount() - 1)
         params_table.verticalHeader().setVisible(False)
         params_table.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
-        params_table.setHelpBar(self.helpBar)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        params_table.set_help_bar(self.helpBar)
 
-        params_table.setHelpText(
+        params_table.set_help_text(
             ProcModel.SkinTensionParamsModel.StrainMiniRibsCol,
             _('SkinTension-StrainMiniRibsDesc'))
-        params_table.setHelpText(
+        params_table.set_help_text(
             ProcModel.SkinTensionParamsModel.NumPointsCol,
             _('SkinTension-NumPointsDesc'))
-        params_table.setHelpText(
+        params_table.set_help_text(
             ProcModel.SkinTensionParamsModel.CoeffCol,
             _('SkinTension-CoeffDesc'))
 
-        params_table.enableDoubleValidator(
+        params_table.en_double_validator(
             ProcModel.SkinTensionParamsModel.StrainMiniRibsCol,
             ProcModel.SkinTensionParamsModel.StrainMiniRibsCol,
             0, 100, 3)
-        params_table.enableIntValidator(
+        params_table.en_int_validator(
             ProcModel.SkinTensionParamsModel.NumPointsCol,
             ProcModel.SkinTensionParamsModel.NumPointsCol,
             0, 1000)
-        params_table.enableDoubleValidator(
+        params_table.en_double_validator(
             ProcModel.SkinTensionParamsModel.CoeffCol,
             ProcModel.SkinTensionParamsModel.CoeffCol,
             0, 1, 1)
@@ -147,8 +146,8 @@ class SkinTension(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/skinTension.html')
 

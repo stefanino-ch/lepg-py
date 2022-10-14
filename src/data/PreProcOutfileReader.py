@@ -5,8 +5,8 @@
 import logging
 import os
 
-from PyQt5.QtCore import QFile, QTextStream
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtCore import QFile, QTextStream
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
 from data.FileHelpers import split_line
@@ -44,7 +44,7 @@ class PreProcOutfileReader:
         logging.debug(self.__className + '.valid_file')
 
         in_file = QFile(file_path_name)
-        if in_file.open(QFile.ReadOnly | QFile.Text):
+        if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
             logging.error(self.__className
@@ -86,8 +86,8 @@ class PreProcOutfileReader:
                             + str(version_ok)
                             + _('\nTitle detected: ')
                             + str(title_ok))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
 
             self.__file_path_name = ''
@@ -107,7 +107,7 @@ class PreProcOutfileReader:
         logging.debug(self.__className + '.__read_file')
 
         in_file = QFile(self.__file_path_name)
-        in_file.open(QFile.ReadOnly | QFile.Text)
+        in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
         stream = QTextStream(in_file)
 
         ##############################
@@ -172,8 +172,8 @@ class PreProcOutfileReader:
                                   'or the pre-processor location\n'
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
-                msg_box.setIcon(QMessageBox.Warning)
-                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
                 msg_box.exec()
                 return [], 0
 

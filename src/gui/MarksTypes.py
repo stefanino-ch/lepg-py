@@ -4,10 +4,10 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, \
-    QHBoxLayout, QVBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -84,14 +84,14 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Marks types"))
 
         num_lines_l = QLabel(_('Number of marks'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, 
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, 
+                                              QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
         self.numLines_s.setRange(0, 10)
-        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, 
-                                                  QSizePolicy.Fixed))
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, 
+                                                  QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_s.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -107,48 +107,48 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         marks_types_t.setModel(self.marksT_M)
         marks_types_t.verticalHeader().setVisible(False)
         marks_types_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         marks_types_t.hideColumn(self.marksT_M.columnCount() - 1)
         marks_types_t.hideColumn(self.marksT_M.columnCount() - 2)
         marks_types_t.hideColumn(0)
         self.window_ly.addWidget(marks_types_t)
 
-        marks_types_t.enableRegExpValidator(
+        marks_types_t.en_reg_exp_validator(
             ProcModel.MarksTypesModel.TypeCol, 
             ProcModel.MarksTypesModel.TypeCol,
             "^[a-zA-Z0-9_.-]*$")
-        marks_types_t.enableIntValidator(
+        marks_types_t.en_int_validator(
             ProcModel.MarksTypesModel.FormOneCol, 
             ProcModel.MarksTypesModel.FormOneCol, 
             1, 3)
-        marks_types_t.enableDoubleValidator(
+        marks_types_t.en_double_validator(
             ProcModel.MarksTypesModel.FormOnePOneCol,
             ProcModel.MarksTypesModel.FormOnePTwoCol, 
             0, 100, 2)
-        marks_types_t.enableIntValidator(
+        marks_types_t.en_int_validator(
             ProcModel.MarksTypesModel.FormTwoCol, 
             ProcModel.MarksTypesModel.FormTwoCol, 
             1, 3)
-        marks_types_t.enableDoubleValidator(
+        marks_types_t.en_double_validator(
             ProcModel.MarksTypesModel.FormTwoPOneCol,
             ProcModel.MarksTypesModel.FormTwoPTwoCol, 
             0, 100, 2)
 
-        marks_types_t.setHelpBar(self.helpBar)
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.TypeCol, 
-                                  _('MarksTypes-TypeDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormOneCol, 
-                                  _('MarksTypes-FormOneDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormOnePOneCol, 
-                                  _('MarksTypes-FormOnePOneDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormOnePTwoCol, 
-                                  _('MarksTypes-FormOnePTwoDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormTwoCol,
-                                  _('MarksTypes-FormTwoDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormTwoPOneCol, 
-                                  _('MarksTypes-FormTwoPOneDesc'))
-        marks_types_t.setHelpText(ProcModel.MarksTypesModel.FormTwoPTwoCol, 
-                                  _('MarksTypes-FormTwoPTwoDesc'))
+        marks_types_t.set_help_bar(self.helpBar)
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.TypeCol,
+                                    _('MarksTypes-TypeDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOneCol,
+                                    _('MarksTypes-FormOneDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOnePOneCol,
+                                    _('MarksTypes-FormOnePOneDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOnePTwoCol,
+                                    _('MarksTypes-FormOnePTwoDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoCol,
+                                    _('MarksTypes-FormTwoDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoPOneCol,
+                                    _('MarksTypes-FormTwoPOneDesc'))
+        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoPTwoCol,
+                                    _('MarksTypes-FormTwoPTwoDesc'))
 
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.marksT_M.num_rows_for_config(1))
@@ -157,8 +157,8 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, 
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, 
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/marksTypes.html')
 

@@ -4,8 +4,8 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
@@ -95,31 +95,31 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.airfThick_M)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(self.airfThick_M.columnCount() - 1)
         one_t.hideColumn(self.airfThick_M.columnCount() - 2)
         self.window_ly.addWidget(one_t)
 
-        one_t.enableIntValidator(ProcModel.AirfoilThicknessModel.OrderNumCol,
-                                 ProcModel.AirfoilThicknessModel.OrderNumCol,
-                                 0, 999)
-        one_t.enableDoubleValidator(ProcModel.AirfoilThicknessModel.CoeffCol,
-                                    ProcModel.AirfoilThicknessModel.CoeffCol,
-                                    0, 10, 1)
+        one_t.en_int_validator(ProcModel.AirfoilThicknessModel.OrderNumCol,
+                               ProcModel.AirfoilThicknessModel.OrderNumCol,
+                               0, 999)
+        one_t.en_double_validator(ProcModel.AirfoilThicknessModel.CoeffCol,
+                                  ProcModel.AirfoilThicknessModel.CoeffCol,
+                                  0, 10, 1)
 
-        one_t.setHelpBar(self.helpBar)
-        one_t.setHelpText(ProcModel.AirfoilThicknessModel.OrderNumCol,
-                          _('AirfThick-RibNumDesc'))
-        one_t.setHelpText(ProcModel.AirfoilThicknessModel.CoeffCol,
-                          _('AirfThick-CoeffDesc'))
+        one_t.set_help_bar(self.helpBar)
+        one_t.set_help_text(ProcModel.AirfoilThicknessModel.OrderNumCol,
+                            _('AirfThick-RibNumDesc'))
+        one_t.set_help_text(ProcModel.AirfoilThicknessModel.CoeffCol,
+                            _('AirfThick-CoeffDesc'))
 
         self.usage_update()
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/airfoilThickness.html')
 

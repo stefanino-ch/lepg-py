@@ -4,8 +4,7 @@
 """
 
 import math
-from PyQt5.QtCore import QRectF
-
+from PyQt6.QtCore import QRectF
 
 def min_bounding_rect(rect_list):
     """

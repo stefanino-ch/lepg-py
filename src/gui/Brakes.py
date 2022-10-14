@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtCore import Qt, QSortFilterProxyModel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QSpinBox, QLabel, QHBoxLayout, QVBoxLayout, \
                             QPushButton, QDataWidgetMapper
 
@@ -97,7 +97,7 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         self.wrapper.setModel(self.wing_M)
 
         length_l = QLabel(_('Brake length [cm]'))
-        length_l.setAlignment(Qt.AlignRight)
+        length_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         length_e = LineEdit()
         length_e.setFixedWidth(40)
         self.wrapper.addMapping(length_e, ProcModel.WingModel.BrakeLengthCol)
@@ -115,12 +115,12 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
 
         ###############
         num_lines_l = QLabel(_('Number of Brake paths'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
 
         self.numLines_S = QSpinBox()
         self.numLines_S.setRange(1, 999)
-        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.numLines_S.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_S.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -138,37 +138,37 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         brakes_t = TableView()
         brakes_t.setModel(self.proxyModel)
         brakes_t.verticalHeader().setVisible(False)
-        brakes_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        brakes_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         brakes_t.hideColumn(self.brakes_M.columnCount() - 1)
         brakes_t.hideColumn(self.brakes_M.columnCount() - 2)
         self.window_ly.addWidget(brakes_t)
 
-        brakes_t.enableIntValidator(ProcModel.BrakesModel.OrderNumCol, ProcModel.BrakesModel.OrderNumCol, 1, 999)
-        brakes_t.enableIntValidator(ProcModel.BrakesModel.NumBranchesCol, ProcModel.BrakesModel.NumBranchesCol, 1, 4)
-        brakes_t.enableIntValidator(ProcModel.BrakesModel.BranchLvlOneCol, ProcModel.BrakesModel.OrderLvlFourCol, 1, 99)
-        brakes_t.enableIntValidator(ProcModel.BrakesModel.AnchorLineCol, ProcModel.BrakesModel.AnchorLineCol, 1, 6)
+        brakes_t.en_int_validator(ProcModel.BrakesModel.OrderNumCol, ProcModel.BrakesModel.OrderNumCol, 1, 999)
+        brakes_t.en_int_validator(ProcModel.BrakesModel.NumBranchesCol, ProcModel.BrakesModel.NumBranchesCol, 1, 4)
+        brakes_t.en_int_validator(ProcModel.BrakesModel.BranchLvlOneCol, ProcModel.BrakesModel.OrderLvlFourCol, 1, 99)
+        brakes_t.en_int_validator(ProcModel.BrakesModel.AnchorLineCol, ProcModel.BrakesModel.AnchorLineCol, 1, 6)
         # TODO: update max num ribs
-        brakes_t.enableDoubleValidator(ProcModel.BrakesModel.AnchorRibNumCol, ProcModel.BrakesModel.AnchorRibNumCol, 1,
-                                       999, 1)
+        brakes_t.en_double_validator(ProcModel.BrakesModel.AnchorRibNumCol, ProcModel.BrakesModel.AnchorRibNumCol, 1,
+                                     999, 1)
 
-        brakes_t.setHelpBar(self.helpBar)
-        brakes_t.setHelpText(ProcModel.BrakesModel.OrderNumCol, _('OrderNumDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.NumBranchesCol, _('Brakes-NumBranchesDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.BranchLvlOneCol, _('Brakes-BranchLvlOneDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.OrderLvlOneCol, _('Brakes-OrderLvlOneDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.LevelOfRamTwoCol, _('Brakes-LevelOfRamTwoDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.OrderLvlTwoCol, _('Brakes-OrderLvlTwoDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.LevelOfRamThreeCol, _('Brakes-LevelOfRamThreeDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.OrderLvlThreeCol, _('Brakes-OrderLvlThreeDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.BranchLvlFourCol, _('Brakes-BranchLvlFourDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.OrderLvlFourCol, _('Brakes-OrderLvlFourDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.AnchorLineCol, _('Brakes-AnchorLineDesc'))
-        brakes_t.setHelpText(ProcModel.BrakesModel.AnchorRibNumCol, _('Brakes-AnchorRibNumDesc'))
+        brakes_t.set_help_bar(self.helpBar)
+        brakes_t.set_help_text(ProcModel.BrakesModel.OrderNumCol, _('OrderNumDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.NumBranchesCol, _('Brakes-NumBranchesDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.BranchLvlOneCol, _('Brakes-BranchLvlOneDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlOneCol, _('Brakes-OrderLvlOneDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.LevelOfRamTwoCol, _('Brakes-LevelOfRamTwoDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlTwoCol, _('Brakes-OrderLvlTwoDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.LevelOfRamThreeCol, _('Brakes-LevelOfRamThreeDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlThreeCol, _('Brakes-OrderLvlThreeDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.BranchLvlFourCol, _('Brakes-BranchLvlFourDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlFourCol, _('Brakes-OrderLvlFourDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.AnchorLineCol, _('Brakes-AnchorLineDesc'))
+        brakes_t.set_help_text(ProcModel.BrakesModel.AnchorRibNumCol, _('Brakes-AnchorRibNumDesc'))
 
         center_dist_t = TableView()
         center_dist_t.setModel(self.brakeL_M)
         center_dist_t.verticalHeader().setVisible(False)
-        center_dist_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        center_dist_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         for c in range(5, self.brakeL_M.columnCount()):
             center_dist_t.hideColumn(c)
         center_dist_t.setFixedHeight(2 + center_dist_t.horizontalHeader().height() + center_dist_t.rowHeight(0))
@@ -177,19 +177,19 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         center_dist_layout.addStretch()
         self.window_ly.addLayout(center_dist_layout)
 
-        center_dist_t.enableIntValidator(ProcModel.BrakeLengthModel.s1Col, ProcModel.BrakeLengthModel.s5Col, 0, 100)
+        center_dist_t.en_int_validator(ProcModel.BrakeLengthModel.s1Col, ProcModel.BrakeLengthModel.s5Col, 0, 100)
 
-        center_dist_t.setHelpBar(self.helpBar)
-        center_dist_t.setHelpText(ProcModel.BrakeLengthModel.s1Col, _('Brakes-s1Desc'))
-        center_dist_t.setHelpText(ProcModel.BrakeLengthModel.s2Col, _('Brakes-s2Desc'))
-        center_dist_t.setHelpText(ProcModel.BrakeLengthModel.s3Col, _('Brakes-s3Desc'))
-        center_dist_t.setHelpText(ProcModel.BrakeLengthModel.s4Col, _('Brakes-s4Desc'))
-        center_dist_t.setHelpText(ProcModel.BrakeLengthModel.s5Col, _('Brakes-s5Desc'))
+        center_dist_t.set_help_bar(self.helpBar)
+        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s1Col, _('Brakes-s1Desc'))
+        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s2Col, _('Brakes-s2Desc'))
+        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s3Col, _('Brakes-s3Desc'))
+        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s4Col, _('Brakes-s4Desc'))
+        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s5Col, _('Brakes-s5Desc'))
 
         length_inc_t = TableView()
         length_inc_t.setModel(self.brakeL_M)
         length_inc_t.verticalHeader().setVisible(False)
-        length_inc_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        length_inc_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         for c in range(0, 5):
             length_inc_t.hideColumn(c)
         length_inc_t.hideColumn(self.brakeL_M.columnCount() - 1)
@@ -199,17 +199,17 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         length_inc_layout.addStretch()
         self.window_ly.addLayout(length_inc_layout)
 
-        length_inc_t.enableIntValidator(ProcModel.BrakeLengthModel.d1Col, ProcModel.BrakeLengthModel.d5Col, 0, 100)
+        length_inc_t.en_int_validator(ProcModel.BrakeLengthModel.d1Col, ProcModel.BrakeLengthModel.d5Col, 0, 100)
 
-        length_inc_t.setHelpBar(self.helpBar)
-        length_inc_t.setHelpText(ProcModel.BrakeLengthModel.d1Col, _('Brakes-d1Desc'))
-        length_inc_t.setHelpText(ProcModel.BrakeLengthModel.d2Col, _('Brakes-d2Desc'))
-        length_inc_t.setHelpText(ProcModel.BrakeLengthModel.d3Col, _('Brakes-d3Desc'))
-        length_inc_t.setHelpText(ProcModel.BrakeLengthModel.d4Col, _('Brakes-d4Desc'))
-        length_inc_t.setHelpText(ProcModel.BrakeLengthModel.d5Col, _('Brakes-d5Desc'))
+        length_inc_t.set_help_bar(self.helpBar)
+        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d1Col, _('Brakes-d1Desc'))
+        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d2Col, _('Brakes-d2Desc'))
+        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d3Col, _('Brakes-d3Desc'))
+        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d4Col, _('Brakes-d4Desc'))
+        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d5Col, _('Brakes-d5Desc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         if self.brakes_M.num_configs() > 0:
@@ -218,7 +218,7 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/brakes.html')
 

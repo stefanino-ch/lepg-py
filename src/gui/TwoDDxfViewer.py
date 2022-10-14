@@ -5,12 +5,13 @@
 import logging
 import os
 
-from PyQt5.QtCore import Qt, QRectF
+from PyQt6.QtCore import Qt, QRectF
 
-from PyQt5.QtGui import QIcon, QPainter, QPen, QColor, QFont, QBrush
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem, QMessageBox, \
-    QFileDialog, QGraphicsSimpleTextItem, QGraphicsEllipseItem
+from PyQt6.QtGui import QIcon, QPainter, QPen, QColor, QFont, QBrush
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+                            QSizePolicy, QGraphicsScene, QPushButton, \
+                            QGraphicsLineItem, QMessageBox, QFileDialog, \
+                            QGraphicsSimpleTextItem, QGraphicsEllipseItem
 
 from ConfigReader.ConfigReader import ConfigReader
 
@@ -140,8 +141,8 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.button_bar = WindowBtnBar(0b0101)
-        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
         self.button_bar.setHelpPage('view/two_d_dxf.html')
 
@@ -209,8 +210,8 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                                   'or the pre-processor location\n'
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
-                msg_box.setIcon(QMessageBox.Warning)
-                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
                 msg_box.exec()
                 return None
         elif file is DxfFileType.proc:
@@ -224,8 +225,8 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                                   'or the processor location\n'
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
-                msg_box.setIcon(QMessageBox.Warning)
-                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
                 msg_box.exec()
                 return None
         else:

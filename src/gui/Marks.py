@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, \
-    QSizePolicy, QHeaderView
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, \
+                            QSizePolicy, QHeaderView
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -78,19 +78,19 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         marks_t.hideColumn(self.marks_M.columnCount() - 1)
         marks_t.verticalHeader().setVisible(False)
-        marks_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        marks_t.setHelpBar(self.helpBar)
+        marks_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        marks_t.set_help_bar(self.helpBar)
 
-        marks_t.setHelpText(ProcModel.MarksModel.MarksSpCol,
-                            _('Marks-MarksSpacingDesc'))
-        marks_t.setHelpText(ProcModel.MarksModel.PointRadCol,
-                            _('Marks-PointRadiusDesc'))
-        marks_t.setHelpText(ProcModel.MarksModel.PointDisplCol,
-                            _('Marks-PointsDisplacementDesc'))
+        marks_t.set_help_text(ProcModel.MarksModel.MarksSpCol,
+                              _('Marks-MarksSpacingDesc'))
+        marks_t.set_help_text(ProcModel.MarksModel.PointRadCol,
+                              _('Marks-PointRadiusDesc'))
+        marks_t.set_help_text(ProcModel.MarksModel.PointDisplCol,
+                              _('Marks-PointsDisplacementDesc'))
 
-        marks_t.enableDoubleValidator(ProcModel.MarksModel.MarksSpCol,
-                                      ProcModel.MarksModel.PointDisplCol,
-                                      0, 10, 2)
+        marks_t.en_double_validator(ProcModel.MarksModel.MarksSpCol,
+                                    ProcModel.MarksModel.PointDisplCol,
+                                    0, 10, 2)
 
         marks_t.setFixedHeight(2
                                + marks_t.horizontalHeader().height()
@@ -101,8 +101,8 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/marks.html')
 

@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtCore import Qt, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QSpinBox, QLabel, QTabWidget, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
@@ -105,13 +105,13 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("3D shaping"))
 
         num_conf_l = QLabel(_('Number of groups'))
-        num_conf_l.setAlignment(Qt.AlignRight)
-        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
         self.numConf_s = QSpinBox()
         self.numConf_s.setRange(0, 999)
-        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
         self.numConf_s.setValue(self.threeDShConf_M.num_configs())
         conf_edit = self.numConf_s.lineEdit()
         conf_edit.setReadOnly(True)
@@ -138,21 +138,21 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         print_table.hideColumn(self.threeDShPr_M.columnCount() - 1)
 
         # TODO: remove currently not supported rows
-        print_table.setHelpBar(self.helpBar)
-        print_table.setHelpText(ProcModel.ThreeDShPrintModel.NameCol,
-                                _('3DShPrint-NameDesc'))
-        print_table.setHelpText(ProcModel.ThreeDShPrintModel.DrawCol,
-                                _('3DShPrint-DrawDesc'))
-        print_table.setHelpText(ProcModel.ThreeDShPrintModel.FirstPanelCol,
-                                _('3DShPrint-FirstPanelDesc'))
-        print_table.setHelpText(ProcModel.ThreeDShPrintModel.LastPanelCol,
-                                _('3DShPrint-LastPanelDesc'))
-        print_table.setHelpText(ProcModel.ThreeDShPrintModel.SymmetricCol,
-                                _('3DShPrint-SymmetricDesc'))
+        print_table.set_help_bar(self.helpBar)
+        print_table.set_help_text(ProcModel.ThreeDShPrintModel.NameCol,
+                                  _('3DShPrint-NameDesc'))
+        print_table.set_help_text(ProcModel.ThreeDShPrintModel.DrawCol,
+                                  _('3DShPrint-DrawDesc'))
+        print_table.set_help_text(ProcModel.ThreeDShPrintModel.FirstPanelCol,
+                                  _('3DShPrint-FirstPanelDesc'))
+        print_table.set_help_text(ProcModel.ThreeDShPrintModel.LastPanelCol,
+                                  _('3DShPrint-LastPanelDesc'))
+        print_table.set_help_text(ProcModel.ThreeDShPrintModel.SymmetricCol,
+                                  _('3DShPrint-SymmetricDesc'))
 
         print_layout = QHBoxLayout()
         print_layout.addWidget(print_table)
-        print_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        print_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         print_table.setFixedHeight(2
                                    + print_table.horizontalHeader().height()
                                    + 5 * print_table.rowHeight(0))
@@ -161,8 +161,8 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/threeDShaping.html')
 
@@ -237,15 +237,15 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         rib_table.hideColumn(self.threeDShConf_M.columnCount() - 1)
         rib_table.hideColumn(self.threeDShConf_M.columnCount() - 2)
 
-        rib_table.enableIntValidator(ProcModel.ThreeDShConfModel.FirstRibCol,
-                                     ProcModel.ThreeDShConfModel.LastRibCol,
-                                     1, 999)
+        rib_table.en_int_validator(ProcModel.ThreeDShConfModel.FirstRibCol,
+                                   ProcModel.ThreeDShConfModel.LastRibCol,
+                                   1, 999)
 
-        rib_table.setHelpBar(self.helpBar)
-        rib_table.setHelpText(ProcModel.ThreeDShConfModel.FirstRibCol,
-                              _('3DSh-FirstRibDesc'))
-        rib_table.setHelpText(ProcModel.ThreeDShConfModel.LastRibCol,
-                              _('3DSh-LastRibDesc'))
+        rib_table.set_help_bar(self.helpBar)
+        rib_table.set_help_text(ProcModel.ThreeDShConfModel.FirstRibCol,
+                                _('3DSh-FirstRibDesc'))
+        rib_table.set_help_text(ProcModel.ThreeDShConfModel.LastRibCol,
+                                _('3DSh-LastRibDesc'))
 
         rib_ly = QHBoxLayout()
         rib_ly.addWidget(rib_table)
@@ -262,14 +262,14 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
 
         # upper cuts
         num_up_c_l = QLabel(_('Number of upper cuts'))
-        num_up_c_l.setAlignment(Qt.AlignRight)
-        num_up_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_up_c_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_up_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
         self.numUpC_s.append(QSpinBox())
         self.numUpC_s[curr_num_tabs].setRange(0, 2)
         self.numUpC_s[curr_num_tabs].\
-            setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                      QSizePolicy.Fixed))
+            setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                      QSizePolicy.Policy.Fixed))
         self.numUpC_s[curr_num_tabs].setValue(
             self.threeDShUpDet_M.num_rows_for_config(curr_num_tabs + 1))
         conf_edit = self.numUpC_s[curr_num_tabs].lineEdit()
@@ -295,38 +295,38 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 1)
         up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 2)
 
-        up_c_t.enableIntValidator(ProcModel.ThreeDShUpDetModel.IniPointCol,
-                                  ProcModel.ThreeDShUpDetModel.CutPointCol,
-                                  0, 100)
-        up_c_t.enableDoubleValidator(ProcModel.ThreeDShUpDetModel.DepthCol,
-                                     ProcModel.ThreeDShUpDetModel.DepthCol,
-                                     -1, 1, 1)
+        up_c_t.en_int_validator(ProcModel.ThreeDShUpDetModel.IniPointCol,
+                                ProcModel.ThreeDShUpDetModel.CutPointCol,
+                                0, 100)
+        up_c_t.en_double_validator(ProcModel.ThreeDShUpDetModel.DepthCol,
+                                   ProcModel.ThreeDShUpDetModel.DepthCol,
+                                   -1, 1, 1)
 
-        up_c_t.setHelpBar(self.helpBar)
-        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.IniPointCol,
-                           _('3DSh-IniPointDesc'))
-        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.CutPointCol,
-                           _('3DSh-CutPointDesc'))
-        up_c_t.setHelpText(ProcModel.ThreeDShUpDetModel.DepthCol,
-                           _('3DSh-DepthDesc'))
+        up_c_t.set_help_bar(self.helpBar)
+        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.IniPointCol,
+                             _('3DSh-IniPointDesc'))
+        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.CutPointCol,
+                             _('3DSh-CutPointDesc'))
+        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.DepthCol,
+                             _('3DSh-DepthDesc'))
 
         up_c_ly = QHBoxLayout()
         up_c_ly.addWidget(up_c_t)
         up_c_ly.addStretch()
-        up_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        up_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         up_c_t.setFixedHeight(2 + 3 * up_c_t.horizontalHeader().height())
         tab_ly.addLayout(up_c_ly)
 
         # lower cuts
         num_lo_c_l = QLabel(_('Number of lower cuts'))
-        num_lo_c_l.setAlignment(Qt.AlignRight)
-        num_lo_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_lo_c_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lo_c_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
         self.numLoC_s.append(QSpinBox())
         self.numLoC_s[curr_num_tabs].setRange(0, 1)
         self.numLoC_s[curr_num_tabs].\
-            setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                      QSizePolicy.Fixed))
+            setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                      QSizePolicy.Policy.Fixed))
         self.numLoC_s[curr_num_tabs].\
             setValue(self.threeDShLoDet_M.num_rows_for_config(curr_num_tabs + 1))
         conf_edit = self.numLoC_s[curr_num_tabs].lineEdit()
@@ -352,25 +352,25 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 1)
         lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 2)
 
-        lo_c_t.enableIntValidator(ProcModel.ThreeDShLoDetModel.IniPointCol,
-                                  ProcModel.ThreeDShLoDetModel.CutPointCol,
-                                  0, 100)
-        lo_c_t.enableDoubleValidator(ProcModel.ThreeDShLoDetModel.DepthCol,
-                                     ProcModel.ThreeDShLoDetModel.DepthCol,
-                                     -1, 1, 1)
+        lo_c_t.en_int_validator(ProcModel.ThreeDShLoDetModel.IniPointCol,
+                                ProcModel.ThreeDShLoDetModel.CutPointCol,
+                                0, 100)
+        lo_c_t.en_double_validator(ProcModel.ThreeDShLoDetModel.DepthCol,
+                                   ProcModel.ThreeDShLoDetModel.DepthCol,
+                                   -1, 1, 1)
 
-        lo_c_t.setHelpBar(self.helpBar)
-        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.IniPointCol,
-                           _('3DSh-IniPointDesc'))
-        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.CutPointCol,
-                           _('3DSh-CutPointDesc'))
-        lo_c_t.setHelpText(ProcModel.ThreeDShLoDetModel.DepthCol,
-                           _('3DSh-DepthDesc'))
+        lo_c_t.set_help_bar(self.helpBar)
+        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.IniPointCol,
+                             _('3DSh-IniPointDesc'))
+        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.CutPointCol,
+                             _('3DSh-CutPointDesc'))
+        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.DepthCol,
+                             _('3DSh-DepthDesc'))
 
         lo_c_ly = QHBoxLayout()
         lo_c_ly.addWidget(lo_c_t)
         lo_c_ly.addStretch()
-        lo_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        lo_c_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         lo_c_t.setFixedHeight(2 + 2 * lo_c_t.horizontalHeader().height())
         tab_ly.addLayout(lo_c_ly)
 

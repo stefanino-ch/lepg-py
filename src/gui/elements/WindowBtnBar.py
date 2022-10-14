@@ -7,8 +7,8 @@ import os
 import webbrowser
 
 
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
-from PyQt5.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from PyQt6.QtCore import pyqtSignal
 from ConfigReader.ConfigReader import ConfigReader
 
 
@@ -54,29 +54,29 @@ class WindowBtnBar(QWidget):
         # Define GUI elements and connects
         if buttons & 0b1000:
             self.applyBtn = QPushButton('Apply')
-            self.applyBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                    QSizePolicy.Fixed))
+            self.applyBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                    QSizePolicy.Policy.Fixed))
             self.applyBtn.clicked.connect(self.applyBtnPress)
             layout.addWidget(self.applyBtn, 0, 0)
 
         if buttons & 0b0100:
             self.okBtn = QPushButton('Ok')
-            self.okBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+            self.okBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
             self.okBtn.clicked.connect(self.okBtnPress)
             layout.addWidget(self.okBtn, 0, 1)
 
         if buttons & 0b0010:
             self.cancelBtn = QPushButton('Cancel')
-            self.cancelBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                     QSizePolicy.Fixed))
+            self.cancelBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                     QSizePolicy.Policy.Fixed))
             self.cancelBtn.clicked.connect(self.cancelBtnPress)
             layout.addWidget(self.cancelBtn, 0, 2)
 
         if buttons & 0b0001:
             self.helpBtn = QPushButton(_('Help'))
-            self.helpBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                   QSizePolicy.Fixed))
+            self.helpBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                   QSizePolicy.Policy.Fixed))
             self.helpBtn.clicked.connect(self.helpBtnPress)
             layout.addWidget(self.helpBtn, 1, 2)
 

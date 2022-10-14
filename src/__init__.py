@@ -1,4 +1,7 @@
-__version__ = '3.19.0'
+__version__ = '3.20.0'
+
+# 3.20.0
+# Introducing Python 3.10 and PyQt6
 
 # 3.19.0
 # New parameter in section 32: rib_1y

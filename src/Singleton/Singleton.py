@@ -3,7 +3,7 @@
 :License: General Public License GNU GPL 3.0
 '''
 
-from PyQt5.QtCore import QObject
+from PyQt6.QtCore import QObject
 
 class Singleton(type(QObject), type):
     '''

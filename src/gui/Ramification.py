@@ -4,10 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
-    QSizePolicy, QGridLayout, QLabel, QWidget, QHeaderView
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
+                            QSizePolicy, QGridLayout, QLabel, QWidget, \
+                            QHeaderView
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -77,7 +78,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
 
         # 3 line rows
         three_line_rows_l = QLabel(_('3 Line rows'))
-        three_line_rows_l.setAlignment(Qt.AlignRight)
+        three_line_rows_l.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         three_line_rows_t = TableView()
         three_line_rows_t.setModel(self.ramif_M)
@@ -95,13 +96,13 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         three_line_rows_t.hideColumn(self.ramif_M.columnCount() - 3)
 
         three_line_rows_t.verticalHeader().setVisible(False)
-        three_line_rows_t.setHelpBar(self.helpBar)
+        three_line_rows_t.set_help_bar(self.helpBar)
 
-        three_line_rows_t.setHelpText(
+        three_line_rows_t.set_help_text(
             ProcModel.RamificationModel.ThirdToSailCol,
             _('Ramification-3L-ThirdLineToSailDesc'))
 
-        three_line_rows_t.enableIntValidator(
+        three_line_rows_t.en_int_validator(
             ProcModel.RamificationModel.ThirdToSailCol,
             ProcModel.RamificationModel.ThirdToSailCol,
             1, 2000)
@@ -111,7 +112,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
             + three_line_rows_t.horizontalHeader().height()
             + three_line_rows_t.rowHeight(0))
         three_line_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(three_line_rows_l, 0, 0)
         edit_grid_l.addWidget(three_line_rows_t, 0, 1)
@@ -120,7 +121,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
 
         # 4 line rows
         four_line_rows_l = QLabel(_('4 Line rows'))
-        four_line_rows_l.setAlignment(Qt.AlignRight)
+        four_line_rows_l.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         four_line_rows_t = TableView()
         four_line_rows_t.setModel(self.ramif_M)
@@ -136,20 +137,20 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         four_line_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
 
         four_line_rows_t.verticalHeader().setVisible(False)
-        four_line_rows_t.setHelpBar(self.helpBar)
+        four_line_rows_t.set_help_bar(self.helpBar)
 
-        four_line_rows_t.setHelpText(
+        four_line_rows_t.set_help_text(
             ProcModel.RamificationModel.ThirdToSailCol,
             _('Ramification-4L-ThirdLineToSailDesc'))
-        four_line_rows_t.setHelpText(
+        four_line_rows_t.set_help_text(
             ProcModel.RamificationModel.FourthToSailCol,
             _('Ramification-4L-FourthLineToSailDesc'))
 
-        four_line_rows_t.enableIntValidator(
+        four_line_rows_t.en_int_validator(
             ProcModel.RamificationModel.ThirdToSailCol,
             ProcModel.RamificationModel.ThirdToSailCol,
             1, 2000)
-        four_line_rows_t.enableIntValidator(
+        four_line_rows_t.en_int_validator(
             ProcModel.RamificationModel.FourthToSailCol,
             ProcModel.RamificationModel.FourthToSailCol,
             1, 2000)
@@ -159,7 +160,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
             + four_line_rows_t.horizontalHeader().height()
             + four_line_rows_t.rowHeight(1))
         four_line_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(four_line_rows_l, 1, 0)
         edit_grid_l.addWidget(four_line_rows_t, 1, 1, 1, 2)
@@ -167,7 +168,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
 
         # 3 brake rows
         three_brake_rows_l = QLabel(_('3 Brake rows'))
-        three_brake_rows_l.setAlignment(Qt.AlignRight)
+        three_brake_rows_l.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         three_brake_rows_t = TableView()
         three_brake_rows_t.setModel(self.ramif_M)
@@ -184,13 +185,13 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         # hide the Config column
         three_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 3)
         three_brake_rows_t.verticalHeader().setVisible(False)
-        three_brake_rows_t.setHelpBar(self.helpBar)
+        three_brake_rows_t.set_help_bar(self.helpBar)
 
-        three_brake_rows_t.setHelpText(
+        three_brake_rows_t.set_help_text(
             ProcModel.RamificationModel.ThirdToSailCol,
             _('Ramification-3L-ThirdBrakeToSailDesc'))
 
-        three_brake_rows_t.enableIntValidator(
+        three_brake_rows_t.en_int_validator(
             ProcModel.RamificationModel.ThirdToSailCol,
             ProcModel.RamificationModel.ThirdToSailCol,
             1, 2000)
@@ -200,7 +201,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
             + three_brake_rows_t.horizontalHeader().height()
             + three_brake_rows_t.rowHeight(2))
         three_brake_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(three_brake_rows_l, 2, 0)
         edit_grid_l.addWidget(three_brake_rows_t, 2, 1)
@@ -209,7 +210,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
 
         # 4 brake rows
         four_brake_rows_l = QLabel(_('4 Brake rows'))
-        four_brake_rows_l.setAlignment(Qt.AlignRight)
+        four_brake_rows_l.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         four_brake_rows_t = TableView()
         four_brake_rows_t.setModel(self.ramif_M)
@@ -224,20 +225,20 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         # hide the Config column
         four_brake_rows_t.hideColumn(self.ramif_M.columnCount() - 2)
         four_brake_rows_t.verticalHeader().setVisible(False)
-        four_brake_rows_t.setHelpBar(self.helpBar)
+        four_brake_rows_t.set_help_bar(self.helpBar)
 
-        four_brake_rows_t.setHelpText(
+        four_brake_rows_t.set_help_text(
             ProcModel.RamificationModel.ThirdToSailCol,
             _('Ramification-4L-ThirdBrakeToSailDesc'))
-        four_brake_rows_t.setHelpText(
+        four_brake_rows_t.set_help_text(
             ProcModel.RamificationModel.FourthToSailCol,
             _('Ramification-4L-FourthBrakeToSailDesc'))
 
-        four_brake_rows_t.enableIntValidator(
+        four_brake_rows_t.en_int_validator(
             ProcModel.RamificationModel.ThirdToSailCol,
             ProcModel.RamificationModel.ThirdToSailCol,
             1, 2000)
-        four_brake_rows_t.enableIntValidator(
+        four_brake_rows_t.en_int_validator(
             ProcModel.RamificationModel.FourthToSailCol,
             ProcModel.RamificationModel.FourthToSailCol,
             1, 2000)
@@ -246,7 +247,7 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
                                          + four_brake_rows_t.horizontalHeader().height()
                                          + four_brake_rows_t.rowHeight(3))
         four_brake_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(four_brake_rows_l, 3, 0)
         edit_grid_l.addWidget(four_brake_rows_t, 3, 1, 1, 2)
@@ -257,8 +258,8 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/ramification.html')
 

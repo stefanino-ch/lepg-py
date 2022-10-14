@@ -6,8 +6,7 @@
 # https://stackoverflow.com/questions/19113532/qgraphicsview-zooming-in-and-
 # out-under-mouse-position-using-mouse-wheel
 
-from PyQt5.QtWidgets import QGraphicsView
-
+from PyQt6.QtWidgets import QGraphicsView
 
 class GraphicsView(QGraphicsView):
     """

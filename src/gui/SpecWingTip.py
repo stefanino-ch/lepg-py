@@ -4,10 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
-
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -95,7 +94,7 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.specWingTyp_M)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(self.specWingTyp_M.columnCount() - 1)
         one_t.hideColumn(self.specWingTyp_M.columnCount() - 2)
         one_t.hideColumn(0)
@@ -104,26 +103,26 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
                              one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.enableDoubleValidator(
+        one_t.en_double_validator(
             ProcModel.SpecWingTipModel.AngleLECol,
             ProcModel.SpecWingTipModel.AngleTECol,
             -45,
             45,
             2)
 
-        one_t.setHelpBar(self.helpBar)
-        one_t.setHelpText(ProcModel.SpecWingTipModel.AngleLECol,
-                          _('SpecWingTyp-AngleLEDesc'))
-        one_t.setHelpText(ProcModel.SpecWingTipModel.AngleTECol,
-                          _('SpecWingTyp-AngleTEDesc'))
+        one_t.set_help_bar(self.helpBar)
+        one_t.set_help_text(ProcModel.SpecWingTipModel.AngleLECol,
+                            _('SpecWingTyp-AngleLEDesc'))
+        one_t.set_help_text(ProcModel.SpecWingTipModel.AngleTECol,
+                            _('SpecWingTyp-AngleTEDesc'))
 
         self.usage_update()
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/specWingTip.html')
 

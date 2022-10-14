@@ -8,16 +8,15 @@ import os
 import sys
 import webbrowser
 
-from PyQt5.Qt import QStatusBar
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QMdiArea, QAction, \
-    QMessageBox, QMenu, QLabel
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtWidgets import QMainWindow, QMdiArea, \
+    QMessageBox, QMenu, QLabel, QStatusBar
 from packaging import version
 
 import __init__
 from ConfigReader.ConfigReader import ConfigReader
-from processors.ProcRunner import ProcRunner
+from Processors.ProcRunner import ProcRunner
 from VersionCheck.VersionCheck import VersionCheck
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
@@ -224,7 +223,7 @@ class MainWindow(QMainWindow):
 
                 if version.parse(remote_version) > version.parse(getattr(__init__, '__version__')):
                     msg_box = QMessageBox()
-                    msg_box.setTextFormat(Qt.RichText)
+                    msg_box.setTextFormat(Qt.TextFormat.RichText)
                     msg_box.setWindowTitle(_('Newer version found'))
                     msg_box.setText(_('Current Version: ')
                                     + str(getattr(__init__, '__version__'))
@@ -243,8 +242,8 @@ class MainWindow(QMainWindow):
                                         'online help: Help-> Online Help')
                                     + '<br>' + '<br>'
                                     + _('Or in Settings-> Update checking'))
-                    msg_box.setIcon(QMessageBox.Information)
-                    msg_box.setStandardButtons(QMessageBox.Ok)
+                    msg_box.setIcon(QMessageBox.Icon.Information)
+                    msg_box.setStandardButtons(QMessageBox.Icon.Ok)
                     msg_box.exec()
             else:
                 logging.error(self.__className
@@ -314,11 +313,11 @@ class MainWindow(QMainWindow):
             msg_box.setText(_("You have unsaved data. \n\n"
                               "Press OK to restart anyway.\n"
                               "Press Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
             answer = msg_box.exec()
 
-            if answer == QMessageBox.Cancel:
+            if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
 
@@ -342,11 +341,12 @@ class MainWindow(QMainWindow):
             msg_box.setText(_("You have unsaved data. \n\n"
                               "Press OK to quit anyway.\n"
                               "Press Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok
+                                       | QMessageBox.StandardButton.Cancel)
             answer = msg_box.exec()
 
-            if answer == QMessageBox.Cancel:
+            if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
 
@@ -457,8 +457,8 @@ class MainWindow(QMainWindow):
             msg_box.setText(_('For a successful pre-processor run you must '
                               'configure\nthe pre-processor in Setup '
                               '->Both Processors.'))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
         else:
             proc_runner.run_pre_proc()
@@ -882,8 +882,8 @@ class MainWindow(QMainWindow):
             msg_box.setText(_('For a successful processor run you must '
                               'configure\nthe processor in Setup->'
                               'Both Processors.'))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
         else:
             proc_runner.run_proc()
@@ -1113,11 +1113,11 @@ class MainWindow(QMainWindow):
         msg = QMessageBox()
 
         msg.setWindowTitle(_("Switching language"))
-        msg.setIcon(QMessageBox.Information)
+        msg.setIcon(QMessageBox.Icon.Information)
         msg.setText(_("Please restart the application."))
-        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
         msg.setFixedWidth(300)
-        msg.exec_()
+        msg.exec()
 
     def setup_processors(self):
         """

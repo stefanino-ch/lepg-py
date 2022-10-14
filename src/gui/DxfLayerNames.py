@@ -4,10 +4,10 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, QSpinBox, QLabel, \
-    QHBoxLayout, QVBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -42,7 +42,7 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         self.pm = ProcModel()
 
         self.dxfLayNames_M = ProcModel.DxfLayerNamesModel()
-        self.dxfLayNames_M.numRowsForConfigChanged.\
+        self.dxfLayNames_M.numRowsForConfigChanged. \
             connect(self.model_size_changed)
 
         self.build_window()
@@ -85,14 +85,14 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("DXF layer names"))
 
         num_lines_l = QLabel(_('Number of layers'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
         self.numLines_s.setRange(0, 10)
-        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_s.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -107,23 +107,23 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         dxf_lay_names_t = TableView()
         dxf_lay_names_t.setModel(self.dxfLayNames_M)
         dxf_lay_names_t.verticalHeader().setVisible(False)
-        dxf_lay_names_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+        dxf_lay_names_t.horizontalHeader(). \
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         dxf_lay_names_t.hideColumn(self.dxfLayNames_M.columnCount() - 1)
         dxf_lay_names_t.hideColumn(self.dxfLayNames_M.columnCount() - 2)
         dxf_lay_names_t.hideColumn(0)
         self.windowLayout.addWidget(dxf_lay_names_t)
 
-        dxf_lay_names_t.enableRegExpValidator(
+        dxf_lay_names_t.en_reg_exp_validator(
             ProcModel.DxfLayerNamesModel.LayerCol,
             ProcModel.DxfLayerNamesModel.DescriptionCol,
             "^[a-zA-Z0-9_.-]*$")
 
-        dxf_lay_names_t.setHelpBar(self.helpBar)
-        dxf_lay_names_t.setHelpText(ProcModel.DxfLayerNamesModel.LayerCol,
-                                    _('DxfLayNames-LayerDesc'))
-        dxf_lay_names_t.setHelpText(ProcModel.DxfLayerNamesModel.DescriptionCol,
-                                    _('DxfLayNames-DescriptionDesc'))
+        dxf_lay_names_t.set_help_bar(self.helpBar)
+        dxf_lay_names_t.set_help_text(ProcModel.DxfLayerNamesModel.LayerCol,
+                                      _('DxfLayNames-LayerDesc'))
+        dxf_lay_names_t.set_help_text(ProcModel.DxfLayerNamesModel.DescriptionCol,
+                                      _('DxfLayNames-DescriptionDesc'))
 
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.dxfLayNames_M.num_rows_for_config(1))
@@ -132,8 +132,8 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/dxfLayerNames.html')
 

@@ -4,13 +4,10 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QMdiSubWindow,\
-                            QWidget,\
-                            QGridLayout,\
-                            QTextEdit,\
-                            QSizePolicy
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QGridLayout,\
+                            QTextEdit, QSizePolicy
 
 from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
@@ -76,15 +73,15 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Rest of standard window setups
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/procOutput.html')
 
         self.windowGrid.addWidget(self.btnBar,
                                   self.__winGridRow,
                                   0,
-                                  Qt.AlignRight)
+                                  Qt.AlignmentFlag.AlignRight)
         self.__winGridRow += 1
 
         self.win.setLayout(self.windowGrid)

@@ -5,10 +5,11 @@
 import logging
 import os
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QPainter, QPen, QColor
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem, QMessageBox, QFileDialog
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QPainter, QPen, QColor
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+                            QSizePolicy, QGraphicsScene, QPushButton, \
+                            QGraphicsLineItem, QMessageBox, QFileDialog
 
 from ConfigReader.ConfigReader import ConfigReader
 from data.DxfFileType import DxfFileType
@@ -181,8 +182,8 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.button_bar = WindowBtnBar(0b0101)
-        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
         self.button_bar.setHelpPage('view/three_d_dxf.html')
 
@@ -238,8 +239,8 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                                   'or the processor location\n'
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
-                msg_box.setIcon(QMessageBox.Warning)
-                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
                 msg_box.exec()
                 return None
         else:

@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtCore import Qt, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QSpinBox, QLabel, QTabWidget, QHBoxLayout, \
     QVBoxLayout, QPushButton
 
@@ -92,13 +92,13 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Edit rib holes (rib lightening)"))
 
         num_conf_l = QLabel(_('Number of configurations'))
-        num_conf_l.setAlignment(Qt.AlignRight)
-        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0, 999)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
         self.numConf_S.setValue(self.lightC_M.num_configs())
         conf_edit = self.numConf_S.lineEdit()
         conf_edit.setReadOnly(True)
@@ -118,13 +118,13 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
             self.model_num_configs_changed()
 
         sort_btn = QPushButton(_('Sort by Order Num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/ribHoles.html')
 
@@ -208,15 +208,15 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         conf_table.hideColumn(self.lightC_M.columnCount() - 1)
         conf_table.hideColumn(self.lightC_M.columnCount() - 2)
 
-        conf_table.enableIntValidator(ProcModel.LightConfModel.InitialRibCol,
-                                      ProcModel.LightConfModel.FinalRibCol,
-                                      1, 999)
+        conf_table.en_int_validator(ProcModel.LightConfModel.InitialRibCol,
+                                    ProcModel.LightConfModel.FinalRibCol,
+                                    1, 999)
 
-        conf_table.setHelpBar(self.helpBar)
-        conf_table.setHelpText(ProcModel.LightConfModel.InitialRibCol,
-                               _('Proc-InitialRibDesc'))
-        conf_table.setHelpText(ProcModel.LightConfModel.FinalRibCol,
-                               _('Proc-FinalRibDesc'))
+        conf_table.set_help_bar(self.helpBar)
+        conf_table.set_help_text(ProcModel.LightConfModel.InitialRibCol,
+                                 _('Proc-InitialRibDesc'))
+        conf_table.set_help_text(ProcModel.LightConfModel.FinalRibCol,
+                                 _('Proc-FinalRibDesc'))
 
         conf_layout = QHBoxLayout()
         conf_layout.addWidget(conf_table)
@@ -233,15 +233,15 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
 
         # Data lines
         num_det_l = QLabel(_('Number of configuration lines'))
-        num_det_l.setAlignment(Qt.AlignRight)
-        num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed))
+        num_det_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed))
         tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
         self.numDet_S[curr_num_tabs].setRange(1, 999)
         self.numDet_S[curr_num_tabs].setSizePolicy(
-                                                QSizePolicy(QSizePolicy.Fixed,
-                                                            QSizePolicy.Fixed))
+                                                QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                            QSizePolicy.Policy.Fixed))
         self.numDet_S[curr_num_tabs].valueChanged.connect(self.det_spin_change)
         det_edit = self.numDet_S[curr_num_tabs].lineEdit()
         det_edit.setReadOnly(True)
@@ -262,44 +262,44 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
             setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
-        det_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         det_table.hideColumn(self.lightD_M.columnCount() - 1)
         det_table.hideColumn(self.lightD_M.columnCount() - 2)
         tab_layout.addWidget(det_table)
 
-        det_table.enableIntValidator(ProcModel.LightDetModel.OrderNumCol,
-                                     ProcModel.LightDetModel.OrderNumCol,
-                                     1, 999)
-        det_table.enableIntValidator(ProcModel.LightDetModel.LightTypCol,
-                                     ProcModel.LightDetModel.LightTypCol,
-                                     1, 3)
-        det_table.enableDoubleValidator(ProcModel.LightDetModel.DistLECol,
-                                        ProcModel.LightDetModel.VertAxisCol,
-                                        0, 100, 3)
-        det_table.enableDoubleValidator(ProcModel.LightDetModel.RotAngleCol,
-                                        ProcModel.LightDetModel.RotAngleCol,
-                                        0, 360, 3)
-        det_table.enableDoubleValidator(ProcModel.LightDetModel.Opt1Col,
-                                        ProcModel.LightDetModel.Opt1Col,
-                                        0, 100, 3)
+        det_table.en_int_validator(ProcModel.LightDetModel.OrderNumCol,
+                                   ProcModel.LightDetModel.OrderNumCol,
+                                   1, 999)
+        det_table.en_int_validator(ProcModel.LightDetModel.LightTypCol,
+                                   ProcModel.LightDetModel.LightTypCol,
+                                   1, 3)
+        det_table.en_double_validator(ProcModel.LightDetModel.DistLECol,
+                                      ProcModel.LightDetModel.VertAxisCol,
+                                      0, 100, 3)
+        det_table.en_double_validator(ProcModel.LightDetModel.RotAngleCol,
+                                      ProcModel.LightDetModel.RotAngleCol,
+                                      0, 360, 3)
+        det_table.en_double_validator(ProcModel.LightDetModel.Opt1Col,
+                                      ProcModel.LightDetModel.Opt1Col,
+                                      0, 100, 3)
 
-        det_table.setHelpBar(self.helpBar)
-        det_table.setHelpText(ProcModel.LightDetModel.OrderNumCol,
-                              _('OrderNumDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.LightTypCol,
-                              _('RibHoles-LightTypeDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.DistLECol,
-                              _('RibHoles-DistLEDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.DisChordCol,
-                              _('RibHoles-DisChordDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.HorAxisCol,
-                              _('RibHoles-HorAxisDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.VertAxisCol,
-                              _('RibHoles-VertAxisDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.RotAngleCol,
-                              _('RibHoles-RotAngleDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.Opt1Col,
-                              _('RibHoles-Opt1Desc'))
+        det_table.set_help_bar(self.helpBar)
+        det_table.set_help_text(ProcModel.LightDetModel.OrderNumCol,
+                                _('OrderNumDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.LightTypCol,
+                                _('RibHoles-LightTypeDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.DistLECol,
+                                _('RibHoles-DistLEDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.DisChordCol,
+                                _('RibHoles-DisChordDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.HorAxisCol,
+                                _('RibHoles-HorAxisDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.VertAxisCol,
+                                _('RibHoles-VertAxisDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.RotAngleCol,
+                                _('RibHoles-RotAngleDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.Opt1Col,
+                                _('RibHoles-Opt1Desc'))
 
         # then setup spin
         if self.detProxyModel[curr_num_tabs].rowCount() == 0:

@@ -7,7 +7,7 @@ import platform
 import subprocess
 import sys
 
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 
 from gui.MainWindow import MainWindow
 
@@ -16,7 +16,7 @@ from gui.MainWindow import MainWindow
 # https://stackoverflow.com/questions/41198523/sourcing-a-file-to-set-environment-variables-from-within-a-python-script
 
 # Wayland needs special environment setting to run lepg
-# Check environment an make sure wayland settings apply if needed
+# Check environment and make sure wayland settings apply if needed
 
 if platform.system() == 'Linux':
     retVal = subprocess.check_output(['echo $XDG_SESSION_TYPE'], shell=True, text=True)
@@ -30,7 +30,7 @@ def main():
     app = QApplication(sys.argv)
     ex = MainWindow()
     ex.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

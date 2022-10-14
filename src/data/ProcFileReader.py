@@ -4,10 +4,9 @@
 '"""
 import logging
 
-from PyQt5.Qt import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QObject, QFile, QTextStream
-from PyQt5.QtWidgets import QTextEdit
+from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import Qt, QObject, QFile, QTextStream
+from PyQt6.QtWidgets import QTextEdit
 
 from data.ProcModel import ProcModel
 from data.FileHelpers import split_line, rem_tab_space_quot, rem_tab_space
@@ -111,7 +110,7 @@ class ProcFileReader(QObject):
         self.wait_info_w.show()
 
         in_file = QFile(self.__fileNamePath)
-        in_file.open(QFile.ReadOnly | QFile.Text)
+        in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
         stream = QTextStream(in_file)
 
         ##############################

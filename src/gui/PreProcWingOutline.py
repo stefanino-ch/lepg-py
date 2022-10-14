@@ -4,10 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QPainter, QPen
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QGraphicsScene, QPushButton, QGraphicsLineItem
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QPainter, QPen
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+                            QSizePolicy, QGraphicsScene, QPushButton, \
+                            QGraphicsLineItem
 
 from data.Entities3d import Point3D, min_bounding_rect
 from data.PreProcOutfileReader import PreProcOutfileReader
@@ -201,8 +202,8 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.button_bar = WindowBtnBar(0b0101)
-        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
         self.button_bar.setHelpPage('view/wing_outline.html')
 

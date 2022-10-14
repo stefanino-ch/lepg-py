@@ -4,7 +4,7 @@
 '''
 import logging
 
-from PyQt5.QtSql import QSqlDatabase
+from PyQt6.QtSql import QSqlDatabase
 from Singleton.Singleton import Singleton
 
 class Database(QSqlDatabase, metaclass=Singleton):

@@ -4,8 +4,8 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
@@ -95,7 +95,7 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.twoDDxf_M)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(self.twoDDxf_M.columnCount() - 1)
         one_t.hideColumn(self.twoDDxf_M.columnCount() - 2)
         one_t.hideColumn(0)
@@ -104,31 +104,31 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 6 * one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.enableRegExpValidator(ProcModel.TwoDDxfModel.LineNameCol,
-                                    ProcModel.TwoDDxfModel.LineNameCol,
+        one_t.en_reg_exp_validator(ProcModel.TwoDDxfModel.LineNameCol,
+                                   ProcModel.TwoDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
-        one_t.enableIntValidator(ProcModel.TwoDDxfModel.ColorCodeCol,
-                                 ProcModel.TwoDDxfModel.ColorCodeCol,
-                                 0, 255)
-        one_t.enableRegExpValidator(ProcModel.TwoDDxfModel.LineNameCol,
-                                    ProcModel.TwoDDxfModel.LineNameCol,
+        one_t.en_int_validator(ProcModel.TwoDDxfModel.ColorCodeCol,
+                               ProcModel.TwoDDxfModel.ColorCodeCol,
+                               0, 255)
+        one_t.en_reg_exp_validator(ProcModel.TwoDDxfModel.LineNameCol,
+                                   ProcModel.TwoDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
 
-        one_t.setHelpBar(self.helpBar)
-        one_t.setHelpText(ProcModel.TwoDDxfModel.LineNameCol,
-                          _('TwoDDxf-LineNameDesc'))
-        one_t.setHelpText(ProcModel.TwoDDxfModel.ColorCodeCol,
-                          _('TwoDDxf-ColorCodeDesc'))
-        one_t.setHelpText(ProcModel.TwoDDxfModel.ColorNameCol,
-                          _('TwoDDxf-ColorNameDesc'))
+        one_t.set_help_bar(self.helpBar)
+        one_t.set_help_text(ProcModel.TwoDDxfModel.LineNameCol,
+                            _('TwoDDxf-LineNameDesc'))
+        one_t.set_help_text(ProcModel.TwoDDxfModel.ColorCodeCol,
+                            _('TwoDDxf-ColorCodeDesc'))
+        one_t.set_help_text(ProcModel.TwoDDxfModel.ColorNameCol,
+                            _('TwoDDxf-ColorNameDesc'))
 
         self.usage_update()
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/twoDDxf.html')
 

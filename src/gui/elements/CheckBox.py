@@ -4,8 +4,8 @@
 """
 import logging
 
-from PyQt5.QtCore import QEvent
-from PyQt5.QtWidgets import QCheckBox
+from PyQt6.QtCore import QEvent
+from PyQt6.QtWidgets import QCheckBox
 
 
 class CheckBox(QCheckBox):
@@ -35,10 +35,10 @@ class CheckBox(QCheckBox):
         """
         if self.__helpBar is not None:
             if event.type() == QEvent.Enter:
-                self.__helpBar.setText(self.__helpText)
+                self.__helpBar.set_text(self.__helpText)
 
             elif event.type() == QEvent.Leave:
-                self.__helpBar.clearText()
+                self.__helpBar.clear_text()
 
         return super(CheckBox, self).eventFilter(source, event)
 
@@ -48,7 +48,7 @@ class CheckBox(QCheckBox):
                  help text shall be displayed during program execution.
         :param helpBar: Instance of the respective help bar to work with
         """
-        logging.debug(self.__className+'.setHelpBar')
+        logging.debug(self.__className+'.set_help_bar')
         self.__helpBar = helpBar
 
     def setHelpText(self, helpText):
@@ -57,5 +57,5 @@ class CheckBox(QCheckBox):
                  be displayed if the mouse pointer is located over it.
         :param helpText: Help text to be displayed
         """
-        logging.debug(self.__className+'.setHelpText')
+        logging.debug(self.__className+'.set_help_text')
         self.__helpText = helpText

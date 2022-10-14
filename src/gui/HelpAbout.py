@@ -5,10 +5,10 @@
 import logging
 import __init__
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtWidgets import QLabel
+from PyQt6.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy
 
 from gui.elements.WindowBtnBar import WindowBtnBar
 from Singleton.Singleton import Singleton
@@ -100,12 +100,12 @@ class HelpAbout(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Rest of standard window setups
         self.btnBar = WindowBtnBar(0b0100)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
 
         self.windowGrid.addWidget(self.btnBar,
-                                  self.__winGridRow, 0, Qt.AlignRight)
+                                  self.__winGridRow, 0, Qt.AlignmentFlag.AlignRight)
         self.__winGridRow += 1
 
         self.win.setLayout(self.windowGrid)

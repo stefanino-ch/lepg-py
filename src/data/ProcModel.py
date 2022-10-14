@@ -11,9 +11,9 @@ https://www.datacamp.com/community/tutorials/inner-classes-python
 import logging
 import math
 
-from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
-from PyQt5.QtSql import QSqlQuery, QSqlTableModel
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
+from PyQt6.QtSql import QSqlQuery, QSqlTableModel
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 from Singleton.Singleton import Singleton
 from data.Database import Database
@@ -230,7 +230,7 @@ class ProcModel(QObject, metaclass=Singleton):
         logging.debug(self.__className + '.is_valid_pre_proc_file')
         try:
             in_file = QFile(file_name)
-            if in_file.open(QFile.ReadOnly | QFile.Text):
+            if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
                 stream = QTextStream(in_file)
         except:
             logging.error(self.__className
@@ -272,8 +272,8 @@ class ProcModel(QObject, metaclass=Singleton):
                   '\nVersion detected: ')
                 + str(version_ok) + _('\nTitle detected: ')
                 + str(title_ok))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
 
         return version_ok and title_ok
@@ -287,7 +287,7 @@ class ProcModel(QObject, metaclass=Singleton):
         logging.debug(self.__className + '.valid_file')
 
         in_file = QFile(file_name)
-        if in_file.open(QFile.ReadOnly | QFile.Text):
+        if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
             logging.error(self.__className +
@@ -345,8 +345,8 @@ class ProcModel(QObject, metaclass=Singleton):
                             + _('\nTitle detected: ')
                             + str(title_ok))
             # TODO check if translation works if line is changed to correct length.
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
 
             self.set_file_name('')
@@ -368,11 +368,11 @@ class ProcModel(QObject, metaclass=Singleton):
             msg_box.setText(_("You have unsaved data. \n\n"
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
             answer = msg_box.exec()
 
-            if answer == QMessageBox.Cancel:
+            if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
 
@@ -413,11 +413,11 @@ class ProcModel(QObject, metaclass=Singleton):
             msg_box.setText(_("You have unsaved data. \n\n"
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
             answer = msg_box.exec()
 
-            if answer == QMessageBox.Cancel:
+            if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
 
@@ -537,11 +537,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("AddRibPoints")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("X-Coordinate"))
-            self.setHeaderData(2, Qt.Horizontal, _("Y-Coordinate"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("X-Coordinate"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Y-Coordinate"))
 
         def updateRow(self, configNum, orderNum, xCoord, yCoord):
             """
@@ -639,16 +639,16 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("Airfoils")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Intake Start"))
-            self.setHeaderData(3, Qt.Horizontal, _("Intake End"))
-            self.setHeaderData(4, Qt.Horizontal, _("Open-close"))
-            self.setHeaderData(5, Qt.Horizontal, _("Displac"))
-            self.setHeaderData(6, Qt.Horizontal, _("Rel weight"))
-            self.setHeaderData(7, Qt.Horizontal, _("rrw"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Rib Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Intake Start"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Intake End"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Open-close"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Displac"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Rel weight"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("rrw"))
 
         def getRow(self, ribNum):
             """
@@ -703,10 +703,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("AirfoilThickness")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Rib num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Coef"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Rib num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Coef"))
 
         def createTable(self):
             """
@@ -832,16 +832,16 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createAnchorPointsTable()
             self.setTable("AnchorPoints")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Rib Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Num Anchors"))
-            self.setHeaderData(2, Qt.Horizontal, _("Pos A"))
-            self.setHeaderData(3, Qt.Horizontal, _("Pos B"))
-            self.setHeaderData(4, Qt.Horizontal, _("Pos C"))
-            self.setHeaderData(5, Qt.Horizontal, _("Pos D"))
-            self.setHeaderData(6, Qt.Horizontal, _("Pos E"))
-            self.setHeaderData(7, Qt.Horizontal, _("Pos F"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Rib Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Num Anchors"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Pos A"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Pos B"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Pos C"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Pos D"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Pos E"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Pos F"))
 
         def getRow(self, ribNum):
             """
@@ -934,20 +934,20 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("Brakes")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(1, Qt.Horizontal, _("num Branches"))
-            self.setHeaderData(2, Qt.Horizontal, _("Branch lvl 1"))
-            self.setHeaderData(3, Qt.Horizontal, _("Order lvl 1"))
-            self.setHeaderData(4, Qt.Horizontal, _("Ramif lvl2"))
-            self.setHeaderData(5, Qt.Horizontal, _("Order lvl 2"))
-            self.setHeaderData(6, Qt.Horizontal, _("Ramif lvl3"))
-            self.setHeaderData(7, Qt.Horizontal, _("Order lvl 3"))
-            self.setHeaderData(8, Qt.Horizontal, _("Branch lvl 4"))
-            self.setHeaderData(9, Qt.Horizontal, _("Order lvl 4"))
-            self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
-            self.setHeaderData(11, Qt.Horizontal, _("An. Rib num"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("num Branches"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Branch lvl 1"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Order lvl 1"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Ramif lvl2"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Order lvl 2"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Ramif lvl3"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Order lvl 3"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("Branch lvl 4"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("Order lvl 4"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("An. Rib num"))
 
         def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
                       i7, i8, i9, i10, i11):
@@ -1080,18 +1080,18 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("BrakeLenght")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("s1 [\u0025]"))
-            self.setHeaderData(1, Qt.Horizontal, _("s2 [\u0025]"))
-            self.setHeaderData(2, Qt.Horizontal, _("s3 [\u0025]"))
-            self.setHeaderData(3, Qt.Horizontal, _("s4 [\u0025]"))
-            self.setHeaderData(4, Qt.Horizontal, _("s5 [\u0025]"))
-            self.setHeaderData(5, Qt.Horizontal, _("d1 [cm]"))
-            self.setHeaderData(6, Qt.Horizontal, _("d2 [cm]"))
-            self.setHeaderData(7, Qt.Horizontal, _("d3 [cm]"))
-            self.setHeaderData(8, Qt.Horizontal, _("d4 [cm]"))
-            self.setHeaderData(9, Qt.Horizontal, _("d5 [cm]"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("s1 [\u0025]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("s2 [\u0025]"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("s3 [\u0025]"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("s4 [\u0025]"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("s5 [\u0025]"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("d1 [cm]"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("d2 [cm]"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("d3 [cm]"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("d4 [cm]"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("d5 [cm]"))
 
         def getRow(self):
             """
@@ -1167,21 +1167,21 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("CalageVar")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_rows_for_config(1, 1)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Num risers"))
-            self.setHeaderData(2, Qt.Horizontal, _("Pos r A"))
-            self.setHeaderData(3, Qt.Horizontal, _("Pos r B"))
-            self.setHeaderData(4, Qt.Horizontal, _("Pos r C"))
-            self.setHeaderData(5, Qt.Horizontal, _("Pos r D"))
-            self.setHeaderData(6, Qt.Horizontal, _("Pos r E"))
-            self.setHeaderData(7, Qt.Horizontal, _("Pos r F"))
-            self.setHeaderData(8, Qt.Horizontal, _("Max neg ang [deg]"))
-            self.setHeaderData(9, Qt.Horizontal, _("Num neg steps"))
-            self.setHeaderData(10, Qt.Horizontal, _("Max pos ang [deg]"))
-            self.setHeaderData(11, Qt.Horizontal, _("Num pos steps"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Num risers"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Pos r A"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Pos r B"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Pos r C"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Pos r D"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Pos r E"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Pos r F"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("Max neg ang [deg]"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("Num neg steps"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("Max pos ang [deg]"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("Num pos steps"))
 
         def createTable(self):
             """
@@ -1336,10 +1336,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("DxfLayerNames")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Layer name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Description"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Layer name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Description"))
 
         def updateRow(self, configNum, orderNum, layer, desc):
             """
@@ -1458,7 +1458,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ElaslticLinesCorr")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
         def getRow(self):
             """
@@ -1533,12 +1533,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ElaslticLinesDef")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Num lines per rib"))
-            self.setHeaderData(1, Qt.Horizontal, _("Def in lower level"))
-            self.setHeaderData(2, Qt.Horizontal, _("Def in mid level"))
-            self.setHeaderData(3, Qt.Horizontal, _("Def in higher level"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Num lines per rib"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Def in lower level"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Def in mid level"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Def in higher level"))
 
             self.set_num_rows_for_config(1, 5)
 
@@ -1627,9 +1627,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ExtradColsConf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
+            self.setHeaderData(self.FirstRibCol, Qt.Orientation.Horizontal, _("Rib num"))
 
         def updateRow(self, configNum, firstRib):
             logging.debug(self.__className + '.update_row')
@@ -1696,10 +1696,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ExtradColsDet")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Dist TE"))
 
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className + '.update_row')
@@ -1783,14 +1783,14 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("GlobalAoA")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Finesse [deg]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Center of Pressure"))
-            self.setHeaderData(2, Qt.Horizontal, _("Calage"))
-            self.setHeaderData(3, Qt.Horizontal, _("Risers [cm]"))
-            self.setHeaderData(4, Qt.Horizontal, _("Lines [cm]"))
-            self.setHeaderData(5, Qt.Horizontal, _("Karabiners [cm]"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Finesse [deg]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Center of Pressure"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Calage"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Risers [cm]"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Lines [cm]"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Karabiners [cm]"))
 
         def getRow(self):
             """
@@ -1862,22 +1862,22 @@ class ProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("GlueVent")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.setHeaderData(self.OrderNumCol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Airfoil num"))
             self.setHeaderData(self.VentParamCol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Vent param"))
             self.setHeaderData(self.ParamACol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Opt param 1"))
             self.setHeaderData(self.ParamCCol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Opt param 2"))
             self.setHeaderData(self.ParamBCol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Opt param 3"))
 
         def create_table(self):
@@ -2037,20 +2037,20 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("HvVhRibs")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(self.OrderNumCol, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(self.TypeCol, Qt.Horizontal, _("Type"))
-            self.setHeaderData(self.IniRibCol, Qt.Horizontal, _("Ini Rib"))
-            self.setHeaderData(self.ParamACol, Qt.Horizontal, _("Param A"))
-            self.setHeaderData(self.ParamBCol, Qt.Horizontal, _("Param B"))
-            self.setHeaderData(self.ParamCCol, Qt.Horizontal, _("Param C"))
-            self.setHeaderData(self.ParamDCol, Qt.Horizontal, _("Param D"))
-            self.setHeaderData(self.ParamECol, Qt.Horizontal, _("Param E"))
-            self.setHeaderData(self.ParamFCol, Qt.Horizontal, _("Param F"))
-            self.setHeaderData(self.ParamGCol, Qt.Horizontal, _("Param G"))
-            self.setHeaderData(self.ParamHCol, Qt.Horizontal, _("Param H"))
-            self.setHeaderData(self.ParamICol, Qt.Horizontal, _("Param I"))
+            self.setHeaderData(self.OrderNumCol, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(self.TypeCol, Qt.Orientation.Horizontal, _("Type"))
+            self.setHeaderData(self.IniRibCol, Qt.Orientation.Horizontal, _("Ini Rib"))
+            self.setHeaderData(self.ParamACol, Qt.Orientation.Horizontal, _("Param A"))
+            self.setHeaderData(self.ParamBCol, Qt.Orientation.Horizontal, _("Param B"))
+            self.setHeaderData(self.ParamCCol, Qt.Orientation.Horizontal, _("Param C"))
+            self.setHeaderData(self.ParamDCol, Qt.Orientation.Horizontal, _("Param D"))
+            self.setHeaderData(self.ParamECol, Qt.Orientation.Horizontal, _("Param E"))
+            self.setHeaderData(self.ParamFCol, Qt.Orientation.Horizontal, _("Param F"))
+            self.setHeaderData(self.ParamGCol, Qt.Orientation.Horizontal, _("Param G"))
+            self.setHeaderData(self.ParamHCol, Qt.Orientation.Horizontal, _("Param H"))
+            self.setHeaderData(self.ParamICol, Qt.Orientation.Horizontal, _("Param I"))
 
         def updateDataRow(self, configNum, orderNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF,
                           paramG, paramH=0, paramI=0):
@@ -2161,9 +2161,9 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("IntradColsConf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(self.FirstRibCol, Qt.Horizontal, _("Rib num"))
+            self.setHeaderData(self.FirstRibCol, Qt.Orientation.Horizontal, _("Rib num"))
 
         def updateRow(self, configNum, firstRib):
             logging.debug(self.__className + '.update_row')
@@ -2230,10 +2230,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("IntradColsDet")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Dist TE"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Dist TE"))
 
         def updateRow(self, configNum, orderNum, distTe):
             logging.debug(self.__className + '.update_row')
@@ -2352,24 +2352,24 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("JoncsDef")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-            self.setHeaderData(3, Qt.Horizontal, _("Row 2 A"))
-            self.setHeaderData(4, Qt.Horizontal, _("Row 2 B"))
-            self.setHeaderData(5, Qt.Horizontal, _("Row 2 C"))
-            self.setHeaderData(6, Qt.Horizontal, _("Row 2 D"))
-            self.setHeaderData(7, Qt.Horizontal, _("Row 2 E"))
-            self.setHeaderData(8, Qt.Horizontal, _("Row 3 A"))
-            self.setHeaderData(9, Qt.Horizontal, _("Row 3 B"))
-            self.setHeaderData(10, Qt.Horizontal, _("Row 3 C"))
-            self.setHeaderData(11, Qt.Horizontal, _("Row 3 D"))
-            self.setHeaderData(12, Qt.Horizontal, _("Row 4 A"))
-            self.setHeaderData(13, Qt.Horizontal, _("Row 4 B"))
-            self.setHeaderData(14, Qt.Horizontal, _("Row 4 C"))
-            self.setHeaderData(15, Qt.Horizontal, _("Row 4 D"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Row 2 A"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Row 2 B"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Row 2 C"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Row 2 D"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Row 2 E"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("Row 3 A"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("Row 3 B"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("Row 3 C"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("Row 3 D"))
+            self.setHeaderData(12, Qt.Orientation.Horizontal, _("Row 4 A"))
+            self.setHeaderData(13, Qt.Orientation.Horizontal, _("Row 4 B"))
+            self.setHeaderData(14, Qt.Orientation.Horizontal, _("Row 4 C"))
+            self.setHeaderData(15, Qt.Orientation.Horizontal, _("Row 4 D"))
 
         def updateTypeOneRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pCA, pCB, pCC, pCD, pDA,
                              pDB, pDC, pDD):
@@ -2573,10 +2573,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("LightConf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Initial Rib"))
-            self.setHeaderData(2, Qt.Horizontal, _("Final Rib"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Initial Rib"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Final Rib"))
 
         def updateRow(self, config, initialRib, finalRib):
             logging.debug(self.__className + '.setConfigRow')
@@ -2674,16 +2674,16 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("LightDet")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order Num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Light Typ"))
-            self.setHeaderData(2, Qt.Horizontal, _("Dist LE"))
-            self.setHeaderData(3, Qt.Horizontal, _("Dist chord"))
-            self.setHeaderData(4, Qt.Horizontal, _("Hor axis"))
-            self.setHeaderData(5, Qt.Horizontal, _("Vert axis"))
-            self.setHeaderData(6, Qt.Horizontal, _("Rot angle"))
-            self.setHeaderData(7, Qt.Horizontal, _("Opt "))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order Num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Light Typ"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Dist LE"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Dist chord"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Hor axis"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Vert axis"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Rot angle"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Opt "))
 
         def updateRow(self, configNum, orderNum, LightTyp, DistLE, DisChord, HorAxis, VertAxis, RotAngle, Opt1):
             """
@@ -2812,20 +2812,20 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("Lines")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Num branches"))
-            self.setHeaderData(2, Qt.Horizontal, _("Ramif 1"))
-            self.setHeaderData(3, Qt.Horizontal, _("Node 1"))
-            self.setHeaderData(4, Qt.Horizontal, _("Ramif 2"))
-            self.setHeaderData(5, Qt.Horizontal, _("Node 2"))
-            self.setHeaderData(6, Qt.Horizontal, _("Ramif 3"))
-            self.setHeaderData(7, Qt.Horizontal, _("Node 3"))
-            self.setHeaderData(8, Qt.Horizontal, _("Ramif 4"))
-            self.setHeaderData(9, Qt.Horizontal, _("Node 4"))
-            self.setHeaderData(10, Qt.Horizontal, _("Anchor"))
-            self.setHeaderData(11, Qt.Horizontal, _("Rib num"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Num branches"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Ramif 1"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Node 1"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Ramif 2"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Node 2"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Ramif 3"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Node 3"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("Ramif 4"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("Node 4"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("Rib num"))
 
         def updateLineRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
                           i7, i8, i9, i10, i11):
@@ -2966,11 +2966,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("Marks")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Marks Spacing [cm]"))
-            self.setHeaderData(1, Qt.Horizontal, _("Point Radius [cm]"))
-            self.setHeaderData(2, Qt.Horizontal, _("Point Displacement [cm]"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Marks Spacing [cm]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Point Radius [cm]"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Point Displacement [cm]"))
 
             self.add_rows(-1, 1)
 
@@ -3062,15 +3062,15 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("MarksTypes")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Marks type"))
-            self.setHeaderData(2, Qt.Horizontal, _("Form 1"))
-            self.setHeaderData(3, Qt.Horizontal, _("Form 1 1st param"))
-            self.setHeaderData(4, Qt.Horizontal, _("Form 1 2nd param"))
-            self.setHeaderData(5, Qt.Horizontal, _("Form 2"))
-            self.setHeaderData(6, Qt.Horizontal, _("Form 2 1st param"))
-            self.setHeaderData(7, Qt.Horizontal, _("Form 2 2nd param"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Marks type"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Form 1"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Form 1 1st param"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Form 1 2nd param"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Form 2"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Form 2 1st param"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Form 2 2nd param"))
 
         def updateRow(self, configNum, orderNum, pType, formOne, formOnePOne, formOnePTwo, formTwo, formTwoPOne,
                       formTwoPTwo):
@@ -3178,11 +3178,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("NewSkinTensConf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-            self.setHeaderData(3, Qt.Horizontal, _("Type"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Type"))
 
         def updateRow(self, config, initialRib, finalRib, calcT):
             logging.debug(self.__className + '.update_row')
@@ -3269,13 +3269,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("NewSkinTensDet")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(1, Qt.Horizontal, _("Top dist LE"))
-            self.setHeaderData(2, Qt.Horizontal, _("Top widening"))
-            self.setHeaderData(3, Qt.Horizontal, _("Bott dist TE"))
-            self.setHeaderData(4, Qt.Horizontal, _("Bott widening"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Top dist LE"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Top widening"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Bott dist TE"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Bott widening"))
 
         def updateRow(self, configNum, orderNum, topDistLE, topWide, botDistTE, botWide):
             """
@@ -3383,17 +3383,17 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("NoseMylars")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Order num"))
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
-            self.setHeaderData(3, Qt.Horizontal, _("X1"))
-            self.setHeaderData(4, Qt.Horizontal, _("U1"))
-            self.setHeaderData(5, Qt.Horizontal, _("U2"))
-            self.setHeaderData(6, Qt.Horizontal, _("X2"))
-            self.setHeaderData(7, Qt.Horizontal, _("V1"))
-            self.setHeaderData(8, Qt.Horizontal, _("V2"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("X1"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("U1"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("U2"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("X2"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("V1"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("V2"))
 
         def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
             """
@@ -3532,42 +3532,42 @@ class ProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("PartsSeparation")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_rows_for_config(1, 1)
 
             self.setHeaderData(self.OrderNumCol,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("Order num"))
             self.setHeaderData(self.Panel_x_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("panel_x"))
             self.setHeaderData(self.Panel_x_min_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("panel_x_min"))
             self.setHeaderData(self.Panel_y_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("panel_y"))
             self.setHeaderData(self.Rib_x_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("rib_x"))
             self.setHeaderData(self.Rib_y_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("rib_y"))
             self.setHeaderData(self.Rib_1y_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("rib_1y"))
             self.setHeaderData(self.Param7_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("parameter7"))
             self.setHeaderData(self.Param8_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("parameter8"))
             self.setHeaderData(self.Param9_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("parameter9"))
             self.setHeaderData(self.Param10_col,
-                               Qt.Horizontal,
+                               Qt.Orientation.Horizontal,
                                _("parameter10"))
 
         def create_table(self):
@@ -3725,11 +3725,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("Ramification")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Rows"))
-            self.setHeaderData(2, Qt.Horizontal, _("Third to sail [cm]"))
-            self.setHeaderData(3, Qt.Horizontal, _("Fourth to sail [cm]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Rows"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Third to sail [cm]"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Fourth to sail [cm]"))
 
             self.set_num_rows_for_config(1, 4)
 
@@ -3865,13 +3865,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createRibTable()
             self.setTable("Rib")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(self.RibNumCol, Qt.Horizontal, _("Rib Num"))
-            self.setHeaderData(self.RPCol, Qt.Horizontal, _("RP"))
-            self.setHeaderData(self.WashinCol, Qt.Horizontal, _("Washin"))
-            self.setHeaderData(self.RotZCol, Qt.Horizontal, _("Z Rotation"))
-            self.setHeaderData(self.PosZCol, Qt.Horizontal, _("Z Position"))
+            self.setHeaderData(self.RibNumCol, Qt.Orientation.Horizontal, _("Rib Num"))
+            self.setHeaderData(self.RPCol, Qt.Orientation.Horizontal, _("RP"))
+            self.setHeaderData(self.WashinCol, Qt.Orientation.Horizontal, _("Washin"))
+            self.setHeaderData(self.RotZCol, Qt.Orientation.Horizontal, _("Z Rotation"))
+            self.setHeaderData(self.PosZCol, Qt.Orientation.Horizontal, _("Z Position"))
 
         def updateRow(self, ribNum, xrib, yLE, yTE, xp, z, beta, RP, Washin,
                       rotZ, posZ):
@@ -3977,13 +3977,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("SkinTension")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
             self.add_rows(-1, 6)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Top dist LE"))
-            self.setHeaderData(1, Qt.Horizontal, _("Top widening"))
-            self.setHeaderData(2, Qt.Horizontal, _("Bott dist TE"))
-            self.setHeaderData(3, Qt.Horizontal, _("Bott widening"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Top dist LE"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Top widening"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Bott dist TE"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Bott widening"))
 
         def updateRow(self, row, topDistLE, topWide, bottDistTE, bottWide):
             """
@@ -4061,11 +4061,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("SkinTensionParams")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Strain mini ribs"))
-            self.setHeaderData(1, Qt.Horizontal, _("Num points"))
-            self.setHeaderData(2, Qt.Horizontal, _("Coeff"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Strain mini ribs"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Num points"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Coeff"))
 
         def getRow(self):
             """
@@ -4121,11 +4121,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("SewingAllowances")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Edge seem [mm]"))
-            self.setHeaderData(1, Qt.Horizontal, _("LE seem [mm]"))
-            self.setHeaderData(2, Qt.Horizontal, _("TE seem [mm]"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Edge seem [mm]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("LE seem [mm]"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("TE seem [mm]"))
 
             self.add_rows(-1, 4)
 
@@ -4198,12 +4198,12 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("SpecWingTip")
 
-            self.setHeaderData(1, Qt.Horizontal, _("LE Angle [deg]"))
-            self.setHeaderData(2, Qt.Horizontal, _("TE Angle [deg]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("LE Angle [deg]"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("TE Angle [deg]"))
 
             self.set_num_rows_for_config(1, 1)
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
         def createTable(self):
             """
@@ -4323,14 +4323,14 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ThreeDDxf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_rows_for_config(1, 9)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Line Name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Unifilar"))
-            self.setHeaderData(3, Qt.Horizontal, _("Color code"))
-            self.setHeaderData(4, Qt.Horizontal, _("Color name (opt)"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Line Name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Unifilar"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Color code"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Color name (opt)"))
 
         def createTable(self):
             """
@@ -4464,10 +4464,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ThreeDShapingConf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("First Rib"))
-            self.setHeaderData(2, Qt.Horizontal, _("Last Rib"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("First Rib"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
 
         def updateRow(self, configNum, orderNum, firstRib, lastRib):
             """
@@ -4556,11 +4556,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ThreeDShapingUpDetail")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P"))
-            self.setHeaderData(3, Qt.Horizontal, _("Depth"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Ini P"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Cut P"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Depth"))
 
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             """
@@ -4671,11 +4671,11 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ThreeDShapingLoDetail")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Ini P"))
-            self.setHeaderData(2, Qt.Horizontal, _("Cut P"))
-            self.setHeaderData(3, Qt.Horizontal, _("Depth"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Ini P"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Cut P"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Depth"))
 
         def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
             """
@@ -4795,16 +4795,16 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("ThreeDShapingPrint")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_configs(1)
             self.set_num_rows_for_config(1, 5)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Draw"))
-            self.setHeaderData(3, Qt.Horizontal, _("First panel"))
-            self.setHeaderData(4, Qt.Horizontal, _("Last panel"))
-            self.setHeaderData(5, Qt.Horizontal, _("Symmetric"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Draw"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("First panel"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Last panel"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Symmetric"))
 
         def updateRow(self, configNum, orderNum, name, draw,
                       firstPanel, lastPanel, symmetric):
@@ -4898,13 +4898,13 @@ class ProcModel(QObject, metaclass=Singleton):
             self.createTable()
             self.setTable("TwoDDxf")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_rows_for_config(1, 6)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Line name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Color code"))
-            self.setHeaderData(3, Qt.Horizontal, _("Color name"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Line name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Color code"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Color name"))
 
             # TODO Color name is optional, reader does not take this
             #      into account currently
@@ -5083,7 +5083,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.create_wing_table()
             self.setTable("Wing")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.set_num_rows_for_config(1, 1)
 
@@ -5097,21 +5097,21 @@ class ProcModel(QObject, metaclass=Singleton):
             # self.data_changed.connect(self.sync_rib_num_data)
             self.dataChanged.connect(self.man_data_change)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Brand name"))
-            self.setHeaderData(1, Qt.Horizontal, _("Wing name"))
-            self.setHeaderData(2, Qt.Horizontal, _("Draw scale"))
-            self.setHeaderData(3, Qt.Horizontal, _("Wing scale"))
-            self.setHeaderData(4, Qt.Horizontal, _("Num cells"))
-            self.setHeaderData(5, Qt.Horizontal, _("Num ribs"))
-            self.setHeaderData(6, Qt.Horizontal, _("Alpha max tip"))
-            self.setHeaderData(7, Qt.Horizontal, _("Alpha mode"))
-            self.setHeaderData(8, Qt.Horizontal, _("Alpha max cent"))
-            self.setHeaderData(9, Qt.Horizontal, _("Para type"))
-            self.setHeaderData(10, Qt.Horizontal, _("Para param"))
-            self.setHeaderData(11, Qt.Horizontal, _("Lines Conc Type"))
-            self.setHeaderData(12, Qt.Horizontal, _("Brake length"))
-            self.setHeaderData(13, Qt.Horizontal, _("x-Spacing"))
-            self.setHeaderData(14, Qt.Horizontal, _("y-Spacing"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Brand name"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Wing name"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Draw scale"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Wing scale"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Num cells"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("Num ribs"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("Alpha max tip"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("Alpha mode"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("Alpha max cent"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("Para type"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("Para param"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("Lines Conc Type"))
+            self.setHeaderData(12, Qt.Orientation.Horizontal, _("Brake length"))
+            self.setHeaderData(13, Qt.Orientation.Horizontal, _("x-Spacing"))
+            self.setHeaderData(14, Qt.Orientation.Horizontal, _("y-Spacing"))
 
         def man_data_change(self, q):
             """
