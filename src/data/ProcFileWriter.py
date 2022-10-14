@@ -7,8 +7,8 @@ from datetime import date
 import logging
 import os
 
-from PyQt5.QtCore import QFile, QTextStream
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtCore import QFile, QTextStream
+from PyQt6.QtWidgets import QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
 from data.FileHelpers import chk_num, chk_str
@@ -113,7 +113,7 @@ class ProcFileWriter:
 
         out_file = QFile(file_path_name)
 
-        if not out_file.open(QFile.ReadWrite | QFile.Text):
+        if not out_file.open(QFile.OpenModeFlag.ReadWrite | QFile.OpenModeFlag.Text):
             logging.error(self.__className
                           + '.write_file '
                           + out_file.errorString())
@@ -122,14 +122,14 @@ class ProcFileWriter:
             msg_box.setWindowTitle("File save error")
             msg_box.setText('File can not be saved: '
                             + out_file.errorString())
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
             return False
 
         # File is open, start writing
         stream = QTextStream(out_file)
-        stream.setCodec('UTF-8')
+        stream.setEncoding(QStringConverter.Encoding.Utf8)
 
         stream << separator
         stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'

@@ -5,9 +5,9 @@
 import os
 import logging
 
-from PyQt5.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal
-from PyQt5.QtSql import QSqlQuery, QSqlTableModel
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtCore import Qt, QFile, QTextStream, QObject, pyqtSignal, QStringConverter
+from PyQt6.QtSql import QSqlQuery, QSqlTableModel
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 from Singleton.Singleton import Singleton
 from data.SqlTableModel import SqlTableModel
@@ -81,7 +81,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def set_file_name(self, file_name):
         """
-        :method: Does set the file name the data store shall work with.
+        :method: Does set the file name the data store shall work with
         :param file_name: String containing full path and filename
         """
         self.__fileNamePath = file_name
@@ -95,7 +95,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def set_file_version(self, file_version):
         """
-        :method: Does set the file version the data store shall work with.
+        :method: Does set the file version the data store shall work with
         :param file_version: String containing the version number
         """
         self.__fileVersion = file_version
@@ -148,13 +148,13 @@ class PreProcModel(QObject, metaclass=Singleton):
     def valid_file(self, file_name):
         """
         :method: Checks if a file can be opened and contains a valid title
-                 and known version number.
+                 and known version number
         :param file_name: the name of the file to be checked
         """
         logging.debug(self.__className + '.valid_file')
 
         in_file = QFile(file_name)
-        if in_file.open(QFile.ReadOnly | QFile.Text):
+        if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
             logging.error(self.__className
@@ -198,8 +198,8 @@ class PreProcModel(QObject, metaclass=Singleton):
                             + str(version_ok)
                             + _('\nTitle detected: ')
                             + str(title_ok))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
 
             self.set_file_name('')
@@ -221,11 +221,11 @@ class PreProcModel(QObject, metaclass=Singleton):
             msg_box.setText(_("You have unsaved data. \n\n"
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
             answer = msg_box.exec()
 
-            if answer == QMessageBox.Cancel:
+            if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
 
@@ -264,8 +264,8 @@ class PreProcModel(QObject, metaclass=Singleton):
                         "Pre-Proc Files (*.txt);;All Files (*)")
 
             if file_name != ('', ''):
-                # User has really selected a file, if it would have aborted
-                # the dialog an empty tuple is retured
+                # User has really selected a file, if it had aborted
+                # the dialog an empty tuple is returned
                 self.set_file_name(file_name[0])
                 self.write_file()
                 self.set_file_saved(True)
@@ -300,7 +300,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         logging.debug(self.__className+'.read_file')
 
         in_file = QFile(self.get_file_name())
-        in_file.open(QFile.ReadOnly | QFile.Text)
+        in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
         stream = QTextStream(in_file)
 
         ##############################
@@ -322,8 +322,8 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         # 1. Leading edge
         logging.debug(self.__className+'.read_file: Leading edge')
-        for i in range(3):  # @UnusedVariable
-            line = stream.readLine()
+        for i in range(3):
+            stream.readLine()
 
         one = rem_tab_space_quot(stream.readLine())
         two = split_line(stream.readLine())
@@ -343,8 +343,8 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         # 2. Trailing edge
         logging.debug(self.__className+'.read_file: Trailing edge')
-        for i in range(3):  # @UnusedVariable
-            line = stream.readLine()
+        for i in range(3):
+            stream.readLine()
 
         one = rem_tab_space_quot(stream.readLine())
         two = split_line(stream.readLine())
@@ -357,13 +357,13 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         self.trailingE_M.set_num_configs(0)
         self.trailingE_M.set_num_configs(1)
-        self.trailingE_M.updateRow(1, 1, one, two[1], thr[1], fou[1], fiv[1],
-                                   six[1], sev[1], eig[1])
+        self.trailingE_M.update_row(1, 1, one, two[1], thr[1], fou[1], fiv[1],
+                                    six[1], sev[1], eig[1])
 
         # 3. Vault
         logging.debug(self.__className+'.read_file: vault')
-        for i in range(3):  # @UnusedVariable
-            line = stream.readLine()
+        for i in range(3):
+            stream.readLine()
 
         self.vault_M.set_num_configs(0)
         self.vault_M.set_num_configs(1)
@@ -375,18 +375,18 @@ class PreProcModel(QObject, metaclass=Singleton):
         fou = split_line(stream.readLine())
 
         if vtype == 1:
-            self.vault_M.updateRow(1, 1, vtype, one[1], two[1], thr[1],
-                                   fou[1], 0, 0, 0, 0, 0, 0, 0, 0)
+            self.vault_M.update_row(1, 1, vtype, one[1], two[1], thr[1],
+                                    fou[1], 0, 0, 0, 0, 0, 0, 0, 0)
 
         else:
-            self.vault_M.updateRow(1, 1, vtype, 0, 0, 0, 0, one[0], two[0],
-                                   thr[0], fou[0], one[1], two[1],
-                                   thr[1], fou[1])
+            self.vault_M.update_row(1, 1, vtype, 0, 0, 0, 0, one[0], two[0],
+                                    thr[0], fou[0], one[1], two[1],
+                                    thr[1], fou[1])
 
         # 4. Cells distribution
         logging.debug(self.__className+'.read_file: Cells')
-        for i in range(3):  # @UnusedVariable
-            line = stream.readLine()
+        for i in range(3):
+            stream.readLine()
 
         self.cellsDistr_M.set_num_configs(0)
 
@@ -418,11 +418,11 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def write_file(self, for_proc=False):
         """
-        :method: Writes all the values into a data file.
+        :method: Writes all the values into a data file
         :warning: Filename must have been set already before, unless the
-                  file shall be written for the PreProcessor.
+                  file shall be written for the PreProcessor
         :param for_proc: Set this to True if the file must be saved in the
-                        directory where the PreProcessor resides.
+                        directory where the PreProcessor resides
         """
         separator = '***************************************************\n'
 
@@ -456,7 +456,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         out_file = QFile(file_path_name)
 
-        if not out_file.open(QFile.ReadWrite | QFile.Text):
+        if not out_file.open(QFile.OpenModeFlag.ReadWrite | QFile.OpenModeFlag.Text):
             logging.error(self.__className+'.write_file '
                           + out_file.errorString())
 
@@ -464,21 +464,21 @@ class PreProcModel(QObject, metaclass=Singleton):
             msg_box.setWindowTitle(_("File save error"))
             msg_box.setText(_('File can not be saved: ')
                             + out_file.errorString())
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
             msg_box.exec()
             return
 
         # File is open, start writing
         stream = QTextStream(out_file)
-        stream.setCodec('UTF-8')
+        stream.setEncoding(QStringConverter.Encoding.Utf8)
 
         stream << separator
         stream << 'LEPARAGLIDING\n'
         stream << 'GEOMETRY PRE-PROCESSOR         V1.6\n'
         stream << separator
 
-        values = self.gen_M.getRow(1, 1)
+        values = self.gen_M.get_row(1, 1)
         stream << '%s\n' % (chk_str(values(0), ''))
 
         stream << separator
@@ -502,7 +502,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         stream << separator
         stream << '* 2. Trailing edge parameters\n'
         stream << separator
-        values = self.trailingE_M.getRow(1, 1)
+        values = self.trailingE_M.get_row(1, 1)
         # Type is always 1
         # Column is hidden in the GUI, value will be hardcoded here
         # stream << '%s\n'        %(self.fh.chk_num(values(0),1))
@@ -593,12 +593,12 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("PreProcCellsDistr")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(0, Qt.Horizontal, _("Cell Num"))
-            self.setHeaderData(2, Qt.Horizontal, _("Coef"))
-            self.setHeaderData(3, Qt.Horizontal, _("Width"))
-            self.setHeaderData(4, Qt.Horizontal, _("Num cells"))
+            self.setHeaderData(0, Qt.Orientation.Horizontal, _("Cell Num"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("Coef"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("Width"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("Num cells"))
 
             self.set_num_rows_for_config(1, 1)
 
@@ -620,10 +620,10 @@ class PreProcModel(QObject, metaclass=Singleton):
                        "ID INTEGER PRIMARY KEY);")
 
         def update_row(self, config_num, order_num, distr_type, coef, width,
-                       numCells):
+                       num_cells):
             """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
             """
             logging.debug(self.__className+'.update_row')
@@ -638,7 +638,7 @@ class PreProcModel(QObject, metaclass=Singleton):
             query.bindValue(":distr_type", distr_type)
             query.bindValue(":coef", coef)
             query.bindValue(":width", width)
-            query.bindValue(":num_cells", numCells)
+            query.bindValue(":num_cells", num_cells)
             query.bindValue(":config", config_num)
             query.bindValue(":order", order_num)
 
@@ -650,8 +650,8 @@ class PreProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads values back from the internal database for a
                      config and order number
-            :param config_num: Starting with 1.
-            :param order_num: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: values read from internal database
             """
             logging.debug(self.__className+'.get_row')
@@ -689,8 +689,8 @@ class PreProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads type value back from the internal database for
                      a config and order number
-            :param config_num: Starting with 1.
-            :param order_num: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: type value
             """
             logging.debug(self.__className+'.get_type')
@@ -731,9 +731,9 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("PreProcGen")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Wing name"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Wing name"))
 
             self.set_num_rows_for_config(1, 1)
 
@@ -771,12 +771,12 @@ class PreProcModel(QObject, metaclass=Singleton):
             # to a select() to assure the model is updated properly
             self.select()
 
-        def getRow(self, config_num, order_num):
+        def get_row(self, config_num, order_num):
             """
             :method: Reads values back from the internal database for a config
                      and order number
-            :param config_num: Starting with 1.
-            :param ordergNum: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: values read from internal database
             """
             logging.debug(self.__className+'.get_row')
@@ -823,18 +823,18 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("LeadingEdge")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Type"))
-            self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
-            self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
-            self.setHeaderData(4, Qt.Horizontal, _("x1 [cm]"))
-            self.setHeaderData(5, Qt.Horizontal, _("x2 [cm]"))
-            self.setHeaderData(6, Qt.Horizontal, _("xm [cm]"))
-            self.setHeaderData(7, Qt.Horizontal, _("c01 [cm]"))
-            self.setHeaderData(8, Qt.Horizontal, _("ex1 [coef]"))
-            self.setHeaderData(9, Qt.Horizontal, _("c02 [coef]"))
-            self.setHeaderData(10, Qt.Horizontal, _("ex2 [coef]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Type"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("a1 [cm]"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("b1 [cm]"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("x1 [cm]"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("x2 [cm]"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("xm [cm]"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("c01 [cm]"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("ex1 [coef]"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("c02 [coef]"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("ex2 [coef]"))
 
             self.set_num_rows_for_config(1, 1)
 
@@ -867,7 +867,7 @@ class PreProcModel(QObject, metaclass=Singleton):
                        c_zero_two, ex_two):
             """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
             """
             logging.debug(self.__className+'.update_row')
@@ -905,8 +905,8 @@ class PreProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads values back from the internal database for a
                      config and order number
-            :param config_num: Starting with 1.
-            :param order_num: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: values read from internal database
             """
             logging.debug(self.__className+'.get_row')
@@ -960,16 +960,16 @@ class PreProcModel(QObject, metaclass=Singleton):
             self.create_table()
             self.setTable("TrailingEdge")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(1, Qt.Horizontal, _("Type"))
-            self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
-            self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
-            self.setHeaderData(4, Qt.Horizontal, _("x1 [cm]"))
-            self.setHeaderData(5, Qt.Horizontal, _("xm [cm]"))
-            self.setHeaderData(6, Qt.Horizontal, _("c0 [cm]"))
-            self.setHeaderData(7, Qt.Horizontal, _("y0 [cm]"))
-            self.setHeaderData(8, Qt.Horizontal, _("exp [coef]"))
+            self.setHeaderData(1, Qt.Orientation.Horizontal, _("Type"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("a1 [cm]"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("b1 [cm]"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("x1 [cm]"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("xm [cm]"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("c0 [cm]"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("y0 [cm]"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("exp [coef]"))
 
             self.set_num_rows_for_config(1, 1)
 
@@ -994,12 +994,12 @@ class PreProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER, "
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, typeNum,
-                      aOne, bOne,
-                      xOne, xm, cZero, yZero, exp):
+        def update_row(self, config_num, order_num, type_num,
+                       a_one, b_one,
+                       x_one, xm, c_zero, y_zero, exp):
             """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
             """
             logging.debug(self.__className+'.update_row')
@@ -1015,28 +1015,28 @@ class PreProcModel(QObject, metaclass=Singleton):
                           "yZero= :yZero, "
                           "exp= :exp "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum)
-            query.bindValue(":a_one", aOne)
-            query.bindValue(":b_one", bOne)
-            query.bindValue(":x_one", xOne)
+            query.bindValue(":typeN", type_num)
+            query.bindValue(":a_one", a_one)
+            query.bindValue(":b_one", b_one)
+            query.bindValue(":x_one", x_one)
             query.bindValue(":xm", xm)
-            query.bindValue(":cZero", cZero)
-            query.bindValue(":yZero", yZero)
+            query.bindValue(":cZero", c_zero)
+            query.bindValue(":yZero", y_zero)
             query.bindValue(":exp", exp)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             # to a select() to assure the model is updated properly
             self.select()
 
-        def getRow(self, configNum, order_num):
-            '''
+        def get_row(self, config_num, order_num):
+            """
             :method: Reads values back from the internal database for a
                      config and order number
-            :param configNum: Starting with 1.
-            :param order_num: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: values read from internal database
-            '''
+            """
             logging.debug(self.__className+'.get_row')
 
             query = QSqlQuery()
@@ -1051,17 +1051,17 @@ class PreProcModel(QObject, metaclass=Singleton):
                           "exp "
                           "FROM TrailingEdge "
                           "WHERE (ConfigNum = :config AND OrderNum = :order)")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.bindValue(":order", order_num)
             query.exec()
             query.next()
             return query.value
 
     class VaultModel(SqlTableModel, metaclass=Singleton):
-        '''
+        """
         :class: Provides a SqlTableModel holding all data for the vault
                 definition.
-        '''
+        """
         __className = 'VaultModel'
         '''
         :attr: Does help to indicate the source of the log messages
@@ -1083,35 +1083,35 @@ class PreProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 14
 
         def __init__(self, parent=None):  # @UnusedVariable
-            '''
+            """
             :method: Constructor
-            '''
+            """
             logging.debug(self.__className+'.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("Vault")
             self.select()
-            self.setEditStrategy(QSqlTableModel.OnFieldChange)
+            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-            self.setHeaderData(2, Qt.Horizontal, _("a1 [cm]"))
-            self.setHeaderData(3, Qt.Horizontal, _("b1 [cm]"))
-            self.setHeaderData(4, Qt.Horizontal, _("x1 [cm]"))
-            self.setHeaderData(5, Qt.Horizontal, _("c1 [cm]"))
-            self.setHeaderData(6, Qt.Horizontal, _("r1 [cm]"))
-            self.setHeaderData(7, Qt.Horizontal, _("r2 [cm]"))
-            self.setHeaderData(8, Qt.Horizontal, _("r3 [cm]"))
-            self.setHeaderData(9, Qt.Horizontal, _("r4 [cm]"))
-            self.setHeaderData(10, Qt.Horizontal, _("a1 [deg]"))
-            self.setHeaderData(11, Qt.Horizontal, _("a2 [deg]"))
-            self.setHeaderData(12, Qt.Horizontal, _("a3 [deg]"))
-            self.setHeaderData(13, Qt.Horizontal, _("a4 [deg]"))
+            self.setHeaderData(2, Qt.Orientation.Horizontal, _("a1 [cm]"))
+            self.setHeaderData(3, Qt.Orientation.Horizontal, _("b1 [cm]"))
+            self.setHeaderData(4, Qt.Orientation.Horizontal, _("x1 [cm]"))
+            self.setHeaderData(5, Qt.Orientation.Horizontal, _("c1 [cm]"))
+            self.setHeaderData(6, Qt.Orientation.Horizontal, _("r1 [cm]"))
+            self.setHeaderData(7, Qt.Orientation.Horizontal, _("r2 [cm]"))
+            self.setHeaderData(8, Qt.Orientation.Horizontal, _("r3 [cm]"))
+            self.setHeaderData(9, Qt.Orientation.Horizontal, _("r4 [cm]"))
+            self.setHeaderData(10, Qt.Orientation.Horizontal, _("a1 [deg]"))
+            self.setHeaderData(11, Qt.Orientation.Horizontal, _("a2 [deg]"))
+            self.setHeaderData(12, Qt.Orientation.Horizontal, _("a3 [deg]"))
+            self.setHeaderData(13, Qt.Orientation.Horizontal, _("a4 [deg]"))
 
             self.set_num_rows_for_config(1, 1)
 
-        def createTable(self):
-            '''
+        def create_table(self):
+            """
             :method: Creates initially the table
-            '''
+            """
             logging.debug(self.__className+'.create_table')
             query = QSqlQuery()
 
@@ -1134,14 +1134,14 @@ class PreProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER, "
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, typeNum,
-                      aOne, bOne,
-                      xOne, cOne,
-                      rOneRA, rTwoRA, rThrRA, rFouRA,
-                      aOneRA, aTwoRA, aThreRA, aFouRA):
+        def update_row(self, config_num, order_num, type_num,
+                       a_one, b_one,
+                       x_one, c_one,
+                       r_one_ra, r_two_ra, r_thr_ra, r_fou_ra,
+                       a_one_ra, a_two_ra, a_thr_ra, a_fou_ra):
             """
             :method: Updates a specific row in the database with the values
-                     passed. Parameters are not explicitely explained here as
+                     passed. Parameters are not explicitly explained here as
                      they should be well known.
             """
             logging.debug(self.__className+'.update_row')
@@ -1162,24 +1162,24 @@ class PreProcModel(QObject, metaclass=Singleton):
                           "aThrRA= :aThreRA, "
                           "aFouRA= :aFouRA  "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typeN", typeNum)
-            query.bindValue(":a_one", aOne)
-            query.bindValue(":b_one", bOne)
-            query.bindValue(":x_one", xOne)
-            query.bindValue(":cOne", cOne)
+            query.bindValue(":typeN", type_num)
+            query.bindValue(":a_one", a_one)
+            query.bindValue(":b_one", b_one)
+            query.bindValue(":x_one", x_one)
+            query.bindValue(":cOne", c_one)
 
-            query.bindValue(":rOneRA", rOneRA)
-            query.bindValue(":rTwoRA", rTwoRA)
-            query.bindValue(":rThrRA", rThrRA)
-            query.bindValue(":rFouRA", rFouRA)
+            query.bindValue(":rOneRA", r_one_ra)
+            query.bindValue(":rTwoRA", r_two_ra)
+            query.bindValue(":rThrRA", r_thr_ra)
+            query.bindValue(":rFouRA", r_fou_ra)
 
-            query.bindValue(":aOneRA", aOneRA)
-            query.bindValue(":aTwoRA", aTwoRA)
-            query.bindValue(":aThreRA", aThreRA)
-            query.bindValue(":aFouRA", aFouRA)
+            query.bindValue(":aOneRA", a_one_ra)
+            query.bindValue(":aTwoRA", a_two_ra)
+            query.bindValue(":aThreRA", a_thr_ra)
+            query.bindValue(":aFouRA", a_fou_ra)
 
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             # to a select() to assure the model is updated properly
             self.select()
@@ -1188,8 +1188,8 @@ class PreProcModel(QObject, metaclass=Singleton):
             """
             :method: Reads values back from the internal database for a
                      config and order number
-            :param config_num: Starting with 1.
-            :param order_num: Starting with 1.
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: values read from internal database
             """
             logging.debug(self.__className+'.get_row')
@@ -1235,9 +1235,9 @@ class PreProcModel(QObject, metaclass=Singleton):
         def get_type(self, config_num, order_num):
             """
             :method: Reads type value back from the internal database for a
-                     config and order number.
-            :param config_num: Starting with 1.
-            :param order_num: Starting with 1.
+                     config and order number
+            :param config_num: Starting with 1
+            :param order_num: Starting with 1
             :return: type value
             """
             logging.debug(self.__className+'.get_type')

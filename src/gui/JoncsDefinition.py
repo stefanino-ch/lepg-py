@@ -4,12 +4,12 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, \
-    QHeaderView, QSpinBox, QLabel, \
-    QTabWidget, QHBoxLayout, QVBoxLayout, \
-    QPushButton, QComboBox
+from PyQt6.QtCore import Qt, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, \
+                            QHeaderView, QSpinBox, QLabel, \
+                            QTabWidget, QHBoxLayout, QVBoxLayout, \
+                            QPushButton, QComboBox
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -98,14 +98,14 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Joncs definition (Nylon rods)"))
 
         num_conf_l = QLabel(_('Number of blocs'))
-        num_conf_l.setAlignment(Qt.AlignRight)
-        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
 
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0, 20)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
         self.numConf_S.setValue(self.joncsDef_M.num_configs())
 
         edit = self.numConf_S.lineEdit()
@@ -126,15 +126,15 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
             self.model_size_changed()
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/joncsDefinition.html')
 
@@ -253,14 +253,14 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
 
         lines_layout = QHBoxLayout()
         num_lines_l = QLabel(_('Number of groups'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.numLines_s.append(QSpinBox())
         self.numLines_s[curr_num_tabs].setRange(1, 100)
         self.numLines_s[curr_num_tabs].setSizePolicy(
-            QSizePolicy(QSizePolicy.Fixed,
-                        QSizePolicy.Fixed))
+            QSizePolicy(QSizePolicy.Policy.Fixed,
+                        QSizePolicy.Policy.Fixed))
         self.numLines_s[curr_num_tabs].\
             valueChanged.connect(self.num_lines_change)
         path_edit = self.numLines_s[curr_num_tabs].lineEdit()
@@ -281,17 +281,17 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         self.table[curr_num_tabs].setModel(self.proxyModel[curr_num_tabs])
         self.table[curr_num_tabs].verticalHeader().setVisible(False)
         self.table[curr_num_tabs].horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table[curr_num_tabs].hideColumn(self.joncsDef_M.columnCount() - 1)
         self.table[curr_num_tabs].hideColumn(self.joncsDef_M.columnCount() - 2)
         tab_layout.addWidget(self.table[curr_num_tabs])
 
         # TODO: enable validators
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
         #
         self.table[curr_num_tabs].setHelpBar(self.helpBar)
         self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol,

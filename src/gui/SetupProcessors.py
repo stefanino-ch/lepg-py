@@ -5,8 +5,8 @@
 import logging
 import platform
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,\
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy,\
     QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QGroupBox
 from gui.elements.LineEdit import LineEdit
 from gui.elements.CheckBox import CheckBox
@@ -96,8 +96,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         self.pre_proc_e.setText(self.config_reader.get_pre_proc_path_name())
 
         pre_proc_btn = QPushButton(_('Change'))
-        pre_proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        pre_proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         pre_proc_btn.clicked.connect(self.pre_proc_btn_press)
 
         pre_proc_ly = QHBoxLayout()
@@ -123,8 +123,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         self.proc_e.setText(self.config_reader.get_proc_path_name())
 
         proc_btn = QPushButton(_('Change'))
-        proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        proc_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         proc_btn.clicked.connect(self.proc_btn_press)
         self.proc_grp_ly.addWidget(self.proc_e)
         self.proc_grp_ly.addWidget(proc_btn)
@@ -135,8 +135,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btn_bar = WindowBtnBar(0b0101)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
         self.btn_bar.setHelpPage('setup/processors.html')
 
@@ -187,7 +187,7 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
                           + '.setupPreProcLocation Path and Name '
                           + filename[0])
 
-            self.pre_proc_e.setText(filename[0])
+            self.pre_proc_e.set_text(filename[0])
             self.config_reader.set_pre_proc_path_name(filename[0])
 
     def outline_chkb_change(self):
@@ -236,7 +236,7 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
                           + '.setupProcLocation Path and Name '
                           + filename[0])
 
-            self.proc_e.setText(filename[0])
+            self.proc_e.set_text(filename[0])
             self.config_reader.set_proc_path_name(filename[0])
 
     def btn_press(self, q):

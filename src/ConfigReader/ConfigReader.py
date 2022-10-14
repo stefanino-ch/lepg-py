@@ -7,7 +7,7 @@ from __future__ import annotations
 import os
 import configparser
 
-from PyQt5.QtCore import QObject
+from PyQt6.QtCore import QObject
 from Singleton.Singleton import Singleton
 
 

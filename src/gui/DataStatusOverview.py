@@ -4,11 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QHBoxLayout
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
-    QGroupBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
+                            QGroupBox
 
 from data.PreProcModel import PreProcModel
 from data.ProcModel import ProcModel
@@ -101,7 +101,7 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         self.pre_proc_name_e = QLineEdit(
             self.shorten_path(self.ppm.get_file_name()))
         self.pre_proc_name_e.setReadOnly(True)
-        self.pre_proc_name_e.setAlignment(Qt.AlignRight)
+        self.pre_proc_name_e.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         pre_proc_gly.addWidget(pre_proc_filename_l, 0, 0)
         pre_proc_gly.addWidget(self.pre_proc_name_e, 0, 1)
@@ -136,7 +136,7 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         self.proc_filename_e = QLineEdit(
             self.shorten_path(self.pm.get_file_name()))
         self.proc_filename_e.setReadOnly(True)
-        self.proc_filename_e.setAlignment(Qt.AlignRight)
+        self.proc_filename_e.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         proc_gly.addWidget(proc_filename_l, 0, 0)
         proc_gly.addWidget(self.proc_filename_e, 0, 1)
@@ -159,8 +159,8 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Rest of standard window setups
         self.btn_bar = WindowBtnBar(0b0100)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
 
         bottom_ly = QHBoxLayout()
@@ -188,24 +188,24 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         """
         if n == 'PreProcModel':
             if q == 'FileNamePath':
-                self.pre_proc_name_e.setText(
+                self.pre_proc_name_e.set_text(
                     self.shorten_path(self.ppm.get_file_name()))
 
             elif q == 'FileVersion':
-                self.pre_proc_vers_e.setText(self.ppm.get_file_version())
+                self.pre_proc_vers_e.set_text(self.ppm.get_file_version())
 
             elif q == 'SaveStatus':
-                self.pre_proc_saved_e.setText(self.ppm.file_saved_char())
+                self.pre_proc_saved_e.set_text(self.ppm.file_saved_char())
 
         elif n == 'ProcModel':
             if q == 'FileNamePath':
-                self.proc_filename_e.setText(self.shorten_path(self.pm.get_file_name()))
+                self.proc_filename_e.set_text(self.shorten_path(self.pm.get_file_name()))
 
             elif q == 'FileVersion':
-                self.proc_version_e.setText(self.pm.get_file_version())
+                self.proc_version_e.set_text(self.pm.get_file_version())
 
             elif q == 'SaveStatus':
-                self.proc_saved_e.setText(self.pm.file_saved_char())
+                self.proc_saved_e.set_text(self.pm.file_saved_char())
 
     def btn_press(self, q):
         """

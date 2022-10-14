@@ -4,8 +4,8 @@
 """
 import logging
 
-from PyQt5.QtCore import pyqtSignal, QSortFilterProxyModel, QRegExp
-from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
+from PyQt6.QtCore import pyqtSignal, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
 
 class SqlTableModel(QSqlTableModel):
@@ -273,7 +273,8 @@ class SqlTableModel(QSqlTableModel):
             proxy_model = QSortFilterProxyModel()
             proxy_model.setSourceModel(self)
             proxy_model.setFilterKeyColumn(self.ConfigNumCol)
-            proxy_model.setFilterRegExp(QRegExp(str(config_num)))
+            proxy_model.setFilterRegularExpression(
+                QRegularExpression(str(config_num)))
             return proxy_model.rowCount()
         else:
             logging.critical(self.__className+'.num_rows_for_config: ConfigNumCol not defined')

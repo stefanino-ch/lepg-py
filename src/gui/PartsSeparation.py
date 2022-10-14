@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QHBoxLayout, QVBoxLayout, QComboBox, QLabel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -92,7 +92,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.parts_sep_m)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(0)
         for i in range(ProcModel.PartsSeparationModel.Param7_col,
                        ProcModel.PartsSeparationModel.Param10_col+1):
@@ -105,31 +105,31 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
                              + one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.enableDoubleValidator(ProcModel.PartsSeparationModel.Panel_x_col,
-                                    ProcModel.PartsSeparationModel.Rib_1y_col,
-                                    0, 10, 2)
+        one_t.en_double_validator(ProcModel.PartsSeparationModel.Panel_x_col,
+                                  ProcModel.PartsSeparationModel.Rib_1y_col,
+                                  0, 10, 2)
 
-        one_t.setHelpBar(self.help_bar)
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Panel_x_col,
-                          _('PartsSep-Panel_x_Desc'))
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Panel_x_min_col,
-                          _('PartsSep-Panel_x_min_Desc'))
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Panel_y_col,
-                          _('PartsSep-Panel_y_Desc'))
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Rib_x_col,
-                          _('PartsSep-Rib_x_Desc'))
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Rib_y_col,
-                          _('PartsSep-Rib_y_Desc'))
-        one_t.setHelpText(ProcModel.PartsSeparationModel.Rib_1y_col,
-                          _('PartsSep-Rib_1y_Desc'))
+        one_t.set_help_bar(self.help_bar)
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_x_col,
+                            _('PartsSep-Panel_x_Desc'))
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_x_min_col,
+                            _('PartsSep-Panel_x_min_Desc'))
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_y_col,
+                            _('PartsSep-Panel_y_Desc'))
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_x_col,
+                            _('PartsSep-Rib_x_Desc'))
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_y_col,
+                            _('PartsSep-Rib_y_Desc'))
+        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_1y_col,
+                            _('PartsSep-Rib_1y_Desc'))
 
         self.usage_update()
 
         #############################
         # Commons for all windows
         self.btn_bar = WindowBtnBar(0b0101)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
         self.btn_bar.setHelpPage('proc/partsSeparation.html')
 

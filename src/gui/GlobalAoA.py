@@ -4,8 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, \
+                            QSizePolicy, QHeaderView
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -73,25 +74,25 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         calage_t.hideColumn(self.globAoA_M.columnCount() - 1)
         calage_t.verticalHeader().setVisible(False)
-        calage_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        calage_t.setHelpBar(self.helpBar)
+        calage_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        calage_t.set_help_bar(self.helpBar)
         calage_t.hideColumn(3)
         calage_t.hideColumn(4)
         calage_t.hideColumn(5)
 
-        calage_t.setHelpText(ProcModel.GlobAoAModel.FinesseCol,
-                             _('GlobalAoA-FinesseDesc'))
-        calage_t.setHelpText(ProcModel.GlobAoAModel.CentOfPressCol,
-                             _('GlobalAoA-CenterOfPressureDesc'))
-        calage_t.setHelpText(ProcModel.GlobAoAModel.CalageCol,
-                             _('GlobalAoA-CalageDesc'))
+        calage_t.set_help_text(ProcModel.GlobAoAModel.FinesseCol,
+                               _('GlobalAoA-FinesseDesc'))
+        calage_t.set_help_text(ProcModel.GlobAoAModel.CentOfPressCol,
+                               _('GlobalAoA-CenterOfPressureDesc'))
+        calage_t.set_help_text(ProcModel.GlobAoAModel.CalageCol,
+                               _('GlobalAoA-CalageDesc'))
 
-        calage_t.enableDoubleValidator(ProcModel.GlobAoAModel.FinesseCol,
-                                       ProcModel.GlobAoAModel.FinesseCol,
-                                       0, 100, 2)
-        calage_t.enableIntValidator(ProcModel.GlobAoAModel.CentOfPressCol,
-                                    ProcModel.GlobAoAModel.CalageCol,
-                                    0, 100)
+        calage_t.en_double_validator(ProcModel.GlobAoAModel.FinesseCol,
+                                     ProcModel.GlobAoAModel.FinesseCol,
+                                     0, 100, 2)
+        calage_t.en_int_validator(ProcModel.GlobAoAModel.CentOfPressCol,
+                                  ProcModel.GlobAoAModel.CalageCol,
+                                  0, 100)
 
         calage_t.setFixedHeight(2
                                 + calage_t.horizontalHeader().height()
@@ -105,25 +106,25 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         lenght_t.hideColumn(self.globAoA_M.columnCount() - 1)
         lenght_t.verticalHeader().setVisible(False)
-        lenght_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        lenght_t.setHelpBar(self.helpBar)
+        lenght_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        lenght_t.set_help_bar(self.helpBar)
         lenght_t.hideColumn(0)
         lenght_t.hideColumn(1)
         lenght_t.hideColumn(2)
 
-        lenght_t.setHelpText(ProcModel.GlobAoAModel.RisersCol,
-                             _('GlobalAoA-RisersDesc'))
-        lenght_t.setHelpText(ProcModel.GlobAoAModel.LinesCol,
-                             _('GlobalAoA-LinesDesc'))
-        lenght_t.setHelpText(ProcModel.GlobAoAModel.KarabinersCol,
-                             _('GlobalAoA-KarabinersDesc'))
+        lenght_t.set_help_text(ProcModel.GlobAoAModel.RisersCol,
+                               _('GlobalAoA-RisersDesc'))
+        lenght_t.set_help_text(ProcModel.GlobAoAModel.LinesCol,
+                               _('GlobalAoA-LinesDesc'))
+        lenght_t.set_help_text(ProcModel.GlobAoAModel.KarabinersCol,
+                               _('GlobalAoA-KarabinersDesc'))
 
-        lenght_t.enableIntValidator(ProcModel.GlobAoAModel.RisersCol,
-                                    ProcModel.GlobAoAModel.LinesCol,
-                                    0, 2000)
-        lenght_t.enableIntValidator(ProcModel.GlobAoAModel.KarabinersCol,
-                                    ProcModel.GlobAoAModel.KarabinersCol,
-                                    0, 100)
+        lenght_t.en_int_validator(ProcModel.GlobAoAModel.RisersCol,
+                                  ProcModel.GlobAoAModel.LinesCol,
+                                  0, 2000)
+        lenght_t.en_int_validator(ProcModel.GlobAoAModel.KarabinersCol,
+                                  ProcModel.GlobAoAModel.KarabinersCol,
+                                  0, 100)
 
         lenght_t.setFixedHeight(2
                                 + lenght_t.horizontalHeader().height()
@@ -134,8 +135,8 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/globalAoA.html')
 

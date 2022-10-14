@@ -3,9 +3,9 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView,\
+from PyQt6.QtCore import Qt, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView,\
                             QSpinBox, QLabel, QTabWidget, QHBoxLayout,\
                             QVBoxLayout, QPushButton, QDataWidgetMapper
 from gui.elements.LineEdit import LineEdit
@@ -100,7 +100,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.wrapper.setModel(self.wing_M)
 
         control_l = QLabel(_('Lines control parameter'))
-        control_l.setAlignment(Qt.AlignRight)
+        control_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.control_e = LineEdit()
         self.control_e.setFixedWidth(40)
         self.wrapper.addMapping(self.control_e,
@@ -117,14 +117,14 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addLayout(control_layout)
 
         num_conf_l = QLabel(_('Number of Line plans'))
-        num_conf_l.setAlignment(Qt.AlignRight)
-        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
 
         self.numConf_s = QSpinBox()
         self.numConf_s.setRange(0, 999)
-        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+        self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
         self.numConf_s.setValue(self.lines_M.num_configs())
 
         edit = self.numConf_s.lineEdit()
@@ -145,16 +145,16 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
             self.model_size_changed()
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         self.wrapper.toFirst()
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/lines.html')
 
@@ -241,14 +241,14 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         num_lines_layout = QHBoxLayout()
 
         num_lines_l = QLabel(_('Number of Line paths'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.numLines_s.append(QSpinBox())
         self.numLines_s[curr_num_tabs].setRange(1, 999)
         self.numLines_s[curr_num_tabs].setSizePolicy(QSizePolicy(
-                                                     QSizePolicy.Fixed,
-                                                     QSizePolicy.Fixed))
+                                                     QSizePolicy.Policy.Fixed,
+                                                     QSizePolicy.Policy.Fixed))
         self.numLines_s[curr_num_tabs].valueChanged.connect(self.num_lines_change)
         path_edit = self.numLines_s[curr_num_tabs].lineEdit()
         path_edit.setReadOnly(True)
@@ -269,72 +269,72 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         branch_table.setModel(self.proxyModel[curr_num_tabs])
         branch_table.verticalHeader().setVisible(False)
         branch_table.horizontalHeader().setSectionResizeMode(
-                                            QHeaderView.Stretch)
+                                            QHeaderView.ResizeMode.Stretch)
         branch_table.hideColumn(self.lines_M.columnCount()-1)
         branch_table.hideColumn(self.lines_M.columnCount()-2)
         tab_layout.addWidget(branch_table)
 
-        branch_table.enableIntValidator(
+        branch_table.en_int_validator(
                         ProcModel.LinesModel.OrderNumCol,
                         ProcModel.LinesModel.OrderNumCol,
                         1,
                         999)
-        branch_table.enableIntValidator(
+        branch_table.en_int_validator(
                         ProcModel.LinesModel.NumBranchesCol,
                         ProcModel.LinesModel.NumBranchesCol,
                         1,
                         4)
-        branch_table.enableIntValidator(
+        branch_table.en_int_validator(
                         ProcModel.LinesModel.BranchLvlOneCol,
                         ProcModel.LinesModel.OrderLvlFourCol,
                         1,
                         99)
-        branch_table.enableIntValidator(
+        branch_table.en_int_validator(
                         ProcModel.LinesModel.AnchorLineCol,
                         ProcModel.LinesModel.AnchorLineCol,
                         1,
                         6)
-        branch_table.enableIntValidator(
+        branch_table.en_int_validator(
                         ProcModel.LinesModel.AnchorRibNumCol,
                         ProcModel.LinesModel.AnchorRibNumCol,
                         1,
                         999)
 
-        branch_table.setHelpBar(self.helpBar)
-        branch_table.setHelpText(
+        branch_table.set_help_bar(self.helpBar)
+        branch_table.set_help_text(
                         ProcModel.LinesModel.OrderNumCol,
                         _('OrderNumDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.NumBranchesCol,
                         _('Lines-NumBranchesDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.BranchLvlOneCol,
                         _('Lines-BranchLvlOneDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.OrderLvlOneCol,
                         _('Lines-OrderLvlOneDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.LevelOfRamTwoCol,
                         _('Lines-LevelOfRamTwoDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.OrderLvlTwoCol,
                         _('Lines-OrderLvlTwoDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.LevelOfRamThreeCol,
                         _('Lines-LevelOfRamThreeDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.OrderLvlThreeCol,
                         _('Lines-OrderLvlThreeDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.BranchLvlFourCol,
                         _('Lines-BranchLvlFourDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.OrderLvlFourCol,
                         _('Lines-OrderLvlFourDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.AnchorLineCol,
                         _('Lines-AnchorLineDesc'))
-        branch_table.setHelpText(
+        branch_table.set_help_text(
                         ProcModel.LinesModel.AnchorRibNumCol,
                         _('Lines-AnchorRibNumDesc'))
 

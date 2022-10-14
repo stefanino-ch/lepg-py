@@ -4,11 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QSpinBox, QLabel, QHBoxLayout, QVBoxLayout, \
-    QPushButton, QDataWidgetMapper
+from PyQt6.QtCore import Qt, QSortFilterProxyModel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QHBoxLayout, QVBoxLayout, \
+                            QPushButton, QDataWidgetMapper
 
 from data.ProcModel import ProcModel
 from gui.elements.LineEdit import LineEdit
@@ -94,7 +94,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         self.wrapper.setModel(self.wing_M)
 
         x_sp_l = QLabel(_('x Spacing'))
-        x_sp_l.setAlignment(Qt.AlignRight)
+        x_sp_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         x_sp_e = LineEdit()
         x_sp_e.setFixedWidth(40)
         self.wrapper.addMapping(x_sp_e, ProcModel.WingModel.xSpacingCol)
@@ -108,7 +108,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         self.windowLayout.addLayout(x_sp_layout)
 
         y_sp_l = QLabel(_('y Spacing'))
-        y_sp_l.setAlignment(Qt.AlignRight)
+        y_sp_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         y_sp_e = LineEdit()
         y_sp_e.setFixedWidth(40)
         self.wrapper.addMapping(y_sp_e, ProcModel.WingModel.ySpacingCol)
@@ -125,14 +125,14 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
 
         ###############
         num_lines_l = QLabel(_('Number of configs'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
 
         self.numLines_S = QSpinBox()
         self.numLines_S.setRange(0, 999)
-        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.numLines_S.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_S.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -151,63 +151,63 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         ribs_t = TableView()
         ribs_t.setModel(self.proxyModel)
         ribs_t.verticalHeader().setVisible(False)
-        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         ribs_t.hideColumn(self.ribs_M.columnCount() - 1)
         ribs_t.hideColumn(self.ribs_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_t)
 
-        ribs_t.enableIntValidator(ProcModel.HvVhRibsModel.TypeCol,
-                                  ProcModel.HvVhRibsModel.TypeCol,
-                                  1, 16)
-        ribs_t.enableIntValidator(ProcModel.HvVhRibsModel.IniRibCol,
-                                  ProcModel.HvVhRibsModel.IniRibCol,
-                                  1, 999)
-        ribs_t.enableIntValidator(ProcModel.HvVhRibsModel.ParamACol,
-                                  ProcModel.HvVhRibsModel.ParamACol,
-                                  1, 6)
-        ribs_t.enableIntValidator(ProcModel.HvVhRibsModel.ParamBCol,
-                                  ProcModel.HvVhRibsModel.ParamCCol,
-                                  1, 100)
-        ribs_t.enableDoubleValidator(ProcModel.HvVhRibsModel.ParamDCol,
-                                     ProcModel.HvVhRibsModel.ParamICol,
-                                     1, 100, 1)
+        ribs_t.en_int_validator(ProcModel.HvVhRibsModel.TypeCol,
+                                ProcModel.HvVhRibsModel.TypeCol,
+                                1, 16)
+        ribs_t.en_int_validator(ProcModel.HvVhRibsModel.IniRibCol,
+                                ProcModel.HvVhRibsModel.IniRibCol,
+                                1, 999)
+        ribs_t.en_int_validator(ProcModel.HvVhRibsModel.ParamACol,
+                                ProcModel.HvVhRibsModel.ParamACol,
+                                1, 6)
+        ribs_t.en_int_validator(ProcModel.HvVhRibsModel.ParamBCol,
+                                ProcModel.HvVhRibsModel.ParamCCol,
+                                1, 100)
+        ribs_t.en_double_validator(ProcModel.HvVhRibsModel.ParamDCol,
+                                   ProcModel.HvVhRibsModel.ParamICol,
+                                   1, 100, 1)
 
-        ribs_t.setHelpBar(self.helpBar)
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.OrderNumCol,
-                           _('OrderNumDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.TypeCol,
-                           _('HvVhRibs-TypeDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.IniRibCol,
-                           _('HvVhRibs-IniRibDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamACol,
-                           _('HvVhRibs-ParamADesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamBCol,
-                           _('HvVhRibs-ParamBDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamCCol,
-                           _('HvVhRibs-ParamCDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamDCol,
-                           _('HvVhRibs-ParamDDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamECol,
-                           _('HvVhRibs-ParamEDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamFCol,
-                           _('HvVhRibs-ParamFDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamGCol,
-                           _('HvVhRibs-ParamGDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamHCol,
-                           _('HvVhRibs-ParamHDesc'))
-        ribs_t.setHelpText(ProcModel.HvVhRibsModel.ParamICol,
-                           _('HvVhRibs-ParamIDesc'))
+        ribs_t.set_help_bar(self.helpBar)
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.OrderNumCol,
+                             _('OrderNumDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.TypeCol,
+                             _('HvVhRibs-TypeDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.IniRibCol,
+                             _('HvVhRibs-IniRibDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamACol,
+                             _('HvVhRibs-ParamADesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamBCol,
+                             _('HvVhRibs-ParamBDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamCCol,
+                             _('HvVhRibs-ParamCDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamDCol,
+                             _('HvVhRibs-ParamDDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamECol,
+                             _('HvVhRibs-ParamEDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamFCol,
+                             _('HvVhRibs-ParamFDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamGCol,
+                             _('HvVhRibs-ParamGDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamHCol,
+                             _('HvVhRibs-ParamHDesc'))
+        ribs_t.set_help_text(ProcModel.HvVhRibsModel.ParamICol,
+                             _('HvVhRibs-ParamIDesc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/hVvHribs.html')
 

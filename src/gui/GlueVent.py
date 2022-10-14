@@ -3,9 +3,9 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QHBoxLayout, QVBoxLayout, QComboBox, QLabel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -93,38 +93,38 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.glueVent_M)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(self.glueVent_M.columnCount() - 1)
         one_t.hideColumn(self.glueVent_M.columnCount() - 2)
         self.window_ly.addWidget(one_t)
 
-        one_t.enableIntValidator(
+        one_t.en_int_validator(
             ProcModel.GlueVentModel.OrderNumCol,
             ProcModel.GlueVentModel.OrderNumCol,
             0, 999)
-        one_t.enableDoubleValidator(
+        one_t.en_double_validator(
             ProcModel.GlueVentModel.VentParamCol,
             ProcModel.GlueVentModel.VentParamCol,
             -3, 1, 0)
-        one_t.enableIntValidator(
+        one_t.en_int_validator(
             ProcModel.GlueVentModel.ParamACol,
             ProcModel.GlueVentModel.ParamCCol,
             0, 100)
 
-        one_t.setHelpBar(self.help_bar)
-        one_t.setHelpText(
+        one_t.set_help_bar(self.help_bar)
+        one_t.set_help_text(
             ProcModel.GlueVentModel.OrderNumCol,
             _('GlueVent-AirfoilNumDesc'))
-        one_t.setHelpText(
+        one_t.set_help_text(
             ProcModel.GlueVentModel.VentParamCol,
             _('GlueVent-VentParamDesc'))
-        one_t.setHelpText(
+        one_t.set_help_text(
             ProcModel.GlueVentModel.ParamACol,
             _('GlueVent-ParamADesc'))
-        one_t.setHelpText(
+        one_t.set_help_text(
             ProcModel.GlueVentModel.ParamBCol,
             _('GlueVent-ParamBDesc'))
-        one_t.setHelpText(
+        one_t.set_help_text(
             ProcModel.GlueVentModel.ParamCCol,
             _('GlueVent-ParamCDesc'))
 
@@ -133,8 +133,8 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btn_bar = WindowBtnBar(0b0101)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
         self.btn_bar.setHelpPage('proc/glueVent.html')
 

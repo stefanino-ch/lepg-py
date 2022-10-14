@@ -4,10 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
-    QLabel, QDataWidgetMapper, QVBoxLayout, QHBoxLayout, QHeaderView
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
+                            QLabel, QDataWidgetMapper, QVBoxLayout, \
+                            QHBoxLayout, QHeaderView
 
 from Singleton.Singleton import Singleton
 from data.ProcModel import ProcModel
@@ -104,7 +105,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.wrapper.setModel(self.elLinesCorr_M)
 
         load_l = QLabel(_('In flight load [kg]'))
-        load_l.setAlignment(Qt.AlignRight)
+        load_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.load_E = LineEdit()
         self.wrapper.addMapping(self.load_E,
                                 ProcModel.ElLinesCorrModel.LoadCol)
@@ -124,7 +125,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
 
         # Two Lines
         two_line_t_l = QLabel(_('Two Lines'))
-        two_line_t_l.setAlignment(Qt.AlignRight)
+        two_line_t_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.twoLineA_E = LineEdit()
         self.wrapper.addMapping(self.twoLineA_E,
                                 ProcModel.ElLinesCorrModel.TwoLineDistACol)
@@ -146,7 +147,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
 
         # Three Lines
         three_line_t_l = QLabel(_('Three Lines'))
-        three_line_t_l.setAlignment(Qt.AlignRight)
+        three_line_t_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.threeLineA_E = LineEdit()
         self.wrapper.addMapping(self.threeLineA_E,
                                 ProcModel.ElLinesCorrModel.ThreeLineDistACol)
@@ -176,7 +177,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
 
         # Four Lines
         four_line_t_l = QLabel(_('Four Lines'))
-        four_line_t_l.setAlignment(Qt.AlignRight)
+        four_line_t_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.fourLineA_E = LineEdit()
         self.wrapper.addMapping(self.fourLineA_E,
                                 ProcModel.ElLinesCorrModel.FourLineDistACol)
@@ -214,7 +215,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
 
         # Five Lines
         five_line_t_l = QLabel(_('Five Lines'))
-        five_line_t_l.setAlignment(Qt.AlignRight)
+        five_line_t_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.fiveLineA_E = LineEdit()
         self.wrapper.addMapping(self.fiveLineA_E,
                                 ProcModel.ElLinesCorrModel.FiveLineDistACol)
@@ -263,7 +264,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         def_t = TableView()
         def_t.setModel(self.elLinesDef_M)
         def_t.verticalHeader().setVisible(False)
-        def_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        def_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         def_t.hideColumn(self.elLinesDef_M.columnCount() - 1)
         def_t.hideColumn(self.elLinesDef_M.columnCount() - 2)
         def_t.setFixedHeight(2
@@ -271,29 +272,29 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
                              + 5 * def_t.rowHeight(0))
         self.window_ly.addWidget(def_t)
 
-        def_t.enableIntValidator(ProcModel.ElLinesDefModel.OrderNumCol,
-                                 ProcModel.ElLinesDefModel.OrderNumCol,
-                                 1, 5)
-        def_t.enableDoubleValidator(ProcModel.ElLinesDefModel.DefLowCol,
-                                    ProcModel.ElLinesDefModel.DefHighCol,
-                                    0, 10, 2)
+        def_t.en_int_validator(ProcModel.ElLinesDefModel.OrderNumCol,
+                               ProcModel.ElLinesDefModel.OrderNumCol,
+                               1, 5)
+        def_t.en_double_validator(ProcModel.ElLinesDefModel.DefLowCol,
+                                  ProcModel.ElLinesDefModel.DefHighCol,
+                                  0, 10, 2)
 
-        def_t.setHelpBar(self.helpBar)
-        def_t.setHelpText(ProcModel.ElLinesDefModel.OrderNumCol,
-                          _('ElLinesCorr-NumOfLinesDesc'))
-        def_t.setHelpText(ProcModel.ElLinesDefModel.DefLowCol,
-                          _('ElLinesCorr-LowColDesc'))
-        def_t.setHelpText(ProcModel.ElLinesDefModel.DefMidCol,
-                          _('ElLinesCorr-MidColDesc'))
-        def_t.setHelpText(ProcModel.ElLinesDefModel.DefHighCol,
-                          _('ElLinesCorr-HigColDesc'))
+        def_t.set_help_bar(self.helpBar)
+        def_t.set_help_text(ProcModel.ElLinesDefModel.OrderNumCol,
+                            _('ElLinesCorr-NumOfLinesDesc'))
+        def_t.set_help_text(ProcModel.ElLinesDefModel.DefLowCol,
+                            _('ElLinesCorr-LowColDesc'))
+        def_t.set_help_text(ProcModel.ElLinesDefModel.DefMidCol,
+                            _('ElLinesCorr-MidColDesc'))
+        def_t.set_help_text(ProcModel.ElLinesDefModel.DefHighCol,
+                            _('ElLinesCorr-HigColDesc'))
 
         self.wrapper.toFirst()
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/elasticLinesCorr.html')
 

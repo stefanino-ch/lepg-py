@@ -3,9 +3,10 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, QLabel, QComboBox, QCheckBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QGridLayout, QWidget, QSizePolicy, \
+    QLabel, QComboBox, QCheckBox
 from gui.elements.WindowBtnBar import WindowBtnBar
 from ConfigReader.ConfigReader import ConfigReader
 from Singleton.Singleton import Singleton
@@ -74,7 +75,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Setup update checking"))
         
         update_l = QLabel(_('Perform update checks at start'))
-        update_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        update_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.update_chkb = QCheckBox()
         self.update_chkb.toggled.connect(self.update_chkb_change)
         self.window_ly.addWidget(update_l, __winGRowL, 0)
@@ -83,7 +84,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         __winGRowR += 1
         
         branch_l = QLabel(_('Branch'))
-        branch_l.setAlignment(Qt.AlignRight)
+        branch_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.branch_cb = QComboBox()
         self.branch_cb.addItem(_("stable"))
         self.branch_cb.addItem(_("latest"))
@@ -93,7 +94,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
             self.branch_cb.setCurrentIndex(1)
             
         self.branch_cb.currentIndexChanged.connect(self.branch_cb_change)
-        self.branch_cb.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.branch_cb.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.window_ly.addWidget(branch_l, __winGRowL, 0)
         self.window_ly.addWidget(self.branch_cb, __winGRowR, 1)
         __winGRowL += 1
@@ -109,11 +110,11 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btn_bar = WindowBtnBar(0b0101)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
         self.btn_bar.setHelpPage('setup/updateCheck.html')
 
-        self.window_ly.addWidget(self.btn_bar, __winGRowR, 1, Qt.AlignRight)
+        self.window_ly.addWidget(self.btn_bar, __winGRowR, 1, Qt.AlignmentFlag.AlignRight)
         __winGRowR += 1
         
         self.win.setLayout(self.window_ly)

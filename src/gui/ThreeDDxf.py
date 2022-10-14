@@ -4,8 +4,8 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
@@ -95,7 +95,7 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         one_t = TableView()
         one_t.setModel(self.threeDDxf_M)
         one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
         one_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
         one_t.hideColumn(2)
@@ -107,28 +107,28 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 6 * one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                    ProcModel.ThreeDDxfModel.LineNameCol,
+        one_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
+                                   ProcModel.ThreeDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
-        one_t.enableIntValidator(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                                 ProcModel.ThreeDDxfModel.ColorCodeCol,
-                                 0, 255)
-        one_t.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                    ProcModel.ThreeDDxfModel.LineNameCol,
+        one_t.en_int_validator(ProcModel.ThreeDDxfModel.ColorCodeCol,
+                               ProcModel.ThreeDDxfModel.ColorCodeCol,
+                               0, 255)
+        one_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
+                                   ProcModel.ThreeDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
 
-        one_t.setHelpBar(self.helpBar)
-        one_t.setHelpText(ProcModel.ThreeDDxfModel.LineNameCol,
-                          _('ThreeDDxf-LineNameDesc'))
-        one_t.setHelpText(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                          _('ThreeDDxf-ColorCodeDesc'))
-        one_t.setHelpText(ProcModel.ThreeDDxfModel.ColorNameCol,
-                          _('ThreeDDxf-ColorNameDesc'))
+        one_t.set_help_bar(self.helpBar)
+        one_t.set_help_text(ProcModel.ThreeDDxfModel.LineNameCol,
+                            _('ThreeDDxf-LineNameDesc'))
+        one_t.set_help_text(ProcModel.ThreeDDxfModel.ColorCodeCol,
+                            _('ThreeDDxf-ColorCodeDesc'))
+        one_t.set_help_text(ProcModel.ThreeDDxfModel.ColorNameCol,
+                            _('ThreeDDxf-ColorNameDesc'))
 
         two_t = TableView()
         two_t.setModel(self.threeDDxf_M)
         two_t.verticalHeader().setVisible(False)
-        two_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         two_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
         two_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
         two_t.hideColumn(0)
@@ -139,36 +139,36 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 3 * two_t.rowHeight(6))
         self.window_ly.addWidget(two_t)
 
-        two_t.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                    ProcModel.ThreeDDxfModel.LineNameCol,
+        two_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
+                                   ProcModel.ThreeDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
-        two_t.enableIntValidator(ProcModel.ThreeDDxfModel.UnifilarCol,
-                                 ProcModel.ThreeDDxfModel.UnifilarCol,
-                                 0, 1)
-        two_t.enableIntValidator(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                                 ProcModel.ThreeDDxfModel.ColorCodeCol,
-                                 0, 255)
-        two_t.enableRegExpValidator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                    ProcModel.ThreeDDxfModel.LineNameCol,
+        two_t.en_int_validator(ProcModel.ThreeDDxfModel.UnifilarCol,
+                               ProcModel.ThreeDDxfModel.UnifilarCol,
+                               0, 1)
+        two_t.en_int_validator(ProcModel.ThreeDDxfModel.ColorCodeCol,
+                               ProcModel.ThreeDDxfModel.ColorCodeCol,
+                               0, 255)
+        two_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
+                                   ProcModel.ThreeDDxfModel.LineNameCol,
                                     "^[a-zA-Z0-9_.-]*$")
 
-        two_t.setHelpBar(self.helpBar)
-        two_t.setHelpText(ProcModel.ThreeDDxfModel.LineNameCol,
-                          _('ThreeDDxf-LineNameDesc'))
-        two_t.setHelpText(ProcModel.ThreeDDxfModel.UnifilarCol,
-                          _('ThreeDDxf-UnifilarDesc'))
-        two_t.setHelpText(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                          _('ThreeDDxf-ColorCodeDesc'))
-        two_t.setHelpText(ProcModel.ThreeDDxfModel.ColorNameCol,
-                          _('ThreeDDxf-ColorNameDesc'))
+        two_t.set_help_bar(self.helpBar)
+        two_t.set_help_text(ProcModel.ThreeDDxfModel.LineNameCol,
+                            _('ThreeDDxf-LineNameDesc'))
+        two_t.set_help_text(ProcModel.ThreeDDxfModel.UnifilarCol,
+                            _('ThreeDDxf-UnifilarDesc'))
+        two_t.set_help_text(ProcModel.ThreeDDxfModel.ColorCodeCol,
+                            _('ThreeDDxf-ColorCodeDesc'))
+        two_t.set_help_text(ProcModel.ThreeDDxfModel.ColorNameCol,
+                            _('ThreeDDxf-ColorNameDesc'))
 
         self.usage_update()
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/threeDDxf.html')
 

@@ -8,13 +8,10 @@ https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-
 using-qvalidator/ for the qvalidator explanations
 """
 import logging
-from PyQt5.QtCore import QEvent, QRegExp
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtGui import (QValidator,
-                         QIntValidator,
-                         QDoubleValidator,
-                         QRegExpValidator
-                         )
+from PyQt6.QtCore import QEvent, QRegularExpression
+from PyQt6.QtWidgets import QLineEdit
+from PyQt6.QtGui import QValidator, QIntValidator, QDoubleValidator, \
+                         QRegularExpressionValidator
 
 
 class LineEdit(QLineEdit):
@@ -53,10 +50,10 @@ class LineEdit(QLineEdit):
         """
         if self.__helpBar is not None:
             if event.type() == QEvent.Enter:
-                self.__helpBar.setText(self.__helpText)
+                self.__helpBar.set_text(self.__helpText)
 
             elif event.type() == QEvent.Leave:
-                self.__helpBar.clearText()
+                self.__helpBar.clear_text()
 
             # elif event.type() == QEvent.KeyRelease:
             #     self.checkContent()
@@ -69,7 +66,7 @@ class LineEdit(QLineEdit):
                  help text shall be displayed during program execution.
         :param helpBar: Instance of the respective help bar to work with
         """
-        logging.debug(self.__className+'.setHelpBar')
+        logging.debug(self.__className+'.set_help_bar')
         self.__helpBar = helpBar
 
     def setHelpText(self, helpText):
@@ -79,7 +76,7 @@ class LineEdit(QLineEdit):
                  LineEdit or during data edit.
         :param helpText: Help text to be displayed
         """
-        logging.debug(self.__className+'.setHelpText')
+        logging.debug(self.__className+'.set_help_text')
         self.__helpText = helpText
 
     def enableIntValidator(self, bottom, top):
@@ -88,7 +85,7 @@ class LineEdit(QLineEdit):
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         """
-        logging.debug(self.__className+'.enableIntValidator')
+        logging.debug(self.__className+'.en_int_validator')
         self.validator = QIntValidator(bottom, top)
         self.setValidator(self.validator)
         self.__hasIntValidator = True
@@ -101,7 +98,7 @@ class LineEdit(QLineEdit):
         :param top: upper value of validation border
         :param decimals: number of decimals to be checked
         '''
-        logging.debug(self.__className+'.enableDoubleValidator')
+        logging.debug(self.__className+'.en_double_validator')
         self.validator = QDoubleValidator(bottom, top, decimals)
         self.setValidator(self.validator)
         self.__hasDoubleValidator = True
@@ -112,7 +109,7 @@ class LineEdit(QLineEdit):
 
         :param regexp: the RegExp to be applied to the validator.
         """
-        logging.debug(self.__className+'.enableRegExpValidator')
+        logging.debug(self.__className+'.en_reg_exp_validator')
         rx = QRegExp(regexp)
         self.validator = QRegExpValidator(rx, self)
         self.setValidator(self.validator)
@@ -151,6 +148,6 @@ class LineEdit(QLineEdit):
                  afterwards the value check making sure the background is set
                  according to the verification result.
         """
-        logging.debug(self.__className+'.setText')
+        logging.debug(self.__className+'.set_text')
         QLineEdit.setText(self, *args, **kwargs)
         return

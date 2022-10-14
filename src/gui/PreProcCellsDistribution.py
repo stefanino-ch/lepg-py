@@ -4,9 +4,10 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QHBoxLayout, QVBoxLayout, QComboBox, QLabel, QSpinBox
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QHBoxLayout, QVBoxLayout, QComboBox, QLabel, \
+                            QSpinBox
 
 from Singleton.Singleton import Singleton
 from data.PreProcModel import PreProcModel
@@ -85,8 +86,8 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Pre-Processor cells distribution"))
 
         usage_l = QLabel(_('Type'))
-        usage_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                          QSizePolicy.Fixed))
+        usage_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                          QSizePolicy.Policy.Fixed))
         self.usage_cb = QComboBox()
         self.usage_cb.addItem(_("1: uniform "))
         self.usage_cb.addItem(_("2: linear"))
@@ -101,12 +102,12 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addLayout(usage_ly)
 
         self.num_lines_l = QLabel(_('Num cells'))
-        self.num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                   QSizePolicy.Fixed))
+        self.num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                   QSizePolicy.Policy.Fixed))
         self.num_lines_s = QSpinBox()
         self.num_lines_s.setRange(1, 999)
-        self.num_lines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                   QSizePolicy.Fixed))
+        self.num_lines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                   QSizePolicy.Policy.Fixed))
         self.num_lines_s.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.num_lines_s.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -120,42 +121,42 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.one_t = TableView()
         self.one_t.setModel(self.cellsDistr_M)
         self.one_t.verticalHeader().setVisible(False)
-        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.one_t.hideColumn(self.cellsDistr_M.columnCount() - 1)
         self.one_t.hideColumn(self.cellsDistr_M.columnCount() - 2)
 
         self.window_ly.addWidget(self.one_t)
 
-        self.one_t.enableIntValidator(PreProcModel.CellsDistrModel.OrderNumCol,
-                                      PreProcModel.CellsDistrModel.OrderNumCol,
-                                      1, 999)
-        self.one_t.enableDoubleValidator(PreProcModel.CellsDistrModel.CoefCol,
-                                         PreProcModel.CellsDistrModel.CoefCol,
-                                         0, 1, 1)
-        self.one_t.enableDoubleValidator(PreProcModel.CellsDistrModel.WidthCol,
-                                         PreProcModel.CellsDistrModel.WidthCol,
-                                         1, 500, 1)
-        self.one_t.enableIntValidator(PreProcModel.CellsDistrModel.NumCellsCol,
-                                      PreProcModel.CellsDistrModel.NumCellsCol,
-                                      1, 999)
+        self.one_t.en_int_validator(PreProcModel.CellsDistrModel.OrderNumCol,
+                                    PreProcModel.CellsDistrModel.OrderNumCol,
+                                    1, 999)
+        self.one_t.en_double_validator(PreProcModel.CellsDistrModel.CoefCol,
+                                       PreProcModel.CellsDistrModel.CoefCol,
+                                       0, 1, 1)
+        self.one_t.en_double_validator(PreProcModel.CellsDistrModel.WidthCol,
+                                       PreProcModel.CellsDistrModel.WidthCol,
+                                       1, 500, 1)
+        self.one_t.en_int_validator(PreProcModel.CellsDistrModel.NumCellsCol,
+                                    PreProcModel.CellsDistrModel.NumCellsCol,
+                                    1, 999)
 
-        self.one_t.setHelpBar(self.help_bar)
-        self.one_t.setHelpText(PreProcModel.CellsDistrModel.OrderNumCol,
-                               _('PreProc-CellNumDesc'))
-        self.one_t.setHelpText(PreProcModel.CellsDistrModel.CoefCol,
-                               _('PreProc-DistrCoefDesc'))
-        self.one_t.setHelpText(PreProcModel.CellsDistrModel.WidthCol,
-                               _('PreProc-WidthDesc'))
-        self.one_t.setHelpText(PreProcModel.CellsDistrModel.NumCellsCol,
-                               _('PreProc-NumCellsDesc'))
+        self.one_t.set_help_bar(self.help_bar)
+        self.one_t.set_help_text(PreProcModel.CellsDistrModel.OrderNumCol,
+                                 _('PreProc-CellNumDesc'))
+        self.one_t.set_help_text(PreProcModel.CellsDistrModel.CoefCol,
+                                 _('PreProc-DistrCoefDesc'))
+        self.one_t.set_help_text(PreProcModel.CellsDistrModel.WidthCol,
+                                 _('PreProc-WidthDesc'))
+        self.one_t.set_help_text(PreProcModel.CellsDistrModel.NumCellsCol,
+                                 _('PreProc-NumCellsDesc'))
 
         self.model_change()
 
         #############################
         # Commons for all windows
         self.btn_bar = WindowBtnBar(0b0101)
-        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
         self.btn_bar.setHelpPage('preproc/cell_distribution.html')
 
@@ -221,6 +222,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
             self.cellsDistr_M.update_type(1, 1, 3)
 
         elif self.usage_cb.currentIndex() == 3:
+            # FIXME Model is not properly updated if type or num lines changes
             self.cellsDistr_M.update_type(1, 1, 4)
 
         self.ppm.set_file_saved(False)

@@ -5,9 +5,9 @@
 
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (QMdiSubWindow,
+from PyQt6.QtCore import Qt, QSortFilterProxyModel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import (QMdiSubWindow,
                              QWidget,
                              QSizePolicy,
                              QHeaderView,
@@ -98,14 +98,14 @@ class AddRibPoints(QMdiSubWindow):
         self.wrapper.setModel(self.addRibPts_M)
 
         num_lines_l = QLabel(_('Number of configs'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
         self.numLines_s.setRange(0, 999)
-        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_s.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -123,29 +123,29 @@ class AddRibPoints(QMdiSubWindow):
         ribs_t = TableView()
         ribs_t.setModel(self.proxyModel)
         ribs_t.verticalHeader().setVisible(False)
-        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         ribs_t.hideColumn(self.addRibPts_M.columnCount() - 1)
         ribs_t.hideColumn(self.addRibPts_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_t)
 
-        ribs_t.enableIntValidator(ProcModel.AddRibPointsModel.OrderNumCol,
-                                  ProcModel.AddRibPointsModel.OrderNumCol,
-                                  1, 999)
-        ribs_t.enableDoubleValidator(ProcModel.AddRibPointsModel.XCoordCol,
-                                     ProcModel.AddRibPointsModel.YCoordCol,
-                                     1, 100, 2)
+        ribs_t.en_int_validator(ProcModel.AddRibPointsModel.OrderNumCol,
+                                ProcModel.AddRibPointsModel.OrderNumCol,
+                                1, 999)
+        ribs_t.en_double_validator(ProcModel.AddRibPointsModel.XCoordCol,
+                                   ProcModel.AddRibPointsModel.YCoordCol,
+                                   1, 100, 2)
 
-        ribs_t.setHelpBar(self.helpBar)
-        ribs_t.setHelpText(ProcModel.AddRibPointsModel.OrderNumCol,
-                           _('OrderNumDesc'))
-        ribs_t.setHelpText(ProcModel.AddRibPointsModel.XCoordCol,
-                           _('AddRibPts-XCoordDesc'))
-        ribs_t.setHelpText(ProcModel.AddRibPointsModel.YCoordCol,
-                           _('AddRibPts-YCoordDesc'))
+        ribs_t.set_help_bar(self.helpBar)
+        ribs_t.set_help_text(ProcModel.AddRibPointsModel.OrderNumCol,
+                             _('OrderNumDesc'))
+        ribs_t.set_help_text(ProcModel.AddRibPointsModel.XCoordCol,
+                             _('AddRibPts-XCoordDesc'))
+        ribs_t.set_help_text(ProcModel.AddRibPointsModel.YCoordCol,
+                             _('AddRibPts-YCoordDesc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         self.numLines_s.blockSignals(True)
@@ -155,8 +155,8 @@ class AddRibPoints(QMdiSubWindow):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/addRibPoints.html')
 

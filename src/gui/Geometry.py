@@ -4,10 +4,10 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
-    QSizePolicy, QHeaderView, QPushButton
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
+                            QSizePolicy, QHeaderView, QPushButton
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -86,75 +86,75 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         self.table.hideColumn(self.rib_M.columnCount() - 1)
         self.table.verticalHeader().setVisible(False)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.table.setHelpBar(self.helpBar)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.table.set_help_bar(self.helpBar)
 
-        self.table.setHelpText(ProcModel.RibModel.RibNumCol,
-                               _('Proc-RibNumDesc'))
-        self.table.setHelpText(ProcModel.RibModel.xribCol,
-                               _('Proc-xribDesc'))
-        self.table.setHelpText(ProcModel.RibModel.yLECol,
-                               _('Proc-yLEDesc'))
-        self.table.setHelpText(ProcModel.RibModel.yTECol,
-                               _('Proc-yTEDesc'))
-        self.table.setHelpText(ProcModel.RibModel.xpCol,
-                               _('Proc-xpDesc'))
-        self.table.setHelpText(ProcModel.RibModel.zCol,
-                               _('Proc-zDesc'))
-        self.table.setHelpText(ProcModel.RibModel.betaCol,
-                               _('Proc-betaDesc'))
-        self.table.setHelpText(ProcModel.RibModel.RPCol,
-                               _('Proc-RPDesc'))
-        self.table.setHelpText(ProcModel.RibModel.WashinCol,
-                               _('Proc-WashinDesc'))
-        self.table.setHelpText(ProcModel.RibModel.RotZCol,
-                               _('Proc-RotZDesc'))
-        self.table.setHelpText(ProcModel.RibModel.PosZCol,
-                               _('Proc-PosZDesc'))
+        self.table.set_help_text(ProcModel.RibModel.RibNumCol,
+                                 _('Proc-RibNumDesc'))
+        self.table.set_help_text(ProcModel.RibModel.xribCol,
+                                 _('Proc-xribDesc'))
+        self.table.set_help_text(ProcModel.RibModel.yLECol,
+                                 _('Proc-yLEDesc'))
+        self.table.set_help_text(ProcModel.RibModel.yTECol,
+                                 _('Proc-yTEDesc'))
+        self.table.set_help_text(ProcModel.RibModel.xpCol,
+                                 _('Proc-xpDesc'))
+        self.table.set_help_text(ProcModel.RibModel.zCol,
+                                 _('Proc-zDesc'))
+        self.table.set_help_text(ProcModel.RibModel.betaCol,
+                                 _('Proc-betaDesc'))
+        self.table.set_help_text(ProcModel.RibModel.RPCol,
+                                 _('Proc-RPDesc'))
+        self.table.set_help_text(ProcModel.RibModel.WashinCol,
+                                 _('Proc-WashinDesc'))
+        self.table.set_help_text(ProcModel.RibModel.RotZCol,
+                                 _('Proc-RotZDesc'))
+        self.table.set_help_text(ProcModel.RibModel.PosZCol,
+                                 _('Proc-PosZDesc'))
 
-        self.table.enableIntValidator(ProcModel.RibModel.RibNumCol,
-                                      ProcModel.RibModel.RibNumCol,
-                                      1, 999)
-        self.table.enableDoubleValidator(ProcModel.RibModel.xribCol,
-                                         ProcModel.RibModel.xribCol,
-                                         -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.yLECol,
-                                         ProcModel.RibModel.yTECol,
-                                         -500, 1000, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.xpCol,
-                                         ProcModel.RibModel.xpCol,
-                                         -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.zCol,
-                                         ProcModel.RibModel.zCol,
-                                         -500, 3000, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.betaCol,
-                                         ProcModel.RibModel.betaCol,
-                                         0, 105, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.RPCol,
-                                         ProcModel.RibModel.RPCol,
-                                         0, 100, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.WashinCol,
-                                         ProcModel.RibModel.WashinCol,
-                                         -45, 45, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.RotZCol,
-                                         ProcModel.RibModel.RotZCol,
-                                         -45, 45, 3)
-        self.table.enableDoubleValidator(ProcModel.RibModel.PosZCol,
-                                         ProcModel.RibModel.PosZCol,
-                                         0, 100, 3)
+        self.table.en_int_validator(ProcModel.RibModel.RibNumCol,
+                                    ProcModel.RibModel.RibNumCol,
+                                    1, 999)
+        self.table.en_double_validator(ProcModel.RibModel.xribCol,
+                                       ProcModel.RibModel.xribCol,
+                                       -500, 3000, 3)
+        self.table.en_double_validator(ProcModel.RibModel.yLECol,
+                                       ProcModel.RibModel.yTECol,
+                                       -500, 1000, 3)
+        self.table.en_double_validator(ProcModel.RibModel.xpCol,
+                                       ProcModel.RibModel.xpCol,
+                                       -500, 3000, 3)
+        self.table.en_double_validator(ProcModel.RibModel.zCol,
+                                       ProcModel.RibModel.zCol,
+                                       -500, 3000, 3)
+        self.table.en_double_validator(ProcModel.RibModel.betaCol,
+                                       ProcModel.RibModel.betaCol,
+                                       0, 105, 3)
+        self.table.en_double_validator(ProcModel.RibModel.RPCol,
+                                       ProcModel.RibModel.RPCol,
+                                       0, 100, 3)
+        self.table.en_double_validator(ProcModel.RibModel.WashinCol,
+                                       ProcModel.RibModel.WashinCol,
+                                       -45, 45, 3)
+        self.table.en_double_validator(ProcModel.RibModel.RotZCol,
+                                       ProcModel.RibModel.RotZCol,
+                                       -45, 45, 3)
+        self.table.en_double_validator(ProcModel.RibModel.PosZCol,
+                                       ProcModel.RibModel.PosZCol,
+                                       0, 100, 3)
 
         self.window_ly.addWidget(self.table)
 
         self.sortBtn = QPushButton(_('Sort by Rib Number'))
-        self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed))
+        self.sortBtn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed))
         self.sortBtn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/geometry.html')
 

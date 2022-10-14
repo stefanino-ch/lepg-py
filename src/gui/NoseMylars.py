@@ -4,11 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QSpinBox, QLabel, \
-    QHBoxLayout, QVBoxLayout, QPushButton, QDataWidgetMapper
+from PyQt6.QtCore import Qt, QSortFilterProxyModel
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QHBoxLayout, QVBoxLayout, \
+                            QPushButton, QDataWidgetMapper
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -89,14 +89,14 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         self.wrapper.setModel(self.noseMylars_M)
 
         num_lines_l = QLabel(_('Number of configs'))
-        num_lines_l.setAlignment(Qt.AlignRight)
-        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
         self.numLines_s.setRange(0, 999)
-        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed))
+        self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                  QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_s.lineEdit()
         num_lines_edit.setReadOnly(True)
@@ -114,41 +114,41 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         table_t = TableView()
         table_t.setModel(self.proxyModel)
         table_t.verticalHeader().setVisible(False)
-        table_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table_t.hideColumn(self.noseMylars_M.columnCount() - 1)
         table_t.hideColumn(self.noseMylars_M.columnCount() - 2)
         self.window_ly.addWidget(table_t)
 
-        table_t.enableIntValidator(ProcModel.NoseMylarsModel.OrderNumCol,
-                                   ProcModel.NoseMylarsModel.LastRibCol,
-                                   1, 999)
-        table_t.enableDoubleValidator(ProcModel.NoseMylarsModel.xOneCol,
-                                      ProcModel.NoseMylarsModel.vTwoCol,
-                                      1, 100, 1)
+        table_t.en_int_validator(ProcModel.NoseMylarsModel.OrderNumCol,
+                                 ProcModel.NoseMylarsModel.LastRibCol,
+                                 1, 999)
+        table_t.en_double_validator(ProcModel.NoseMylarsModel.xOneCol,
+                                    ProcModel.NoseMylarsModel.vTwoCol,
+                                    1, 100, 1)
 
-        table_t.setHelpBar(self.helpBar)
-        table_t.setHelpText(ProcModel.NoseMylarsModel.OrderNumCol,
-                            _('OrderNumDesc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.FirstRibCol,
-                            _('NoseMylars-FirstRibDesc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.LastRibCol,
-                            _('NoseMylars-LastRibDesc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.xOneCol,
-                            _('NoseMylars-x1Desc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.uOneCol,
-                            _('NoseMylars-u1Desc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.uTwoCol,
-                            _('NoseMylars-u2Desc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.xTwoCol,
-                            _('NoseMylars-x2Desc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.vOneCol,
-                            _('NoseMylars-v1Desc'))
-        table_t.setHelpText(ProcModel.NoseMylarsModel.vTwoCol,
-                            _('NoseMylars-v2Desc'))
+        table_t.set_help_bar(self.helpBar)
+        table_t.set_help_text(ProcModel.NoseMylarsModel.OrderNumCol,
+                              _('OrderNumDesc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.FirstRibCol,
+                              _('NoseMylars-FirstRibDesc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.LastRibCol,
+                              _('NoseMylars-LastRibDesc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.xOneCol,
+                              _('NoseMylars-x1Desc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.uOneCol,
+                              _('NoseMylars-u1Desc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.uTwoCol,
+                              _('NoseMylars-u2Desc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.xTwoCol,
+                              _('NoseMylars-x2Desc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.vOneCol,
+                              _('NoseMylars-v1Desc'))
+        table_t.set_help_text(ProcModel.NoseMylarsModel.vTwoCol,
+                              _('NoseMylars-v2Desc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         self.numLines_s.blockSignals(True)
@@ -158,8 +158,8 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/noseMylars.html')
 

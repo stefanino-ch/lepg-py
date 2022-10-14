@@ -4,11 +4,11 @@
 """
 import logging
 
-from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
-    QSpinBox, QLabel, QTabWidget, QHBoxLayout, \
-    QVBoxLayout, QPushButton
+from PyQt6.QtCore import Qt, QSortFilterProxyModel, QRegularExpression
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
+                            QSpinBox, QLabel, QTabWidget, QHBoxLayout, \
+                            QVBoxLayout, QPushButton
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -96,13 +96,13 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Colors lower sail"))
 
         num_conf_l = QLabel(_('Number of configs'))
-        num_conf_l.setAlignment(Qt.AlignRight)
-        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed))
+        num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed))
         self.numConf_S = QSpinBox()
         self.numConf_S.setRange(0, 999)
-        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                                 QSizePolicy.Fixed))
+        self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                                 QSizePolicy.Policy.Fixed))
         self.numConf_S.setValue(self.intradColsConf_M.num_configs())
         conf_edit = self.numConf_S.lineEdit()
         conf_edit.setReadOnly(True)
@@ -122,15 +122,15 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
             self.model_num_configs_changed()
 
         sort_btn = QPushButton(_('Sort by order_num'))
-        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed))
+        sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed))
         sort_btn.clicked.connect(self.sort_btn_press)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/intradosColors.html')
 
@@ -217,13 +217,13 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         conf_table.hideColumn(self.intradColsConf_M.columnCount() - 1)
         conf_table.hideColumn(self.intradColsConf_M.columnCount() - 2)
 
-        conf_table.enableIntValidator(
+        conf_table.en_int_validator(
             ProcModel.IntradosColsConfModel.FirstRibCol,
             ProcModel.IntradosColsConfModel.FirstRibCol, 1, 999)
 
-        conf_table.setHelpBar(self.helpBar)
-        conf_table.setHelpText(ProcModel.IntradosColsConfModel.FirstRibCol,
-                               _('IntradCols-FirstRibDesc'))
+        conf_table.set_help_bar(self.helpBar)
+        conf_table.set_help_text(ProcModel.IntradosColsConfModel.FirstRibCol,
+                                 _('IntradCols-FirstRibDesc'))
 
         conf_layout = QHBoxLayout()
         conf_layout.addWidget(conf_table)
@@ -238,14 +238,14 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
 
         # Data lines
         num_det_l = QLabel(_('Number of config lines'))
-        num_det_l.setAlignment(Qt.AlignRight)
-        num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed))
+        num_det_l.setAlignment(Qt.AlignmentFlag.AlignRight)
+        num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed))
         tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
         self.numDet_S[curr_num_tabs].setRange(1, 999)
         self.numDet_S[curr_num_tabs].setSizePolicy(
-            QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+            QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.numDet_S[curr_num_tabs].valueChanged.connect(self.det_spin_change)
         det_edit = self.numDet_S[curr_num_tabs].lineEdit()
         det_edit.setReadOnly(True)
@@ -266,23 +266,23 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
             setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
-        det_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         det_table.hideColumn(self.intradColsDet_M.columnCount() - 1)
         det_table.hideColumn(self.intradColsDet_M.columnCount() - 2)
         tab_layout.addWidget(det_table)
 
-        det_table.enableIntValidator(ProcModel.IntradosColsDetModel.OrderNumCol,
-                                     ProcModel.IntradosColsDetModel.OrderNumCol,
-                                     1, 999)
-        det_table.enableDoubleValidator(ProcModel.IntradosColsDetModel.DistTeCol,
-                                        ProcModel.IntradosColsDetModel.DistTeCol,
-                                        0, 100, 0)
+        det_table.en_int_validator(ProcModel.IntradosColsDetModel.OrderNumCol,
+                                   ProcModel.IntradosColsDetModel.OrderNumCol,
+                                   1, 999)
+        det_table.en_double_validator(ProcModel.IntradosColsDetModel.DistTeCol,
+                                      ProcModel.IntradosColsDetModel.DistTeCol,
+                                      0, 100, 0)
 
-        det_table.setHelpBar(self.helpBar)
-        det_table.setHelpText(ProcModel.LightDetModel.OrderNumCol,
-                              _('OrderNumDesc'))
-        det_table.setHelpText(ProcModel.LightDetModel.LightTypCol,
-                              _('IntradCols-DistTeDesc'))
+        det_table.set_help_bar(self.helpBar)
+        det_table.set_help_text(ProcModel.LightDetModel.OrderNumCol,
+                                _('OrderNumDesc'))
+        det_table.set_help_text(ProcModel.LightDetModel.LightTypCol,
+                                _('IntradCols-DistTeDesc'))
 
         # then setup spin
         if self.detProxyModel[curr_num_tabs].rowCount() == 0:

@@ -3,8 +3,8 @@
 :License: General Public License GNU GPL 3.0
 """
 import logging
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QSizePolicy, QHeaderView,\
                             QLabel, QComboBox
 
@@ -95,18 +95,21 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         gen_table.hideColumn(self.gen_M.columnCount()-1)
         gen_table.verticalHeader().setVisible(False)
-        gen_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        
+        gen_table.horizontalHeader().\
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
         gen_table.setFixedHeight(2
                                  + gen_table.horizontalHeader().height()
                                  + gen_table.rowHeight(0))
-        gen_table.setHelpBar(self.help_bar)
+        gen_table.set_help_bar(self.help_bar)
 
-        gen_table.setHelpText(PreProcModel.GenModel.WingNameCol,
-                              _('PreProc-WingNameDesc'))
+        gen_table.set_help_text(PreProcModel.GenModel.WingNameCol,
+                                _('PreProc-WingNameDesc'))
 
-        gen_table.enableRegExpValidator(PreProcModel.GenModel.WingNameCol,
-                                        PreProcModel.GenModel.WingNameCol,
-                                        "^[a-zA-Z0-9_.-]*$")
+        gen_table.en_reg_exp_validator(PreProcModel.GenModel.WingNameCol,
+                                       PreProcModel.GenModel.WingNameCol,
+                                       "^[a-zA-Z0-9_.-]*$")
 
         gen_ly = QHBoxLayout()
         gen_ly.addWidget(gen_table)
@@ -127,32 +130,33 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         le_table.hideColumn(self.leadingE_M.columnCount()-1)
         le_table.verticalHeader().setVisible(False)
-        le_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        le_table.horizontalHeader().setSectionResizeMode(
+                                        QHeaderView.ResizeMode.Stretch)
         le_table.setFixedHeight(2
                                 + le_table.horizontalHeader().height()
                                 + le_table.rowHeight(0))
 
-        le_table.setHelpBar(self.help_bar)
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.TypeCol,
-                             _('PreProc-LE-Type-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.aOneCol,
-                             _('PreProc-LE-a1-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.bOneCol,
-                             _('PreProc-LE-b1-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.xOneCol,
-                             _('PreProc-LE-x1-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.xTwoCol,
-                             _('PreProc-LE-x2-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.xmCol,
-                             _('PreProc-LE-xm-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.cZeroOneCol,
-                             _('PreProc-LE-c01-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.exOneCol,
-                             _('PreProc-LE-ex1-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.cZeroTwoCol,
-                             _('PreProc-LE-c02-Desc'))
-        le_table.setHelpText(PreProcModel.LeadingEdgeModel.exTwoCol,
-                             _('PreProc-LE-ex2-Desc'))
+        le_table.set_help_bar(self.help_bar)
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.TypeCol,
+                               _('PreProc-LE-Type-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.aOneCol,
+                               _('PreProc-LE-a1-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.bOneCol,
+                               _('PreProc-LE-b1-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xOneCol,
+                               _('PreProc-LE-x1-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xTwoCol,
+                               _('PreProc-LE-x2-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xmCol,
+                               _('PreProc-LE-xm-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.cZeroOneCol,
+                               _('PreProc-LE-c01-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.exOneCol,
+                               _('PreProc-LE-ex1-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.cZeroTwoCol,
+                               _('PreProc-LE-c02-Desc'))
+        le_table.set_help_text(PreProcModel.LeadingEdgeModel.exTwoCol,
+                               _('PreProc-LE-ex2-Desc'))
 
         self.window_ly.addWidget(le_l)
         self.window_ly.addWidget(le_table)
@@ -170,28 +174,28 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         # hide the ID column which is always at the end of the model
         te_table.hideColumn(self.trailingE_M.columnCount()-1)
         te_table.verticalHeader().setVisible(False)
-        te_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        te_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         te_table.setFixedHeight(2
                                 + te_table.horizontalHeader().height()
                                 + te_table.rowHeight(0))
 
-        te_table.setHelpBar(self.help_bar)
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.TypeCol,
-                             _('PreProc-TE-Type-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.aOneCol,
-                             _('PreProc-TE-a1-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.bOneCol,
-                             _('PreProc-TE-b1-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.xOneCol,
-                             _('PreProc-TE-x1-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.xmCol,
-                             _('PreProc-TE-xm-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.cZeroCol,
-                             _('PreProc-TE-c0-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.yZeroCol,
-                             _('PreProc-TE-y0-Desc'))
-        te_table.setHelpText(PreProcModel.TrailingEdgeModel.expCol,
-                             _('PreProc-TE-exp-Desc'))
+        te_table.set_help_bar(self.help_bar)
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.TypeCol,
+                               _('PreProc-TE-Type-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.aOneCol,
+                               _('PreProc-TE-a1-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.bOneCol,
+                               _('PreProc-TE-b1-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.xOneCol,
+                               _('PreProc-TE-x1-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.xmCol,
+                               _('PreProc-TE-xm-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.cZeroCol,
+                               _('PreProc-TE-c0-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.yZeroCol,
+                               _('PreProc-TE-y0-Desc'))
+        te_table.set_help_text(PreProcModel.TrailingEdgeModel.expCol,
+                               _('PreProc-TE-exp-Desc'))
 
         self.window_ly.addWidget(te_l)
         self.window_ly.addWidget(te_table)
@@ -199,8 +203,8 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         # Vault
         vault_l = QLabel(_("Vault"))
         vault_t_l = QLabel(_("Type"))
-        vault_t_l.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed))
+        vault_t_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed))
         self.vault_t_cb = QComboBox()
         self.vault_t_cb.addItem(_("Sin-Cos"))
         self.vault_t_cb.addItem(_("Radius-Angle"))
@@ -215,39 +219,39 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         self.vault_table.hideColumn(self.vault_M.columnCount() - 1)
         self.vault_table.verticalHeader().setVisible(False)
         self.vault_table.horizontalHeader()\
-            .setSectionResizeMode(QHeaderView.Stretch)
+            .setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.vault_table.setFixedHeight(2
                                         + self.vault_table.horizontalHeader()
                                         .height()
                                         + self.vault_table.rowHeight(0))
 
-        self.vault_table.setHelpBar(self.help_bar)
-        self.vault_table.setHelpText(PreProcModel.VaultModel.aOneCol,
-                                     _('PreProc-Vault-a1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.bOneCol,
-                                     _('PreProc-Vault-b1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.xOneCol,
-                                     _('PreProc-Vault-x1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.cOneCol,
-                                     _('PreProc-Vault-c1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.rOneRACol,
-                                     _('PreProc-Vault-r1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.rTwoRACol,
-                                     _('PreProc-Vault-r2-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.rThrRACol,
-                                     _('PreProc-Vault-r3-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.rFouRACol,
-                                     _('PreProc-Vault-r4-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.aOneRACol,
-                                     _('PreProc-Vault-ra1-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.aTwoRACol,
-                                     _('PreProc-Vault-ra2-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.aThrRACol,
-                                     _('PreProc-Vault-ra3-Desc'))
-        self.vault_table.setHelpText(PreProcModel.VaultModel.aFouRACol,
-                                     _('PreProc-Vault-ra4-Desc'))
+        self.vault_table.set_help_bar(self.help_bar)
+        self.vault_table.set_help_text(PreProcModel.VaultModel.aOneCol,
+                                       _('PreProc-Vault-a1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.bOneCol,
+                                       _('PreProc-Vault-b1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.xOneCol,
+                                       _('PreProc-Vault-x1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.cOneCol,
+                                       _('PreProc-Vault-c1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.rOneRACol,
+                                       _('PreProc-Vault-r1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.rTwoRACol,
+                                       _('PreProc-Vault-r2-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.rThrRACol,
+                                       _('PreProc-Vault-r3-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.rFouRACol,
+                                       _('PreProc-Vault-r4-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.aOneRACol,
+                                       _('PreProc-Vault-ra1-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.aTwoRACol,
+                                       _('PreProc-Vault-ra2-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.aThrRACol,
+                                       _('PreProc-Vault-ra3-Desc'))
+        self.vault_table.set_help_text(PreProcModel.VaultModel.aFouRACol,
+                                       _('PreProc-Vault-ra4-Desc'))
 
-        self.vault_table.enableDoubleValidator(
+        self.vault_table.en_double_validator(
                             PreProcModel.VaultModel.aOneCol,
                             PreProcModel.VaultModel.aFouRACol,
                             0,
@@ -267,8 +271,8 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('preproc/name_le_te_vault.html')
 

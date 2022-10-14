@@ -4,9 +4,9 @@
 """
 import logging
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QVBoxLayout, \
-    QHeaderView, QHBoxLayout
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QVBoxLayout, \
+                            QHeaderView, QHBoxLayout
 
 from data.ProcModel import ProcModel
 from gui.elements.TableView import TableView
@@ -88,17 +88,17 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             brand_name_t.hideColumn(i)
         brand_name_t.verticalHeader().setVisible(False)
         brand_name_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         brand_name_t.setFixedHeight(2
                                     + brand_name_t.horizontalHeader().height()
                                     + brand_name_t.rowHeight(0))
 
-        brand_name_t.setHelpBar(self.helpBar)
-        brand_name_t.setHelpText(ProcModel.WingModel.BrandNameCol,
-                                 _('Proc-BrandNameDesc'))
+        brand_name_t.set_help_bar(self.helpBar)
+        brand_name_t.set_help_text(ProcModel.WingModel.BrandNameCol,
+                                   _('Proc-BrandNameDesc'))
 
-        brand_name_t.enableRegExpValidator(ProcModel.WingModel.BrandNameCol,
-                                           ProcModel.WingModel.BrandNameCol,
+        brand_name_t.en_reg_exp_validator(ProcModel.WingModel.BrandNameCol,
+                                          ProcModel.WingModel.BrandNameCol,
                                            "(.|\s)*\S(.|\s)*")
 
         self.window_ly.addWidget(brand_name_t)
@@ -113,17 +113,17 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             wing_name_t.hideColumn(i)
         wing_name_t.verticalHeader().setVisible(False)
         wing_name_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         wing_name_t.setFixedHeight(2
                                    + wing_name_t.horizontalHeader().height()
                                    + wing_name_t.rowHeight(0))
 
-        wing_name_t.setHelpBar(self.helpBar)
-        wing_name_t.setHelpText(ProcModel.WingModel.WingNameCol,
-                                _('Proc-WingNameDesc'))
+        wing_name_t.set_help_bar(self.helpBar)
+        wing_name_t.set_help_text(ProcModel.WingModel.WingNameCol,
+                                  _('Proc-WingNameDesc'))
 
-        wing_name_t.enableRegExpValidator(ProcModel.WingModel.WingNameCol,
-                                          ProcModel.WingModel.WingNameCol,
+        wing_name_t.en_reg_exp_validator(ProcModel.WingModel.WingNameCol,
+                                         ProcModel.WingModel.WingNameCol,
                                           "(.|\s)*\S(.|\s)*")
 
         self.window_ly.addWidget(wing_name_t)
@@ -139,19 +139,19 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                        self.wing_M.columnCount()):
             scales_t.hideColumn(i)
         scales_t.verticalHeader().setVisible(False)
-        scales_t.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        scales_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         scales_t.setFixedHeight(2 + scales_t.horizontalHeader().height()
                                 + scales_t.rowHeight(0))
 
-        scales_t.setHelpBar(self.helpBar)
-        scales_t.setHelpText(ProcModel.WingModel.DrawScaleCol,
-                             _('Proc-DrawScaleDesc'))
-        scales_t.setHelpText(ProcModel.WingModel.WingScaleCol,
-                             _('Proc-WingScaleDesc'))
+        scales_t.set_help_bar(self.helpBar)
+        scales_t.set_help_text(ProcModel.WingModel.DrawScaleCol,
+                               _('Proc-DrawScaleDesc'))
+        scales_t.set_help_text(ProcModel.WingModel.WingScaleCol,
+                               _('Proc-WingScaleDesc'))
 
-        scales_t.enableDoubleValidator(ProcModel.WingModel.DrawScaleCol,
-                                       ProcModel.WingModel.WingScaleCol,
-                                       0, 10, 2)
+        scales_t.en_double_validator(ProcModel.WingModel.DrawScaleCol,
+                                     ProcModel.WingModel.WingScaleCol,
+                                     0, 10, 2)
 
         self.window_ly.addWidget(scales_t)
 
@@ -167,21 +167,21 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             self.numbers_t.hideColumn(i)
         self.numbers_t.verticalHeader().setVisible(False)
         self.numbers_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.numbers_t.setFixedHeight(
             2
             + self.numbers_t.horizontalHeader().height()
             + self.numbers_t.rowHeight(0))
 
-        self.numbers_t.setHelpBar(self.helpBar)
-        self.numbers_t.setHelpText(ProcModel.WingModel.NumCellsCol,
-                                   _('Proc-NumCellsDesc'))
-        self.numbers_t.setHelpText(ProcModel.WingModel.NumRibsCol,
-                                   _('Proc-NumRibsDesc'))
+        self.numbers_t.set_help_bar(self.helpBar)
+        self.numbers_t.set_help_text(ProcModel.WingModel.NumCellsCol,
+                                     _('Proc-NumCellsDesc'))
+        self.numbers_t.set_help_text(ProcModel.WingModel.NumRibsCol,
+                                     _('Proc-NumRibsDesc'))
 
-        self.numbers_t.enableIntValidator(ProcModel.WingModel.NumCellsCol,
-                                          ProcModel.WingModel.NumRibsCol,
-                                          1, 999)
+        self.numbers_t.en_int_validator(ProcModel.WingModel.NumCellsCol,
+                                        ProcModel.WingModel.NumRibsCol,
+                                        1, 999)
 
         self.window_ly.addWidget(self.numbers_t)
 
@@ -197,28 +197,28 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             self.alpha_t.hideColumn(i)
         self.alpha_t.verticalHeader().setVisible(False)
         self.alpha_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.alpha_t.setFixedHeight(2
                                     + self.alpha_t.horizontalHeader().height()
                                     + self.alpha_t.rowHeight(0))
 
-        self.alpha_t.setHelpBar(self.helpBar)
-        self.alpha_t.setHelpText(ProcModel.WingModel.AlphaModeCol,
-                                 _('Proc-AlphaModeDesc'))
-        self.alpha_t.setHelpText(ProcModel.WingModel.AlphaMaxCentCol,
-                                 _('Proc-AlphaMaxCentDesc'))
-        self.alpha_t.setHelpText(ProcModel.WingModel.AlphaMaxTipCol,
-                                 _('Proc-AlphaMaxTipDesc'))
+        self.alpha_t.set_help_bar(self.helpBar)
+        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaModeCol,
+                                   _('Proc-AlphaModeDesc'))
+        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaMaxCentCol,
+                                   _('Proc-AlphaMaxCentDesc'))
+        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaMaxTipCol,
+                                   _('Proc-AlphaMaxTipDesc'))
 
-        self.alpha_t.enableDoubleValidator(ProcModel.WingModel.AlphaMaxTipCol,
-                                           ProcModel.WingModel.AlphaMaxTipCol,
-                                           -10, -10, 1)
-        self.alpha_t.enableIntValidator(ProcModel.WingModel.AlphaModeCol,
-                                        ProcModel.WingModel.ParaParamCol,
-                                        0, 2)
-        self.alpha_t.enableDoubleValidator(ProcModel.WingModel.AlphaMaxCentCol,
-                                           ProcModel.WingModel.AlphaMaxCentCol,
-                                           -10, -10, 1)
+        self.alpha_t.en_double_validator(ProcModel.WingModel.AlphaMaxTipCol,
+                                         ProcModel.WingModel.AlphaMaxTipCol,
+                                         -10, -10, 1)
+        self.alpha_t.en_int_validator(ProcModel.WingModel.AlphaModeCol,
+                                      ProcModel.WingModel.ParaParamCol,
+                                      0, 2)
+        self.alpha_t.en_double_validator(ProcModel.WingModel.AlphaMaxCentCol,
+                                         ProcModel.WingModel.AlphaMaxCentCol,
+                                         -10, -10, 1)
 
         self.window_ly.addWidget(self.alpha_t)
 
@@ -234,31 +234,31 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             self.type_t.hideColumn(i)
         self.type_t.verticalHeader().setVisible(False)
         self.type_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.Stretch)
+            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.type_t.setFixedHeight(2
                                    + self.type_t.horizontalHeader().height()
                                    + self.type_t.rowHeight(0))
 
-        self.type_t.setHelpBar(self.helpBar)
-        self.type_t.setHelpText(ProcModel.WingModel.ParaTypeCol,
-                                _('Proc-ParaTypeDesc'))
-        self.type_t.setHelpText(ProcModel.WingModel.ParaParamCol,
-                                _('Proc-ParaParamDesc'))
+        self.type_t.set_help_bar(self.helpBar)
+        self.type_t.set_help_text(ProcModel.WingModel.ParaTypeCol,
+                                  _('Proc-ParaTypeDesc'))
+        self.type_t.set_help_text(ProcModel.WingModel.ParaParamCol,
+                                  _('Proc-ParaParamDesc'))
 
-        self.type_t.enableRegExpValidator(ProcModel.WingModel.ParaTypeCol,
-                                          ProcModel.WingModel.ParaTypeCol,
+        self.type_t.en_reg_exp_validator(ProcModel.WingModel.ParaTypeCol,
+                                         ProcModel.WingModel.ParaTypeCol,
                                           "(.|\s)*\S(.|\s)*")
-        self.type_t.enableIntValidator(ProcModel.WingModel.ParaParamCol,
-                                       ProcModel.WingModel.ParaParamCol,
-                                       0, 1)
+        self.type_t.en_int_validator(ProcModel.WingModel.ParaParamCol,
+                                     ProcModel.WingModel.ParaParamCol,
+                                     0, 1)
 
         self.window_ly.addWidget(self.type_t)
 
         #############################
         # Commons for all windows
         self.btnBar = WindowBtnBar(0b0101)
-        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed))
+        self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
         self.btnBar.setHelpPage('proc/basicData.html')
 
