@@ -29,7 +29,7 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -210,7 +210,7 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         self.confProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.IntradosColsConfModel.ConfigNumCol)
         self.confProxyModel[curr_num_tabs]. \
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
         conf_table.verticalHeader().setVisible(False)
         conf_table.hideColumn(self.intradColsConf_M.OrderNumCol)
@@ -263,7 +263,7 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         self.detProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.IntradosColsDetModel.ConfigNumCol)
         self.detProxyModel[curr_num_tabs]. \
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
         det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -337,7 +337,7 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
             curr_tab = self.tabs.currentIndex()
             self.detProxyModel[curr_tab].sort(
                 ProcModel.IntradosColsDetModel.OrderNumCol,
-                Qt.AscendingOrder)
+                Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):

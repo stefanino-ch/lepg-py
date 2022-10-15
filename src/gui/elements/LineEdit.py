@@ -110,7 +110,7 @@ class LineEdit(QLineEdit):
         :param regexp: the RegExp to be applied to the validator.
         """
         logging.debug(self.__className+'.en_reg_exp_validator')
-        rx = QRegExp(regexp)
+        rx = QRegularExpression(regexp)
         self.validator = QRegExpValidator(rx, self)
         self.setValidator(self.validator)
         self.__hasRegExpValidator = True

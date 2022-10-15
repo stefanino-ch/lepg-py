@@ -25,7 +25,7 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.btn_bar = None
         self.usage_cb = None

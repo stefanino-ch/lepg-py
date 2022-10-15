@@ -38,7 +38,7 @@ class AddRibPoints(QMdiSubWindow):
 
     def __init__(self, metaclass=Singleton):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -196,7 +196,7 @@ class AddRibPoints(QMdiSubWindow):
         logging.debug(self.__className + '.sort_btn_press')
 
         self.proxyModel.sort(ProcModel.AddRibPointsModel.OrderNumCol,
-                             Qt.AscendingOrder)
+                             Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
     def btn_press(self, q):

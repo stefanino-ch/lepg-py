@@ -27,7 +27,7 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -138,7 +138,7 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.usage_update')
 
-        if self.airfThick_M.isUsed():
+        if self.airfThick_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
             self.usage_cb.setCurrentIndex(0)
@@ -149,9 +149,9 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
-            self.airfThick_M.setIsUsed(False)
+            self.airfThick_M.set_is_used(False)
         else:
-            self.airfThick_M.setIsUsed(True)
+            self.airfThick_M.set_is_used(True)
 
         self.pm.set_file_saved(False)
 

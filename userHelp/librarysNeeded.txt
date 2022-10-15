@@ -1,0 +1,8 @@
+The following libraries are needed to run lepg-py:
+
+pyqt6
+packaging
+requests
+ezdxf
+
+pip install pyqt6 packaging requests ezdxf

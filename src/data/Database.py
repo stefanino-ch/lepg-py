@@ -16,7 +16,7 @@ class Database(QSqlDatabase, metaclass=Singleton):
 
     def __init__(self, parent=None): # @UnusedVariable
         '''
-        Constructor
+        :method:Class initialization
         '''
         super().__init__()
         

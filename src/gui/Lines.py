@@ -28,7 +28,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.tabs = None
         self.numConf_s = None
@@ -262,8 +262,8 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.proxyModel[curr_num_tabs].setFilterKeyColumn(
                                         ProcModel.LinesModel.ConfigNumCol)
 
-        self.proxyModel[curr_num_tabs].setFilterRegExp(
-                                        QRegExp(str(curr_num_tabs+1)))
+        self.proxyModel[curr_num_tabs].setFilterRegularExpression(
+                                        QRegularExpression(str(curr_num_tabs+1)))
 
         branch_table = TableView()
         branch_table.setModel(self.proxyModel[curr_num_tabs])
@@ -386,7 +386,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
             curr_tab = self.tabs.currentIndex()
             self.proxyModel[curr_tab].sort(
                                     ProcModel.LinesModel.OrderNumCol,
-                                    Qt.AscendingOrder)
+                                    Qt.SortOrder.AscendingOrder)
             self.proxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):

@@ -28,7 +28,7 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
 
         logging.debug(self.__className + '.__init__')

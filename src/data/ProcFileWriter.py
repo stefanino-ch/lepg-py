@@ -7,7 +7,7 @@ from datetime import date
 import logging
 import os
 
-from PyQt6.QtCore import QFile, QTextStream
+from PyQt6.QtCore import QFile, QTextStream, QStringConverter
 from PyQt6.QtWidgets import QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
@@ -32,7 +32,7 @@ class ProcFileWriter:
 
     def __init__(self):
         """
-        Constructor
+        :method: Class initialization
         """
         self.rib_m = ProcModel.RibModel()
         self.wing_m = ProcModel.WingModel()
@@ -70,7 +70,7 @@ class ProcFileWriter:
         self.three_d_sh_up_det_M = ProcModel.ThreeDShUpDetModel()
         self.three_d_sh_lo_det_m = ProcModel.ThreeDShLoDetModel()
         self.three_d_sh_print_m = ProcModel.ThreeDShPrintModel()
-        self.airf_thickn_m = ProcModel.AirfoilThicknessModel()
+        self.airf_thick_m = ProcModel.AirfoilThicknessModel()
         self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
         self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
         self.parts_sep_m = ProcModel.PartsSeparationModel()
@@ -83,9 +83,9 @@ class ProcFileWriter:
 
     def write_file(self, for_proc=False):
         """
-        :method: Writes all the values into a data file.
+        :method: Writes all the values into a data file
         :warning: Filename must have been set already before, unless the file
-                  shall be written for the PreProcessor.
+                  shall be written for the PreProcessor
         :param for_proc: Set this to True if the file must be saved in the
                         directory where the PreProcessor resides
 
@@ -196,7 +196,7 @@ class ProcFileWriter:
         stream << separator
         stream << '* Airfoil name, intake in, intake out, open , disp. rrw\n'
         for line_it in range(0, self.wing_m.halfNumRibs):
-            values = self.airfoils_m.getRow(line_it + 1)
+            values = self.airfoils_m.get_row(line_it + 1)
             stream << '%s' % (line_it + 1)
 
             for p in range(0, 7):
@@ -309,9 +309,9 @@ class ProcFileWriter:
         stream << '\t%s\n' % chk_num(values(1))
         stream << '* Calage %\n'
         stream << '\t%s\n' % chk_num(values(2))
-        stream << '* Risers lenght cm\n'
+        stream << '* Risers length cm\n'
         stream << '\t%s\n' % chk_num(values(3))
-        stream << '* Line lenght cm\n'
+        stream << '* Line length cm\n'
         stream << '\t%s\n' % chk_num(values(4))
         stream << '* Karabiners cm\n'
         stream << '\t%s\n' % chk_num(values(5))
@@ -349,7 +349,7 @@ class ProcFileWriter:
         num_lines = self.brakes_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
         for line_it in range(0, num_lines):
-            values = self.brakes_m.getRow(1, line_it + 1)
+            values = self.brakes_m.get_row(1, line_it + 1)
 
             for p in range(0, 11):
                 if p > 0:
@@ -359,7 +359,7 @@ class ProcFileWriter:
                     stream << '\n'
 
         stream << '* Brake distribution\n'
-        values = self.brake_length_m.getRow()
+        values = self.brake_length_m.get_row()
 
         for p in range(0, 5):
             if p > 0:
@@ -430,7 +430,7 @@ class ProcFileWriter:
         for g in range(0, num_groups):
             num_lines = self.extrados_col_det_m.num_rows_for_config(g + 1)
 
-            values = self.extrados_col_conf_m.getRow(g + 1)
+            values = self.extrados_col_conf_m.get_row(g + 1)
             stream << '%s' % values(0)
             stream << '\t%s\n' % num_lines
 
@@ -458,20 +458,20 @@ class ProcFileWriter:
                 stream << '\t%s\t0.\n' % chk_num(values(0))
 
         stream << separator
-        stream << '*       17. Aditional rib points\n'
+        stream << '*       17. Additional rib points\n'
         stream << separator
         num_lines = self.add_rib_pts_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
-            values = self.add_rib_pts_m.getRow(1, line_it + 1)
+            values = self.add_rib_pts_m.get_row(1, line_it + 1)
             stream << '%s' % chk_num(values(0))
             stream << '\t%s\n' % chk_num(values(1))
 
         stream << separator
         stream << '*       18. Elastic lines corrections\n'
         stream << separator
-        values = self.el_lines_corr_m.getRow()
+        values = self.el_lines_corr_m.get_row()
         stream << '%s\n' % chk_num(values(0))
 
         stream << '%s' % chk_num(values(1))
@@ -510,7 +510,7 @@ class ProcFileWriter:
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
-            values = self.dxf_lay_names_m.getRow(1, line_it + 1)
+            values = self.dxf_lay_names_m.get_row(1, line_it + 1)
 
             for p in range(0, 2):
                 if p > 0:
@@ -624,14 +624,14 @@ class ProcFileWriter:
         stream << separator
         stream << '*       24. GENERAL 2D DXF OPTIONS\n'
         stream << separator
-        if self.two_d_dxf_m.isUsed() is False:
+        if self.two_d_dxf_m.is_used() is False:
             stream << '0\n'
         else:
             stream << '1\n'
             num_lines = self.two_d_dxf_m.num_rows_for_config(1)
 
             for line_it in range(0, num_lines):
-                values = self.two_d_dxf_m.getRow(1, line_it + 1)
+                values = self.two_d_dxf_m.get_row(1, line_it + 1)
 
                 for p in range(0, 3):
                     if p > 0:
@@ -646,19 +646,19 @@ class ProcFileWriter:
         stream << separator
         stream << '*       25. GENERAL 3D DXF OPTIONS\n'
         stream << separator
-        if self.three_d_dxf_m.isUsed() is False:
+        if self.three_d_dxf_m.is_used() is False:
             stream << '0\n'
         else:
             stream << '1\n'
             for line_it in range(0, 6):
-                values = self.three_d_dxf_m.getRow(1, line_it + 1)
+                values = self.three_d_dxf_m.get_row(1, line_it + 1)
 
                 stream << '%s' % chk_str(values(0))
                 stream << '\t%s' % chk_num(values(2))
                 stream << '\t%s\n' % chk_str(values(3))
 
             for line_it in range(6, 9):
-                values = self.three_d_dxf_m.getRow(1, line_it + 1)
+                values = self.three_d_dxf_m.get_row(1, line_it + 1)
                 for p in range(0, 4):
                     if p > 0:
                         stream << '\t'
@@ -752,7 +752,7 @@ class ProcFileWriter:
             stream << 'groups\t%s\n' % num_groups
 
             for g in range(0, num_groups):
-                values = self.three_d_sh_conf_m.getRow(g + 1, 1)
+                values = self.three_d_sh_conf_m.get_row(g + 1, 1)
                 stream << 'group\t%s' % (g + 1)
                 stream << '\t%s' % chk_num(values(ProcModel.ThreeDShConfModel.FirstRibCol))
                 stream << '\t%s\n' % chk_num(values(ProcModel.ThreeDShConfModel.LastRibCol))
@@ -761,7 +761,7 @@ class ProcFileWriter:
                 stream << 'upper\t%s\t1\n' % num_lines
 
                 for line_it in range(0, num_lines):
-                    values = self.three_d_sh_up_det_M.getRow(g + 1, line_it + 1)
+                    values = self.three_d_sh_up_det_M.get_row(g + 1, line_it + 1)
                     stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
@@ -773,7 +773,7 @@ class ProcFileWriter:
                 stream << 'lower\t%s\t1\n' % num_lines
 
                 for line_it in range(0, num_lines):
-                    values = self.three_d_sh_lo_det_m.getRow(g + 1, line_it + 1)
+                    values = self.three_d_sh_lo_det_m.get_row(g + 1, line_it + 1)
                     stream << '%s' % (line_it + 1)
 
                     for p in range(0, 3):
@@ -784,7 +784,7 @@ class ProcFileWriter:
             stream << '* Print parameters\n'
             num_lines = self.three_d_sh_print_m.num_rows_for_config(1)
             for line_it in range(0, num_lines):
-                values = self.three_d_sh_print_m.getRow(1, line_it + 1)
+                values = self.three_d_sh_print_m.get_row(1, line_it + 1)
 
                 for p in range(0, 5):
                     if p > 0:
@@ -799,14 +799,14 @@ class ProcFileWriter:
         stream << separator
         stream << '*       30. AIRFOIL THICKNESS MODIFICATION\n'
         stream << separator
-        if self.airf_thickn_m.isUsed() is False:
+        if self.airf_thick_m.is_used() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            num_lines = self.airf_thickn_m.num_rows_for_config(1)
+            num_lines = self.airf_thick_m.num_rows_for_config(1)
             for line_it in range(0, num_lines):
-                values = self.airf_thickn_m.getRow(1, line_it + 1)
+                values = self.airf_thick_m.getRow(1, line_it + 1)
 
                 stream << '%s' % (line_it + 1)
                 stream << '\t%s\n' % chk_num(values(0))

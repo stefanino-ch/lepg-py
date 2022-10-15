@@ -45,7 +45,7 @@ class Color:
                  g: int = 0,
                  b: int = 0):
         """
-        :method: Constructor
+        :method: Class initialization
         :param r: red part of the color
         :param g: green part of the color
         :param b: blue part of the color
@@ -111,7 +111,7 @@ class Point3D:
                  y3d: float = 0.0,
                  z3d: float = 0.0):
         """
-        :constructor: Creates a new point 3D object with the given coordinates
+        :method: Creates a new point 3D object with the given coordinates
         :param x3d: x coordinate of the point
         :param y3d: x coordinate of the point
         :param z3d: x coordinate of the point
@@ -259,7 +259,7 @@ class Line3D:
                  end_x, end_y, end_z,
                  r=0, g=0, b=0):
         """
-        :constructor: Creates a new line object
+        :method: Creates a new line object
         :param start_x: x coordinate of start point
         :param start_y: y coordinate of start point
         :param start_z: z coordinate of start point
@@ -292,7 +292,7 @@ class Text3D:
                  r, g, b,
                  rotation):
         """
-        :constructor: Creates a new text object
+        :method: Creates a new text object
         :param x: x coordinate of text
         :param y: y coordinate of text
         :param z: z coordinate of text
@@ -336,7 +336,7 @@ class Circle3D:
                  radius,
                  r=0, g=0, b=0):
         """
-        :constructor: Creates a new circle object
+        :method: Creates a new circle object
         :param center_x: x coordinate of the center
         :param center_y: y coordinate of the center
         :param center_z: z coordinate of the center

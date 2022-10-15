@@ -27,7 +27,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -200,7 +200,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensConf_M)
         self.confProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensConfModel.ConfigNumCol)
-        self.confProxyModel[curr_num_tabs].setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        self.confProxyModel[curr_num_tabs].setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
         conf_table.verticalHeader().setVisible(False)
         conf_table.hideColumn(self.newSkinTensConf_M.OrderNumCol)
@@ -249,7 +249,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensDet_M)
         self.detProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensDetModel.ConfigNumCol)
-        self.detProxyModel[curr_num_tabs].setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        self.detProxyModel[curr_num_tabs].setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
         det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -321,7 +321,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
 
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
-            self.detProxyModel[curr_tab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.AscendingOrder)
+            self.detProxyModel[curr_tab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):

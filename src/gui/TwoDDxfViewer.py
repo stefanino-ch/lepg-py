@@ -37,7 +37,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :constructor:
+        :method: Class initialization
         """
         super().__init__()
         self.__file_path_name = None

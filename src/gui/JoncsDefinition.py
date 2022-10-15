@@ -30,7 +30,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -275,7 +275,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         self.proxyModel[curr_num_tabs].\
             setFilterKeyColumn(ProcModel.JoncsDefModel.ConfigNumCol)
         self.proxyModel[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
 
         self.table.append(TableView())
         self.table[curr_num_tabs].setModel(self.proxyModel[curr_num_tabs])
@@ -443,7 +443,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
             curr_tab = self.tabs.currentIndex()
             self.proxyModel[curr_tab].sort(
                 ProcModel.JoncsDefModel.OrderNumCol,
-                Qt.AscendingOrder)
+                Qt.SortOrder.AscendingOrder)
             self.proxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):

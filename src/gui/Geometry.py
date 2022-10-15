@@ -28,7 +28,7 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.btnBar = None
         self.sortBtn = None
@@ -174,7 +174,7 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.sort_btn_press')
         self.rib_M.sort_table(ProcModel.RibModel.RibNumCol,
-                              Qt.AscendingOrder)
+                              Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):
         """

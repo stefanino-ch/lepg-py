@@ -31,7 +31,7 @@ class Rib:
                  le_x, le_y, le_z,
                  te_x, te_y, te_z):
         """
-        :method: Constructor
+        :method: Class initialization
         :param le_x: x-Coordinate of the le-position
         :param le_y: y-Coordinate of the le-position
         :param le_z: z-Coordinate of the le-position
@@ -57,7 +57,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         super().__init__()
         self.view = None

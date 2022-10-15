@@ -24,7 +24,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.window_ly = None
         self.btn_bar = None

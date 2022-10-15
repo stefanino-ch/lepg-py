@@ -35,7 +35,7 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         super().__init__()
         self.__file_path_name = None

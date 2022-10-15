@@ -83,5 +83,5 @@ class FileHelpers(object):
 
     def __init__(self):
         """
-        Constructor
+        :method: Class initialization
         """

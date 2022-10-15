@@ -53,7 +53,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
     def __init__(self, parent=None):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
 
@@ -586,7 +586,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()
@@ -724,7 +724,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()
@@ -816,7 +816,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()
@@ -953,7 +953,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()
@@ -1084,7 +1084,7 @@ class PreProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className+'.__init__')
             super().__init__()

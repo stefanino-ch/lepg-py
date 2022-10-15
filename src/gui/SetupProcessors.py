@@ -28,7 +28,7 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         super().__init__()
 

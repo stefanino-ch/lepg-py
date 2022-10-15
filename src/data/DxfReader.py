@@ -21,7 +21,7 @@ class DxfReader:
 
     def __init__(self):
         """
-        :constructor:
+        :method: Class initialization
         """
         self.doc = None
 

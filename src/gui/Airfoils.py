@@ -28,7 +28,7 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.btnBar = None
         self.sortBtn = None
@@ -109,7 +109,7 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
                                     1, 999)
         self.table.en_reg_exp_validator(ProcModel.AirfoilsModel.AirfNameCol,
                                         ProcModel.AirfoilsModel.AirfNameCol,
-                                         "(.|\s)*\S(.|\s)*")
+                                        "(.|\s)*\S(.|\s)*")
         self.table.en_double_validator(
             ProcModel.AirfoilsModel.IntakeStartCol, 
             ProcModel.AirfoilsModel.IntakeEndCol,
@@ -123,6 +123,7 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         self.table.en_double_validator(ProcModel.AirfoilsModel.RelWeightCol,
                                        ProcModel.AirfoilsModel.rrwCol,
                                        0, 100, 3)
+        # FIXME Rel Weight can not be edited properly
 
         self.windowLayout.addWidget(self.table)
 
@@ -154,7 +155,7 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.sort_btn_press')
         self.airf_M.sort_table(ProcModel.AirfoilsModel.RibNumCol, 
-                               Qt.AscendingOrder)
+                               Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):
         """

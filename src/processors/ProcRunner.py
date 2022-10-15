@@ -22,7 +22,7 @@ class ProcRunner:
 
     def __init__(self, proc_out_w):
         """
-        :method: Constructor
+        :method: Class initialization
         :param proc_out_w: The instance of the window where the output of the
                            processor shall be written to
         """

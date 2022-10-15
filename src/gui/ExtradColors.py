@@ -29,7 +29,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -212,7 +212,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         self.confProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.ExtradosColConfModel.ConfigNumCol)
         self.confProxyModel[curr_num_tabs]. \
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
         conf_table.verticalHeader().setVisible(False)
         conf_table.hideColumn(self.extradColsConf_M.OrderNumCol)
@@ -266,7 +266,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         self.detProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.ExtradosColDetModel.ConfigNumCol)
         self.detProxyModel[curr_num_tabs]. \
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
         det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -340,7 +340,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
             curr_tab = self.tabs.currentIndex()
             self.detProxyModel[curr_tab].sort(
                 ProcModel.ExtradosColDetModel.OrderNumCol,
-                Qt.AscendingOrder)
+                Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):

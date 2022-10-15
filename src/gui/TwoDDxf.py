@@ -27,7 +27,7 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -147,7 +147,7 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.usage_update')
 
-        if self.twoDDxf_M.isUsed():
+        if self.twoDDxf_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
             self.usage_cb.setCurrentIndex(0)
@@ -158,9 +158,9 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
-            self.twoDDxf_M.setIsUsed(False)
+            self.twoDDxf_M.set_is_used(False)
         else:
-            self.twoDDxf_M.setIsUsed(True)
+            self.twoDDxf_M.set_is_used(True)
         self.pm.set_file_saved(False)
 
     def btn_press(self, q):

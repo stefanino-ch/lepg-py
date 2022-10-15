@@ -24,9 +24,9 @@ class WaitWindow(QTextEdit):
     def __init__(self):
         super(WaitWindow, self).__init__()
         self.setWindowIcon(QIcon('gui\\appIcon.ico'))
-        self.setWindowFlag(Qt.WindowCloseButtonHint, False)
-        self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
-        self.setWindowFlag(Qt.WindowMinimizeButtonHint, False)
+        self.setWindowFlag(Qt.WindowType.WindowCloseButtonHint, False)
+        self.setWindowFlag(Qt.WindowType.WindowMaximizeButtonHint, False)
+        self.setWindowFlag(Qt.WindowType.WindowMinimizeButtonHint, False)
         self.setMaximumSize(450, 0)
         self.setMinimumSize(450, 25)
         self.setWindowTitle(_("Please wait.. reading might take some time"))
@@ -48,7 +48,7 @@ class ProcFileReader(QObject):
 
     def __init__(self):
         """
-        Constructor
+        :method: Class initialization
         """
         super().__init__()
 
@@ -470,31 +470,31 @@ class ProcFileReader(QObject):
         for line_it in range(0, num_config_lines):
             values = split_line(stream.readLine())
             try:
-                self.brakes_M.updateRow(1, line_it + 1,
-                                        values[0],
-                                        values[1],
-                                        values[2],
-                                        values[3],
-                                        values[4],
-                                        values[5],
-                                        values[6],
-                                        values[7],
-                                        values[8],
-                                        values[9],
-                                        values[10])
+                self.brakes_M.update_row(1, line_it + 1,
+                                         values[0],
+                                         values[1],
+                                         values[2],
+                                         values[3],
+                                         values[4],
+                                         values[5],
+                                         values[6],
+                                         values[7],
+                                         values[8],
+                                         values[9],
+                                         values[10])
             except:
-                self.brakes_M.updateRow(1, line_it + 1,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0,
-                                        0)
+                self.brakes_M.update_row(1, line_it + 1,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0)
                 logging.error(self.__className
                               + '.read_file: Brake lines data missing')
 
@@ -625,7 +625,7 @@ class ProcFileReader(QObject):
         for configCounter in range(0, num_configs):
             values = split_line(stream.readLine())
 
-            self.extradosColConf_M.updateRow(configCounter + 1, values[0])
+            self.extradosColConf_M.update_row(configCounter + 1, values[0])
 
             num_config_lines = int(values[1])
             self.extradosColDet_M.set_num_rows_for_config(configCounter + 1,
@@ -677,7 +677,7 @@ class ProcFileReader(QObject):
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
 
-            self.addRibPts_M.updateRow(1, line_it + 1, values[0], values[1])
+            self.addRibPts_M.update_row(1, line_it + 1, values[0], values[1])
 
         ##############################
         # 18. ELASTIC LINES CORRECTIONS
@@ -760,7 +760,7 @@ class ProcFileReader(QObject):
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
-                                         ProcModel.ElasticLinesCorrModelFourLineDistCCol),
+                                         ProcModel.ElLinesCorrModel.FourLineDistCCol),
                 values[2])
         except:
             self.elLinesCorr_M.setData(
@@ -839,17 +839,17 @@ class ProcFileReader(QObject):
         for line_it in range(0, 5):
             values = split_line(stream.readLine())
             try:
-                self.elLinesDef_M.updateRow(1,
-                                            line_it + 1,
-                                            values[1],
-                                            values[2],
-                                            values[3])
+                self.elLinesDef_M.update_row(1,
+                                             line_it + 1,
+                                             values[1],
+                                             values[2],
+                                             values[3])
             except:
-                self.elLinesDef_M.updateRow(1,
-                                            line_it + 1,
-                                            0,
-                                            0,
-                                            0)
+                self.elLinesDef_M.update_row(1,
+                                             line_it + 1,
+                                             0,
+                                             0,
+                                             0)
                 logging.error(self.__className
                               + '.read_file: Elastic lines corr data missing')
 
@@ -1009,16 +1009,16 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.twoDDxf_M.setIsUsed(False)
+        self.twoDDxf_M.set_is_used(False)
 
         if data != 0:
-            self.twoDDxf_M.setIsUsed(True)
+            self.twoDDxf_M.set_is_used(True)
             self.twoDDxf_M.set_num_rows_for_config(1, 6)
             # we have data to read
             for line_it in range(0, 6):
                 values = split_line(stream.readLine())
-                self.twoDDxf_M.updateRow(1, line_it + 1,
-                                         values[0], values[1], values[2])
+                self.twoDDxf_M.update_row(1, line_it + 1,
+                                          values[0], values[1], values[2])
 
         ##############################
         # 25. GENERAL 3D DXF OPTIONS
@@ -1030,22 +1030,22 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.threeDDxf_M.setIsUsed(False)
+        self.threeDDxf_M.set_is_used(False)
 
         if data != 0:
-            self.threeDDxf_M.setIsUsed(True)
+            self.threeDDxf_M.set_is_used(True)
             self.threeDDxf_M.set_num_rows_for_config(1, 9)
             # we have data to read
             for line_it in range(0, 6):
                 values = split_line(stream.readLine())
-                self.threeDDxf_M.updateRow(1, line_it + 1,
-                                           values[0], values[1], values[2])
+                self.threeDDxf_M.update_row(1, line_it + 1,
+                                            values[0], values[1], values[2])
 
             for line_it in range(0, 3):
                 values = split_line(stream.readLine())
-                self.threeDDxf_M.updateRow(1, line_it + 1 + 6,
-                                           values[0], values[2],
-                                           values[3], values[1])
+                self.threeDDxf_M.update_row(1, line_it + 1 + 6,
+                                            values[0], values[2],
+                                            values[3], values[1])
 
         ##############################
         # 26. GLUE VENTS
@@ -1131,7 +1131,7 @@ class ProcFileReader(QObject):
             values_b = split_line(stream.readLine())
             values_c = split_line(stream.readLine())
 
-            self.calageVar_M.updateRow(
+            self.calageVar_M.update_row(
                 1, 1,
                 values_a[0],
                 values_b[0], values_b[1], values_b[2], values_b[3], values_b[4], values_b[5],
@@ -1162,7 +1162,7 @@ class ProcFileReader(QObject):
                 # ribs and so
                 values = split_line(stream.readLine())
 
-                self.threeDShConf_M.updateRow(g + 1, 1, values[2], values[3])
+                self.threeDShConf_M.update_row(g + 1, 1, values[2], values[3])
 
                 # upper config
                 values = split_line(stream.readLine())
@@ -1171,19 +1171,19 @@ class ProcFileReader(QObject):
                     self.threeDShUpDet_M.set_num_rows_for_config(g + 1, num_up_cuts)
 
                     values = split_line(stream.readLine())
-                    self.threeDShUpDet_M.updateRow(g + 1, 1, values[1],
-                                                   values[2], values[3])
+                    self.threeDShUpDet_M.update_row(g + 1, 1, values[1],
+                                                    values[2], values[3])
 
                 elif num_up_cuts == 2:
                     self.threeDShUpDet_M.set_num_rows_for_config(g + 1, num_up_cuts)
 
                     values = split_line(stream.readLine())
-                    self.threeDShUpDet_M.updateRow(g + 1, 1, values[1],
-                                                   values[2], values[3])
+                    self.threeDShUpDet_M.update_row(g + 1, 1, values[1],
+                                                    values[2], values[3])
 
                     values = split_line(stream.readLine())
-                    self.threeDShUpDet_M.updateRow(g + 1, 2, values[1],
-                                                   values[2], values[3])
+                    self.threeDShUpDet_M.update_row(g + 1, 2, values[1],
+                                                    values[2], values[3])
 
                 # lower config
                 values = split_line(stream.readLine())
@@ -1192,8 +1192,8 @@ class ProcFileReader(QObject):
                     self.threeDShLoDet_M.set_num_rows_for_config(g + 1, num_lo_cuts)
 
                     values = split_line(stream.readLine())
-                    self.threeDShLoDet_M.updateRow(g + 1, 1, values[1],
-                                                   values[2], values[3])
+                    self.threeDShLoDet_M.update_row(g + 1, 1, values[1],
+                                                    values[2], values[3])
 
             stream.readLine()
 
@@ -1202,9 +1202,9 @@ class ProcFileReader(QObject):
 
             for line_it in range(0, 5):
                 values = split_line(stream.readLine())
-                self.threeDShPr_M.updateRow(1, line_it + 1, values[0],
-                                            values[1], values[2], values[3],
-                                            values[4])
+                self.threeDShPr_M.update_row(1, line_it + 1, values[0],
+                                             values[1], values[2], values[3],
+                                             values[4])
 
         ##############################
         # 30. AIRFOIL THICKNESS
@@ -1215,14 +1215,14 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.airfThick_M.setIsUsed(False)
+        self.airfThick_M.set_is_used(False)
 
         if data != 0:
-            self.airfThick_M.setIsUsed(True)
+            self.airfThick_M.set_is_used(True)
             # we have data to read
             for line_it in range(0, self.wing_M.halfNumRibs):
                 values = split_line(stream.readLine())
-                self.airfThick_M.updateRow(1, line_it + 1, values[1])
+                self.airfThick_M.update_row(1, line_it + 1, values[1])
 
         ##############################
         # 31. NEW SKIN TENSION

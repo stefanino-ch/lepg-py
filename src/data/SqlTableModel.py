@@ -104,7 +104,7 @@ class SqlTableModel(QSqlTableModel):
         """
         :method: Forces the model to sort
         :param row: Row which is used to sort
-        :param order: Qt.AscendingOrder or Qt.DescendingOrder
+        :param order: Qt.SortOrder.AscendingOrder or Qt.DescendingOrder
         """
         logging.debug(self.__className+'.sort_table')
         self.setSort(row, order)

@@ -29,7 +29,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.win = None
         self.window_ly = None

@@ -59,7 +59,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
     def __init__(self, parent=None):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
 
@@ -111,10 +111,10 @@ class ProcModel(QObject, metaclass=Singleton):
         self.intradosColDet_m.dataChanged.connect(self.data_edit)
         self.joncsDef_m = ProcModel.JoncsDefModel()
         self.joncsDef_m.dataChanged.connect(self.data_edit)
-        self.ligthConf_m = ProcModel.LightConfModel()
-        self.ligthConf_m.dataChanged.connect(self.data_edit)
-        self.ligthDet_m = ProcModel.LightDetModel()
-        self.ligthDet_m.dataChanged.connect(self.data_edit)
+        self.lightConf_m = ProcModel.LightConfModel()
+        self.lightConf_m.dataChanged.connect(self.data_edit)
+        self.lightDet_m = ProcModel.LightDetModel()
+        self.lightDet_m.dataChanged.connect(self.data_edit)
         self.lines_m = ProcModel.LinesModel()
         self.lines_m.dataChanged.connect(self.data_edit)
         self.marks_m = ProcModel.MarksModel()
@@ -135,8 +135,8 @@ class ProcModel(QObject, metaclass=Singleton):
         self.skinTens_m.dataChanged.connect(self.data_edit)
         self.skinTensParams_m = ProcModel.SkinTensionParamsModel()
         self.skinTensParams_m.dataChanged.connect(self.data_edit)
-        self.seewinAllowances_m = ProcModel.SewingAllowancesModel()
-        self.seewinAllowances_m.dataChanged.connect(self.data_edit)
+        self.seewingAllowances_m = ProcModel.SewingAllowancesModel()
+        self.seewingAllowances_m.dataChanged.connect(self.data_edit)
         self.specWingTyp_m = ProcModel.SpecWingTipModel()
         self.specWingTyp_m.dataChanged.connect(self.data_edit)
         self.thrDDxf_m = ProcModel.ThreeDDxfModel()
@@ -513,7 +513,7 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 3
         ''':attr: num of column for config number'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -530,11 +530,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("AddRibPoints")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -543,7 +543,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Orientation.Horizontal, _("X-Coordinate"))
             self.setHeaderData(2, Qt.Orientation.Horizontal, _("Y-Coordinate"))
 
-        def updateRow(self, configNum, orderNum, xCoord, yCoord):
+        def update_row(self, config_num, order_num, x_coord, y_coord):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -555,18 +555,18 @@ class ProcModel(QObject, metaclass=Singleton):
                           "XCoord= :xCoord, "
                           "YCoord= :yCoord "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":xCoord", xCoord)
-            query.bindValue(":yCoord", yCoord)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":xCoord", x_coord)
+            query.bindValue(":yCoord", y_coord)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -576,12 +576,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "XCoord, "
                           "YCoord "
                           "FROM AddRibPoints WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -611,7 +611,7 @@ class ProcModel(QObject, metaclass=Singleton):
         rrwCol = 7
         ''':attr: number of the column for the rrw config'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty anchor points table
             """
@@ -632,11 +632,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("Airfoils")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -650,10 +650,10 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(6, Qt.Orientation.Horizontal, _("Rel weight"))
             self.setHeaderData(7, Qt.Orientation.Horizontal, _("rrw"))
 
-        def getRow(self, ribNum):
+        def get_row(self, rib_num):
             """
             :method: reads values back from the internal database for a specific rib number
-            :param ribNum: Rib number. Starting with 1.
+            :param rib_num: Rib number. Starting with 1.
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -668,7 +668,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "RelWeight, "
                           "rrw "
                           "FROM Airfoils WHERE (RibNum = :rib)")
-            query.bindValue(":rib", ribNum)
+            query.bindValue(":rib", rib_num)
             query.exec()
             query.next()
             return query.value
@@ -696,11 +696,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("AirfoilThickness")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -708,7 +708,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(0, Qt.Orientation.Horizontal, _("Rib num"))
             self.setHeaderData(1, Qt.Orientation.Horizontal, _("Coef"))
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -722,7 +722,7 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER,"
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, coeff):
+        def update_row(self, config_num, order_num, coeff):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -734,21 +734,21 @@ class ProcModel(QObject, metaclass=Singleton):
                           "Coeff= :coeff "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.bindValue(":coeff", coeff)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def setIsUsed(self, isUsed):
+        def set_is_used(self, is_used):
             """
             :method: Set the usage flag of the section
-            :param isUsed: True if section is in use, False otherwise
+            :param is_used: True if section is in use, False otherwise
             """
             logging.debug(self.__className + '.set_is_used')
-            self.__isUsed = isUsed
+            self.__isUsed = is_used
             self.usageUpd.emit()
 
-        def isUsed(self):
+        def is_used(self):
             """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
@@ -825,7 +825,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -900,7 +900,7 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 12
         ''':attr: num of column for config number'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty Lines table
             """
@@ -927,11 +927,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("Brakes")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -949,8 +949,8 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
             self.setHeaderData(11, Qt.Orientation.Horizontal, _("An. Rib num"))
 
-        def updateRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
-                      i7, i8, i9, i10, i11):
+        def update_row(self, config_num, order_num, i1, i2, i3, i4, i5, i6,
+                       i7, i8, i9, i10, i11):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here as
@@ -983,16 +983,16 @@ class ProcModel(QObject, metaclass=Singleton):
             query.bindValue(":i9", i9)
             query.bindValue(":i10", i10)
             query.bindValue(":i11", i11)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -1011,12 +1011,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "AnchorLine, "
                           "AnchorRibNum "
                           "FROM Brakes WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -1049,15 +1049,15 @@ class ProcModel(QObject, metaclass=Singleton):
         d5Col = 9
         ''':attr: Number of the col holding the d5 value'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty Brake length table
             """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
-            query.exec("DROP TABLE if exists BrakeLenght;")
-            query.exec("create table if not exists BrakeLenght ("
+            query.exec("DROP TABLE if exists BrakeLength;")
+            query.exec("create table if not exists BrakeLength ("
                        "s1 INTEGER,"
                        "s2 INTEGER,"
                        "s3 INTEGER,"
@@ -1069,16 +1069,16 @@ class ProcModel(QObject, metaclass=Singleton):
                        "d4 INTEGER,"
                        "d5 INTEGER,"
                        "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into BrakeLenght (ID) Values( '1' );")
+            query.exec("INSERT into BrakeLength (ID) Values( '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
-            self.setTable("BrakeLenght")
+            self.create_table()
+            self.setTable("BrakeLength")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
@@ -1093,7 +1093,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(8, Qt.Orientation.Horizontal, _("d4 [cm]"))
             self.setHeaderData(9, Qt.Orientation.Horizontal, _("d5 [cm]"))
 
-        def getRow(self):
+        def get_row(self):
             """
             :method: reads values back from the internal database
             :return: specific values read from internal database
@@ -1112,7 +1112,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "d3, "
                           "d4, "
                           "d5 "
-                          "FROM BrakeLenght")
+                          "FROM BrakeLength")
             query.exec()
             query.next()
 
@@ -1160,11 +1160,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("CalageVar")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -1183,7 +1183,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(10, Qt.Orientation.Horizontal, _("Max pos ang [deg]"))
             self.setHeaderData(11, Qt.Orientation.Horizontal, _("Num pos steps"))
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -1207,8 +1207,9 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER, "
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, numRisers, posA, posB, posC, posD, posE, posF, maxNegAng, numNegSteps,
-                      maxPosAng, numPosSteps):
+        def update_row(self, config_num, order_num, num_risers, pos_a, pos_b,
+                       pos_c, pos_d, pos_e, pos_f, max_neg_ang, num_neg_steps,
+                       max_pos_ang, num_pos_steps):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -1229,19 +1230,19 @@ class ProcModel(QObject, metaclass=Singleton):
                           "MaxPosAng= :maxPosAng, "
                           "NumPosSteps= :numPosSteps "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":numRisers", numRisers)
-            query.bindValue(":posA", posA)
-            query.bindValue(":posB", posB)
-            query.bindValue(":posC", posC)
-            query.bindValue(":posD", posD)
-            query.bindValue(":posE", posE)
-            query.bindValue(":posF", posF)
-            query.bindValue(":maxNegAng", maxNegAng)
-            query.bindValue(":numNegSteps", numNegSteps)
-            query.bindValue(":maxPosAng", maxPosAng)
-            query.bindValue(":numPosSteps", numPosSteps)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":numRisers", num_risers)
+            query.bindValue(":posA", pos_a)
+            query.bindValue(":posB", pos_b)
+            query.bindValue(":posC", pos_c)
+            query.bindValue(":posD", pos_d)
+            query.bindValue(":posE", pos_e)
+            query.bindValue(":posF", pos_f)
+            query.bindValue(":maxNegAng", max_neg_ang)
+            query.bindValue(":numNegSteps", num_neg_steps)
+            query.bindValue(":maxPosAng", max_pos_ang)
+            query.bindValue(":numPosSteps", num_pos_steps)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
@@ -1329,7 +1330,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -1360,11 +1361,11 @@ class ProcModel(QObject, metaclass=Singleton):
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -1374,12 +1375,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "Layer, "
                           "Description "
                           "FROM DxfLayerNames WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -1422,15 +1423,15 @@ class ProcModel(QObject, metaclass=Singleton):
         FiveLineDistECol = 14
         ''':attr: Num of column for 5th five line load distr'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
-            query.exec("DROP TABLE if exists ElaslticLinesCorr;")
-            query.exec("create table if not exists ElaslticLinesCorr ("
+            query.exec("DROP TABLE if exists ElasticLinesCorr;")
+            query.exec("create table if not exists ElasticLinesCorr ("
                        "Load REAL,"
                        "TwoLineDistA REAL, "
                        "TwoLineDistB REAL, "
@@ -1447,20 +1448,20 @@ class ProcModel(QObject, metaclass=Singleton):
                        "FiveLineDistD REAL, "
                        "FiveLineDistE REAL, "
                        "ID INTEGER PRIMARY KEY);")
-            query.exec("INSERT into ElaslticLinesCorr (ID) Values( '1' );")
+            query.exec("INSERT into ElasticLinesCorr (ID) Values( '1' );")
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
-            self.setTable("ElaslticLinesCorr")
+            self.create_table()
+            self.setTable("ElasticLinesCorr")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-        def getRow(self):
+        def get_row(self):
             """
             :method: reads values back from the internal database
             :return: specific values read from internal database
@@ -1484,7 +1485,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "FiveLineDistC, "
                           "FiveLineDistD, "
                           "FiveLineDistE "
-                          "FROM ElaslticLinesCorr")
+                          "FROM ElasticLinesCorr")
             query.exec()
             query.next()
             return query.value
@@ -1508,15 +1509,15 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 4
         ''':attr: num of column for config number (always 1)'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
             logging.debug(self.__className + '.create_table')
             query = QSqlQuery()
 
-            query.exec("DROP TABLE if exists ElaslticLinesDef;")
-            query.exec("create table if not exists ElaslticLinesDef ("
+            query.exec("DROP TABLE if exists ElasticLinesDef;")
+            query.exec("create table if not exists ElasticLinesDef ("
                        "OrderNum INTEGER,"
                        "DefLow REAL,"
                        "DefMid REAL,"
@@ -1526,12 +1527,12 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
-            self.setTable("ElaslticLinesDef")
+            self.create_table()
+            self.setTable("ElasticLinesDef")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
@@ -1542,7 +1543,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
             self.set_num_rows_for_config(1, 5)
 
-        def updateRow(self, configNum, orderNum, defLow, defMid, defHigh):
+        def update_row(self, config_num, order_num, def_low, def_mid, def_high):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -1550,16 +1551,16 @@ class ProcModel(QObject, metaclass=Singleton):
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
-            query.prepare("UPDATE ElaslticLinesDef SET "
+            query.prepare("UPDATE ElasticLinesDef SET "
                           "DefLow= :defLow, "
                           "DefMid= :defMid, "
                           "DefHigh= :defHigh "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":defLow", defLow)
-            query.bindValue(":defMid", defMid)
-            query.bindValue(":defHigh", defHigh)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":defLow", def_low)
+            query.bindValue(":defMid", def_mid)
+            query.bindValue(":defHigh", def_high)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
@@ -1578,7 +1579,7 @@ class ProcModel(QObject, metaclass=Singleton):
                           "DefLow, "
                           "DefMid, "
                           "DefHigh "
-                          "FROM ElaslticLinesDef WHERE (ConfigNum = :config) ORDER BY OrderNum")
+                          "FROM ElasticLinesDef WHERE (ConfigNum = :config) ORDER BY OrderNum")
             query.bindValue(":config", configNum)
             query.exec()
             query.next()
@@ -1604,7 +1605,7 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 2
         ''':attr: number of the column holding the config number'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table.
             """
@@ -1620,31 +1621,31 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ExtradColsConf")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
             self.setHeaderData(self.FirstRibCol, Qt.Orientation.Horizontal, _("Rib num"))
 
-        def updateRow(self, configNum, firstRib):
+        def update_row(self, config_num, first_rib):
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
-            query.prepare("UPDATE ExtradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
-            query.bindValue(":firstRib", firstRib)
-            query.bindValue(":config", configNum)
+            query.prepare("UPDATE ExtradColsConf SET FirstRib= :first_rib WHERE (ConfigNum = :config);")
+            query.bindValue(":first_rib", first_rib)
+            query.bindValue(":config", config_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum):
+        def get_row(self, config_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -1653,7 +1654,7 @@ class ProcModel(QObject, metaclass=Singleton):
             query.prepare("Select "
                           "FirstRib "
                           "FROM ExtradColsConf WHERE (ConfigNum = :config)")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             return query.value
@@ -1689,7 +1690,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -1776,7 +1777,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -1855,7 +1856,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2030,7 +2031,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2154,7 +2155,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2169,8 +2170,8 @@ class ProcModel(QObject, metaclass=Singleton):
             logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
-            query.prepare("UPDATE IntradColsConf SET FirstRib= :firstRib WHERE (ConfigNum = :config);")
-            query.bindValue(":firstRib", firstRib)
+            query.prepare("UPDATE IntradColsConf SET FirstRib= :first_rib WHERE (ConfigNum = :config);")
+            query.bindValue(":first_rib", firstRib)
             query.bindValue(":config", configNum)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
@@ -2223,7 +2224,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2345,7 +2346,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2381,8 +2382,8 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE JoncsDef SET "
-                          "FirstRib= :firstRib, "
-                          "LastRib= :lastRib, "
+                          "FirstRib= :first_rib, "
+                          "LastRib= :last_rib, "
                           "pBA= :pBA, "
                           "pBB= :pBB, "
                           "pBC= :pBC, "
@@ -2397,8 +2398,8 @@ class ProcModel(QObject, metaclass=Singleton):
                           "pDD= :pDD, "
                           "Type= :t "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":firstRib", firstRib)
-            query.bindValue(":lastRib", lastRib)
+            query.bindValue(":first_rib", firstRib)
+            query.bindValue(":last_rib", lastRib)
             query.bindValue(":pBA", pBA)
             query.bindValue(":pBB", pBB)
             query.bindValue(":pBC", pBC)
@@ -2426,8 +2427,8 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE JoncsDef SET "
-                          "FirstRib= :firstRib, "
-                          "LastRib= :lastRib, "
+                          "FirstRib= :first_rib, "
+                          "LastRib= :last_rib, "
                           "pBA= :pBA, "
                           "pBB= :pBB, "
                           "pBC= :pBC, "
@@ -2439,8 +2440,8 @@ class ProcModel(QObject, metaclass=Singleton):
                           "pDD= :pDD, "
                           "Type= 2 "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":firstRib", firstRib)
-            query.bindValue(":lastRib", lastRib)
+            query.bindValue(":first_rib", firstRib)
+            query.bindValue(":last_rib", lastRib)
             query.bindValue(":pBA", pBA)
             query.bindValue(":pBB", pBB)
             query.bindValue(":pBC", pBC)
@@ -2566,7 +2567,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2667,7 +2668,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2805,7 +2806,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -2959,7 +2960,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3055,7 +3056,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3171,7 +3172,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3262,7 +3263,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3376,7 +3377,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3404,8 +3405,8 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE NoseMylars SET "
-                          "FirstRib= :firstRib, "
-                          "LastRib= :lastRib, "
+                          "FirstRib= :first_rib, "
+                          "LastRib= :last_rib, "
                           "x_one= :x_one, "
                           "uOne= :uOne, "
                           "uTwo= :uTwo, "
@@ -3413,8 +3414,8 @@ class ProcModel(QObject, metaclass=Singleton):
                           "vOne= :vOne, "
                           "vTwo= :vTwo "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":firstRib", firstRib)
-            query.bindValue(":lastRib", lastRib)
+            query.bindValue(":first_rib", firstRib)
+            query.bindValue(":last_rib", lastRib)
             query.bindValue(":x_one", xOne)
             query.bindValue(":uOne", uOne)
             query.bindValue(":uTwo", uTwo)
@@ -3525,7 +3526,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3718,7 +3719,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3858,7 +3859,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -3970,7 +3971,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -4054,7 +4055,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -4114,7 +4115,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -4191,7 +4192,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
@@ -4316,11 +4317,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ThreeDDxf")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4332,7 +4333,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(3, Qt.Orientation.Horizontal, _("Color code"))
             self.setHeaderData(4, Qt.Orientation.Horizontal, _("Color name (opt)"))
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4349,13 +4350,8 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER,"
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self,
-                      configNum,
-                      orderNum,
-                      lineName,
-                      colorCode,
-                      colorName,
-                      unifilar=0):
+        def update_row(self, config_num, order_num, line_name,
+                       color_code, color_name, unifilar=0):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here
@@ -4365,30 +4361,30 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDDxf SET "
-                          "LineName= :lineName, "
+                          "LineName= :line_name, "
                           "Unifilar= :unifilar, "
-                          "ColorCode= :colorCode, "
-                          "ColorName= :colorName "
+                          "ColorCode= :color_code, "
+                          "ColorName= :color_name "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":lineName", lineName)
+            query.bindValue(":line_name", line_name)
             query.bindValue(":unifilar", unifilar)
-            query.bindValue(":colorCode", colorCode)
-            query.bindValue(":colorName", colorName)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":color_code", color_code)
+            query.bindValue(":color_name", color_name)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated
 
-        def setIsUsed(self, isUsed):
+        def set_is_used(self, is_used):
             """
             :method: Set the usage flag of the section
-            :param isUsed: True if section is in use, False otherwise
+            :param is_used: True if section is in use, False otherwise
             """
             logging.debug(self.__className + '.set_is_used')
-            self.__isUsed = isUsed
+            self.__isUsed = is_used
             self.usageUpd.emit()
 
-        def isUsed(self):
+        def is_used(self):
             """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
@@ -4396,12 +4392,12 @@ class ProcModel(QObject, metaclass=Singleton):
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4414,12 +4410,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "ColorName "
                           "FROM ThreeDDxf WHERE (ConfigNum = :config) "
                           "ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -4440,7 +4436,7 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 3
         ''':attr: num of column for config number'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4457,11 +4453,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ThreeDShapingConf")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4469,7 +4465,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(1, Qt.Orientation.Horizontal, _("First Rib"))
             self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
 
-        def updateRow(self, configNum, orderNum, firstRib, lastRib):
+        def update_row(self, config_num, order_num, first_rib, last_rib):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -4478,21 +4474,21 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingConf SET "
-                          "FirstRib= :firstRib, "
-                          "LastRib= :lastRib "
+                          "FirstRib= :first_rib, "
+                          "LastRib= :last_rib "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":firstRib", firstRib)
-            query.bindValue(":lastRib", lastRib)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":first_rib", first_rib)
+            query.bindValue(":last_rib", last_rib)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4503,12 +4499,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "FirstRib, "
                           "LastRib "
                           "FROM ThreeDShapingConf WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -4531,7 +4527,7 @@ class ProcModel(QObject, metaclass=Singleton):
         ConfigNumCol = 4
         ''':attr: num of column for config number'''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4549,11 +4545,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ThreeDShapingUpDetail")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4562,7 +4558,8 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Orientation.Horizontal, _("Cut P"))
             self.setHeaderData(3, Qt.Orientation.Horizontal, _("Depth"))
 
-        def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
+        def update_row(self, config_num, order_num, ini_point,
+                       cut_point, depth):
             """
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
@@ -4571,23 +4568,23 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingUpDetail SET "
-                          "IniPoint= :iniPoint, "
-                          "CutPoint= :cutPoint, "
+                          "IniPoint= :ini_point, "
+                          "CutPoint= :cut_point, "
                           "Depth= :depth "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":iniPoint", iniPoint)
-            query.bindValue(":cutPoint", cutPoint)
+            query.bindValue(":ini_point", ini_point)
+            query.bindValue(":cut_point", cut_point)
             query.bindValue(":depth", depth)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             self.select()  # to a select() to assure the model is updated properly
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4598,12 +4595,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "CutPoint, "
                           "Depth "
                           "FROM ThreeDShapingUpDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -4646,7 +4643,7 @@ class ProcModel(QObject, metaclass=Singleton):
         :attr: num of column for config number
         '''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4664,11 +4661,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ThreeDShapingLoDetail")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4677,7 +4674,7 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(2, Qt.Orientation.Horizontal, _("Cut P"))
             self.setHeaderData(3, Qt.Orientation.Horizontal, _("Depth"))
 
-        def updateRow(self, configNum, orderNum, iniPoint, cutPoint, depth):
+        def update_row(self, config_num, order_num, ini_point, cut_point, depth):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here
@@ -4687,25 +4684,25 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE ThreeDShapingLoDetail SET "
-                          "IniPoint= :iniPoint, "
-                          "CutPoint= :cutPoint, "
+                          "IniPoint= :ini_point, "
+                          "CutPoint= :cut_point, "
                           "Depth= :depth "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":iniPoint", iniPoint)
-            query.bindValue(":cutPoint", cutPoint)
+            query.bindValue(":ini_point", ini_point)
+            query.bindValue(":cut_point", cut_point)
             query.bindValue(":depth", depth)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             # to a select() to assure the model is updated properly
             self.select()
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4716,12 +4713,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "CutPoint, "
                           "Depth "
                           "FROM ThreeDShapingLoDetail WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -4768,7 +4765,7 @@ class ProcModel(QObject, metaclass=Singleton):
         :attr: num of column for config number
         '''
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4788,11 +4785,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("ThreeDShapingPrint")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4806,8 +4803,8 @@ class ProcModel(QObject, metaclass=Singleton):
             self.setHeaderData(4, Qt.Orientation.Horizontal, _("Last panel"))
             self.setHeaderData(5, Qt.Orientation.Horizontal, _("Symmetric"))
 
-        def updateRow(self, configNum, orderNum, name, draw,
-                      firstPanel, lastPanel, symmetric):
+        def update_row(self, config_num, order_num, name, draw,
+                       first_panel, last_panel, symmetric):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here
@@ -4825,21 +4822,21 @@ class ProcModel(QObject, metaclass=Singleton):
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
             query.bindValue(":name", name)
             query.bindValue(":draw", draw)
-            query.bindValue(":firstPanel", firstPanel)
-            query.bindValue(":lastPanel", lastPanel)
+            query.bindValue(":firstPanel", first_panel)
+            query.bindValue(":lastPanel", last_panel)
             query.bindValue(":symmetric", symmetric)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             # to a select() to assure the model is updated properly
             self.select()
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: Reads values back from the internal database for a
                      specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4852,12 +4849,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "LastPanel, "
                           "Symmetric "
                           "FROM ThreeDShapingPrint WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -4891,11 +4888,11 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):  # @UnusedVariable
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()
-            self.createTable()
+            self.create_table()
             self.setTable("TwoDDxf")
             self.select()
             self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -4910,7 +4907,7 @@ class ProcModel(QObject, metaclass=Singleton):
             #      into account currently
             # TODO prefill table with correct names.
 
-        def createTable(self):
+        def create_table(self):
             """
             :method: Creates initially the empty table
             """
@@ -4926,8 +4923,8 @@ class ProcModel(QObject, metaclass=Singleton):
                        "ConfigNum INTEGER,"
                        "ID INTEGER PRIMARY KEY);")
 
-        def updateRow(self, configNum, orderNum, lineName,
-                      colorCode, colorName):
+        def update_row(self, config_num, order_num, line_name,
+                       color_code, color_name):
             """
             :method: Updates a specific row in the database with the values
                      passed. Parameters are not explicitly explained here as
@@ -4937,29 +4934,29 @@ class ProcModel(QObject, metaclass=Singleton):
 
             query = QSqlQuery()
             query.prepare("UPDATE TwoDDxf SET "
-                          "LineName= :lineName, "
-                          "ColorCode= :colorCode, "
-                          "ColorName= :colorName "
+                          "LineName= :line_name, "
+                          "ColorCode= :color_code, "
+                          "ColorName= :color_name "
                           "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":lineName", lineName)
-            query.bindValue(":colorCode", colorCode)
-            query.bindValue(":colorName", colorName)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
+            query.bindValue(":line_name", line_name)
+            query.bindValue(":color_code", color_code)
+            query.bindValue(":color_name", color_name)
+            query.bindValue(":config", config_num)
+            query.bindValue(":order", order_num)
             query.exec()
             # to a select() to assure the model is updated properly
             self.select()
 
-        def setIsUsed(self, isUsed):
+        def set_is_used(self, is_used):
             """
             :method: Set the usage flag of the section
-            :param isUsed: True if section is in use, False otherwise.
+            :param is_used: True if section is in use, False otherwise.
             """
             logging.debug(self.__className + '.set_is_used')
-            self.__isUsed = isUsed
+            self.__isUsed = is_used
             self.usageUpd.emit()
 
-        def isUsed(self):
+        def is_used(self):
             """
             :method: Returns the information if the section is in use or not
             :returns: True if section is in use, false otherwise
@@ -4967,12 +4964,12 @@ class ProcModel(QObject, metaclass=Singleton):
             logging.debug(self.__className + '.is_used')
             return self.__isUsed
 
-        def getRow(self, configNum, orderNum):
+        def get_row(self, config_num, order_num):
             """
             :method: Reads values back from the internal database for
                      a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
+            :param config_num: Configuration number. Starting with 1
+            :param order_num: Order number. Starting with 1
             :return: specific values read from internal database
             """
             logging.debug(self.__className + '.get_row')
@@ -4983,12 +4980,12 @@ class ProcModel(QObject, metaclass=Singleton):
                           "ColorCode, "
                           "ColorName "
                           "FROM TwoDDxf WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
+            query.bindValue(":config", config_num)
             query.exec()
             query.next()
             # now we are at the first row
             i = 1
-            while i < orderNum:
+            while i < order_num:
                 query.next()
                 i += 1
             return query.value
@@ -5076,7 +5073,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
         def __init__(self, parent=None):
             """
-            :method: Constructor
+            :method: Class initialization
             """
             logging.debug(self.__className + '.__init__')
             super().__init__()

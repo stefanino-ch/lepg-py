@@ -28,7 +28,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         self.btnBar = None
         self.tabs = None
@@ -230,7 +230,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.rib_PM[curr_num_tabs].\
             setFilterKeyColumn(ProcModel.ThreeDShConfModel.ConfigNumCol)
         self.rib_PM[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         rib_table.setModel(self.rib_PM[curr_num_tabs])
         rib_table.verticalHeader().setVisible(False)
         rib_table.hideColumn(self.threeDShConf_M.OrderNumCol)
@@ -288,7 +288,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.upC_PM[curr_num_tabs].\
             setFilterKeyColumn(ProcModel.ThreeDShUpDetModel.ConfigNumCol)
         self.upC_PM[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         up_c_t.setModel(self.upC_PM[curr_num_tabs])
         up_c_t.verticalHeader().setVisible(False)
         up_c_t.hideColumn(self.threeDShUpDet_M.OrderNumCol)
@@ -345,7 +345,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.loC_PM[curr_num_tabs].\
             setFilterKeyColumn(ProcModel.ThreeDShLoDetModel.ConfigNumCol)
         self.loC_PM[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         lo_c_t.setModel(self.loC_PM[curr_num_tabs])
         lo_c_t.verticalHeader().setVisible(False)
         lo_c_t.hideColumn(self.threeDShLoDet_M.OrderNumCol)

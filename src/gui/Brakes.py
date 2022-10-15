@@ -30,7 +30,7 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -257,7 +257,7 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.sort_btn_press')
 
-        self.proxyModel.sort(ProcModel.BrakesModel.OrderNumCol, Qt.AscendingOrder)
+        self.proxyModel.sort(ProcModel.BrakesModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
     def btn_press(self, q):

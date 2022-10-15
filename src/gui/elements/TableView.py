@@ -30,7 +30,7 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
     '''
     def __init__(self, bottom, top):
         """
-        :method: Constructor
+        :method: Class initialization
         :param bottom: lower border of the valid range
         :param top: upper border of the valid range
         """

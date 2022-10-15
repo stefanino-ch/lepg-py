@@ -27,7 +27,7 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         super().__init__()
         logging.debug(self.__className+'.__init__')

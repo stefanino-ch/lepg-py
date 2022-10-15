@@ -28,7 +28,7 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -145,7 +145,7 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className + '.sort_btn_press')
         self.anchPoints_M.sort_table(ProcModel.AnchorPointsModel.RibNumCol,
-                                     Qt.AscendingOrder)
+                                     Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):
         """

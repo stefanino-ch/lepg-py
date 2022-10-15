@@ -27,7 +27,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -99,7 +99,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
         brand_name_t.en_reg_exp_validator(ProcModel.WingModel.BrandNameCol,
                                           ProcModel.WingModel.BrandNameCol,
-                                           "(.|\s)*\S(.|\s)*")
+                                          "(.|\s)*\S(.|\s)*")
 
         self.window_ly.addWidget(brand_name_t)
 
@@ -124,7 +124,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
         wing_name_t.en_reg_exp_validator(ProcModel.WingModel.WingNameCol,
                                          ProcModel.WingModel.WingNameCol,
-                                          "(.|\s)*\S(.|\s)*")
+                                         "(.|\s)*\S(.|\s)*")
 
         self.window_ly.addWidget(wing_name_t)
 
@@ -159,6 +159,8 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.numbers_t = TableView()
         self.numbers_t.setModel(self.wing_M)
 
+        # FIXME Alpha Max Tip can not be edited properly
+        # FIXME Alpha Max Center can not be edited properly
         for i in range(ProcModel.WingModel.BrandNameCol,
                        ProcModel.WingModel.WingScaleCol + 1):
             self.numbers_t.hideColumn(i)
@@ -247,7 +249,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
         self.type_t.en_reg_exp_validator(ProcModel.WingModel.ParaTypeCol,
                                          ProcModel.WingModel.ParaTypeCol,
-                                          "(.|\s)*\S(.|\s)*")
+                                         "(.|\s)*\S(.|\s)*")
         self.type_t.en_int_validator(ProcModel.WingModel.ParaParamCol,
                                      ProcModel.WingModel.ParaParamCol,
                                      0, 1)

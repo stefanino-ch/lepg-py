@@ -29,7 +29,7 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className + '.__init__')
         super().__init__()
@@ -198,10 +198,11 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         conf_table = TableView()
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.lightC_M)
-        self.confProxyModel[curr_num_tabs].\
+        self.confProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.LightConfModel.ConfigNumCol)
-        self.confProxyModel[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        self.confProxyModel[curr_num_tabs]. \
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
+
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
         conf_table.verticalHeader().setVisible(False)
         conf_table.hideColumn(self.lightC_M.OrderNumCol)
@@ -223,9 +224,9 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         conf_layout.addStretch()
         conf_table.setFixedWidth(2
                                  + conf_table.columnWidth(
-                                        ProcModel.LightConfModel.InitialRibCol)
+                                    ProcModel.LightConfModel.InitialRibCol)
                                  + conf_table.columnWidth(
-                                        ProcModel.LightConfModel.FinalRibCol))
+                                    ProcModel.LightConfModel.FinalRibCol))
         conf_table.setFixedHeight(2
                                   + conf_table.horizontalHeader().height()
                                   + conf_table.rowHeight(0))
@@ -240,8 +241,8 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.numDet_S.append(QSpinBox())
         self.numDet_S[curr_num_tabs].setRange(1, 999)
         self.numDet_S[curr_num_tabs].setSizePolicy(
-                                                QSizePolicy(QSizePolicy.Policy.Fixed,
-                                                            QSizePolicy.Policy.Fixed))
+            QSizePolicy(QSizePolicy.Policy.Fixed,
+                        QSizePolicy.Policy.Fixed))
         self.numDet_S[curr_num_tabs].valueChanged.connect(self.det_spin_change)
         det_edit = self.numDet_S[curr_num_tabs].lineEdit()
         det_edit.setReadOnly(True)
@@ -256,10 +257,10 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         det_table = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[curr_num_tabs].setSourceModel(self.lightD_M)
-        self.detProxyModel[curr_num_tabs].\
+        self.detProxyModel[curr_num_tabs]. \
             setFilterKeyColumn(ProcModel.LightDetModel.ConfigNumCol)
-        self.detProxyModel[curr_num_tabs].\
-            setFilterRegExp(QRegExp(str(curr_num_tabs + 1)))
+        self.detProxyModel[curr_num_tabs]. \
+            setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
         det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -349,8 +350,9 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
 
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
-            self.detProxyModel[curr_tab].sort(ProcModel.LightDetModel.OrderNumCol,
-                                              Qt.AscendingOrder)
+            self.detProxyModel[curr_tab]. \
+                sort(ProcModel.LightDetModel.OrderNumCol,
+                     Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):
