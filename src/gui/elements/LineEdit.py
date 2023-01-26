@@ -34,14 +34,17 @@ class LineEdit(QLineEdit):
 
     def __init__(self):
         """
-        :method: Constructor
+        :method: Class initialization
         """
         logging.debug(self.__className+'.__init__')
 
         super().__init__()
         self.__helpBar = None
         self.__helpText = ''
+        self.validator = None
+
         self.installEventFilter(self)
+        self.textChanged.connect(self.check_content)
 
     def eventFilter(self, source, event):
         """
@@ -49,37 +52,37 @@ class LineEdit(QLineEdit):
                  window and the validation of the user inputs.
         """
         if self.__helpBar is not None:
-            if event.type() == QEvent.Enter:
+            if event.type() == QEvent.Type.Enter:
                 self.__helpBar.set_text(self.__helpText)
 
-            elif event.type() == QEvent.Leave:
+            elif event.type() == QEvent.Type.Leave:
                 self.__helpBar.clear_text()
 
             # elif event.type() == QEvent.KeyRelease:
-            #     self.checkContent()
+            #     self.check_content()
 
         return super(LineEdit, self).eventFilter(source, event)
 
-    def setHelpBar(self, helpBar):
+    def set_help_bar(self, help_bar):
         """
         :method: Configure the help bar of a specific window where the user
                  help text shall be displayed during program execution.
-        :param helpBar: Instance of the respective help bar to work with
+        :param help_bar: Instance of the respective help bar to work with
         """
         logging.debug(self.__className+'.set_help_bar')
-        self.__helpBar = helpBar
+        self.__helpBar = help_bar
 
-    def setHelpText(self, helpText):
+    def set_help_text(self, help_text):
         """
         :method: Herein you set the help text for each LineEdit which shall
                  be displayed if the mouse pointer is located above the
                  LineEdit or during data edit.
-        :param helpText: Help text to be displayed
+        :param help_text: Help text to be displayed
         """
         logging.debug(self.__className+'.set_help_text')
-        self.__helpText = helpText
+        self.__helpText = help_text
 
-    def enableIntValidator(self, bottom, top):
+    def enable_int_validator(self, bottom, top):
         """
         :method: Creates an IntValidator and sets it for the current line edit.
         :param bottom: lower value of validation border
@@ -87,23 +90,23 @@ class LineEdit(QLineEdit):
         """
         logging.debug(self.__className+'.en_int_validator')
         self.validator = QIntValidator(bottom, top)
-        self.setValidator(self.validator)
+        # self.setValidator(self.validator)
         self.__hasIntValidator = True
 
-    def enableDoubleValidator(self, bottom, top, decimals=0):
-        '''
+    def enable_double_validator(self, bottom, top, decimals=0):
+        """
         :method: Creates an DoubleValidator and sets it for the
                  current line edit.
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         :param decimals: number of decimals to be checked
-        '''
+        """
         logging.debug(self.__className+'.en_double_validator')
         self.validator = QDoubleValidator(bottom, top, decimals)
-        self.setValidator(self.validator)
+        # self.setValidator(self.validator)
         self.__hasDoubleValidator = True
 
-    def enableRegExpValidator(self, regexp):
+    def enable_reg_exp_validator(self, regexp):
         """
         Creates an RegExpValidator and sets it to the current line edit.
 
@@ -111,22 +114,22 @@ class LineEdit(QLineEdit):
         """
         logging.debug(self.__className+'.en_reg_exp_validator')
         rx = QRegularExpression(regexp)
-        self.validator = QRegExpValidator(rx, self)
-        self.setValidator(self.validator)
+        self.validator = QRegularExpressionValidator(rx, self)
+        # self.setValidator(self.validator)
         self.__hasRegExpValidator = True
 
-    def checkContent(self):
+    def check_content(self):
         """
         :method: Does check the content of a line edit with the help of the
                  applied validator. Depending on the check result the
                  background of the line edit is changed.
         """
-        logging.debug(self.__className+'.checkContent')
+        logging.debug(self.__className+'.check_content')
         if self.__hasDoubleValidator or self.__hasIntValidator:
             state = self.validator.validate(self.text(), 0)[0]
-            if state == QValidator.Acceptable:
+            if state == QValidator.State.Acceptable:
                 color = '#c4df9b'
-            elif state == QValidator.Intermediate:
+            elif state == QValidator.State.Intermediate:
                 color = '#fff79a'
             else:
                 color = '#f6989d'
@@ -134,9 +137,9 @@ class LineEdit(QLineEdit):
 
         elif self.__hasRegExpValidator:
             state = self.validator.validate(self.text(), 0)[0]
-            if state == QRegExpValidator.Acceptable:
+            if state == QRegularExpressionValidator.State.Acceptable:
                 color = '#c4df9b'
-            elif state == QRegExpValidator.Intermediate:
+            elif state == QRegularExpressionValidator.State.Intermediate:
                 color = '#fff79a'
             else:
                 color = '#f6989d'
