@@ -46,8 +46,6 @@ class LineEdit(QLineEdit):
         self.installEventFilter(self)
         self.textChanged.connect(self.check_content)
 
-        self.textChanged.connect(self.check_content)
-
     def eventFilter(self, source, event):
         """
         :method: Catches specific events and controls the updates of the help
