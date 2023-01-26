@@ -287,11 +287,11 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         tab_layout.addWidget(self.table[curr_num_tabs])
 
         # TODO: enable validators
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
-        #         branchTable.enableIntValidator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
+        #         branchTable.enable_int_validator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
+        #         branchTable.enable_int_validator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
+        #         branchTable.enable_int_validator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
+        #         branchTable.enable_int_validator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
+        #         branchTable.enable_int_validator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
         #
         self.table[curr_num_tabs].setHelpBar(self.helpBar)
         self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol,

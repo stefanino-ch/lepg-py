@@ -57,5 +57,5 @@ class CheckBox(QCheckBox):
                  be displayed if the mouse pointer is located over it.
         :param helpText: Help text to be displayed
         """
-        logging.debug(self.__className+'.setHelpText')
+        logging.debug(self.__className+'.set_help_text')
         self.__helpText = helpText

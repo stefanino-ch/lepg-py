@@ -46,6 +46,8 @@ class LineEdit(QLineEdit):
         self.__helpText = ''
         self.installEventFilter(self)
 
+        self.textChanged.connect(self.check_content)
+
     def eventFilter(self, source, event):
         """
         :method: Catches specific events and controls the updates of the help
@@ -59,72 +61,75 @@ class LineEdit(QLineEdit):
                 self.__helpBar.clearText()
 
             # elif event.type() == QEvent.KeyRelease:
-            #     self.checkContent()
+            #    self.check_content()
 
         return super(LineEdit, self).eventFilter(source, event)
 
-    def setHelpBar(self, helpBar):
+    def set_help_bar(self, help_bar):
         """
         :method: Configure the help bar of a specific window where the user
                  help text shall be displayed during program execution.
-        :param helpBar: Instance of the respective help bar to work with
+        :param help_bar: Instance of the respective help bar to work with
         """
         logging.debug(self.__className+'.setHelpBar')
-        self.__helpBar = helpBar
+        self.__helpBar = help_bar
 
-    def setHelpText(self, helpText):
+    def set_help_text(self, help_text):
         """
         :method: Herein you set the help text for each LineEdit which shall
                  be displayed if the mouse pointer is located above the
                  LineEdit or during data edit.
-        :param helpText: Help text to be displayed
+        :param help_text: Help text to be displayed
         """
-        logging.debug(self.__className+'.setHelpText')
-        self.__helpText = helpText
+        logging.debug(self.__className+'.set_help_text')
+        self.__helpText = help_text
 
-    def enableIntValidator(self, bottom, top):
+    def enable_int_validator(self, bottom, top):
         """
         :method: Creates an IntValidator and sets it for the current line edit.
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         """
-        logging.debug(self.__className+'.enableIntValidator')
+        logging.debug(self.__className+'.enable_int_validator')
         self.validator = QIntValidator(bottom, top)
-        self.setValidator(self.validator)
+        # self.setValidator(self.validator)
         self.__hasIntValidator = True
 
-    def enableDoubleValidator(self, bottom, top, decimals=0):
-        '''
+    def enable_double_validator(self, bottom, top, decimals=0):
+        """
         :method: Creates an DoubleValidator and sets it for the
                  current line edit.
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         :param decimals: number of decimals to be checked
-        '''
-        logging.debug(self.__className+'.enableDoubleValidator')
+        """
+        logging.debug(self.__className+'.enable_double_validator')
         self.validator = QDoubleValidator(bottom, top, decimals)
-        self.setValidator(self.validator)
+        # self.setValidator(self.validator)
         self.__hasDoubleValidator = True
 
-    def enableRegExpValidator(self, regexp):
+    def enable_reg_exp_validator(self, regexp):
         """
         Creates an RegExpValidator and sets it to the current line edit.
 
         :param regexp: the RegExp to be applied to the validator.
         """
-        logging.debug(self.__className+'.enableRegExpValidator')
+        logging.debug(self.__className+'.enable_reg_exp_validator')
         rx = QRegExp(regexp)
         self.validator = QRegExpValidator(rx, self)
-        self.setValidator(self.validator)
+        # self.setValidator(self.validator)
         self.__hasRegExpValidator = True
 
-    def checkContent(self):
+    def check_content(self):
         """
         :method: Does check the content of a line edit with the help of the
                  applied validator. Depending on the check result the
                  background of the line edit is changed.
         """
-        logging.debug(self.__className+'.checkContent')
+        logging.debug(self.__className+'.check_content')
+
+        print('check')
+
         if self.__hasDoubleValidator or self.__hasIntValidator:
             state = self.validator.validate(self.text(), 0)[0]
             if state == QValidator.Acceptable:

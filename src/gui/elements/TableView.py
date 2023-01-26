@@ -155,7 +155,7 @@ class TableView(QTableView):
         :param column: number of the column for which the text will be set. 
         :param helpText: Help text to be displayed
         '''
-        logging.debug(self.__className+'.setHelpText')
+        logging.debug(self.__className+'.set_help_text')
         length = len(self.__helpText)
         if length <= column:
             # add columns
@@ -174,7 +174,7 @@ class TableView(QTableView):
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         '''
-        logging.debug(self.__className+'.enableIntValidator')
+        logging.debug(self.__className+'.enable_int_validator')
         self.intDelegate.append( ValidatedIntItemDelegate(bottom, top) )
         index = len(self.intDelegate)-1
         
@@ -193,7 +193,7 @@ class TableView(QTableView):
         :param top: upper value of validation border
         :param decimals: number of decimals allowed
         '''
-        logging.debug(self.__className+'.enableDoubleValidator')
+        logging.debug(self.__className+'.enable_double_validator')
         self.doubleDelegate.append( ValidatedDoubleItemDelegate(bottom, top, decimals) )
         index = len(self.doubleDelegate)-1
         
@@ -209,7 +209,7 @@ class TableView(QTableView):
         :param lastRow: last row of the table where the validator should be set
         :param regexp: the RegExp to be applied to the validator.
         '''
-        logging.debug(self.__className+'.enableRegExpValidator')
+        logging.debug(self.__className+'.enable_reg_exp_validator')
         self.regExpDelegate.append( ValidatedRegExpItemDelegate(regexp) )
         index = len(self.regExpDelegate)-1
         
