@@ -37,7 +37,7 @@ class WindowHelpBar(QWidget):
     def set_text(self, help_text):
         """
         :method: Displays a text message in the help window
-        :parameter helpText: Text to be displayed
+        :parameter help_text: Text to be displayed
         """
         self.helpWindow.setText(help_text)
 
