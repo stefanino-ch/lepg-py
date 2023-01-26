@@ -101,9 +101,9 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         length_e = LineEdit()
         length_e.setFixedWidth(40)
         self.wrapper.addMapping(length_e, ProcModel.WingModel.BrakeLengthCol)
-        length_e.enableIntValidator(0, 20000)
-        length_e.setHelpText(_('Brakes-LineLengthDesc'))
-        length_e.setHelpBar(self.helpBar)
+        length_e.enable_int_validator(0, 20000)
+        length_e.set_help_text(_('Brakes-LineLengthDesc'))
+        length_e.set_help_bar(self.helpBar)
 
         length_layout = QHBoxLayout()
         length_layout.addWidget(length_l)

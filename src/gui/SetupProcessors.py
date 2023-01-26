@@ -91,8 +91,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
 
         self.pre_proc_e = LineEdit()
         self.pre_proc_e.setReadOnly(True)
-        self.pre_proc_e.setHelpBar(self.helpBar)
-        self.pre_proc_e.setHelpText(_('SetupProc-PreProcPathNameDesc'))
+        self.pre_proc_e.set_help_bar(self.helpBar)
+        self.pre_proc_e.set_help_text(_('SetupProc-PreProcPathNameDesc'))
         self.pre_proc_e.setText(self.config_reader.get_pre_proc_path_name())
 
         pre_proc_btn = QPushButton(_('Change'))
@@ -118,8 +118,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
 
         self.proc_e = LineEdit()
         self.proc_e.setReadOnly(True)
-        self.proc_e.setHelpBar(self.helpBar)
-        self.proc_e.setHelpText(_('SetupProc-ProcPathNameDesc'))
+        self.proc_e.set_help_bar(self.helpBar)
+        self.proc_e.set_help_text(_('SetupProc-ProcPathNameDesc'))
         self.proc_e.setText(self.config_reader.get_proc_path_name())
 
         proc_btn = QPushButton(_('Change'))

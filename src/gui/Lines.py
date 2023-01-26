@@ -105,9 +105,9 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.control_e.setFixedWidth(40)
         self.wrapper.addMapping(self.control_e,
                                 ProcModel.WingModel.LinesConcTypeCol)
-        self.control_e.enableIntValidator(0, 3)
-        self.control_e.setHelpText(_('Lines-LinesControlParamDesc'))
-        self.control_e.setHelpBar(self.helpBar)
+        self.control_e.enable_int_validator(0, 3)
+        self.control_e.set_help_text(_('Lines-LinesControlParamDesc'))
+        self.control_e.set_help_bar(self.helpBar)
 
         control_layout = QHBoxLayout()
         control_layout.addWidget(control_l)

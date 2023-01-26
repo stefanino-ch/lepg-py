@@ -30,6 +30,7 @@ lines.txt
 
 # all Python chache files
 /__pycache__
+__MACOSX
 *.pyc
 
 # stuff from the development environment
