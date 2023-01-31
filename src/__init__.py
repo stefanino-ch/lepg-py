@@ -1,7 +1,9 @@
 __version__ = '3.20.0'
 
 # 3.20.0
-# Introducing Python 3.10 and PyQt6
+# Introducing Python 3.11 and PyQt6
+# In memory database brings better performance
+# Value backgrounds based on range checking
 
 # 3.19.0
 # New parameter in section 32: rib_1y

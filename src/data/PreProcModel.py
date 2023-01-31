@@ -60,7 +60,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         self.__fileSaved = True
 
         self.db = Database()
-        self.db.openConnection()
+        self.db.open_connection()
 
         super().__init__()
 

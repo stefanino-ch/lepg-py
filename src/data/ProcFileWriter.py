@@ -14,6 +14,8 @@ from ConfigReader.ConfigReader import ConfigReader
 from data.FileHelpers import chk_num, chk_str
 from data.ProcModel import ProcModel
 
+from data.procModel.HvVhRibsModel import HvVhRibsModel
+
 
 class ProcFileWriter:
     """
@@ -49,7 +51,7 @@ class ProcFileWriter:
         self.brakes_m = ProcModel.BrakesModel()
         self.brake_length_m = ProcModel.BrakeLengthModel()
         self.ramific_m = ProcModel.RamificationModel()
-        self.hv_vh_ribs_m = ProcModel.HvVhRibsModel()
+        self.hv_vh_ribs_m = HvVhRibsModel()
         self.extrados_col_conf_m = ProcModel.ExtradosColConfModel()
         self.extrados_col_det_m = ProcModel.ExtradosColDetModel()
         self.intrados_col_conf_m = ProcModel.IntradosColsConfModel()
@@ -406,7 +408,7 @@ class ProcFileWriter:
         stream << '\t%s\n' % chk_num(values.value(ProcModel.WingModel.ySpacingCol))
 
         for line_it in range(0, num_lines):
-            values = self.hv_vh_ribs_m.getRow(1, line_it + 1)
+            values = self.hv_vh_ribs_m.get_row(1, line_it + 1)
 
             for p in range(0, 9):
                 if p == 0:

@@ -11,6 +11,8 @@ from PyQt6.QtWidgets import QTextEdit
 from data.ProcModel import ProcModel
 from data.FileHelpers import split_line, rem_tab_space_quot, rem_tab_space
 
+from data.procModel.HvVhRibsModel import HvVhRibsModel
+
 
 class WaitWindow(QTextEdit):
     """
@@ -68,7 +70,7 @@ class ProcFileReader(QObject):
         self.extradosColDet_M = ProcModel.ExtradosColDetModel()
         self.globAoA_M = ProcModel.GlobAoAModel()
         self.glueVent_M = ProcModel.GlueVentModel()
-        self.hVvHRibs_M = ProcModel.HvVhRibsModel()
+        self.hVvHRibs_M = HvVhRibsModel()
         self.intradosColConf_M = ProcModel.IntradosColsConfModel()
         self.intradosColDet_M = ProcModel.IntradosColsDetModel()
         self.joncsDef_M = ProcModel.JoncsDefModel()
@@ -588,29 +590,29 @@ class ProcFileReader(QObject):
         for line_it in range(0, num_config_lines):
             values = split_line(stream.readLine())
             if (values[1] == '6') or (values[1] == '16'):
-                self.hVvHRibs_M.updateDataRow(1, line_it + 1,
-                                              values[1],
-                                              values[2],
-                                              values[3],
-                                              values[4],
-                                              values[5],
-                                              values[6],
-                                              values[7],
-                                              values[8],
-                                              values[9],
-                                              values[10],
-                                              values[11])
+                self.hVvHRibs_M.update_row(1, line_it + 1,
+                                           values[1],
+                                           values[2],
+                                           values[3],
+                                           values[4],
+                                           values[5],
+                                           values[6],
+                                           values[7],
+                                           values[8],
+                                           values[9],
+                                           values[10],
+                                           values[11])
             else:
-                self.hVvHRibs_M.updateDataRow(1, line_it + 1,
-                                              values[1],
-                                              values[2],
-                                              values[3],
-                                              values[4],
-                                              values[5],
-                                              values[6],
-                                              values[7],
-                                              values[8],
-                                              values[9])
+                self.hVvHRibs_M.update_row(1, line_it + 1,
+                                           values[1],
+                                           values[2],
+                                           values[3],
+                                           values[4],
+                                           values[5],
+                                           values[6],
+                                           values[7],
+                                           values[8],
+                                           values[9])
 
         ##############################
         # 15. EXTRADOS COLORS

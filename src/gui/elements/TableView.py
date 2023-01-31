@@ -2,7 +2,7 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 
-Many thanks to
+Many thanks to the authors of
 
 https://stackoverflow.com/questions/20064975/how-to-catch-mouse-over-event-of-qtablewidget-item-in-pyqt
 
@@ -11,13 +11,17 @@ https://stackoverflow.com/questions/13449971/pyside-pyqt4-how-to-set-a-validator
 https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/
 
 https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520
+
+https://stackoverflow.com/questions/10219739/set-color-to-a-qtableview-row
 """
 import logging
 from PyQt6.QtCore import QEvent, QModelIndex, QPersistentModelIndex, \
-                            QRegularExpression
+                            QRegularExpression, Qt
 from PyQt6.QtWidgets import QTableView, QStyledItemDelegate, QLineEdit
 from PyQt6.QtGui import QIntValidator, QDoubleValidator, \
-                            QRegularExpressionValidator
+    QRegularExpressionValidator, QBrush, QValidator, QColor
+
+from gui.elements.LineEdit import LineEdit
 
 
 class ValidatedIntItemDelegate(QStyledItemDelegate):
@@ -28,23 +32,53 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
     '''
     :attr: Does help to indicate the source of the log messages
     '''
-    def __init__(self, bottom, top):
+    def __init__(self, bottom, top, param_length_dict):
         """
         :method: Class initialization
         :param bottom: lower border of the valid range
         :param top: upper border of the valid range
         """
-        logging.debug(self.__className+'.__init__')
         QStyledItemDelegate.__init__(self)
         self.bottom = bottom
         self.top = top
+        self.param_length_dict = param_length_dict
+        self.editor = None
+        self.validator = QIntValidator(bottom, top)
     
-    def createEditor(self, widget, option, index):
-        logging.debug(self.__className+'.createEditor')
-        editor = QLineEdit(widget)
-        validator = QIntValidator(self.bottom, self.top)
-        editor.setValidator(validator)
-        return editor 
+    def createEditor(self, parent, option, index):
+        self.editor = LineEdit(parent)
+        self.editor.en_int_validator(self.bottom, self.top)
+        return self.editor
+
+    def calculate_color_for_column(self, index):
+        # TODO: Doc
+
+        # Check first if the parameter is valid for the current type
+        # if self.param_length_dict is not None:
+        #     key =
+        #
+        #     if key in self.param_length_dict.keys():
+        #         pass
+        #         # if index.column() > self.param_length_dict
+
+        state = self.validator.validate(str(index.data(Qt.ItemDataRole.DisplayRole)), 0)[0]
+        if state == QValidator.State.Acceptable:
+            # TODO: move color def to common place
+            return QBrush(QColor('#c4df9b'))
+
+        elif state == QValidator.State.Intermediate:
+            # TODO: move color def to common place
+            return QBrush(Qt.GlobalColor.yellow)
+
+        else:
+            # TODO: move color def to common place
+            return QBrush(Qt.GlobalColor.red)
+
+    def initStyleOption(self, option, index):
+        # TODO: Doc
+
+        super(ValidatedIntItemDelegate, self).initStyleOption(option, index)
+        option.backgroundBrush = self.calculate_color_for_column(index)
 
 
 class ValidatedDoubleItemDelegate(QStyledItemDelegate):
@@ -119,7 +153,8 @@ class TableView(QTableView):
         QTableView.__init__(self, *args, **kwargs)
         
         self.__helpBar = None
-        self.__helpText = [''] 
+        self.__helpText = ['']
+        self.__paramLength = None
         self._last_index = QPersistentModelIndex()
         self.setMouseTracking(True)
         self.viewport().installEventFilter(self)
@@ -176,7 +211,7 @@ class TableView(QTableView):
                 i += 1
         self.__helpText[column] = help_text
     
-    def en_int_validator(self, first_col, last_col, bottom, top):
+    def en_int_validator(self, first_col, last_col, bottom, top, param_length_dict= None):
         """
         :method: Limits one or multiple columns to a specific int input range
         :param first_col: first col of the table where the validator should be set
@@ -185,7 +220,7 @@ class TableView(QTableView):
         :param top: upper value of validation border
         """
         logging.debug(self.__className+'.en_int_validator')
-        self.intDelegate.append(ValidatedIntItemDelegate(bottom, top))
+        self.intDelegate.append(ValidatedIntItemDelegate(bottom, top, param_length_dict))
         index = len(self.intDelegate)-1
         
         i = first_col
@@ -231,3 +266,4 @@ class TableView(QTableView):
         while i <= last_col:
             self.setItemDelegateForColumn(i, self.regExpDelegate[index])
             i += 1
+

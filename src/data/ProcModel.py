@@ -20,6 +20,8 @@ from data.Database import Database
 from data.PreProcOutfileReader import PreProcOutfileReader
 from data.SqlTableModel import SqlTableModel
 
+from data.procModel.HvVhRibsModel import HvVhRibsModel
+
 
 class ProcModel(QObject, metaclass=Singleton):
     """
@@ -66,12 +68,13 @@ class ProcModel(QObject, metaclass=Singleton):
         self.__fileSaved = True
 
         self.db = Database()
-        self.db.openConnection()
+        self.db.open_connection()
 
         super().__init__()
 
         self.wing_m = ProcModel.WingModel()
         self.wing_m.dataChanged.connect(self.data_edit)
+
         self.rib_m = ProcModel.RibModel()
         self.rib_m.dataChanged.connect(self.data_edit)
 
@@ -103,7 +106,7 @@ class ProcModel(QObject, metaclass=Singleton):
         self.globAoA_m.dataChanged.connect(self.data_edit)
         self.glueVent_m = ProcModel.GlueVentModel()
         self.glueVent_m.dataChanged.connect(self.data_edit)
-        self.hvvhRibs_m = ProcModel.HvVhRibsModel()
+        self.hvvhRibs_m = HvVhRibsModel()
         self.hvvhRibs_m.dataChanged.connect(self.data_edit)
         self.intradosColConf_m = ProcModel.IntradosColsConfModel()
         self.intradosColConf_m.dataChanged.connect(self.data_edit)
@@ -414,7 +417,7 @@ class ProcModel(QObject, metaclass=Singleton):
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
             answer = msg_box.exec()
 
             if answer == QMessageBox.StandardButton.Cancel:
@@ -1971,158 +1974,7 @@ class ProcModel(QObject, metaclass=Singleton):
                 i += 1
             return query.record()
 
-    class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
-        """
-        :class: Provides a SqlTableModel holding the lines parameters.
-        """
-        __className = 'HvVhRibsModel'
-        ''' :attr: Does help to indicate the source of the log messages. '''
 
-        OrderNumCol = 0
-        ''':attr: num of column for 1..3: ordering the individual lines of a config'''
-        TypeCol = 1
-        ''':attr: Number of the col holding the rib type info'''
-        IniRibCol = 2
-        ''':attr: Number of the col holding initial rib of the configuration'''
-        ParamACol = 3
-        ''':attr: Number of the col holding param A'''
-        ParamBCol = 4
-        ''':attr: Number of the col holding param B'''
-        ParamCCol = 5
-        ''':attr: Number of the col holding param C'''
-        ParamDCol = 6
-        ''':attr: Number of the col holding param D'''
-        ParamECol = 7
-        ''':attr: Number of the col holding param E'''
-        ParamFCol = 8
-        ''':attr: Number of the col holding param F'''
-        ParamGCol = 9
-        ''':attr: Number of the col holding param G'''
-        ParamHCol = 10
-        ''':attr: Number of the col holding param H'''
-        ParamICol = 11
-        ''':attr: Number of the col holding param I'''
-        ConfigNumCol = 12
-        ''':attr: num of column for config number'''
-
-        def createTable(self):
-            """
-            :method: Creates initially the empty Lines table
-            """
-            logging.debug(self.__className + '.create_table')
-            query = QSqlQuery()
-
-            query.exec("DROP TABLE if exists HvVhRibs;")
-            query.exec("create table if not exists HvVhRibs ("
-                       "OrderNum INTEGER,"
-                       "Type INTEGER,"
-                       "IniRib INTEGER,"
-                       "ParamA INTEGER,"
-                       "ParamB INTEGER,"
-                       "ParamC INTEGER,"
-                       "ParamD REAL,"
-                       "ParamE REAL,"
-                       "ParamF REAL,"
-                       "ParamG REAL,"
-                       "ParamH REAL,"
-                       "ParamI REAL,"
-                       "ConfigNum INTEGER,"
-                       "ID INTEGER PRIMARY KEY);")
-
-        def __init__(self, parent=None):  # @UnusedVariable
-            """
-            :method: Class initialization
-            """
-            logging.debug(self.__className + '.__init__')
-            super().__init__()
-            self.createTable()
-            self.setTable("HvVhRibs")
-            self.select()
-            self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
-
-            self.setHeaderData(self.OrderNumCol, Qt.Orientation.Horizontal, _("Order num"))
-            self.setHeaderData(self.TypeCol, Qt.Orientation.Horizontal, _("Type"))
-            self.setHeaderData(self.IniRibCol, Qt.Orientation.Horizontal, _("Ini Rib"))
-            self.setHeaderData(self.ParamACol, Qt.Orientation.Horizontal, _("Param A"))
-            self.setHeaderData(self.ParamBCol, Qt.Orientation.Horizontal, _("Param B"))
-            self.setHeaderData(self.ParamCCol, Qt.Orientation.Horizontal, _("Param C"))
-            self.setHeaderData(self.ParamDCol, Qt.Orientation.Horizontal, _("Param D"))
-            self.setHeaderData(self.ParamECol, Qt.Orientation.Horizontal, _("Param E"))
-            self.setHeaderData(self.ParamFCol, Qt.Orientation.Horizontal, _("Param F"))
-            self.setHeaderData(self.ParamGCol, Qt.Orientation.Horizontal, _("Param G"))
-            self.setHeaderData(self.ParamHCol, Qt.Orientation.Horizontal, _("Param H"))
-            self.setHeaderData(self.ParamICol, Qt.Orientation.Horizontal, _("Param I"))
-
-        def updateDataRow(self, configNum, orderNum, typ, iniRib, paramA, paramB, paramC, paramD, paramE, paramF,
-                          paramG, paramH=0, paramI=0):
-            """
-            :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
-                     explained here as they should be well known.
-            """
-            logging.debug(self.__className + '.updateLineRow')
-
-            query = QSqlQuery()
-            query.prepare("UPDATE HvVhRibs SET "
-                          "Type= :typ, "
-                          "IniRib= :iniRib, "
-                          "ParamA= :paramA, "
-                          "ParamB= :paramB, "
-                          "ParamC= :paramC, "
-                          "ParamD= :paramD, "
-                          "ParamE= :paramE, "
-                          "ParamF= :paramF, "
-                          "ParamG= :paramG, "
-                          "ParamH= :paramH, "
-                          "ParamI= :paramI "
-                          "WHERE (ConfigNum = :config AND OrderNum = :order);")
-            query.bindValue(":typ", typ)
-            query.bindValue(":iniRib", iniRib)
-            query.bindValue(":paramA", paramA)
-            query.bindValue(":paramB", paramB)
-            query.bindValue(":paramC", paramC)
-            query.bindValue(":paramD", paramD)
-            query.bindValue(":paramE", paramE)
-            query.bindValue(":paramF", paramF)
-            query.bindValue(":paramG", paramG)
-            query.bindValue(":paramH", paramH)
-            query.bindValue(":paramI", paramI)
-            query.bindValue(":config", configNum)
-            query.bindValue(":order", orderNum)
-            query.exec()
-            self.select()  # to a select() to assure the model is updated properly
-
-        def getRow(self, configNum, orderNum):
-            """
-            :method: reads values back from the internal database for a specific config and order number
-            :param configNum: Configuration number. Starting with 1
-            :param orderNum: Order number. Starting with 1
-            :return: specific values read from internal database
-            """
-            logging.debug(self.__className + '.get_row')
-
-            query = QSqlQuery()
-            query.prepare("Select "
-                          "Type, "
-                          "IniRib, "
-                          "ParamA, "
-                          "ParamB, "
-                          "ParamC, "
-                          "ParamD, "
-                          "ParamE, "
-                          "ParamF, "
-                          "ParamG, "
-                          "ParamH, "
-                          "ParamI "
-                          "FROM HvVhRibs WHERE (ConfigNum = :config) ORDER BY OrderNum")
-            query.bindValue(":config", configNum)
-            query.exec()
-            query.next()
-            # now we are at the first row
-            i = 1
-            while i < orderNum:
-                query.next()
-                i += 1
-            return query.value
 
     class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
         """
@@ -3739,7 +3591,7 @@ class ProcModel(QObject, metaclass=Singleton):
             :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                      explained here as they should be well known.
             """
-            logging.debug(self.__className + '.updateDataRow')
+            logging.debug(self.__className + '.update_row')
 
             query = QSqlQuery()
             query.prepare("UPDATE Ramification SET "

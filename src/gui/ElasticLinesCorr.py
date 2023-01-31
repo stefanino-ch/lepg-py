@@ -109,7 +109,7 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.load_E = LineEdit()
         self.wrapper.addMapping(self.load_E,
                                 ProcModel.ElLinesCorrModel.LoadCol)
-        self.load_E.enable_double_validator(0, 500, 2)
+        self.load_E.en_double_validator(0, 500, 2)
         self.load_E.set_help_text(_('ElLinesCorr-LoadDesc'))
         self.load_E.set_help_bar(self.helpBar)
         self.grid_ly.addWidget(load_l, __gridRow, 0)
@@ -129,14 +129,14 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.twoLineA_E = LineEdit()
         self.wrapper.addMapping(self.twoLineA_E,
                                 ProcModel.ElLinesCorrModel.TwoLineDistACol)
-        self.twoLineA_E.enable_double_validator(0, 100, 2)
+        self.twoLineA_E.en_double_validator(0, 100, 2)
         self.twoLineA_E.set_help_text(_('ElLinesCorr-TwoLineDistDesc'))
         self.twoLineA_E.set_help_bar(self.helpBar)
 
         self.twoLineB_E = LineEdit()
         self.wrapper.addMapping(self.twoLineB_E,
                                 ProcModel.ElLinesCorrModel.TwoLineDistBCol)
-        self.twoLineB_E.enable_double_validator(0, 100, 2)
+        self.twoLineB_E.en_double_validator(0, 100, 2)
         self.twoLineB_E.set_help_text(_('ElLinesCorr-TwoLineDistDesc'))
         self.twoLineB_E.set_help_bar(self.helpBar)
 
@@ -151,21 +151,21 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.threeLineA_E = LineEdit()
         self.wrapper.addMapping(self.threeLineA_E,
                                 ProcModel.ElLinesCorrModel.ThreeLineDistACol)
-        self.threeLineA_E.enable_double_validator(0, 100, 2)
+        self.threeLineA_E.en_double_validator(0, 100, 2)
         self.threeLineA_E.set_help_text(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineA_E.set_help_bar(self.helpBar)
 
         self.threeLineB_E = LineEdit()
         self.wrapper.addMapping(self.threeLineB_E,
                                 ProcModel.ElLinesCorrModel.ThreeLineDistBCol)
-        self.threeLineB_E.enable_double_validator(0, 100, 2)
+        self.threeLineB_E.en_double_validator(0, 100, 2)
         self.threeLineB_E.set_help_text(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineB_E.set_help_bar(self.helpBar)
 
         self.threeLineC_E = LineEdit()
         self.wrapper.addMapping(self.threeLineC_E,
                                 ProcModel.ElLinesCorrModel.ThreeLineDistCCol)
-        self.threeLineC_E.enable_double_validator(0, 100, 2)
+        self.threeLineC_E.en_double_validator(0, 100, 2)
         self.threeLineC_E.set_help_text(_('ElLinesCorr-ThreeLineDistDesc'))
         self.threeLineC_E.set_help_bar(self.helpBar)
 
@@ -181,28 +181,28 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.fourLineA_E = LineEdit()
         self.wrapper.addMapping(self.fourLineA_E,
                                 ProcModel.ElLinesCorrModel.FourLineDistACol)
-        self.fourLineA_E.enable_double_validator(0, 100, 2)
+        self.fourLineA_E.en_double_validator(0, 100, 2)
         self.fourLineA_E.set_help_text(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineA_E.set_help_bar(self.helpBar)
 
         self.fourLineB_E = LineEdit()
         self.wrapper.addMapping(self.fourLineB_E,
                                 ProcModel.ElLinesCorrModel.FourLineDistBCol)
-        self.fourLineB_E.enable_double_validator(0, 100, 2)
+        self.fourLineB_E.en_double_validator(0, 100, 2)
         self.fourLineB_E.set_help_text(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineB_E.set_help_bar(self.helpBar)
 
         self.fourLineC_E = LineEdit()
         self.wrapper.addMapping(self.fourLineC_E,
                                 ProcModel.ElLinesCorrModel.FourLineDistCCol)
-        self.fourLineC_E.enable_double_validator(0, 100, 2)
+        self.fourLineC_E.en_double_validator(0, 100, 2)
         self.fourLineC_E.set_help_text(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineC_E.set_help_bar(self.helpBar)
 
         self.fourLineD_E = LineEdit()
         self.wrapper.addMapping(self.fourLineD_E,
                                 ProcModel.ElLinesCorrModel.FourLineDistDCol)
-        self.fourLineD_E.enable_double_validator(0, 100, 2)
+        self.fourLineD_E.en_double_validator(0, 100, 2)
         self.fourLineD_E.set_help_text(_('ElLinesCorr-FourLineDistDesc'))
         self.fourLineD_E.set_help_bar(self.helpBar)
 
@@ -219,35 +219,35 @@ class ElasticLinesCorr(QMdiSubWindow, metaclass=Singleton):
         self.fiveLineA_E = LineEdit()
         self.wrapper.addMapping(self.fiveLineA_E,
                                 ProcModel.ElLinesCorrModel.FiveLineDistACol)
-        self.fiveLineA_E.enable_double_validator(0, 100, 2)
+        self.fiveLineA_E.en_double_validator(0, 100, 2)
         self.fiveLineA_E.set_help_text(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineA_E.set_help_bar(self.helpBar)
 
         self.fiveLineB_E = LineEdit()
         self.wrapper.addMapping(self.fiveLineB_E,
                                 ProcModel.ElLinesCorrModel.FiveLineDistBCol)
-        self.fiveLineB_E.enable_double_validator(0, 100, 2)
+        self.fiveLineB_E.en_double_validator(0, 100, 2)
         self.fiveLineB_E.set_help_text(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineB_E.set_help_bar(self.helpBar)
 
         self.fiveLineC_E = LineEdit()
         self.wrapper.addMapping(self.fiveLineC_E,
                                 ProcModel.ElLinesCorrModel.FiveLineDistCCol)
-        self.fiveLineC_E.enable_double_validator(0, 100, 2)
+        self.fiveLineC_E.en_double_validator(0, 100, 2)
         self.fiveLineC_E.set_help_text(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineC_E.set_help_bar(self.helpBar)
 
         self.fiveLineD_E = LineEdit()
         self.wrapper.addMapping(self.fiveLineD_E,
                                 ProcModel.ElLinesCorrModel.FiveLineDistDCol)
-        self.fiveLineD_E.enable_double_validator(0, 100, 2)
+        self.fiveLineD_E.en_double_validator(0, 100, 2)
         self.fiveLineD_E.set_help_text(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineD_E.set_help_bar(self.helpBar)
 
         self.fiveLineE_E = LineEdit()
         self.wrapper.addMapping(
             self.fiveLineE_E, ProcModel.ElLinesCorrModel.FiveLineDistECol)
-        self.fiveLineD_E.enable_double_validator(0, 100, 2)
+        self.fiveLineD_E.en_double_validator(0, 100, 2)
         self.fiveLineE_E.set_help_text(_('ElLinesCorr-FiveLineDistDesc'))
         self.fiveLineE_E.set_help_bar(self.helpBar)
 

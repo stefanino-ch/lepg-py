@@ -2,7 +2,7 @@
 :Author: Stefan Feuz; http://www.laboratoridenvol.com
 :License: General Public License GNU GPL 3.0
 
-Many thanks to
+Many thanks to the authors of
 
 https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-
 using-qvalidator/ for the qvalidator explanations
@@ -32,13 +32,13 @@ class LineEdit(QLineEdit):
     __hasRegExpValidator = False
     ''':attr: True if RegExpValidator has been set.'''
 
-    def __init__(self):
+    def __init__(self, parent=None):
         """
         :method: Class initialization
         """
         logging.debug(self.__className+'.__init__')
 
-        super().__init__()
+        super().__init__(parent)
         self.__helpBar = None
         self.__helpText = ''
         self.validator = None
@@ -82,7 +82,7 @@ class LineEdit(QLineEdit):
         logging.debug(self.__className+'.set_help_text')
         self.__helpText = help_text
 
-    def enable_int_validator(self, bottom, top):
+    def en_int_validator(self, bottom, top):
         """
         :method: Creates an IntValidator and sets it for the current line edit.
         :param bottom: lower value of validation border
@@ -93,7 +93,7 @@ class LineEdit(QLineEdit):
         # self.setValidator(self.validator)
         self.__hasIntValidator = True
 
-    def enable_double_validator(self, bottom, top, decimals=0):
+    def en_double_validator(self, bottom, top, decimals=0):
         """
         :method: Creates an DoubleValidator and sets it for the
                  current line edit.
@@ -106,7 +106,7 @@ class LineEdit(QLineEdit):
         # self.setValidator(self.validator)
         self.__hasDoubleValidator = True
 
-    def enable_reg_exp_validator(self, regexp):
+    def en_reg_exp_validator(self, regexp):
         """
         Creates an RegExpValidator and sets it to the current line edit.
 

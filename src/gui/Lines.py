@@ -105,7 +105,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.control_e.setFixedWidth(40)
         self.wrapper.addMapping(self.control_e,
                                 ProcModel.WingModel.LinesConcTypeCol)
-        self.control_e.enable_int_validator(0, 3)
+        self.control_e.en_int_validator(0, 3)
         self.control_e.set_help_text(_('Lines-LinesControlParamDesc'))
         self.control_e.set_help_bar(self.helpBar)
 

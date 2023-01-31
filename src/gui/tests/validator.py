@@ -7,7 +7,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.lineEdit= LineEdit()
-        self.lineEdit.enable_int_validator(5, 15)
+        self.lineEdit.en_int_validator(5, 15)
         # self.lineEdit.setValidator(
         #     QtGui.QDoubleValidator(
         #         0.0, # bottom
