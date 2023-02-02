@@ -3,8 +3,6 @@
 :License: General Public License GNU GPL 3.0
 """
 
-import logging
-
 from PyQt6.QtCore import Qt
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
@@ -16,9 +14,6 @@ class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the lines parameters.
     """
-    __className = 'HvVhRibsModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     TypeCol = 1
@@ -47,25 +42,25 @@ class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
     ''':attr: num of column for config number'''
 
     paramLength = {
-        1: 5,
-        2: 8,
-        3: 6,
-        4: 8,
-        5: 8,
-        6: 10,
-        11: 5,
-        12: 8,
-        13: 6,
-        14: 8,
-        15: 8,
-        16: 10
+        1: 7,
+        2: 10,
+        3: 8,
+        4: 10,
+        5: 10,
+        6: 12,
+        11: 7,
+        12: 10,
+        13: 8,
+        14: 10,
+        15: 10,
+        16: 12
     }
+    ''':attr: defines the length (number of values) for the individual parameter lines'''
 
     def create_table(self):
         """
         :method: Creates initially the empty Lines table
         """
-        logging.debug(self.__className + '.create_table')
         query = QSqlQuery()
 
         query.exec("DROP TABLE if exists HvVhRibs;")
@@ -85,11 +80,10 @@ class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
         self.create_table()
         self.setTable("HvVhRibs")
@@ -115,8 +109,6 @@ class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
         """
-        logging.debug(self.__className + '.updateLineRow')
-
         query = QSqlQuery()
         query.prepare("UPDATE HvVhRibs SET "
                       "Type= :typ, "
@@ -154,8 +146,6 @@ class HvVhRibsModel(SqlTableModel, metaclass=Singleton):
         :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
-        logging.debug(self.__className + '.get_row')
-
         query = QSqlQuery()
         query.prepare("Select "
                       "Type, "

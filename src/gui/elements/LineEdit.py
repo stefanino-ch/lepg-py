@@ -7,22 +7,17 @@ Many thanks to the authors of
 https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-
 using-qvalidator/ for the qvalidator explanations
 """
-import logging
 from PyQt6.QtCore import QEvent, QRegularExpression
 from PyQt6.QtWidgets import QLineEdit
 from PyQt6.QtGui import QValidator, QIntValidator, QDoubleValidator, \
                          QRegularExpressionValidator
+from gui.ColorDefinition import ColorDefinition
 
 
 class LineEdit(QLineEdit):
     """
     :class: Subclasses QLineEdit to add additional functionality.
     """
-    __className = 'LineEdit'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     __hasIntValidator = False
     ''':attr: True if IntValidator has been set.'''
 
@@ -36,8 +31,6 @@ class LineEdit(QLineEdit):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className+'.__init__')
-
         super().__init__(parent)
         self.__helpBar = None
         self.__helpText = ''
@@ -69,7 +62,6 @@ class LineEdit(QLineEdit):
                  help text shall be displayed during program execution.
         :param help_bar: Instance of the respective help bar to work with
         """
-        logging.debug(self.__className+'.set_help_bar')
         self.__helpBar = help_bar
 
     def set_help_text(self, help_text):
@@ -79,7 +71,6 @@ class LineEdit(QLineEdit):
                  LineEdit or during data edit.
         :param help_text: Help text to be displayed
         """
-        logging.debug(self.__className+'.set_help_text')
         self.__helpText = help_text
 
     def en_int_validator(self, bottom, top):
@@ -88,10 +79,9 @@ class LineEdit(QLineEdit):
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         """
-        logging.debug(self.__className+'.en_int_validator')
         self.validator = QIntValidator(bottom, top)
-        # self.setValidator(self.validator)
         self.__hasIntValidator = True
+        self.check_content()
 
     def en_double_validator(self, bottom, top, decimals=0):
         """
@@ -101,10 +91,9 @@ class LineEdit(QLineEdit):
         :param top: upper value of validation border
         :param decimals: number of decimals to be checked
         """
-        logging.debug(self.__className+'.en_double_validator')
         self.validator = QDoubleValidator(bottom, top, decimals)
-        # self.setValidator(self.validator)
         self.__hasDoubleValidator = True
+        self.check_content()
 
     def en_reg_exp_validator(self, regexp):
         """
@@ -112,11 +101,10 @@ class LineEdit(QLineEdit):
 
         :param regexp: the RegExp to be applied to the validator.
         """
-        logging.debug(self.__className+'.en_reg_exp_validator')
         rx = QRegularExpression(regexp)
         self.validator = QRegularExpressionValidator(rx, self)
-        # self.setValidator(self.validator)
         self.__hasRegExpValidator = True
+        self.check_content()
 
     def check_content(self):
         """
@@ -124,25 +112,24 @@ class LineEdit(QLineEdit):
                  applied validator. Depending on the check result the
                  background of the line edit is changed.
         """
-        logging.debug(self.__className+'.check_content')
         if self.__hasDoubleValidator or self.__hasIntValidator:
             state = self.validator.validate(self.text(), 0)[0]
             if state == QValidator.State.Acceptable:
-                color = '#c4df9b'
+                color = ColorDefinition.valAcceptable
             elif state == QValidator.State.Intermediate:
-                color = '#fff79a'
+                color = ColorDefinition.valIntermediate
             else:
-                color = '#f6989d'
+                color = ColorDefinition.valInvalid
             self.setStyleSheet('QLineEdit {background-color: %s }' % color)
 
         elif self.__hasRegExpValidator:
             state = self.validator.validate(self.text(), 0)[0]
             if state == QRegularExpressionValidator.State.Acceptable:
-                color = '#c4df9b'
+                color = ColorDefinition.valAcceptable
             elif state == QRegularExpressionValidator.State.Intermediate:
-                color = '#fff79a'
+                color = ColorDefinition.valIntermediate
             else:
-                color = '#f6989d'
+                color = ColorDefinition.valInvalid
             self.setStyleSheet('QLineEdit {background-color: %s }' % color)
 
     def setText(self, *args, **kwargs):
@@ -151,6 +138,5 @@ class LineEdit(QLineEdit):
                  afterwards the value check making sure the background is set
                  according to the verification result.
         """
-        logging.debug(self.__className+'.set_text')
         QLineEdit.setText(self, *args, **kwargs)
         return

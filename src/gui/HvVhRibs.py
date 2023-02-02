@@ -24,17 +24,14 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Brake line details  
     """
-
     __className = 'HvVhRibs'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
-
     def __init__(self):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.helpBar = None
@@ -57,7 +54,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -77,8 +74,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -160,19 +155,24 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
 
         ribs_t.en_int_validator(HvVhRibsModel.TypeCol,
                                 HvVhRibsModel.TypeCol,
-                                1, 16)
+                                1, 16,
+                                HvVhRibsModel.paramLength)
         ribs_t.en_int_validator(HvVhRibsModel.IniRibCol,
                                 HvVhRibsModel.IniRibCol,
-                                1, 999)
+                                1, 999,
+                                HvVhRibsModel.paramLength)
         ribs_t.en_int_validator(HvVhRibsModel.ParamACol,
                                 HvVhRibsModel.ParamACol,
-                                1, 6)
+                                1, 6,
+                                HvVhRibsModel.paramLength)
         ribs_t.en_int_validator(HvVhRibsModel.ParamBCol,
                                 HvVhRibsModel.ParamCCol,
-                                1, 100)
+                                1, 100,
+                                HvVhRibsModel.paramLength)
         ribs_t.en_double_validator(HvVhRibsModel.ParamDCol,
                                    HvVhRibsModel.ParamICol,
-                                   1, 100, 1)
+                                   1, 100, 1,
+                                   HvVhRibsModel.paramLength)
 
         ribs_t.set_help_bar(self.helpBar)
         ribs_t.set_help_text(HvVhRibsModel.OrderNumCol,
@@ -227,7 +227,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size. Herein we
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
         self.numLines_S.blockSignals(True)
         self.numLines_S.setValue(self.ribs_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
@@ -237,7 +236,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all 
                  elements will follow the user configuration. 
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.ribs_M.set_num_rows_for_config(1, self.numLines_S.value())
         self.pm.set_file_saved(False)
 
@@ -246,8 +244,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort 
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
         self.proxyModel.sort(HvVhRibsModel.OrderNumCol,
                              Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
@@ -256,7 +252,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 
