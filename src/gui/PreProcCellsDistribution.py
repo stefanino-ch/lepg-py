@@ -11,6 +11,7 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 
 from Singleton.Singleton import Singleton
 from data.PreProcModel import PreProcModel
+from data.preProcModel.CellsDistrModel import CellsDistrModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
@@ -43,7 +44,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         super().__init__()
 
         self.ppm = PreProcModel()
-        self.cellsDistr_M = PreProcModel.CellsDistrModel()
+        self.cellsDistr_M = CellsDistrModel()
         self.cellsDistr_M.didSelect.connect(self.model_change)
         self.build_window()
 
@@ -127,27 +128,27 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addWidget(self.one_t)
 
-        self.one_t.en_int_validator(PreProcModel.CellsDistrModel.OrderNumCol,
-                                    PreProcModel.CellsDistrModel.OrderNumCol,
+        self.one_t.en_int_validator(CellsDistrModel.OrderNumCol,
+                                    CellsDistrModel.OrderNumCol,
                                     1, 999)
-        self.one_t.en_double_validator(PreProcModel.CellsDistrModel.CoefCol,
-                                       PreProcModel.CellsDistrModel.CoefCol,
+        self.one_t.en_double_validator(CellsDistrModel.CoefCol,
+                                       CellsDistrModel.CoefCol,
                                        0, 1, 1)
-        self.one_t.en_double_validator(PreProcModel.CellsDistrModel.WidthCol,
-                                       PreProcModel.CellsDistrModel.WidthCol,
+        self.one_t.en_double_validator(CellsDistrModel.WidthCol,
+                                       CellsDistrModel.WidthCol,
                                        1, 500, 1)
-        self.one_t.en_int_validator(PreProcModel.CellsDistrModel.NumCellsCol,
-                                    PreProcModel.CellsDistrModel.NumCellsCol,
+        self.one_t.en_int_validator(CellsDistrModel.NumCellsCol,
+                                    CellsDistrModel.NumCellsCol,
                                     1, 999)
 
         self.one_t.set_help_bar(self.help_bar)
-        self.one_t.set_help_text(PreProcModel.CellsDistrModel.OrderNumCol,
+        self.one_t.set_help_text(CellsDistrModel.OrderNumCol,
                                  _('PreProc-CellNumDesc'))
-        self.one_t.set_help_text(PreProcModel.CellsDistrModel.CoefCol,
+        self.one_t.set_help_text(CellsDistrModel.CoefCol,
                                  _('PreProc-DistrCoefDesc'))
-        self.one_t.set_help_text(PreProcModel.CellsDistrModel.WidthCol,
+        self.one_t.set_help_text(CellsDistrModel.WidthCol,
                                  _('PreProc-WidthDesc'))
-        self.one_t.set_help_text(PreProcModel.CellsDistrModel.NumCellsCol,
+        self.one_t.set_help_text(CellsDistrModel.NumCellsCol,
                                  _('PreProc-NumCellsDesc'))
 
         self.model_change()
@@ -263,11 +264,11 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.num_lines_l.setVisible(False)
         self.num_lines_s.setVisible(False)
 
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_t.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.hideColumn(CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(CellsDistrModel.DistrTypeCol)
+        self.one_t.hideColumn(CellsDistrModel.CoefCol)
+        self.one_t.hideColumn(CellsDistrModel.WidthCol)
+        self.one_t.showColumn(CellsDistrModel.NumCellsCol)
 
     def set_type_two_thr_columns(self):
         """
@@ -279,11 +280,11 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.num_lines_l.setVisible(False)
         self.num_lines_s.setVisible(False)
 
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_t.showColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_t.showColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.hideColumn(CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(CellsDistrModel.DistrTypeCol)
+        self.one_t.showColumn(CellsDistrModel.CoefCol)
+        self.one_t.hideColumn(CellsDistrModel.WidthCol)
+        self.one_t.showColumn(CellsDistrModel.NumCellsCol)
 
     def set_type_fou_columns(self):
         """
@@ -299,8 +300,8 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.num_lines_l.setVisible(True)
         self.num_lines_s.setVisible(True)
 
-        self.one_t.showColumn(PreProcModel.CellsDistrModel.OrderNumCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.DistrTypeCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.CoefCol)
-        self.one_t.showColumn(PreProcModel.CellsDistrModel.WidthCol)
-        self.one_t.hideColumn(PreProcModel.CellsDistrModel.NumCellsCol)
+        self.one_t.showColumn(CellsDistrModel.OrderNumCol)
+        self.one_t.hideColumn(CellsDistrModel.DistrTypeCol)
+        self.one_t.hideColumn(CellsDistrModel.CoefCol)
+        self.one_t.showColumn(CellsDistrModel.WidthCol)
+        self.one_t.hideColumn(CellsDistrModel.NumCellsCol)

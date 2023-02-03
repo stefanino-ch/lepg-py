@@ -9,6 +9,11 @@ from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QLabel, QComboBox
 
 from data.PreProcModel import PreProcModel
+from data.preProcModel.GenModel import GenModel
+from data.preProcModel.LeadingEdgeModel import LeadingEdgeModel
+from data.preProcModel.TrailingEdgeModel import TrailingEdgeModel
+from data.preProcModel.VaultModel import VaultModel
+
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -41,12 +46,12 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
 
         self.ppm = PreProcModel()
 
-        self.gen_M = PreProcModel.GenModel()
+        self.gen_M = GenModel()
 
-        self.leadingE_M = PreProcModel.LeadingEdgeModel()
-        self.trailingE_M = PreProcModel.TrailingEdgeModel()
+        self.leadingE_M = LeadingEdgeModel()
+        self.trailingE_M = TrailingEdgeModel()
 
-        self.vault_M = PreProcModel.VaultModel()
+        self.vault_M = VaultModel()
         self.vault_M.didSelect.connect(self.vault_model_change)
 
         self.build_window()
@@ -88,6 +93,7 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Pre-Processor data"))
 
         gen_l = QLabel(_("Generals"))
+
         gen_table = TableView()
         gen_table.setModel(self.gen_M)
         gen_table.hideColumn(0)
@@ -104,12 +110,12 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                  + gen_table.rowHeight(0))
         gen_table.set_help_bar(self.help_bar)
 
-        gen_table.set_help_text(PreProcModel.GenModel.WingNameCol,
+        gen_table.set_help_text(GenModel.WingNameCol,
                                 _('PreProc-WingNameDesc'))
 
-        gen_table.en_reg_exp_validator(PreProcModel.GenModel.WingNameCol,
-                                       PreProcModel.GenModel.WingNameCol,
-                                       "^[a-zA-Z0-9_.-]*$")
+        gen_table.en_reg_exp_validator(GenModel.WingNameCol,
+                                       GenModel.WingNameCol,
+                                       "^[a-zA-Z0-9_.\-\s]*$")
 
         gen_ly = QHBoxLayout()
         gen_ly.addWidget(gen_table)
@@ -136,26 +142,31 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                 + le_table.horizontalHeader().height()
                                 + le_table.rowHeight(0))
 
+        # le_table.en_double_validator(HvVhRibsModel.ParamDCol,
+        #                            HvVhRibsModel.ParamICol,
+        #                            1, 100, 1,
+        #                            HvVhRibsModel.paramLength)
+
         le_table.set_help_bar(self.help_bar)
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.TypeCol,
+        le_table.set_help_text(LeadingEdgeModel.TypeCol,
                                _('PreProc-LE-Type-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.aOneCol,
+        le_table.set_help_text(LeadingEdgeModel.aOneCol,
                                _('PreProc-LE-a1-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.bOneCol,
+        le_table.set_help_text(LeadingEdgeModel.bOneCol,
                                _('PreProc-LE-b1-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xOneCol,
+        le_table.set_help_text(LeadingEdgeModel.xOneCol,
                                _('PreProc-LE-x1-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xTwoCol,
+        le_table.set_help_text(LeadingEdgeModel.xTwoCol,
                                _('PreProc-LE-x2-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.xmCol,
+        le_table.set_help_text(LeadingEdgeModel.xmCol,
                                _('PreProc-LE-xm-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.cZeroOneCol,
+        le_table.set_help_text(LeadingEdgeModel.cZeroOneCol,
                                _('PreProc-LE-c01-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.exOneCol,
+        le_table.set_help_text(LeadingEdgeModel.exOneCol,
                                _('PreProc-LE-ex1-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.cZeroTwoCol,
+        le_table.set_help_text(LeadingEdgeModel.cZeroTwoCol,
                                _('PreProc-LE-c02-Desc'))
-        le_table.set_help_text(PreProcModel.LeadingEdgeModel.exTwoCol,
+        le_table.set_help_text(LeadingEdgeModel.exTwoCol,
                                _('PreProc-LE-ex2-Desc'))
 
         self.window_ly.addWidget(le_l)
@@ -180,21 +191,21 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                 + te_table.rowHeight(0))
 
         te_table.set_help_bar(self.help_bar)
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.TypeCol,
+        te_table.set_help_text(TrailingEdgeModel.TypeCol,
                                _('PreProc-TE-Type-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.aOneCol,
+        te_table.set_help_text(TrailingEdgeModel.aOneCol,
                                _('PreProc-TE-a1-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.bOneCol,
+        te_table.set_help_text(TrailingEdgeModel.bOneCol,
                                _('PreProc-TE-b1-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.xOneCol,
+        te_table.set_help_text(TrailingEdgeModel.xOneCol,
                                _('PreProc-TE-x1-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.xmCol,
+        te_table.set_help_text(TrailingEdgeModel.xmCol,
                                _('PreProc-TE-xm-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.cZeroCol,
+        te_table.set_help_text(TrailingEdgeModel.cZeroCol,
                                _('PreProc-TE-c0-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.yZeroCol,
+        te_table.set_help_text(TrailingEdgeModel.yZeroCol,
                                _('PreProc-TE-y0-Desc'))
-        te_table.set_help_text(PreProcModel.TrailingEdgeModel.expCol,
+        te_table.set_help_text(TrailingEdgeModel.expCol,
                                _('PreProc-TE-exp-Desc'))
 
         self.window_ly.addWidget(te_l)
@@ -226,34 +237,34 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                         + self.vault_table.rowHeight(0))
 
         self.vault_table.set_help_bar(self.help_bar)
-        self.vault_table.set_help_text(PreProcModel.VaultModel.aOneCol,
+        self.vault_table.set_help_text(VaultModel.aOneCol,
                                        _('PreProc-Vault-a1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.bOneCol,
+        self.vault_table.set_help_text(VaultModel.bOneCol,
                                        _('PreProc-Vault-b1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.xOneCol,
+        self.vault_table.set_help_text(VaultModel.xOneCol,
                                        _('PreProc-Vault-x1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.cOneCol,
+        self.vault_table.set_help_text(VaultModel.cOneCol,
                                        _('PreProc-Vault-c1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.rOneRACol,
+        self.vault_table.set_help_text(VaultModel.rOneRACol,
                                        _('PreProc-Vault-r1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.rTwoRACol,
+        self.vault_table.set_help_text(VaultModel.rTwoRACol,
                                        _('PreProc-Vault-r2-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.rThrRACol,
+        self.vault_table.set_help_text(VaultModel.rThrRACol,
                                        _('PreProc-Vault-r3-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.rFouRACol,
+        self.vault_table.set_help_text(VaultModel.rFouRACol,
                                        _('PreProc-Vault-r4-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.aOneRACol,
+        self.vault_table.set_help_text(VaultModel.aOneRACol,
                                        _('PreProc-Vault-ra1-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.aTwoRACol,
+        self.vault_table.set_help_text(VaultModel.aTwoRACol,
                                        _('PreProc-Vault-ra2-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.aThrRACol,
+        self.vault_table.set_help_text(VaultModel.aThrRACol,
                                        _('PreProc-Vault-ra3-Desc'))
-        self.vault_table.set_help_text(PreProcModel.VaultModel.aFouRACol,
+        self.vault_table.set_help_text(VaultModel.aFouRACol,
                                        _('PreProc-Vault-ra4-Desc'))
 
         self.vault_table.en_double_validator(
-                            PreProcModel.VaultModel.aOneCol,
-                            PreProcModel.VaultModel.aFouRACol,
+                            VaultModel.aOneCol,
+                            VaultModel.aFouRACol,
                             0,
                             10000,
                             4)
@@ -326,12 +337,12 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className+'.set_type_one_columns')
 
-        for i in range(PreProcModel.VaultModel.aOneCol,
-                       PreProcModel.VaultModel.cOneCol + 1):
+        for i in range(VaultModel.aOneCol,
+                       VaultModel.cOneCol + 1):
             self.vault_table.showColumn(i)
 
-        for i in range(PreProcModel.VaultModel.rOneRACol,
-                       PreProcModel.VaultModel.aFouRACol + 1):
+        for i in range(VaultModel.rOneRACol,
+                       VaultModel.aFouRACol + 1):
             self.vault_table.hideColumn(i)
 
     def set_type_two_columns(self):
@@ -341,12 +352,12 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         logging.debug(self.__className+'.set_type_two_columns')
 
-        for i in range(PreProcModel.VaultModel.aOneCol,
-                       PreProcModel.VaultModel.cOneCol + 1):
+        for i in range(VaultModel.aOneCol,
+                       VaultModel.cOneCol + 1):
             self.vault_table.hideColumn(i)
 
-        for i in range(PreProcModel.VaultModel.rOneRACol,
-                       PreProcModel.VaultModel.aFouRACol + 1):
+        for i in range(VaultModel.rOneRACol,
+                       VaultModel.aFouRACol + 1):
             self.vault_table.showColumn(i)
 
     def btn_press(self, q):

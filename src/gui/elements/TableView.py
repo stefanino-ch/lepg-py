@@ -14,7 +14,7 @@ https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-vali
 
 https://stackoverflow.com/questions/10219739/set-color-to-a-qtableview-row
 """
-from PyQt6.QtCore import QEvent, QModelIndex, QPersistentModelIndex, Qt
+from PyQt6.QtCore import QEvent, QModelIndex, QPersistentModelIndex, Qt, QRegularExpression
 from PyQt6.QtWidgets import QTableView, QStyledItemDelegate
 from PyQt6.QtGui import QIntValidator, QDoubleValidator, \
     QRegularExpressionValidator, QBrush, QValidator, QColor
@@ -26,6 +26,10 @@ from gui.ColorDefinition import ColorDefinition
 def get_param_length(index, param_length_dict):
     # TODO: Doc
 
+    # If there is no param_length_dict all parameters must be checked
+    if param_length_dict is None:
+        return 99
+
     # Here we assume the parameter number is always on the 2nd column!
     # If the Index.column is 0 or 1 no further checks are needed
     if index.column() <= 1:
@@ -36,14 +40,11 @@ def get_param_length(index, param_length_dict):
     # Check if the parameter is a valid integer
     if isinstance(param_num, int):
 
-        # Check if we have length information for this parameter
-        if param_length_dict is not None:
+        # Check if the key is part of the length information dict
+        if param_num in param_length_dict.keys():
+            param_length = param_length_dict[param_num]
 
-            # Check if the key is part of the length information dict
-            if param_num in param_length_dict.keys():
-                param_length = param_length_dict[param_num]
-
-                return param_length
+            return param_length
 
     return 0
 
@@ -152,14 +153,14 @@ class ValidatedRegExpItemDelegate(QStyledItemDelegate):
         :param regexp: lower border of the valid range
         """
         QStyledItemDelegate.__init__(self)
-        self.regexp = regexp
+        self.rx = QRegularExpression(regexp)
         self.param_length_dict = param_length_dict
         self.editor = None
-        self.validator = QRegularExpressionValidator(regexp, self)
+        self.validator = QRegularExpressionValidator(self.rx, self)
     
     def createEditor(self, parent, option, index):
         self.editor = LineEdit(parent)
-        self.editor.en_reg_exp_validator(self.regexp)
+        self.editor.en_reg_exp_validator(self.rx)
         return self.editor
 
     def calculate_color_for_column(self, index):
@@ -198,6 +199,15 @@ class TableView(QTableView):
         self.intDelegate = []
         self.doubleDelegate = []
         self.regExpDelegate = []
+
+        # https://www.youtube.com/watch?v=BH19o9GlN20
+        # self.selectionChanged.connect(self.on_selectionChanged)
+        # self.
+
+    # def on_selectionChanged(self, selected, deselected):
+    #     print(selected, deselected)
+
+    # https://programtalk.com/python-examples/PyQt4.QtGui.QItemSelectionModel.Deselect/
     
     def eventFilter(self, widget, event):
         """
@@ -218,6 +228,9 @@ class TableView(QTableView):
                     self.__helpBar.set_text(self.__helpText[column])
                 self._last_index = QPersistentModelIndex(index)
         return QTableView.eventFilter(self, widget, event)
+
+    def leaveEvent(self, event):
+        print('leave')
 
     def set_help_bar(self, help_bar):
         """
