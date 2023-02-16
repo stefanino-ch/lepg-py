@@ -14,6 +14,7 @@ from data.preProcModel.LeadingEdgeModel import LeadingEdgeModel
 from data.preProcModel.TrailingEdgeModel import TrailingEdgeModel
 from data.preProcModel.VaultModel import VaultModel
 
+from gui.GlobalDefinition import Regex, ValidationValues
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -35,7 +36,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         :method: Class initialization
         """
         super().__init__()
-        logging.debug(self.__className+'.__init__')
 
         self.win = None
         self.window_ly = None
@@ -60,7 +60,7 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -77,8 +77,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -115,7 +113,7 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
 
         gen_table.en_reg_exp_validator(GenModel.WingNameCol,
                                        GenModel.WingNameCol,
-                                       "^[a-zA-Z0-9_.\-\s]*$")
+                                       Regex.wingNameString)
 
         gen_ly = QHBoxLayout()
         gen_ly.addWidget(gen_table)
@@ -142,10 +140,33 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                 + le_table.horizontalHeader().height()
                                 + le_table.rowHeight(0))
 
-        # le_table.en_double_validator(HvVhRibsModel.ParamDCol,
-        #                            HvVhRibsModel.ParamICol,
-        #                            1, 100, 1,
-        #                            HvVhRibsModel.paramLength)
+        le_table.en_double_validator(LeadingEdgeModel.aOneCol,
+                                     LeadingEdgeModel.aOneCol,
+                                     0, ValidationValues.HalfWingSpanMax_cm, 2)
+
+        le_table.en_double_validator(LeadingEdgeModel.bOneCol,
+                                     LeadingEdgeModel.bOneCol,
+                                     0, ValidationValues.WingChordMax_cm, 2)
+
+        le_table.en_double_validator(LeadingEdgeModel.xOneCol,
+                                     LeadingEdgeModel.xmCol,
+                                     0, ValidationValues.HalfWingSpanMax_cm, 2)
+
+        le_table.en_int_validator(LeadingEdgeModel.cZeroOneCol,
+                                  LeadingEdgeModel.cZeroOneCol,
+                                  0, ValidationValues.PreProc.cZeroOneMax)
+
+        le_table.en_double_validator(LeadingEdgeModel.exOneCol,
+                                     LeadingEdgeModel.exOneCol,
+                                     0, ValidationValues.PreProc.exOneMax, 2)
+
+        le_table.en_int_validator(LeadingEdgeModel.cZeroTwoCol,
+                                  LeadingEdgeModel.cZeroTwoCol,
+                                  0, ValidationValues.PreProc.cZeroTwoMax)
+
+        le_table.en_double_validator(LeadingEdgeModel.exTwoCol,
+                                     LeadingEdgeModel.exTwoCol,
+                                     0, ValidationValues.PreProc.exTwoMax, 2)
 
         le_table.set_help_bar(self.help_bar)
         le_table.set_help_text(LeadingEdgeModel.TypeCol,
@@ -189,6 +210,30 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         te_table.setFixedHeight(2
                                 + te_table.horizontalHeader().height()
                                 + te_table.rowHeight(0))
+
+        te_table.en_double_validator(TrailingEdgeModel.aOneCol,
+                                     TrailingEdgeModel.aOneCol,
+                                     0, ValidationValues.HalfWingSpanMax_cm, 2)
+
+        te_table.en_double_validator(TrailingEdgeModel.bOneCol,
+                                     TrailingEdgeModel.bOneCol,
+                                     0, ValidationValues.WingChordMax_cm, 2)
+
+        te_table.en_double_validator(TrailingEdgeModel.xOneCol,
+                                     TrailingEdgeModel.xmCol,
+                                     0, ValidationValues.HalfWingSpanMax_cm, 2)
+
+        te_table.en_double_validator(TrailingEdgeModel.cZeroCol,
+                                     TrailingEdgeModel.cZeroCol,
+                                     ValidationValues.PreProc.cZeroMin, ValidationValues.PreProc.cZeroMax, 2)
+
+        te_table.en_double_validator(TrailingEdgeModel.yZeroCol,
+                                     TrailingEdgeModel.yZeroCol,
+                                     ValidationValues.PreProc.yZeroMin, ValidationValues.PreProc.yZeroMax, 2)
+
+        te_table.en_double_validator(TrailingEdgeModel.expCol,
+                                     TrailingEdgeModel.expCol,
+                                     ValidationValues.PreProc.expMin, ValidationValues.PreProc.expMax, 1)
 
         te_table.set_help_bar(self.help_bar)
         te_table.set_help_text(TrailingEdgeModel.TypeCol,
@@ -236,6 +281,42 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                         .height()
                                         + self.vault_table.rowHeight(0))
 
+        self.vault_table.en_double_validator(VaultModel.aOneCol,
+                                             VaultModel.aOneCol,
+                                             0,
+                                             ValidationValues.HalfWingSpanMax_cm,
+                                             4)
+
+        self.vault_table.en_double_validator(VaultModel.bOneCol,
+                                             VaultModel.bOneCol,
+                                             0,
+                                             ValidationValues.WingChordMax_cm,
+                                             4)
+
+        self.vault_table.en_double_validator(VaultModel.xOneCol,
+                                             VaultModel.xOneCol,
+                                             0,
+                                             ValidationValues.HalfWingSpanMax_cm,
+                                             4)
+
+        self.vault_table.en_double_validator(VaultModel.cOneCol,
+                                             VaultModel.cOneCol,
+                                             ValidationValues.PreProc.cOneMin,
+                                             ValidationValues.PreProc.cOneMax,
+                                             2)
+
+        self.vault_table.en_double_validator(VaultModel.rOneRACol,
+                                             VaultModel.rFouRACol,
+                                             0,
+                                             ValidationValues.HalfWingSpanMax_cm,
+                                             3)
+
+        self.vault_table.en_double_validator(VaultModel.aOneRACol,
+                                             VaultModel.aFouRACol,
+                                             0,
+                                             ValidationValues.PreProc.aMax_deg,
+                                             3)
+
         self.vault_table.set_help_bar(self.help_bar)
         self.vault_table.set_help_text(VaultModel.aOneCol,
                                        _('PreProc-Vault-a1-Desc'))
@@ -261,13 +342,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                                        _('PreProc-Vault-ra3-Desc'))
         self.vault_table.set_help_text(VaultModel.aFouRACol,
                                        _('PreProc-Vault-ra4-Desc'))
-
-        self.vault_table.en_double_validator(
-                            VaultModel.aOneCol,
-                            VaultModel.aFouRACol,
-                            0,
-                            10000,
-                            4)
 
         self.window_ly.addWidget(vault_l)
         vault_t_ly = QHBoxLayout()
@@ -299,8 +373,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called if the Vault combobox is changed
         """
-        logging.debug(self.__className+'.vault_cb_change')
-
         # first check if CB is set correctly
         if self.vault_t_cb.currentIndex() == 0:
             self.vault_M.update_type(1, 1, 1)
@@ -315,8 +387,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         :method:
         """
-        logging.debug(self.__className+'.vaultModelUpdate')
-
         vault_t = self.vault_M.get_type(1, 1)
 
         if vault_t == 1:
@@ -335,8 +405,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         :method: Change the Vault table to display all columns needed for
                  type 1.
         """
-        logging.debug(self.__className+'.set_type_one_columns')
-
         for i in range(VaultModel.aOneCol,
                        VaultModel.cOneCol + 1):
             self.vault_table.showColumn(i)
@@ -350,8 +418,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         :method: Change the Vault table to display all columns needed for
                  type 2.
         """
-        logging.debug(self.__className+'.set_type_two_columns')
-
         for i in range(VaultModel.aOneCol,
                        VaultModel.cOneCol + 1):
             self.vault_table.hideColumn(i)
@@ -364,7 +430,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
 

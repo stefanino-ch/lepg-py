@@ -31,8 +31,6 @@ class PreProcOutfileReader:
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
-
         self.config_reader = ConfigReader()
 
     def __valid_file(self, file_path_name):
@@ -41,8 +39,6 @@ class PreProcOutfileReader:
                  and known version number
         :param file_path_name: the name of the file to be checked
         """
-        logging.debug(self.__className + '.valid_file')
-
         in_file = QFile(file_path_name)
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
@@ -104,8 +100,6 @@ class PreProcOutfileReader:
         :returns: numCells
         :rtype: int
         """
-        logging.debug(self.__className + '.__read_file')
-
         in_file = QFile(self.__file_path_name)
         in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
         stream = QTextStream(in_file)
@@ -159,8 +153,6 @@ class PreProcOutfileReader:
         :returns: numCells
         :rtype: int
         """
-        logging.debug(self.__className + '.open_read_file')
-
         if read_from_pre_proc_dir is True:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_pre_proc_directory(),

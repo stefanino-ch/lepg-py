@@ -13,18 +13,24 @@ https://overthere.co.uk/2012/07/29/using-qstyleditemdelegate-on-a-qtableview/
 https://stackoverflow.com/questions/66091468/qtableview-crashes-as-soon-two-validators-with-qstyleditemdelegate-are-set/66091520#66091520
 
 https://stackoverflow.com/questions/10219739/set-color-to-a-qtableview-row
+
+https://stackoverflow.com/questions/75344157/how-to-update-cell-background-color-of-an-inactive-qtableview-qstyleditemdelega
 """
 from PyQt6.QtCore import QEvent, QModelIndex, QPersistentModelIndex, Qt, QRegularExpression
-from PyQt6.QtWidgets import QTableView, QStyledItemDelegate
+from PyQt6.QtWidgets import QTableView, QStyledItemDelegate, QStyle
 from PyQt6.QtGui import QIntValidator, QDoubleValidator, \
-    QRegularExpressionValidator, QBrush, QValidator, QColor
+    QRegularExpressionValidator, QBrush, QValidator, QColor, QPalette
 
 from gui.elements.LineEdit import LineEdit
-from gui.ColorDefinition import ColorDefinition
+from gui.GlobalDefinition import BackgroundColorDefinition, BackgroundHighlight
 
 
 def get_param_length(index, param_length_dict):
-    # TODO: Doc
+    """
+    :method: Reads for the line defined with index the effective number of parameters which must be defined
+    :param index: Index of the element defining the line for which the number of parameters must be found.
+    :param param_length_dict: The dictionary containing parameter num and number of parameters.
+    """
 
     # If there is no param_length_dict all parameters must be checked
     if param_length_dict is None:
@@ -50,25 +56,24 @@ def get_param_length(index, param_length_dict):
 
 
 def validate(index, validator):
-    # Todo: Doc
-
+    """
+    :method: Runs a validator and returns based on validation results the background color for the cell.
+    :param index: Index of the element to be validated.
+    :param validator: The validator to be used.
+    """
     state = validator.validate(str(index.data(Qt.ItemDataRole.DisplayRole)), 0)[0]
     if state == QValidator.State.Acceptable:
-        return QBrush(QColor(ColorDefinition.valAcceptable))
+        return QBrush(QColor(BackgroundColorDefinition.valAcceptable))
     elif state == QValidator.State.Intermediate:
-        return QBrush(QColor(ColorDefinition.valIntermediate))
+        return QBrush(QColor(BackgroundColorDefinition.valIntermediate))
     else:
-        return QBrush(QColor(ColorDefinition.valInvalid))
+        return QBrush(QColor(BackgroundColorDefinition.valInvalid))
 
 
 class ValidatedIntItemDelegate(QStyledItemDelegate):
     """
     :class: Creates a delegate limiting the input to a specific int range.
     """
-    __className = 'ValidatedIntItemDelegate'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     def __init__(self, bottom, top, param_length_dict=None):
         """
         :method: Class initialization
@@ -88,19 +93,33 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
         return self.editor
 
     def calculate_color_for_column(self, index):
-        # TODO: Doc
-
+        """
+        :method: Derives the background color based on parameter value and number of parameters expected based on
+                 the data edited
+        :param index: Index of the element.
+        """
         param_length = get_param_length(index, self.param_length_dict)
         if index.column() >= param_length:
-            return QBrush(QColor(ColorDefinition.valNotUsed))
+            return QBrush(QColor(BackgroundColorDefinition.valNotUsed))
 
         return validate(index, self.validator)
 
     def initStyleOption(self, option, index):
-        # TODO: Doc
+        """
+        :method: Changes mainly the background color based on value and position.
+        :param option:
+        :param index: Index of the element.
+        """
 
         super(ValidatedIntItemDelegate, self).initStyleOption(option, index)
         option.backgroundBrush = self.calculate_color_for_column(index)
+
+        if option.backgroundBrush.style() and option.state & QStyle.StateFlag.State_Selected:
+            color = option.backgroundBrush.color()
+            option.palette.setColor(QPalette.ColorGroup.Active, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightActive))
+            option.palette.setColor(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightInactive))
 
 
 class ValidatedDoubleItemDelegate(QStyledItemDelegate):
@@ -128,19 +147,32 @@ class ValidatedDoubleItemDelegate(QStyledItemDelegate):
         return self.editor
 
     def calculate_color_for_column(self, index):
-        # TODO: Doc
-
+        """
+        :method: Derives the background color based on parameter value and number of parameters expected based on
+                 the data edited
+        :param index: Index of the element.
+        """
         param_length = get_param_length(index, self.param_length_dict)
         if index.column() >= param_length:
-            return QBrush(QColor(ColorDefinition.valNotUsed))
+            return QBrush(QColor(BackgroundColorDefinition.valNotUsed))
 
         return validate(index, self.validator)
 
     def initStyleOption(self, option, index):
-        # TODO: Doc
-
+        """
+        :method: Changes mainly the background color based on value and position.
+        :param option:
+        :param index: Index of the element.
+        """
         super(ValidatedDoubleItemDelegate, self).initStyleOption(option, index)
         option.backgroundBrush = self.calculate_color_for_column(index)
+
+        if option.backgroundBrush.style() and option.state & QStyle.StateFlag.State_Selected:
+            color = option.backgroundBrush.color()
+            option.palette.setColor(QPalette.ColorGroup.Active, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightActive))
+            option.palette.setColor(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightInactive))
 
 
 class ValidatedRegExpItemDelegate(QStyledItemDelegate):
@@ -164,19 +196,32 @@ class ValidatedRegExpItemDelegate(QStyledItemDelegate):
         return self.editor
 
     def calculate_color_for_column(self, index):
-        # TODO: Doc
-
+        """
+        :method: Derives the background color based on parameter value and number of parameters expected based on
+                 the data edited
+        :param index: Index of the element.
+        """
         param_length = get_param_length(index, self.param_length_dict)
         if index.column() >= param_length:
-            return QBrush(QColor(ColorDefinition.valNotUsed))
+            return QBrush(QColor(BackgroundColorDefinition.valNotUsed))
 
         return validate(index, self.validator)
 
     def initStyleOption(self, option, index):
-        # TODO: Doc
-
+        """
+        :method: Changes mainly the background color based on value and position.
+        :param option:
+        :param index: Index of the element.
+        """
         super(ValidatedRegExpItemDelegate, self).initStyleOption(option, index)
         option.backgroundBrush = self.calculate_color_for_column(index)
+
+        if option.backgroundBrush.style() and option.state & QStyle.StateFlag.State_Selected:
+            color = option.backgroundBrush.color()
+            option.palette.setColor(QPalette.ColorGroup.Active, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightActive))
+            option.palette.setColor(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Highlight,
+                                    color.darker(BackgroundHighlight.BackgroundHighlightInactive))
 
 
 class TableView(QTableView):
@@ -228,9 +273,6 @@ class TableView(QTableView):
                     self.__helpBar.set_text(self.__helpText[column])
                 self._last_index = QPersistentModelIndex(index)
         return QTableView.eventFilter(self, widget, event)
-
-    def leaveEvent(self, event):
-        print('leave')
 
     def set_help_bar(self, help_bar):
         """

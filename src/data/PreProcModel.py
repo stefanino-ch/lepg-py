@@ -59,8 +59,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
-
         self.__fileSaved = True
 
         self.db = Database()
@@ -155,8 +153,6 @@ class PreProcModel(QObject, metaclass=Singleton):
                  and known version number
         :param file_name: the name of the file to be checked
         """
-        logging.debug(self.__className + '.valid_file')
-
         in_file = QFile(file_name)
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
@@ -216,8 +212,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         :method: Checks for unsaved data, and appropriate handling.
                  Does the File Open dialog handling.
         """
-        logging.debug(self.__className + '.open_read_file')
-
         if not self.__fileSaved:
             # There is unsaved data, show a warning
             msg_box = QMessageBox()
@@ -252,8 +246,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         :method: Checks if there is already a valid file name, if not it asks
                  for it. Starts afterwards the writing process.
         """
-        logging.debug(self.__className + '.save_file')
-
         file_name = self.get_file_name()
         if len(file_name) != 0:
             # We do have already a valid filename
@@ -279,8 +271,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         :method: Asks for a new filename. Starts afterwards the
                  writing process.
         """
-        logging.debug(self.__className + '.save_file_as')
-
         # Ask first for the filename
         file_name = QFileDialog.getSaveFileName(
                     None,
@@ -301,8 +291,6 @@ class PreProcModel(QObject, metaclass=Singleton):
                  variables.
         :warning: Filename and Path must be set first!
         """
-        logging.debug(self.__className+'.read_file')
-
         in_file = QFile(self.get_file_name())
         in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
         stream = QTextStream(in_file)
@@ -319,13 +307,11 @@ class PreProcModel(QObject, metaclass=Singleton):
         # Wing Name
         self.gen_M.set_num_configs(0)
 
-        logging.debug(self.__className+'.read_file: Wing name')
         self.gen_M.set_num_rows_for_config(1, 1)
         name = stream.readLine()
         self.gen_M.update_row(1, 1, name)
 
         # 1. Leading edge
-        logging.debug(self.__className+'.read_file: Leading edge')
         for i in range(3):
             stream.readLine()
 
@@ -346,7 +332,6 @@ class PreProcModel(QObject, metaclass=Singleton):
                                    six[1], sev[1], eig[1], nin[1], ten[1])
 
         # 2. Trailing edge
-        logging.debug(self.__className+'.read_file: Trailing edge')
         for i in range(3):
             stream.readLine()
 
@@ -365,7 +350,6 @@ class PreProcModel(QObject, metaclass=Singleton):
                                     six[1], sev[1], eig[1])
 
         # 3. Vault
-        logging.debug(self.__className+'.read_file: vault')
         for i in range(3):
             stream.readLine()
 
@@ -388,7 +372,6 @@ class PreProcModel(QObject, metaclass=Singleton):
                                     thr[1], fou[1])
 
         # 4. Cells distribution
-        logging.debug(self.__className+'.read_file: Cells')
         for i in range(3):
             stream.readLine()
 
@@ -430,7 +413,6 @@ class PreProcModel(QObject, metaclass=Singleton):
         """
         separator = '***************************************************\n'
 
-        logging.debug(self.__className+'.write_file')
         # TODO: check also processor code for wrong deletion ...
 
         if for_proc is True:
@@ -558,9 +540,11 @@ class PreProcModel(QObject, metaclass=Singleton):
                 stream << '%s\n' % values(3)
 
             elif int(values(0)) == 4:
-                stream << '%s\n' % values(3)
+                num_lines = self.cellsDistr_M.num_rows_for_config(1)
 
-                for it in range(0, int(values(3))):
+                stream << '%s\n' % num_lines
+
+                for it in range(0, num_lines):
                     values = self.cellsDistr_M.get_row(1, it + 1)
                     stream << '%s\t%s\n' % (it + 1, values(2))
         except:  # noqa: E722

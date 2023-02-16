@@ -12,6 +12,7 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from Singleton.Singleton import Singleton
 from data.PreProcModel import PreProcModel
 from data.preProcModel.CellsDistrModel import CellsDistrModel
+from gui.GlobalDefinition import ValidationValues
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
@@ -40,7 +41,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.num_lines_l = None
         self.one_t = None
         self.btn_bar = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.ppm = PreProcModel()
@@ -52,7 +52,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -71,8 +71,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -106,7 +104,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                    QSizePolicy.Policy.Fixed))
         self.num_lines_s = QSpinBox()
-        self.num_lines_s.setRange(1, 999)
+        self.num_lines_s.setRange(1, ValidationValues.MaxNumCells)
         self.num_lines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                    QSizePolicy.Policy.Fixed))
         self.num_lines_s.valueChanged.connect(self.num_lines_change)
@@ -130,16 +128,19 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
 
         self.one_t.en_int_validator(CellsDistrModel.OrderNumCol,
                                     CellsDistrModel.OrderNumCol,
-                                    1, 999)
+                                    1, ValidationValues.MaxNumCells)
+
         self.one_t.en_double_validator(CellsDistrModel.CoefCol,
                                        CellsDistrModel.CoefCol,
                                        0, 1, 1)
+
         self.one_t.en_double_validator(CellsDistrModel.WidthCol,
                                        CellsDistrModel.WidthCol,
-                                       1, 500, 1)
+                                       1, ValidationValues.HalfWingSpanMax_cm, 1)
+
         self.one_t.en_int_validator(CellsDistrModel.NumCellsCol,
                                     CellsDistrModel.NumCellsCol,
-                                    1, 999)
+                                    1, ValidationValues.MaxNumCells)
 
         self.one_t.set_help_bar(self.help_bar)
         self.one_t.set_help_text(CellsDistrModel.OrderNumCol,
@@ -173,8 +174,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the GUI as soon the model changes
         """
-        logging.debug(self.__className + '.usage_update')
-
         type_n = self.cellsDistr_M.get_type(1, 1)
 
         if type_n == 1:
@@ -209,7 +208,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.cellsDistr_M.set_num_rows_for_config(1, 1)
             self.cellsDistr_M.update_type(1, 1, 1)
@@ -223,7 +221,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
             self.cellsDistr_M.update_type(1, 1, 3)
 
         elif self.usage_cb.currentIndex() == 3:
-            # FIXME Model is not properly updated if type or num lines changes
             self.cellsDistr_M.update_type(1, 1, 4)
 
         self.ppm.set_file_saved(False)
@@ -232,7 +229,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.cellsDistr_M.set_num_rows_for_config(1, self.num_lines_s.value())
 
         self.ppm.set_file_saved(False)
@@ -241,7 +237,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 
@@ -259,8 +254,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         :method: Shows/ hides the spinbox and the table columns to for
                  type 1 data
         """
-        logging.debug(self.__className + '.set_type_one_columns')
-
         self.num_lines_l.setVisible(False)
         self.num_lines_s.setVisible(False)
 
@@ -275,8 +268,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         :method: Shows/ hides the spinbox and the table columns to for type
                  2 and 3 data
         """
-        logging.debug(self.__className + '.set_type_two_thr_columns')
-
         self.num_lines_l.setVisible(False)
         self.num_lines_s.setVisible(False)
 
@@ -291,8 +282,6 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         :method: Shows/ hides the spinbox and the table columns to for type
                  4 data
         """
-        logging.debug(self.__className + '.set_type_fou_columns')
-
         self.num_lines_s.blockSignals(True)
         self.num_lines_s.setValue(self.cellsDistr_M.num_rows_for_config(1))
         self.num_lines_s.blockSignals(False)

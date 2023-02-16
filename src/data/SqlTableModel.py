@@ -32,7 +32,6 @@ class SqlTableModel(QSqlTableModel):
         """
         :method: Constructor
         """
-        logging.debug(self.__className+'.__init__')
         super().__init__()
 
     def add_rows(self, row, count):
@@ -45,8 +44,6 @@ class SqlTableModel(QSqlTableModel):
         inserting-row-into-qsqltablemodel#47319440 for the example
         about how to insert.
         """
-        logging.debug(self.__className + '.add_rows')
-
         QSqlDatabase.database().transaction()
         for i in range(0, count):
             num_rows = self.rowCount()
@@ -75,8 +72,6 @@ class SqlTableModel(QSqlTableModel):
         :method: Removes one or multiple rows from the end of the table
         :param num_to_remove: Number of rows to remove
         """
-        logging.debug(self.__className+'.remove_rows_at_end')
-
         i = 0
         res = 0
         start = self.rowCount()-1
@@ -93,8 +88,6 @@ class SqlTableModel(QSqlTableModel):
         :emits didSelect: The signal telling the consumers that a select()
                           was done on the model
         """
-        logging.debug(self.__className+'.select')
-
         res = QSqlTableModel.select(self, *args, **kwargs)
         # Now we must tell the rest of the app that a row has been removed.
         self.didSelect.emit()
@@ -106,7 +99,6 @@ class SqlTableModel(QSqlTableModel):
         :param row: Row which is used to sort
         :param order: Qt.SortOrder.AscendingOrder or Qt.DescendingOrder
         """
-        logging.debug(self.__className+'.sort_table')
         self.setSort(row, order)
         self.select()
 
@@ -116,7 +108,6 @@ class SqlTableModel(QSqlTableModel):
                  Add/ removes rows accordingly
         :param half_num_ribs: The number of rows to be achieved.
         """
-        logging.debug(self.__className+'.setup_rib_rows')
         self.submitAll()
 
         num_rows = self.rowCount()
@@ -161,8 +152,6 @@ class SqlTableModel(QSqlTableModel):
                  are saved.
         :return: Number of different configs
         """
-        logging.debug(self.__className+'.num_configs')
-
         query = QSqlQuery()
         query.prepare("Select ConfigNum FROM %s ORDER BY ConfigNum ASC"
                       % self.tableName())
@@ -267,8 +256,6 @@ class SqlTableModel(QSqlTableModel):
         :attention: To use this method the model must have the variable
                     *ConfigNumCol* defined.
         """
-        logging.debug(self.__className+'.num_rows_for_config')
-
         if hasattr(self, 'ConfigNumCol'):
             proxy_model = QSortFilterProxyModel()
             proxy_model.setSourceModel(self)

@@ -11,7 +11,7 @@ from PyQt6.QtCore import QEvent, QRegularExpression
 from PyQt6.QtWidgets import QLineEdit
 from PyQt6.QtGui import QValidator, QIntValidator, QDoubleValidator, \
                          QRegularExpressionValidator
-from gui.ColorDefinition import ColorDefinition
+from gui.GlobalDefinition import BackgroundColorDefinition
 
 
 class LineEdit(QLineEdit):
@@ -115,21 +115,21 @@ class LineEdit(QLineEdit):
         if self.__hasDoubleValidator or self.__hasIntValidator:
             state = self.validator.validate(self.text(), 0)[0]
             if state == QValidator.State.Acceptable:
-                color = ColorDefinition.valAcceptable
+                color = BackgroundColorDefinition.valAcceptable
             elif state == QValidator.State.Intermediate:
-                color = ColorDefinition.valIntermediate
+                color = BackgroundColorDefinition.valIntermediate
             else:
-                color = ColorDefinition.valInvalid
+                color = BackgroundColorDefinition.valInvalid
             self.setStyleSheet('QLineEdit {background-color: %s }' % color)
 
         elif self.__hasRegExpValidator:
             state = self.validator.validate(self.text(), 0)[0]
             if state == QRegularExpressionValidator.State.Acceptable:
-                color = ColorDefinition.valAcceptable
+                color = BackgroundColorDefinition.valAcceptable
             elif state == QRegularExpressionValidator.State.Intermediate:
-                color = ColorDefinition.valIntermediate
+                color = BackgroundColorDefinition.valIntermediate
             else:
-                color = ColorDefinition.valInvalid
+                color = BackgroundColorDefinition.valInvalid
             self.setStyleSheet('QLineEdit {background-color: %s }' % color)
 
     def setText(self, *args, **kwargs):
