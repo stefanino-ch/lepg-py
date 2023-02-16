@@ -113,7 +113,7 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
 
         gen_table.en_reg_exp_validator(GenModel.WingNameCol,
                                        GenModel.WingNameCol,
-                                       Regex.wingNameString)
+                                       Regex.WingNameString)
 
         gen_ly = QHBoxLayout()
         gen_ly.addWidget(gen_table)

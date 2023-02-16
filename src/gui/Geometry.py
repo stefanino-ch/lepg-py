@@ -9,11 +9,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
                             QSizePolicy, QHeaderView, QPushButton
 
-from data.ProcModel import ProcModel
+from gui.GlobalDefinition import ValidationValues
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from data.procModel.RibModel import RibModel
 
 
 class Geometry(QMdiSubWindow, metaclass=Singleton):
@@ -39,7 +41,7 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.rib_M = ProcModel.RibModel()
+        self.rib_M = RibModel()
         self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
@@ -89,59 +91,74 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table.set_help_bar(self.helpBar)
 
-        self.table.set_help_text(ProcModel.RibModel.RibNumCol,
-                                 _('Proc-RibNumDesc'))
-        self.table.set_help_text(ProcModel.RibModel.xribCol,
-                                 _('Proc-xribDesc'))
-        self.table.set_help_text(ProcModel.RibModel.yLECol,
-                                 _('Proc-yLEDesc'))
-        self.table.set_help_text(ProcModel.RibModel.yTECol,
-                                 _('Proc-yTEDesc'))
-        self.table.set_help_text(ProcModel.RibModel.xpCol,
-                                 _('Proc-xpDesc'))
-        self.table.set_help_text(ProcModel.RibModel.zCol,
-                                 _('Proc-zDesc'))
-        self.table.set_help_text(ProcModel.RibModel.betaCol,
-                                 _('Proc-betaDesc'))
-        self.table.set_help_text(ProcModel.RibModel.RPCol,
-                                 _('Proc-RPDesc'))
-        self.table.set_help_text(ProcModel.RibModel.WashinCol,
-                                 _('Proc-WashinDesc'))
-        self.table.set_help_text(ProcModel.RibModel.RotZCol,
-                                 _('Proc-RotZDesc'))
-        self.table.set_help_text(ProcModel.RibModel.PosZCol,
-                                 _('Proc-PosZDesc'))
+        self.table.en_int_validator(RibModel.RibNumCol,
+                                    RibModel.RibNumCol,
+                                    1, ValidationValues.MaxNumRibs)
+        self.table.en_double_validator(RibModel.xribCol,
+                                       RibModel.xribCol,
+                                       0, ValidationValues.HalfWingSpanMax_cm, 3)
+        self.table.en_double_validator(RibModel.yLECol,
+                                       RibModel.yTECol,
+                                       0, ValidationValues.WingChordMax_cm, 3)
+        self.table.en_double_validator(RibModel.xpCol,
+                                       RibModel.xpCol,
+                                       0, ValidationValues.WingChordMax_cm, 3)
+        self.table.en_double_validator(RibModel.zCol,
+                                       RibModel.zCol,
+                                       0, ValidationValues.WingZMax_cm, 3)
 
-        self.table.en_int_validator(ProcModel.RibModel.RibNumCol,
-                                    ProcModel.RibModel.RibNumCol,
-                                    1, 999)
-        self.table.en_double_validator(ProcModel.RibModel.xribCol,
-                                       ProcModel.RibModel.xribCol,
-                                       -500, 3000, 3)
-        self.table.en_double_validator(ProcModel.RibModel.yLECol,
-                                       ProcModel.RibModel.yTECol,
-                                       -500, 1000, 3)
-        self.table.en_double_validator(ProcModel.RibModel.xpCol,
-                                       ProcModel.RibModel.xpCol,
-                                       -500, 3000, 3)
-        self.table.en_double_validator(ProcModel.RibModel.zCol,
-                                       ProcModel.RibModel.zCol,
-                                       -500, 3000, 3)
-        self.table.en_double_validator(ProcModel.RibModel.betaCol,
-                                       ProcModel.RibModel.betaCol,
-                                       0, 105, 3)
-        self.table.en_double_validator(ProcModel.RibModel.RPCol,
-                                       ProcModel.RibModel.RPCol,
-                                       0, 100, 3)
-        self.table.en_double_validator(ProcModel.RibModel.WashinCol,
-                                       ProcModel.RibModel.WashinCol,
-                                       -45, 45, 3)
-        self.table.en_double_validator(ProcModel.RibModel.RotZCol,
-                                       ProcModel.RibModel.RotZCol,
-                                       -45, 45, 3)
-        self.table.en_double_validator(ProcModel.RibModel.PosZCol,
-                                       ProcModel.RibModel.PosZCol,
-                                       0, 100, 3)
+        self.table.en_double_validator(RibModel.betaCol,
+                                       RibModel.betaCol,
+                                       ValidationValues.Proc.RibVerticalAngleMin_deg,
+                                       ValidationValues.Proc.RibVerticalAngleMax_deg,
+                                       3)
+
+        self.table.en_double_validator(RibModel.RPCol,
+                                       RibModel.RPCol,
+                                       ValidationValues.Proc.RibRotationPointMin_chord,
+                                       ValidationValues.Proc.RibRotationPointMax_chord,
+                                       3)
+
+        self.table.en_double_validator(RibModel.WashinCol,
+                                       RibModel.WashinCol,
+                                       ValidationValues.Proc.WashinMin,
+                                       ValidationValues.Proc.WashinMax,
+                                       3)
+
+        self.table.en_double_validator(RibModel.RotZCol,
+                                       RibModel.RotZCol,
+                                       ValidationValues.Proc.RotZColMin,
+                                       ValidationValues.Proc.RotZColMax,
+                                       3)
+
+        self.table.en_double_validator(RibModel.PosZCol,
+                                       RibModel.PosZCol,
+                                       ValidationValues.Proc.RibRotationPointMin_chord,
+                                       ValidationValues.Proc.RibRotationPointMax_chord,
+                                       3)
+
+        self.table.set_help_text(RibModel.RibNumCol,
+                                 _('Proc-RibNumDesc'))
+        self.table.set_help_text(RibModel.xribCol,
+                                 _('Proc-xribDesc'))
+        self.table.set_help_text(RibModel.yLECol,
+                                 _('Proc-yLEDesc'))
+        self.table.set_help_text(RibModel.yTECol,
+                                 _('Proc-yTEDesc'))
+        self.table.set_help_text(RibModel.xpCol,
+                                 _('Proc-xpDesc'))
+        self.table.set_help_text(RibModel.zCol,
+                                 _('Proc-zDesc'))
+        self.table.set_help_text(RibModel.betaCol,
+                                 _('Proc-betaDesc'))
+        self.table.set_help_text(RibModel.RPCol,
+                                 _('Proc-RPDesc'))
+        self.table.set_help_text(RibModel.WashinCol,
+                                 _('Proc-WashinDesc'))
+        self.table.set_help_text(RibModel.RotZCol,
+                                 _('Proc-RotZDesc'))
+        self.table.set_help_text(RibModel.PosZCol,
+                                 _('Proc-PosZDesc'))
 
         self.window_ly.addWidget(self.table)
 
@@ -173,7 +190,7 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         : method : handles the sort of the table by rib number
         """
         logging.debug(self.__className + '.sort_btn_press')
-        self.rib_M.sort_table(ProcModel.RibModel.RibNumCol,
+        self.rib_M.sort_table(RibModel.RibNumCol,
                               Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):

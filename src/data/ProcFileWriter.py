@@ -12,9 +12,47 @@ from PyQt6.QtWidgets import QMessageBox
 
 from ConfigReader.ConfigReader import ConfigReader
 from data.FileHelpers import chk_num, chk_str
-from data.ProcModel import ProcModel
 
+from data.procModel.AddRibPointsModel import AddRibPointsModel
+from data.procModel.AirfoilsModel import AirfoilsModel
+from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
+from data.procModel.AnchorPointsModel import AnchorPointsModel
+from data.procModel.BrakeLengthModel import BrakeLengthModel
+from data.procModel.BrakesModel import BrakesModel
+from data.procModel.CalageVarModel import CalageVarModel
+from data.procModel.DxfLayerNamesModel import DxfLayerNamesModel
+from data.procModel.ElLinesCorrModel import ElLinesCorrModel
+from data.procModel.ElLinesDefModel import ElLinesDefModel
+from data.procModel.ExtradosColConfModel import ExtradosColConfModel
+from data.procModel.ExtradosColDetModel import ExtradosColDetModel
+from data.procModel.GlobAoAModel import GlobAoAModel
+from data.procModel.GlueVentModel import GlueVentModel
 from data.procModel.HvVhRibsModel import HvVhRibsModel
+from data.procModel.IntradosColsConfModel import IntradosColsConfModel
+from data.procModel.IntradosColsDetModel import IntradosColsDetModel
+from data.procModel.JoncsDefModel import JoncsDefModel
+from data.procModel.LightConfModel import LightConfModel
+from data.procModel.LightDetModel import LightDetModel
+from data.procModel.LinesModel import LinesModel
+from data.procModel.MarksModel import MarksModel
+from data.procModel.MarksTypesModel import MarksTypesModel
+from data.procModel.NewSkinTensConfModel import NewSkinTensConfModel
+from data.procModel.NewSkinTensDetModel import NewSkinTensDetModel
+from data.procModel.NoseMylarsModel import NoseMylarsModel
+from data.procModel.PartsSeparationModel import PartsSeparationModel
+from data.procModel.RamificationModel import RamificationModel
+from data.procModel.RibModel import RibModel
+from data.procModel.SewingAllowancesModel import SewingAllowancesModel
+from data.procModel.SkinTensionModel import SkinTensionModel
+from data.procModel.SkinTensionParamsModel import SkinTensionParamsModel
+from data.procModel.SpecWingTipModel import SpecWingTipModel
+from data.procModel.ThreeDDxfModel import ThreeDDxfModel
+from data.procModel.ThreeDShConfModel import ThreeDShConfModel
+from data.procModel.ThreeDShLoDetModel import ThreeDShLoDetModel
+from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
+from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
+from data.procModel.TwoDDxfModel import TwoDDxfModel
+from data.procModel.WingModel import WingModel
 
 
 class ProcFileWriter:
@@ -36,46 +74,46 @@ class ProcFileWriter:
         """
         :method: Class initialization
         """
-        self.rib_m = ProcModel.RibModel()
-        self.wing_m = ProcModel.WingModel()
-        self.airfoils_m = ProcModel.AirfoilsModel()
-        self.anchor_points_m = ProcModel.AnchorPointsModel()
-        self.light_conf_m = ProcModel.LightConfModel()
-        self.light_det_m = ProcModel.LightDetModel()
-        self.skin_tens_m = ProcModel.SkinTensionModel()
-        self.skin_tens_params_m = ProcModel.SkinTensionParamsModel()
-        self.sewing_allow_m = ProcModel.SewingAllowancesModel()
-        self.marks_m = ProcModel.MarksModel()
-        self.glob_aoa_m = ProcModel.GlobAoAModel()
-        self.lines_m = ProcModel.LinesModel()
-        self.brakes_m = ProcModel.BrakesModel()
-        self.brake_length_m = ProcModel.BrakeLengthModel()
-        self.ramific_m = ProcModel.RamificationModel()
+        self.rib_m = RibModel()
+        self.wing_m = WingModel()
+        self.airfoils_m = AirfoilsModel()
+        self.anchor_points_m = AnchorPointsModel()
+        self.light_conf_m = LightConfModel()
+        self.light_det_m = LightDetModel()
+        self.skin_tens_m = SkinTensionModel()
+        self.skin_tens_params_m = SkinTensionParamsModel()
+        self.sewing_allow_m = SewingAllowancesModel()
+        self.marks_m = MarksModel()
+        self.glob_aoa_m = GlobAoAModel()
+        self.lines_m = LinesModel()
+        self.brakes_m = BrakesModel()
+        self.brake_length_m = BrakeLengthModel()
+        self.ramific_m = RamificationModel()
         self.hv_vh_ribs_m = HvVhRibsModel()
-        self.extrados_col_conf_m = ProcModel.ExtradosColConfModel()
-        self.extrados_col_det_m = ProcModel.ExtradosColDetModel()
-        self.intrados_col_conf_m = ProcModel.IntradosColsConfModel()
-        self.intrados_col_det_m = ProcModel.IntradosColsDetModel()
-        self.add_rib_pts_m = ProcModel.AddRibPointsModel()
-        self.el_lines_corr_m = ProcModel.ElLinesCorrModel()
-        self.el_lines_def_m = ProcModel.ElLinesDefModel()
-        self.dxf_lay_names_m = ProcModel.DxfLayerNamesModel()
-        self.marks_t_m = ProcModel.MarksTypesModel()
-        self.joncs_def_m = ProcModel.JoncsDefModel()
-        self.nose_mylars_m = ProcModel.NoseMylarsModel()
-        self.two_d_dxf_m = ProcModel.TwoDDxfModel()
-        self.three_d_dxf_m = ProcModel.ThreeDDxfModel()
-        self.glue_vent_m = ProcModel.GlueVentModel()
-        self.spec_wing_tip_m = ProcModel.SpecWingTipModel()
-        self.calage_var_m = ProcModel.CalageVarModel()
-        self.three_d_sh_conf_m = ProcModel.ThreeDShConfModel()
-        self.three_d_sh_up_det_M = ProcModel.ThreeDShUpDetModel()
-        self.three_d_sh_lo_det_m = ProcModel.ThreeDShLoDetModel()
-        self.three_d_sh_print_m = ProcModel.ThreeDShPrintModel()
-        self.airf_thick_m = ProcModel.AirfoilThicknessModel()
-        self.new_skin_tens_conf_m = ProcModel.NewSkinTensConfModel()
-        self.new_skin_tens_det_m = ProcModel.NewSkinTensDetModel()
-        self.parts_sep_m = ProcModel.PartsSeparationModel()
+        self.extrados_col_conf_m = ExtradosColConfModel()
+        self.extrados_col_det_m = ExtradosColDetModel()
+        self.intrados_col_conf_m = IntradosColsConfModel()
+        self.intrados_col_det_m = IntradosColsDetModel()
+        self.add_rib_pts_m = AddRibPointsModel()
+        self.el_lines_corr_m = ElLinesCorrModel()
+        self.el_lines_def_m = ElLinesDefModel()
+        self.dxf_lay_names_m = DxfLayerNamesModel()
+        self.marks_t_m = MarksTypesModel()
+        self.joncs_def_m = JoncsDefModel()
+        self.nose_mylars_m = NoseMylarsModel()
+        self.two_d_dxf_m = TwoDDxfModel()
+        self.three_d_dxf_m = ThreeDDxfModel()
+        self.glue_vent_m = GlueVentModel()
+        self.spec_wing_tip_m = SpecWingTipModel()
+        self.calage_var_m = CalageVarModel()
+        self.three_d_sh_conf_m = ThreeDShConfModel()
+        self.three_d_sh_up_det_M = ThreeDShUpDetModel()
+        self.three_d_sh_lo_det_m = ThreeDShLoDetModel()
+        self.three_d_sh_print_m = ThreeDShPrintModel()
+        self.airf_thick_m = AirfoilThicknessModel()
+        self.new_skin_tens_conf_m = NewSkinTensConfModel()
+        self.new_skin_tens_det_m = NewSkinTensDetModel()
+        self.parts_sep_m = PartsSeparationModel()
 
     def set_file_path_name(self, file_path_name):
         """
@@ -145,39 +183,39 @@ class ProcFileWriter:
         stream << '*             1. GEOMETRY\n'
         stream << separator
         stream << '* Brand name\n'
-        stream << '\"%s\"\n' % values.value(ProcModel.WingModel.BrandNameCol)
+        stream << '\"%s\"\n' % values.value(WingModel.BrandNameCol)
         stream << '* Wing name\n'
-        stream << '\"%s\"\n' % values.value(ProcModel.WingModel.WingNameCol)
+        stream << '\"%s\"\n' % values.value(WingModel.WingNameCol)
         stream << '* Drawing scale\n'
         stream << '%s\n' % chk_num(
-            values.value(ProcModel.WingModel.DrawScaleCol), 1)
+            values.value(WingModel.DrawScaleCol), 1)
         stream << '* Wing scale\n'
         stream << '%s\n' % chk_num(
-            values.value(ProcModel.WingModel.WingScaleCol), 1)
+            values.value(WingModel.WingScaleCol), 1)
         stream << '* Number of cells\n'
         stream << '\t%s\n' % chk_num(
-            values.value(ProcModel.WingModel.NumCellsCol))
+            values.value(WingModel.NumCellsCol))
         stream << '* Number of ribs\n'
         stream << '\t%s\n' % chk_num(
-            values.value(ProcModel.WingModel.NumRibsCol))
+            values.value(WingModel.NumRibsCol))
         stream << '* Alpha max and parameter\n'
         stream << '\t%s' % chk_num(
-            values.value(ProcModel.WingModel.AlphaMaxTipCol))
+            values.value(WingModel.AlphaMaxTipCol))
         stream << '\t%s' % chk_num(
-            values.value(ProcModel.WingModel.AlphaModeCol), 1)
-        if values.value(ProcModel.WingModel.AlphaModeCol) == '2':
+            values.value(WingModel.AlphaModeCol), 1)
+        if values.value(WingModel.AlphaModeCol) == '2':
             stream << '\t%s\n' \
-                % values.value(ProcModel.WingModel.AlphaMaxCentCol)
+                % values.value(WingModel.AlphaMaxCentCol)
         else:
             stream << '\n'
 
         stream << '* Paraglider type and parameter.\n'
 
         stream << '\t\"%s\"' % chk_str(
-            values.value(ProcModel.WingModel.ParaTypeCol),
+            values.value(WingModel.ParaTypeCol),
             'ds')
         stream << '\t%s\n' % chk_num(
-            values.value(ProcModel.WingModel.ParaParamCol),
+            values.value(WingModel.ParaParamCol),
             1)
         stream << ('* Rib geometric parameters. '
                    'Extended data with two additional columns '
@@ -322,7 +360,7 @@ class ProcFileWriter:
         stream << '*          9. SUSPENSION LINES DESCRIPTION\n'
         stream << separator
         values = self.wing_m.get_row()
-        stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.LinesConcTypeCol))
+        stream << '%s\n' % chk_num(values.value(WingModel.LinesConcTypeCol))
 
         num_configs = self.lines_m.num_configs()
         stream << '%s\n' % num_configs
@@ -346,7 +384,7 @@ class ProcFileWriter:
         stream << separator
 
         values = self.wing_m.get_row()
-        stream << '%s\n' % chk_num(values.value(ProcModel.WingModel.BrakeLengthCol))
+        stream << '%s\n' % chk_num(values.value(WingModel.BrakeLengthCol))
 
         num_lines = self.brakes_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
@@ -404,8 +442,8 @@ class ProcFileWriter:
         num_lines = self.hv_vh_ribs_m.num_rows_for_config(1)
         stream << '%s\n' % num_lines
         values = self.wing_m.get_row()
-        stream << '%s' % chk_num(values.value(ProcModel.WingModel.xSpacingCol))
-        stream << '\t%s\n' % chk_num(values.value(ProcModel.WingModel.ySpacingCol))
+        stream << '%s' % chk_num(values.value(WingModel.xSpacingCol))
+        stream << '\t%s\n' % chk_num(values.value(WingModel.ySpacingCol))
 
         for line_it in range(0, num_lines):
             values = self.hv_vh_ribs_m.get_row(1, line_it + 1)
@@ -553,7 +591,7 @@ class ProcFileWriter:
             for g in range(0, num_groups):
                 num_lines = self.joncs_def_m.num_rows_for_config(g + 1)
                 values = self.joncs_def_m.getRow(g + 1, 1)
-                scheme = values(ProcModel.JoncsDefModel.TypeCol)
+                scheme = values(JoncsDefModel.TypeCol)
 
                 stream << '%s' % (g + 1)
                 stream << '\t%s\n' % scheme
@@ -563,31 +601,31 @@ class ProcFileWriter:
                     values = self.joncs_def_m.getRow(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
-                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.FirstRibCol))
-                    stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.LastRibCol))
+                    stream << '\t%s' % chk_num(values(JoncsDefModel.FirstRibCol))
+                    stream << '\t%s\n' % chk_num(values(JoncsDefModel.LastRibCol))
 
                     # Line 1
-                    stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pBACol))
-                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBBCol))
-                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBCCol))
+                    stream << '%s' % chk_num(values(JoncsDefModel.pBACol))
+                    stream << '\t%s' % chk_num(values(JoncsDefModel.pBBCol))
+                    stream << '\t%s' % chk_num(values(JoncsDefModel.pBCCol))
                     if scheme == 1:
-                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % chk_num(values(JoncsDefModel.pBDCol))
                     else:
-                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pBDCol))
-                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pBECol))
+                        stream << '\t%s' % chk_num(values(JoncsDefModel.pBDCol))
+                        stream << '\t%s\n' % chk_num(values(JoncsDefModel.pBECol))
 
                     if scheme == 1:
                         # Line 2
-                        stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pCACol))
-                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pCBCol))
-                        stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pCCCol))
-                        stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pCDCol))
+                        stream << '%s' % chk_num(values(JoncsDefModel.pCACol))
+                        stream << '\t%s' % chk_num(values(JoncsDefModel.pCBCol))
+                        stream << '\t%s' % chk_num(values(JoncsDefModel.pCCCol))
+                        stream << '\t%s\n' % chk_num(values(JoncsDefModel.pCDCol))
 
                     # s values
-                    stream << '%s' % chk_num(values(ProcModel.JoncsDefModel.pDACol))
-                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pDBCol))
-                    stream << '\t%s' % chk_num(values(ProcModel.JoncsDefModel.pDCCol))
-                    stream << '\t%s\n' % chk_num(values(ProcModel.JoncsDefModel.pDDCol))
+                    stream << '%s' % chk_num(values(JoncsDefModel.pDACol))
+                    stream << '\t%s' % chk_num(values(JoncsDefModel.pDBCol))
+                    stream << '\t%s' % chk_num(values(JoncsDefModel.pDCCol))
+                    stream << '\t%s\n' % chk_num(values(JoncsDefModel.pDDCol))
 
         stream << separator
         stream << '*       22. NOSE MYLARS DEFINITION\n'
@@ -606,14 +644,14 @@ class ProcFileWriter:
                     values = self.nose_mylars_m.getRow(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
-                    stream << '\t%s' % chk_num(values(ProcModel.NoseMylarsModel.FirstRibCol))
-                    stream << '\t%s\n' % chk_num(values(ProcModel.NoseMylarsModel.LastRibCol))
+                    stream << '\t%s' % chk_num(values(NoseMylarsModel.FirstRibCol))
+                    stream << '\t%s\n' % chk_num(values(NoseMylarsModel.LastRibCol))
 
                     for p in range(0, 6):
                         if p > 0:
                             stream << '\t'
 
-                        stream << '%s' % chk_num(values(ProcModel.NoseMylarsModel.xOneCol + p))
+                        stream << '%s' % chk_num(values(NoseMylarsModel.xOneCol + p))
 
                         if p == 5:
                             stream << '\n'
@@ -715,8 +753,8 @@ class ProcFileWriter:
             stream << '1\n'
 
             values = self.spec_wing_tip_m.getRow(1, 1)
-            stream << 'AngleLE\t%s\n' % chk_num(values(ProcModel.SpecWingTipModel.AngleLECol))
-            stream << 'AngleTE\t%s\n' % chk_num(values(ProcModel.SpecWingTipModel.AngleTECol))
+            stream << 'AngleLE\t%s\n' % chk_num(values(SpecWingTipModel.AngleLECol))
+            stream << 'AngleTE\t%s\n' % chk_num(values(SpecWingTipModel.AngleTECol))
 
         stream << separator
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
@@ -727,19 +765,19 @@ class ProcFileWriter:
             stream << '1\n'
 
             values = self.calage_var_m.getRow(1, 1)
-            stream << '%s\n' % chk_num(values(ProcModel.CalageVarModel.NumRisersCol))
+            stream << '%s\n' % chk_num(values(CalageVarModel.NumRisersCol))
 
-            stream << '%s' % chk_num(values(ProcModel.CalageVarModel.PosACol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosBCol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosCCol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosDCol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.PosECol))
-            stream << '\t%s\n' % chk_num(values(ProcModel.CalageVarModel.PosFCol))
+            stream << '%s' % chk_num(values(CalageVarModel.PosACol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.PosBCol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.PosCCol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.PosDCol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.PosECol))
+            stream << '\t%s\n' % chk_num(values(CalageVarModel.PosFCol))
 
-            stream << '%s' % chk_num(values(ProcModel.CalageVarModel.MaxNegAngCol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.NumNegStepsCol))
-            stream << '\t%s' % chk_num(values(ProcModel.CalageVarModel.MaxPosAngCol))
-            stream << '\t%s\n' % chk_num(values(ProcModel.CalageVarModel.NumPosStepsCol))
+            stream << '%s' % chk_num(values(CalageVarModel.MaxNegAngCol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.NumNegStepsCol))
+            stream << '\t%s' % chk_num(values(CalageVarModel.MaxPosAngCol))
+            stream << '\t%s\n' % chk_num(values(CalageVarModel.NumPosStepsCol))
 
         stream << separator
         stream << '*       29. 3D SHAPING\n'
@@ -756,8 +794,8 @@ class ProcFileWriter:
             for g in range(0, num_groups):
                 values = self.three_d_sh_conf_m.get_row(g + 1, 1)
                 stream << 'group\t%s' % (g + 1)
-                stream << '\t%s' % chk_num(values(ProcModel.ThreeDShConfModel.FirstRibCol))
-                stream << '\t%s\n' % chk_num(values(ProcModel.ThreeDShConfModel.LastRibCol))
+                stream << '\t%s' % chk_num(values(ThreeDShConfModel.FirstRibCol))
+                stream << '\t%s\n' % chk_num(values(ThreeDShConfModel.LastRibCol))
 
                 num_lines = self.three_d_sh_up_det_M.num_rows_for_config(g + 1)
                 stream << 'upper\t%s\t1\n' % num_lines
@@ -829,8 +867,8 @@ class ProcFileWriter:
                 num_lines = self.new_skin_tens_det_m.num_rows_for_config(g + 1)
 
                 stream << '%s' % (g + 1)
-                stream << '\t%s' % chk_num(values(ProcModel.NewSkinTensConfModel.InitialRibCol))
-                stream << '\t%s' % chk_num(values(ProcModel.NewSkinTensConfModel.FinalRibCol))
+                stream << '\t%s' % chk_num(values(NewSkinTensConfModel.InitialRibCol))
+                stream << '\t%s' % chk_num(values(NewSkinTensConfModel.FinalRibCol))
                 stream << '\t%s' % num_lines
                 stream << '\t1\n'
 

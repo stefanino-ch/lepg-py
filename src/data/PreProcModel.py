@@ -13,7 +13,7 @@ from Singleton.Singleton import Singleton
 from ConfigReader.ConfigReader import ConfigReader
 from data.Database import Database
 
-from data.preProcModel.CellsDistrModel import CellsDistrModel
+from data.procModel.CellsDistrModel import CellsDistrModel
 from data.preProcModel.GenModel import GenModel
 from data.preProcModel.LeadingEdgeModel import LeadingEdgeModel
 from data.preProcModel.TrailingEdgeModel import TrailingEdgeModel

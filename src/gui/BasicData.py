@@ -8,11 +8,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QVBoxLayout, \
                             QHeaderView, QHBoxLayout
 
-from data.ProcModel import ProcModel
+from gui.GlobalDefinition import Regex, ValidationValues
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from data.procModel.WingModel import WingModel
 
 
 class BasicData(QMdiSubWindow, metaclass=Singleton):
@@ -40,7 +42,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.type_t = None
         self.btnBar = None
 
-        self.wing_M = ProcModel.WingModel()
+        self.wing_M = WingModel()
         self.wing_M.dataChanged.connect(self.check_num_cells_ribs)
 
         self.build_window()
@@ -83,7 +85,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         brand_name_t = TableView()
         brand_name_t.setModel(self.wing_M)
 
-        for i in range(ProcModel.WingModel.WingNameCol,
+        for i in range(WingModel.WingNameCol,
                        self.wing_M.columnCount()):
             brand_name_t.hideColumn(i)
         brand_name_t.verticalHeader().setVisible(False)
@@ -94,12 +96,12 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                     + brand_name_t.rowHeight(0))
 
         brand_name_t.set_help_bar(self.helpBar)
-        brand_name_t.set_help_text(ProcModel.WingModel.BrandNameCol,
+        brand_name_t.set_help_text(WingModel.BrandNameCol,
                                    _('Proc-BrandNameDesc'))
 
-        brand_name_t.en_reg_exp_validator(ProcModel.WingModel.BrandNameCol,
-                                          ProcModel.WingModel.BrandNameCol,
-                                          "(.|\s)*\S(.|\s)*")
+        brand_name_t.en_reg_exp_validator(WingModel.BrandNameCol,
+                                          WingModel.BrandNameCol,
+                                          Regex.BrandNameString)
 
         self.window_ly.addWidget(brand_name_t)
 
@@ -108,7 +110,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         wing_name_t.setModel(self.wing_M)
 
         wing_name_t.hideColumn(0)
-        for i in range(ProcModel.WingModel.DrawScaleCol,
+        for i in range(WingModel.DrawScaleCol,
                        self.wing_M.columnCount()):
             wing_name_t.hideColumn(i)
         wing_name_t.verticalHeader().setVisible(False)
@@ -119,12 +121,12 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                    + wing_name_t.rowHeight(0))
 
         wing_name_t.set_help_bar(self.helpBar)
-        wing_name_t.set_help_text(ProcModel.WingModel.WingNameCol,
+        wing_name_t.set_help_text(WingModel.WingNameCol,
                                   _('Proc-WingNameDesc'))
 
-        wing_name_t.en_reg_exp_validator(ProcModel.WingModel.WingNameCol,
-                                         ProcModel.WingModel.WingNameCol,
-                                         "(.|\s)*\S(.|\s)*")
+        wing_name_t.en_reg_exp_validator(WingModel.WingNameCol,
+                                         WingModel.WingNameCol,
+                                         Regex.WingNameString)
 
         self.window_ly.addWidget(wing_name_t)
 
@@ -132,10 +134,10 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         scales_t = TableView()
         scales_t.setModel(self.wing_M)
 
-        for i in range(ProcModel.WingModel.BrandNameCol,
-                       ProcModel.WingModel.WingNameCol + 1):
+        for i in range(WingModel.BrandNameCol,
+                       WingModel.WingNameCol + 1):
             scales_t.hideColumn(i)
-        for i in range(ProcModel.WingModel.NumCellsCol,
+        for i in range(WingModel.NumCellsCol,
                        self.wing_M.columnCount()):
             scales_t.hideColumn(i)
         scales_t.verticalHeader().setVisible(False)
@@ -144,14 +146,14 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                 + scales_t.rowHeight(0))
 
         scales_t.set_help_bar(self.helpBar)
-        scales_t.set_help_text(ProcModel.WingModel.DrawScaleCol,
+        scales_t.set_help_text(WingModel.DrawScaleCol,
                                _('Proc-DrawScaleDesc'))
-        scales_t.set_help_text(ProcModel.WingModel.WingScaleCol,
+        scales_t.set_help_text(WingModel.WingScaleCol,
                                _('Proc-WingScaleDesc'))
 
-        scales_t.en_double_validator(ProcModel.WingModel.DrawScaleCol,
-                                     ProcModel.WingModel.WingScaleCol,
-                                     0, 10, 2)
+        scales_t.en_double_validator(WingModel.DrawScaleCol,
+                                     WingModel.WingScaleCol,
+                                     ValidationValues.ScaleMin, ValidationValues.ScaleMax, 10)
 
         self.window_ly.addWidget(scales_t)
 
@@ -159,12 +161,10 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.numbers_t = TableView()
         self.numbers_t.setModel(self.wing_M)
 
-        # FIXME Alpha Max Tip can not be edited properly
-        # FIXME Alpha Max Center can not be edited properly
-        for i in range(ProcModel.WingModel.BrandNameCol,
-                       ProcModel.WingModel.WingScaleCol + 1):
+        for i in range(WingModel.BrandNameCol,
+                       WingModel.WingScaleCol + 1):
             self.numbers_t.hideColumn(i)
-        for i in range(ProcModel.WingModel.AlphaMaxTipCol,
+        for i in range(WingModel.AlphaMaxTipCol,
                        self.wing_M.columnCount()):
             self.numbers_t.hideColumn(i)
         self.numbers_t.verticalHeader().setVisible(False)
@@ -175,15 +175,15 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
             + self.numbers_t.horizontalHeader().height()
             + self.numbers_t.rowHeight(0))
 
-        self.numbers_t.set_help_bar(self.helpBar)
-        self.numbers_t.set_help_text(ProcModel.WingModel.NumCellsCol,
-                                     _('Proc-NumCellsDesc'))
-        self.numbers_t.set_help_text(ProcModel.WingModel.NumRibsCol,
-                                     _('Proc-NumRibsDesc'))
+        self.numbers_t.en_int_validator(WingModel.NumCellsCol,
+                                        WingModel.NumRibsCol,
+                                        1, ValidationValues.MaxNumCells)
 
-        self.numbers_t.en_int_validator(ProcModel.WingModel.NumCellsCol,
-                                        ProcModel.WingModel.NumRibsCol,
-                                        1, 999)
+        self.numbers_t.set_help_bar(self.helpBar)
+        self.numbers_t.set_help_text(WingModel.NumCellsCol,
+                                     _('Proc-NumCellsDesc'))
+        self.numbers_t.set_help_text(WingModel.NumRibsCol,
+                                     _('Proc-NumRibsDesc'))
 
         self.window_ly.addWidget(self.numbers_t)
 
@@ -191,10 +191,10 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.alpha_t = TableView()
         self.alpha_t.setModel(self.wing_M)
 
-        for i in range(ProcModel.WingModel.BrandNameCol,
-                       ProcModel.WingModel.NumRibsCol + 1):
+        for i in range(WingModel.BrandNameCol,
+                       WingModel.NumRibsCol + 1):
             self.alpha_t.hideColumn(i)
-        for i in range(ProcModel.WingModel.ParaTypeCol,
+        for i in range(WingModel.ParaTypeCol,
                        self.wing_M.columnCount()):
             self.alpha_t.hideColumn(i)
         self.alpha_t.verticalHeader().setVisible(False)
@@ -205,22 +205,26 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                     + self.alpha_t.rowHeight(0))
 
         self.alpha_t.set_help_bar(self.helpBar)
-        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaModeCol,
+        self.alpha_t.set_help_text(WingModel.AlphaModeCol,
                                    _('Proc-AlphaModeDesc'))
-        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaMaxCentCol,
+        self.alpha_t.set_help_text(WingModel.AlphaMaxCentCol,
                                    _('Proc-AlphaMaxCentDesc'))
-        self.alpha_t.set_help_text(ProcModel.WingModel.AlphaMaxTipCol,
+        self.alpha_t.set_help_text(WingModel.AlphaMaxTipCol,
                                    _('Proc-AlphaMaxTipDesc'))
 
-        self.alpha_t.en_double_validator(ProcModel.WingModel.AlphaMaxTipCol,
-                                         ProcModel.WingModel.AlphaMaxTipCol,
-                                         -10, -10, 1)
-        self.alpha_t.en_int_validator(ProcModel.WingModel.AlphaModeCol,
-                                      ProcModel.WingModel.ParaParamCol,
+        self.alpha_t.en_double_validator(WingModel.AlphaMaxTipCol,
+                                         WingModel.AlphaMaxTipCol,
+                                         ValidationValues.AlphaMaxTipMin,
+                                         ValidationValues.AlphaMaxTipMax,
+                                         1)
+        self.alpha_t.en_int_validator(WingModel.AlphaModeCol,
+                                      WingModel.ParaParamCol,
                                       0, 2)
-        self.alpha_t.en_double_validator(ProcModel.WingModel.AlphaMaxCentCol,
-                                         ProcModel.WingModel.AlphaMaxCentCol,
-                                         -10, -10, 1)
+        self.alpha_t.en_double_validator(WingModel.AlphaMaxCentCol,
+                                         WingModel.AlphaMaxCentCol,
+                                         ValidationValues.AlphaMaxCentMin,
+                                         ValidationValues.AlphaMaxCentMax,
+                                         1)
 
         self.window_ly.addWidget(self.alpha_t)
 
@@ -228,10 +232,10 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.type_t = TableView()
         self.type_t.setModel(self.wing_M)
 
-        for i in range(ProcModel.WingModel.BrandNameCol,
-                       ProcModel.WingModel.AlphaMaxCentCol + 1):
+        for i in range(WingModel.BrandNameCol,
+                       WingModel.AlphaMaxCentCol + 1):
             self.type_t.hideColumn(i)
-        for i in range(ProcModel.WingModel.LinesConcTypeCol,
+        for i in range(WingModel.LinesConcTypeCol,
                        self.wing_M.columnCount()):
             self.type_t.hideColumn(i)
         self.type_t.verticalHeader().setVisible(False)
@@ -242,16 +246,16 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                    + self.type_t.rowHeight(0))
 
         self.type_t.set_help_bar(self.helpBar)
-        self.type_t.set_help_text(ProcModel.WingModel.ParaTypeCol,
+        self.type_t.set_help_text(WingModel.ParaTypeCol,
                                   _('Proc-ParaTypeDesc'))
-        self.type_t.set_help_text(ProcModel.WingModel.ParaParamCol,
+        self.type_t.set_help_text(WingModel.ParaParamCol,
                                   _('Proc-ParaParamDesc'))
 
-        self.type_t.en_reg_exp_validator(ProcModel.WingModel.ParaTypeCol,
-                                         ProcModel.WingModel.ParaTypeCol,
-                                         "(.|\s)*\S(.|\s)*")
-        self.type_t.en_int_validator(ProcModel.WingModel.ParaParamCol,
-                                     ProcModel.WingModel.ParaParamCol,
+        self.type_t.en_reg_exp_validator(WingModel.ParaTypeCol,
+                                         WingModel.ParaTypeCol,
+                                         Regex.ParaTyp)
+        self.type_t.en_int_validator(WingModel.ParaParamCol,
+                                     WingModel.ParaParamCol,
                                      0, 1)
 
         self.window_ly.addWidget(self.type_t)

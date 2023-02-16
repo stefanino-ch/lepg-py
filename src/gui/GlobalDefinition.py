@@ -23,19 +23,23 @@ class BackgroundColorDefinition:
 
 class BackgroundHighlight:
     BackgroundHighlightActive = 150
-    BackgroundHighlightInactive = 150
+    BackgroundHighlightInactive = 100
 
 
 class Regex:
-    wingNameString = "^[a-zA-Z0-9_.\-\s]*$"
+    WingNameString = BrandNameString = "^[a-zA-Z0-9_.\-\s\']*$"
+
+    ParaTyp = "(.|\s)*\S(.|\s)*"
 
 
 class ValidationValues:
-    MaxNumCells = 100
+    MaxNumCells = MaxNumRibs = 100
     WingSpanMax_cm = 20000
     HalfWingSpanMax_cm = WingSpanMax_cm/ 2
-
     WingChordMax_cm = 10000
+    WingZMax_cm = 5000
+
+
 
     class PreProc:
         cZeroOneMax = cZeroTwoMax = 100
@@ -54,3 +58,20 @@ class ValidationValues:
         cOneMax = 100
 
         aMax_deg = 120
+
+    class Proc:
+        # Basic data
+        ScaleMin = 0
+        ScaleMax = 50
+
+        AlphaMaxTipMin = AlphaMaxCentMin = -10
+        AlphaMaxTipMax = AlphaMaxCentMax = 10
+
+        RibVerticalAngleMin_deg = -105  # Beta
+        RibVerticalAngleMax_deg = 105   # Beta
+
+        RibRotationPointMin_chord = 0
+        RibRotationPointMax_chord = 100
+
+        WashinMin = RotZColMin = -45
+        WashinMax = RotZColMax = 45

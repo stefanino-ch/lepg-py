@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 
 from Singleton.Singleton import Singleton
 from data.PreProcModel import PreProcModel
-from data.preProcModel.CellsDistrModel import CellsDistrModel
+from data.procModel.CellsDistrModel import CellsDistrModel
 from gui.GlobalDefinition import ValidationValues
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
