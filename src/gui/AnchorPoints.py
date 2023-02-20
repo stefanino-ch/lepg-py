@@ -9,11 +9,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget,\
                             QSizePolicy, QHeaderView, QPushButton
 
-from data.ProcModel import ProcModel
+from data.procModel.AnchorPointsModel import AnchorPointsModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
@@ -30,7 +32,6 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -40,14 +41,14 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         self.window_ly = None
         self.win = None
 
-        self.anchPoints_M = ProcModel.AnchorPointsModel()
+        self.anchPoints_M = AnchorPointsModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -66,8 +67,6 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                      SortBtn | help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -87,33 +86,39 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         self.table.hideColumn(self.anchPoints_M.columnCount() - 1)
         self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.table.set_help_bar(self.helpBar)
-        self.table.set_help_text(ProcModel.AnchorPointsModel.RibNumCol,
-                                 _('AnchPoints-RibNumDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.NumAnchCol,
-                                 _('AnchPoints-NumAnchorsDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosACol,
-                                 _('AnchPoints-PosADesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosBCol,
-                                 _('AnchPoints-PosBDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosCCol,
-                                 _('AnchPoints-PosCDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosDCol,
-                                 _('AnchPoints-PosDDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosECol,
-                                 _('AnchPoints-PosEDesc'))
-        self.table.set_help_text(ProcModel.AnchorPointsModel.PosFCol,
-                                 _('AnchPoints-PosFDesc'))
 
-        self.table.en_int_validator(ProcModel.AnchorPointsModel.RibNumCol,
-                                    ProcModel.AnchorPointsModel.RibNumCol,
-                                    1, 999)
-        self.table.en_int_validator(ProcModel.AnchorPointsModel.NumAnchCol,
-                                    ProcModel.AnchorPointsModel.NumAnchCol,
-                                    1, 5)
-        self.table.en_double_validator(ProcModel.AnchorPointsModel.PosACol,
-                                       ProcModel.AnchorPointsModel.PosFCol, 0,
-                                       100, 3)
+        self.table.en_int_validator(AnchorPointsModel.RibNumCol,
+                                    AnchorPointsModel.RibNumCol,
+                                    1, ValidationValues.MaxNumRibs)
+
+        self.table.en_int_validator(AnchorPointsModel.NumAnchCol,
+                                    AnchorPointsModel.NumAnchCol,
+                                    ValidationValues.Proc.NumAnchorsMin,
+                                    ValidationValues.Proc.NumAnchorsMax)
+
+        self.table.en_double_validator(AnchorPointsModel.PosACol,
+                                       AnchorPointsModel.PosFCol,
+                                       ValidationValues.WingChordMin_perc,
+                                       ValidationValues.WingChordMax_perc,
+                                       3)
+
+        self.table.set_help_bar(self.helpBar)
+        self.table.set_help_text(AnchorPointsModel.RibNumCol,
+                                 _('AnchPoints-RibNumDesc'))
+        self.table.set_help_text(AnchorPointsModel.NumAnchCol,
+                                 _('AnchPoints-NumAnchorsDesc'))
+        self.table.set_help_text(AnchorPointsModel.PosACol,
+                                 _('AnchPoints-PosADesc'))
+        self.table.set_help_text(AnchorPointsModel.PosBCol,
+                                 _('AnchPoints-PosBDesc'))
+        self.table.set_help_text(AnchorPointsModel.PosCCol,
+                                 _('AnchPoints-PosCDesc'))
+        self.table.set_help_text(AnchorPointsModel.PosDCol,
+                                 _('AnchPoints-PosDDesc'))
+        self.table.set_help_text(AnchorPointsModel.PosECol,
+                                 _('AnchPoints-PosEDesc'))
+        self.table.set_help_text(AnchorPointsModel.PosFCol,
+                                 _('AnchPoints-PosFDesc'))
 
         self.window_ly.addWidget(self.table)
 
@@ -128,7 +133,7 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/anchorPoints.html')
+        self.btnBar.set_help_page('proc/anchorPoints.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(self.sortBtn)
@@ -143,15 +148,13 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         """
         : method : handles the sort of the table by rib number
         """
-        logging.debug(self.__className + '.sort_btn_press')
-        self.anchPoints_M.sort_table(ProcModel.AnchorPointsModel.RibNumCol,
+        self.anchPoints_M.sort_table(AnchorPointsModel.RibNumCol,
                                      Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

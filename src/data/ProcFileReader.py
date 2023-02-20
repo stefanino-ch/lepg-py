@@ -312,17 +312,17 @@ class ProcFileReader(QObject):
             self.lightD_M.set_num_rows_for_config(i + 1, 0)
             self.lightD_M.set_num_rows_for_config(i + 1, num_config_lines)
 
-            # ConfigNum, order_num, LightTyp, DistLE, DisChord, HorAxis,
-            # VertAxis, RotAngle, Opt1
+            # ConfigNum, order_num, light_typ, dist_le, dist_chord, hor_axis,
+            # vert_axis, rot_angle, opt_1
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
-                self.lightD_M.updateRow(i + 1, line_it + 1, values[0],
-                                        values[1],
-                                        values[2],
-                                        values[3],
-                                        values[4],
-                                        values[5],
-                                        values[6])
+                self.lightD_M.update_row(i + 1, line_it + 1, values[0],
+                                         values[1],
+                                         values[2],
+                                         values[3],
+                                         values[4],
+                                         values[5],
+                                         values[6])
 
         ##############################
         # 5. SKIN TENSION
@@ -1285,16 +1285,16 @@ class ProcFileReader(QObject):
                 stream.readLine()
 
                 values = split_line(stream.readLine())
-                self.newSkinTensConf_M.updateRow(g + 1, values[1], values[2],
-                                                 values[4])
+                self.newSkinTensConf_M.update_row(g + 1, values[1], values[2],
+                                                  values[4])
 
                 num_lines = int(values[3])
                 self.newSkinTensDet_M.set_num_rows_for_config(g + 1, num_lines)
                 for line_it in range(0, num_lines):
                     values = split_line(stream.readLine())
-                    self.newSkinTensDet_M.updateRow(g + 1, line_it + 1,
-                                                    values[1], values[2],
-                                                    values[3], values[4])
+                    self.newSkinTensDet_M.update_row(g + 1, line_it + 1,
+                                                     values[1], values[2],
+                                                     values[3], values[4])
         ##############################
         # 32. PARTS SEPARATION
         # Parts separation was introduced with 3.17

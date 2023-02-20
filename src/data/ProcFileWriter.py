@@ -274,7 +274,7 @@ class ProcFileWriter:
             num_lines = self.light_det_m.num_rows_for_config(g + 1)
             stream << '%s\n' % num_lines
             for line_it in range(0, num_lines):
-                values = self.light_det_m.getRow(g + 1, line_it + 1)
+                values = self.light_det_m.get_row(g + 1, line_it + 1)
                 for p in range(0, 7):
                     if p > 0:
                         stream << '\t'
@@ -863,7 +863,7 @@ class ProcFileWriter:
 
             for g in range(0, num_groups):
                 stream << '* Skin tension group\n'
-                values = self.new_skin_tens_conf_m.getRow(g + 1, 1)
+                values = self.new_skin_tens_conf_m.get_row(g + 1, 1)
                 num_lines = self.new_skin_tens_det_m.num_rows_for_config(g + 1)
 
                 stream << '%s' % (g + 1)
@@ -873,8 +873,8 @@ class ProcFileWriter:
                 stream << '\t1\n'
 
                 for line_it in range(0, num_lines):
-                    values = self.new_skin_tens_det_m.getRow(g + 1,
-                                                             line_it + 1)
+                    values = self.new_skin_tens_det_m.get_row(g + 1,
+                                                              line_it + 1)
 
                     stream << '%s' % (line_it + 1)
                     for p in range(0, 4):

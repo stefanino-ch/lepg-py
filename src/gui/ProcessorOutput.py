@@ -76,7 +76,7 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/procOutput.html')
+        self.btnBar.set_help_page('proc/procOutput.html')
 
         self.windowGrid.addWidget(self.btnBar,
                                   self.__winGridRow,

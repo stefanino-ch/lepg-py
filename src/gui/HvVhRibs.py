@@ -12,12 +12,15 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 
 from data.ProcModel import ProcModel
 from data.procModel.HvVhRibsModel import HvVhRibsModel
+from data.procModel.WingModel import WingModel
 
 from gui.elements.LineEdit import LineEdit
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
@@ -43,7 +46,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         self.win = None
 
         self.pm = ProcModel()
-        self.wing_M = ProcModel.WingModel()
+        self.wing_M = WingModel()
 
         self.ribs_M = HvVhRibsModel()
         self.ribs_M.numRowsForConfigChanged.connect(self.model_size_changed)
@@ -94,7 +97,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         x_sp_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         x_sp_e = LineEdit()
         x_sp_e.setFixedWidth(40)
-        self.wrapper.addMapping(x_sp_e, ProcModel.WingModel.xSpacingCol)
+        self.wrapper.addMapping(x_sp_e, WingModel.xSpacingCol)
         x_sp_e.en_double_validator(0, 100, 1)
         x_sp_e.set_help_text(_('HvVhRibs-xSpacingDesc'))
         x_sp_e.set_help_bar(self.helpBar)
@@ -108,7 +111,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         y_sp_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         y_sp_e = LineEdit()
         y_sp_e.setFixedWidth(40)
-        self.wrapper.addMapping(y_sp_e, ProcModel.WingModel.ySpacingCol)
+        self.wrapper.addMapping(y_sp_e, WingModel.ySpacingCol)
         y_sp_e.en_double_validator(0, 100, 1)
         y_sp_e.set_help_text(_('HvVhRibs-ySpacingDesc'))
         y_sp_e.set_help_bar(self.helpBar)
@@ -127,7 +130,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
                                               QSizePolicy.Policy.Fixed))
 
         self.numLines_S = QSpinBox()
-        self.numLines_S.setRange(0, 999)
+        self.numLines_S.setRange(0, ValidationValues.MaxNumRibs)
         self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                   QSizePolicy.Policy.Fixed))
         self.numLines_S.valueChanged.connect(self.num_lines_change)
@@ -153,22 +156,28 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         ribs_t.hideColumn(self.ribs_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_t)
 
+        # TODO: add validator for Order Num
+
         ribs_t.en_int_validator(HvVhRibsModel.TypeCol,
                                 HvVhRibsModel.TypeCol,
                                 1, 16,
                                 HvVhRibsModel.paramLength)
+
         ribs_t.en_int_validator(HvVhRibsModel.IniRibCol,
                                 HvVhRibsModel.IniRibCol,
                                 1, 999,
                                 HvVhRibsModel.paramLength)
+
         ribs_t.en_int_validator(HvVhRibsModel.ParamACol,
                                 HvVhRibsModel.ParamACol,
                                 1, 6,
                                 HvVhRibsModel.paramLength)
+
         ribs_t.en_int_validator(HvVhRibsModel.ParamBCol,
                                 HvVhRibsModel.ParamCCol,
                                 1, 100,
                                 HvVhRibsModel.paramLength)
+
         ribs_t.en_double_validator(HvVhRibsModel.ParamDCol,
                                    HvVhRibsModel.ParamICol,
                                    1, 100, 1,
@@ -211,7 +220,7 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/hVvHribs.html')
+        self.btnBar.set_help_page('proc/hVvHribs.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(sort_btn)

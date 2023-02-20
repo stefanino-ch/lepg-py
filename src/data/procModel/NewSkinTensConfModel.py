@@ -32,7 +32,7 @@ class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 4
     ''':attr: number of the column holding the config number'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty table.
         """
@@ -47,12 +47,12 @@ class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("NewSkinTensConf")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -61,22 +61,26 @@ class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(2, Qt.Orientation.Horizontal, _("Last Rib"))
         self.setHeaderData(3, Qt.Orientation.Horizontal, _("Type"))
 
-    def updateRow(self, config, initialRib, finalRib, calcT):
+    def update_row(self, config, initial_rib, final_rib, calc_t):
+
+        # as the only calc type is one we will hardcode this here
+        calc_t = 1
+
         query = QSqlQuery()
         query.prepare(
-            "UPDATE NewSkinTensConf SET InitialRib= :initial , FinalRib= :final, Type= :calcT WHERE (ConfigNum = :config);")
-        query.bindValue(":initial", initialRib)
-        query.bindValue(":final", finalRib)
-        query.bindValue(":calcT", calcT)
+            "UPDATE NewSkinTensConf SET InitialRib= :initial , FinalRib= :final, Type= :calc_t WHERE (ConfigNum = :config);")
+        query.bindValue(":initial", initial_rib)
+        query.bindValue(":final", final_rib)
+        query.bindValue(":calc_t", calc_t)
         query.bindValue(":config", config)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -86,12 +90,12 @@ class NewSkinTensConfModel(SqlTableModel, metaclass=Singleton):
                       "FinalRib, "
                       "Type "
                       "FROM NewSkinTensConf WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

@@ -185,7 +185,7 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                   QSizePolicy.Policy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
-        self.button_bar.setHelpPage('view/three_d_dxf.html')
+        self.button_bar.set_help_page('view/three_d_dxf.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(proc_file_btn)

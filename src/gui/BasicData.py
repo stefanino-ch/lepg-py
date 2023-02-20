@@ -153,7 +153,9 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
         scales_t.en_double_validator(WingModel.DrawScaleCol,
                                      WingModel.WingScaleCol,
-                                     ValidationValues.ScaleMin, ValidationValues.ScaleMax, 10)
+                                     ValidationValues.Proc.ScaleMin,
+                                     ValidationValues.Proc.ScaleMax,
+                                     10)
 
         self.window_ly.addWidget(scales_t)
 
@@ -214,16 +216,16 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
 
         self.alpha_t.en_double_validator(WingModel.AlphaMaxTipCol,
                                          WingModel.AlphaMaxTipCol,
-                                         ValidationValues.AlphaMaxTipMin,
-                                         ValidationValues.AlphaMaxTipMax,
+                                         ValidationValues.Proc.AlphaMaxTipMin,
+                                         ValidationValues.Proc.AlphaMaxTipMax,
                                          1)
         self.alpha_t.en_int_validator(WingModel.AlphaModeCol,
                                       WingModel.ParaParamCol,
                                       0, 2)
         self.alpha_t.en_double_validator(WingModel.AlphaMaxCentCol,
                                          WingModel.AlphaMaxCentCol,
-                                         ValidationValues.AlphaMaxCentMin,
-                                         ValidationValues.AlphaMaxCentMax,
+                                         ValidationValues.Proc.AlphaMaxCentMin,
+                                         ValidationValues.Proc.AlphaMaxCentMax,
                                          1)
 
         self.window_ly.addWidget(self.alpha_t)
@@ -266,7 +268,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/basicData.html')
+        self.btnBar.set_help_page('proc/basicData.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()

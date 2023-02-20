@@ -112,7 +112,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         self.btn_bar = WindowBtnBar(0b0101)
         self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
-        self.btn_bar.setHelpPage('setup/updateCheck.html')
+        self.btn_bar.set_help_page('setup/updateCheck.html')
 
         self.window_ly.addWidget(self.btn_bar, __winGRowR, 1, Qt.AlignmentFlag.AlignRight)
         __winGRowR += 1

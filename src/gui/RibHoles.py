@@ -11,10 +11,14 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QVBoxLayout, QPushButton
 
 from data.ProcModel import ProcModel
+from data.procModel.LightConfModel import LightConfModel
+from data.procModel.LightDetModel import LightDetModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class RibHoles(QMdiSubWindow, metaclass=Singleton):
@@ -31,7 +35,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -45,10 +48,10 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.numDet_S = []
 
         self.pm = ProcModel()
-        self.lightC_M = ProcModel.LightConfModel()
+        self.lightC_M = LightConfModel()
         self.lightC_M.numRowsForConfigChanged.connect(self.model_num_configs_changed)
 
-        self.lightD_M = ProcModel.LightDetModel()
+        self.lightD_M = LightDetModel()
         self.lightD_M.numRowsForConfigChanged.connect(self.update_tabs)
 
         self.build_window()
@@ -57,7 +60,7 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -76,8 +79,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -126,7 +127,7 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.btnBar = WindowBtnBar(0b0101)
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/ribHoles.html')
+        self.btnBar.set_help_page('proc/ribHoles.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(sort_btn)
@@ -142,7 +143,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure
                  all elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.conf_spin_change')
         self.lightC_M.set_num_configs(self.numConf_S.value())
         self.pm.set_file_saved(False)
 
@@ -150,8 +150,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called upon changes of the configs model. Does assure all GUI elements will follow the changes.
         """
-        logging.debug(self.__className + '.model_num_configs_changed')
-
         current_num_configs = self.lightC_M.num_configs()
 
         self.numConf_S.blockSignals(True)
@@ -178,7 +176,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the detail spin. Does assure
                  all elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.det_spin_change')
         self.lightD_M.set_num_rows_for_config(self.tabs.currentIndex() + 1,
                                               self.numDet_S[self.tabs.currentIndex()].value())
         self.pm.set_file_saved(False)
@@ -187,8 +184,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className + '.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -199,7 +194,7 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.lightC_M)
         self.confProxyModel[curr_num_tabs]. \
-            setFilterKeyColumn(ProcModel.LightConfModel.ConfigNumCol)
+            setFilterKeyColumn(LightConfModel.ConfigNumCol)
         self.confProxyModel[curr_num_tabs]. \
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
 
@@ -209,14 +204,15 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         conf_table.hideColumn(self.lightC_M.columnCount() - 1)
         conf_table.hideColumn(self.lightC_M.columnCount() - 2)
 
-        conf_table.en_int_validator(ProcModel.LightConfModel.InitialRibCol,
-                                    ProcModel.LightConfModel.FinalRibCol,
-                                    1, 999)
+        conf_table.en_int_validator(LightConfModel.InitialRibCol,
+                                    LightConfModel.FinalRibCol,
+                                    1,
+                                    ValidationValues.MaxNumRibs)
 
         conf_table.set_help_bar(self.helpBar)
-        conf_table.set_help_text(ProcModel.LightConfModel.InitialRibCol,
+        conf_table.set_help_text(LightConfModel.InitialRibCol,
                                  _('Proc-InitialRibDesc'))
-        conf_table.set_help_text(ProcModel.LightConfModel.FinalRibCol,
+        conf_table.set_help_text(LightConfModel.FinalRibCol,
                                  _('Proc-FinalRibDesc'))
 
         conf_layout = QHBoxLayout()
@@ -224,9 +220,9 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         conf_layout.addStretch()
         conf_table.setFixedWidth(2
                                  + conf_table.columnWidth(
-                                    ProcModel.LightConfModel.InitialRibCol)
+                                    LightConfModel.InitialRibCol)
                                  + conf_table.columnWidth(
-                                    ProcModel.LightConfModel.FinalRibCol))
+                                    LightConfModel.FinalRibCol))
         conf_table.setFixedHeight(2
                                   + conf_table.horizontalHeader().height()
                                   + conf_table.rowHeight(0))
@@ -239,7 +235,7 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
                                             QSizePolicy.Policy.Fixed))
         tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
-        self.numDet_S[curr_num_tabs].setRange(1, 999)
+        self.numDet_S[curr_num_tabs].setRange(1, ValidationValues.MaxNumRibs)
         self.numDet_S[curr_num_tabs].setSizePolicy(
             QSizePolicy(QSizePolicy.Policy.Fixed,
                         QSizePolicy.Policy.Fixed))
@@ -258,9 +254,10 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[curr_num_tabs].setSourceModel(self.lightD_M)
         self.detProxyModel[curr_num_tabs]. \
-            setFilterKeyColumn(ProcModel.LightDetModel.ConfigNumCol)
+            setFilterKeyColumn(LightDetModel.ConfigNumCol)
         self.detProxyModel[curr_num_tabs]. \
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
+
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
         det_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -268,38 +265,52 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         det_table.hideColumn(self.lightD_M.columnCount() - 2)
         tab_layout.addWidget(det_table)
 
-        det_table.en_int_validator(ProcModel.LightDetModel.OrderNumCol,
-                                   ProcModel.LightDetModel.OrderNumCol,
-                                   1, 999)
-        det_table.en_int_validator(ProcModel.LightDetModel.LightTypCol,
-                                   ProcModel.LightDetModel.LightTypCol,
-                                   1, 3)
-        det_table.en_double_validator(ProcModel.LightDetModel.DistLECol,
-                                      ProcModel.LightDetModel.VertAxisCol,
-                                      0, 100, 3)
-        det_table.en_double_validator(ProcModel.LightDetModel.RotAngleCol,
-                                      ProcModel.LightDetModel.RotAngleCol,
-                                      0, 360, 3)
-        det_table.en_double_validator(ProcModel.LightDetModel.Opt1Col,
-                                      ProcModel.LightDetModel.Opt1Col,
-                                      0, 100, 3)
+        det_table.en_int_validator(LightDetModel.OrderNumCol,
+                                   LightDetModel.OrderNumCol,
+                                   1,
+                                   ValidationValues.MaxNumRibs)
+
+        det_table.en_int_validator(LightDetModel.LightTypCol,
+                                   LightDetModel.LightTypCol,
+                                   1,
+                                   3,
+                                   LightDetModel.paramLength)
+
+        det_table.en_double_validator(LightDetModel.DistLECol,
+                                      LightDetModel.VertAxisCol,
+                                      ValidationValues.WingChordMin_perc,
+                                      ValidationValues.WingChordMax_perc,
+                                      3,
+                                      LightDetModel.paramLength)
+
+        det_table.en_double_validator(LightDetModel.RotAngleCol,
+                                      LightDetModel.RotAngleCol,
+                                      0, 360, 3,
+                                      LightDetModel.paramLength)
+
+        det_table.en_double_validator(LightDetModel.Opt1Col,
+                                      LightDetModel.Opt1Col,
+                                      ValidationValues.Proc.RibHolesOpt1Min,
+                                      ValidationValues.Proc.RibHolesOpt1Max,
+                                      3,
+                                      LightDetModel.paramLength)
 
         det_table.set_help_bar(self.helpBar)
-        det_table.set_help_text(ProcModel.LightDetModel.OrderNumCol,
+        det_table.set_help_text(LightDetModel.OrderNumCol,
                                 _('OrderNumDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.LightTypCol,
+        det_table.set_help_text(LightDetModel.LightTypCol,
                                 _('RibHoles-LightTypeDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.DistLECol,
+        det_table.set_help_text(LightDetModel.DistLECol,
                                 _('RibHoles-DistLEDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.DisChordCol,
+        det_table.set_help_text(LightDetModel.DisChordCol,
                                 _('RibHoles-DisChordDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.HorAxisCol,
+        det_table.set_help_text(LightDetModel.HorAxisCol,
                                 _('RibHoles-HorAxisDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.VertAxisCol,
+        det_table.set_help_text(LightDetModel.VertAxisCol,
                                 _('RibHoles-VertAxisDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.RotAngleCol,
+        det_table.set_help_text(LightDetModel.RotAngleCol,
                                 _('RibHoles-RotAngleDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.Opt1Col,
+        det_table.set_help_text(LightDetModel.Opt1Col,
                                 _('RibHoles-Opt1Desc'))
 
         # then setup spin
@@ -320,7 +331,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
         self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
@@ -333,8 +343,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: called upon changes of the details model. Does assure all GUI elements will follow the changes.
         """
-        logging.debug(self.__className + '.update_tabs')
-
         i = 0
         while i < self.tabs.count():
             if self.numDet_S[i].value != self.lightD_M.num_rows_for_config(i + 1):
@@ -346,12 +354,10 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
             self.detProxyModel[curr_tab]. \
-                sort(ProcModel.LightDetModel.OrderNumCol,
+                sort(LightDetModel.OrderNumCol,
                      Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
@@ -359,7 +365,6 @@ class RibHoles(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

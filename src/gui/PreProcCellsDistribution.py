@@ -160,7 +160,7 @@ class PreProcCellsDistribution(QMdiSubWindow, metaclass=Singleton):
         self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
-        self.btn_bar.setHelpPage('preproc/cell_distribution.html')
+        self.btn_bar.set_help_page('preproc/cell_distribution.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()

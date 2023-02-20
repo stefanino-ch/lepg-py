@@ -205,7 +205,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.button_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                   QSizePolicy.Policy.Fixed))
         self.button_bar.my_signal.connect(self.button_press)
-        self.button_bar.setHelpPage('view/wing_outline.html')
+        self.button_bar.set_help_page('view/wing_outline.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(pre_proc_file_btn)

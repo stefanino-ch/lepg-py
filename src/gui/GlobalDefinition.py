@@ -28,7 +28,7 @@ class BackgroundHighlight:
 
 class Regex:
     WingNameString = BrandNameString = "^[a-zA-Z0-9_.\-\s\']*$"
-
+    AirfoilsNameString = "(.|\s)*\S(.|\s)*"
     ParaTyp = "(.|\s)*\S(.|\s)*"
 
 
@@ -36,10 +36,13 @@ class ValidationValues:
     MaxNumCells = MaxNumRibs = 100
     WingSpanMax_cm = 20000
     HalfWingSpanMax_cm = WingSpanMax_cm/ 2
+
     WingChordMax_cm = 10000
+
+    WingChordMin_perc = 0
+    WingChordMax_perc = 100
+
     WingZMax_cm = 5000
-
-
 
     class PreProc:
         cZeroOneMax = cZeroTwoMax = 100
@@ -75,3 +78,28 @@ class ValidationValues:
 
         WashinMin = RotZColMin = -45
         WashinMax = RotZColMax = 45
+
+        # Airfoils
+        DisplacementMin_cm = 0
+        DisplacementMax_cm = 100
+
+        RelativeWeightMin = 0
+        RelativeWeightMax = 100
+
+        # Anchors
+        NumAnchorsMin = 2
+        NumAnchorsMax = 5
+
+        # Rib Holes
+        RibHolesOpt1Min = 0
+        RibHolesOpt1Max = 50
+
+        # Skin tension
+        StrainMiniRibsMin = 0
+        StrainMiniRibsMax = 1
+        NumPointsMin = 0
+        NumPointsMax = 1000
+        SkinTensionCoefMin = 0
+        SkinTensionCoefMax = 1
+        SkinTensionAddWidthMin = 0
+        SkinTensionAddWidthMax = 100

@@ -30,7 +30,7 @@ class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 5
     ''':attr: number of the column holding the config number'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty Skin tension table
         """
@@ -46,12 +46,12 @@ class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER, "
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("NewSkinTensDet")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -62,31 +62,31 @@ class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(3, Qt.Orientation.Horizontal, _("Bott dist TE"))
         self.setHeaderData(4, Qt.Orientation.Horizontal, _("Bott widening"))
 
-    def updateRow(self, configNum, orderNum, topDistLE, topWide, botDistTE, botWide):
+    def update_row(self, config_num, order_num, top_dist_le, top_wide, bot_dist_te, bot_wide):
         """
         :method: updates a specific row with the parameters passed.
         """
         query = QSqlQuery()
         query.prepare("UPDATE NewSkinTensDet SET "
                       "TopDistLE= :topDis, "
-                      "TopWide= :topWide, "
+                      "TopWide= :top_wide, "
                       "BotDistTE= :botDis, "
-                      "BotWide= :botWide  "
+                      "BotWide= :bot_wide  "
                       "WHERE (ConfigNum = :config AND OrderNum= :order);")
-        query.bindValue(":topDis", topDistLE)
-        query.bindValue(":topWide", topWide)
-        query.bindValue(":botDis", botDistTE)
-        query.bindValue(":botWide", botWide)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":topDis", top_dist_le)
+        query.bindValue(":top_wide", top_wide)
+        query.bindValue(":botDis", bot_dist_te)
+        query.bindValue(":bot_wide", bot_wide)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -96,12 +96,12 @@ class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
                       "BotDistTE, "
                       "BotWide "
                       "FROM NewSkinTensDet WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

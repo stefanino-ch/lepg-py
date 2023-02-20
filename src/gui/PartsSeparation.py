@@ -131,7 +131,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
-        self.btn_bar.setHelpPage('proc/partsSeparation.html')
+        self.btn_bar.set_help_page('proc/partsSeparation.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()

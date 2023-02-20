@@ -59,9 +59,9 @@ class SkinTensionModel(SqlTableModel, metaclass=Singleton):
         """
         query = QSqlQuery()
         query.prepare(
-            "UPDATE SkinTension SET TopDistLE= :topDis, TopWide= :topWide, BottDistTE= :bottDis, BottWide= :bottWide  WHERE (ID = :id);")
+            "UPDATE SkinTension SET TopDistLE= :topDis, TopWide= :top_wide, BottDistTE= :bottDis, BottWide= :bottWide  WHERE (ID = :id);")
         query.bindValue(":topDis", topDistLE)
-        query.bindValue(":topWide", topWide)
+        query.bindValue(":top_wide", topWide)
         query.bindValue(":bottDis", bottDistTE)
         query.bindValue(":bottWide", bottWide)
         query.bindValue(":id", row)

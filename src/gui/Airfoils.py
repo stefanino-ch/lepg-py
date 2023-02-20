@@ -8,12 +8,12 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, QWidget, \
                             QSizePolicy, QHeaderView, QPushButton
-
-from data.ProcModel import ProcModel
+from data.procModel.AirfoilsModel import AirfoilsModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+from gui.GlobalDefinition import ValidationValues, Regex
 
 
 class Airfoils(QMdiSubWindow, metaclass=Singleton):
@@ -36,17 +36,15 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         self.helpBar = None
         self.windowLayout = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.airf_M = ProcModel.AirfoilsModel()
+        self.airf_M = AirfoilsModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
 
     def build_window(self):
         """
@@ -65,8 +63,6 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                      SortBtn | help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -86,44 +82,54 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         self.table.hideColumn(self.airf_M.columnCount() - 1)  
         self.table.verticalHeader().setVisible(False)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.table.set_help_bar(self.helpBar)
-        self.table.set_help_text(ProcModel.AirfoilsModel.RibNumCol,
-                                 _('Proc-RibNumDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.AirfNameCol,
-                                 _('Proc-AirfoilNameDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.IntakeStartCol,
-                                 _('Proc-IntakeStartDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.IntakeEndCol,
-                                 _('Proc-IntakeEnDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.OpenCloseCol,
-                                 _('Proc-OpenCloseDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.DisplacCol,
-                                 _('Proc-DisplacDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.RelWeightCol,
-                                 _('Proc-RelWeightDesc'))
-        self.table.set_help_text(ProcModel.AirfoilsModel.rrwCol,
-                                 _('Proc-rrwDesc'))
 
-        self.table.en_int_validator(ProcModel.AirfoilsModel.RibNumCol,
-                                    ProcModel.AirfoilsModel.RibNumCol,
-                                    1, 999)
-        self.table.en_reg_exp_validator(ProcModel.AirfoilsModel.AirfNameCol,
-                                        ProcModel.AirfoilsModel.AirfNameCol,
-                                        "(.|\s)*\S(.|\s)*")
-        self.table.en_double_validator(
-            ProcModel.AirfoilsModel.IntakeStartCol, 
-            ProcModel.AirfoilsModel.IntakeEndCol,
-            0, 100, 3)
-        self.table.en_int_validator(ProcModel.AirfoilsModel.OpenCloseCol,
-                                    ProcModel.AirfoilsModel.OpenCloseCol,
+        self.table.en_int_validator(AirfoilsModel.RibNumCol,
+                                    AirfoilsModel.RibNumCol,
+                                    1, ValidationValues.MaxNumRibs)
+
+        self.table.en_reg_exp_validator(AirfoilsModel.AirfNameCol,
+                                        AirfoilsModel.AirfNameCol,
+                                        Regex.AirfoilsNameString)
+
+        self.table.en_double_validator(AirfoilsModel.IntakeStartCol,
+                                       AirfoilsModel.IntakeEndCol,
+                                       ValidationValues.WingChordMin_perc,
+                                       ValidationValues.WingChordMax_perc,
+                                       3)
+
+        self.table.en_int_validator(AirfoilsModel.OpenCloseCol,
+                                    AirfoilsModel.OpenCloseCol,
                                     0, 1)
-        self.table.en_double_validator(ProcModel.AirfoilsModel.DisplacCol,
-                                       ProcModel.AirfoilsModel.DisplacCol,
-                                       3000, 3)
-        self.table.en_double_validator(ProcModel.AirfoilsModel.RelWeightCol,
-                                       ProcModel.AirfoilsModel.rrwCol,
-                                       0, 100, 3)
-        # FIXME Rel Weight can not be edited properly
+
+        self.table.en_double_validator(AirfoilsModel.DisplacCol,
+                                       AirfoilsModel.DisplacCol,
+                                       ValidationValues.Proc.DisplacementMin_cm,
+                                       ValidationValues.Proc.DisplacementMax_cm,
+                                       3)
+
+        self.table.en_double_validator(AirfoilsModel.RelWeightCol,
+                                       AirfoilsModel.rrwCol,
+                                       ValidationValues.Proc.RelativeWeightMin,
+                                       ValidationValues.Proc.RelativeWeightMax,
+                                       3)
+
+        self.table.set_help_bar(self.helpBar)
+        self.table.set_help_text(AirfoilsModel.RibNumCol,
+                                 _('Proc-RibNumDesc'))
+        self.table.set_help_text(AirfoilsModel.AirfNameCol,
+                                 _('Proc-AirfoilNameDesc'))
+        self.table.set_help_text(AirfoilsModel.IntakeStartCol,
+                                 _('Proc-IntakeStartDesc'))
+        self.table.set_help_text(AirfoilsModel.IntakeEndCol,
+                                 _('Proc-IntakeEnDesc'))
+        self.table.set_help_text(AirfoilsModel.OpenCloseCol,
+                                 _('Proc-OpenCloseDesc'))
+        self.table.set_help_text(AirfoilsModel.DisplacCol,
+                                 _('Proc-DisplacDesc'))
+        self.table.set_help_text(AirfoilsModel.RelWeightCol,
+                                 _('Proc-RelWeightDesc'))
+        self.table.set_help_text(AirfoilsModel.rrwCol,
+                                 _('Proc-rrwDesc'))
 
         self.windowLayout.addWidget(self.table)
 
@@ -138,7 +144,7 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, 
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/airfoils.html')
+        self.btnBar.set_help_page('proc/airfoils.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(self.sortBtn)
@@ -153,15 +159,13 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         """
         : method : handles the sort of the table by rib number
         """
-        logging.debug(self.__className + '.sort_btn_press')
-        self.airf_M.sort_table(ProcModel.AirfoilsModel.RibNumCol, 
+        self.airf_M.sort_table(AirfoilsModel.RibNumCol,
                                Qt.SortOrder.AscendingOrder)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 
@@ -171,6 +175,6 @@ class Airfoils(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className 
+            logging.error(self.__className
                           + '.btn_press unrecognized button press ' 
                           + q)

@@ -138,7 +138,7 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.setHelpPage('proc/globalAoA.html')
+        self.btnBar.set_help_page('proc/globalAoA.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()

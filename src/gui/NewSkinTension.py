@@ -12,7 +12,11 @@ from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
 from data.ProcModel import ProcModel
+from data.procModel.NewSkinTensConfModel import NewSkinTensConfModel
+from data.procModel.NewSkinTensDetModel import NewSkinTensDetModel
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
@@ -29,7 +33,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btn_bar = None
@@ -41,10 +44,10 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.newSkinTensConf_M = ProcModel.NewSkinTensConfModel()
+        self.newSkinTensConf_M = NewSkinTensConfModel()
         self.newSkinTensConf_M.numRowsForConfigChanged.connect(self.model_num_configs_changed)
 
-        self.newSkinTensDet_M = ProcModel.NewSkinTensDetModel()
+        self.newSkinTensDet_M = NewSkinTensDetModel()
         self.newSkinTensDet_M.numRowsForConfigChanged.connect(self.update_tabs)
 
         self.confProxyModel = []
@@ -58,7 +61,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -77,8 +80,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -96,7 +97,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         num_conf_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.num_conf_s = QSpinBox()
-        self.num_conf_s.setRange(0, 999)
+        self.num_conf_s.setRange(0, ValidationValues.MaxNumRibs)
         self.num_conf_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.num_conf_s.setValue(self.newSkinTensConf_M.num_configs())
         conf_edit = self.num_conf_s.lineEdit()
@@ -125,7 +126,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         self.btn_bar = WindowBtnBar(0b0101)
         self.btn_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.btn_bar.my_signal.connect(self.btn_press)
-        self.btn_bar.setHelpPage('proc/newSkinTension.html')
+        self.btn_bar.set_help_page('proc/newSkinTension.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(sort_btn)
@@ -141,7 +142,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.conf_spin_change')
         self.newSkinTensConf_M.set_num_configs(self.num_conf_s.value())
         self.pm.set_file_saved(False)
 
@@ -150,8 +150,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon changes of the configs model. Does assure all GUI
                  elements will follow the changes.
         """
-        logging.debug(self.__className + '.model_num_configs_changed')
-
         current_num_configs = self.newSkinTensConf_M.num_configs()
 
         self.num_conf_s.blockSignals(True)
@@ -178,7 +176,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the detail spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.det_spin_change')
         self.newSkinTensDet_M.set_num_rows_for_config(self.tabs.currentIndex() + 1,
                                                       self.numDet_S[self.tabs.currentIndex()].value())
         self.pm.set_file_saved(False)
@@ -187,8 +184,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className + '.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -199,30 +194,36 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensConf_M)
-        self.confProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensConfModel.ConfigNumCol)
+        self.confProxyModel[curr_num_tabs].setFilterKeyColumn(NewSkinTensConfModel.ConfigNumCol)
         self.confProxyModel[curr_num_tabs].setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
         conf_table.verticalHeader().setVisible(False)
         conf_table.hideColumn(self.newSkinTensConf_M.OrderNumCol)
         conf_table.hideColumn(self.newSkinTensConf_M.columnCount() - 1)
         conf_table.hideColumn(self.newSkinTensConf_M.columnCount() - 2)
+        conf_table.hideColumn(self.newSkinTensConf_M.columnCount() - 3)
 
-        conf_table.en_int_validator(ProcModel.NewSkinTensConfModel.InitialRibCol,
-                                    ProcModel.NewSkinTensConfModel.FinalRibCol, 1, 999)
-        conf_table.en_int_validator(ProcModel.NewSkinTensConfModel.TypeCol, ProcModel.NewSkinTensConfModel.TypeCol, 1,
-                                    1)
+        conf_table.en_int_validator(NewSkinTensConfModel.InitialRibCol,
+                                    NewSkinTensConfModel.FinalRibCol,
+                                    1,
+                                    ValidationValues.MaxNumRibs)
+
+        # Type is hidden as the only value could be 1
+        # conf_table.en_int_validator(NewSkinTensConfModel.TypeCol, NewSkinTensConfModel.TypeCol, 1, 1)
 
         conf_table.set_help_bar(self.help_bar)
-        conf_table.set_help_text(ProcModel.NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
-        conf_table.set_help_text(ProcModel.NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
-        conf_table.set_help_text(ProcModel.NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
+        conf_table.set_help_text(NewSkinTensConfModel.InitialRibCol, _('NewSkinTens-InitialRibDesc'))
+        conf_table.set_help_text(NewSkinTensConfModel.FinalRibCol, _('NewSkinTens-FinalRibDesc'))
+
+        # Type is hidden as the only value could be 1
+        # conf_table.set_help_text(NewSkinTensConfModel.TypeCol, _('NewSkinTens-TypeDesc'))
 
         conf_layout = QHBoxLayout()
         conf_layout.addWidget(conf_table)
         conf_layout.addStretch()
-        conf_table.setFixedWidth(2 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.InitialRibCol)
-                                 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.FinalRibCol)
-                                 + conf_table.columnWidth(ProcModel.NewSkinTensConfModel.TypeCol))
+        conf_table.setFixedWidth(2 + conf_table.columnWidth(NewSkinTensConfModel.InitialRibCol)
+                                 + conf_table.columnWidth(NewSkinTensConfModel.FinalRibCol)
+                                 + conf_table.columnWidth(NewSkinTensConfModel.TypeCol))
         conf_table.setFixedHeight(2 + conf_table.horizontalHeader().height() + conf_table.rowHeight(0))
         tab_layout.addLayout(conf_layout)
 
@@ -232,7 +233,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         num_det_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
-        self.numDet_S[curr_num_tabs].setRange(1, 100)
+        self.numDet_S[curr_num_tabs].setRange(1, ValidationValues.MaxNumRibs)
         self.numDet_S[curr_num_tabs].setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.numDet_S[curr_num_tabs].valueChanged.connect(self.det_spin_change)
         det_edit = self.numDet_S[curr_num_tabs].lineEdit()
@@ -248,7 +249,7 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         det_table = TableView()
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensDet_M)
-        self.detProxyModel[curr_num_tabs].setFilterKeyColumn(ProcModel.NewSkinTensDetModel.ConfigNumCol)
+        self.detProxyModel[curr_num_tabs].setFilterKeyColumn(NewSkinTensDetModel.ConfigNumCol)
         self.detProxyModel[curr_num_tabs].setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
         det_table.verticalHeader().setVisible(False)
@@ -257,20 +258,46 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         det_table.hideColumn(self.newSkinTensDet_M.columnCount() - 2)
         tab_layout.addWidget(det_table)
 
-        det_table.set_help_bar(self.help_bar)
-        det_table.set_help_text(ProcModel.NewSkinTensDetModel.OrderNumCol,
-                                _('SkinTension-OrderNumDesc'))
-        det_table.set_help_text(ProcModel.NewSkinTensDetModel.TopDistLECol,
-                                _('SkinTension-TopDistLEDesc'))
-        det_table.set_help_text(ProcModel.NewSkinTensDetModel.TopWideCol,
-                                _('SkinTension-TopOverWideDesc'))
-        det_table.set_help_text(ProcModel.NewSkinTensDetModel.BottDistTECol,
-                                _('SkinTension-BottDistTEDesc'))
-        det_table.set_help_text(ProcModel.NewSkinTensDetModel.BottWideCol,
-                                _('SkinTension-BottOverWideDesc'))
+        det_table.en_int_validator(NewSkinTensDetModel.OrderNumCol,
+                                   NewSkinTensDetModel.OrderNumCol,
+                                   1,
+                                   ValidationValues.MaxNumRibs)
 
-        det_table.en_double_validator(ProcModel.NewSkinTensDetModel.TopDistLECol,
-                                      ProcModel.NewSkinTensDetModel.BottWideCol, 0, 100, 3)
+        det_table.en_double_validator(NewSkinTensDetModel.TopDistLECol,
+                                      NewSkinTensDetModel.TopDistLECol,
+                                      ValidationValues.WingChordMin_perc,
+                                      ValidationValues.WingChordMax_perc,
+                                      4)
+
+        det_table.en_double_validator(NewSkinTensDetModel.TopWideCol,
+                                      NewSkinTensDetModel.TopWideCol,
+                                      ValidationValues.Proc.SkinTensionAddWidthMin,
+                                      ValidationValues.Proc.SkinTensionAddWidthMax,
+                                      3)
+
+        det_table.en_double_validator(NewSkinTensDetModel.BottDistTECol,
+                                      NewSkinTensDetModel.BottDistTECol,
+                                      ValidationValues.WingChordMin_perc,
+                                      ValidationValues.WingChordMax_perc,
+                                      3)
+
+        det_table.en_double_validator(NewSkinTensDetModel.BottWideCol,
+                                      NewSkinTensDetModel.BottWideCol,
+                                      ValidationValues.Proc.SkinTensionAddWidthMin,
+                                      ValidationValues.Proc.SkinTensionAddWidthMax,
+                                      4)
+
+        det_table.set_help_bar(self.help_bar)
+        det_table.set_help_text(NewSkinTensDetModel.OrderNumCol,
+                                _('SkinTension-OrderNumDesc'))
+        det_table.set_help_text(NewSkinTensDetModel.TopDistLECol,
+                                _('SkinTension-TopDistLEDesc'))
+        det_table.set_help_text(NewSkinTensDetModel.TopWideCol,
+                                _('SkinTension-TopOverWideDesc'))
+        det_table.set_help_text(NewSkinTensDetModel.BottDistTECol,
+                                _('SkinTension-BottDistTEDesc'))
+        det_table.set_help_text(NewSkinTensDetModel.BottWideCol,
+                                _('SkinTension-BottOverWideDesc'))
 
         # then setup spin
         if self.detProxyModel[curr_num_tabs].rowCount() == 0:
@@ -288,7 +315,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
         self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
@@ -302,8 +328,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: called upon changes of the details model. Does assure all GUI
                  elements will follow the changes.
         """
-        logging.debug(self.__className + '.update_tabs')
-
         i = 0
         while i < self.tabs.count():
             if self.numDet_S[i].value != self.newSkinTensDet_M.num_rows_for_config(i + 1):
@@ -317,18 +341,15 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
-            self.detProxyModel[curr_tab].sort(ProcModel.NewSkinTensDetModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
+            self.detProxyModel[curr_tab].sort(NewSkinTensDetModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 
