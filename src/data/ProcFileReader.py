@@ -15,14 +15,14 @@ from data.procModel.AirfoilsModel import AirfoilsModel
 from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
 from data.procModel.AnchorPointsModel import AnchorPointsModel
 from data.procModel.BrakeLengthModel import BrakeLengthModel
-from data.procModel.BrakesModel import BrakesModel
+from data.procModel.BrakeModel import BrakeModel
 from data.procModel.CalageVarModel import CalageVarModel
 from data.procModel.DxfLayerNamesModel import DxfLayerNamesModel
 from data.procModel.ElLinesCorrModel import ElLinesCorrModel
 from data.procModel.ElLinesDefModel import ElLinesDefModel
 from data.procModel.ExtradosColConfModel import ExtradosColConfModel
 from data.procModel.ExtradosColDetModel import ExtradosColDetModel
-from data.procModel.GlobAoAModel import GlobAoAModel
+from data.procModel.GlobalAoAModel import GlobalAoAModel
 from data.procModel.GlueVentModel import GlueVentModel
 from data.procModel.HvVhRibsModel import HvVhRibsModel
 from data.procModel.IntradosColsConfModel import IntradosColsConfModel
@@ -98,7 +98,7 @@ class ProcFileReader(QObject):
         self.airf_M = AirfoilsModel()
         self.airfThick_M = AirfoilThicknessModel()
         self.anchorPoints_M = AnchorPointsModel()
-        self.brakes_M = BrakesModel()
+        self.brakes_M = BrakeModel()
         self.brakeL_M = BrakeLengthModel()
         self.calageVar_M = CalageVarModel()
         self.dxfLayNames_M = DxfLayerNamesModel()
@@ -106,7 +106,7 @@ class ProcFileReader(QObject):
         self.elLinesDef_M = ElLinesDefModel()
         self.extradosColConf_M = ExtradosColConfModel()
         self.extradosColDet_M = ExtradosColDetModel()
-        self.globAoA_M = GlobAoAModel()
+        self.globAoA_M = GlobalAoAModel()
         self.glueVent_M = GlueVentModel()
         self.hVvHRibs_M = HvVhRibsModel()
         self.intradosColConf_M = IntradosColsConfModel()
@@ -420,37 +420,37 @@ class ProcFileReader(QObject):
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.FinesseCol),
+                                 GlobalAoAModel.FinesseCol),
             rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.CentOfPressCol),
+                                 GlobalAoAModel.CentOfPressCol),
             rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.CalageCol),
+                                 GlobalAoAModel.CalageCol),
             rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.RisersCol),
+                                 GlobalAoAModel.RisersCol),
             rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.LinesCol),
+                                 GlobalAoAModel.LinesCol),
             rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobAoAModel.KarabinersCol),
+                                 GlobalAoAModel.KarabinersCol),
             rem_tab_space(stream.readLine()))
 
         ##############################
@@ -475,18 +475,18 @@ class ProcFileReader(QObject):
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
-                self.lines_M.updateLineRow(i + 1, line_it + 1,
-                                           values[0],
-                                           values[1],
-                                           values[2],
-                                           values[3],
-                                           values[4],
-                                           values[5],
-                                           values[6],
-                                           values[7],
-                                           values[8],
-                                           values[9],
-                                           values[10])
+                self.lines_M.update_row(i + 1, line_it + 1,
+                                        values[0],
+                                        values[1],
+                                        values[2],
+                                        values[3],
+                                        values[4],
+                                        values[5],
+                                        values[6],
+                                        values[7],
+                                        values[8],
+                                        values[9],
+                                        values[10])
 
         ##############################
         # 10. BRAKES
@@ -563,33 +563,33 @@ class ProcFileReader(QObject):
 
         values = split_line(stream.readLine())
         try:
-            self.ramific_M.updateDataRow(1, 1, values[0], values[1], 0)
+            self.ramific_M.update_row(1, 1, values[0], values[1], 0)
         except:
-            self.ramific_M.updateDataRow(1, 1, 0, 0, 0)
+            self.ramific_M.update_row(1, 1, 0, 0, 0)
             logging.error(self.__className
                           + '.read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
-            self.ramific_M.updateDataRow(1, 2, values[0], values[1], values[2])
+            self.ramific_M.update_row(1, 2, values[0], values[1], values[2])
         except:
-            self.ramific_M.updateDataRow(1, 2, 0, 0, 0)
+            self.ramific_M.update_row(1, 2, 0, 0, 0)
             logging.error(self.__className
                           + '.read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
-            self.ramific_M.updateDataRow(1, 3, values[0], values[1], 0)
+            self.ramific_M.update_row(1, 3, values[0], values[1], 0)
         except:
-            self.ramific_M.updateDataRow(1, 3, 0, 0, 0)
+            self.ramific_M.update_row(1, 3, 0, 0, 0)
             logging.error(self.__className
                           + '.read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
-            self.ramific_M.updateDataRow(1, 4, values[0], values[1], values[2])
+            self.ramific_M.update_row(1, 4, values[0], values[1], values[2])
         except:
-            self.ramific_M.updateDataRow(1, 4, 0, 0, 0)
+            self.ramific_M.update_row(1, 4, 0, 0, 0)
             logging.error(self.__className
                           + '.read_file: Ramification data missing')
 

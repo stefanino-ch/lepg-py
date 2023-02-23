@@ -63,7 +63,7 @@ class ValidationValues:
         aMax_deg = 120
 
     class Proc:
-        # Basic data
+        # 1: Basic data
         ScaleMin = 0
         ScaleMax = 50
 
@@ -79,22 +79,25 @@ class ValidationValues:
         WashinMin = RotZColMin = -45
         WashinMax = RotZColMax = 45
 
-        # Airfoils
+        # 2: Airfoils
         DisplacementMin_cm = 0
         DisplacementMax_cm = 100
 
         RelativeWeightMin = 0
         RelativeWeightMax = 100
 
-        # Anchors
-        NumAnchorsMin = 2
-        NumAnchorsMax = 5
+        # 3: Anchors
+        NumAnchorsMin = 2   # At least two anchors are needed to get a flying wing
+        NumAnchorsMax = 5   # There are five anchors for the main lines (plus one for the brakes
 
-        # Rib Holes
+        AnchorsNumMin = 1   # Anchors are numbered from 1 to
+        AnchorsNumMax = 6   # this includes the brake anchor as well
+
+        # 4: Rib Holes
         RibHolesOpt1Min = 0
         RibHolesOpt1Max = 50
 
-        # Skin tension
+        # 6: Skin tension
         StrainMiniRibsMin = 0
         StrainMiniRibsMax = 1
         NumPointsMin = 0
@@ -103,3 +106,39 @@ class ValidationValues:
         SkinTensionCoefMax = 1
         SkinTensionAddWidthMin = 0
         SkinTensionAddWidthMax = 100
+
+        # 8: Global AoA
+        FinesseMin_deg = 0
+        FinesseMax_deg = 45
+        RisersBasicLengthMin_cm = 0
+        RisersBasicLengthMax_cm = 100
+        LinesBasicLengthMin_cm = 0
+        LinesBasicLengthMax_cm = 1500
+        KarabinersSeparationMin_cm = 0
+        KarabinersSeparationMax_cm = 100
+
+        # 9: Lines
+        LinesControlParamMin = 0
+        LinesControlParamMax = 3
+        NumLineLevelsMin = 0
+        NumLineLevelsMax = 4
+        LineOrderNumMin = 0
+        LineOrderNumMax = 50
+
+        # 10: Brakes
+        BrakeLengthMin_cm = 0
+        BrakeLengthMax_cm = LinesBasicLengthMax_cm + 2
+        NumBrakeLevelsMin = 0
+        NumBrakeLevelsMax = 4
+        BrakeOrderNumMin = 0
+        BrakeOrderNumMax = 50
+        BrakeSParamMin = 0
+        BrakeSParamMax = 100
+        BrakeDeltaLengthMin_cm = -100
+        BrakeDeltaLengthMax_cm = 100
+
+        # 11: Ramification
+        RamificationLengthMin_cm = 0
+        RamificationLengthMax_cm = LinesBasicLengthMax_cm
+
+

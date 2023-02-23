@@ -8,11 +8,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, \
                             QSizePolicy, QHeaderView
 
-from data.ProcModel import ProcModel
+from data.procModel.GlobalAoAModel import GlobalAoAModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
@@ -29,17 +31,20 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.globAoA_M = ProcModel.GlobAoAModel()
+        self.win = None
+        self.windowLayout = None
+        self.helpBar = None
+        self.btnBar = None
+        self.globAoA_M = GlobalAoAModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -54,8 +59,6 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
                 ---------------------------
                             help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -80,57 +83,79 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         calage_t.hideColumn(4)
         calage_t.hideColumn(5)
 
-        calage_t.set_help_text(ProcModel.GlobAoAModel.FinesseCol,
+        calage_t.set_help_text(GlobalAoAModel.FinesseCol,
                                _('GlobalAoA-FinesseDesc'))
-        calage_t.set_help_text(ProcModel.GlobAoAModel.CentOfPressCol,
+        calage_t.set_help_text(GlobalAoAModel.CentOfPressCol,
                                _('GlobalAoA-CenterOfPressureDesc'))
-        calage_t.set_help_text(ProcModel.GlobAoAModel.CalageCol,
+        calage_t.set_help_text(GlobalAoAModel.CalageCol,
                                _('GlobalAoA-CalageDesc'))
-
-        calage_t.en_double_validator(ProcModel.GlobAoAModel.FinesseCol,
-                                     ProcModel.GlobAoAModel.FinesseCol,
-                                     0, 100, 2)
-        calage_t.en_int_validator(ProcModel.GlobAoAModel.CentOfPressCol,
-                                  ProcModel.GlobAoAModel.CalageCol,
-                                  0, 100)
 
         calage_t.setFixedHeight(2
                                 + calage_t.horizontalHeader().height()
                                 + calage_t.rowHeight(0))
 
+        calage_t.en_double_validator(GlobalAoAModel.FinesseCol,
+                                     GlobalAoAModel.FinesseCol,
+                                     ValidationValues.Proc.FinesseMin_deg,
+                                     ValidationValues.Proc.FinesseMax_deg,
+                                     2)
+
+        calage_t.en_int_validator(GlobalAoAModel.CentOfPressCol,
+                                  GlobalAoAModel.CalageCol,
+                                  ValidationValues.WingChordMin_perc,
+                                  ValidationValues.WingChordMax_perc)
+
+        calage_t.en_double_validator(GlobalAoAModel.RisersCol,
+                                     GlobalAoAModel.RisersCol,
+                                     ValidationValues.Proc.RisersBasicLengthMin_cm,
+                                     ValidationValues.Proc.RisersBasicLengthMax_cm,
+                                     2)
+
+        calage_t.en_double_validator(GlobalAoAModel.LinesCol,
+                                     GlobalAoAModel.LinesCol,
+                                     ValidationValues.Proc.LinesBasicLengthMin_cm,
+                                     ValidationValues.Proc.LinesBasicLengthMax_cm,
+                                     2)
+
+        calage_t.en_double_validator(GlobalAoAModel.KarabinersCol,
+                                     GlobalAoAModel.KarabinersCol,
+                                     ValidationValues.Proc.KarabinersSeparationMin_cm,
+                                     ValidationValues.Proc.KarabinersSeparationMax_cm,
+                                     2)
+
         self.windowLayout.addWidget(calage_t)
 
         #####
-        lenght_t = TableView()
-        lenght_t.setModel(self.globAoA_M)
+        length_t = TableView()
+        length_t.setModel(self.globAoA_M)
         # hide the ID column which is always at the end of the model
-        lenght_t.hideColumn(self.globAoA_M.columnCount() - 1)
-        lenght_t.verticalHeader().setVisible(False)
-        lenght_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        lenght_t.set_help_bar(self.helpBar)
-        lenght_t.hideColumn(0)
-        lenght_t.hideColumn(1)
-        lenght_t.hideColumn(2)
+        length_t.hideColumn(self.globAoA_M.columnCount() - 1)
+        length_t.verticalHeader().setVisible(False)
+        length_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        length_t.set_help_bar(self.helpBar)
+        length_t.hideColumn(0)
+        length_t.hideColumn(1)
+        length_t.hideColumn(2)
 
-        lenght_t.set_help_text(ProcModel.GlobAoAModel.RisersCol,
+        length_t.set_help_text(GlobalAoAModel.RisersCol,
                                _('GlobalAoA-RisersDesc'))
-        lenght_t.set_help_text(ProcModel.GlobAoAModel.LinesCol,
+        length_t.set_help_text(GlobalAoAModel.LinesCol,
                                _('GlobalAoA-LinesDesc'))
-        lenght_t.set_help_text(ProcModel.GlobAoAModel.KarabinersCol,
+        length_t.set_help_text(GlobalAoAModel.KarabinersCol,
                                _('GlobalAoA-KarabinersDesc'))
 
-        lenght_t.en_int_validator(ProcModel.GlobAoAModel.RisersCol,
-                                  ProcModel.GlobAoAModel.LinesCol,
+        length_t.en_int_validator(GlobalAoAModel.RisersCol,
+                                  GlobalAoAModel.LinesCol,
                                   0, 2000)
-        lenght_t.en_int_validator(ProcModel.GlobAoAModel.KarabinersCol,
-                                  ProcModel.GlobAoAModel.KarabinersCol,
+        length_t.en_int_validator(GlobalAoAModel.KarabinersCol,
+                                  GlobalAoAModel.KarabinersCol,
                                   0, 100)
 
-        lenght_t.setFixedHeight(2
-                                + lenght_t.horizontalHeader().height()
-                                + lenght_t.rowHeight(0))
+        length_t.setFixedHeight(2
+                                + length_t.horizontalHeader().height()
+                                + length_t.rowHeight(0))
 
-        self.windowLayout.addWidget(lenght_t)
+        self.windowLayout.addWidget(length_t)
 
         #############################
         # Commons for all windows
@@ -152,7 +177,6 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

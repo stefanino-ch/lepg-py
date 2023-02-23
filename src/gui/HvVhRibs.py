@@ -156,7 +156,11 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         ribs_t.hideColumn(self.ribs_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_t)
 
-        # TODO: add validator for Order Num
+        ribs_t.en_int_validator(HvVhRibsModel.OrderNumCol,
+                                HvVhRibsModel.OrderNumCol,
+                                1,
+                                ValidationValues.MaxNumRibs,
+                                HvVhRibsModel.paramLength)
 
         ribs_t.en_int_validator(HvVhRibsModel.TypeCol,
                                 HvVhRibsModel.TypeCol,

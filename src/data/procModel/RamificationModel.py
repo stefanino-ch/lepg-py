@@ -25,7 +25,7 @@ class RamificationModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 4
     ''':attr: num of column for config number'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty Ramification table
         """
@@ -40,12 +40,12 @@ class RamificationModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("Ramification")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -56,7 +56,7 @@ class RamificationModel(SqlTableModel, metaclass=Singleton):
 
         self.set_num_rows_for_config(1, 4)
 
-    def updateDataRow(self, configNum, orderNum, rows, thirdToSail, fourthToSail):
+    def update_row(self, config_num, order_num, rows, third_to_sail, fourth_to_sail):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -64,22 +64,22 @@ class RamificationModel(SqlTableModel, metaclass=Singleton):
         query = QSqlQuery()
         query.prepare("UPDATE Ramification SET "
                       "Rows= :rows, "
-                      "ThirdToSail= :thirdToSail, "
-                      "FourthToSail= :fourthToSail "
+                      "ThirdToSail= :third_to_sail, "
+                      "FourthToSail= :fourth_to_sail "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
         query.bindValue(":rows", rows)
-        query.bindValue(":thirdToSail", thirdToSail)
-        query.bindValue(":fourthToSail", fourthToSail)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":third_to_sail", third_to_sail)
+        query.bindValue(":fourth_to_sail", fourth_to_sail)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -88,8 +88,8 @@ class RamificationModel(SqlTableModel, metaclass=Singleton):
                       "ThirdToSail,"
                       "FourthToSail "
                       "FROM Ramification WHERE (ConfigNum = :config AND OrderNum = :order)")
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         query.next()
         return query.value

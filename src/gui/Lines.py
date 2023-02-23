@@ -12,8 +12,12 @@ from gui.elements.LineEdit import LineEdit
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
+from data.procModel.LinesModel import LinesModel
+from data.procModel.WingModel import WingModel
 from data.ProcModel import ProcModel
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class Lines(QMdiSubWindow, metaclass=Singleton):
@@ -38,15 +42,14 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.window_ly = None
         self.win = None
         self.wrapper = None
-        logging.debug(self.__className+'.__init__')
         super().__init__()
 
         self.pm = ProcModel()
 
-        self.wing_M = ProcModel.WingModel()
+        self.wing_M = WingModel()
         self.wing_M.dataChanged.connect(self.wing_model_data_change)
 
-        self.lines_M = ProcModel.LinesModel()
+        self.lines_M = LinesModel()
         self.lines_M.numRowsForConfigChanged.connect(self.model_size_changed)
 
         self.proxyModel = []
@@ -58,7 +61,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -81,8 +84,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
             conf equals plans
             details equals line paths
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -104,8 +105,10 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.control_e = LineEdit()
         self.control_e.setFixedWidth(40)
         self.wrapper.addMapping(self.control_e,
-                                ProcModel.WingModel.LinesConcTypeCol)
-        self.control_e.en_int_validator(0, 3)
+                                WingModel.LinesConcTypeCol)
+        self.control_e.en_int_validator(ValidationValues.Proc.LinesControlParamMin,
+                                        ValidationValues.Proc.LinesControlParamMax)
+
         self.control_e.set_help_text(_('Lines-LinesControlParamDesc'))
         self.control_e.set_help_bar(self.helpBar)
 
@@ -122,7 +125,8 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
                                              QSizePolicy.Policy.Fixed))
 
         self.numConf_s = QSpinBox()
-        self.numConf_s.setRange(0, 999)
+        self.numConf_s.setRange(0, ValidationValues.MaxNumRibs)
+
         self.numConf_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                  QSizePolicy.Policy.Fixed))
         self.numConf_s.setValue(self.lines_M.num_configs())
@@ -172,7 +176,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure
                  all elements will follow the user configuration.
         """
-        logging.debug(self.__className+'.conf_spin_change')
         curr_num_configs = self.lines_M.num_configs()
         must_num_configs = self.numConf_s.value()
 
@@ -191,8 +194,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size.
                  Herein we assure the GUI follows the model.
         """
-        logging.debug(self.__className+'.model_size_changed')
-
         curr_num_configs = self.lines_M.num_configs()
 
         # config (num plans) spinbox
@@ -230,8 +231,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className+'.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -245,7 +244,8 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.numLines_s.append(QSpinBox())
-        self.numLines_s[curr_num_tabs].setRange(1, 999)
+        self.numLines_s[curr_num_tabs].setRange(1, ValidationValues.MaxNumRibs)
+
         self.numLines_s[curr_num_tabs].setSizePolicy(QSizePolicy(
                                                      QSizePolicy.Policy.Fixed,
                                                      QSizePolicy.Policy.Fixed))
@@ -260,7 +260,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.proxyModel.append(QSortFilterProxyModel())
         self.proxyModel[curr_num_tabs].setSourceModel(self.lines_M)
         self.proxyModel[curr_num_tabs].setFilterKeyColumn(
-                                        ProcModel.LinesModel.ConfigNumCol)
+                                        LinesModel.ConfigNumCol)
 
         self.proxyModel[curr_num_tabs].setFilterRegularExpression(
                                         QRegularExpression(str(curr_num_tabs+1)))
@@ -274,68 +274,98 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         branch_table.hideColumn(self.lines_M.columnCount()-2)
         tab_layout.addWidget(branch_table)
 
-        branch_table.en_int_validator(
-                        ProcModel.LinesModel.OrderNumCol,
-                        ProcModel.LinesModel.OrderNumCol,
-                        1,
-                        999)
-        branch_table.en_int_validator(
-                        ProcModel.LinesModel.NumBranchesCol,
-                        ProcModel.LinesModel.NumBranchesCol,
-                        1,
-                        4)
-        branch_table.en_int_validator(
-                        ProcModel.LinesModel.BranchLvlOneCol,
-                        ProcModel.LinesModel.OrderLvlFourCol,
-                        1,
-                        99)
-        branch_table.en_int_validator(
-                        ProcModel.LinesModel.AnchorLineCol,
-                        ProcModel.LinesModel.AnchorLineCol,
-                        1,
-                        6)
-        branch_table.en_int_validator(
-                        ProcModel.LinesModel.AnchorRibNumCol,
-                        ProcModel.LinesModel.AnchorRibNumCol,
-                        1,
-                        999)
+        branch_table.en_int_validator(LinesModel.OrderNumCol,
+                                      LinesModel.OrderNumCol,
+                                      1,
+                                      ValidationValues.MaxNumRibs)
+
+        branch_table.en_int_validator(LinesModel.NumBranchesCol,
+                                      LinesModel.NumBranchesCol,
+                                      1,
+                                      4)
+
+        branch_table.en_int_validator(LinesModel.LevelOfRamOneCol,
+                                      LinesModel.LevelOfRamOneCol,
+                                      ValidationValues.Proc.NumLineLevelsMin,
+                                      ValidationValues.Proc.NumLineLevelsMax)
+        branch_table.en_int_validator(LinesModel.OrderLvlOneCol,
+                                      LinesModel.OrderLvlOneCol,
+                                      ValidationValues.Proc.LineOrderNumMin,
+                                      ValidationValues.Proc.LineOrderNumMax)
+
+        branch_table.en_int_validator(LinesModel.LevelOfRamTwoCol,
+                                      LinesModel.LevelOfRamTwoCol,
+                                      ValidationValues.Proc.NumLineLevelsMin,
+                                      ValidationValues.Proc.NumLineLevelsMax)
+        branch_table.en_int_validator(LinesModel.OrderLvlTwoCol,
+                                      LinesModel.OrderLvlTwoCol,
+                                      ValidationValues.Proc.LineOrderNumMin,
+                                      ValidationValues.Proc.LineOrderNumMax)
+
+        branch_table.en_int_validator(LinesModel.LevelOfRamThreeCol,
+                                      LinesModel.LevelOfRamThreeCol,
+                                      ValidationValues.Proc.NumLineLevelsMin,
+                                      ValidationValues.Proc.NumLineLevelsMax)
+        branch_table.en_int_validator(LinesModel.OrderLvlThreeCol,
+                                      LinesModel.OrderLvlThreeCol,
+                                      ValidationValues.Proc.LineOrderNumMin,
+                                      ValidationValues.Proc.LineOrderNumMax)
+
+        branch_table.en_int_validator(LinesModel.LevelOfRamFourCol,
+                                      LinesModel.LevelOfRamFourCol,
+                                      ValidationValues.Proc.NumLineLevelsMin,
+                                      ValidationValues.Proc.NumLineLevelsMax)
+        branch_table.en_int_validator(LinesModel.OrderLvlFourCol,
+                                      LinesModel.OrderLvlFourCol,
+                                      ValidationValues.Proc.LineOrderNumMin,
+                                      ValidationValues.Proc.LineOrderNumMax)
+
+        branch_table.en_int_validator(LinesModel.AnchorLineCol,
+                                      LinesModel.AnchorLineCol,
+                                      ValidationValues.Proc.AnchorsNumMin,
+                                      ValidationValues.Proc.AnchorsNumMax)
+
+        branch_table.en_int_validator(LinesModel.AnchorRibNumCol,
+                                      LinesModel.AnchorRibNumCol,
+                                      1,
+                                      ValidationValues.MaxNumRibs)
 
         branch_table.set_help_bar(self.helpBar)
         branch_table.set_help_text(
-                        ProcModel.LinesModel.OrderNumCol,
+                        LinesModel.OrderNumCol,
                         _('OrderNumDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.NumBranchesCol,
+                        LinesModel.NumBranchesCol,
                         _('Lines-NumBranchesDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.BranchLvlOneCol,
+                        LinesModel.LevelOfRamOneCol,
                         _('Lines-BranchLvlOneDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.OrderLvlOneCol,
+                        LinesModel.OrderLvlOneCol,
                         _('Lines-OrderLvlOneDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.LevelOfRamTwoCol,
+                        LinesModel.LevelOfRamTwoCol,
                         _('Lines-LevelOfRamTwoDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.OrderLvlTwoCol,
+                        LinesModel.OrderLvlTwoCol,
                         _('Lines-OrderLvlTwoDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.LevelOfRamThreeCol,
+                        LinesModel.LevelOfRamThreeCol,
                         _('Lines-LevelOfRamThreeDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.OrderLvlThreeCol,
+                        LinesModel.OrderLvlThreeCol,
                         _('Lines-OrderLvlThreeDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.BranchLvlFourCol,
+                        LinesModel.LevelOfRamFourCol,
                         _('Lines-BranchLvlFourDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.OrderLvlFourCol,
+                        LinesModel.OrderLvlFourCol,
                         _('Lines-OrderLvlFourDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.AnchorLineCol,
+                        LinesModel.AnchorLineCol,
                         _('Lines-AnchorLineDesc'))
         branch_table.set_help_text(
-                        ProcModel.LinesModel.AnchorRibNumCol,
+                        LinesModel.AnchorRibNumCol,
                         _('Lines-AnchorRibNumDesc'))
 
         tab_widget.setLayout(tab_layout)
@@ -348,7 +378,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className+'.remove_tab')
         num_tabs = self.tabs.count()
         self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
@@ -360,7 +389,6 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure
                  all elements will follow the user configuration.
         """
-        logging.debug(self.__className+'.num_lines_change')
         self.lines_M.set_num_rows_for_config(
                         self.tabs.currentIndex()+1,
                         self.numLines_s[self.tabs.currentIndex()].value())
@@ -373,27 +401,23 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
                  the mapping again.
         """
         self.wrapper.addMapping(self.control_e,
-                                ProcModel.WingModel.LinesConcTypeCol)
+                                WingModel.LinesConcTypeCol)
 
     def sort_btn_press(self):
         """
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className+'.sort_btn_press')
-
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
-            self.proxyModel[curr_tab].sort(
-                                    ProcModel.LinesModel.OrderNumCol,
-                                    Qt.SortOrder.AscendingOrder)
+            self.proxyModel[curr_tab].sort(LinesModel.OrderNumCol,
+                                           Qt.SortOrder.AscendingOrder)
             self.proxyModel[curr_tab].setDynamicSortFilter(False)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
 

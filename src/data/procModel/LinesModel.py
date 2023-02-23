@@ -24,7 +24,7 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
     '''
     NumBranchesCol = 1
     ''':attr: Number of the col holding the number of branches'''
-    BranchLvlOneCol = 2
+    LevelOfRamOneCol = 2
     ''':attr: Number of the col holding the branching level 1 value'''
     OrderLvlOneCol = 3
     ''':attr: Number of the col holding order at level 1 value'''
@@ -36,7 +36,7 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
     ''':attr: Number of the col holding level of ramification 3 value'''
     OrderLvlThreeCol = 7
     ''':attr: Number of the col holding order at level 3 value'''
-    BranchLvlFourCol = 8
+    LevelOfRamFourCol = 8
     ''':attr: Number of the col holding branching level 4 value'''
     OrderLvlFourCol = 9
     ''':attr: Number of the col holding order at level 4 value'''
@@ -51,7 +51,7 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 12
     ''':attr: num of column for config number'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty Lines table
         """
@@ -74,12 +74,12 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("Lines")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -97,8 +97,8 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
         self.setHeaderData(11, Qt.Orientation.Horizontal, _("Rib num"))
 
-    def updateLineRow(self, configNum, orderNum, i1, i2, i3, i4, i5, i6,
-                      i7, i8, i9, i10, i11):
+    def update_row(self, config_num, order_num, i1, i2, i3, i4, i5, i6,
+                   i7, i8, i9, i10, i11):
         """
         :method: Updates a specific row in the database with the values
                  passed. Parameters are not explicitly explained here
@@ -129,8 +129,8 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
         query.bindValue(":i9", i9)
         query.bindValue(":i10", i10)
         query.bindValue(":i11", i11)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated
 
@@ -140,32 +140,32 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                  number of configs based on parameters passed
         :param must_num_configs: Number of configs the model must provide
         """
-        currNumConfigs = self.num_configs()
+        curr_num_configs = self.num_configs()
 
-        diff = abs(must_num_configs - currNumConfigs)
+        diff = abs(must_num_configs - curr_num_configs)
         if diff != 0:
             # do it only if really the number has changed
             i = 0
-            if must_num_configs > currNumConfigs:
+            if must_num_configs > curr_num_configs:
                 # add config lines
                 while i < diff:
-                    self.add_row_for_config(currNumConfigs + 1 + i)
+                    self.add_row_for_config(curr_num_configs + 1 + i)
                     i += 1
             else:
                 # remove config lines
                 while i < diff:
-                    self.remove_row_for_config(currNumConfigs - i)
+                    self.remove_row_for_config(curr_num_configs - i)
                     i += 1
 
             # emit the change signal
             self.numConfigsChanged.emit(self.num_configs())
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a
                  specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -183,13 +183,13 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                       "AnchorRibNum "
                       "FROM Lines WHERE (ConfigNum = :config) "
                       "ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

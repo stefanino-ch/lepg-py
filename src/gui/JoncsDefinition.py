@@ -289,7 +289,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         # TODO: enable validators
         #         branchTable.en_int_validator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
         #         branchTable.en_int_validator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
-        #         branchTable.en_int_validator(ProcModel.LinesModel.BranchLvlOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
+        #         branchTable.en_int_validator(ProcModel.LinesModel.LevelOfRamOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
         #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
         #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
         #

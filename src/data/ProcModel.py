@@ -22,14 +22,14 @@ from data.procModel.AirfoilsModel import AirfoilsModel
 from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
 from data.procModel.AnchorPointsModel import AnchorPointsModel
 from data.procModel.BrakeLengthModel import BrakeLengthModel
-from data.procModel.BrakesModel import BrakesModel
+from data.procModel.BrakeModel import BrakeModel
 from data.procModel.CalageVarModel import CalageVarModel
 from data.procModel.DxfLayerNamesModel import DxfLayerNamesModel
 from data.procModel.ElLinesCorrModel import ElLinesCorrModel
 from data.procModel.ElLinesDefModel import ElLinesDefModel
 from data.procModel.ExtradosColConfModel import ExtradosColConfModel
 from data.procModel.ExtradosColDetModel import ExtradosColDetModel
-from data.procModel.GlobAoAModel import GlobAoAModel
+from data.procModel.GlobalAoAModel import GlobalAoAModel
 from data.procModel.GlueVentModel import GlueVentModel
 from data.procModel.HvVhRibsModel import HvVhRibsModel
 from data.procModel.IntradosColsConfModel import IntradosColsConfModel
@@ -120,7 +120,7 @@ class ProcModel(QObject, metaclass=Singleton):
         self.airfThick_m.dataChanged.connect(self.data_edit)
         self.anchPoints_m = AnchorPointsModel()
         self.anchPoints_m.dataChanged.connect(self.data_edit)
-        self.brakes_m = BrakesModel()
+        self.brakes_m = BrakeModel()
         self.brakes_m.dataChanged.connect(self.data_edit)
         self.brakeLength_m = BrakeLengthModel()
         self.brakeLength_m.dataChanged.connect(self.data_edit)
@@ -136,7 +136,7 @@ class ProcModel(QObject, metaclass=Singleton):
         self.extradosColConf_m.dataChanged.connect(self.data_edit)
         self.extradosColDet_m = ExtradosColDetModel()
         self.extradosColDet_m.dataChanged.connect(self.data_edit)
-        self.globAoA_m = GlobAoAModel()
+        self.globAoA_m = GlobalAoAModel()
         self.globAoA_m.dataChanged.connect(self.data_edit)
         self.glueVent_m = GlueVentModel()
         self.glueVent_m.dataChanged.connect(self.data_edit)

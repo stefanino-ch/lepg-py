@@ -11,11 +11,17 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QPushButton, QDataWidgetMapper
 
 from data.ProcModel import ProcModel
+from data.procModel.BrakeModel import BrakeModel
+from data.procModel.BrakeLengthModel import BrakeLengthModel
+from data.procModel.WingModel import WingModel
+
 from gui.elements.LineEdit import LineEdit
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class Brakes(QMdiSubWindow, metaclass=Singleton):
@@ -32,7 +38,6 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -45,12 +50,12 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.wing_M = ProcModel.WingModel()
+        self.wing_M = WingModel()
 
-        self.brakes_M = ProcModel.BrakesModel()
+        self.brakes_M = BrakeModel()
         self.brakes_M.numRowsForConfigChanged.connect(self.model_size_changed)
 
-        self.brakeL_M = ProcModel.BrakeLengthModel()
+        self.brakeL_M = BrakeLengthModel()
 
         self.build_window()
 
@@ -58,7 +63,7 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -78,8 +83,6 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
             conf is always one as there is only one brake line configuration allowed
             details equals brake line paths
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -100,8 +103,10 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         length_l.setAlignment(Qt.AlignmentFlag.AlignRight)
         length_e = LineEdit()
         length_e.setFixedWidth(40)
-        self.wrapper.addMapping(length_e, ProcModel.WingModel.BrakeLengthCol)
-        length_e.en_int_validator(0, 20000)
+        self.wrapper.addMapping(length_e, WingModel.BrakeLengthCol)
+        length_e.en_int_validator(ValidationValues.Proc.BrakeLengthMin_cm,
+                                  ValidationValues.Proc.BrakeLengthMax_cm)
+
         length_e.set_help_text(_('Brakes-LineLengthDesc'))
         length_e.set_help_bar(self.helpBar)
 
@@ -119,7 +124,8 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
 
         self.numLines_S = QSpinBox()
-        self.numLines_S.setRange(1, 999)
+        self.numLines_S.setRange(1, ValidationValues.MaxNumRibs)
+
         self.numLines_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
         self.numLines_S.valueChanged.connect(self.num_lines_change)
         num_lines_edit = self.numLines_S.lineEdit()
@@ -143,27 +149,80 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         brakes_t.hideColumn(self.brakes_M.columnCount() - 2)
         self.window_ly.addWidget(brakes_t)
 
-        brakes_t.en_int_validator(ProcModel.BrakesModel.OrderNumCol, ProcModel.BrakesModel.OrderNumCol, 1, 999)
-        brakes_t.en_int_validator(ProcModel.BrakesModel.NumBranchesCol, ProcModel.BrakesModel.NumBranchesCol, 1, 4)
-        brakes_t.en_int_validator(ProcModel.BrakesModel.BranchLvlOneCol, ProcModel.BrakesModel.OrderLvlFourCol, 1, 99)
-        brakes_t.en_int_validator(ProcModel.BrakesModel.AnchorLineCol, ProcModel.BrakesModel.AnchorLineCol, 1, 6)
-        # TODO: update max num ribs
-        brakes_t.en_double_validator(ProcModel.BrakesModel.AnchorRibNumCol, ProcModel.BrakesModel.AnchorRibNumCol, 1,
-                                     999, 1)
+        brakes_t.en_int_validator(BrakeModel.OrderNumCol,
+                                  BrakeModel.OrderNumCol,
+                                  1,
+                                  ValidationValues.MaxNumRibs)
+
+        brakes_t.en_int_validator(BrakeModel.NumBranchesCol,
+                                  BrakeModel.NumBranchesCol,
+                                  1,
+                                  4)
+
+        brakes_t.en_int_validator(BrakeModel.LevelOfRamOneCol,
+                                  BrakeModel.LevelOfRamOneCol,
+                                  ValidationValues.Proc.NumBrakeLevelsMin,
+                                  ValidationValues.Proc.NumBrakeLevelsMax)
+        brakes_t.en_int_validator(BrakeModel.OrderLvlOneCol,
+                                  BrakeModel.OrderLvlOneCol,
+                                  ValidationValues.Proc.BrakeOrderNumMin,
+                                  ValidationValues.Proc.BrakeOrderNumMax)
+
+        brakes_t.en_int_validator(BrakeModel.LevelOfRamTwoCol,
+                                  BrakeModel.LevelOfRamTwoCol,
+                                  ValidationValues.Proc.NumBrakeLevelsMin,
+                                  ValidationValues.Proc.NumBrakeLevelsMax)
+        brakes_t.en_int_validator(BrakeModel.OrderLvlTwoCol,
+                                  BrakeModel.OrderLvlTwoCol,
+                                  ValidationValues.Proc.BrakeOrderNumMin,
+                                  ValidationValues.Proc.BrakeOrderNumMax)
+
+        brakes_t.en_int_validator(BrakeModel.LevelOfRamThreeCol,
+                                  BrakeModel.LevelOfRamThreeCol,
+                                  ValidationValues.Proc.NumBrakeLevelsMin,
+                                  ValidationValues.Proc.NumBrakeLevelsMax)
+        brakes_t.en_int_validator(BrakeModel.OrderLvlThreeCol,
+                                  BrakeModel.OrderLvlThreeCol,
+                                  ValidationValues.Proc.BrakeOrderNumMin,
+                                  ValidationValues.Proc.BrakeOrderNumMax)
+
+        brakes_t.en_int_validator(BrakeModel.LevelOfRamFourCol,
+                                  BrakeModel.LevelOfRamFourCol,
+                                  ValidationValues.Proc.NumBrakeLevelsMin,
+                                  ValidationValues.Proc.NumBrakeLevelsMax)
+        brakes_t.en_int_validator(BrakeModel.OrderLvlFourCol,
+                                  BrakeModel.OrderLvlFourCol,
+                                  ValidationValues.Proc.BrakeOrderNumMin,
+                                  ValidationValues.Proc.BrakeOrderNumMax)
+
+        brakes_t.en_int_validator(BrakeModel.AnchorLineCol,
+                                  BrakeModel.AnchorLineCol,
+                                  ValidationValues.Proc.AnchorsNumMin,
+                                  ValidationValues.Proc.AnchorsNumMax)
+
+        brakes_t.en_int_validator(BrakeModel.AnchorRibNumCol,
+                                  BrakeModel.AnchorRibNumCol,
+                                  1,
+                                  ValidationValues.MaxNumRibs)
 
         brakes_t.set_help_bar(self.helpBar)
-        brakes_t.set_help_text(ProcModel.BrakesModel.OrderNumCol, _('OrderNumDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.NumBranchesCol, _('Brakes-NumBranchesDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.BranchLvlOneCol, _('Brakes-BranchLvlOneDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlOneCol, _('Brakes-OrderLvlOneDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.LevelOfRamTwoCol, _('Brakes-LevelOfRamTwoDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlTwoCol, _('Brakes-OrderLvlTwoDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.LevelOfRamThreeCol, _('Brakes-LevelOfRamThreeDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlThreeCol, _('Brakes-OrderLvlThreeDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.BranchLvlFourCol, _('Brakes-BranchLvlFourDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.OrderLvlFourCol, _('Brakes-OrderLvlFourDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.AnchorLineCol, _('Brakes-AnchorLineDesc'))
-        brakes_t.set_help_text(ProcModel.BrakesModel.AnchorRibNumCol, _('Brakes-AnchorRibNumDesc'))
+        brakes_t.set_help_text(BrakeModel.OrderNumCol, _('OrderNumDesc'))
+        brakes_t.set_help_text(BrakeModel.NumBranchesCol, _('Brakes-NumBranchesDesc'))
+
+        brakes_t.set_help_text(BrakeModel.LevelOfRamOneCol, _('Brakes-BranchLvlOneDesc'))
+        brakes_t.set_help_text(BrakeModel.OrderLvlOneCol, _('Brakes-OrderLvlOneDesc'))
+
+        brakes_t.set_help_text(BrakeModel.LevelOfRamTwoCol, _('Brakes-LevelOfRamTwoDesc'))
+        brakes_t.set_help_text(BrakeModel.OrderLvlTwoCol, _('Brakes-OrderLvlTwoDesc'))
+
+        brakes_t.set_help_text(BrakeModel.LevelOfRamThreeCol, _('Brakes-LevelOfRamThreeDesc'))
+        brakes_t.set_help_text(BrakeModel.OrderLvlThreeCol, _('Brakes-OrderLvlThreeDesc'))
+
+        brakes_t.set_help_text(BrakeModel.LevelOfRamFourCol, _('Brakes-BranchLvlFourDesc'))
+        brakes_t.set_help_text(BrakeModel.OrderLvlFourCol, _('Brakes-OrderLvlFourDesc'))
+
+        brakes_t.set_help_text(BrakeModel.AnchorLineCol, _('Brakes-AnchorLineDesc'))
+        brakes_t.set_help_text(BrakeModel.AnchorRibNumCol, _('Brakes-AnchorRibNumDesc'))
 
         center_dist_t = TableView()
         center_dist_t.setModel(self.brakeL_M)
@@ -177,14 +236,18 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         center_dist_layout.addStretch()
         self.window_ly.addLayout(center_dist_layout)
 
-        center_dist_t.en_int_validator(ProcModel.BrakeLengthModel.s1Col, ProcModel.BrakeLengthModel.s5Col, 0, 100)
+        center_dist_t.en_double_validator(BrakeLengthModel.s1Col,
+                                          BrakeLengthModel.s5Col,
+                                          ValidationValues.Proc.BrakeSParamMin,
+                                          ValidationValues.Proc.BrakeSParamMax,
+                                          2)
 
         center_dist_t.set_help_bar(self.helpBar)
-        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s1Col, _('Brakes-s1Desc'))
-        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s2Col, _('Brakes-s2Desc'))
-        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s3Col, _('Brakes-s3Desc'))
-        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s4Col, _('Brakes-s4Desc'))
-        center_dist_t.set_help_text(ProcModel.BrakeLengthModel.s5Col, _('Brakes-s5Desc'))
+        center_dist_t.set_help_text(BrakeLengthModel.s1Col, _('Brakes-s1Desc'))
+        center_dist_t.set_help_text(BrakeLengthModel.s2Col, _('Brakes-s2Desc'))
+        center_dist_t.set_help_text(BrakeLengthModel.s3Col, _('Brakes-s3Desc'))
+        center_dist_t.set_help_text(BrakeLengthModel.s4Col, _('Brakes-s4Desc'))
+        center_dist_t.set_help_text(BrakeLengthModel.s5Col, _('Brakes-s5Desc'))
 
         length_inc_t = TableView()
         length_inc_t.setModel(self.brakeL_M)
@@ -199,14 +262,18 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         length_inc_layout.addStretch()
         self.window_ly.addLayout(length_inc_layout)
 
-        length_inc_t.en_int_validator(ProcModel.BrakeLengthModel.d1Col, ProcModel.BrakeLengthModel.d5Col, 0, 100)
+        length_inc_t.en_double_validator(BrakeLengthModel.d1Col,
+                                         BrakeLengthModel.d5Col,
+                                         ValidationValues.Proc.BrakeDeltaLengthMin_cm,
+                                         ValidationValues.Proc.BrakeDeltaLengthMax_cm,
+                                         2)
 
         length_inc_t.set_help_bar(self.helpBar)
-        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d1Col, _('Brakes-d1Desc'))
-        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d2Col, _('Brakes-d2Desc'))
-        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d3Col, _('Brakes-d3Desc'))
-        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d4Col, _('Brakes-d4Desc'))
-        length_inc_t.set_help_text(ProcModel.BrakeLengthModel.d5Col, _('Brakes-d5Desc'))
+        length_inc_t.set_help_text(BrakeLengthModel.d1Col, _('Brakes-d1Desc'))
+        length_inc_t.set_help_text(BrakeLengthModel.d2Col, _('Brakes-d2Desc'))
+        length_inc_t.set_help_text(BrakeLengthModel.d3Col, _('Brakes-d3Desc'))
+        length_inc_t.set_help_text(BrakeLengthModel.d4Col, _('Brakes-d4Desc'))
+        length_inc_t.set_help_text(BrakeLengthModel.d5Col, _('Brakes-d5Desc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
         sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
@@ -235,8 +302,6 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called after the model has been changed it's size. Herein we assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
-
         self.numLines_S.blockSignals(True)
         self.numLines_S.setValue(self.brakes_M.num_rows_for_config(1))
         self.numLines_S.blockSignals(False)
@@ -246,7 +311,6 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.brakes_M.set_num_rows_for_config(1, self.numLines_S.value())
         self.pm.set_file_saved(False)
 
@@ -255,16 +319,13 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
-        self.proxyModel.sort(ProcModel.BrakesModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
+        self.proxyModel.sort(BrakeModel.OrderNumCol, Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

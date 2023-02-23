@@ -10,16 +10,18 @@ from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
                             QSizePolicy, QGridLayout, QLabel, QWidget, \
                             QHeaderView
 
-from data.ProcModel import ProcModel
+from data.procModel.RamificationModel import RamificationModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import ValidationValues
+
 
 class Ramification(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Seewing allowances data
+    :class: Window to display and edit ramification data
     """
 
     __className = 'Ramification'
@@ -31,17 +33,20 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.ramif_M = ProcModel.RamificationModel()
+        self.btnBar = None
+        self.helpBar = None
+        self.window_ly = None
+        self.win = None
+        self.ramif_M = RamificationModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -59,8 +64,6 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
                 ---------------------------
                             help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -98,21 +101,19 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         three_line_rows_t.verticalHeader().setVisible(False)
         three_line_rows_t.set_help_bar(self.helpBar)
 
-        three_line_rows_t.set_help_text(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            _('Ramification-3L-ThirdLineToSailDesc'))
+        three_line_rows_t.set_help_text(RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdLineToSailDesc'))
 
-        three_line_rows_t.en_int_validator(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            ProcModel.RamificationModel.ThirdToSailCol,
-            1, 2000)
+        three_line_rows_t.en_double_validator(RamificationModel.ThirdToSailCol,
+                                              RamificationModel.ThirdToSailCol,
+                                              ValidationValues.Proc.RamificationLengthMin_cm,
+                                              ValidationValues.Proc.RamificationLengthMax_cm,
+                                              2)
 
-        three_line_rows_t.setFixedHeight(
-            2
-            + three_line_rows_t.horizontalHeader().height()
-            + three_line_rows_t.rowHeight(0))
-        three_line_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        three_line_rows_t.setFixedHeight(2
+                                         + three_line_rows_t.horizontalHeader().height()
+                                         + three_line_rows_t.rowHeight(0))
+
+        three_line_rows_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(three_line_rows_l, 0, 0)
         edit_grid_l.addWidget(three_line_rows_t, 0, 1)
@@ -139,28 +140,24 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         four_line_rows_t.verticalHeader().setVisible(False)
         four_line_rows_t.set_help_bar(self.helpBar)
 
-        four_line_rows_t.set_help_text(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            _('Ramification-4L-ThirdLineToSailDesc'))
-        four_line_rows_t.set_help_text(
-            ProcModel.RamificationModel.FourthToSailCol,
-            _('Ramification-4L-FourthLineToSailDesc'))
+        four_line_rows_t.set_help_text(RamificationModel.ThirdToSailCol, _('Ramification-4L-ThirdLineToSailDesc'))
+        four_line_rows_t.set_help_text(RamificationModel.FourthToSailCol, _('Ramification-4L-FourthLineToSailDesc'))
 
-        four_line_rows_t.en_int_validator(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            ProcModel.RamificationModel.ThirdToSailCol,
-            1, 2000)
-        four_line_rows_t.en_int_validator(
-            ProcModel.RamificationModel.FourthToSailCol,
-            ProcModel.RamificationModel.FourthToSailCol,
-            1, 2000)
+        four_line_rows_t.en_double_validator(RamificationModel.ThirdToSailCol,
+                                             RamificationModel.ThirdToSailCol,
+                                             ValidationValues.Proc.RamificationLengthMin_cm,
+                                             ValidationValues.Proc.RamificationLengthMax_cm,
+                                             2)
+        four_line_rows_t.en_double_validator(RamificationModel.FourthToSailCol,
+                                             RamificationModel.FourthToSailCol,
+                                             ValidationValues.Proc.RamificationLengthMin_cm,
+                                             ValidationValues.Proc.RamificationLengthMax_cm,
+                                             2)
 
-        four_line_rows_t.setFixedHeight(
-            2
-            + four_line_rows_t.horizontalHeader().height()
-            + four_line_rows_t.rowHeight(1))
-        four_line_rows_t.horizontalHeader().\
-            setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        four_line_rows_t.setFixedHeight(2
+                                        + four_line_rows_t.horizontalHeader().height()
+                                        + four_line_rows_t.rowHeight(1))
+        four_line_rows_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         edit_grid_l.addWidget(four_line_rows_l, 1, 0)
         edit_grid_l.addWidget(four_line_rows_t, 1, 1, 1, 2)
@@ -187,14 +184,13 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         three_brake_rows_t.verticalHeader().setVisible(False)
         three_brake_rows_t.set_help_bar(self.helpBar)
 
-        three_brake_rows_t.set_help_text(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            _('Ramification-3L-ThirdBrakeToSailDesc'))
+        three_brake_rows_t.set_help_text(RamificationModel.ThirdToSailCol, _('Ramification-3L-ThirdBrakeToSailDesc'))
 
-        three_brake_rows_t.en_int_validator(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            ProcModel.RamificationModel.ThirdToSailCol,
-            1, 2000)
+        three_brake_rows_t.en_double_validator(RamificationModel.ThirdToSailCol,
+                                               RamificationModel.ThirdToSailCol,
+                                               ValidationValues.Proc.RamificationLengthMin_cm,
+                                               ValidationValues.Proc.RamificationLengthMax_cm,
+                                               2)
 
         three_brake_rows_t.setFixedHeight(
             2
@@ -228,20 +224,22 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         four_brake_rows_t.set_help_bar(self.helpBar)
 
         four_brake_rows_t.set_help_text(
-            ProcModel.RamificationModel.ThirdToSailCol,
+            RamificationModel.ThirdToSailCol,
             _('Ramification-4L-ThirdBrakeToSailDesc'))
         four_brake_rows_t.set_help_text(
-            ProcModel.RamificationModel.FourthToSailCol,
+            RamificationModel.FourthToSailCol,
             _('Ramification-4L-FourthBrakeToSailDesc'))
 
-        four_brake_rows_t.en_int_validator(
-            ProcModel.RamificationModel.ThirdToSailCol,
-            ProcModel.RamificationModel.ThirdToSailCol,
-            1, 2000)
-        four_brake_rows_t.en_int_validator(
-            ProcModel.RamificationModel.FourthToSailCol,
-            ProcModel.RamificationModel.FourthToSailCol,
-            1, 2000)
+        four_brake_rows_t.en_double_validator(RamificationModel.ThirdToSailCol,
+                                              RamificationModel.ThirdToSailCol,
+                                              ValidationValues.Proc.RamificationLengthMin_cm,
+                                              ValidationValues.Proc.RamificationLengthMax_cm,
+                                              2)
+        four_brake_rows_t.en_double_validator(RamificationModel.FourthToSailCol,
+                                              RamificationModel.FourthToSailCol,
+                                              ValidationValues.Proc.RamificationLengthMin_cm,
+                                              ValidationValues.Proc.RamificationLengthMax_cm,
+                                              2)
 
         four_brake_rows_t.setFixedHeight(2
                                          + four_brake_rows_t.horizontalHeader().height()
@@ -272,10 +270,9 @@ class Ramification(QMdiSubWindow, metaclass=Singleton):
         self.win.setLayout(self.window_ly)
 
     def btn_press(self, q):
-        '''
+        """
         :method: Handling of all pressed buttons.
-        '''
-        logging.debug(self.__className + '.btn_press')
+        """
         if q == 'Apply':
             pass
 

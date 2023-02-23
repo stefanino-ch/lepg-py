@@ -18,14 +18,14 @@ from data.procModel.AirfoilsModel import AirfoilsModel
 from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
 from data.procModel.AnchorPointsModel import AnchorPointsModel
 from data.procModel.BrakeLengthModel import BrakeLengthModel
-from data.procModel.BrakesModel import BrakesModel
+from data.procModel.BrakeModel import BrakeModel
 from data.procModel.CalageVarModel import CalageVarModel
 from data.procModel.DxfLayerNamesModel import DxfLayerNamesModel
 from data.procModel.ElLinesCorrModel import ElLinesCorrModel
 from data.procModel.ElLinesDefModel import ElLinesDefModel
 from data.procModel.ExtradosColConfModel import ExtradosColConfModel
 from data.procModel.ExtradosColDetModel import ExtradosColDetModel
-from data.procModel.GlobAoAModel import GlobAoAModel
+from data.procModel.GlobalAoAModel import GlobalAoAModel
 from data.procModel.GlueVentModel import GlueVentModel
 from data.procModel.HvVhRibsModel import HvVhRibsModel
 from data.procModel.IntradosColsConfModel import IntradosColsConfModel
@@ -84,9 +84,9 @@ class ProcFileWriter:
         self.skin_tens_params_m = SkinTensionParamsModel()
         self.sewing_allow_m = SewingAllowancesModel()
         self.marks_m = MarksModel()
-        self.glob_aoa_m = GlobAoAModel()
+        self.glob_aoa_m = GlobalAoAModel()
         self.lines_m = LinesModel()
-        self.brakes_m = BrakesModel()
+        self.brakes_m = BrakeModel()
         self.brake_length_m = BrakeLengthModel()
         self.ramific_m = RamificationModel()
         self.hv_vh_ribs_m = HvVhRibsModel()
@@ -370,7 +370,7 @@ class ProcFileWriter:
             stream << '%s\n' % num_lines
 
             for line_it in range(0, num_lines):
-                values = self.lines_m.getRow(g + 1, line_it + 1)
+                values = self.lines_m.get_row(g + 1, line_it + 1)
 
                 for p in range(0, 11):
                     if p > 0:
@@ -418,20 +418,20 @@ class ProcFileWriter:
         stream << '*       11. Ramification lengths\n'
         stream << separator
 
-        values = self.ramific_m.getRow(1, 1)
+        values = self.ramific_m.get_row(1, 1)
         stream << '3'
         stream << '\t%s\n' % chk_num(values(1))
 
-        values = self.ramific_m.getRow(1, 2)
+        values = self.ramific_m.get_row(1, 2)
         stream << '4'
         stream << '\t%s' % chk_num(values(1))
         stream << '\t%s\n' % chk_num(values(2))
 
-        values = self.ramific_m.getRow(1, 3)
+        values = self.ramific_m.get_row(1, 3)
         stream << '3'
         stream << '\t%s\n' % chk_num(values(1))
 
-        values = self.ramific_m.getRow(1, 4)
+        values = self.ramific_m.get_row(1, 4)
         stream << '4'
         stream << '\t%s' % chk_num(values(1))
         stream << '\t%s\n' % chk_num(values(2))

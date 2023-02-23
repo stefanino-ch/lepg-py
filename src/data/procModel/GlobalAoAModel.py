@@ -10,11 +10,11 @@ from data.SqlTableModel import SqlTableModel
 from Singleton.Singleton import Singleton
 
 
-class GlobAoAModel(SqlTableModel, metaclass=Singleton):
+class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the global AoA parameters.
     """
-    __className = 'GlobAoAModel'
+    __className = 'GlobalAoAModel'
     ''' :attr: Does help to indicate the source of the log messages. '''
 
     FinesseCol = 0

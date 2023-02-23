@@ -10,18 +10,18 @@ from data.SqlTableModel import SqlTableModel
 from Singleton.Singleton import Singleton
 
 
-class BrakesModel(SqlTableModel, metaclass=Singleton):
+class BrakeModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the lines parameters.
     """
-    __className = 'BrakesModel'
+    __className = 'BrakeModel'
     ''' :attr: Does help to indicate the source of the log messages. '''
 
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     NumBranchesCol = 1
     ''':attr: Number of the col holding the number of branches'''
-    BranchLvlOneCol = 2
+    LevelOfRamOneCol = 2
     ''':attr: Number of the col holding the branching level 1 value'''
     OrderLvlOneCol = 3
     ''':attr: Number of the col holding order at level 1 value'''
@@ -33,7 +33,7 @@ class BrakesModel(SqlTableModel, metaclass=Singleton):
     ''':attr: Number of the col holding level of ramification 3 value'''
     OrderLvlThreeCol = 7
     ''':attr: Number of the col holding order at level 3 value'''
-    BranchLvlFourCol = 8
+    LevelOfRamFourCol = 8
     ''':attr: Number of the col holding branching level 4 value'''
     OrderLvlFourCol = 9
     ''':attr: Number of the col holding order at level 4 value'''
@@ -68,7 +68,7 @@ class BrakesModel(SqlTableModel, metaclass=Singleton):
                    "ID INTEGER PRIMARY KEY);")
         query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
@@ -80,13 +80,13 @@ class BrakesModel(SqlTableModel, metaclass=Singleton):
 
         self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
         self.setHeaderData(1, Qt.Orientation.Horizontal, _("num Branches"))
-        self.setHeaderData(2, Qt.Orientation.Horizontal, _("Branch lvl 1"))
+        self.setHeaderData(2, Qt.Orientation.Horizontal, _("Ramif lvl 1"))
         self.setHeaderData(3, Qt.Orientation.Horizontal, _("Order lvl 1"))
         self.setHeaderData(4, Qt.Orientation.Horizontal, _("Ramif lvl2"))
         self.setHeaderData(5, Qt.Orientation.Horizontal, _("Order lvl 2"))
         self.setHeaderData(6, Qt.Orientation.Horizontal, _("Ramif lvl3"))
         self.setHeaderData(7, Qt.Orientation.Horizontal, _("Order lvl 3"))
-        self.setHeaderData(8, Qt.Orientation.Horizontal, _("Branch lvl 4"))
+        self.setHeaderData(8, Qt.Orientation.Horizontal, _("Ramif lvl 4"))
         self.setHeaderData(9, Qt.Orientation.Horizontal, _("Order lvl 4"))
         self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
         self.setHeaderData(11, Qt.Orientation.Horizontal, _("An. Rib num"))
