@@ -11,10 +11,14 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QVBoxLayout, QPushButton
 
 from data.ProcModel import ProcModel
+from data.procModel.ExtradosColConfModel import ExtradosColConfModel
+from data.procModel.ExtradosColDetModel import ExtradosColDetModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class ExtradColors(QMdiSubWindow, metaclass=Singleton):
@@ -31,7 +35,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -43,11 +46,11 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.extradColsConf_M = ProcModel.ExtradosColConfModel()
+        self.extradColsConf_M = ExtradosColConfModel()
         self.extradColsConf_M.numRowsForConfigChanged. \
             connect(self.model_num_configs_changed)
 
-        self.extradColsDet_M = ProcModel.ExtradosColDetModel()
+        self.extradColsDet_M = ExtradosColDetModel()
         self.extradColsDet_M.numRowsForConfigChanged. \
             connect(self.update_tabs)
 
@@ -62,7 +65,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -81,8 +84,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -101,7 +102,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         num_conf_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                              QSizePolicy.Policy.Fixed))
         self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0, 999)
+        self.numConf_S.setRange(0, ValidationValues.MaxNumRibs)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                  QSizePolicy.Policy.Fixed))
         self.numConf_S.setValue(self.extradColsConf_M.num_configs())
@@ -149,7 +150,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure
                  all elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.conf_spin_change')
         self.extradColsConf_M.set_num_configs(self.numConf_S.value())
         self.pm.set_file_saved(False)
 
@@ -158,8 +158,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon changes of the configs model. Does assure all GUI
                  elements will follow the changes.
         """
-        logging.debug(self.__className + '.model_num_configs_changed')
-
         current_num_configs = self.extradColsConf_M.num_configs()
 
         self.numConf_S.blockSignals(True)
@@ -186,7 +184,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the detail spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.det_spin_change')
         self.extradColsDet_M. \
             set_num_rows_for_config(self.tabs.currentIndex() + 1,
                                     self.numDet_S[self.tabs.currentIndex()].
@@ -197,8 +194,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className + '.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -210,7 +205,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         self.confProxyModel[curr_num_tabs]. \
             setSourceModel(self.extradColsConf_M)
         self.confProxyModel[curr_num_tabs]. \
-            setFilterKeyColumn(ProcModel.ExtradosColConfModel.ConfigNumCol)
+            setFilterKeyColumn(ExtradosColConfModel.ConfigNumCol)
         self.confProxyModel[curr_num_tabs]. \
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         conf_table.setModel(self.confProxyModel[curr_num_tabs])
@@ -219,12 +214,13 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         conf_table.hideColumn(self.extradColsConf_M.columnCount() - 1)
         conf_table.hideColumn(self.extradColsConf_M.columnCount() - 2)
 
-        conf_table.en_int_validator(ProcModel.ExtradosColConfModel.FirstRibCol,
-                                    ProcModel.ExtradosColConfModel.FirstRibCol,
-                                    1, 999)
+        conf_table.en_int_validator(ExtradosColConfModel.FirstRibCol,
+                                    ExtradosColConfModel.FirstRibCol,
+                                    0,
+                                    ValidationValues.MaxNumRibs)
 
         conf_table.set_help_bar(self.helpBar)
-        conf_table.set_help_text(ProcModel.ExtradosColConfModel.FirstRibCol,
+        conf_table.set_help_text(ExtradosColConfModel.FirstRibCol,
                                  _('ExtradCols-FirstRibDesc'))
 
         conf_layout = QHBoxLayout()
@@ -232,7 +228,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         conf_layout.addStretch()
         conf_table.setFixedWidth(2
                                  + conf_table.columnWidth(
-                                    ProcModel.ExtradosColConfModel.FirstRibCol))
+                                    ExtradosColConfModel.FirstRibCol))
         conf_table.setFixedHeight(2
                                   + conf_table.horizontalHeader().height()
                                   + conf_table.rowHeight(0))
@@ -245,7 +241,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
                                             QSizePolicy.Policy.Fixed))
         tab_layout.addWidget(num_det_l)
         self.numDet_S.append(QSpinBox())
-        self.numDet_S[curr_num_tabs].setRange(1, 999)
+        self.numDet_S[curr_num_tabs].setRange(1, ValidationValues.Proc.MaxNumColorLines)
         self.numDet_S[curr_num_tabs].setSizePolicy(
             QSizePolicy(QSizePolicy.Policy.Fixed,
                         QSizePolicy.Policy.Fixed))
@@ -264,7 +260,7 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         self.detProxyModel.append(QSortFilterProxyModel())
         self.detProxyModel[curr_num_tabs].setSourceModel(self.extradColsDet_M)
         self.detProxyModel[curr_num_tabs]. \
-            setFilterKeyColumn(ProcModel.ExtradosColDetModel.ConfigNumCol)
+            setFilterKeyColumn(ExtradosColDetModel.ConfigNumCol)
         self.detProxyModel[curr_num_tabs]. \
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         det_table.setModel(self.detProxyModel[curr_num_tabs])
@@ -274,17 +270,19 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         det_table.hideColumn(self.extradColsDet_M.columnCount() - 2)
         tab_layout.addWidget(det_table)
 
-        det_table.en_int_validator(ProcModel.ExtradosColDetModel.OrderNumCol,
-                                   ProcModel.ExtradosColDetModel.OrderNumCol,
-                                   1, 999)
-        det_table.en_double_validator(ProcModel.ExtradosColDetModel.DistTeCol,
-                                      ProcModel.ExtradosColDetModel.DistTeCol,
-                                      0, 100, 0)
+        det_table.en_int_validator(ExtradosColDetModel.OrderNumCol,
+                                   ExtradosColDetModel.OrderNumCol,
+                                   1, ValidationValues.Proc.MaxNumColorLines)
+        det_table.en_double_validator(ExtradosColDetModel.DistTeCol,
+                                      ExtradosColDetModel.DistTeCol,
+                                      ValidationValues.WingChordMin_perc,
+                                      ValidationValues.WingChordMax_perc,
+                                      2)
 
         det_table.set_help_bar(self.helpBar)
-        det_table.set_help_text(ProcModel.LightDetModel.OrderNumCol,
+        det_table.set_help_text(ExtradosColDetModel.OrderNumCol,
                                 _('OrderNumDesc'))
-        det_table.set_help_text(ProcModel.LightDetModel.LightTypCol,
+        det_table.set_help_text(ExtradosColDetModel.DistTeCol,
                                 _('ExtradCols-DistTeDesc'))
 
         # then setup spin
@@ -305,7 +303,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
         self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
@@ -319,8 +316,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon changes of the details model. Does assure all
                  GUI elements will follow the changes.
         """
-        logging.debug(self.__className + '.update_tabs')
-
         i = 0
         while i < self.tabs.count():
             if self.numDet_S[i].value != self.extradColsDet_M. \
@@ -334,12 +329,11 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
 
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
             self.detProxyModel[curr_tab].sort(
-                ProcModel.ExtradosColDetModel.OrderNumCol,
+                ExtradosColDetModel.OrderNumCol,
                 Qt.SortOrder.AscendingOrder)
             self.detProxyModel[curr_tab].setDynamicSortFilter(False)
 
@@ -347,7 +341,6 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

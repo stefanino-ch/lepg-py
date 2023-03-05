@@ -74,11 +74,13 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
     """
     :class: Creates a delegate limiting the input to a specific int range.
     """
-    def __init__(self, bottom, top, param_length_dict=None):
+    def __init__(self, bottom, top, param_length_dict=None, no_check=False):
         """
         :method: Class initialization
         :param bottom: lower border of the valid range
         :param top: upper border of the valid range
+        :param param_length_dict: Dictionary defining the number of values depending on the lep parameter type
+        :param no_check: If set to True no range checking will be done, field is always yellow
         """
         QStyledItemDelegate.__init__(self)
         self.bottom = bottom
@@ -86,6 +88,7 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
         self.param_length_dict = param_length_dict
         self.editor = None
         self.validator = QIntValidator(bottom, top)
+        self.no_check = no_check
     
     def createEditor(self, parent, option, index):
         self.editor = LineEdit(parent)
@@ -101,6 +104,8 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
         param_length = get_param_length(index, self.param_length_dict)
         if index.column() >= param_length:
             return QBrush(QColor(BackgroundColorDefinition.valNotUsed))
+        elif self.no_check is True:
+            return QBrush(QColor(BackgroundColorDefinition.valIntermediate))
 
         return validate(index, self.validator)
 
@@ -126,12 +131,14 @@ class ValidatedDoubleItemDelegate(QStyledItemDelegate):
     """
     :class: Creates a delegate limiting the input to a specific double range.
     """
-    def __init__(self, bottom, top, decimals=0, param_length_dict=None):
+    def __init__(self, bottom, top, decimals=0, param_length_dict=None, no_check=False):
         """
         :method: Class initialization
         :param bottom: lower border of the valid range
         :param top: upper border of the valid range
         :param decimals: number of decimals allowed
+        :param param_length_dict: Dictionary defining the number of values depending on the lep parameter type
+        :param no_check: If set to True no range checking will be done, field is always yellow
         """
         QStyledItemDelegate.__init__(self)
         self.bottom = bottom
@@ -140,6 +147,7 @@ class ValidatedDoubleItemDelegate(QStyledItemDelegate):
         self.param_length_dict = param_length_dict
         self.editor = None
         self.validator = QDoubleValidator(bottom, top, decimals)
+        self.no_check = no_check
     
     def createEditor(self, parent, option, index):
         self.editor = LineEdit(parent)
@@ -155,6 +163,8 @@ class ValidatedDoubleItemDelegate(QStyledItemDelegate):
         param_length = get_param_length(index, self.param_length_dict)
         if index.column() >= param_length:
             return QBrush(QColor(BackgroundColorDefinition.valNotUsed))
+        elif self.no_check is True:
+            return QBrush(QColor(BackgroundColorDefinition.valIntermediate))
 
         return validate(index, self.validator)
 
@@ -182,14 +192,15 @@ class ValidatedRegExpItemDelegate(QStyledItemDelegate):
     def __init__(self, regexp, param_length_dict=None):
         """
         :method: Class initialization
-        :param regexp: lower border of the valid range
+        :param regexp: regexp as string defining the range test
+        :param param_length_dict: Dictionary defining the number of values depending on the lep parameter type
         """
         QStyledItemDelegate.__init__(self)
         self.rx = QRegularExpression(regexp)
         self.param_length_dict = param_length_dict
         self.editor = None
         self.validator = QRegularExpressionValidator(self.rx, self)
-    
+
     def createEditor(self, parent, option, index):
         self.editor = LineEdit(parent)
         self.editor.en_reg_exp_validator(self.rx)
@@ -300,7 +311,7 @@ class TableView(QTableView):
                 i += 1
         self.__helpText[column] = help_text
     
-    def en_int_validator(self, first_col, last_col, bottom, top, param_length_dict=None):
+    def en_int_validator(self, first_col, last_col, bottom, top, param_length_dict=None, no_check=False):
         """
         :method: Limits one or multiple columns to a specific int input range
         :param first_col: first col of the table where the validator should be set
@@ -308,8 +319,9 @@ class TableView(QTableView):
         :param bottom: lower value of validation border
         :param top: upper value of validation border
         :param param_length_dict: dictionary containing the length (number of values) for the individual parameter lines
+        :param no_check: If set to True no range checking will be done, field is always yellow
         """
-        self.intDelegate.append(ValidatedIntItemDelegate(bottom, top, param_length_dict))
+        self.intDelegate.append(ValidatedIntItemDelegate(bottom, top, param_length_dict, no_check))
         index = len(self.intDelegate)-1
         
         i = first_col
@@ -317,7 +329,7 @@ class TableView(QTableView):
             self.setItemDelegateForColumn(i, self.intDelegate[index])
             i += 1
 
-    def en_double_validator(self, first_ol, last_col, bottom, top, decimals=0, param_length_dict=None):
+    def en_double_validator(self, first_ol, last_col, bottom, top, decimals=0, param_length_dict=None, no_check=False):
         """
         :method: Limits one or multiple columns to a specific double
                     input range
@@ -329,9 +341,10 @@ class TableView(QTableView):
         :param top: upper value of validation border
         :param decimals: number of decimals allowed
         :param param_length_dict: dictionary containing the length (number of values) for the individual parameter lines
+        :param no_check: If set to True no range checking will be done, field is always yellow
         """
         self.doubleDelegate.append(
-            ValidatedDoubleItemDelegate(bottom, top, decimals, param_length_dict))
+            ValidatedDoubleItemDelegate(bottom, top, decimals, param_length_dict, no_check))
         index = len(self.doubleDelegate)-1
         
         i = first_ol

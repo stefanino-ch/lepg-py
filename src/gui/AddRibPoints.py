@@ -20,13 +20,16 @@ from PyQt6.QtWidgets import (QMdiSubWindow,
                              )
 
 from data.ProcModel import ProcModel
+from data.procModel.AddRibPointsModel import AddRibPointsModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import ValidationValues
 
-class AddRibPoints(QMdiSubWindow):
+
+class AddRibPoints(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Brake line details
     """
@@ -36,11 +39,10 @@ class AddRibPoints(QMdiSubWindow):
     :attr: Does help to indicate the source of the log messages
     '''
 
-    def __init__(self, metaclass=Singleton):
+    def __init__(self):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.proxyModel = None
@@ -53,7 +55,7 @@ class AddRibPoints(QMdiSubWindow):
 
         self.pm = ProcModel()
 
-        self.addRibPts_M = ProcModel.AddRibPointsModel()
+        self.addRibPts_M = AddRibPointsModel()
         self.addRibPts_M.numRowsForConfigChanged.connect(self.model_size_changed)
         self.build_window()
 
@@ -61,7 +63,7 @@ class AddRibPoints(QMdiSubWindow):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -79,8 +81,6 @@ class AddRibPoints(QMdiSubWindow):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -103,7 +103,7 @@ class AddRibPoints(QMdiSubWindow):
                                               QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
-        self.numLines_s.setRange(0, 999)
+        self.numLines_s.setRange(0, ValidationValues.Proc.MaxNumAddRibPointLines)
         self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                   QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
@@ -128,19 +128,21 @@ class AddRibPoints(QMdiSubWindow):
         ribs_t.hideColumn(self.addRibPts_M.columnCount() - 2)
         self.windowLayout.addWidget(ribs_t)
 
-        ribs_t.en_int_validator(ProcModel.AddRibPointsModel.OrderNumCol,
-                                ProcModel.AddRibPointsModel.OrderNumCol,
-                                1, 999)
-        ribs_t.en_double_validator(ProcModel.AddRibPointsModel.XCoordCol,
-                                   ProcModel.AddRibPointsModel.YCoordCol,
-                                   1, 100, 2)
+        ribs_t.en_int_validator(AddRibPointsModel.OrderNumCol,
+                                AddRibPointsModel.OrderNumCol,
+                                1, ValidationValues.Proc.MaxNumAddRibPointLines)
+        ribs_t.en_double_validator(AddRibPointsModel.XCoordCol,
+                                   AddRibPointsModel.YCoordCol,
+                                   ValidationValues.WingChordMin_perc,
+                                   ValidationValues.WingChordMax_perc,
+                                   2)
 
         ribs_t.set_help_bar(self.helpBar)
-        ribs_t.set_help_text(ProcModel.AddRibPointsModel.OrderNumCol,
+        ribs_t.set_help_text(AddRibPointsModel.OrderNumCol,
                              _('OrderNumDesc'))
-        ribs_t.set_help_text(ProcModel.AddRibPointsModel.XCoordCol,
+        ribs_t.set_help_text(AddRibPointsModel.XCoordCol,
                              _('AddRibPts-XCoordDesc'))
-        ribs_t.set_help_text(ProcModel.AddRibPointsModel.YCoordCol,
+        ribs_t.set_help_text(AddRibPointsModel.YCoordCol,
                              _('AddRibPts-YCoordDesc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
@@ -174,7 +176,6 @@ class AddRibPoints(QMdiSubWindow):
         :method: Called after the model has been changed it's size. Herein we
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.addRibPts_M.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
@@ -184,7 +185,6 @@ class AddRibPoints(QMdiSubWindow):
         :method: Called upon manual changes of the lines spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.addRibPts_M.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
@@ -193,9 +193,7 @@ class AddRibPoints(QMdiSubWindow):
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
-        self.proxyModel.sort(ProcModel.AddRibPointsModel.OrderNumCol,
+        self.proxyModel.sort(AddRibPointsModel.OrderNumCol,
                              Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
@@ -203,7 +201,6 @@ class AddRibPoints(QMdiSubWindow):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

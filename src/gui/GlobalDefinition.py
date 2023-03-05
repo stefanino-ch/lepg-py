@@ -141,4 +141,17 @@ class ValidationValues:
         RamificationLengthMin_cm = 0
         RamificationLengthMax_cm = LinesBasicLengthMax_cm
 
+        # 15/ 16 Colors
+        MaxNumColorLines = 100
+
+        # 17: Additional Rib Points
+        MaxNumAddRibPointLines = 100
+
+        # 18: Elastic lines correction
+        MinInFlightLoad_kg = 0
+        MaxInFlightLoad_kg = 250
+        LoadDistrMin_perc = 0
+        LoadDistrMax_perc = 0
+        LineDeformationMin = 0
+        LineDeformationMax = 1
 

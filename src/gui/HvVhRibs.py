@@ -138,9 +138,12 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         num_lines_edit.setReadOnly(True)
         self.numLines_S.setValue(self.ribs_M.num_rows_for_config(1))
 
+        num_lines_warning_l = QLabel(_('\tRib Numbering is different to other windows. Rib Numbers starts with 0!'))
+
         num_lines_layout = QHBoxLayout()
         num_lines_layout.addWidget(num_lines_l)
         num_lines_layout.addWidget(self.numLines_S)
+        num_lines_layout.addWidget(num_lines_warning_l)
         num_lines_layout.addStretch()
         self.windowLayout.addLayout(num_lines_layout)
         ###############
@@ -169,23 +172,17 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
 
         ribs_t.en_int_validator(HvVhRibsModel.IniRibCol,
                                 HvVhRibsModel.IniRibCol,
-                                1, 999,
+                                0,
+                                ValidationValues.MaxNumRibs-1,
                                 HvVhRibsModel.paramLength)
 
+        # As the ranges of the individual lepg parameters are heavily dependent by the param type, no range
+        # checking will be done.
         ribs_t.en_int_validator(HvVhRibsModel.ParamACol,
-                                HvVhRibsModel.ParamACol,
-                                1, 6,
-                                HvVhRibsModel.paramLength)
-
-        ribs_t.en_int_validator(HvVhRibsModel.ParamBCol,
-                                HvVhRibsModel.ParamCCol,
-                                1, 100,
-                                HvVhRibsModel.paramLength)
-
-        ribs_t.en_double_validator(HvVhRibsModel.ParamDCol,
-                                   HvVhRibsModel.ParamICol,
-                                   1, 100, 1,
-                                   HvVhRibsModel.paramLength)
+                                HvVhRibsModel.ParamICol,
+                                0, 0,
+                                HvVhRibsModel.paramLength,
+                                True)
 
         ribs_t.set_help_bar(self.helpBar)
         ribs_t.set_help_text(HvVhRibsModel.OrderNumCol,
