@@ -11,10 +11,13 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QPushButton, QDataWidgetMapper
 
 from data.ProcModel import ProcModel
+from data.procModel.NoseMylarsModel import NoseMylarsModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class NoseMylars(QMdiSubWindow, metaclass=Singleton):
@@ -31,7 +34,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.numLines_s = None
@@ -43,7 +45,7 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         self.win = None
 
         self.pm = ProcModel()
-        self.noseMylars_M = ProcModel.NoseMylarsModel()
+        self.noseMylars_M = NoseMylarsModel()
         self.noseMylars_M.numRowsForConfigChanged. \
             connect(self.model_size_changed)
         self.build_window()
@@ -52,7 +54,7 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -70,8 +72,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -119,31 +119,35 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         table_t.hideColumn(self.noseMylars_M.columnCount() - 2)
         self.window_ly.addWidget(table_t)
 
-        table_t.en_int_validator(ProcModel.NoseMylarsModel.OrderNumCol,
-                                 ProcModel.NoseMylarsModel.LastRibCol,
-                                 1, 999)
-        table_t.en_double_validator(ProcModel.NoseMylarsModel.xOneCol,
-                                    ProcModel.NoseMylarsModel.vTwoCol,
-                                    1, 100, 1)
+        table_t.en_int_validator(NoseMylarsModel.OrderNumCol,
+                                 NoseMylarsModel.LastRibCol,
+                                 1,
+                                 ValidationValues.MaxNumRibs)
+
+        table_t.en_double_validator(NoseMylarsModel.xOneCol,
+                                    NoseMylarsModel.vTwoCol,
+                                    ValidationValues.WingChordMin_perc,
+                                    ValidationValues.WingChordMax_perc,
+                                    1)
 
         table_t.set_help_bar(self.helpBar)
-        table_t.set_help_text(ProcModel.NoseMylarsModel.OrderNumCol,
+        table_t.set_help_text(NoseMylarsModel.OrderNumCol,
                               _('OrderNumDesc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.FirstRibCol,
+        table_t.set_help_text(NoseMylarsModel.FirstRibCol,
                               _('NoseMylars-FirstRibDesc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.LastRibCol,
+        table_t.set_help_text(NoseMylarsModel.LastRibCol,
                               _('NoseMylars-LastRibDesc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.xOneCol,
+        table_t.set_help_text(NoseMylarsModel.xOneCol,
                               _('NoseMylars-x1Desc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.uOneCol,
+        table_t.set_help_text(NoseMylarsModel.uOneCol,
                               _('NoseMylars-u1Desc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.uTwoCol,
+        table_t.set_help_text(NoseMylarsModel.uTwoCol,
                               _('NoseMylars-u2Desc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.xTwoCol,
+        table_t.set_help_text(NoseMylarsModel.xTwoCol,
                               _('NoseMylars-x2Desc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.vOneCol,
+        table_t.set_help_text(NoseMylarsModel.vOneCol,
                               _('NoseMylars-v1Desc'))
-        table_t.set_help_text(ProcModel.NoseMylarsModel.vTwoCol,
+        table_t.set_help_text(NoseMylarsModel.vTwoCol,
                               _('NoseMylars-v2Desc'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
@@ -177,7 +181,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size. Herein we 
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.noseMylars_M.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
@@ -187,7 +190,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all 
                  elements will follow the user configuration. 
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.noseMylars_M.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
@@ -196,9 +198,7 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort 
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
-        self.proxyModel.sort(ProcModel.NoseMylarsModel.OrderNumCol,
+        self.proxyModel.sort(NoseMylarsModel.OrderNumCol,
                              Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 
@@ -206,7 +206,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

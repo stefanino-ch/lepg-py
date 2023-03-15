@@ -32,7 +32,7 @@ class GlueVentModel(SqlTableModel, metaclass=Singleton):
     '''
     :attr: Num of column for ordering the individual lines of a config
     '''
-    VentParamCol = 1
+    TypeCol = 1
     '''
     :attr: Number of the col holding the vent parameter
     '''
@@ -51,7 +51,24 @@ class GlueVentModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 5
     ''':attr: num of column for config number (always 1)'''
 
-    def __init__(self, parent=None):
+    paramLength = {
+        0: 2,
+        1: 2,
+        -1: 2,
+        2: 2,
+        -2: 2,
+        3: 2,
+        -3: 2,
+        4: 4,
+        -4: 4,
+        5: 5,
+        -5: 5,
+        6: 4,
+        -6: 4
+    }
+    ''':attr: defines the length (number of values) for the individual parameter lines'''
+
+    def __init__(self):
         """
         :method: Class initialization
         """
@@ -64,7 +81,7 @@ class GlueVentModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(self.OrderNumCol,
                            Qt.Orientation.Horizontal,
                            _("Airfoil num"))
-        self.setHeaderData(self.VentParamCol,
+        self.setHeaderData(self.TypeCol,
                            Qt.Orientation.Horizontal,
                            _("Vent param"))
         self.setHeaderData(self.ParamACol,

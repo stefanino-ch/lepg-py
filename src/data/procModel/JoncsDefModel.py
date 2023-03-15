@@ -54,7 +54,13 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 17
     ''':attr: num of column for config number (always 1)'''
 
-    def createTable(self):
+    paramLength = {
+        1: 15,
+        2: 12
+    }
+    ''':attr: defines the length (number of values) for the individual parameter lines'''
+
+    def create_table(self):
         """
         :method: Creates initially the empty table
         """
@@ -65,29 +71,29 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
                    "OrderNum INTEGER, "
                    "FirstRib INTEGER, "
                    "LastRib INTEGER, "
-                   "pBA REAL, "
-                   "pBB REAL, "
-                   "pBC REAL, "
+                   "p_ba REAL, "
+                   "p_bb REAL, "
+                   "p_bc REAL, "
                    "PBD REAL, "
-                   "pBE REAL, "
-                   "pCA REAL, "
-                   "pCB REAL, "
-                   "pCC REAL, "
+                   "p_be REAL, "
+                   "p_ca REAL, "
+                   "p_cb REAL, "
+                   "p_cc REAL, "
                    "PCD REAL, "
-                   "pDA REAL, "
-                   "pDB REAL, "
-                   "pDC REAL, "
+                   "p_da REAL, "
+                   "p_db REAL, "
+                   "p_dc REAL, "
                    "PDD REAL, "
                    "Type INTEGER, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("JoncsDef")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -109,8 +115,9 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(14, Qt.Orientation.Horizontal, _("Row 4 C"))
         self.setHeaderData(15, Qt.Orientation.Horizontal, _("Row 4 D"))
 
-    def updateTypeOneRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pCA, pCB, pCC, pCD, pDA,
-                         pDB, pDC, pDD):
+    def update_type_one_row(self, config_num, order_num, first_rib, last_rib, p_ba, p_bb, p_bc, p_bd,
+                            p_ca, p_cb, p_cc, p_cd,
+                            p_da, p_db, p_dc, p_dd):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -119,41 +126,43 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
         query.prepare("UPDATE JoncsDef SET "
                       "FirstRib= :first_rib, "
                       "LastRib= :last_rib, "
-                      "pBA= :pBA, "
-                      "pBB= :pBB, "
-                      "pBC= :pBC, "
-                      "pBD= :pBD, "
-                      "pCA= :pCA, "
-                      "pCB= :pCB, "
-                      "pCC= :pCC, "
-                      "pCD= :pCD, "
-                      "pDA= :pDA, "
-                      "pDB= :pDB, "
-                      "pDC= :pDC, "
-                      "pDD= :pDD, "
+                      "p_ba= :p_ba, "
+                      "p_bb= :p_bb, "
+                      "p_bc= :p_bc, "
+                      "p_bd= :p_bd, "
+                      "p_ca= :p_ca, "
+                      "p_cb= :p_cb, "
+                      "p_cc= :p_cc, "
+                      "p_cd= :p_cd, "
+                      "p_da= :p_da, "
+                      "p_db= :p_db, "
+                      "p_dc= :p_dc, "
+                      "p_dd= :p_dd, "
                       "Type= :t "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":first_rib", firstRib)
-        query.bindValue(":last_rib", lastRib)
-        query.bindValue(":pBA", pBA)
-        query.bindValue(":pBB", pBB)
-        query.bindValue(":pBC", pBC)
-        query.bindValue(":pBD", pBD)
-        query.bindValue(":pCA", pCA)
-        query.bindValue(":pCB", pCB)
-        query.bindValue(":pCC", pCC)
-        query.bindValue(":pCD", pCD)
-        query.bindValue(":pDA", pDA)
-        query.bindValue(":pDB", pDB)
-        query.bindValue(":pDC", pDC)
-        query.bindValue(":pDD", pDD)
+        query.bindValue(":first_rib", first_rib)
+        query.bindValue(":last_rib", last_rib)
+        query.bindValue(":p_ba", p_ba)
+        query.bindValue(":p_bb", p_bb)
+        query.bindValue(":p_bc", p_bc)
+        query.bindValue(":p_bd", p_bd)
+        query.bindValue(":p_ca", p_ca)
+        query.bindValue(":p_cb", p_cb)
+        query.bindValue(":p_cc", p_cc)
+        query.bindValue(":p_cd", p_cd)
+        query.bindValue(":p_da", p_da)
+        query.bindValue(":p_db", p_db)
+        query.bindValue(":p_dc", p_dc)
+        query.bindValue(":p_dd", p_dd)
         query.bindValue(":t", 1)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def updateTypeTwoRow(self, configNum, orderNum, firstRib, lastRib, pBA, pBB, pBC, pBD, pBE, pDA, pDB, pDC, pDD):
+    def update_type_two_row(self, config_num, order_num, first_rib, last_rib,
+                            p_ba, p_bb, p_bc, p_bd, p_be,
+                            p_da, p_db, p_dc, p_dd):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -162,69 +171,69 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
         query.prepare("UPDATE JoncsDef SET "
                       "FirstRib= :first_rib, "
                       "LastRib= :last_rib, "
-                      "pBA= :pBA, "
-                      "pBB= :pBB, "
-                      "pBC= :pBC, "
-                      "pBD= :pBD, "
-                      "pBE= :pBE, "
-                      "pDA= :pDA, "
-                      "pDB= :pDB, "
-                      "pDC= :pDC, "
-                      "pDD= :pDD, "
+                      "p_ba= :p_ba, "
+                      "p_bb= :p_bb, "
+                      "p_bc= :p_bc, "
+                      "p_bd= :p_bd, "
+                      "p_be= :p_be, "
+                      "p_da= :p_da, "
+                      "p_db= :p_db, "
+                      "p_dc= :p_dc, "
+                      "p_dd= :p_dd, "
                       "Type= 2 "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":first_rib", firstRib)
-        query.bindValue(":last_rib", lastRib)
-        query.bindValue(":pBA", pBA)
-        query.bindValue(":pBB", pBB)
-        query.bindValue(":pBC", pBC)
-        query.bindValue(":pBD", pBD)
-        query.bindValue(":pBE", pBE)
-        query.bindValue(":pDA", pDA)
-        query.bindValue(":pDB", pDB)
-        query.bindValue(":pDC", pDC)
-        query.bindValue(":pDD", pDD)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":first_rib", first_rib)
+        query.bindValue(":last_rib", last_rib)
+        query.bindValue(":p_ba", p_ba)
+        query.bindValue(":p_bb", p_bb)
+        query.bindValue(":p_bc", p_bc)
+        query.bindValue(":p_bd", p_bd)
+        query.bindValue(":p_be", p_be)
+        query.bindValue(":p_da", p_da)
+        query.bindValue(":p_db", p_db)
+        query.bindValue(":p_dc", p_dc)
+        query.bindValue(":p_dd", p_dd)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def setType(self, configNum, typeNum):
+    def set_type(self, config_num, type_num):
         """
         :method: Sets for all rows of a specific config the type num
-        :param configNum: Number of the configuration to read from
-        :param typeNum: 1: type== 1; 2: type== 2
+        :param config_num: Number of the configuration to read from
+        :param type_num: 1: type== 1; 2: type== 2
         """
         query = QSqlQuery()
         query.prepare("UPDATE JoncsDef SET "
                       "type= :type_num "
                       "WHERE (ConfigNum = :config);")
-        query.bindValue(":type_num", typeNum)
-        query.bindValue(":config", configNum)
+        query.bindValue(":type_num", type_num)
+        query.bindValue(":config", config_num)
         query.exec()
 
-    def getType(self, configNum):
+    def get_type(self, config_num):
         """
         :method: Detects for a defined config if the type is set.
         :return: 0: type is empty; 1: type== 1; 2: type== 2
         """
         query = QSqlQuery()
         query.prepare("Select Type FROM JoncsDef WHERE (ConfigNum = :config) ORDER BY OrderNum ASC;")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
-        typeNum = 0
+        type_num = 0
         if query.next():
-            typeNum = query.value(0)
-            if typeNum == "":
-                typeNum = 0
+            type_num = query.value(0)
+            if type_num == "":
+                type_num = 0
 
-        return typeNum
+        return type_num
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -232,27 +241,27 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
                       "OrderNum, "
                       "FirstRib, "
                       "LastRib, "
-                      "pBA, "
-                      "pBB, "
-                      "pBC, "
+                      "p_ba, "
+                      "p_bb, "
+                      "p_bc, "
                       "PBD, "
-                      "pBE, "
-                      "pCA, "
-                      "pCB, "
-                      "pCC, "
+                      "p_be, "
+                      "p_ca, "
+                      "p_cb, "
+                      "p_cc, "
                       "PCD, "
-                      "pDA, "
-                      "pDB, "
-                      "pDC, "
+                      "p_da, "
+                      "p_db, "
+                      "p_dc, "
                       "PDD, "
                       "Type "
                       "FROM JoncsDef WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

@@ -155,3 +155,13 @@ class ValidationValues:
         LineDeformationMin = 0
         LineDeformationMax = 1
 
+        # 21: Joncs
+        MaxJoncsDefinitions = 50
+        MinJoncsDeflectionPower = 0
+        MaxJoncsDeflectionPower = 10
+        MinJoncsSParam_mm = 0
+        MaxJoncsSParam_mm = 1000
+
+        # 26: Glue vents
+        MinGlueVentParamNum = -6
+        MaxGlueVentParamNum = 6

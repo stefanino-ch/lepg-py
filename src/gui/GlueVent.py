@@ -9,8 +9,13 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
 from gui.elements.TableView import TableView
 from gui.elements.WindowHelpBar import WindowHelpBar
 from gui.elements.WindowBtnBar import WindowBtnBar
+
 from data.ProcModel import ProcModel
+from data.procModel.GlueVentModel import GlueVentModel
+
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class GlueVent(QMdiSubWindow, metaclass=Singleton):
@@ -33,12 +38,11 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         self.window_ly = None
         self.win = None
 
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.pm = ProcModel()
 
-        self.glueVent_M = ProcModel.GlueVentModel()
+        self.glueVent_M = GlueVentModel()
         self.glueVent_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -46,7 +50,7 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -63,8 +67,6 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -99,33 +101,43 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addWidget(one_t)
 
         one_t.en_int_validator(
-            ProcModel.GlueVentModel.OrderNumCol,
-            ProcModel.GlueVentModel.OrderNumCol,
-            0, 999)
+            GlueVentModel.OrderNumCol,
+            GlueVentModel.OrderNumCol,
+            1,
+            ValidationValues.MaxNumRibs,
+            GlueVentModel.paramLength)
+
         one_t.en_double_validator(
-            ProcModel.GlueVentModel.VentParamCol,
-            ProcModel.GlueVentModel.VentParamCol,
-            -3, 1, 0)
-        one_t.en_int_validator(
-            ProcModel.GlueVentModel.ParamACol,
-            ProcModel.GlueVentModel.ParamCCol,
-            0, 100)
+            GlueVentModel.TypeCol,
+            GlueVentModel.TypeCol,
+            ValidationValues.Proc.MinGlueVentParamNum,
+            ValidationValues.Proc.MaxGlueVentParamNum,
+            0,
+            GlueVentModel.paramLength)
+
+        one_t.en_double_validator(
+            GlueVentModel.ParamACol,
+            GlueVentModel.ParamCCol,
+            0,
+            100,
+            2,
+            GlueVentModel.paramLength)
 
         one_t.set_help_bar(self.help_bar)
         one_t.set_help_text(
-            ProcModel.GlueVentModel.OrderNumCol,
+            GlueVentModel.OrderNumCol,
             _('GlueVent-AirfoilNumDesc'))
         one_t.set_help_text(
-            ProcModel.GlueVentModel.VentParamCol,
+            GlueVentModel.TypeCol,
             _('GlueVent-VentParamDesc'))
         one_t.set_help_text(
-            ProcModel.GlueVentModel.ParamACol,
+            GlueVentModel.ParamACol,
             _('GlueVent-ParamADesc'))
         one_t.set_help_text(
-            ProcModel.GlueVentModel.ParamBCol,
+            GlueVentModel.ParamBCol,
             _('GlueVent-ParamBDesc'))
         one_t.set_help_text(
-            ProcModel.GlueVentModel.ParamCCol,
+            GlueVentModel.ParamCCol,
             _('GlueVent-ParamCDesc'))
 
         self.usage_update()
@@ -151,8 +163,6 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage
                  flag has been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
         if self.glueVent_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
@@ -162,7 +172,6 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.glueVent_M.set_is_used(False)
         else:
@@ -173,7 +182,6 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

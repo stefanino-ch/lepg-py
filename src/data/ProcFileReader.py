@@ -952,14 +952,14 @@ class ProcFileReader(QObject):
                 values_b = split_line(stream.readLine())
                 values_c = split_line(stream.readLine())
                 values_d = split_line(stream.readLine())
-                self.joncsDef_M.updateTypeOneRow(config_num, g + 1,
-                                                 values_a[1], values_a[2],
-                                                 values_b[0], values_b[1],
-                                                 values_b[2], values_b[3],
-                                                 values_c[0], values_c[1],
-                                                 values_c[2], values_c[3],
-                                                 values_d[0], values_d[1],
-                                                 values_d[2], values_d[3])
+                self.joncsDef_M.update_type_one_row(config_num, g + 1,
+                                                    values_a[1], values_a[2],
+                                                    values_b[0], values_b[1],
+                                                    values_b[2], values_b[3],
+                                                    values_c[0], values_c[1],
+                                                    values_c[2], values_c[3],
+                                                    values_d[0], values_d[1],
+                                                    values_d[2], values_d[3])
 
         elif scheme == 2:
             num_blocs = int(rem_tab_space(stream.readLine()))
@@ -977,7 +977,7 @@ class ProcFileReader(QObject):
                         values_b = split_line(stream.readLine())
                         values_c = split_line(stream.readLine())
                         values_d = split_line(stream.readLine())
-                        self.joncsDef_M.updateTypeOneRow(
+                        self.joncsDef_M.update_type_one_row(
                             b + 1, g + 1,
                             values_a[1], values_a[2],
                             values_b[0], values_b[1], values_b[2], values_b[3],
@@ -992,7 +992,7 @@ class ProcFileReader(QObject):
                         values_a = split_line(stream.readLine())
                         values_b = split_line(stream.readLine())
                         values_c = split_line(stream.readLine())
-                        self.joncsDef_M.updateTypeTwoRow(
+                        self.joncsDef_M.update_type_two_row(
                             b + 1, g + 1,
                             values_a[1], values_a[2],
                             values_b[0], values_b[1], values_b[2], values_b[3],
@@ -1024,11 +1024,11 @@ class ProcFileReader(QObject):
                 values_a = split_line(stream.readLine())
                 values_b = split_line(stream.readLine())
 
-                self.noseMylars_M.updateRow(1, c + 1,
-                                            values_a[1], values_a[2],
-                                            values_b[0], values_b[1],
-                                            values_b[2], values_b[3],
-                                            values_b[4], values_b[5])
+                self.noseMylars_M.update_row(1, c + 1,
+                                             values_a[1], values_a[2],
+                                             values_b[0], values_b[1],
+                                             values_b[2], values_b[3],
+                                             values_b[4], values_b[5])
 
         ##############################
         # 23. TAB REINFORCEMENTS

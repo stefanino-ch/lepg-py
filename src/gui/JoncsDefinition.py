@@ -12,10 +12,12 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, \
                             QPushButton, QComboBox
 
 from data.ProcModel import ProcModel
+from data.procModel.JoncsDefModel import JoncsDefModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+from gui.GlobalDefinition import ValidationValues
 
 
 class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
@@ -32,7 +34,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.win = None
@@ -44,7 +45,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.joncsDef_M = ProcModel.JoncsDefModel()
+        self.joncsDef_M = JoncsDefModel()
         self.joncsDef_M.numRowsForConfigChanged.connect(self.model_size_changed)
 
         self.type_CB = []
@@ -59,7 +60,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -82,8 +83,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
 
             conf equals blocs
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -103,7 +102,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
                                              QSizePolicy.Policy.Fixed))
 
         self.numConf_S = QSpinBox()
-        self.numConf_S.setRange(0, 20)
+        self.numConf_S.setRange(0, ValidationValues.MaxNumRibs)
         self.numConf_S.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                  QSizePolicy.Policy.Fixed))
         self.numConf_S.setValue(self.joncsDef_M.num_configs())
@@ -152,7 +151,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.conf_spin_change')
         curr_num_configs = self.joncsDef_M.num_configs()
         must_num_configs = self.numConf_S.value()
 
@@ -171,8 +169,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size. Herein we
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
-
         curr_num_configs = self.joncsDef_M.num_configs()
 
         # config (num plans) spinbox
@@ -207,10 +203,10 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
                                             num_rows_for_config(i + 1))
                 self.numLines_s[i].blockSignals(False)
 
-            type_num = self.joncsDef_M.getType(i + 1)
+            type_num = self.joncsDef_M.get_type(i + 1)
             if type_num == 0:
                 # new empty row
-                self.joncsDef_M.setType(i + 1, 1)
+                self.joncsDef_M.set_type(i + 1, 1)
                 self.set_type_one_columns()
             elif type_num == 1:
                 # there is valid type 1 data
@@ -231,8 +227,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className + '.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -257,7 +251,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         num_lines_l.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.numLines_s.append(QSpinBox())
-        self.numLines_s[curr_num_tabs].setRange(1, 100)
+        self.numLines_s[curr_num_tabs].setRange(1, ValidationValues.Proc.MaxJoncsDefinitions)
         self.numLines_s[curr_num_tabs].setSizePolicy(
             QSizePolicy(QSizePolicy.Policy.Fixed,
                         QSizePolicy.Policy.Fixed))
@@ -273,7 +267,7 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         self.proxyModel.append(QSortFilterProxyModel())
         self.proxyModel[curr_num_tabs].setSourceModel(self.joncsDef_M)
         self.proxyModel[curr_num_tabs].\
-            setFilterKeyColumn(ProcModel.JoncsDefModel.ConfigNumCol)
+            setFilterKeyColumn(JoncsDefModel.ConfigNumCol)
         self.proxyModel[curr_num_tabs].\
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
 
@@ -286,45 +280,86 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         self.table[curr_num_tabs].hideColumn(self.joncsDef_M.columnCount() - 2)
         tab_layout.addWidget(self.table[curr_num_tabs])
 
-        # TODO: enable validators
-        #         branchTable.en_int_validator(ProcModel.LinesModel.OrderNumCol, ProcModel.LinesModel.OrderNumCol, 1, 999)
-        #         branchTable.en_int_validator(ProcModel.LinesModel.NumBranchesCol, ProcModel.LinesModel.NumBranchesCol, 1, 4)
-        #         branchTable.en_int_validator(ProcModel.LinesModel.LevelOfRamOneCol, ProcModel.LinesModel.OrderLvlFourCol, 1, 99)
-        #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorLineCol, ProcModel.LinesModel.AnchorLineCol, 1, 6)
-        #         branchTable.en_int_validator(ProcModel.LinesModel.AnchorRibNumCol, ProcModel.LinesModel.AnchorRibNumCol, 1, 999)
-        #
-        self.table[curr_num_tabs].setHelpBar(self.helpBar)
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.OrderNumCol,
+        # Type 1:
+        # hide
+        # JoncsDefModel.pBECol
+        # show
+        # JoncsDefModel.pCACol
+        # JoncsDefModel.pCBCol
+        # JoncsDefModel.pCCCol
+        # JoncsDefModel.pCDCol
+        # JoncsDefModel.TypeCol
+
+        # Type 2:
+        # hide
+        # JoncsDefModel.pBECol
+        # show
+        # JoncsDefModel.pCACol
+        # JoncsDefModel.pCBCol
+        # JoncsDefModel.pCCCol
+        # JoncsDefModel.pCDCol
+        # JoncsDefModel.TypeCol
+
+        self.table[curr_num_tabs].en_int_validator(JoncsDefModel.OrderNumCol,
+                                                   JoncsDefModel.OrderNumCol,
+                                                   1,
+                                                   ValidationValues.MaxNumRibs)
+
+        self.table[curr_num_tabs].en_int_validator(JoncsDefModel.FirstRibCol,
+                                                   JoncsDefModel.LastRibCol,
+                                                   1,
+                                                   ValidationValues.MaxNumRibs)
+
+        self.table[curr_num_tabs].en_double_validator(JoncsDefModel.pBACol,
+                                                      JoncsDefModel.pBCCol,
+                                                      ValidationValues.WingChordMin_perc,
+                                                      ValidationValues.WingChordMax_perc,
+                                                      2)
+
+        self.table[curr_num_tabs].en_double_validator(JoncsDefModel.pBDCol,
+                                                      JoncsDefModel.pCDCol,
+                                                      0,
+                                                      100,
+                                                      2)
+        # S Params
+        self.table[curr_num_tabs].en_double_validator(JoncsDefModel.pDACol ,
+                                                      JoncsDefModel.pDDCol,
+                                                      ValidationValues.Proc.MinJoncsSParam_mm,
+                                                      ValidationValues.Proc.MaxJoncsSParam_mm,
+                                                      2)
+
+        self.table[curr_num_tabs].set_help_bar(self.helpBar)
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.OrderNumCol,
                                               _('OrderNumDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.FirstRibCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.FirstRibCol,
                                               _('JoncsDef-FirstRibDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.LastRibCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.LastRibCol,
                                               _('JoncsDef-LastRibDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBACol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pBACol,
                                               _('JoncsDef-pBADesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBBCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pBBCol,
                                               _('JoncsDef-pBBDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBCCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pBCCol,
                                               _('JoncsDef-pBCDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBDCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pBDCol,
                                               _('JoncsDef-pBDDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pBECol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pBECol,
                                               _('JoncsDef-pBEDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCACol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pCACol,
                                               _('JoncsDef-pCADesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCBCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pCBCol,
                                               _('JoncsDef-pCBDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCCCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pCCCol,
                                               _('JoncsDef-pCCDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pCDCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pCDCol,
                                               _('JoncsDef-pCDDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDACol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pDACol,
                                               _('JoncsDef-pDADesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDBCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pDBCol,
                                               _('JoncsDef-pDBDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDCCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pDCCol,
                                               _('JoncsDef-pDCDesc'))
-        self.table[curr_num_tabs].setHelpText(ProcModel.JoncsDefModel.pDDCol,
+        self.table[curr_num_tabs].set_help_text(JoncsDefModel.pDDCol,
                                               _('JoncsDef-pDDDesc'))
 
         tab_widget.setLayout(tab_layout)
@@ -332,10 +367,10 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         i = self.tabs.addTab(tab_widget, str(curr_num_tabs + 1))
         self.tabs.setCurrentIndex(i)
 
-        type_num = self.joncsDef_M.getType(curr_num_tabs + 1)
+        type_num = self.joncsDef_M.get_type(curr_num_tabs + 1)
         if type_num == 0:
             # new empty row
-            self.joncsDef_M.setType(curr_num_tabs + 1, 1)
+            self.joncsDef_M.set_type(curr_num_tabs + 1, 1)
             self.set_type_one_columns()
         elif type_num == 1:
             # there is valid type 1 data
@@ -355,7 +390,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className + '.remove_tab')
         num_tabs = self.tabs.count()
 
         self.tabs.removeTab(num_tabs - 1)
@@ -370,16 +404,15 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all
                 elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.joncsDef_M.set_num_rows_for_config(
             self.tabs.currentIndex() + 1,
             self.numLines_s[self.tabs.currentIndex()].value())
 
         curr_tab = self.tabs.currentIndex()
         if self.type_CB[curr_tab].currentIndex() == 0:
-            self.joncsDef_M.setType(curr_tab + 1, 1)
+            self.joncsDef_M.set_type(curr_tab + 1, 1)
         else:
-            self.joncsDef_M.setType(curr_tab + 1, 2)
+            self.joncsDef_M.set_type(curr_tab + 1, 2)
 
         self.pm.set_file_saved(False)
 
@@ -388,19 +421,17 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the type combo. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.type_cb_change')
-
         curr_tab = self.tabs.currentIndex()
 
         if self.type_CB[curr_tab].currentIndex() == 0:
             # show rows for type 1
             self.set_type_one_columns()
-            self.joncsDef_M.setType(curr_tab + 1, 1)
+            self.joncsDef_M.set_type(curr_tab + 1, 1)
 
         else:
             # show rows for type 2
             self.set_type_two_columns()
-            self.joncsDef_M.setType(curr_tab + 1, 2)
+            self.joncsDef_M.set_type(curr_tab + 1, 2)
 
         self.pm.set_file_saved(False)
 
@@ -410,13 +441,13 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
                  one tables
         """
         curr_tab = self.tabs.currentIndex()
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pBECol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.pBECol)
 
-        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCACol)
-        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCBCol)
-        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCCCol)
-        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pCDCol)
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
+        self.table[curr_tab].showColumn(JoncsDefModel.pCACol)
+        self.table[curr_tab].showColumn(JoncsDefModel.pCBCol)
+        self.table[curr_tab].showColumn(JoncsDefModel.pCCCol)
+        self.table[curr_tab].showColumn(JoncsDefModel.pCDCol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.TypeCol)
 
     def set_type_two_columns(self):
         """
@@ -424,25 +455,23 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
                  two tables
         """
         curr_tab = self.tabs.currentIndex()
-        self.table[curr_tab].showColumn(ProcModel.JoncsDefModel.pBECol)
+        self.table[curr_tab].showColumn(JoncsDefModel.pBECol)
 
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCACol)
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCBCol)
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCCCol)
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.pCDCol)
-        self.table[curr_tab].hideColumn(ProcModel.JoncsDefModel.TypeCol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.pCACol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.pCBCol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.pCCCol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.pCDCol)
+        self.table[curr_tab].hideColumn(JoncsDefModel.TypeCol)
 
     def sort_btn_press(self):
         """
         :method: Executed if the sort button is pressed. Does a one time sort
                  based on the numbers in the OrderNum column.
         """
-        logging.debug(self.__className + '.sort_btn_press')
-
         if self.tabs.count() > 0:
             curr_tab = self.tabs.currentIndex()
             self.proxyModel[curr_tab].sort(
-                ProcModel.JoncsDefModel.OrderNumCol,
+                JoncsDefModel.OrderNumCol,
                 Qt.SortOrder.AscendingOrder)
             self.proxyModel[curr_tab].setDynamicSortFilter(False)
 
@@ -450,7 +479,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

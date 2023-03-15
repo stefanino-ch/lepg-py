@@ -590,7 +590,7 @@ class ProcFileWriter:
 
             for g in range(0, num_groups):
                 num_lines = self.joncs_def_m.num_rows_for_config(g + 1)
-                values = self.joncs_def_m.getRow(g + 1, 1)
+                values = self.joncs_def_m.get_row(g + 1, 1)
                 scheme = values(JoncsDefModel.TypeCol)
 
                 stream << '%s' % (g + 1)
@@ -598,7 +598,7 @@ class ProcFileWriter:
                 stream << '%s\n' % num_lines
 
                 for line_it in range(0, num_lines):
-                    values = self.joncs_def_m.getRow(g + 1, line_it + 1)
+                    values = self.joncs_def_m.get_row(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
                     stream << '\t%s' % chk_num(values(JoncsDefModel.FirstRibCol))
@@ -641,7 +641,7 @@ class ProcFileWriter:
                 num_lines = self.nose_mylars_m.num_rows_for_config(g + 1)
 
                 for line_it in range(0, num_lines):
-                    values = self.nose_mylars_m.getRow(g + 1, line_it + 1)
+                    values = self.nose_mylars_m.get_row(g + 1, line_it + 1)
 
                     stream << '%s' % (line_it + 1)
                     stream << '\t%s' % chk_num(values(NoseMylarsModel.FirstRibCol))

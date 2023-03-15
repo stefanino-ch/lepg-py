@@ -35,7 +35,7 @@ class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 9
     ''':attr: num of column for config number (always 1)'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty table
         """
@@ -47,20 +47,20 @@ class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
                    "FirstRib INTEGER, "
                    "LastRib INTEGER, "
                    "x_one REAL, "
-                   "uOne REAL, "
-                   "uTwo REAL, "
+                   "u_one REAL, "
+                   "u_two REAL, "
                    "x_two REAL, "
-                   "vOne REAL, "
-                   "vTwo REAL, "
+                   "v_one REAL, "
+                   "v_two REAL, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("NoseMylars")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -75,7 +75,7 @@ class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(7, Qt.Orientation.Horizontal, _("V1"))
         self.setHeaderData(8, Qt.Orientation.Horizontal, _("V2"))
 
-    def updateRow(self, configNum, orderNum, firstRib, lastRib, xOne, uOne, uTwo, xTwo, vOne, vTwo):
+    def update_row(self, config_num, order_num, first_rib, last_rib, x_one, u_one, u_two, x_two, v_one, v_two):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -85,30 +85,30 @@ class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
                       "FirstRib= :first_rib, "
                       "LastRib= :last_rib, "
                       "x_one= :x_one, "
-                      "uOne= :uOne, "
-                      "uTwo= :uTwo, "
+                      "u_one= :u_one, "
+                      "u_two= :u_two, "
                       "x_two= :x_two, "
-                      "vOne= :vOne, "
-                      "vTwo= :vTwo "
+                      "v_one= :v_one, "
+                      "v_two= :v_two "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":first_rib", firstRib)
-        query.bindValue(":last_rib", lastRib)
-        query.bindValue(":x_one", xOne)
-        query.bindValue(":uOne", uOne)
-        query.bindValue(":uTwo", uTwo)
-        query.bindValue(":x_two", xTwo)
-        query.bindValue(":vOne", vOne)
-        query.bindValue(":vTwo", vTwo)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":first_rib", first_rib)
+        query.bindValue(":last_rib", last_rib)
+        query.bindValue(":x_one", x_one)
+        query.bindValue(":u_one", u_one)
+        query.bindValue(":u_two", u_two)
+        query.bindValue(":x_two", x_two)
+        query.bindValue(":v_one", v_one)
+        query.bindValue(":v_two", v_two)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -117,18 +117,18 @@ class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
                       "FirstRib, "
                       "LastRib, "
                       "x_one, "
-                      "uOne, "
-                      "uTwo, "
+                      "u_one, "
+                      "u_two, "
                       "x_two, "
-                      "vOne, "
-                      "vTwo "
+                      "v_one, "
+                      "v_two "
                       "FROM NoseMylars WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

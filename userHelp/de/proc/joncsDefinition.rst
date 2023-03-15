@@ -5,7 +5,7 @@
 --------
 Stäbchen
 --------
-Im Fenster *Stäbchen* werden die Taschen definiert welche im Anschluss die Verstärkungsstäbchen aufnehmen. 
+Im Fenster *Stäbchen* werden die Taschen definiert, welche im Anschluss die Verstärkungsstäbchen aufnehmen.
 
 .. image:: /images/proc/joncsDefinition-de.png
    :width: 736
