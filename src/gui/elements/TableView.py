@@ -41,18 +41,18 @@ def get_param_length(index, param_length_dict):
     if index.column() <= 1:
         return 2
 
-    param_num = index.siblingAtColumn(1).data(Qt.ItemDataRole.DisplayRole)
+    try:
+        param_num = int(index.siblingAtColumn(1).data(Qt.ItemDataRole.DisplayRole))
+    except ValueError:
+        return 0
 
-    # Check if the parameter is a valid integer
-    if isinstance(param_num, int):
+    # Check if the key is part of the length information dict
+    if param_num in param_length_dict.keys():
+        param_length = param_length_dict[param_num]
 
-        # Check if the key is part of the length information dict
-        if param_num in param_length_dict.keys():
-            param_length = param_length_dict[param_num]
-
-            return param_length
-
-    return 0
+        return param_length
+    else:
+        return 0
 
 
 def validate(index, validator):
@@ -61,7 +61,28 @@ def validate(index, validator):
     :param index: Index of the element to be validated.
     :param validator: The validator to be used.
     """
-    state = validator.validate(str(index.data(Qt.ItemDataRole.DisplayRole)), 0)[0]
+    value = str(index.data(Qt.ItemDataRole.DisplayRole))
+    state = validator.validate(value, 0)[0]
+    if state == QValidator.State.Acceptable:
+        return QBrush(QColor(BackgroundColorDefinition.valAcceptable))
+    elif state == QValidator.State.Intermediate:
+        return QBrush(QColor(BackgroundColorDefinition.valIntermediate))
+    else:
+        return QBrush(QColor(BackgroundColorDefinition.valInvalid))
+
+
+def validate_int(index, validator):
+    """
+    :method: Runs a validator and returns based on validation results the background color for the cell.
+    :param index: Index of the element to be validated.
+    :param validator: The validator to be used.
+    """
+    try:
+        value = str(int(index.data(Qt.ItemDataRole.DisplayRole)))
+    except ValueError:
+        return QBrush(QColor(BackgroundColorDefinition.valInvalid))
+
+    state = validator.validate(value, 0)[0]
     if state == QValidator.State.Acceptable:
         return QBrush(QColor(BackgroundColorDefinition.valAcceptable))
     elif state == QValidator.State.Intermediate:
@@ -107,7 +128,7 @@ class ValidatedIntItemDelegate(QStyledItemDelegate):
         elif self.no_check is True:
             return QBrush(QColor(BackgroundColorDefinition.valIntermediate))
 
-        return validate(index, self.validator)
+        return validate_int(index, self.validator)
 
     def initStyleOption(self, option, index):
         """

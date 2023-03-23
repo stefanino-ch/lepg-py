@@ -747,24 +747,24 @@ class ProcFileWriter:
         stream << separator
         stream << '*       27. SPECIAL WING TIP\n'
         stream << separator
-        if self.spec_wing_tip_m.isUsed() is False:
+        if self.spec_wing_tip_m.is_used() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            values = self.spec_wing_tip_m.getRow(1, 1)
+            values = self.spec_wing_tip_m.get_row(1, 1)
             stream << 'AngleLE\t%s\n' % chk_num(values(SpecWingTipModel.AngleLECol))
             stream << 'AngleTE\t%s\n' % chk_num(values(SpecWingTipModel.AngleTECol))
 
         stream << separator
         stream << '*       28. PARAMETERS FOR CALAGE VARIATION\n'
         stream << separator
-        if self.calage_var_m.isUsed() is False:
+        if self.calage_var_m.is_used() is False:
             stream << '0\n'
         else:
             stream << '1\n'
 
-            values = self.calage_var_m.getRow(1, 1)
+            values = self.calage_var_m.get_row(1, 1)
             stream << '%s\n' % chk_num(values(CalageVarModel.NumRisersCol))
 
             stream << '%s' % chk_num(values(CalageVarModel.PosACol))

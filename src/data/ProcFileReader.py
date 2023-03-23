@@ -1140,17 +1140,17 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.specWingTyp_M.setIsUsed(False)
+        self.specWingTyp_M.set_is_used(False)
 
         if data == 0:
-            self.specWingTyp_M.setIsUsed(False)
+            self.specWingTyp_M.set_is_used(False)
         else:
-            self.specWingTyp_M.setIsUsed(True)
+            self.specWingTyp_M.set_is_used(True)
 
             values_a = split_line(stream.readLine())
             values_b = split_line(stream.readLine())
 
-            self.specWingTyp_M.updateRow(1, 1, values_a[1], values_b[1])
+            self.specWingTyp_M.update_row(1, 1, values_a[1], values_b[1])
 
         ##############################
         # 28. PARAMETERS FOR CALAGE VARIATION
@@ -1162,10 +1162,10 @@ class ProcFileReader(QObject):
 
         data = int(rem_tab_space(stream.readLine()))
 
-        self.calageVar_M.setIsUsed(False)
+        self.calageVar_M.set_is_used(False)
 
         if data != 0:
-            self.calageVar_M.setIsUsed(True)
+            self.calageVar_M.set_is_used(True)
 
             values_a = split_line(stream.readLine())
             values_b = split_line(stream.readLine())

@@ -107,12 +107,11 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
             ValidationValues.MaxNumRibs,
             GlueVentModel.paramLength)
 
-        one_t.en_double_validator(
+        one_t.en_int_validator(
             GlueVentModel.TypeCol,
             GlueVentModel.TypeCol,
-            ValidationValues.Proc.MinGlueVentParamNum,
-            ValidationValues.Proc.MaxGlueVentParamNum,
-            0,
+            int(ValidationValues.Proc.MinGlueVentParamNum),
+            int(ValidationValues.Proc.MaxGlueVentParamNum),
             GlueVentModel.paramLength)
 
         one_t.en_double_validator(

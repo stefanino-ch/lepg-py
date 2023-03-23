@@ -33,12 +33,12 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 3
     ''':attr: num of column for config number (always 1)'''
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("SpecWingTip")
 
         self.setHeaderData(1, Qt.Orientation.Horizontal, _("LE Angle [deg]"))
@@ -48,7 +48,7 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty table
         """
@@ -62,7 +62,7 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def updateRow(self, configNum, orderNum, angleLE, angleTE):
+    def update_row(self, config_num, order_num, angle_le, angle_te):
         """
         :method: Updates a specific row in the database with the values
                  passed. Parameters are not explicitly explained here as
@@ -70,37 +70,37 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         """
         query = QSqlQuery()
         query.prepare("UPDATE SpecWingTip SET "
-                      "AngleLE= :angleLE, "
-                      "AngleTE= :angleTE "
+                      "AngleLE= :angle_le, "
+                      "AngleTE= :angle_te "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":angleLE", angleLE)
-        query.bindValue(":angleTE", angleTE)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":angle_le", angle_le)
+        query.bindValue(":angle_te", angle_te)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated
 
-    def setIsUsed(self, isUsed):
+    def set_is_used(self, is_used):
         """
         :method: Set the usage flag of the section
-        :param isUsed: True if section is in use, False otherwise
+        :param is_used: True if section is in use, False otherwise
         """
-        self.__isUsed = isUsed
+        self.__isUsed = is_used
         self.usageUpd.emit()
 
-    def isUsed(self):
+    def is_used(self):
         """
         :method: Returns the information if the section is in use or not
         :returns: True if section is in use, false otherwise
         """
         return self.__isUsed
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a
                  specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -110,12 +110,12 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
                       "AngleTE "
                       "FROM SpecWingTip WHERE (ConfigNum = :config) "
                       "ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

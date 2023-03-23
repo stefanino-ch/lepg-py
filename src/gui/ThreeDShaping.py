@@ -10,10 +10,17 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QSpinBox, QLabel, QTabWidget, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
+from data.procModel.ThreeDShConfModel import ThreeDShConfModel
+from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
+from data.procModel.ThreeDShLoDetModel import ThreeDShLoDetModel
+from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
+from gui.GlobalDefinition import Regex
 
 
 class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
@@ -36,20 +43,19 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.helpBar = None
         self.window_ly = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
-        self.threeDShConf_M = ProcModel.ThreeDShConfModel()
+        self.threeDShConf_M = ThreeDShConfModel()
         self.threeDShConf_M.numRowsForConfigChanged.\
             connect(self.model_num_configs_changed)
 
-        self.threeDShUpDet_M = ProcModel.ThreeDShUpDetModel()
+        self.threeDShUpDet_M = ThreeDShUpDetModel()
         self.threeDShUpDet_M.numRowsForConfigChanged.connect(self.update_tabs)
 
-        self.threeDShLoDet_M = ProcModel.ThreeDShLoDetModel()
+        self.threeDShLoDet_M = ThreeDShLoDetModel()
         self.threeDShLoDet_M.numRowsForConfigChanged.connect(self.update_tabs)
 
-        self.threeDShPr_M = ProcModel.ThreeDShPrintModel()
+        self.threeDShPr_M = ThreeDShPrintModel()
 
         self.pm = ProcModel()
 
@@ -66,7 +72,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -89,12 +95,10 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(750, 600)
+        self.win.setMinimumSize(750, 650)
 
         self.window_ly = QVBoxLayout()
 
@@ -137,17 +141,35 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         print_table.hideColumn(self.threeDShPr_M.columnCount() - 2)
         print_table.hideColumn(self.threeDShPr_M.columnCount() - 1)
 
-        # TODO: remove currently not supported rows
+        print_table.en_reg_exp_validator(ThreeDShPrintModel.NameCol,
+                                         ThreeDShPrintModel.NameCol,
+                                         Regex.ThreeDShapingPrintName)
+
+        print_table.en_int_validator(ThreeDShPrintModel.DrawCol,
+                                     ThreeDShPrintModel.DrawCol,
+                                     0,
+                                     1)
+
+        print_table.en_int_validator(ThreeDShPrintModel.FirstPanelCol,
+                                     ThreeDShPrintModel.LastPanelCol,
+                                     1,
+                                     ValidationValues.MaxNumCells)
+
+        print_table.en_int_validator(ThreeDShPrintModel.SymmetricCol,
+                                     ThreeDShPrintModel.SymmetricCol,
+                                     0,
+                                     1)
+
         print_table.set_help_bar(self.helpBar)
-        print_table.set_help_text(ProcModel.ThreeDShPrintModel.NameCol,
+        print_table.set_help_text(ThreeDShPrintModel.NameCol,
                                   _('3DShPrint-NameDesc'))
-        print_table.set_help_text(ProcModel.ThreeDShPrintModel.DrawCol,
+        print_table.set_help_text(ThreeDShPrintModel.DrawCol,
                                   _('3DShPrint-DrawDesc'))
-        print_table.set_help_text(ProcModel.ThreeDShPrintModel.FirstPanelCol,
+        print_table.set_help_text(ThreeDShPrintModel.FirstPanelCol,
                                   _('3DShPrint-FirstPanelDesc'))
-        print_table.set_help_text(ProcModel.ThreeDShPrintModel.LastPanelCol,
+        print_table.set_help_text(ThreeDShPrintModel.LastPanelCol,
                                   _('3DShPrint-LastPanelDesc'))
-        print_table.set_help_text(ProcModel.ThreeDShPrintModel.SymmetricCol,
+        print_table.set_help_text(ThreeDShPrintModel.SymmetricCol,
                                   _('3DShPrint-SymmetricDesc'))
 
         print_layout = QHBoxLayout()
@@ -180,7 +202,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the config spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.conf_spin_change')
         self.threeDShConf_M.set_num_configs(self.numConf_s.value())
         self.pm.set_file_saved(False)
 
@@ -189,8 +210,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon changes of the configs model. Does assure all GUI
                  elements will follow the changes.
         """
-        logging.debug(self.__className + '.model_num_configs_changed')
-
         current_num_configs = self.threeDShConf_M.num_configs()
 
         self.numConf_s.blockSignals(True)
@@ -216,8 +235,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Creates a new tab including all its widgets.
         """
-        logging.debug(self.__className + '.add_tab')
-
         curr_num_tabs = self.tabs.count()
 
         tab_widget = QWidget()
@@ -228,7 +245,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.rib_PM.append(QSortFilterProxyModel())
         self.rib_PM[curr_num_tabs].setSourceModel(self.threeDShConf_M)
         self.rib_PM[curr_num_tabs].\
-            setFilterKeyColumn(ProcModel.ThreeDShConfModel.ConfigNumCol)
+            setFilterKeyColumn(ThreeDShConfModel.ConfigNumCol)
         self.rib_PM[curr_num_tabs].\
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         rib_table.setModel(self.rib_PM[curr_num_tabs])
@@ -237,14 +254,15 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         rib_table.hideColumn(self.threeDShConf_M.columnCount() - 1)
         rib_table.hideColumn(self.threeDShConf_M.columnCount() - 2)
 
-        rib_table.en_int_validator(ProcModel.ThreeDShConfModel.FirstRibCol,
-                                   ProcModel.ThreeDShConfModel.LastRibCol,
-                                   1, 999)
+        rib_table.en_int_validator(ThreeDShConfModel.FirstRibCol,
+                                   ThreeDShConfModel.LastRibCol,
+                                   1,
+                                   ValidationValues.MaxNumRibs)
 
         rib_table.set_help_bar(self.helpBar)
-        rib_table.set_help_text(ProcModel.ThreeDShConfModel.FirstRibCol,
+        rib_table.set_help_text(ThreeDShConfModel.FirstRibCol,
                                 _('3DSh-FirstRibDesc'))
-        rib_table.set_help_text(ProcModel.ThreeDShConfModel.LastRibCol,
+        rib_table.set_help_text(ThreeDShConfModel.LastRibCol,
                                 _('3DSh-LastRibDesc'))
 
         rib_ly = QHBoxLayout()
@@ -252,9 +270,9 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         rib_ly.addStretch()
         rib_table.setFixedWidth(2
                                 + rib_table.columnWidth(
-                                    ProcModel.ThreeDShConfModel.FirstRibCol)
+                                    ThreeDShConfModel.FirstRibCol)
                                 + rib_table.columnWidth(
-                                    ProcModel.ThreeDShConfModel.LastRibCol))
+                                    ThreeDShConfModel.LastRibCol))
         rib_table.setFixedHeight(2
                                  + rib_table.horizontalHeader().height()
                                  + rib_table.rowHeight(0))
@@ -286,7 +304,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.upC_PM.append(QSortFilterProxyModel())
         self.upC_PM[curr_num_tabs].setSourceModel(self.threeDShUpDet_M)
         self.upC_PM[curr_num_tabs].\
-            setFilterKeyColumn(ProcModel.ThreeDShUpDetModel.ConfigNumCol)
+            setFilterKeyColumn(ThreeDShUpDetModel.ConfigNumCol)
         self.upC_PM[curr_num_tabs].\
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         up_c_t.setModel(self.upC_PM[curr_num_tabs])
@@ -295,19 +313,23 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 1)
         up_c_t.hideColumn(self.threeDShUpDet_M.columnCount() - 2)
 
-        up_c_t.en_int_validator(ProcModel.ThreeDShUpDetModel.IniPointCol,
-                                ProcModel.ThreeDShUpDetModel.CutPointCol,
-                                0, 100)
-        up_c_t.en_double_validator(ProcModel.ThreeDShUpDetModel.DepthCol,
-                                   ProcModel.ThreeDShUpDetModel.DepthCol,
-                                   -1, 1, 1)
+        up_c_t.en_int_validator(ThreeDShUpDetModel.IniPointCol,
+                                ThreeDShUpDetModel.CutPointCol,
+                                ValidationValues.WingChordMin_perc,
+                                ValidationValues.WingChordMax_perc)
+
+        up_c_t.en_double_validator(ThreeDShUpDetModel.DepthCol,
+                                   ThreeDShUpDetModel.DepthCol,
+                                   ValidationValues.Proc.Min3DShapingDepth_coef,
+                                   ValidationValues.Proc.Max3DShapingDepth_coef,
+                                   1)
 
         up_c_t.set_help_bar(self.helpBar)
-        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.IniPointCol,
+        up_c_t.set_help_text(ThreeDShUpDetModel.IniPointCol,
                              _('3DSh-IniPointDesc'))
-        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.CutPointCol,
+        up_c_t.set_help_text(ThreeDShUpDetModel.CutPointCol,
                              _('3DSh-CutPointDesc'))
-        up_c_t.set_help_text(ProcModel.ThreeDShUpDetModel.DepthCol,
+        up_c_t.set_help_text(ThreeDShUpDetModel.DepthCol,
                              _('3DSh-DepthDesc'))
 
         up_c_ly = QHBoxLayout()
@@ -343,7 +365,7 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         self.loC_PM.append(QSortFilterProxyModel())
         self.loC_PM[curr_num_tabs].setSourceModel(self.threeDShLoDet_M)
         self.loC_PM[curr_num_tabs].\
-            setFilterKeyColumn(ProcModel.ThreeDShLoDetModel.ConfigNumCol)
+            setFilterKeyColumn(ThreeDShLoDetModel.ConfigNumCol)
         self.loC_PM[curr_num_tabs].\
             setFilterRegularExpression(QRegularExpression(str(curr_num_tabs + 1)))
         lo_c_t.setModel(self.loC_PM[curr_num_tabs])
@@ -352,19 +374,23 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 1)
         lo_c_t.hideColumn(self.threeDShLoDet_M.columnCount() - 2)
 
-        lo_c_t.en_int_validator(ProcModel.ThreeDShLoDetModel.IniPointCol,
-                                ProcModel.ThreeDShLoDetModel.CutPointCol,
-                                0, 100)
-        lo_c_t.en_double_validator(ProcModel.ThreeDShLoDetModel.DepthCol,
-                                   ProcModel.ThreeDShLoDetModel.DepthCol,
-                                   -1, 1, 1)
+        lo_c_t.en_int_validator(ThreeDShLoDetModel.IniPointCol,
+                                ThreeDShLoDetModel.CutPointCol,
+                                ValidationValues.WingChordMin_perc,
+                                ValidationValues.WingChordMax_perc)
+
+        lo_c_t.en_double_validator(ThreeDShLoDetModel.DepthCol,
+                                   ThreeDShLoDetModel.DepthCol,
+                                   ValidationValues.Proc.Min3DShapingDepth_coef,
+                                   ValidationValues.Proc.Max3DShapingDepth_coef,
+                                   1)
 
         lo_c_t.set_help_bar(self.helpBar)
-        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.IniPointCol,
+        lo_c_t.set_help_text(ThreeDShLoDetModel.IniPointCol,
                              _('3DSh-IniPointDesc'))
-        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.CutPointCol,
+        lo_c_t.set_help_text(ThreeDShLoDetModel.CutPointCol,
                              _('3DSh-CutPointDesc'))
-        lo_c_t.set_help_text(ProcModel.ThreeDShLoDetModel.DepthCol,
+        lo_c_t.set_help_text(ThreeDShLoDetModel.DepthCol,
                              _('3DSh-DepthDesc'))
 
         lo_c_ly = QHBoxLayout()
@@ -384,8 +410,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: Removes the last tab from the GUI. Does take care at the same
                  time of the class internal elements and the data model.
         """
-        logging.debug(self.__className + '.remove_tab')
-
         num_tabs = self.tabs.count()
         self.tabs.removeTab(num_tabs - 1)
         # cleanup arrays
@@ -407,8 +431,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: called upon changes of the details models. Does assure all
                  GUI elements will follow the changes.
         """
-        logging.debug(self.__className + '.update_tabs')
-
         i = 0
         while i < self.tabs.count():
             if self.numUpC_s[i].value != \
@@ -431,7 +453,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the number of lower cuts spin.
                  Does assure all elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.up_c_change')
         self.threeDShUpDet_M.set_num_rows_for_config(
             self.tabs.currentIndex() + 1,
             self.numUpC_s[self.tabs.currentIndex()].value())
@@ -442,7 +463,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the number of lower cuts spin.
                  Does assure all elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.lo_c_change')
         self.threeDShLoDet_M.set_num_rows_for_config(
             self.tabs.currentIndex() + 1,
             self.numLoC_s[self.tabs.currentIndex()].value())
@@ -452,7 +472,6 @@ class ThreeDShaping(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

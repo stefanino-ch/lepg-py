@@ -8,10 +8,14 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 from data.ProcModel import ProcModel
+from data.procModel.SpecWingTipModel import SpecWingTipModel
+
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
@@ -28,7 +32,6 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.window_ly = None
@@ -39,7 +42,7 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.specWingTyp_M = ProcModel.SpecWingTipModel()
+        self.specWingTyp_M = SpecWingTipModel()
         self.specWingTyp_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -47,7 +50,7 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -64,8 +67,6 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -103,17 +104,16 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
                              one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.en_double_validator(
-            ProcModel.SpecWingTipModel.AngleLECol,
-            ProcModel.SpecWingTipModel.AngleTECol,
-            -45,
-            45,
-            2)
+        one_t.en_double_validator(SpecWingTipModel.AngleLECol,
+                                  SpecWingTipModel.AngleTECol,
+                                  ValidationValues.Proc.MinSpecWingtipAngle_deg,
+                                  ValidationValues.Proc.MaxSpecWingtipAngle_deg,
+                                  2)
 
         one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ProcModel.SpecWingTipModel.AngleLECol,
+        one_t.set_help_text(SpecWingTipModel.AngleLECol,
                             _('SpecWingTyp-AngleLEDesc'))
-        one_t.set_help_text(ProcModel.SpecWingTipModel.AngleTECol,
+        one_t.set_help_text(SpecWingTipModel.AngleTECol,
                             _('SpecWingTyp-AngleTEDesc'))
 
         self.usage_update()
@@ -139,9 +139,7 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
-        if self.specWingTyp_M.isUsed():
+        if self.specWingTyp_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
             self.usage_cb.setCurrentIndex(0)
@@ -150,18 +148,16 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
-            self.specWingTyp_M.setIsUsed(False)
+            self.specWingTyp_M.set_is_used(False)
         else:
-            self.specWingTyp_M.setIsUsed(True)
+            self.specWingTyp_M.set_is_used(True)
         self.pm.set_file_saved(False)
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 
@@ -171,5 +167,4 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className +
-                          '.btn_press unrecognized button press ' + q)
+            logging.error(self.__className + '.btn_press unrecognized button press ' + q)

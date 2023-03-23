@@ -9,10 +9,13 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
+from data.procModel.CalageVarModel import CalageVarModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class CalageVar(QMdiSubWindow, metaclass=Singleton):
@@ -29,7 +32,6 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -40,7 +42,7 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.calageVar_M = ProcModel.CalageVarModel()
+        self.calageVar_M = CalageVarModel()
         self.calageVar_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -48,7 +50,7 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -67,8 +69,6 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -99,8 +99,8 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         one_t.verticalHeader().setVisible(False)
         one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(0)
-        for i in range(ProcModel.CalageVarModel.PosACol,
-                       ProcModel.CalageVarModel.NumPosStepsCol + 1):
+        for i in range(CalageVarModel.PosACol,
+                       CalageVarModel.NumPosStepsCol + 1):
             one_t.hideColumn(i)
         one_t.hideColumn(self.calageVar_M.columnCount() - 2)
         one_t.hideColumn(self.calageVar_M.columnCount() - 1)
@@ -114,22 +114,23 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         one_t_ly.addStretch()
         self.window_ly.addLayout(one_t_ly)
 
-        one_t.en_int_validator(ProcModel.CalageVarModel.NumRisersCol,
-                               ProcModel.CalageVarModel.NumRisersCol,
-                               2, 6)
+        one_t.en_int_validator(CalageVarModel.NumRisersCol,
+                               CalageVarModel.NumRisersCol,
+                               2,
+                               6)
 
         one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ProcModel.CalageVarModel.NumRisersCol,
+        one_t.set_help_text(CalageVarModel.NumRisersCol,
                             _('CalageVar-NumRisersDesc'))
 
         two_t = TableView()
         two_t.setModel(self.calageVar_M)
         two_t.verticalHeader().setVisible(False)
         two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        for i in range(0, ProcModel.CalageVarModel.NumRisersCol + 1):
+        for i in range(0, CalageVarModel.NumRisersCol + 1):
             two_t.hideColumn(i)
-        for i in range(ProcModel.CalageVarModel.MaxNegAngCol,
-                       ProcModel.CalageVarModel.NumPosStepsCol + 1):
+        for i in range(CalageVarModel.MaxNegAngCol,
+                       CalageVarModel.NumPosStepsCol + 1):
             two_t.hideColumn(i)
         two_t.hideColumn(self.calageVar_M.columnCount() - 2)
         two_t.hideColumn(self.calageVar_M.columnCount() - 1)
@@ -141,29 +142,31 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         two_t_ly.addWidget(two_t)
         self.window_ly.addLayout(two_t_ly)
 
-        two_t.en_double_validator(ProcModel.CalageVarModel.PosACol,
-                                  ProcModel.CalageVarModel.PosFCol,
-                                  0, 100, 2)
+        two_t.en_double_validator(CalageVarModel.PosACol,
+                                  CalageVarModel.PosFCol,
+                                  ValidationValues.WingChordMin_perc,
+                                  ValidationValues.WingChordMax_perc,
+                                  2)
 
         two_t.set_help_bar(self.helpBar)
-        two_t.set_help_text(ProcModel.CalageVarModel.PosACol,
+        two_t.set_help_text(CalageVarModel.PosACol,
                             _('CalageVar-PosADesc'))
-        two_t.set_help_text(ProcModel.CalageVarModel.PosBCol,
+        two_t.set_help_text(CalageVarModel.PosBCol,
                             _('CalageVar-PosBDesc'))
-        two_t.set_help_text(ProcModel.CalageVarModel.PosCCol,
+        two_t.set_help_text(CalageVarModel.PosCCol,
                             _('CalageVar-PosCDesc'))
-        two_t.set_help_text(ProcModel.CalageVarModel.PosDCol,
+        two_t.set_help_text(CalageVarModel.PosDCol,
                             _('CalageVar-PosDDesc'))
-        two_t.set_help_text(ProcModel.CalageVarModel.PosECol,
+        two_t.set_help_text(CalageVarModel.PosECol,
                             _('CalageVar-PosEDesc'))
-        two_t.set_help_text(ProcModel.CalageVarModel.PosFCol,
+        two_t.set_help_text(CalageVarModel.PosFCol,
                             _('CalageVar-PosFDesc'))
 
         three_t = TableView()
         three_t.setModel(self.calageVar_M)
         three_t.verticalHeader().setVisible(False)
         three_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        for i in range(0, ProcModel.CalageVarModel.PosFCol + 1):
+        for i in range(0, CalageVarModel.PosFCol + 1):
             three_t.hideColumn(i)
         three_t.hideColumn(self.calageVar_M.columnCount() - 2)
         three_t.hideColumn(self.calageVar_M.columnCount() - 1)
@@ -175,27 +178,36 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         three_t_ly.addWidget(three_t)
         self.window_ly.addLayout(three_t_ly)
 
-        three_t.en_double_validator(ProcModel.CalageVarModel.MaxNegAngCol,
-                                    ProcModel.CalageVarModel.MaxNegAngCol,
-                                    -45, 0, 2)
-        three_t.en_int_validator(ProcModel.CalageVarModel.NumNegStepsCol,
-                                 ProcModel.CalageVarModel.NumNegStepsCol,
-                                 1, 100)
-        three_t.en_double_validator(ProcModel.CalageVarModel.MaxPosAngCol,
-                                    ProcModel.CalageVarModel.MaxPosAngCol,
-                                    0, 45, 2)
-        three_t.en_int_validator(ProcModel.CalageVarModel.NumPosStepsCol,
-                                 ProcModel.CalageVarModel.NumPosStepsCol,
-                                 1, 100)
+        three_t.en_double_validator(CalageVarModel.MaxNegAngCol,
+                                    CalageVarModel.MaxNegAngCol,
+                                    ValidationValues.Proc.MinCalageVarAngle_deg,
+                                    ValidationValues.Proc.MaxCalageVarAngle_deg,
+                                    2)
+
+        three_t.en_int_validator(CalageVarModel.NumNegStepsCol,
+                                 CalageVarModel.NumNegStepsCol,
+                                 ValidationValues.Proc.MinCalageVarCalcSteps_num,
+                                 ValidationValues.Proc.MaxCalageVarCalcSteps_num)
+
+        three_t.en_double_validator(CalageVarModel.MaxPosAngCol,
+                                    CalageVarModel.MaxPosAngCol,
+                                    ValidationValues.Proc.MinCalageVarAngle_deg,
+                                    ValidationValues.Proc.MaxCalageVarAngle_deg,
+                                    2)
+
+        three_t.en_int_validator(CalageVarModel.NumPosStepsCol,
+                                 CalageVarModel.NumPosStepsCol,
+                                 ValidationValues.Proc.MinCalageVarCalcSteps_num,
+                                 ValidationValues.Proc.MaxCalageVarCalcSteps_num)
 
         three_t.set_help_bar(self.helpBar)
-        three_t.set_help_text(ProcModel.CalageVarModel.MaxNegAngCol,
+        three_t.set_help_text(CalageVarModel.MaxNegAngCol,
                               _('CalageVar-MaxNegAngDesc'))
-        three_t.set_help_text(ProcModel.CalageVarModel.NumNegStepsCol,
+        three_t.set_help_text(CalageVarModel.NumNegStepsCol,
                               _('CalageVar-NumNegStepsDesc'))
-        three_t.set_help_text(ProcModel.CalageVarModel.MaxPosAngCol,
+        three_t.set_help_text(CalageVarModel.MaxPosAngCol,
                               _('CalageVar-MaxPosAngDesc'))
-        three_t.set_help_text(ProcModel.CalageVarModel.NumPosStepsCol,
+        three_t.set_help_text(CalageVarModel.NumPosStepsCol,
                               _('CalageVar-NumPosStepsDesc'))
 
         self.usage_update()
@@ -221,9 +233,7 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
-        if self.calageVar_M.isUsed():
+        if self.calageVar_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
             self.usage_cb.setCurrentIndex(0)
@@ -232,11 +242,10 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
-            self.calageVar_M.setIsUsed(False)
+            self.calageVar_M.set_is_used(False)
         else:
-            self.calageVar_M.setIsUsed(True)
+            self.calageVar_M.set_is_used(True)
 
         self.pm.set_file_saved(False)
 
@@ -244,7 +253,6 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

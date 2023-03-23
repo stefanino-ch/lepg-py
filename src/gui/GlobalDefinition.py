@@ -30,6 +30,7 @@ class Regex:
     WingNameString = BrandNameString = "^[a-zA-Z0-9_.\-\s\']*$"
     AirfoilsNameString = "(.|\s)*\S(.|\s)*"
     ParaTyp = "(.|\s)*\S(.|\s)*"
+    ThreeDShapingPrintName = "^(Inter3D|Ovali3D|tesse3D|exteDXF|exteSTL)"
 
 
 class ValidationValues:
@@ -165,3 +166,17 @@ class ValidationValues:
         # 26: Glue vents
         MinGlueVentParamNum = -6
         MaxGlueVentParamNum = 6
+
+        # 27: Special wingtip
+        MinSpecWingtipAngle_deg = -60
+        MaxSpecWingtipAngle_deg = 60
+
+        # 28: Calage variation
+        MinCalageVarAngle_deg = -45
+        MaxCalageVarAngle_deg = 45
+        MinCalageVarCalcSteps_num = 0
+        MaxCalageVarCalcSteps_num = 30
+
+        # 29: 3D shaping
+        Min3DShapingDepth_coef = -1
+        Max3DShapingDepth_coef = 1
