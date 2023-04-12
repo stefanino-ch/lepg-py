@@ -306,7 +306,7 @@ class ProcFileWriter:
         stream << '*           6. SEWING ALLOWANCES\n'
         stream << separator
 
-        values = self.sewing_allow_m.getRow(1)
+        values = self.sewing_allow_m.get_row(1)
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
@@ -314,7 +314,7 @@ class ProcFileWriter:
             if p == 2:
                 stream << '\tupper panels (mm)\n'
 
-        values = self.sewing_allow_m.getRow(2)
+        values = self.sewing_allow_m.get_row(2)
         for p in range(0, 3):
             if p > 0:
                 stream << '\t'
@@ -322,11 +322,11 @@ class ProcFileWriter:
             if p == 2:
                 stream << '\tlower panels (mm)\n'
 
-        values = self.sewing_allow_m.getRow(3)
+        values = self.sewing_allow_m.get_row(3)
         stream << '%s' % chk_num(values(0))
         stream << '\tribs (mm)\n'
 
-        values = self.sewing_allow_m.getRow(4)
+        values = self.sewing_allow_m.get_row(4)
         stream << '%s' % chk_num(values(0))
         stream << '\tvribs (mm)\n'
 
@@ -334,7 +334,7 @@ class ProcFileWriter:
         stream << '*           7. MARKS\n'
         stream << separator
 
-        values = self.marks_m.getRow()
+        values = self.marks_m.get_row()
         stream << '%s' % chk_num(values(0))
         stream << '\t%s' % chk_num(values(1))
         stream << '\t%s\n' % chk_num(values(2))

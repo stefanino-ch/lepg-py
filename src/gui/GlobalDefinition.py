@@ -112,6 +112,14 @@ class ValidationValues:
         MinSewingAllowance_mm = 0
         MaxSewingAllowance_mm = 100
 
+        # 7: Sewing Marcage
+        MinMarksSpacing_cm = 0
+        MaxMarksSpacing_cm = 50
+        MinMarksPointRadius_cm = 0
+        MaxMarksPointRadius_cm = 50
+        MinMarksDisplacement_cm = 0
+        MaxMarksDisplacement_cm = 50
+
         # 8: Global AoA
         FinesseMin_deg = 0
         FinesseMax_deg = 45

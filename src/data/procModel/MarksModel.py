@@ -24,7 +24,7 @@ class MarksModel(SqlTableModel, metaclass=Singleton):
     PointDisplCol = 2
     ''':attr: Number of the col holding the points displacement value'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty Marks table
         """
@@ -37,12 +37,12 @@ class MarksModel(SqlTableModel, metaclass=Singleton):
                    "PointDispl REAL,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("Marks")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -53,21 +53,21 @@ class MarksModel(SqlTableModel, metaclass=Singleton):
 
         self.add_rows(-1, 1)
 
-    def updateRow(self, marksSp, pointRad, pointDispl):
+    def update_row(self, marks_sp, point_rad, point_displ):
         """
         :method: updates a specific row with the parameters passed.
         """
         query = QSqlQuery()
         query.prepare(
-            "UPDATE Marks SET MarksSp= :marksSp, PointRad= :pointRad, PointDispl= :pointDispl WHERE (ID = :id);")
-        query.bindValue(":marksSp", marksSp)
-        query.bindValue(":pointRad", pointRad)
-        query.bindValue(":pointDispl", pointDispl)
+            "UPDATE Marks SET MarksSp= :marks_sp, PointRad= :point_rad, PointDispl= :point_displ WHERE (ID = :id);")
+        query.bindValue(":marks_sp", marks_sp)
+        query.bindValue(":point_rad", point_rad)
+        query.bindValue(":point_displ", point_displ)
         query.bindValue(":id", 1)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self):
+    def get_row(self):
         """
         :method: reads values back from the internal database
         :return: specific values read from internal database

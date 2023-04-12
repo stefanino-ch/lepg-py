@@ -367,29 +367,29 @@ class ProcFileReader(QObject):
         for line_it in range(0, 2):
             values = split_line(stream.readLine())
             if len(values) > 3:
-                self.sewAll_M.updateRow(line_it + 1, values[0],
-                                        values[1], values[2])
+                self.sewAll_M.update_row(line_it + 1, values[0],
+                                         values[1], values[2])
             else:
                 # in case of an empty file
-                self.sewAll_M.updateRow(line_it + 1, 15, 25, 25)
+                self.sewAll_M.update_row(line_it + 1, 15, 25, 25)
                 logging.error(
                     self.__className
                     + '.read_file: Sewing allowances for panels missing')
 
         values = split_line(stream.readLine())
         if len(values) > 2:
-            self.sewAll_M.updateRow(3, values[0])
+            self.sewAll_M.update_row(3, values[0])
         else:
-            self.sewAll_M.updateRow(3, 15)
+            self.sewAll_M.update_row(3, 15)
             logging.error(
                 self.__className
                 + '.read_file: Sewing allowances for ribs missing')
 
         values = split_line(stream.readLine())
         if len(values) > 2:
-            self.sewAll_M.updateRow(4, values[0])
+            self.sewAll_M.update_row(4, values[0])
         else:
-            self.sewAll_M.updateRow(4, 15)
+            self.sewAll_M.update_row(4, 15)
             logging.error(
                 self.__className
                 + '.read_file: Sewing allowances for v-ribs missing')
@@ -403,10 +403,10 @@ class ProcFileReader(QObject):
 
         values = split_line(stream.readLine())
         try:
-            self.marks_M.updateRow(values[0], values[1], values[2])
+            self.marks_M.update_row(values[0], values[1], values[2])
         except:
             # in case of an empty file values[1...2] are missing
-            self.marks_M.updateRow(25, 0.5, 0.15)
+            self.marks_M.update_row(25, 0.5, 0.15)
             logging.error(self.__className + '.read_file: Marks missing')
 
         ##############################

@@ -7,17 +7,18 @@ import logging
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QVBoxLayout, QHBoxLayout, \
                             QSizePolicy, QHeaderView
-
-from data.ProcModel import ProcModel
+from data.procModel.MarksModel import MarksModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import ValidationValues
+
 
 class Marks(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Seewing allowances data
+    :class: Window to display and edit marks data
     """
 
     __className = 'Marks'
@@ -29,7 +30,6 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -37,14 +37,14 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         self.window_ly = None
         self.win = None
 
-        self.marks_M = ProcModel.MarksModel()
+        self.marks_M = MarksModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -58,8 +58,6 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
                 ---------------------------
                             help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -81,16 +79,30 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         marks_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         marks_t.set_help_bar(self.helpBar)
 
-        marks_t.set_help_text(ProcModel.MarksModel.MarksSpCol,
+        marks_t.set_help_text(MarksModel.MarksSpCol,
                               _('Marks-MarksSpacingDesc'))
-        marks_t.set_help_text(ProcModel.MarksModel.PointRadCol,
+        marks_t.set_help_text(MarksModel.PointRadCol,
                               _('Marks-PointRadiusDesc'))
-        marks_t.set_help_text(ProcModel.MarksModel.PointDisplCol,
+        marks_t.set_help_text(MarksModel.PointDisplCol,
                               _('Marks-PointsDisplacementDesc'))
 
-        marks_t.en_double_validator(ProcModel.MarksModel.MarksSpCol,
-                                    ProcModel.MarksModel.PointDisplCol,
-                                    0, 10, 2)
+        marks_t.en_double_validator(MarksModel.MarksSpCol,
+                                    MarksModel.MarksSpCol,
+                                    ValidationValues.Proc.MinMarksSpacing_cm,
+                                    ValidationValues.Proc.MaxMarksSpacing_cm,
+                                    2)
+
+        marks_t.en_double_validator(MarksModel.PointRadCol,
+                                    MarksModel.PointRadCol,
+                                    ValidationValues.Proc.MinMarksPointRadius_cm,
+                                    ValidationValues.Proc.MaxMarksPointRadius_cm,
+                                    2)
+
+        marks_t.en_double_validator(MarksModel.PointDisplCol,
+                                    MarksModel.PointDisplCol,
+                                    ValidationValues.Proc.MinMarksDisplacement_cm,
+                                    ValidationValues.Proc.MaxMarksDisplacement_cm,
+                                    2)
 
         marks_t.setFixedHeight(2
                                + marks_t.horizontalHeader().height()
@@ -118,7 +130,6 @@ class Marks(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

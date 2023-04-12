@@ -21,7 +21,7 @@ class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
     TeSeemCol = 2
     ''':attr: Number of the col holding the TE seem values'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty Sewing allowances table
         """
@@ -39,7 +39,7 @@ class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("SewingAllowances")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -50,24 +50,24 @@ class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
 
         self.add_rows(-1, 4)
 
-    def updateRow(self, row, edgeSeam, leSeem=0, teSeem=0):
+    def update_row(self, row, edge_seam, le_seem=0, te_seem=0):
         """
         :method: updates a specific row with the parameters passed.
         """
         query = QSqlQuery()
         query.prepare(
-            "UPDATE SewingAllowances SET EdgeSeam= :edgeSeam, LESeem= :lESeem, TESeem= :tESeem WHERE (ID = :id);")
-        query.bindValue(":edgeSeam", edgeSeam)
-        query.bindValue(":lESeem", leSeem)
-        query.bindValue(":tESeem", teSeem)
+            "UPDATE SewingAllowances SET EdgeSeam= :edge_seam, LESeem= :lESeem, TESeem= :tESeem WHERE (ID = :id);")
+        query.bindValue(":edge_seam", edge_seam)
+        query.bindValue(":lESeem", le_seem)
+        query.bindValue(":tESeem", te_seem)
         query.bindValue(":id", row)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum):
+    def get_row(self, config_num):
         """
         :method: reads values back from the internal database for a specific config number
-        :param configNum: Rib number. Starting with 1.
+        :param config_num: Rib number. Starting with 1.
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -76,7 +76,7 @@ class SewingAllowancesModel(SqlTableModel, metaclass=Singleton):
                       "LESeem, "
                       "TESeem "
                       "FROM SewingAllowances WHERE (ID = :config)")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         return query.value
