@@ -9,19 +9,21 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMdiSubWindow, QVBoxLayout, QHBoxLayout, \
     QSizePolicy, QGridLayout, QLabel, QWidget, QHeaderView
 
-from data.ProcModel import ProcModel
+from data.procModel.SewingAllowancesModel import SewingAllowancesModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import ValidationValues
 
-class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
+
+class SewingAllowances(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Seewing allowances data
+    :class: Window to display and edit Sewing allowances data
     """
 
-    __className = 'SeewingAllowances'
+    __className = 'SewingAllowances'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -30,7 +32,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -38,14 +39,14 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         self.window_ly = None
         self.win = None
 
-        self.sewAll_M = ProcModel.SewingAllowancesModel()
+        self.sewAll_M = SewingAllowancesModel()
         self.build_window()
 
     def closeEvent(self, event):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -63,8 +64,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
                 ---------------------------
                             help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -95,17 +94,17 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         upper_p_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         upper_p_t.set_help_bar(self.helpBar)
 
-        upper_p_t.set_help_text(ProcModel.SewingAllowancesModel.EdgeSeamCol,
+        upper_p_t.set_help_text(SewingAllowancesModel.EdgeSeamCol,
                                 _('SewingAllowances-EdgeSeamDesc'))
-        upper_p_t.set_help_text(ProcModel.SewingAllowancesModel.LeSeemCol,
+        upper_p_t.set_help_text(SewingAllowancesModel.LeSeemCol,
                                 _('SewingAllowances-LeSeamDesc'))
-        upper_p_t.set_help_text(ProcModel.SewingAllowancesModel.TeSeemCol,
+        upper_p_t.set_help_text(SewingAllowancesModel.TeSeemCol,
                                 _('SewingAllowances-TeSeamDesc'))
 
-        upper_p_t.en_int_validator(
-            ProcModel.SewingAllowancesModel.EdgeSeamCol,
-            ProcModel.SewingAllowancesModel.TeSeemCol,
-            1, 100)
+        upper_p_t.en_int_validator(SewingAllowancesModel.EdgeSeamCol,
+                                   SewingAllowancesModel.TeSeemCol,
+                                   ValidationValues.Proc.MinSewingAllowance_mm,
+                                   ValidationValues.Proc.MaxSewingAllowance_mm)
         upper_p_t.setFixedHeight(2
                                  + upper_p_t.horizontalHeader().height()
                                  + upper_p_t.rowHeight(0))
@@ -129,17 +128,17 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         lower_p_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         lower_p_t.set_help_bar(self.helpBar)
 
-        lower_p_t.set_help_text(ProcModel.SewingAllowancesModel.EdgeSeamCol,
+        lower_p_t.set_help_text(SewingAllowancesModel.EdgeSeamCol,
                                 _('SewingAllowances-EdgeSeamDesc'))
-        lower_p_t.set_help_text(ProcModel.SewingAllowancesModel.LeSeemCol,
+        lower_p_t.set_help_text(SewingAllowancesModel.LeSeemCol,
                                 _('SewingAllowances-LeSeamDesc'))
-        lower_p_t.set_help_text(ProcModel.SewingAllowancesModel.TeSeemCol,
+        lower_p_t.set_help_text(SewingAllowancesModel.TeSeemCol,
                                 _('SewingAllowances-TeSeamDesc'))
 
-        lower_p_t.en_int_validator(
-            ProcModel.SewingAllowancesModel.EdgeSeamCol,
-            ProcModel.SewingAllowancesModel.TeSeemCol,
-            1, 100)
+        lower_p_t.en_int_validator(SewingAllowancesModel.EdgeSeamCol,
+                                   SewingAllowancesModel.TeSeemCol,
+                                   ValidationValues.Proc.MinSewingAllowance_mm,
+                                   ValidationValues.Proc.MaxSewingAllowance_mm)
         lower_p_t.setFixedHeight(2
                                  + upper_p_t.horizontalHeader().height()
                                  + upper_p_t.rowHeight(0))
@@ -165,12 +164,13 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         ribs_t.set_help_bar(self.helpBar)
 
-        ribs_t.set_help_text(ProcModel.SewingAllowancesModel.EdgeSeamCol,
+        ribs_t.set_help_text(SewingAllowancesModel.EdgeSeamCol,
                              _('SewingAllowances-RibsSeemDesc'))
 
-        ribs_t.en_int_validator(ProcModel.SewingAllowancesModel.EdgeSeamCol,
-                                ProcModel.SewingAllowancesModel.EdgeSeamCol,
-                                1, 100)
+        ribs_t.en_int_validator(SewingAllowancesModel.EdgeSeamCol,
+                                SewingAllowancesModel.EdgeSeamCol,
+                                ValidationValues.Proc.MinSewingAllowance_mm,
+                                ValidationValues.Proc.MaxSewingAllowance_mm)
         ribs_t.setFixedHeight(2
                               + upper_p_t.horizontalHeader().height()
                               + upper_p_t.rowHeight(0))
@@ -196,13 +196,13 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         v_ribs_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         v_ribs_t.set_help_bar(self.helpBar)
 
-        v_ribs_t.set_help_text(ProcModel.SewingAllowancesModel.EdgeSeamCol,
+        v_ribs_t.set_help_text(SewingAllowancesModel.EdgeSeamCol,
                                _('SewingAllowances-V-RibsSeemDesc'))
 
-        v_ribs_t.en_int_validator(
-            ProcModel.SewingAllowancesModel.EdgeSeamCol,
-            ProcModel.SewingAllowancesModel.EdgeSeamCol,
-            1, 100)
+        v_ribs_t.en_int_validator(SewingAllowancesModel.EdgeSeamCol,
+                                  SewingAllowancesModel.EdgeSeamCol,
+                                  ValidationValues.Proc.MinSewingAllowance_mm,
+                                  ValidationValues.Proc.MaxSewingAllowance_mm)
         v_ribs_t.setFixedHeight(2
                                 + upper_p_t.horizontalHeader().height()
                                 + upper_p_t.rowHeight(0))
@@ -219,7 +219,7 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.set_help_page('proc/seewingAllowances.html')
+        self.btnBar.set_help_page('proc/sewingAllowances.html')
 
         bottom_ly = QHBoxLayout()
         bottom_ly.addStretch()
@@ -233,7 +233,6 @@ class SeewingAllowances(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

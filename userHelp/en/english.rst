@@ -17,7 +17,7 @@ English Manual
    proc/anchorPoints.rst
    proc/ribHoles.rst
    proc/skinTension.rst
-   proc/seewingAllowances.rst
+   proc/sewingAllowances.rst
    proc/marks.rst
    proc/globalAoA.rst
    proc/lines.rst

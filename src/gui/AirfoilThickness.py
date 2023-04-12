@@ -9,10 +9,14 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
+from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
+
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
@@ -29,7 +33,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -40,7 +43,7 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.airfThick_M = ProcModel.AirfoilThicknessModel()
+        self.airfThick_M = AirfoilThicknessModel()
         self.airfThick_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -48,7 +51,7 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -65,8 +68,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -100,17 +101,20 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         one_t.hideColumn(self.airfThick_M.columnCount() - 2)
         self.window_ly.addWidget(one_t)
 
-        one_t.en_int_validator(ProcModel.AirfoilThicknessModel.OrderNumCol,
-                               ProcModel.AirfoilThicknessModel.OrderNumCol,
-                               0, 999)
-        one_t.en_double_validator(ProcModel.AirfoilThicknessModel.CoeffCol,
-                                  ProcModel.AirfoilThicknessModel.CoeffCol,
-                                  0, 10, 1)
+        one_t.en_int_validator(AirfoilThicknessModel.OrderNumCol,
+                               AirfoilThicknessModel.OrderNumCol,
+                               1,
+                               ValidationValues.MaxNumRibs)
+        one_t.en_double_validator(AirfoilThicknessModel.CoeffCol,
+                                  AirfoilThicknessModel.CoeffCol,
+                                  ValidationValues.Proc.MinAirfoilThickness_coef,
+                                  ValidationValues.Proc.MaxAirfoilThickness_coef,
+                                  1)
 
         one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ProcModel.AirfoilThicknessModel.OrderNumCol,
+        one_t.set_help_text(AirfoilThicknessModel.OrderNumCol,
                             _('AirfThick-RibNumDesc'))
-        one_t.set_help_text(ProcModel.AirfoilThicknessModel.CoeffCol,
+        one_t.set_help_text(AirfoilThicknessModel.CoeffCol,
                             _('AirfThick-CoeffDesc'))
 
         self.usage_update()
@@ -136,8 +140,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
         if self.airfThick_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
@@ -147,7 +149,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.airfThick_M.set_is_used(False)
         else:
@@ -159,7 +160,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

@@ -98,7 +98,7 @@ class ValidationValues:
         RibHolesOpt1Min = 0
         RibHolesOpt1Max = 50
 
-        # 6: Skin tension
+        # 5: Skin tension
         StrainMiniRibsMin = 0
         StrainMiniRibsMax = 1
         NumPointsMin = 0
@@ -107,6 +107,10 @@ class ValidationValues:
         SkinTensionCoefMax = 1
         SkinTensionAddWidthMin = 0
         SkinTensionAddWidthMax = 100
+
+        # 6: Sewing Allowances
+        MinSewingAllowance_mm = 0
+        MaxSewingAllowance_mm = 100
 
         # 8: Global AoA
         FinesseMin_deg = 0
@@ -180,3 +184,7 @@ class ValidationValues:
         # 29: 3D shaping
         Min3DShapingDepth_coef = -1
         Max3DShapingDepth_coef = 1
+
+        # 30: Airfoil Thickness
+        MinAirfoilThickness_coef = 0
+        MaxAirfoilThickness_coef = 10

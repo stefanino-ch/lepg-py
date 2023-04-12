@@ -52,7 +52,7 @@ from gui.TwoDDxfViewer import TwoDDxfViewer
 from gui.ProcessorOutput import ProcessorOutput
 from gui.Ramification import Ramification
 from gui.RibHoles import RibHoles
-from gui.SeewingAllowances import SeewingAllowances
+from gui.SewingAllowances import SewingAllowances
 from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
 from gui.SkinTension import SkinTension
@@ -941,7 +941,7 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         """
-        self.seewing_all_w = SeewingAllowances()
+        self.seewing_all_w = SewingAllowances()
         self.mdi.addSubWindow(self.seewing_all_w)
         self.seewing_all_w.show()
 

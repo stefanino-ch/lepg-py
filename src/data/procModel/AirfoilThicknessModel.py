@@ -31,7 +31,7 @@ class AirfoilThicknessModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 2
     ''':attr: num of column for config number (always 1)'''
 
-    def __init__(self, parent=None):
+    def __init__(self):
         """
         :method: Class initialization
         """
@@ -87,23 +87,23 @@ class AirfoilThicknessModel(SqlTableModel, metaclass=Singleton):
         """
         return self.__isUsed
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
         query.prepare("Select "
                       "Coeff "
                       "FROM AirfoilThickness WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value

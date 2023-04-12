@@ -846,7 +846,7 @@ class ProcFileWriter:
 
             num_lines = self.airf_thick_m.num_rows_for_config(1)
             for line_it in range(0, num_lines):
-                values = self.airf_thick_m.getRow(1, line_it + 1)
+                values = self.airf_thick_m.get_row(1, line_it + 1)
 
                 stream << '%s' % (line_it + 1)
                 stream << '\t%s\n' % chk_num(values(0))
