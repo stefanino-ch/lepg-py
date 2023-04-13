@@ -10,10 +10,14 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QSpinBox, QLabel, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
+from data.procModel.MarksTypesModel import MarksTypesModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import Regex
+from gui.GlobalDefinition import ValidationValues
 
 
 class MarksTypes(QMdiSubWindow, metaclass=Singleton):
@@ -30,8 +34,6 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -42,7 +44,7 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.marksT_M = ProcModel.MarksTypesModel()
+        self.marksT_M = MarksTypesModel()
         self.marksT_M.numRowsForConfigChanged.connect(self.model_size_changed)
         self.build_window()
 
@@ -50,7 +52,7 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -68,8 +70,6 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -113,41 +113,46 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         marks_types_t.hideColumn(0)
         self.window_ly.addWidget(marks_types_t)
 
-        marks_types_t.en_reg_exp_validator(
-            ProcModel.MarksTypesModel.TypeCol, 
-            ProcModel.MarksTypesModel.TypeCol,
-            "^[a-zA-Z0-9_.-]*$")
-        marks_types_t.en_int_validator(
-            ProcModel.MarksTypesModel.FormOneCol, 
-            ProcModel.MarksTypesModel.FormOneCol, 
-            1, 3)
-        marks_types_t.en_double_validator(
-            ProcModel.MarksTypesModel.FormOnePOneCol,
-            ProcModel.MarksTypesModel.FormOnePTwoCol, 
-            0, 100, 2)
-        marks_types_t.en_int_validator(
-            ProcModel.MarksTypesModel.FormTwoCol, 
-            ProcModel.MarksTypesModel.FormTwoCol, 
-            1, 3)
-        marks_types_t.en_double_validator(
-            ProcModel.MarksTypesModel.FormTwoPOneCol,
-            ProcModel.MarksTypesModel.FormTwoPTwoCol, 
-            0, 100, 2)
+        marks_types_t.en_reg_exp_validator(MarksTypesModel.TypeCol,
+                                           MarksTypesModel.TypeCol,
+                                           Regex.MarksTypesName)
+
+        marks_types_t.en_int_validator(MarksTypesModel.FormOneCol,
+                                       MarksTypesModel.FormOneCol,
+                                       ValidationValues.Proc.MinMarksForm_num,
+                                       ValidationValues.Proc.MaxMarksForm_num)
+
+        marks_types_t.en_double_validator(MarksTypesModel.FormOnePOneCol,
+                                          MarksTypesModel.FormOnePTwoCol,
+                                          ValidationValues.Proc.MinMarksFormParam,
+                                          ValidationValues.Proc.MaxMarksFormParam,
+                                          2)
+
+        marks_types_t.en_int_validator(MarksTypesModel.FormTwoCol,
+                                       MarksTypesModel.FormTwoCol,
+                                       ValidationValues.Proc.MinMarksForm_num,
+                                       ValidationValues.Proc.MaxMarksForm_num)
+
+        marks_types_t.en_double_validator(MarksTypesModel.FormTwoPOneCol,
+                                          MarksTypesModel.FormTwoPTwoCol,
+                                          ValidationValues.Proc.MinMarksFormParam,
+                                          ValidationValues.Proc.MaxMarksFormParam,
+                                          2)
 
         marks_types_t.set_help_bar(self.helpBar)
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.TypeCol,
+        marks_types_t.set_help_text(MarksTypesModel.TypeCol,
                                     _('MarksTypes-TypeDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOneCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormOneCol,
                                     _('MarksTypes-FormOneDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOnePOneCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormOnePOneCol,
                                     _('MarksTypes-FormOnePOneDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormOnePTwoCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormOnePTwoCol,
                                     _('MarksTypes-FormOnePTwoDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormTwoCol,
                                     _('MarksTypes-FormTwoDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoPOneCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormTwoPOneCol,
                                     _('MarksTypes-FormTwoPOneDesc'))
-        marks_types_t.set_help_text(ProcModel.MarksTypesModel.FormTwoPTwoCol,
+        marks_types_t.set_help_text(MarksTypesModel.FormTwoPTwoCol,
                                     _('MarksTypes-FormTwoPTwoDesc'))
 
         self.numLines_s.blockSignals(True)
@@ -175,7 +180,6 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size. Herein we 
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.marksT_M.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
@@ -185,7 +189,6 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all 
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.marksT_M.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
@@ -193,7 +196,6 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

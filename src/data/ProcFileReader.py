@@ -907,7 +907,7 @@ class ProcFileReader(QObject):
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
 
-            self.dxfLayNames_M.updateRow(1, line_it + 1, values[0], values[1])
+            self.dxfLayNames_M.update_row(1, line_it + 1, values[0], values[1])
 
         ##############################
         # 20. MARKS TYPES
@@ -923,9 +923,9 @@ class ProcFileReader(QObject):
         for line_it in range(0, num_configs):
             values = split_line(stream.readLine())
 
-            self.marksT_M.updateRow(1, line_it + 1, values[0],
-                                    values[1], values[2], values[3],
-                                    values[4], values[5], values[6])
+            self.marksT_M.update_row(1, line_it + 1, values[0],
+                                     values[1], values[2], values[3],
+                                     values[4], values[5], values[6])
 
         ##############################
         # 21. JONCS DEFINITION (NYLON RODS)

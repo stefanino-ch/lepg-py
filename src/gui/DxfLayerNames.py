@@ -10,10 +10,13 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QSpinBox, QLabel, QHBoxLayout, QVBoxLayout
 
 from data.ProcModel import ProcModel
+from data.procModel.DxfLayerNamesModel import DxfLayerNamesModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import Regex
 
 
 class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
@@ -30,7 +33,6 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -41,7 +43,7 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.dxfLayNames_M = ProcModel.DxfLayerNamesModel()
+        self.dxfLayNames_M = DxfLayerNamesModel()
         self.dxfLayNames_M.numRowsForConfigChanged. \
             connect(self.model_size_changed)
 
@@ -51,7 +53,7 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -69,8 +71,6 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -114,15 +114,18 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         dxf_lay_names_t.hideColumn(0)
         self.windowLayout.addWidget(dxf_lay_names_t)
 
-        dxf_lay_names_t.en_reg_exp_validator(
-            ProcModel.DxfLayerNamesModel.LayerCol,
-            ProcModel.DxfLayerNamesModel.DescriptionCol,
-            "^[a-zA-Z0-9_.-]*$")
+        dxf_lay_names_t.en_reg_exp_validator(DxfLayerNamesModel.LayerCol,
+                                             DxfLayerNamesModel.LayerCol,
+                                             Regex.DxfLayerName)
+
+        dxf_lay_names_t.en_reg_exp_validator(DxfLayerNamesModel.DescriptionCol,
+                                             DxfLayerNamesModel.DescriptionCol,
+                                             Regex.DxfReferenceLayerName)
 
         dxf_lay_names_t.set_help_bar(self.helpBar)
-        dxf_lay_names_t.set_help_text(ProcModel.DxfLayerNamesModel.LayerCol,
+        dxf_lay_names_t.set_help_text(DxfLayerNamesModel.LayerCol,
                                       _('DxfLayNames-LayerDesc'))
-        dxf_lay_names_t.set_help_text(ProcModel.DxfLayerNamesModel.DescriptionCol,
+        dxf_lay_names_t.set_help_text(DxfLayerNamesModel.DescriptionCol,
                                       _('DxfLayNames-DescriptionDesc'))
 
         self.numLines_s.blockSignals(True)
@@ -150,7 +153,6 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         :method: Called after the model has been changed it's size. Herein we
                  assure the GUI follows the model.
         """
-        logging.debug(self.__className + '.model_size_changed')
         self.numLines_s.blockSignals(True)
         self.numLines_s.setValue(self.dxfLayNames_M.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
@@ -160,7 +162,6 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all
                  elements will follow the user configuration.
         """
-        logging.debug(self.__className + '.num_lines_change')
         self.dxfLayNames_M.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
@@ -168,7 +169,6 @@ class DxfLayerNames(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

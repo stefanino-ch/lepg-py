@@ -26,7 +26,7 @@ class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 3
     ''':attr: num of column for config number (always 1)'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty table
         """
@@ -40,12 +40,12 @@ class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("DxfLayerNames")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -53,7 +53,7 @@ class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(1, Qt.Orientation.Horizontal, _("Layer name"))
         self.setHeaderData(2, Qt.Orientation.Horizontal, _("Description"))
 
-    def updateRow(self, configNum, orderNum, layer, desc):
+    def update_row(self, config_num, order_num, layer, desc):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -65,8 +65,8 @@ class DxfLayerNamesModel(SqlTableModel, metaclass=Singleton):
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
         query.bindValue(":layer", layer)
         query.bindValue(":desc", desc)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 

@@ -27,10 +27,12 @@ class BackgroundHighlight:
 
 
 class Regex:
-    WingNameString = BrandNameString = "^[a-zA-Z0-9_.\-\s\']*$"
+    WingNameString = BrandNameString = DxfReferenceLayerName = "^[a-zA-Z0-9_.\-\s\']*$"
     AirfoilsNameString = "(.|\s)*\S(.|\s)*"
     ParaTyp = "(.|\s)*\S(.|\s)*"
     ThreeDShapingPrintName = "^(Inter3D|Ovali3D|tesse3D|exteDXF|exteSTL)"
+    DxfLayerName = "^(general|line-external|cutexternal|line-sewing|points|circles|triangles|square|text|reference|notes)"
+    MarksTypesName = "^(typepoint|typepoint2|typepoint3|typevent|typetab|typejonc|typeref|type8|type9|type10)"
 
 
 class ValidationValues:
@@ -167,6 +169,12 @@ class ValidationValues:
         LoadDistrMax_perc = 0
         LineDeformationMin = 0
         LineDeformationMax = 1
+
+        # 20: Marks types
+        MinMarksForm_num = 1
+        MaxMarksForm_num = 3
+        MinMarksFormParam = 0
+        MaxMarksFormParam = 100
 
         # 21: Joncs
         MaxJoncsDefinitions = 50

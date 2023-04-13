@@ -566,7 +566,7 @@ class ProcFileWriter:
         stream << '%s\n' % num_lines
 
         for line_it in range(0, num_lines):
-            values = self.marks_t_m.getRow(1, line_it + 1)
+            values = self.marks_t_m.get_row(1, line_it + 1)
 
             for p in range(0, 7):
                 if p > 0:

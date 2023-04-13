@@ -36,7 +36,7 @@ class MarksTypesModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 8
     ''':attr: num of column for config number (always 1)'''
 
-    def createTable(self):
+    def create_table(self):
         """
         :method: Creates initially the empty table
         """
@@ -55,12 +55,12 @@ class MarksTypesModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.create_table()
         self.setTable("MarksTypes")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
@@ -73,39 +73,40 @@ class MarksTypesModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(6, Qt.Orientation.Horizontal, _("Form 2 1st param"))
         self.setHeaderData(7, Qt.Orientation.Horizontal, _("Form 2 2nd param"))
 
-    def updateRow(self, configNum, orderNum, pType, formOne, formOnePOne, formOnePTwo, formTwo, formTwoPOne,
-                  formTwoPTwo):
+    def update_row(self, config_num, order_num, p_type,
+                   form_one, form_one_p_one, form_one_p_two,
+                   form_two, form_two_p_one, form_two_p_two):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
         """
         query = QSqlQuery()
         query.prepare("UPDATE MarksTypes SET "
-                      "Type= :pType, "
-                      "FormOne= :formOne, "
-                      "FormOnePOne= :formOnePOne, "
-                      "FormOnePTwo= :formOnePTwo, "
-                      "FormTwo= :formTwo, "
-                      "FormTwoPOne= :formTwoPOne, "
-                      "FormTwoPTwo= :formTwoPTwo "
+                      "Type= :p_type, "
+                      "FormOne= :form_one, "
+                      "FormOnePOne= :form_one_p_one, "
+                      "FormOnePTwo= :form_one_p_two, "
+                      "FormTwo= :form_two, "
+                      "FormTwoPOne= :form_two_p_one, "
+                      "FormTwoPTwo= :form_two_p_two "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":pType", pType)
-        query.bindValue(":formOne", formOne)
-        query.bindValue(":formOnePOne", formOnePOne)
-        query.bindValue(":formOnePTwo", formOnePTwo)
-        query.bindValue(":formTwo", formTwo)
-        query.bindValue(":formTwoPOne", formTwoPOne)
-        query.bindValue(":formTwoPTwo", formTwoPTwo)
-        query.bindValue(":config", configNum)
-        query.bindValue(":order", orderNum)
+        query.bindValue(":p_type", p_type)
+        query.bindValue(":form_one", form_one)
+        query.bindValue(":form_one_p_one", form_one_p_one)
+        query.bindValue(":form_one_p_two", form_one_p_two)
+        query.bindValue(":form_two", form_two)
+        query.bindValue(":form_two_p_one", form_two_p_one)
+        query.bindValue(":form_two_p_two", form_two_p_two)
+        query.bindValue(":config", config_num)
+        query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum, orderNum):
+    def get_row(self, config_num, order_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
-        :param orderNum: Order number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
+        :param order_num: Order number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
@@ -118,12 +119,12 @@ class MarksTypesModel(SqlTableModel, metaclass=Singleton):
                       "FormTwoPOne, "
                       "FormTwoPTwo "
                       "FROM MarksTypes WHERE (ConfigNum = :config) ORDER BY OrderNum")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         # now we are at the first row
         i = 1
-        while i < orderNum:
+        while i < order_num:
             query.next()
             i += 1
         return query.value
