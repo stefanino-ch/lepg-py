@@ -185,8 +185,8 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                                     self.ini_scene_width,
                                     self.ini_scene_height)
         self.view = GraphicsView(self.scene)
-        self.view.setDragMode(GraphicsView.ScrollHandDrag)
-        self.view.setRenderHint(QPainter.Antialiasing)
+        self.view.setDragMode(GraphicsView.DragMode.ScrollHandDrag)
+        self.view.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         hbox_ly = QHBoxLayout()
         hbox_ly.addLayout(btn_ly)

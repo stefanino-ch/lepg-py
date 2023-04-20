@@ -106,8 +106,8 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         self.pre_proc_grp_ly.addLayout(pre_proc_ly)
 
         self.outline_chkb = CheckBox(_('Open wing outline after processing'))
-        self.outline_chkb.setHelpBar(self.helpBar)
-        self.outline_chkb.setHelpText(_('SetupProc-PreProcWingOutline'))
+        self.outline_chkb.set_help_bar(self.helpBar)
+        self.outline_chkb.set_help_text(_('SetupProc-PreProcWingOutline'))
         self.outline_chkb.stateChanged.connect(self.outline_chkb_change)
         self.pre_proc_grp_ly.addWidget(self.outline_chkb)
 

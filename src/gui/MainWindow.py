@@ -57,9 +57,9 @@ from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
 from gui.SkinTension import SkinTension
 from gui.SpecWingTip import SpecWingTip
-from gui.ThreeDDxf import ThreeDDxfModel
+from gui.ThreeDDxf import ThreeDDxf
 from gui.ThreeDShaping import ThreeDShaping
-from gui.TwoDDxf import TwoDDxfModel
+from gui.TwoDDxf import TwoDDxf
 
 
 # TODO: bring windows to front if they are called
@@ -973,7 +973,7 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> 2D DFX *
         """
-        self.two_d_dxf_w = TwoDDxfModel()
+        self.two_d_dxf_w = TwoDDxf()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
 
@@ -981,7 +981,7 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Plan* -> 3D DFX*
         """
-        self.three_d_dxf_w = ThreeDDxfModel()
+        self.three_d_dxf_w = ThreeDDxf()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
 

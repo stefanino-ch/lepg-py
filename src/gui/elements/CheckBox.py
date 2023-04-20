@@ -34,28 +34,28 @@ class CheckBox(QCheckBox):
                  window and the validation of the user inputs.
         """
         if self.__helpBar is not None:
-            if event.type() == QEvent.Enter:
+            if event.type() == QEvent.Type.Enter:
                 self.__helpBar.set_text(self.__helpText)
 
-            elif event.type() == QEvent.Leave:
+            elif event.type() == QEvent.Type.Leave:
                 self.__helpBar.clear_text()
 
         return super(CheckBox, self).eventFilter(source, event)
 
-    def setHelpBar(self, helpBar):
+    def set_help_bar(self, help_bar):
         """
         :method: Configure the help bar of a specific window where the user
                  help text shall be displayed during program execution.
-        :param helpBar: Instance of the respective help bar to work with
+        :param help_bar: Instance of the respective help bar to work with
         """
         logging.debug(self.__className+'.set_help_bar')
-        self.__helpBar = helpBar
+        self.__helpBar = help_bar
 
-    def setHelpText(self, helpText):
+    def set_help_text(self, help_text):
         """
         :method: Herein you set the help text for each element which shall
                  be displayed if the mouse pointer is located over it.
-        :param helpText: Help text to be displayed
+        :param help_text: Help text to be displayed
         """
         logging.debug(self.__className+'.set_help_text')
-        self.__helpText = helpText
+        self.__helpText = help_text

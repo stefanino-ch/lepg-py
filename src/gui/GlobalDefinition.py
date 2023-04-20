@@ -27,12 +27,15 @@ class BackgroundHighlight:
 
 
 class Regex:
-    WingNameString = BrandNameString = DxfReferenceLayerName = "^[a-zA-Z0-9_.\-\s\']*$"
+    WingNameString = BrandNameString =\
+        DxfReferenceLayerName = TwoDDxfColorDesc = ThreeDDxfColorDesc = "^[a-zA-Z0-9_.\-\s\']*$"
     AirfoilsNameString = "(.|\s)*\S(.|\s)*"
     ParaTyp = "(.|\s)*\S(.|\s)*"
     ThreeDShapingPrintName = "^(Inter3D|Ovali3D|tesse3D|exteDXF|exteSTL)"
     DxfLayerName = "^(general|line-external|cutexternal|line-sewing|points|circles|triangles|square|text|reference|notes)"
     MarksTypesName = "^(typepoint|typepoint2|typepoint3|typevent|typetab|typejonc|typeref|type8|type9|type10)"
+    TwoDDxfLayerNames = ThreeDDxfLayerNames = "^(A_lines_color|B_lines_color|C_lines_color|D_lines_color|E_lines_color|F_lines_color)"
+    ThreeDDxfLayerNamesPlus = "^(Extrados|Vents|Intrados)"
 
 
 class ValidationValues:
@@ -183,6 +186,11 @@ class ValidationValues:
         MinJoncsSParam_mm = 0
         MaxJoncsSParam_mm = 1000
 
+        # 24: 2D DXF Layer names
+        # 25: 3D DXF Layer names
+        MinTwoDDxfColorNum = MinThreeDDxfColorNum = 0
+        MaxTwoDDxfColorNum = MaxThreeDDxfColorNum = 255
+
         # 26: Glue vents
         MinGlueVentParamNum = -6
         MaxGlueVentParamNum = 6
@@ -204,3 +212,7 @@ class ValidationValues:
         # 30: Airfoil Thickness
         MinAirfoilThickness_coef = 0
         MaxAirfoilThickness_coef = 10
+
+        # 32: Parts Separation
+        MinPartsSep_coef = 0
+        MaxParsSep_coef = 3

@@ -9,18 +9,22 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
+from data.procModel.TwoDDxfModel import TwoDDxfModel
+
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import Regex, ValidationValues
 
-class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
+
+class TwoDDxf(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Brake line details
     """
 
-    __className = 'TwoDDxfModel'
+    __className = 'TwoDDxf'
     '''
     :attr: Does help to indicate the source of the log messages
     '''
@@ -29,7 +33,6 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -40,7 +43,7 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.twoDDxf_M = ProcModel.TwoDDxfModel()
+        self.twoDDxf_M = TwoDDxfModel()
         self.twoDDxf_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -48,7 +51,7 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -65,8 +68,6 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -104,22 +105,23 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 6 * one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.en_reg_exp_validator(ProcModel.TwoDDxfModel.LineNameCol,
-                                   ProcModel.TwoDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
-        one_t.en_int_validator(ProcModel.TwoDDxfModel.ColorCodeCol,
-                               ProcModel.TwoDDxfModel.ColorCodeCol,
-                               0, 255)
-        one_t.en_reg_exp_validator(ProcModel.TwoDDxfModel.LineNameCol,
-                                   ProcModel.TwoDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
+        one_t.en_reg_exp_validator(TwoDDxfModel.LineNameCol,
+                                   TwoDDxfModel.LineNameCol,
+                                   Regex.TwoDDxfLayerNames)
+        one_t.en_int_validator(TwoDDxfModel.ColorCodeCol,
+                               TwoDDxfModel.ColorCodeCol,
+                               ValidationValues.Proc.MinTwoDDxfColorNum,
+                               ValidationValues.Proc.MaxTwoDDxfColorNum)
+        one_t.en_reg_exp_validator(TwoDDxfModel.ColorNameCol,
+                                   TwoDDxfModel.ColorNameCol,
+                                   Regex.TwoDDxfColorDesc)
 
         one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ProcModel.TwoDDxfModel.LineNameCol,
+        one_t.set_help_text(TwoDDxfModel.LineNameCol,
                             _('TwoDDxf-LineNameDesc'))
-        one_t.set_help_text(ProcModel.TwoDDxfModel.ColorCodeCol,
+        one_t.set_help_text(TwoDDxfModel.ColorCodeCol,
                             _('TwoDDxf-ColorCodeDesc'))
-        one_t.set_help_text(ProcModel.TwoDDxfModel.ColorNameCol,
+        one_t.set_help_text(TwoDDxfModel.ColorNameCol,
                             _('TwoDDxf-ColorNameDesc'))
 
         self.usage_update()
@@ -145,8 +147,6 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
         if self.twoDDxf_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
@@ -156,7 +156,6 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.twoDDxf_M.set_is_used(False)
         else:
@@ -167,7 +166,6 @@ class TwoDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

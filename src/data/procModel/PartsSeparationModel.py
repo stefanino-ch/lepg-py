@@ -72,7 +72,7 @@ class PartsSeparationModel(SqlTableModel, metaclass=Singleton):
     :attr: Num of column for config number (always 1)
     '''
 
-    def __init__(self, parent=None):
+    def __init__(self):
         """
         :method: Class initialization
         """

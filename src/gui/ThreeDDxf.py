@@ -9,13 +9,16 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
+from data.procModel.ThreeDDxfModel import ThreeDDxfModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
+from gui.GlobalDefinition import Regex, ValidationValues
 
-class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
+
+class ThreeDDxf(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window to display and edit Brake line details
     """
@@ -29,7 +32,6 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btnBar = None
@@ -40,7 +42,7 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.threeDDxf_M = ProcModel.ThreeDDxfModel()
+        self.threeDDxf_M = ThreeDDxfModel()
         self.threeDDxf_M.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -48,7 +50,7 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -65,8 +67,6 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -107,22 +107,25 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 6 * one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                   ProcModel.ThreeDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
-        one_t.en_int_validator(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                               ProcModel.ThreeDDxfModel.ColorCodeCol,
-                               0, 255)
-        one_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                   ProcModel.ThreeDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
+        one_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
+                                   ThreeDDxfModel.LineNameCol,
+                                   Regex.ThreeDDxfLayerNames)
+
+        one_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
+                               ThreeDDxfModel.ColorCodeCol,
+                               ValidationValues.Proc.MinThreeDDxfColorNum,
+                               ValidationValues.Proc.MaxThreeDDxfColorNum)
+
+        one_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
+                                   ThreeDDxfModel.ColorNameCol,
+                                   Regex.ThreeDDxfColorDesc)
 
         one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ProcModel.ThreeDDxfModel.LineNameCol,
+        one_t.set_help_text(ThreeDDxfModel.LineNameCol,
                             _('ThreeDDxf-LineNameDesc'))
-        one_t.set_help_text(ProcModel.ThreeDDxfModel.ColorCodeCol,
+        one_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
                             _('ThreeDDxf-ColorCodeDesc'))
-        one_t.set_help_text(ProcModel.ThreeDDxfModel.ColorNameCol,
+        one_t.set_help_text(ThreeDDxfModel.ColorNameCol,
                             _('ThreeDDxf-ColorNameDesc'))
 
         two_t = TableView()
@@ -139,27 +142,31 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
                              + 3 * two_t.rowHeight(6))
         self.window_ly.addWidget(two_t)
 
-        two_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                   ProcModel.ThreeDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
-        two_t.en_int_validator(ProcModel.ThreeDDxfModel.UnifilarCol,
-                               ProcModel.ThreeDDxfModel.UnifilarCol,
+        two_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
+                                   ThreeDDxfModel.LineNameCol,
+                                   Regex.ThreeDDxfLayerNamesPlus)
+
+        two_t.en_int_validator(ThreeDDxfModel.UnifilarCol,
+                               ThreeDDxfModel.UnifilarCol,
                                0, 1)
-        two_t.en_int_validator(ProcModel.ThreeDDxfModel.ColorCodeCol,
-                               ProcModel.ThreeDDxfModel.ColorCodeCol,
-                               0, 255)
-        two_t.en_reg_exp_validator(ProcModel.ThreeDDxfModel.LineNameCol,
-                                   ProcModel.ThreeDDxfModel.LineNameCol,
-                                    "^[a-zA-Z0-9_.-]*$")
+
+        two_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
+                               ThreeDDxfModel.ColorCodeCol,
+                               ValidationValues.Proc.MinThreeDDxfColorNum,
+                               ValidationValues.Proc.MaxThreeDDxfColorNum)
+
+        two_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
+                                   ThreeDDxfModel.ColorNameCol,
+                                   Regex.ThreeDDxfColorDesc)
 
         two_t.set_help_bar(self.helpBar)
-        two_t.set_help_text(ProcModel.ThreeDDxfModel.LineNameCol,
+        two_t.set_help_text(ThreeDDxfModel.LineNameCol,
                             _('ThreeDDxf-LineNameDesc'))
-        two_t.set_help_text(ProcModel.ThreeDDxfModel.UnifilarCol,
+        two_t.set_help_text(ThreeDDxfModel.UnifilarCol,
                             _('ThreeDDxf-UnifilarDesc'))
-        two_t.set_help_text(ProcModel.ThreeDDxfModel.ColorCodeCol,
+        two_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
                             _('ThreeDDxf-ColorCodeDesc'))
-        two_t.set_help_text(ProcModel.ThreeDDxfModel.ColorNameCol,
+        two_t.set_help_text(ThreeDDxfModel.ColorNameCol,
                             _('ThreeDDxf-ColorNameDesc'))
 
         self.usage_update()
@@ -185,8 +192,6 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
         if self.threeDDxf_M.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
@@ -196,7 +201,6 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.threeDDxf_M.set_is_used(False)
         else:
@@ -207,7 +211,6 @@ class ThreeDDxfModel(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

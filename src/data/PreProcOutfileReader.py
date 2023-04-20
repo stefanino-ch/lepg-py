@@ -165,7 +165,7 @@ class PreProcOutfileReader:
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
                 msg_box.setIcon(QMessageBox.Icon.Warning)
-                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+                msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                 msg_box.exec()
                 return [], 0
 

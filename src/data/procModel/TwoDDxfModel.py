@@ -35,7 +35,7 @@ class TwoDDxfModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 4
     ''':attr: num of column for config number (always 1)'''
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """

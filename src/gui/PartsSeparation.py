@@ -9,10 +9,13 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
+from data.procModel.PartsSeparationModel import PartsSeparationModel
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
+
+from gui.GlobalDefinition import ValidationValues
 
 
 class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
@@ -29,7 +32,6 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.btn_bar = None
@@ -40,7 +42,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.parts_sep_m = ProcModel.PartsSeparationModel()
+        self.parts_sep_m = PartsSeparationModel()
         self.parts_sep_m.usageUpd.connect(self.usage_update)
         self.build_window()
 
@@ -48,7 +50,7 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -62,8 +64,6 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                         help_bar  | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -94,8 +94,8 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         one_t.verticalHeader().setVisible(False)
         one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         one_t.hideColumn(0)
-        for i in range(ProcModel.PartsSeparationModel.Param7_col,
-                       ProcModel.PartsSeparationModel.Param10_col+1):
+        for i in range(PartsSeparationModel.Param7_col,
+                       PartsSeparationModel.Param10_col+1):
             one_t.hideColumn(i)
         one_t.hideColumn(self.parts_sep_m.columnCount() - 2)
         one_t.hideColumn(self.parts_sep_m.columnCount() - 1)
@@ -105,22 +105,24 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
                              + one_t.rowHeight(0))
         self.window_ly.addWidget(one_t)
 
-        one_t.en_double_validator(ProcModel.PartsSeparationModel.Panel_x_col,
-                                  ProcModel.PartsSeparationModel.Rib_1y_col,
-                                  0, 10, 2)
+        one_t.en_double_validator(PartsSeparationModel.Panel_x_col,
+                                  PartsSeparationModel.Rib_1y_col,
+                                  ValidationValues.Proc.MinPartsSep_coef,
+                                  ValidationValues.Proc.MaxParsSep_coef,
+                                  2)
 
         one_t.set_help_bar(self.help_bar)
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_x_col,
+        one_t.set_help_text(PartsSeparationModel.Panel_x_col,
                             _('PartsSep-Panel_x_Desc'))
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_x_min_col,
+        one_t.set_help_text(PartsSeparationModel.Panel_x_min_col,
                             _('PartsSep-Panel_x_min_Desc'))
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Panel_y_col,
+        one_t.set_help_text(PartsSeparationModel.Panel_y_col,
                             _('PartsSep-Panel_y_Desc'))
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_x_col,
+        one_t.set_help_text(PartsSeparationModel.Rib_x_col,
                             _('PartsSep-Rib_x_Desc'))
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_y_col,
+        one_t.set_help_text(PartsSeparationModel.Rib_y_col,
                             _('PartsSep-Rib_y_Desc'))
-        one_t.set_help_text(ProcModel.PartsSeparationModel.Rib_1y_col,
+        one_t.set_help_text(PartsSeparationModel.Rib_1y_col,
                             _('PartsSep-Rib_1y_Desc'))
 
         self.usage_update()
@@ -146,8 +148,6 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        logging.debug(self.__className + '.usage_update')
-
         if self.parts_sep_m.is_used():
             self.usage_cb.setCurrentIndex(1)
         else:
@@ -157,7 +157,6 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Updates the model as soon the usage CB has been changed
         """
-        logging.debug(self.__className + '.usage_cb_change')
         if self.usage_cb.currentIndex() == 0:
             self.parts_sep_m.set_is_used(False)
         else:
@@ -168,7 +167,6 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

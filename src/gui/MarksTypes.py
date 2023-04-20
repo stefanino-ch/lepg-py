@@ -16,8 +16,7 @@ from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
-from gui.GlobalDefinition import Regex
-from gui.GlobalDefinition import ValidationValues
+from gui.GlobalDefinition import Regex, ValidationValues
 
 
 class MarksTypes(QMdiSubWindow, metaclass=Singleton):

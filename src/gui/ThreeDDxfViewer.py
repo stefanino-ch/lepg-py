@@ -165,8 +165,8 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                                     self.ini_scene_width,
                                     self.ini_scene_height)
         self.view = GraphicsView(self.scene)
-        self.view.setDragMode(GraphicsView.ScrollHandDrag)
-        self.view.setRenderHint(QPainter.Antialiasing)
+        self.view.setDragMode(GraphicsView.DragMode.ScrollHandDrag)
+        self.view.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         hbox_ly = QHBoxLayout()
         hbox_ly.addLayout(btn_ly)
@@ -240,7 +240,7 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                                   'is not setup.\n'
                                   '(Setup->Both Processors)'))
                 msg_box.setIcon(QMessageBox.Icon.Warning)
-                msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+                msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                 msg_box.exec()
                 return None
         else:
