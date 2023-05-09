@@ -28,11 +28,11 @@ class GraphicsView(QGraphicsView):
         zoom_out_factor = 1 / zoom_in_factor
 
         # Set Anchors
-        self.setTransformationAnchor(QGraphicsView.NoAnchor)
-        self.setResizeAnchor(QGraphicsView.NoAnchor)
+        self.setTransformationAnchor(QGraphicsView.ViewportAnchor.NoAnchor)
+        self.setResizeAnchor(QGraphicsView.ViewportAnchor.NoAnchor)
 
         # Save the scene pos
-        old_pos = self.mapToScene(event.pos())
+        old_pos = self.mapToScene(event.position().toPoint())
 
         # Zoom
         if event.angleDelta().y() > 0:
@@ -42,7 +42,7 @@ class GraphicsView(QGraphicsView):
         self.scale(zoom_factor, zoom_factor)
 
         # Get the new position
-        new_pos = self.mapToScene(event.pos())
+        new_pos = self.mapToScene(event.position().toPoint())
 
         # Move scene to old position
         delta = new_pos - old_pos

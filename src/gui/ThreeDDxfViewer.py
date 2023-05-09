@@ -42,7 +42,6 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.view = None
         self.scene = None
         self.proj_params = None
-        logging.debug(self.__className + '.__init__')
 
         self.__open_proc_file = False  # type: bool
         self.button_bar = None
@@ -81,8 +80,6 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
@@ -226,8 +223,6 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         :returns: Data read from the file
                   None if file could not be read
         """
-        logging.debug(self.__className + '.open_read_file')
-
         if file is DxfFileType.proc:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_proc_directory(),
@@ -395,13 +390,12 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.scene.setSceneRect(rect)
 
         # fit view to scene
-        self.view.fitInView(self.scene.sceneRect(), Qt.KeepAspectRatio)
+        self.view.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
 
     def button_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
 
@@ -419,4 +413,4 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass

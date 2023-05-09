@@ -31,13 +31,12 @@ class HelpAbout(QMdiSubWindow, metaclass=Singleton):
         self.windowGrid = None
         self.win = None
         self.btnBar = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.build_window()
 
     def closeEvent(self, event):  # @UnusedVariable
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -74,7 +73,7 @@ class HelpAbout(QMdiSubWindow, metaclass=Singleton):
         self.windowGrid.addWidget(self.helpAboutTitleL,
                                   self.__winGridRow,
                                   0,
-                                  Qt.AlignLeft)
+                                  Qt.AlignmentFlag.AlignLeft)
         self.__winGridRow += 1
 
         self.helpAboutTextL = QLabel(_('A graphical frontend to lep\n'
@@ -82,19 +81,19 @@ class HelpAbout(QMdiSubWindow, metaclass=Singleton):
                                      % getattr(__init__, '__version__'))
         self.windowGrid.addWidget(self.helpAboutTextL,
                                   self.__winGridRow, 0,
-                                  Qt.AlignLeft)
+                                  Qt.AlignmentFlag.AlignLeft)
         self.__winGridRow += 1
 
         self.helpAboutDevL = QLabel(_('Developers: \nStefan Feuz'))
         self.windowGrid.addWidget(self.helpAboutDevL,
                                   self.__winGridRow, 0,
-                                  Qt.AlignLeft)
+                                  Qt.AlignmentFlag.AlignLeft)
         self.__winGridRow += 1
 
         self.helpAboutLicL = QLabel(_('General Public License GNU GPL 3.0'))
         self.windowGrid.addWidget(self.helpAboutLicL,
                                   self.__winGridRow, 0,
-                                  Qt.AlignLeft)
+                                  Qt.AlignmentFlag.AlignLeft)
         self.__winGridRow += 1
 
         #############################

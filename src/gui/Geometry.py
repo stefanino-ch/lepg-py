@@ -38,7 +38,6 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         self.helpBar = None
         self.window_ly = None
         self.win = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.rib_M = RibModel()
@@ -48,7 +47,7 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -68,8 +67,6 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
                     SortBtn | help_bar | btn_bar
 
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -189,7 +186,6 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         """
         : method : handles the sort of the table by rib number
         """
-        logging.debug(self.__className + '.sort_btn_press')
         self.rib_M.sort_table(RibModel.RibNumCol,
                               Qt.SortOrder.AscendingOrder)
 
@@ -197,7 +193,6 @@ class Geometry(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

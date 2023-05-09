@@ -44,8 +44,6 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         self.proc_grp_ly = None
         self.btn_bar = None
 
-        logging.debug(self.__className+'.__init__')
-
         self.config_reader = ConfigReader()
         self.build_window()
 
@@ -53,7 +51,7 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -69,8 +67,6 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
                                 | help_bar
                                 | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -154,8 +150,6 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
                  button. Does prepare and execute the according file
                  change dialog.
         """
-        logging.debug(self.__className + '.pre_proc_btn_press')
-
         # Do platform specific if here as the PreProx extensions are different
         if platform.system() == "Windows":
             filename = QFileDialog.getOpenFileName(
@@ -183,11 +177,7 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
             # User has really selected a file, if it had aborted the
             # dialog an empty tuple is returned
             # Write the info to the config reader
-            logging.debug(self.__className
-                          + '.setupPreProcLocation Path and Name '
-                          + filename[0])
-
-            self.pre_proc_e.set_text(filename[0])
+            self.pre_proc_e.setText(filename[0])
             self.config_reader.set_pre_proc_path_name(filename[0])
 
     def outline_chkb_change(self):
@@ -203,8 +193,6 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
         :method: Called at the time the user select the proc change button.
                  Does prepare and execute the according file change dialog.
         """
-        logging.debug(self.__className + '.proc_btn_press')
-
         # Do platform specific if here as the PreProx extensions are different
         if platform.system() == "Windows":
             filename = QFileDialog.getOpenFileName(
@@ -232,18 +220,13 @@ class SetupProcessors(QMdiSubWindow, metaclass=Singleton):
             # User has really selected a file, if it had aborted the
             # dialog an empty tuple is returned.
             # Write the info to the config reader
-            logging.debug(self.__className
-                          + '.setupProcLocation Path and Name '
-                          + filename[0])
-
-            self.proc_e.set_text(filename[0])
+            self.proc_e.setText(filename[0])
             self.config_reader.set_proc_path_name(filename[0])
 
     def btn_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

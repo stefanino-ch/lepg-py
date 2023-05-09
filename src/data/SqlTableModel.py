@@ -124,7 +124,6 @@ class SqlTableModel(QSqlTableModel):
                  based on the parameter passed
         :param must_num_configs: Number of configs the model must provide
         """
-        logging.debug(self.__className+'.set_num_configs')
         curr_num_configs = self.num_configs()
 
         diff = abs(must_num_configs - curr_num_configs)
@@ -170,8 +169,6 @@ class SqlTableModel(QSqlTableModel):
         :attention: The two columns *ConfigNum* and *OrderNum* must exist for
                     proper functionality
         """
-        logging.debug(self.__className+'.add_row_for_config')
-
         curr_num_rows = self.num_rows_for_config(config_num)
 
         query = QSqlQuery()
@@ -195,8 +192,6 @@ class SqlTableModel(QSqlTableModel):
         :param config_num: Number of the config for which the row must
                           be deleted.
         """
-        logging.debug(self.__className+'.remove_row_for_config')
-
         query = QSqlQuery()
         query.prepare("Select ConfigNum, OrderNum FROM %s WHERE ConfigNum = :conf ORDER BY OrderNum ASC"
                       % self.tableName())
@@ -223,8 +218,6 @@ class SqlTableModel(QSqlTableModel):
                           be deleted
         :param must_num_rows: Number of rows the model must provide.
         """
-        logging.debug(self.__className+'.set_num_rows_for_config')
-
         curr_num_rows = self.num_rows_for_config(config_num)
         diff = abs(must_num_rows - curr_num_rows)
 

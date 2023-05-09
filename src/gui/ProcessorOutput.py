@@ -24,7 +24,6 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
         :method: Class initialization
         """
         self.win = None
-        logging.debug(self.__className+'.__init__')
         super().__init__()
 
         self.build_window()
@@ -33,7 +32,7 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass
 
     def build_window(self):
         """

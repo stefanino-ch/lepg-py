@@ -1,6 +1,6 @@
-__version__ = '3.20.0'
+__version__ = '3.19.1'
 
-# 3.20.0
+# 3.19.1
 # Introducing Python 3.11 and PyQt6
 # In memory database brings better performance
 # Value backgrounds based on range checking

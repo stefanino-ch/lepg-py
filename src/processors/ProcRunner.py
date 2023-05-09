@@ -26,8 +26,6 @@ class ProcRunner:
         :param proc_out_w: The instance of the window where the output of the
                            processor shall be written to
         """
-        logging.debug(self.__className+'.__init__')
-
         self.userInfo = proc_out_w
         self.config_reader = ConfigReader()
 
@@ -35,8 +33,6 @@ class ProcRunner:
         """
         :method: Does all the needed setups to run the pre-processor.
         """
-        logging.debug(self.__className+'.run_pre_proc')
-
         pre_proc = self.config_reader.get_pre_proc_path_name()
 
         # For Linux make sure x flag is set
@@ -56,8 +52,6 @@ class ProcRunner:
                  The file the configured proc path name points really to a file
         :returns: True if both checks above are valid, False else
         """
-        logging.debug(self.__className+'.pre_proc_configured')
-
         path_name = self.config_reader.get_pre_proc_path_name()
 
         if len(path_name) > 0:
@@ -72,8 +66,6 @@ class ProcRunner:
         """
         :method: Does all the needed setups to run the processor.
         """
-        logging.debug(self.__className+'.run_proc')
-
         proc = self.config_reader.get_proc_path_name()
 
         # For Linux make sure x flag is set
@@ -93,8 +85,6 @@ class ProcRunner:
                  The file the configured proc path name points really to a file
         :returns: True if both checks above are valid, False else
         """
-        logging.debug(self.__className+'.proc_configured')
-
         path_name = self.config_reader.get_proc_path_name()
 
         if len(path_name) > 0:

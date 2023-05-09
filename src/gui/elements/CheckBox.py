@@ -21,8 +21,6 @@ class CheckBox(QCheckBox):
         """
         :method: Constructor
         """
-        logging.debug(self.__className + '.__init__')
-
         super().__init__(*args, **kwargs)
         self.__helpBar = None
         self.__helpText = ''
@@ -48,7 +46,6 @@ class CheckBox(QCheckBox):
                  help text shall be displayed during program execution.
         :param help_bar: Instance of the respective help bar to work with
         """
-        logging.debug(self.__className+'.set_help_bar')
         self.__helpBar = help_bar
 
     def set_help_text(self, help_text):
@@ -57,5 +54,4 @@ class CheckBox(QCheckBox):
                  be displayed if the mouse pointer is located over it.
         :param help_text: Help text to be displayed
         """
-        logging.debug(self.__className+'.set_help_text')
         self.__helpText = help_text

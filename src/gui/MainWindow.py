@@ -155,8 +155,6 @@ class MainWindow(QMainWindow):
         # WARNING
         # ERROR
         # CRITICAL
-        logging.debug(self.__className + '.__init__')
-
         # Setup languages
         self.config_reader = ConfigReader()
 
@@ -314,7 +312,7 @@ class MainWindow(QMainWindow):
                               "Press OK to restart anyway.\n"
                               "Press Cancel to abort. "))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
             answer = msg_box.exec()
 
             if answer == QMessageBox.StandardButton.Cancel:
@@ -331,8 +329,6 @@ class MainWindow(QMainWindow):
         """
         :method: Does all the work to close properly the application.
         """
-        logging.debug(self.__className + '.file_exit')
-
         if self.ppm.file_saved() is not True\
                 or self.pm.file_saved() is not True:
             # There is unsaved data, show a warning
@@ -437,8 +433,6 @@ class MainWindow(QMainWindow):
         :method: Called if the user selects *Pre Processor*
                  -> *Run Pre-Processor*
         """
-        logging.debug(self.__className + '.pre_proc_run')
-
         # Save current file into processor directory
         self.ppm.write_file(True)
 
@@ -864,8 +858,6 @@ class MainWindow(QMainWindow):
         """
         :method: Called if the user selects *Processor* -> *Run Processor*
         """
-        logging.debug(self.__className + '.proc_run')
-
         # Save current file into processor directory
         self.pm.write_for_proc_file()
 
@@ -1172,13 +1164,13 @@ class MainWindow(QMainWindow):
                 bundle_dir = os.path.join(bundle_dir, '..')
             except NameError:
                 bundle_dir = os.getcwd()
-                bundle_dir = os.path.join(bundle_dir, '..')
+                # bundle_dir = os.path.join(bundle_dir, '..')
 
         webbrowser.open('file://'
-                        + os.path.join(bundle_dir,
+                        + os.path.realpath(os.path.join(bundle_dir,
                                        'userHelp',
                                        config.get_language(),
-                                       'introduction.html'))
+                                       'introduction.html')))
 
     def help_about(self):
         """

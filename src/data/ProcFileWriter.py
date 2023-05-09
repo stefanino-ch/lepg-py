@@ -134,8 +134,6 @@ class ProcFileWriter:
         """
         separator = '***************************************************\n'
 
-        logging.debug(self.__className + '.write_file')
-
         if for_proc is True:
             # Special file write into the directory where the
             # PreProcessor resides

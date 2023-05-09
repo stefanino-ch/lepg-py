@@ -31,7 +31,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Class initialization
         """
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.win = None
@@ -51,7 +50,7 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """
@@ -66,8 +65,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                 | help_bar
                                 | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -283,8 +280,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         :method: The difference between NumCells and NumRibs must be 1, if
                  this is not the case we have a nonsense setup
         """
-        logging.debug(self.__className + '.check_num_cells_ribs')
-
         if q.column() == self.wing_M.NumRibsCol \
                 or q.column() == self.wing_M.NumCellsCol:
             try:
@@ -311,7 +306,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
 

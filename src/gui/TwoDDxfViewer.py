@@ -44,8 +44,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.view = None
         self.scene = None
         self.proj_params = None
-        logging.debug(self.__className + '.__init__')
-
         self.button_bar = None
         self.help_bar = None
         self.window_ly = None
@@ -85,8 +83,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
@@ -197,8 +193,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         :returns: Data read from the file
                   None if file could not be read
         """
-        logging.debug(self.__className + '.open_read_file')
-
         if file is DxfFileType.pre_proc:
             self.__file_path_name = \
                 os.path.join(self.config_reader.get_pre_proc_directory(),
@@ -284,7 +278,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                 elif type(entity) is Text3D:
                     text_item = QGraphicsSimpleTextItem()
                     text_item.setText(entity.text)
-                    text_font.setPixelSize(entity.height * .35)
+                    text_font.setPixelSize(int(entity.height * .35))
                     text_item.setFont(text_font)
                     text_item.setBrush(QBrush(QColor(entity.color.r,
                                                      entity.color.g,
@@ -360,13 +354,12 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         self.scene.setSceneRect(rect)
 
         # fit view to scene
-        self.view.fitInView(self.scene.sceneRect(), Qt.KeepAspectRatio)
+        self.view.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
 
     def button_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
 
@@ -384,4 +377,4 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass

@@ -23,7 +23,6 @@ class WindowHelpBar(QWidget):
 
         palette = QPalette(self.helpWindow.palette())
         palette.setColor(QPalette.ColorRole.Window, QColor('white'))
-        # palette.setColor(QPalette.Background, QColor('white'))
 
         self.helpWindow.setPalette(palette)
         self.helpWindow.setAutoFillBackground(True)

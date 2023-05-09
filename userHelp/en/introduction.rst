@@ -15,6 +15,20 @@ The workflow:
 
 Lepg does help editing the data and does take care about formatting the data in the files needed to run lep. But still some backround knowledge about the lep data is needed. 
 
+Der farbige Hintergrund in den Eingabefelder zeigt das Resultat der Werte Prüfung welche im Hintergrund läuft:
+
+.. image:: /images/input-validation-en.png
+
+- grün: die Werte liegen innerhalb des definierten Wertebereiches
+- gelb: lepg kann nicht mit Sicherheit feststellen dass der Wert gültig ist. In obigem Bild wurde ein Flügel-Massstab von 1:99 eingegeben. Dieser Wert liegt ausserhalb des Bereiches welcher für die Werteprüfung festgelegt wurde, kann aber in Spezialfällen trotzdem sinn machen.
+- rot: hier ist definitiv etwas falsch
+
+Nicht immer müssen in den Fenstern alle Parameter ausgefüllt werden:
+
+.. image:: /images/num-of-params-en.png
+
+grey fields indicate unused input fields depending on the currently selected parameter type.
+
 The Online help does try to cover the most important topics. If you want or need to know it in all details you must have a look at Peres website |pere_link|.
 
 .. |pere_link| raw:: html

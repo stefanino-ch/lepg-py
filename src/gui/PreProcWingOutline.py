@@ -63,8 +63,6 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.view = None
         self.scene = None
         self.proj_params = None
-        logging.debug(self.__className + '.__init__')
-
         self.__open_pre_proc_file = False  # type: bool
         self.button_bar = None
         self.help_bar = None
@@ -101,8 +99,6 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
@@ -309,11 +305,11 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
             border = divmod(len(self.wing), 2)
 
             if rib_it < border[0]:
-                pen = QPen(Qt.darkGreen)
+                pen = QPen(Qt.GlobalColor.darkGreen)
             elif rib_it >= border[0]+border[1]:
-                pen = QPen(Qt.red)
+                pen = QPen(Qt.GlobalColor.red)
             else:
-                pen = QPen(Qt.black)
+                pen = QPen(Qt.GlobalColor.black)
 
             pen.setCosmetic(True)
             line_item.setPen(pen)
@@ -324,7 +320,7 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
             self.edges.append(edge)
 
         # leading edge
-        black_pen = QPen(Qt.black)
+        black_pen = QPen(Qt.GlobalColor.black)
         black_pen.setCosmetic(True)
 
         for rib_it in range(0, len(self.wing)-1):
@@ -441,13 +437,12 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         self.scene.setSceneRect(rect)
 
         # fit view to scene
-        self.view.fitInView(self.scene.sceneRect(), Qt.KeepAspectRatio)
+        self.view.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
 
     def button_press(self, q):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className+'.btn_press')
         if q == 'Apply':
             pass
 
@@ -465,4 +460,4 @@ class PreProcWingOutline(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent')
+        pass

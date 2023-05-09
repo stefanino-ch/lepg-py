@@ -32,7 +32,6 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         self.update_chkb = None
         self.win = None
 
-        logging.debug(self.__className+'.__init__')
         super().__init__()
         
         self.confRdr = ConfigReader()
@@ -43,7 +42,7 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user closes the window.
         """
-        logging.debug(self.__className+'.closeEvent') 
+        pass
         
     def build_window(self):
         """
@@ -59,8 +58,6 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
                                 | help_bar
                                 | btn_bar
         """
-        logging.debug(self.__className + '.build_window')
-        
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
@@ -123,8 +120,6 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user alters the update checkbox
         """ 
-        logging.debug(self.__className + '.update_chkb_change')
-        
         if self.update_chkb.isChecked():
             self.confRdr.set_check_for_updates('yes')
             self.branch_cb.setEnabled(True)
@@ -136,8 +131,6 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called at the time the user alters the branch combo box.
         """
-        logging.debug(self.__className + '.branch_cb_change')
-        
         if self.branch_cb.currentIndex() == 0:
             self.confRdr.set_track_branch('stable')
         else:
@@ -147,7 +140,6 @@ class SetupUpdateChecking(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Handling of all pressed buttons.
         """
-        logging.debug(self.__className + '.btn_press')
         if q == 'Apply':
             pass
                         

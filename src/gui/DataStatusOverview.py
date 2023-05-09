@@ -40,7 +40,6 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         self.pre_proc_vers_e = None
         self.__stringLength = 50
         self.win = None
-        logging.debug(self.__className + '.__init__')
         super().__init__()
 
         self.ppm = PreProcModel()
@@ -55,7 +54,7 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         """
         :method: Called upon window close
         """
-        logging.debug(self.__className + '.closeEvent')
+        pass
 
     def build_window(self):
         """

@@ -141,8 +141,6 @@ class ProcFileReader(QObject):
                  database.
         :warning: Filename and Path must be set first!
         """
-        logging.debug(self.__className + '.read_file')
-
         self.__fileNamePath = file_path_name
         self.__fileVersion = float(file_version)
 
