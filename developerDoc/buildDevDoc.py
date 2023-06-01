@@ -11,6 +11,8 @@ print('Building Developer doc')
 print('**********************')
 print()
 
+dirpath = os.path.dirname(os.path.realpath(__file__))
+
 buildPath = os.path.join(dirpath, '_build')
 doctreesPath = os.path.join(dirpath, '_build/doctrees')
 htmlPath = os.path.join(dirpath, '_build/html')

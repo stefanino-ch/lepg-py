@@ -11,9 +11,9 @@ print('*****************************************************')
 print()
 print('*****************************************************')
 print('Update developer doc? [y/ n]')
-answ = input('Default= y ')
+answ = input('Default= n ')
 
-if answ != 'n':
+if answ == 'y':
     os.system('python ../developerDoc/buildDevDoc.py')
     
 

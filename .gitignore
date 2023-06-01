@@ -15,6 +15,9 @@ userHelp/.doctrees
 # Help files in src
 src/userHelp
 
+# Generated developer doc
+developerDoc/_build
+
 # Test files from export
 exportTestFiles/
 
