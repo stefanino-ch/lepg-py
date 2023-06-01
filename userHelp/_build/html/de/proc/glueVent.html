@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Einlassöffnungen &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Flügelenden" href="specWingTip.html" />
+    <link rel="prev" title="3D DXF Optionen" href="threeDDxf.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="specWingTip.html" title="Flügelenden"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="threeDDxf.html" title="3D DXF Optionen"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Einlassöffnungen</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Einlassöffnungen</a><ul>
+<li><a class="reference internal" href="#typ">Typ</a></li>
+<li><a class="reference internal" href="#zellen-nr">Zellen Nr</a></li>
+<li><a class="reference internal" href="#einl-parameter">Einl Parameter</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="threeDDxf.html"
+                          title="previous chapter">3D DXF Optionen</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="specWingTip.html"
+                          title="next chapter">Flügelenden</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="einlassoffnungen">
+<h1>Einlassöffnungen<a class="headerlink" href="#einlassoffnungen" title="Permalink to this heading">¶</a></h1>
+<p>Hier kann die Form der Einlassöffnungen definiert werden. Zusätzlich besteht
+die Möglickeit zu definieren ob und zu welchem Panel die Verschlussstücke
+verbunden werden.</p>
+<p>Für die Verschlussstücke wird der Nähsaum automatisch berechnet wo notwendig.</p>
+<p>Die Segelspannung folgt automatisch den Parametern definiert in
+<strong>Tuchspannung</strong>.</p>
+<a class="reference internal image-reference" href="../../_images/glueVent-de.png"><img alt="../../_images/glueVent-de.png" src="../../_images/glueVent-de.png" style="width: 350px; height: 286px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">26.</span> <span class="n">GLUE</span> <span class="n">VENTS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">1</span>   <span class="o">-</span><span class="mi">6</span>   <span class="mi">70</span>   <span class="mi">100</span>
+<span class="mi">2</span>   <span class="o">-</span><span class="mi">4</span>    <span class="mi">0</span>    <span class="mi">80</span>
+<span class="mi">3</span>   <span class="o">-</span><span class="mi">4</span>   <span class="mi">80</span>     <span class="mi">0</span>
+<span class="mi">4</span>   <span class="o">-</span><span class="mi">4</span>    <span class="mi">0</span>    <span class="mi">80</span>
+<span class="mi">5</span>   <span class="o">-</span><span class="mi">4</span>   <span class="mi">80</span>     <span class="mi">0</span>
+<span class="mi">6</span>   <span class="o">-</span><span class="mi">4</span>    <span class="mi">0</span>   <span class="mi">100</span>
+<span class="mi">7</span>   <span class="o">-</span><span class="mi">4</span>  <span class="mi">100</span>    <span class="mi">50</span>
+<span class="mi">8</span>   <span class="o">-</span><span class="mi">4</span>   <span class="mi">50</span>     <span class="mi">0</span>
+<span class="mi">9</span>    <span class="mi">4</span>  <span class="mi">100</span>     <span class="mi">0</span>
+<span class="mi">10</span>   <span class="mi">5</span>    <span class="mf">0.</span>    <span class="mf">0.</span>   <span class="mf">80.</span>
+<span class="mi">11</span>   <span class="mi">5</span>    <span class="mf">0.</span>    <span class="mf">0.</span>   <span class="mf">80.</span>
+<span class="mi">12</span>  <span class="o">-</span><span class="mi">5</span>   <span class="mf">50.</span>   <span class="mf">50.</span>   <span class="mf">50.</span>
+<span class="mi">13</span>  <span class="o">-</span><span class="mi">5</span>   <span class="mf">50.</span>  <span class="mf">100.</span>   <span class="mf">50.</span>
+<span class="mi">14</span>  <span class="o">-</span><span class="mi">6</span>   <span class="mf">70.</span>   <span class="mf">70.</span>
+<span class="mi">15</span>  <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<section id="typ">
+<h2>Typ<a class="headerlink" href="#typ" title="Permalink to this heading">¶</a></h2>
+<p><em>Einlassöffnungen</em> ist eine <strong>optionale Konfiguration</strong>.</p>
+<p>Wenn die Standard Parameter verwendet werden sollen dann setze <strong>Typ</strong> auf
+<strong>Standard</strong>.</p>
+<p>Wenn <strong>Typ</strong> auf <strong>Benutzerdefiniert</strong> gesetzt wird, dann generiert lepg
+automatisch die notwendigen Konfigurationszeilen basierend auf den
+Einstellungen für Anzahl Zellen und Rippen aus dem Fenster <strong>Basisdaten</strong>.</p>
+</section>
+<section id="zellen-nr">
+<h2>Zellen Nr<a class="headerlink" href="#zellen-nr" title="Permalink to this heading">¶</a></h2>
+<p>Nummer der Zelle für welche die Konfiguratioszeile gilt.</p>
+</section>
+<section id="einl-parameter">
+<h2>Einl Parameter<a class="headerlink" href="#einl-parameter" title="Permalink to this heading">¶</a></h2>
+<figure class="align-default">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S26.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S26.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S26.jpg" style="width: 492px; height: 653px;" /></a>
+</figure>
+<figure class="align-default">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S26_vents_types.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S26_vents_types.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S26_vents_types.jpg" style="width: 422px; height: 220px;" /></a>
+</figure>
+<figure class="align-default">
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S26_c.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S26_c.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S26_c.jpg" style="width: 455px; height: 628px;" /></a>
+</figure>
+<p><strong>0</strong> Verschlussstück ist nicht verbunden (offene Zelle, oder wenn spezielle
+Einlassöffnungen z.B. mit einem CAD kreiert werden sollen).</p>
+<p><strong>1</strong> Verschlussstück ist Teil des Obersegels (Typisch bei Single Skin Flügeln).</p>
+<p><strong>-1</strong> Verschlussstück ist Teil des Untersegels (normalerweise bei geschl Zellen).</p>
+<p><strong>-2</strong> Diagonale Öffnung, links 100% offen, das Verschlussstück ist Teil
+des Untersegels.</p>
+<p><strong>-3</strong> Diagonale Öffnung, rechts 100% offen, das Verschlussstück ist Teil des
+Untersegels.</p>
+<p><strong>4</strong> Digonale Öffnung. Mit zwei zusätzlichen Parametern wird jeweils die
+Öffnung an linken und rechten Rand der Zelle definiert. Das Verschlussstück ist Teil
+des Obersegels.</p>
+<p><strong>-4</strong> Digonale Öffnung. Mit zwei zusätzlichen Parametern wird jeweils die
+Öffnung an linken und rechten Rand der Zelle definiert. Das Verschlussstück ist Teil
+des Untersegels</p>
+<p><strong>5</strong> Gebogene Öffnungskante. Mit drei zusätzlichen Parametern wird jeweils die
+Öffnung an linken und rechten Rand der Zelle, sowie die Krümung definiert.
+Das Verschlussstück ist Teil des Obersegels.</p>
+<p><strong>-5</strong> Gebogene Öffnungskante. Mit drei zusätzlichen Parametern wird jeweils die
+Öffnung an linken und rechten Rand der Zelle, sowie die Krümung definiert.
+Das Verschlussstück ist Teil des Untersegels.</p>
+<p><strong>6</strong> Elliptische Öffnung. Mit zwei zusätzlichen Parametern wird der Grad der
+Öffnung in Breite und Höhe des Verschlussstückes definiert. Das Verschlussstück
+ist Teil des Obersegels.</p>
+<p><strong>-6</strong> Elliptische Öffnung. Mit zwei zusätzlichen Parametern wird der Grad der
+Öffnung in Breite und Höhe des Verschlussstückes definiert. Das Verschlussstück
+ist Teil des Untersegels.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.26" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="specWingTip.html" title="Flügelenden"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="threeDDxf.html" title="3D DXF Optionen"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Einlassöffnungen</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>
