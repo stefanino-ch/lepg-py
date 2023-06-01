@@ -10,11 +10,6 @@ Latest_Mac_Version = '3.19.0'
 
 [Deutsche Anleitung](https://stefanino-ch.github.io/lepg-py/de/deutsch.html)
 
-<a href="https://stefanino-ch.github.io/lepg-py/en/english.html" target="_blank">English user manual</a>
-
-<a href="https://stefanino-ch.github.io/lepg-py/de/deutsch.html" target="_blank">Deutsche Anleitung</a>
-
-
 ## English
 ### Installation - Windows
 In the folder distribution/dist-W64 you will find a zip file.
