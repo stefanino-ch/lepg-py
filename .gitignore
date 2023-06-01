@@ -40,6 +40,9 @@ __MACOSX
 # PyCharm development environment
 /.idea
 
+# all processors in src
+src/processors/lep-*
+
 # MAC specifics
 .DS_Store
 __MACOSX

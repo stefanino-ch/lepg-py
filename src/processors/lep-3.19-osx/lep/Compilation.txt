@@ -1,3 +1,0 @@
-Compiled in xubuntu amd64bit:
-
-gfortran -static-libgfortran leparagliding.f 

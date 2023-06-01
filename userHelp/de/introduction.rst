@@ -6,6 +6,8 @@
 Einführung zu lepg
 ******************
 
+Arbeitsablauf
+=============
 Lepg ist eine graphische Oberfläche zum Berechnungsprogramm lep welches von Pere Casellas geschrieben wurde. Ziel von Lepg ist es eine möglichst einfache Oberfläche 
 zur Verfügung zu stellen welche die Bearbeitung der Daten ermöglicht welche anschliessend von lep für die Flügelberechnung verwendet werden. 
 
@@ -13,6 +15,8 @@ Der Arbeitsablauf sieht so aus:
 
  .. image:: /images/workflow-de.png
 
+Eingabefelder
+=============
 Lepg hilft bei der Bearbeitung der Daten und nimmt dem Benutzer die Formatierung der Daten Dateien welche lep benötigt ab. Aber so ganz ohne Hintergrundwissen geht es nicht, 
 ein wenig muss man sich in der Datenstruktur von lep schon auskennen.
 
