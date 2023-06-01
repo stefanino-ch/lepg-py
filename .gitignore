@@ -9,7 +9,7 @@ lepgModel.sqlite
 
 # Intermediate files from help system
 userHelp/.escapecodecache
-# userHelp/_build
+userHelp/_build
 userHelp/.doctrees
 
 # Help files in src

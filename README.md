@@ -6,6 +6,9 @@ Latest_Linux_Version = '3.19.0'
 
 Latest_Mac_Version = '3.19.0'
 
+[English user manual](https://stefanino-ch.github.io/lepg-py/en/english.html)
+
+[Deutsche Anleitung](https://stefanino-ch.github.io/lepg-py/de/deutsch.html)
 
 ## English
 ### Installation - Windows
