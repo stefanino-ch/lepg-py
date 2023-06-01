@@ -16,20 +16,21 @@ print('Removing already existing html files to force a new build...')
 
 dirpath = os.path.dirname(os.path.realpath(__file__))
 
-pathName = os.path.join(dirpath, '_build/doctrees')
-srcPath = os.path.join(dirpath, '_build/html')
-staticPath = os.path.join(dirpath, '_static')
 buildPath = os.path.join(dirpath, '_build')
+doctreesPath = os.path.join(dirpath, '_build/doctrees')
+htmlPath = os.path.join(dirpath, '_build/html')
+staticPath = os.path.join(dirpath, 'source/_static')
+
 
 print('Delete old doc to force a complete build? [y/ n]')
 answ = input('Default= n ')
 
 if answ == 'y':
-    if os.path.isdir(pathName):
-        shutil.rmtree(pathName)
+    if os.path.isdir(doctreesPath):
+        shutil.rmtree(doctreesPath)
     
-    if os.path.isdir(srcPath):
-        shutil.rmtree(srcPath)
+    if os.path.isdir(htmlPath):
+        shutil.rmtree(htmlPath)
 
 # Check if _static dir ist there
 if not os.path.isdir(staticPath):
@@ -42,8 +43,8 @@ if not os.path.isdir(buildPath):
 print()
 print('...starting Sphinx...')
 if platform.system() == "Windows":
-    pathName = os.path.join(dirpath, 'make.bat html')
-    os.system(pathName)
+    doctreesPath = os.path.join(dirpath, 'make.bat html')
+    os.system(doctreesPath)
 elif platform.system() == 'Linux'\
         or platform.system() == 'Darwin':
     os.chdir(dirpath)
@@ -61,7 +62,7 @@ if os.path.isdir(tgtPath):
 
 print()
 print('...copying new files in source tree...')
-shutil.copytree(srcPath, tgtPath, ignore=None)
+shutil.copytree(htmlPath, tgtPath, ignore=None)
 
 print()
 print('...removing unnecessary files...')
