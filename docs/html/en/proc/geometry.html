@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Geometry &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Airfoils" href="airfoils.html" />
+    <link rel="prev" title="Basic data" href="basicData.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="airfoils.html" title="Airfoils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="basicData.html" title="Basic data"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Geometry</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Geometry</a><ul>
+<li><a class="reference internal" href="#sort-by-rib-number">Sort by Rib Number</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="basicData.html"
+                          title="previous chapter">Basic data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="airfoils.html"
+                          title="next chapter">Airfoils</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="geometry">
+<h1>Geometry<a class="headerlink" href="#geometry" title="Permalink to this heading">¶</a></h1>
+<p>The Geometry window defines the second part of the first section in the lep file.</p>
+<a class="reference internal image-reference" href="../../_images/geometry-en.png"><img alt="../../_images/geometry-en.png" src="../../_images/geometry-en.png" style="width: 459px; height: 174px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Rib</span>   <span class="n">x</span><span class="o">-</span><span class="n">rib</span>       <span class="n">y</span><span class="o">-</span><span class="n">LE</span>       <span class="n">y</span><span class="o">-</span><span class="n">TE</span>         <span class="n">xp</span>          <span class="n">z</span>       <span class="n">beta</span>         <span class="n">RP</span>       <span class="n">Washin</span>    <span class="n">Rot_z</span>  <span class="n">Pos_z</span>
+ <span class="mi">1</span>      <span class="mf">41.72</span>       <span class="mf">0.42</span>     <span class="mf">270.76</span>      <span class="mf">41.69</span>       <span class="mf">1.16</span>       <span class="mf">0.00</span>      <span class="mf">33.33</span>       <span class="mf">0.00</span>      <span class="mf">0.00</span>   <span class="mf">50.0</span>
+ <span class="mi">2</span>     <span class="mf">124.64</span>       <span class="mf">3.78</span>     <span class="mf">268.69</span>     <span class="mf">124.07</span>      <span class="mf">10.33</span>      <span class="mf">10.00</span>      <span class="mf">33.33</span>       <span class="mf">3.00</span>      <span class="mf">1.95</span>   <span class="mf">50.0</span>
+ <span class="mi">3</span>     <span class="mf">206.57</span>      <span class="mf">10.51</span>     <span class="mf">264.57</span>     <span class="mf">203.97</span>      <span class="mf">28.27</span>      <span class="mf">15.00</span>      <span class="mf">33.33</span>       <span class="mf">6.00</span>      <span class="mf">2.91</span>   <span class="mf">50.0</span>
+ <span class="mi">4</span>     <span class="mf">286.98</span>      <span class="mf">20.74</span>     <span class="mf">258.41</span>     <span class="mf">279.31</span>      <span class="mf">56.16</span>      <span class="mf">25.00</span>      <span class="mf">33.33</span>       <span class="mf">10.00</span>     <span class="mf">4.75</span>   <span class="mf">50.0</span>
+ <span class="mi">5</span>     <span class="mf">365.35</span>      <span class="mf">34.64</span>     <span class="mf">250.23</span>     <span class="mf">347.87</span>      <span class="mf">93.98</span>      <span class="mf">30.00</span>      <span class="mf">33.33</span>       <span class="mf">15.00</span>     <span class="mf">5.63</span>   <span class="mf">50.0</span>
+ <span class="mi">6</span>     <span class="mf">440.64</span>      <span class="mf">57.63</span>     <span class="mf">239.83</span>     <span class="mf">407.14</span>     <span class="mf">140.22</span>      <span class="mf">45.00</span>      <span class="mf">33.33</span>       <span class="mf">20.00</span>     <span class="mf">7.97</span>   <span class="mf">50.0</span>
+ <span class="mi">7</span>     <span class="mf">511.15</span>      <span class="mf">96.61</span>     <span class="mf">227.18</span>     <span class="mf">453.42</span>     <span class="mf">193.28</span>      <span class="mf">50.00</span>      <span class="mf">33.33</span>       <span class="mf">25.00</span>     <span class="mf">8.64</span>   <span class="mf">50.0</span>
+ <span class="mi">8</span>     <span class="mf">575.50</span>     <span class="mf">148.95</span>     <span class="mf">212.80</span>     <span class="mf">473.45</span>     <span class="mf">254.62</span>      <span class="mf">90.00</span>      <span class="mf">33.33</span>       <span class="mf">30.00</span>     <span class="mf">11.31</span>  <span class="mf">50.0</span>
+</pre></div>
+</div>
+<p>These parameters can not be defined without a previous drawing, preferably in a file of computer aided design CAD, in which the desired plan is drawn to an appropriate scale, form lobe in elevation, and inclination of the ribs. This drawing is one of the most basic and important design (pre-process).</p>
+<p>It would be possible to generate this drawing by a geometric preprocessor to read basic data from the wing desired number of cells, separation, size, shape, edge and trailing by a few parameters defined to create elliptical shapes. This pre-processor has been implemented. If you want to go this way you will find the data edit and processing functionality in lepg under Pre-Prosessor. However doing the wing outline with the help of a CAD application will give you much more degrees of freedom in your design. b</p>
+<p>There is a limitation of not being able to define airfoils in the center of symmetry. To remedy this situation can be defined a virtual central cell’s with almost zero thickness.</p>
+<p>The graphic below provides an overview about the individual parameters</p>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_Definition.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_Definition.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_Definition.jpg" style="width: 400px; height: 594px;" /></a>
+<p>The 2nd last column defines the percentage to be taken into account if washing proportional to the chord (<strong>“1”</strong>) is selected in the Basic data window.</p>
+<p>The last column defines the torsion angle for each single rib. You have to specify these values if you select <strong>Alpha mode</strong> <strong>“0”</strong> in the Basic data window.</p>
+<section id="sort-by-rib-number">
+<h2>Sort by Rib Number<a class="headerlink" href="#sort-by-rib-number" title="Permalink to this heading">¶</a></h2>
+<p>The button <strong>Sort by Rib Number</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the rib numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
+<p><strong>ATTENTION</strong> you have to order the lines in a way that the wing is defined from the middle to the tip.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.1" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="airfoils.html" title="Airfoils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="basicData.html" title="Basic data"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" >English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Geometry</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

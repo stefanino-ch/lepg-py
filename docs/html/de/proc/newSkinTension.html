@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tuchspannung - neu &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Teile Separierung" href="partsSeparation.html" />
+    <link rel="prev" title="Flügeldicke" href="airfoilThickness.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="partsSeparation.html" title="Teile Separierung"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="airfoilThickness.html" title="Flügeldicke"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tuchspannung - neu</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Tuchspannung - neu</a><ul>
+<li><a class="reference internal" href="#anzahl-der-konfigurationen">Anzahl der Konfigurationen</a></li>
+<li><a class="reference internal" href="#erste-rippe">Erste Rippe</a></li>
+<li><a class="reference internal" href="#letzte-rippe">Letzte Rippe</a></li>
+<li><a class="reference internal" href="#typ">Typ</a></li>
+<li><a class="reference internal" href="#obere-dist-eintrittskante">Obere Dist Eintrittskante</a></li>
+<li><a class="reference internal" href="#obere-verbr">Obere Verbr</a></li>
+<li><a class="reference internal" href="#untere-dist-austrittskante">Untere Dist Austrittskante</a></li>
+<li><a class="reference internal" href="#untere-verbr">Untere Verbr</a></li>
+<li><a class="reference internal" href="#spann-mini-ribs">Spann mini ribs</a></li>
+<li><a class="reference internal" href="#anzahl-punkte-und-koeff">Anzahl Punkte und Koeff</a></li>
+<li><a class="reference internal" href="#sortieren">Sortieren</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="airfoilThickness.html"
+                          title="previous chapter">Flügeldicke</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="partsSeparation.html"
+                          title="next chapter">Teile Separierung</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="tuchspannung-neu">
+<h1>Tuchspannung - neu<a class="headerlink" href="#tuchspannung-neu" title="Permalink to this heading">¶</a></h1>
+<p>Im Fenster <em>Tuchspannung - neu</em> editieren wir die Parameter aus dem 31. Abschnitt der lep Datei.
+Prinzipiell handelt es sich hier um dieselben Definitionen und Parameter wie im originalen Tuchspannungs-Abschnitt mit dem Unterschied dass mehr als 6 Korrekturpunkte definiert werden können.</p>
+<a class="reference internal image-reference" href="../../_images/newSkinTension-de.png"><img alt="../../_images/newSkinTension-de.png" src="../../_images/newSkinTension-de.png" style="width: 602px; height: 286px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">31.</span> <span class="n">NEW</span> <span class="n">SKIN</span> <span class="n">TENSION</span> <span class="n">MODULE</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">1</span>
+<span class="o">*</span> <span class="n">Skin</span> <span class="n">tension</span> <span class="n">group</span> <span class="n">number</span> <span class="s2">&quot;1&quot;</span> <span class="kn">from</span> <span class="nn">rib</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">6</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span> <span class="s2">&quot;1&quot;</span>
+<span class="mi">1</span>       <span class="mi">1</span>       <span class="mi">14</span>      <span class="mi">6</span>       <span class="mi">1</span>
+<span class="mi">1</span>       <span class="mf">0.</span>              <span class="mf">0.1</span>     <span class="mf">0.</span>              <span class="mf">0.</span>
+<span class="mi">2</span>       <span class="mf">7.5</span>             <span class="mf">1.3</span>     <span class="mf">10.</span>             <span class="mf">1.33</span>
+<span class="mi">3</span>       <span class="mf">15.</span>             <span class="mf">2.5</span>     <span class="mf">20.</span>             <span class="mf">2.5</span>
+<span class="mi">4</span>       <span class="mf">80.</span>             <span class="mf">2.5</span>     <span class="mf">80.</span>             <span class="mf">2.5</span>
+<span class="mi">5</span>       <span class="mf">90.</span>             <span class="mf">1.33</span>    <span class="mf">90.</span>             <span class="mf">1.33</span>
+<span class="mi">6</span>       <span class="mf">100.</span>            <span class="mf">0.0</span>     <span class="mf">100.</span>            <span class="mf">0.1</span>
+</pre></div>
+</div>
+<p>Die Spannung von Ober- und Untersegel kann durch die Definition von zusätzlichen Verbreiterungen verändert werden. In der Basisversion können je 6 Punke definiert werden. Der Übergang zwischen den Punkten wird linear berechnet.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_skintension_p.jpg" />
+<section id="anzahl-der-konfigurationen">
+<h2>Anzahl der Konfigurationen<a class="headerlink" href="#anzahl-der-konfigurationen" title="Permalink to this heading">¶</a></h2>
+<p>In einer Konfiguration können die Werte für eine bestimmte Gruppe von Rippen zusammengefasst werden. Für alle Rippen innerhalb der Konfiguration gelten dieselben Werte.
+Tuchspannung - neu ist ein optionaler Abschnitt. Wenn er nicht verwendet werden soll, dann einfach die Anzahl der Konfigurationen auf 0 setzen.</p>
+</section>
+<section id="erste-rippe">
+<h2>Erste Rippe<a class="headerlink" href="#erste-rippe" title="Permalink to this heading">¶</a></h2>
+<p>Die Nummer der ersten Rippe für die die Konfiguration gilt.</p>
+</section>
+<section id="letzte-rippe">
+<h2>Letzte Rippe<a class="headerlink" href="#letzte-rippe" title="Permalink to this heading">¶</a></h2>
+<p>Die Nummer der letzten Rippe für die die Konfiguration gilt.</p>
+</section>
+<section id="typ">
+<h2>Typ<a class="headerlink" href="#typ" title="Permalink to this heading">¶</a></h2>
+<p>Die Einzig mögliche Berechnungsart ist aktuell lineare Interpolation. Hier also immer 1 einsetzen.</p>
+</section>
+<section id="obere-dist-eintrittskante">
+<h2>Obere Dist Eintrittskante<a class="headerlink" href="#obere-dist-eintrittskante" title="Permalink to this heading">¶</a></h2>
+<p>Distanz von der Eintrittskante in [% Flügeltiefe]</p>
+</section>
+<section id="obere-verbr">
+<h2>Obere Verbr<a class="headerlink" href="#obere-verbr" title="Permalink to this heading">¶</a></h2>
+<p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
+</section>
+<section id="untere-dist-austrittskante">
+<h2>Untere Dist Austrittskante<a class="headerlink" href="#untere-dist-austrittskante" title="Permalink to this heading">¶</a></h2>
+<p>Distanz von der Austrittskante in [% Flügeltiefe]</p>
+</section>
+<section id="untere-verbr">
+<h2>Untere Verbr<a class="headerlink" href="#untere-verbr" title="Permalink to this heading">¶</a></h2>
+<p>Grösse der Verbreiterung in [% Flügeltiefe]</p>
+</section>
+<section id="spann-mini-ribs">
+<h2>Spann mini ribs<a class="headerlink" href="#spann-mini-ribs" title="Permalink to this heading">¶</a></h2>
+<p><em>Tuchspannung - neu</em> verwendet denselben Konfigurationswert für Spann mini ribs wie die originale Definition. Damit die Berechnung korrekt funktioniert muss deshalb im Fenster Tuchspannung der Werte eingegeben werden.</p>
+<p>Hier geht es darum die Dehnung des Tuches zu korrigieren.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S05_Ripstop_elasticity.jpg" />
+<p>Im Zweifelsfall setze hier den Standardwert von <strong>0.0114</strong></p>
+</section>
+<section id="anzahl-punkte-und-koeff">
+<h2>Anzahl Punkte und Koeff<a class="headerlink" href="#anzahl-punkte-und-koeff" title="Permalink to this heading">¶</a></h2>
+<p><em>Tuchspannung - neu</em> verwendet dieselben Konfigurationswerte für Anzahl Punkte und Koeff wie die originale Definition. Damit die Berechnung korrekt funktioniert müssen deshalb im Fenster Tuchspannung die Werte eingestellt werden.</p>
+<p>Prinzipiell gibt es zwei verschiedene Interpretationen der beiden Werte. Beschrieben wird hier nur der empfohlene Anwendungsfall.</p>
+<p>Setze die Parameter auf die Werte:</p>
+<p><strong>1000     1.0</strong></p>
+<p>Die erste Zahl <strong>“1000”</strong> sagt dem Programm die maximal mögliche Präzision bei der Längenberechnung von Rippen und Panels zu benutzen. Typischerweise werden Werte besser 0.1 mm erreicht.</p>
+<p>Der zweite Wert beeinflusst noch einmal die Berechnung. Der Wert kann zwischen 0.0 und 1.0 verändert werden.</p>
+<p>“0.0” es werden keine Korrekturen berechnet, der erste Wert wird ausgehebelt.</p>
+<p><strong>“1.0”</strong> es wird mit maximaler Genauigkeit gerechnet.</p>
+</section>
+<section id="sortieren">
+<h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this heading">¶</a></h2>
+<p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.31" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="partsSeparation.html" title="Teile Separierung"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="airfoilThickness.html" title="Flügeldicke"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tuchspannung - neu</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

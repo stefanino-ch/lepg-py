@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Konfiguration des Update Checkers &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Konfiguration der beiden Prozessoren" href="processors.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="processors.html" title="Konfiguration der beiden Prozessoren"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Konfiguration des Update Checkers</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Konfiguration des Update Checkers</a><ul>
+<li><a class="reference internal" href="#herunterladen-von-neuen-versionen">Herunterladen von neuen Versionen</a></li>
+<li><a class="reference internal" href="#nach-dem-herunterladen">Nach dem Herunterladen</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="processors.html"
+                          title="previous chapter">Konfiguration der beiden Prozessoren</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="konfiguration-des-update-checkers">
+<h1>Konfiguration des Update Checkers<a class="headerlink" href="#konfiguration-des-update-checkers" title="Permalink to this heading">¶</a></h1>
+<p>Während dem Start überprüft lepg ob eine neuere Version heruntergeladen werden könnte.</p>
+<blockquote>
+<div><img alt="../../_images/updateCheck.png" src="../../_images/updateCheck.png" />
+</div></blockquote>
+<p>Folgende Konfigurationsmöglichkeiten stehen zur Verfügung:</p>
+<ul class="simple">
+<li><p>Mit der Checkbox kann die Funktion komplett deaktiviert werden. Du wirst nicht mehr informiert sollte es eine neuere Version geben.</p></li>
+<li><p>Branch: von lepg gibt es zwei Versionen</p>
+<ul>
+<li><p>stable: die Version welche im Normalfall verwendet werden sollte. Neue Funktionen stehen hier erst zur Verfügung wenn sie komplett funktionieren.</p></li>
+<li><p>latest: die neueste und aktuellste Version. Aber Achtung hier fliessen die Entwicklungen zusammen, es kann viele Updates geben und teilweise nicht komplett fertig implementiert Funktionen.</p></li>
+</ul>
+</li>
+</ul>
+<section id="herunterladen-von-neuen-versionen">
+<h2>Herunterladen von neuen Versionen<a class="headerlink" href="#herunterladen-von-neuen-versionen" title="Permalink to this heading">¶</a></h2>
+<p>Neue Versionen könnten von <a href="https://github.com/stefanino-ch/lepg-py" target="_blank">Github</a> heruntergeladen werden.</p>
+<blockquote>
+<div></div></blockquote>
+<p>Dort stehen beide Versionen zur Verfügung.</p>
+<blockquote>
+<div><img alt="../../_images/github.png" src="../../_images/github.png" />
+</div></blockquote>
+<p>Zuerst auswählen welche Version man haben möchte, stable oder latest.</p>
+<p>Dann im Ordner “distribution” das entsprechende . zip Paket herunterladen.</p>
+</section>
+<section id="nach-dem-herunterladen">
+<h2>Nach dem Herunterladen<a class="headerlink" href="#nach-dem-herunterladen" title="Permalink to this heading">¶</a></h2>
+<p>Das .zip Paket kann an einem beliebigen Ort entpackt werden.</p>
+<p>Danach in den Ordner “lepg” wechseln und die Datei lepg.exe ausführen (doppelklicken).</p>
+<p>Nicht vergessen: Die beiden Prozessoren müssen neu konfiguriert werden!</p>
+<p><a class="reference internal" href="processors.html#processor-configuration-de"><span class="std std-ref">Mehr zur Konfiguration von Pre- und Prozessor.</span></a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="processors.html" title="Konfiguration der beiden Prozessoren"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Konfiguration des Update Checkers</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

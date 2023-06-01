@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lines &#8212; lepg 3.17.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Brakes" href="brakes.html" />
+    <link rel="prev" title="Estimating general Angle of Attack" href="globalAoA.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="brakes.html" title="Brakes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="globalAoA.html" title="Estimating general Angle of Attack"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lines</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Lines</a><ul>
+<li><a class="reference internal" href="#lines-control-parameter">Lines control parameter</a></li>
+<li><a class="reference internal" href="#line-plans">Line plans</a><ul>
+<li><a class="reference internal" href="#general-rules">General rules</a></li>
+<li><a class="reference internal" href="#id1">Lines control parameter</a></li>
+<li><a class="reference internal" href="#number-of-line-plans">Number of line plans</a></li>
+<li><a class="reference internal" href="#num-branches">Num branches</a></li>
+<li><a class="reference internal" href="#ramif-1-2-3-4">Ramif 1, 2, 3, 4</a></li>
+<li><a class="reference internal" href="#node-1-2-3-4">Node 1, 2, 3, 4</a></li>
+<li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="globalAoA.html"
+                          title="previous chapter">Estimating general Angle of Attack</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="brakes.html"
+                          title="next chapter">Brakes</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="lines">
+<span id="lines-configuration-en"></span><h1>Lines<a class="headerlink" href="#lines" title="Permalink to this heading">¶</a></h1>
+<p>In the <em>Lines</em> window you can define the parameters from the 9th section of the lep file. Here you create the detailed line plan.
+The brake lines will be defined in a 2nd window.</p>
+<a class="reference internal image-reference" href="../../_images/lines-en.png"><img alt="../../_images/lines-en.png" src="../../_images/lines-en.png" style="width: 737px; height: 307px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
+<span class="o">*</span>          <span class="mf">9.</span> <span class="n">SUSPENSION</span> <span class="n">LINES</span> <span class="n">DESCRIPTION</span>
+<span class="o">***************************************************</span>
+<span class="mi">0</span>
+<span class="mi">3</span>
+<span class="mi">12</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">3</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">3</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">4</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">5</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">6</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">6</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">7</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">7</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">8</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">8</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">9</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">9</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">10</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">11</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">11</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">12</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">12</span>
+<span class="mi">16</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">1</span>
+<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span>
+<span class="o">.......</span>
+</pre></div>
+</div>
+<section id="lines-control-parameter">
+<h2>Lines control parameter<a class="headerlink" href="#lines-control-parameter" title="Permalink to this heading">¶</a></h2>
+<p>The first parameter <strong>Lines control parameter</strong> defines how the individual lengts of the lines will be calculated afterwards.</p>
+<p>Values allowed are 0..4:
+* 0 = lower branches lined only by geometric mean of the anchor points</p>
+<ul class="simple">
+<li><p>1 = lower branches lined by weighting type 1</p></li>
+<li><p>2 = lower branches lined by weighting type 2</p></li>
+<li><p>3 = lower branches lined by weighting type 3 (spanwise and chordwise optimization). Read more details <a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>.</p></li>
+</ul>
+<p>Parameter <strong>3</strong> is what is recommend for all new designs. The distribution of loads on the lines will be much better. Possibly the paraglider will be more solid.</p>
+</section>
+<section id="line-plans">
+<h2>Line plans<a class="headerlink" href="#line-plans" title="Permalink to this heading">¶</a></h2>
+<p>Imagine you look from the front/ rear of the wing towards the lines.</p>
+<img alt="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" />
+<p>A line path can go in max across 4 levels. For each path you define the number of the node on which it ends at the end of the level.</p>
+<p>To explain how lines are described we look at the first line in the drawing above which is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>    <span class="mi">1</span> <span class="mi">1</span>    <span class="mi">2</span> <span class="mi">1</span>    <span class="mi">3</span> <span class="mi">1</span>    <span class="mi">4</span> <span class="mi">1</span>    <span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The first pair <strong>1 1</strong> describes the end of the line which is in level 1 (the most to the bottom) node 1</p>
+<p><strong>2 1</strong> the line runs across level 2 and ends in node 1</p>
+<p><strong>3 1</strong> the line runs across level 3 and ends in node 1</p>
+<p><strong>4 1</strong> the line runs across level 4 and ends in node 1</p>
+<p><strong>(A=1) 1</strong> finally we tell lep to connect the node to the anchor A (which is number 1) of the first rib.</p>
+<p>Lets have a look at the second line in the drawing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>    <span class="mi">1</span> <span class="mi">1</span>    <span class="mi">2</span> <span class="mi">1</span>    <span class="mi">3</span> <span class="mi">1</span>    <span class="mi">4</span> <span class="mi">2</span>    <span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>The first pair <strong>1 1</strong> describes the end of the line which is in level 1 node 1.</p>
+<p><strong>2 1</strong> the line runs across level 2 and ends in node 1</p>
+<p><strong>3 1</strong> the line runs across level 3 and ends in node 1</p>
+<p>Until here both paths are identical.</p>
+<p><strong>4 2</strong> the line runs across level 4 and ends in node 2
+Here the paths split. On level 4 we have a new target node.</p>
+<p><strong>(A=1) 2</strong> This new node we connect again to anchor A but now on rib 2.</p>
+<section id="general-rules">
+<h3>General rules<a class="headerlink" href="#general-rules" title="Permalink to this heading">¶</a></h3>
+<p><strong>For each riser you will need to create a line plan.</strong></p>
+<p><strong>If you do not want to use a level you have to fill 0 for the definition pair of this level.</strong></p>
+<p>The line below shows a path which needs only 3 levels for it’s definition.</p>
+<p><strong>3</strong>   1 1 2 3 3 17 <strong>0 0</strong> 3 9</p>
+</section>
+<section id="id1">
+<h3>Lines control parameter<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>Standard value is always <strong>0</strong> as this is currently the only valid description for lines.</p>
+</section>
+<section id="number-of-line-plans">
+<h3>Number of line plans<a class="headerlink" href="#number-of-line-plans" title="Permalink to this heading">¶</a></h3>
+<p>Will be considered as many plans as risers.</p>
+</section>
+<section id="num-branches">
+<h3>Num branches<a class="headerlink" href="#num-branches" title="Permalink to this heading">¶</a></h3>
+<p>Defines how many branches (or levels) you have defined on this specific line.</p>
+</section>
+<section id="ramif-1-2-3-4">
+<h3>Ramif 1, 2, 3, 4<a class="headerlink" href="#ramif-1-2-3-4" title="Permalink to this heading">¶</a></h3>
+<p>Describes the level for which you define the according node.</p>
+</section>
+<section id="node-1-2-3-4">
+<h3>Node 1, 2, 3, 4<a class="headerlink" href="#node-1-2-3-4" title="Permalink to this heading">¶</a></h3>
+<p>Node number on which a specific path ends on a specific Ramif level.</p>
+</section>
+<section id="sort-by-order-num">
+<h3>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this heading">¶</a></h3>
+<p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="brakes.html" title="Brakes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="globalAoA.html" title="Estimating general Angle of Attack"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" >English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lines</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>
