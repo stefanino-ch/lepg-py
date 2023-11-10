@@ -171,7 +171,7 @@ class ProcFileWriter:
 
         stream << separator
         stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
-        stream << '* Input data file version 3.19\n'
+        stream << '* Input data file version 3.20\n'
         stream << separator
         today = date.today()
         stream << '* Version %s\n' % today.strftime("%Y-%m-%d")
@@ -343,7 +343,7 @@ class ProcFileWriter:
         values = self.glob_aoa_m.getRow()
         stream << '* Finesse GR\n'
         stream << '\t%s\n' % chk_num(values(0))
-        stream << '* Center of pressure % of chord\n'
+        stream << '* Plumb point estimation %\n'
         stream << '\t%s\n' % chk_num(values(1))
         stream << '* Calage %\n'
         stream << '\t%s\n' % chk_num(values(2))

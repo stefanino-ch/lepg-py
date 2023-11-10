@@ -85,8 +85,8 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
 
         calage_t.set_help_text(GlobalAoAModel.FinesseCol,
                                _('GlobalAoA-FinesseDesc'))
-        calage_t.set_help_text(GlobalAoAModel.CentOfPressCol,
-                               _('GlobalAoA-CenterOfPressureDesc'))
+        calage_t.set_help_text(GlobalAoAModel.PlumbPointCol,
+                               _('GlobalAoA-PlumbPointDesc'))
         calage_t.set_help_text(GlobalAoAModel.CalageCol,
                                _('GlobalAoA-CalageDesc'))
 
@@ -100,7 +100,7 @@ class GlobalAoA(QMdiSubWindow, metaclass=Singleton):
                                      ValidationValues.Proc.FinesseMax_deg,
                                      2)
 
-        calage_t.en_int_validator(GlobalAoAModel.CentOfPressCol,
+        calage_t.en_int_validator(GlobalAoAModel.PlumbPointCol,
                                   GlobalAoAModel.CalageCol,
                                   ValidationValues.WingChordMin_perc,
                                   ValidationValues.WingChordMax_perc)

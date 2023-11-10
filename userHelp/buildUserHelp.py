@@ -40,6 +40,10 @@ if not os.path.isdir(staticPath):
 if not os.path.isdir(buildPath):
     os.mkdir(buildPath)
 
+# Check if _build/html dir ist there
+if not os.path.isdir(htmlPath):
+    os.mkdir(htmlPath)
+
 print()
 print('...starting Sphinx...')
 if platform.system() == "Windows":
@@ -67,7 +71,8 @@ shutil.copytree(htmlPath, tgtPath, ignore=None)
 print()
 print('...removing unnecessary files...')
 tgtFile = os.path.join(dirpath, '../src/userHelp/.buildinfo')
-os.remove(tgtFile)
+if os.path.isfile(tgtFile):
+    os.remove(tgtFile)
 
 print()
 print('...done')

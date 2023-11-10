@@ -18,7 +18,7 @@ Rohdaten::
 	*************************************************************
 	* Finesse GR
 		7.5
-	* Center of pressure % of chord
+	*  Plumb point estimation %
 		40
 	* Calage %
 		31
@@ -33,9 +33,9 @@ Gleitwinkel
 -----------
 Angestrebter Gleitwinkel basierend auf den Proportionen des Flügels.
 
-Druckmittelpunkt
-----------------
-Position des Druckmittelpunktes in [% Flügeltiefe]
+Plumb point
+------------------
+Position des Piloten vertikal auf die Profilsehne projeziert.
 
 Calage
 ------

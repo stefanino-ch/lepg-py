@@ -356,6 +356,9 @@ class ProcModel(QObject, metaclass=Singleton):
             elif line.find('3.19') >= 0:
                 self.set_file_version('3.19')
                 version_ok = True
+            elif line.find('3.20') >= 0:
+                self.set_file_version('3.20')
+                version_ok = True
 
             if line.find('Input data file') >= 0:
                 title_ok = True

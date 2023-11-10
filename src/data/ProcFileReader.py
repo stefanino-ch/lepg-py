@@ -419,13 +419,13 @@ class ProcFileReader(QObject):
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
                                  GlobalAoAModel.FinesseCol),
-            rem_tab_space(stream.readLine()))
+                                 rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(
             self.globAoA_M.index(0,
-                                 GlobalAoAModel.CentOfPressCol),
-            rem_tab_space(stream.readLine()))
+                                 GlobalAoAModel.PlumbPointCol),
+                                 rem_tab_space(stream.readLine()))
 
         stream.readLine()
         self.globAoA_M.setData(

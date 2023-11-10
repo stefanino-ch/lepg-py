@@ -19,8 +19,8 @@ class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
 
     FinesseCol = 0
     ''':attr: Number of the col holding the finesse value'''
-    CentOfPressCol = 1
-    ''':attr: Number of the col holding the center of pressure value'''
+    PlumbPointCol = 1
+    ''':attr: Number of the col holding the plumb point value'''
     CalageCol = 2
     ''':attr: Number of the col holding the calage value'''
     RisersCol = 3
@@ -39,7 +39,7 @@ class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
         query.exec("DROP TABLE if exists GlobalAoA;")
         query.exec("create table if not exists GlobalAoA ("
                    "Finesse REAL,"
-                   "CentOfPress INTEGER,"
+                   "PlumbPoint INTEGER,"
                    "Calage INTEGER,"
                    "Risers INTEGER,"
                    "Lines INTEGER,"
@@ -58,7 +58,7 @@ class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
         self.setHeaderData(0, Qt.Orientation.Horizontal, _("Finesse [deg]"))
-        self.setHeaderData(1, Qt.Orientation.Horizontal, _("Center of Pressure"))
+        self.setHeaderData(1, Qt.Orientation.Horizontal, _("Plumb Point"))
         self.setHeaderData(2, Qt.Orientation.Horizontal, _("Calage"))
         self.setHeaderData(3, Qt.Orientation.Horizontal, _("Risers [cm]"))
         self.setHeaderData(4, Qt.Orientation.Horizontal, _("Lines [cm]"))
@@ -72,7 +72,7 @@ class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
         query = QSqlQuery()
         query.prepare("Select "
                       "Finesse, "
-                      "CentOfPress, "
+                      "PlumbPoint, "
                       "Calage, "
                       "Risers, "
                       "Lines, "
