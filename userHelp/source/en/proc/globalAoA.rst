@@ -55,7 +55,7 @@ Separation between main carabiners.
 
  | 
  
-.. image:: http://laboratoridenvol.com/leparagliding/lep2images/S08_calage_p.jpg
+.. image:: /images/proc/S08_calage_p.png
 
 A more detailed description you can find here |pere_link|.
 

@@ -55,7 +55,7 @@ Horizontale Distanz zwischen den Karabinern
 
  | 
  
-.. image:: http://laboratoridenvol.com/leparagliding/lep2images/S08_calage_p.jpg
+.. image:: /images/proc/S08_calage_p.png
 
 Eine detaillierte Beschreibung in englisch findest Du auf der |pere_link|.
 

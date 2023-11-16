@@ -357,7 +357,10 @@ class ProcModel(QObject, metaclass=Singleton):
                 self.set_file_version('3.19')
                 version_ok = True
             elif line.find('3.20') >= 0:
-                self.set_file_version('3.20')
+                self.set_file_version('3.21')       # 3.20 has the same structure as 3.21 but was never released
+                version_ok = True
+            elif line.find('3.21') >= 0:
+                self.set_file_version('3.21')
                 version_ok = True
 
             if line.find('Input data file') >= 0:

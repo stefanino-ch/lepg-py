@@ -93,36 +93,36 @@ class TwoDDxf(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_ly)
 
-        one_t = TableView()
-        one_t.setModel(self.twoDDxf_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(self.twoDDxf_M.columnCount() - 1)
-        one_t.hideColumn(self.twoDDxf_M.columnCount() - 2)
-        one_t.hideColumn(0)
-        one_t.setFixedHeight(2
-                             + one_t.horizontalHeader().height()
-                             + 6 * one_t.rowHeight(0))
-        self.window_ly.addWidget(one_t)
+        self.one_t = TableView()
+        self.one_t.setModel(self.twoDDxf_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.twoDDxf_M.columnCount() - 1)
+        self.one_t.hideColumn(self.twoDDxf_M.columnCount() - 2)
+        self.one_t.hideColumn(0)
+        self.one_t.setFixedHeight(2
+                                 + self.one_t.horizontalHeader().height()
+                                 + 6 * self.one_t.rowHeight(0))
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_reg_exp_validator(TwoDDxfModel.LineNameCol,
-                                   TwoDDxfModel.LineNameCol,
-                                   Regex.TwoDDxfLayerNames)
-        one_t.en_int_validator(TwoDDxfModel.ColorCodeCol,
-                               TwoDDxfModel.ColorCodeCol,
-                               ValidationValues.Proc.MinTwoDDxfColorNum,
-                               ValidationValues.Proc.MaxTwoDDxfColorNum)
-        one_t.en_reg_exp_validator(TwoDDxfModel.ColorNameCol,
-                                   TwoDDxfModel.ColorNameCol,
-                                   Regex.TwoDDxfColorDesc)
+        self.one_t.en_reg_exp_validator(TwoDDxfModel.LineNameCol,
+                                       TwoDDxfModel.LineNameCol,
+                                       Regex.TwoDDxfLayerNames)
+        self.one_t.en_int_validator(TwoDDxfModel.ColorCodeCol,
+                                   TwoDDxfModel.ColorCodeCol,
+                                   ValidationValues.Proc.MinTwoDDxfColorNum,
+                                   ValidationValues.Proc.MaxTwoDDxfColorNum)
+        self.one_t.en_reg_exp_validator(TwoDDxfModel.ColorNameCol,
+                                       TwoDDxfModel.ColorNameCol,
+                                       Regex.TwoDDxfColorDesc)
 
-        one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(TwoDDxfModel.LineNameCol,
-                            _('TwoDDxf-LineNameDesc'))
-        one_t.set_help_text(TwoDDxfModel.ColorCodeCol,
-                            _('TwoDDxf-ColorCodeDesc'))
-        one_t.set_help_text(TwoDDxfModel.ColorNameCol,
-                            _('TwoDDxf-ColorNameDesc'))
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(TwoDDxfModel.LineNameCol,
+                                _('TwoDDxf-LineNameDesc'))
+        self.one_t.set_help_text(TwoDDxfModel.ColorCodeCol,
+                                _('TwoDDxf-ColorCodeDesc'))
+        self.one_t.set_help_text(TwoDDxfModel.ColorNameCol,
+                                _('TwoDDxf-ColorNameDesc'))
 
         self.usage_update()
 
@@ -149,8 +149,10 @@ class TwoDDxf(QMdiSubWindow, metaclass=Singleton):
         """
         if self.twoDDxf_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
 
     def usage_cb_change(self):
         """

@@ -92,29 +92,29 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_lo)
 
-        one_t = TableView()
-        one_t.setModel(self.glueVent_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(self.glueVent_M.columnCount() - 1)
-        one_t.hideColumn(self.glueVent_M.columnCount() - 2)
-        self.window_ly.addWidget(one_t)
+        self.one_t = TableView()
+        self.one_t.setModel(self.glueVent_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.glueVent_M.columnCount() - 1)
+        self.one_t.hideColumn(self.glueVent_M.columnCount() - 2)
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_int_validator(
+        self.one_t.en_int_validator(
             GlueVentModel.OrderNumCol,
             GlueVentModel.OrderNumCol,
             1,
             ValidationValues.MaxNumRibs,
             GlueVentModel.paramLength)
 
-        one_t.en_int_validator(
+        self.one_t.en_int_validator(
             GlueVentModel.TypeCol,
             GlueVentModel.TypeCol,
             int(ValidationValues.Proc.MinGlueVentParamNum),
             int(ValidationValues.Proc.MaxGlueVentParamNum),
             GlueVentModel.paramLength)
 
-        one_t.en_double_validator(
+        self.one_t.en_double_validator(
             GlueVentModel.ParamACol,
             GlueVentModel.ParamCCol,
             0,
@@ -122,20 +122,20 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
             2,
             GlueVentModel.paramLength)
 
-        one_t.set_help_bar(self.help_bar)
-        one_t.set_help_text(
+        self.one_t.set_help_bar(self.help_bar)
+        self.one_t.set_help_text(
             GlueVentModel.OrderNumCol,
             _('GlueVent-AirfoilNumDesc'))
-        one_t.set_help_text(
+        self.one_t.set_help_text(
             GlueVentModel.TypeCol,
             _('GlueVent-VentParamDesc'))
-        one_t.set_help_text(
+        self.one_t.set_help_text(
             GlueVentModel.ParamACol,
             _('GlueVent-ParamADesc'))
-        one_t.set_help_text(
+        self.one_t.set_help_text(
             GlueVentModel.ParamBCol,
             _('GlueVent-ParamBDesc'))
-        one_t.set_help_text(
+        self.one_t.set_help_text(
             GlueVentModel.ParamCCol,
             _('GlueVent-ParamCDesc'))
 
@@ -164,8 +164,10 @@ class GlueVent(QMdiSubWindow, metaclass=Singleton):
         """
         if self.glueVent_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
 
     def usage_cb_change(self):
         """

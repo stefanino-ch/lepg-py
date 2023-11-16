@@ -89,40 +89,40 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_ly)
 
-        one_t = TableView()
-        one_t.setModel(self.parts_sep_m)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(0)
+        self.one_t = TableView()
+        self.one_t.setModel(self.parts_sep_m)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(0)
         for i in range(PartsSeparationModel.Param7_col,
                        PartsSeparationModel.Param10_col+1):
-            one_t.hideColumn(i)
-        one_t.hideColumn(self.parts_sep_m.columnCount() - 2)
-        one_t.hideColumn(self.parts_sep_m.columnCount() - 1)
+            self.one_t.hideColumn(i)
+        self.one_t.hideColumn(self.parts_sep_m.columnCount() - 2)
+        self.one_t.hideColumn(self.parts_sep_m.columnCount() - 1)
 
-        one_t.setFixedHeight(2
-                             + one_t.horizontalHeader().height()
-                             + one_t.rowHeight(0))
-        self.window_ly.addWidget(one_t)
+        self.one_t.setFixedHeight(2
+                             + self.one_t.horizontalHeader().height()
+                             + self.one_t.rowHeight(0))
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_double_validator(PartsSeparationModel.Panel_x_col,
+        self.one_t.en_double_validator(PartsSeparationModel.Panel_x_col,
                                   PartsSeparationModel.Rib_1y_col,
                                   ValidationValues.Proc.MinPartsSep_coef,
                                   ValidationValues.Proc.MaxParsSep_coef,
                                   2)
 
-        one_t.set_help_bar(self.help_bar)
-        one_t.set_help_text(PartsSeparationModel.Panel_x_col,
+        self.one_t.set_help_bar(self.help_bar)
+        self.one_t.set_help_text(PartsSeparationModel.Panel_x_col,
                             _('PartsSep-Panel_x_Desc'))
-        one_t.set_help_text(PartsSeparationModel.Panel_x_min_col,
+        self.one_t.set_help_text(PartsSeparationModel.Panel_x_min_col,
                             _('PartsSep-Panel_x_min_Desc'))
-        one_t.set_help_text(PartsSeparationModel.Panel_y_col,
+        self.one_t.set_help_text(PartsSeparationModel.Panel_y_col,
                             _('PartsSep-Panel_y_Desc'))
-        one_t.set_help_text(PartsSeparationModel.Rib_x_col,
+        self.one_t.set_help_text(PartsSeparationModel.Rib_x_col,
                             _('PartsSep-Rib_x_Desc'))
-        one_t.set_help_text(PartsSeparationModel.Rib_y_col,
+        self.one_t.set_help_text(PartsSeparationModel.Rib_y_col,
                             _('PartsSep-Rib_y_Desc'))
-        one_t.set_help_text(PartsSeparationModel.Rib_1y_col,
+        self.one_t.set_help_text(PartsSeparationModel.Rib_1y_col,
                             _('PartsSep-Rib_1y_Desc'))
 
         self.usage_update()
@@ -150,8 +150,10 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         """
         if self.parts_sep_m.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
 
     def usage_cb_change(self):
         """

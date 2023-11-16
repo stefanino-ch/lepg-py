@@ -28,7 +28,13 @@ class Database(QSqlDatabase, metaclass=Singleton):
         if self.db is None:
             # open database
             self.db = QSqlDatabase.addDatabase("QSQLITE")
-            # self.db.setDatabaseName("lepgModel.sqlite")
-            self.db.setDatabaseName(":memory:")
+
+            useInMemoryDb = False
+            if useInMemoryDb:
+                # use in memory db
+                self.db.setDatabaseName(":memory:")
+            else:
+                self.db.setDatabaseName("lepgModel.sqlite")
+
             if not self.db.open():
                 logging.error(self.__className+ '.__init__ cannot open db')

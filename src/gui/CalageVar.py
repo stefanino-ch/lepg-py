@@ -94,121 +94,121 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_ly)
 
-        one_t = TableView()
-        one_t.setModel(self.calageVar_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(0)
+        self.one_t = TableView()
+        self.one_t.setModel(self.calageVar_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(0)
         for i in range(CalageVarModel.PosACol,
                        CalageVarModel.NumPosStepsCol + 1):
-            one_t.hideColumn(i)
-        one_t.hideColumn(self.calageVar_M.columnCount() - 2)
-        one_t.hideColumn(self.calageVar_M.columnCount() - 1)
+            self.one_t.hideColumn(i)
+        self.one_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        self.one_t.hideColumn(self.calageVar_M.columnCount() - 1)
 
-        one_t.setFixedHeight(2
-                             + one_t.horizontalHeader().height()
-                             + one_t.rowHeight(0))
+        self.one_t.setFixedHeight(2
+                                 + self.one_t.horizontalHeader().height()
+                                 + self.one_t.rowHeight(0))
         one_t_ly = QHBoxLayout()
-        one_t_ly.addWidget(one_t)
+        one_t_ly.addWidget(self.one_t)
         one_t_ly.addStretch()
         one_t_ly.addStretch()
         self.window_ly.addLayout(one_t_ly)
 
-        one_t.en_int_validator(CalageVarModel.NumRisersCol,
-                               CalageVarModel.NumRisersCol,
-                               2,
-                               6)
+        self.one_t.en_int_validator(CalageVarModel.NumRisersCol,
+                                   CalageVarModel.NumRisersCol,
+                                   2,
+                                   6)
 
-        one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(CalageVarModel.NumRisersCol,
-                            _('CalageVar-NumRisersDesc'))
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(CalageVarModel.NumRisersCol,
+                                _('CalageVar-NumRisersDesc'))
 
-        two_t = TableView()
-        two_t.setModel(self.calageVar_M)
-        two_t.verticalHeader().setVisible(False)
-        two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.two_t = TableView()
+        self.two_t.setModel(self.calageVar_M)
+        self.two_t.verticalHeader().setVisible(False)
+        self.two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         for i in range(0, CalageVarModel.NumRisersCol + 1):
-            two_t.hideColumn(i)
+            self.two_t.hideColumn(i)
         for i in range(CalageVarModel.MaxNegAngCol,
                        CalageVarModel.NumPosStepsCol + 1):
-            two_t.hideColumn(i)
-        two_t.hideColumn(self.calageVar_M.columnCount() - 2)
-        two_t.hideColumn(self.calageVar_M.columnCount() - 1)
+            self.two_t.hideColumn(i)
+        self.two_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        self.two_t.hideColumn(self.calageVar_M.columnCount() - 1)
 
-        two_t.setFixedHeight(2
-                             + two_t.horizontalHeader().height()
-                             + two_t.rowHeight(0))
+        self.two_t.setFixedHeight(2
+                                 + self.two_t.horizontalHeader().height()
+                                 + self.two_t.rowHeight(0))
         two_t_ly = QHBoxLayout()
-        two_t_ly.addWidget(two_t)
+        two_t_ly.addWidget(self.two_t)
         self.window_ly.addLayout(two_t_ly)
 
-        two_t.en_double_validator(CalageVarModel.PosACol,
-                                  CalageVarModel.PosFCol,
-                                  ValidationValues.WingChordMin_perc,
-                                  ValidationValues.WingChordMax_perc,
-                                  2)
+        self.two_t.en_double_validator(CalageVarModel.PosACol,
+                                      CalageVarModel.PosFCol,
+                                      ValidationValues.WingChordMin_perc,
+                                      ValidationValues.WingChordMax_perc,
+                                      2)
 
-        two_t.set_help_bar(self.helpBar)
-        two_t.set_help_text(CalageVarModel.PosACol,
-                            _('CalageVar-PosADesc'))
-        two_t.set_help_text(CalageVarModel.PosBCol,
-                            _('CalageVar-PosBDesc'))
-        two_t.set_help_text(CalageVarModel.PosCCol,
-                            _('CalageVar-PosCDesc'))
-        two_t.set_help_text(CalageVarModel.PosDCol,
-                            _('CalageVar-PosDDesc'))
-        two_t.set_help_text(CalageVarModel.PosECol,
-                            _('CalageVar-PosEDesc'))
-        two_t.set_help_text(CalageVarModel.PosFCol,
-                            _('CalageVar-PosFDesc'))
+        self.two_t.set_help_bar(self.helpBar)
+        self.two_t.set_help_text(CalageVarModel.PosACol,
+                                _('CalageVar-PosADesc'))
+        self.two_t.set_help_text(CalageVarModel.PosBCol,
+                                _('CalageVar-PosBDesc'))
+        self.two_t.set_help_text(CalageVarModel.PosCCol,
+                                _('CalageVar-PosCDesc'))
+        self.two_t.set_help_text(CalageVarModel.PosDCol,
+                                _('CalageVar-PosDDesc'))
+        self.two_t.set_help_text(CalageVarModel.PosECol,
+                                _('CalageVar-PosEDesc'))
+        self.two_t.set_help_text(CalageVarModel.PosFCol,
+                                _('CalageVar-PosFDesc'))
 
-        three_t = TableView()
-        three_t.setModel(self.calageVar_M)
-        three_t.verticalHeader().setVisible(False)
-        three_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.three_t = TableView()
+        self.three_t.setModel(self.calageVar_M)
+        self.three_t.verticalHeader().setVisible(False)
+        self.three_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         for i in range(0, CalageVarModel.PosFCol + 1):
-            three_t.hideColumn(i)
-        three_t.hideColumn(self.calageVar_M.columnCount() - 2)
-        three_t.hideColumn(self.calageVar_M.columnCount() - 1)
+            self.three_t.hideColumn(i)
+        self.three_t.hideColumn(self.calageVar_M.columnCount() - 2)
+        self.three_t.hideColumn(self.calageVar_M.columnCount() - 1)
 
-        three_t.setFixedHeight(2
-                               + three_t.horizontalHeader().height()
-                               + three_t.rowHeight(0))
+        self.three_t.setFixedHeight(2
+                                 + self.three_t.horizontalHeader().height()
+                                 + self.three_t.rowHeight(0))
         three_t_ly = QHBoxLayout()
-        three_t_ly.addWidget(three_t)
+        three_t_ly.addWidget(self.three_t)
         self.window_ly.addLayout(three_t_ly)
 
-        three_t.en_double_validator(CalageVarModel.MaxNegAngCol,
-                                    CalageVarModel.MaxNegAngCol,
-                                    ValidationValues.Proc.MinCalageVarAngle_deg,
-                                    ValidationValues.Proc.MaxCalageVarAngle_deg,
-                                    2)
+        self.three_t.en_double_validator(CalageVarModel.MaxNegAngCol,
+                                      CalageVarModel.MaxNegAngCol,
+                                      ValidationValues.Proc.MinCalageVarAngle_deg,
+                                      ValidationValues.Proc.MaxCalageVarAngle_deg,
+                                      2)
 
-        three_t.en_int_validator(CalageVarModel.NumNegStepsCol,
-                                 CalageVarModel.NumNegStepsCol,
-                                 ValidationValues.Proc.MinCalageVarCalcSteps_num,
-                                 ValidationValues.Proc.MaxCalageVarCalcSteps_num)
+        self.three_t.en_int_validator(CalageVarModel.NumNegStepsCol,
+                                   CalageVarModel.NumNegStepsCol,
+                                   ValidationValues.Proc.MinCalageVarCalcSteps_num,
+                                   ValidationValues.Proc.MaxCalageVarCalcSteps_num)
 
-        three_t.en_double_validator(CalageVarModel.MaxPosAngCol,
-                                    CalageVarModel.MaxPosAngCol,
-                                    ValidationValues.Proc.MinCalageVarAngle_deg,
-                                    ValidationValues.Proc.MaxCalageVarAngle_deg,
-                                    2)
+        self.three_t.en_double_validator(CalageVarModel.MaxPosAngCol,
+                                      CalageVarModel.MaxPosAngCol,
+                                      ValidationValues.Proc.MinCalageVarAngle_deg,
+                                      ValidationValues.Proc.MaxCalageVarAngle_deg,
+                                      2)
 
-        three_t.en_int_validator(CalageVarModel.NumPosStepsCol,
-                                 CalageVarModel.NumPosStepsCol,
-                                 ValidationValues.Proc.MinCalageVarCalcSteps_num,
-                                 ValidationValues.Proc.MaxCalageVarCalcSteps_num)
+        self.three_t.en_int_validator(CalageVarModel.NumPosStepsCol,
+                                   CalageVarModel.NumPosStepsCol,
+                                   ValidationValues.Proc.MinCalageVarCalcSteps_num,
+                                   ValidationValues.Proc.MaxCalageVarCalcSteps_num)
 
-        three_t.set_help_bar(self.helpBar)
-        three_t.set_help_text(CalageVarModel.MaxNegAngCol,
-                              _('CalageVar-MaxNegAngDesc'))
-        three_t.set_help_text(CalageVarModel.NumNegStepsCol,
-                              _('CalageVar-NumNegStepsDesc'))
-        three_t.set_help_text(CalageVarModel.MaxPosAngCol,
-                              _('CalageVar-MaxPosAngDesc'))
-        three_t.set_help_text(CalageVarModel.NumPosStepsCol,
-                              _('CalageVar-NumPosStepsDesc'))
+        self.three_t.set_help_bar(self.helpBar)
+        self.three_t.set_help_text(CalageVarModel.MaxNegAngCol,
+                                _('CalageVar-MaxNegAngDesc'))
+        self.three_t.set_help_text(CalageVarModel.NumNegStepsCol,
+                                _('CalageVar-NumNegStepsDesc'))
+        self.three_t.set_help_text(CalageVarModel.MaxPosAngCol,
+                                _('CalageVar-MaxPosAngDesc'))
+        self.three_t.set_help_text(CalageVarModel.NumPosStepsCol,
+                                _('CalageVar-NumPosStepsDesc'))
 
         self.usage_update()
 
@@ -235,8 +235,14 @@ class CalageVar(QMdiSubWindow, metaclass=Singleton):
         """
         if self.calageVar_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
+            self.two_t.setEnabled(True)
+            self.three_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
+            self.two_t.setEnabled(False)
+            self.three_t.setEnabled(False)
 
     def usage_cb_change(self):
         """
