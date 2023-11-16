@@ -9,11 +9,11 @@ import sys
 import zipfile
 
 # Adapt the following variables for processor adaptation
-win_src_zip = 'lep-3.19-win64.zip'
-win_proc_dir_name = 'lep-3.19-win64'
+win_src_zip = 'lep-3.21T-win64.zip'
+win_proc_dir_name = 'lep-3.21-win64'
 
-lin_src_zip = 'lep-3.19-lin64.zip'
-lin_proc_dir_name = 'lep-3.19-lin64'
+lin_src_zip = 'lep-3.21T-lin64.zip'
+lin_proc_dir_name = 'lep-3.21-lin64'
 
 osx_src_zip = 'lep-3.19-osx.zip'
 osx_proc_dir_name = 'lep-3.19-osx'

@@ -93,28 +93,28 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_ly)
 
-        one_t = TableView()
-        one_t.setModel(self.airfThick_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(self.airfThick_M.columnCount() - 1)
-        one_t.hideColumn(self.airfThick_M.columnCount() - 2)
-        self.window_ly.addWidget(one_t)
+        self.one_t = TableView()
+        self.one_t.setModel(self.airfThick_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.airfThick_M.columnCount() - 1)
+        self.one_t.hideColumn(self.airfThick_M.columnCount() - 2)
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_int_validator(AirfoilThicknessModel.OrderNumCol,
+        self.one_t.en_int_validator(AirfoilThicknessModel.OrderNumCol,
                                AirfoilThicknessModel.OrderNumCol,
                                1,
                                ValidationValues.MaxNumRibs)
-        one_t.en_double_validator(AirfoilThicknessModel.CoeffCol,
+        self.one_t.en_double_validator(AirfoilThicknessModel.CoeffCol,
                                   AirfoilThicknessModel.CoeffCol,
                                   ValidationValues.Proc.MinAirfoilThickness_coef,
                                   ValidationValues.Proc.MaxAirfoilThickness_coef,
                                   1)
 
-        one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(AirfoilThicknessModel.OrderNumCol,
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(AirfoilThicknessModel.OrderNumCol,
                             _('AirfThick-RibNumDesc'))
-        one_t.set_help_text(AirfoilThicknessModel.CoeffCol,
+        self.one_t.set_help_text(AirfoilThicknessModel.CoeffCol,
                             _('AirfThick-CoeffDesc'))
 
         self.usage_update()
@@ -142,8 +142,10 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
         """
         if self.airfThick_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
 
     def usage_cb_change(self):
         """
@@ -153,7 +155,6 @@ class AirfoilThickness(QMdiSubWindow, metaclass=Singleton):
             self.airfThick_M.set_is_used(False)
         else:
             self.airfThick_M.set_is_used(True)
-
         self.pm.set_file_saved(False)
 
     def btn_press(self, q):

@@ -92,29 +92,29 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_lo)
 
-        one_t = TableView()
-        one_t.setModel(self.specWingTyp_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(self.specWingTyp_M.columnCount() - 1)
-        one_t.hideColumn(self.specWingTyp_M.columnCount() - 2)
-        one_t.hideColumn(0)
-        one_t.setFixedHeight(2 +
-                             one_t.horizontalHeader().height() +
-                             one_t.rowHeight(0))
-        self.window_ly.addWidget(one_t)
+        self.one_t = TableView()
+        self.one_t.setModel(self.specWingTyp_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.specWingTyp_M.columnCount() - 1)
+        self.one_t.hideColumn(self.specWingTyp_M.columnCount() - 2)
+        self.one_t.hideColumn(0)
+        self.one_t.setFixedHeight(2 +
+                                 self.one_t.horizontalHeader().height() +
+                                 self.one_t.rowHeight(0))
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_double_validator(SpecWingTipModel.AngleLECol,
-                                  SpecWingTipModel.AngleTECol,
-                                  ValidationValues.Proc.MinSpecWingtipAngle_deg,
-                                  ValidationValues.Proc.MaxSpecWingtipAngle_deg,
-                                  2)
+        self.one_t.en_double_validator(SpecWingTipModel.AngleLECol,
+                                      SpecWingTipModel.AngleTECol,
+                                      ValidationValues.Proc.MinSpecWingtipAngle_deg,
+                                      ValidationValues.Proc.MaxSpecWingtipAngle_deg,
+                                      2)
 
-        one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(SpecWingTipModel.AngleLECol,
-                            _('SpecWingTyp-AngleLEDesc'))
-        one_t.set_help_text(SpecWingTipModel.AngleTECol,
-                            _('SpecWingTyp-AngleTEDesc'))
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(SpecWingTipModel.AngleLECol,
+                                _('SpecWingTyp-AngleLEDesc'))
+        self.one_t.set_help_text(SpecWingTipModel.AngleTECol,
+                                _('SpecWingTyp-AngleTEDesc'))
 
         self.usage_update()
 
@@ -141,8 +141,10 @@ class SpecWingTip(QMdiSubWindow, metaclass=Singleton):
         """
         if self.specWingTyp_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
 
     def usage_cb_change(self):
         """

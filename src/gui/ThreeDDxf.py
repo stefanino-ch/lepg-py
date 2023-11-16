@@ -92,82 +92,82 @@ class ThreeDDxf(QMdiSubWindow, metaclass=Singleton):
 
         self.window_ly.addLayout(usage_ly)
 
-        one_t = TableView()
-        one_t.setModel(self.threeDDxf_M)
-        one_t.verticalHeader().setVisible(False)
-        one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        one_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
-        one_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
-        one_t.hideColumn(2)
-        one_t.hideColumn(0)
+        self.one_t = TableView()
+        self.one_t.setModel(self.threeDDxf_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
+        self.one_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
+        self.one_t.hideColumn(2)
+        self.one_t.hideColumn(0)
         for cell in range(6, 9):
-            one_t.hideRow(cell)
-        one_t.setFixedHeight(2
-                             + one_t.horizontalHeader().height()
-                             + 6 * one_t.rowHeight(0))
-        self.window_ly.addWidget(one_t)
+            self.one_t.hideRow(cell)
+        self.one_t.setFixedHeight(2
+                                 + self.one_t.horizontalHeader().height()
+                                 + 6 * self.one_t.rowHeight(0))
+        self.window_ly.addWidget(self.one_t)
 
-        one_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
-                                   ThreeDDxfModel.LineNameCol,
-                                   Regex.ThreeDDxfLayerNames)
+        self.one_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
+                                       ThreeDDxfModel.LineNameCol,
+                                       Regex.ThreeDDxfLayerNames)
 
-        one_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
-                               ThreeDDxfModel.ColorCodeCol,
-                               ValidationValues.Proc.MinThreeDDxfColorNum,
-                               ValidationValues.Proc.MaxThreeDDxfColorNum)
+        self.one_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
+                                   ThreeDDxfModel.ColorCodeCol,
+                                   ValidationValues.Proc.MinThreeDDxfColorNum,
+                                   ValidationValues.Proc.MaxThreeDDxfColorNum)
 
-        one_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
-                                   ThreeDDxfModel.ColorNameCol,
-                                   Regex.ThreeDDxfColorDesc)
+        self.one_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
+                                       ThreeDDxfModel.ColorNameCol,
+                                       Regex.ThreeDDxfColorDesc)
 
-        one_t.set_help_bar(self.helpBar)
-        one_t.set_help_text(ThreeDDxfModel.LineNameCol,
-                            _('ThreeDDxf-LineNameDesc'))
-        one_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
-                            _('ThreeDDxf-ColorCodeDesc'))
-        one_t.set_help_text(ThreeDDxfModel.ColorNameCol,
-                            _('ThreeDDxf-ColorNameDesc'))
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(ThreeDDxfModel.LineNameCol,
+                                _('ThreeDDxf-LineNameDesc'))
+        self.one_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
+                                _('ThreeDDxf-ColorCodeDesc'))
+        self.one_t.set_help_text(ThreeDDxfModel.ColorNameCol,
+                                _('ThreeDDxf-ColorNameDesc'))
 
-        two_t = TableView()
-        two_t.setModel(self.threeDDxf_M)
-        two_t.verticalHeader().setVisible(False)
-        two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        two_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
-        two_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
-        two_t.hideColumn(0)
+        self.two_t = TableView()
+        self.two_t.setModel(self.threeDDxf_M)
+        self.two_t.verticalHeader().setVisible(False)
+        self.two_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.two_t.hideColumn(self.threeDDxf_M.columnCount() - 1)
+        self.two_t.hideColumn(self.threeDDxf_M.columnCount() - 2)
+        self.two_t.hideColumn(0)
         for cell in range(0, 6):
-            two_t.hideRow(cell)
-        two_t.setFixedHeight(2
-                             + two_t.horizontalHeader().height()
-                             + 3 * two_t.rowHeight(6))
-        self.window_ly.addWidget(two_t)
+            self.two_t.hideRow(cell)
+        self.two_t.setFixedHeight(2
+                                 + self.two_t.horizontalHeader().height()
+                                 + 3 * self.two_t.rowHeight(6))
+        self.window_ly.addWidget(self.two_t)
 
-        two_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
-                                   ThreeDDxfModel.LineNameCol,
-                                   Regex.ThreeDDxfLayerNamesPlus)
+        self.two_t.en_reg_exp_validator(ThreeDDxfModel.LineNameCol,
+                                       ThreeDDxfModel.LineNameCol,
+                                       Regex.ThreeDDxfLayerNamesPlus)
 
-        two_t.en_int_validator(ThreeDDxfModel.UnifilarCol,
-                               ThreeDDxfModel.UnifilarCol,
-                               0, 1)
+        self.two_t.en_int_validator(ThreeDDxfModel.UnifilarCol,
+                                   ThreeDDxfModel.UnifilarCol,
+                                   0, 1)
 
-        two_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
-                               ThreeDDxfModel.ColorCodeCol,
-                               ValidationValues.Proc.MinThreeDDxfColorNum,
-                               ValidationValues.Proc.MaxThreeDDxfColorNum)
+        self.two_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
+                                   ThreeDDxfModel.ColorCodeCol,
+                                   ValidationValues.Proc.MinThreeDDxfColorNum,
+                                   ValidationValues.Proc.MaxThreeDDxfColorNum)
 
-        two_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
-                                   ThreeDDxfModel.ColorNameCol,
-                                   Regex.ThreeDDxfColorDesc)
+        self.two_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
+                                       ThreeDDxfModel.ColorNameCol,
+                                       Regex.ThreeDDxfColorDesc)
 
-        two_t.set_help_bar(self.helpBar)
-        two_t.set_help_text(ThreeDDxfModel.LineNameCol,
-                            _('ThreeDDxf-LineNameDesc'))
-        two_t.set_help_text(ThreeDDxfModel.UnifilarCol,
-                            _('ThreeDDxf-UnifilarDesc'))
-        two_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
-                            _('ThreeDDxf-ColorCodeDesc'))
-        two_t.set_help_text(ThreeDDxfModel.ColorNameCol,
-                            _('ThreeDDxf-ColorNameDesc'))
+        self.two_t.set_help_bar(self.helpBar)
+        self.two_t.set_help_text(ThreeDDxfModel.LineNameCol,
+                                _('ThreeDDxf-LineNameDesc'))
+        self.two_t.set_help_text(ThreeDDxfModel.UnifilarCol,
+                                _('ThreeDDxf-UnifilarDesc'))
+        self.two_t.set_help_text(ThreeDDxfModel.ColorCodeCol,
+                                _('ThreeDDxf-ColorCodeDesc'))
+        self.two_t.set_help_text(ThreeDDxfModel.ColorNameCol,
+                                _('ThreeDDxf-ColorNameDesc'))
 
         self.usage_update()
 
@@ -194,8 +194,12 @@ class ThreeDDxf(QMdiSubWindow, metaclass=Singleton):
         """
         if self.threeDDxf_M.is_used():
             self.usage_cb.setCurrentIndex(1)
+            self.one_t.setEnabled(True)
+            self.two_t.setEnabled(True)
         else:
             self.usage_cb.setCurrentIndex(0)
+            self.one_t.setEnabled(False)
+            self.two_t.setEnabled(False)
 
     def usage_cb_change(self):
         """

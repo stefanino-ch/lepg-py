@@ -171,7 +171,7 @@ class ProcFileWriter:
 
         stream << separator
         stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
-        stream << '* Input data file version 3.20\n'
+        stream << '* Input data file version 3.21\n'
         stream << separator
         today = date.today()
         stream << '* Version %s\n' % today.strftime("%Y-%m-%d")
