@@ -57,6 +57,7 @@ from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
 from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
 from data.procModel.TwoDDxfModel import TwoDDxfModel
 from data.procModel.WingModel import WingModel
+from data.procModel.DetailedRisersModel import DetailedRisersModel
 
 
 class ProcModel(QObject, metaclass=Singleton):
@@ -90,7 +91,7 @@ class ProcModel(QObject, metaclass=Singleton):
     '''
     :attr: Version number of the file currently in use
     '''
-    __latestFileVersion = '3.17'
+    __latestFileVersion = '3.21'
     '''
     :attr: Version number of the currently supported processor
     '''
@@ -114,80 +115,114 @@ class ProcModel(QObject, metaclass=Singleton):
 
         self.addRibPoints_m = AddRibPointsModel()
         self.addRibPoints_m.dataChanged.connect(self.data_edit)
+
         self.airf_m = AirfoilsModel()
         self.airf_m.dataChanged.connect(self.data_edit)
+
         self.airfThick_m = AirfoilThicknessModel()
         self.airfThick_m.dataChanged.connect(self.data_edit)
+
         self.anchPoints_m = AnchorPointsModel()
         self.anchPoints_m.dataChanged.connect(self.data_edit)
+
         self.brakes_m = BrakeModel()
         self.brakes_m.dataChanged.connect(self.data_edit)
+
         self.brakeLength_m = BrakeLengthModel()
         self.brakeLength_m.dataChanged.connect(self.data_edit)
+
         self.calageVar_m = CalageVarModel()
         self.calageVar_m.dataChanged.connect(self.data_edit)
+
         self.dxfLayerNames_m = DxfLayerNamesModel()
         self.dxfLayerNames_m.dataChanged.connect(self.data_edit)
+
         self.elLinesCorr_m = ElLinesCorrModel()
         self.elLinesCorr_m.dataChanged.connect(self.data_edit)
         self.elLinesDef_m = ElLinesDefModel()
         self.elLinesDef_m.dataChanged.connect(self.data_edit)
+
         self.extradosColConf_m = ExtradosColConfModel()
         self.extradosColConf_m.dataChanged.connect(self.data_edit)
         self.extradosColDet_m = ExtradosColDetModel()
         self.extradosColDet_m.dataChanged.connect(self.data_edit)
+
         self.globAoA_m = GlobalAoAModel()
         self.globAoA_m.dataChanged.connect(self.data_edit)
+
         self.glueVent_m = GlueVentModel()
         self.glueVent_m.dataChanged.connect(self.data_edit)
+
         self.hvvhRibs_m = HvVhRibsModel()
         self.hvvhRibs_m.dataChanged.connect(self.data_edit)
         self.intradosColConf_m = IntradosColsConfModel()
         self.intradosColConf_m.dataChanged.connect(self.data_edit)
         self.intradosColDet_m = IntradosColsDetModel()
         self.intradosColDet_m.dataChanged.connect(self.data_edit)
+
         self.joncsDef_m = JoncsDefModel()
         self.joncsDef_m.dataChanged.connect(self.data_edit)
+
         self.lightConf_m = LightConfModel()
         self.lightConf_m.dataChanged.connect(self.data_edit)
         self.lightDet_m = LightDetModel()
         self.lightDet_m.dataChanged.connect(self.data_edit)
+
         self.lines_m = LinesModel()
         self.lines_m.dataChanged.connect(self.data_edit)
+
         self.marks_m = MarksModel()
         self.marks_m.dataChanged.connect(self.data_edit)
+
         self.marksTypes_m = MarksTypesModel()
         self.marksTypes_m.dataChanged.connect(self.data_edit)
+
         self.newSkinTensConf_m = NewSkinTensConfModel()
         self.newSkinTensConf_m.dataChanged.connect(self.data_edit)
         self.newSkinTensDet_m = NewSkinTensDetModel()
         self.newSkinTensDet_m.dataChanged.connect(self.data_edit)
+
         self.noseMylars_m = NoseMylarsModel()
         self.noseMylars_m.dataChanged.connect(self.data_edit)
+
         self.partsSep_m = PartsSeparationModel()
         self.partsSep_m.dataChanged.connect(self.data_edit)
+
         self.ramif_m = RamificationModel()
         self.ramif_m.dataChanged.connect(self.data_edit)
+
         self.skinTens_m = SkinTensionModel()
         self.skinTens_m.dataChanged.connect(self.data_edit)
+
         self.skinTensParams_m = SkinTensionParamsModel()
         self.skinTensParams_m.dataChanged.connect(self.data_edit)
+
         self.sewingAllowances_m = SewingAllowancesModel()
         self.sewingAllowances_m.dataChanged.connect(self.data_edit)
+
         self.specWingTyp_m = SpecWingTipModel()
         self.specWingTyp_m.dataChanged.connect(self.data_edit)
+
         self.thrDDxf_m = ThreeDDxfModel()
         self.thrDDxf_m.dataChanged.connect(self.data_edit)
+
         self.thrDShConf_m = ThreeDShConfModel()
         self.thrDShConf_m.dataChanged.connect(self.data_edit)
+
         self.thrDShUpDet_m = ThreeDShUpDetModel()
         self.thrDShUpDet_m.dataChanged.connect(self.data_edit)
+
         self.thrDShLoDet_m = ThreeDShLoDetModel()
         self.thrDShLoDet_m.dataChanged.connect(self.data_edit)
+
         self.thrDShPrint_m = ThreeDShPrintModel()
         self.thrDShPrint_m.dataChanged.connect(self.data_edit)
+
         self.twoDDxf_m = TwoDDxfModel()
         self.twoDDxf_m.dataChanged.connect(self.data_edit)
+
+        self.detRaisers_m = DetailedRisersModel()
+        self.detRaisers_m.dataChanged.connect(self.data_edit)
 
         self.fileReader = ProcFileReader()
         self.fileWriter = ProcFileWriter()

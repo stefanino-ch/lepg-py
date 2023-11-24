@@ -50,6 +50,7 @@ from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
 from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
 from data.procModel.TwoDDxfModel import TwoDDxfModel
 from data.procModel.WingModel import WingModel
+from data.procModel.DetailedRisersModel import DetailedRisersModel
 
 
 class WaitWindow(QTextEdit):
@@ -134,6 +135,7 @@ class ProcFileReader(QObject):
         self.threeDShPr_M = ThreeDShPrintModel()
         self.twoDDxf_M = TwoDDxfModel()
         self.wing_M = WingModel()
+        self.detRisers_m = DetailedRisersModel()
 
     def read_file(self, file_path_name, file_version):
         """
@@ -1330,6 +1332,56 @@ class ProcFileReader(QObject):
 
         else:
             self.partsSep_M.set_is_used(False)
+
+        ##############################
+        # 33. DETAILED RISERS
+        # Detailed raisers was introduced with 3.21
+        if self.__fileVersion - 3.21 > -1e-10:
+            logging.debug(self.__className + '.read_file: 33. DETAILED RISERS')
+
+            for line_it in range(3):
+                stream.readLine()
+
+            data = int(rem_tab_space(stream.readLine()))
+
+            self.detRisers_m.set_is_used(False)
+
+            if data != 0:
+                self.detRisers_m.set_is_used(True)
+                # Type line: only type 1 at the moment, we don't need to evaluate this line
+                stream.readLine()
+                length_a = ''
+                length_b = ''
+                length_c = ''
+                length_d = ''
+                length_e = ''
+                more_data = True
+
+                while more_data:
+                    data = split_line(stream.readLine())
+
+                    if '*' in data[0]:
+                        # We are at the end of the se +
+                        more_data = False
+                    else:
+                        if 'A' in data[0:]:
+                            length_a = data[1]
+                        elif 'B' in data[0:]:
+                            length_b = data[1]
+                        elif 'C' in data[0:]:
+                            length_c = data[1]
+                        elif 'D' in data[0:]:
+                            length_d = data[1]
+                        elif 'E' in data[0:]:
+                            length_e = data[1]
+            else:
+                self.detRisers_m.set_is_used(False)
+
+            self.detRisers_m.update_row(1, 1, length_a, length_b, length_c, length_d, length_e)
+
+        else:
+            self.detRisers_m.set_is_used(False)
+
 
         ##############################
         # Cleanup
