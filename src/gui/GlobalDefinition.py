@@ -216,3 +216,7 @@ class ValidationValues:
         # 32: Parts Separation
         MinPartsSep_coef = 0
         MaxParsSep_coef = 3
+
+        # 33: Detailed Risers
+        DetRisersMinLength_cm = 0
+        DetRisersMaxLength_cm = 100

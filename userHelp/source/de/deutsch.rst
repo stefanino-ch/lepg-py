@@ -41,6 +41,7 @@ Deutsche Anleitung
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
    proc/partsSeparation.rst
+   proc/detRisers.rst
    proc/procOutput.rst
    
    view/wing_outline.rst

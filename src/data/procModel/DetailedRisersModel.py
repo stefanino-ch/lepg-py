@@ -10,9 +10,9 @@ from data.SqlTableModel import SqlTableModel
 from Singleton.Singleton import Singleton
 
 
-class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
+class DetailedRisersModel(SqlTableModel, metaclass=Singleton):
     """
-    :class: Provides a SqlTableModel holding special wingtip data
+    :class: Provides a SqlTableModel for the detailed raisers data
     """
     __isUsed = False
     ''' :attr: Helps to remember if the section is in use or not'''
@@ -26,12 +26,18 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
     :attr: num of column for ordering the individual lines
            of a config
     '''
-    AngleLECol = 1
-    ''':attr: Number of the col holding the LE angle'''
-    AngleTECol = 2
-    ''':attr: Number of the col holding the TE angle'''
-    ConfigNumCol = 3
-    ''':attr: num of column for config number (always 1)'''
+    ''':attr: Number of the col holding the riser A length'''
+    LengthACol = 1
+    ''':attr: Number of the col holding the riser B length'''
+    LengthBCol = 2
+    ''':attr: Number of the col holding the riser C length'''
+    LengthCCol = 3
+    ''':attr: Number of the col holding the riser D length'''
+    LengthDCol = 4
+    ''':attr: Number of the col holding the riser E length'''
+    LengthECol = 5
+    ''':attr: num of column for config number'''
+    ConfigNumCol = 6
 
     def __init__(self):
         """
@@ -39,10 +45,13 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         """
         super().__init__()
         self.create_table()
-        self.setTable("SpecWingTip")
+        self.setTable("DetailedRisers")
 
-        self.setHeaderData(1, Qt.Orientation.Horizontal, _("LE Angle [deg]"))
-        self.setHeaderData(2, Qt.Orientation.Horizontal, _("TE Angle [deg]"))
+        self.setHeaderData(self.LengthACol, Qt.Orientation.Horizontal, _("Riser A"))
+        self.setHeaderData(self.LengthBCol, Qt.Orientation.Horizontal, _("Riser B"))
+        self.setHeaderData(self.LengthCCol, Qt.Orientation.Horizontal, _("Riser C"))
+        self.setHeaderData(self.LengthDCol, Qt.Orientation.Horizontal, _("Riser D"))
+        self.setHeaderData(self.LengthECol, Qt.Orientation.Horizontal, _("Riser E"))
 
         self.set_num_rows_for_config(1, 1)
         self.select()
@@ -54,27 +63,36 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         """
         query = QSqlQuery()
 
-        query.exec("DROP TABLE if exists SpecWingTip;")
-        query.exec("create table if not exists SpecWingTip ("
+        query.exec("DROP TABLE if exists DetailedRisers;")
+        query.exec("create table if not exists DetailedRisers ("
                    "OrderNum INTEGER,"
-                   "AngleLE REAL,"
-                   "AngleTE REAL,"
+                   "LengthA REAL,"
+                   "LengthB REAL,"
+                   "LengthC REAL,"
+                   "LengthD REAL,"
+                   "LengthE REAL,"
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def update_row(self, config_num, order_num, angle_le, angle_te):
+    def update_row(self, config_num, order_num, length_a, length_b, length_c, length_d, length_e):
         """
         :method: Updates a specific row in the database with the values
                  passed. Parameters are not explicitly explained here as
                  they should be well known.
         """
         query = QSqlQuery()
-        query.prepare("UPDATE SpecWingTip SET "
-                      "AngleLE= :angle_le, "
-                      "AngleTE= :angle_te "
+        query.prepare("UPDATE DetailedRisers SET "
+                      "LengthA= :length_a, "
+                      "LengthB= :length_b, "
+                      "LengthC= :length_c, "
+                      "LengthD= :length_d, "
+                      "LengthE= :length_e "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
-        query.bindValue(":angle_le", angle_le)
-        query.bindValue(":angle_te", angle_te)
+        query.bindValue(":length_a", length_a)
+        query.bindValue(":length_b", length_b)
+        query.bindValue(":length_c", length_c)
+        query.bindValue(":length_d", length_d)
+        query.bindValue(":length_e", length_e)
         query.bindValue(":config", config_num)
         query.bindValue(":order", order_num)
         query.exec()
@@ -105,10 +123,13 @@ class SpecWingTipModel(SqlTableModel, metaclass=Singleton):
         """
         query = QSqlQuery()
         query.prepare("Select "
-                      "OrderNum, "
-                      "AngleLE, "
-                      "AngleTE "
-                      "FROM SpecWingTip WHERE (ConfigNum = :config) "
+                      "LengthA, "
+                      "LengthB, "
+                      "LengthC, "
+                      "LengthD, "
+                      "LengthE, "
+                      "OrderNum "
+                      "FROM DetailedRisers WHERE (ConfigNum = :config) "
                       "ORDER BY OrderNum")
         query.bindValue(":config", config_num)
         query.exec()

@@ -28,6 +28,7 @@ from gui.BasicData import BasicData
 from gui.Brakes import Brakes
 from gui.CalageVar import CalageVar
 from gui.DataStatusOverview import DataStatusOverview
+from gui.DetailedRisers import DetailedRisers
 from gui.DxfLayerNames import DxfLayerNames
 from gui.ElasticLinesCorr import ElasticLinesCorr
 from gui.ExtradColors import ExtradColors
@@ -119,6 +120,7 @@ class MainWindow(QMainWindow):
         self.proc_out_w = None
         self.pre_proc_cells_distr_w = None
         self.pre_proc_wing_outline_w = None
+        self.proc_det_risers_w = None
 
         # Delete old log file
         self.delete_logfile()
@@ -583,6 +585,10 @@ class MainWindow(QMainWindow):
                                             'tension'))
         proc_new_skin_tens_a.triggered.connect(self.proc_new_skin_tension_edit)
 
+        proc_det_risers_a = QAction(_('Detailed Risers'), self)
+        proc_det_risers_a.setStatusTip(_('Edit parameters for detailed risers'))
+        proc_det_risers_a.triggered.connect(self.proc_detailed_risers_edit)
+
         proc_run_act = QAction(_('Run Processor'), self)
         proc_run_act.setStatusTip(_('run_Processor_des'))
         proc_run_act.triggered.connect(self.proc_run)
@@ -627,6 +633,7 @@ class MainWindow(QMainWindow):
         proc_menu.addAction(proc_calage_var_a)
         proc_menu.addAction(proc_three_d_shaping_a)
         proc_menu.addAction(proc_airfoil_thick_a)
+        proc_menu.addAction(proc_det_risers_a)
 
         proc_menu.addSeparator()
         proc_menu.addAction(proc_run_act)
@@ -853,6 +860,14 @@ class MainWindow(QMainWindow):
         self.parts_separation_w = PartsSeparation()
         self.mdi.addSubWindow(self.parts_separation_w)
         self.parts_separation_w.show()
+
+    def proc_detailed_risers_edit(self):
+        """
+        :method: Called if the user selects *Processor* -> *Detailed Risers*
+        """
+        self.detailed_risers_w = DetailedRisers()
+        self.mdi.addSubWindow(self.detailed_risers_w)
+        self.detailed_risers_w.show()
 
     def proc_run(self):
         """

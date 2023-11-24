@@ -53,6 +53,7 @@ from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
 from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
 from data.procModel.TwoDDxfModel import TwoDDxfModel
 from data.procModel.WingModel import WingModel
+from data.procModel.DetailedRisersModel import DetailedRisersModel
 
 
 class ProcFileWriter:
@@ -114,6 +115,7 @@ class ProcFileWriter:
         self.new_skin_tens_conf_m = NewSkinTensConfModel()
         self.new_skin_tens_det_m = NewSkinTensDetModel()
         self.parts_sep_m = PartsSeparationModel()
+        self.detRisers_M = DetailedRisersModel()
 
     def set_file_path_name(self, file_path_name):
         """
@@ -901,6 +903,28 @@ class ProcFileWriter:
             stream << 'parameter8\t1.0\n'
             stream << 'parameter9\t1.0\n'
             stream << 'parameter10\t1.0\n'
+
+        stream << separator
+        stream << '*       33. Detailed Risers\n'
+        stream << separator
+
+        if self.detRisers_M.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            # Write type (hardcoded as there is only type 1)
+            stream << '1\n'
+
+            values = self.detRisers_M.get_row(1, 1)
+            print('werte')
+            print(values)
+            riser_names = ['A', 'B', 'C', 'D', 'E']
+
+            for val_it in range(0, 5):
+                test = values(val_it)
+                if values(val_it) != '':
+                    stream << '%s\t%s\tcm\n' %(riser_names[val_it], values(val_it))
 
         stream << '\n'
         stream.flush()
