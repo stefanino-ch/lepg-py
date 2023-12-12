@@ -42,8 +42,13 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
+<<<<<<< HEAD
         self.detRisers_M = DetailedRisersModel()
         self.detRisers_M.usageUpd.connect(self.usage_update)
+=======
+        self.specWingTyp_M = SpecWingTipModel()
+        self.specWingTyp_M.usageUpd.connect(self.usage_update)
+>>>>>>> origin/latest
         self.build_window()
 
     def closeEvent(self, event):
@@ -93,17 +98,26 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addLayout(usage_lo)
 
         self.one_t = TableView()
+<<<<<<< HEAD
         self.one_t.setModel(self.detRisers_M)
         self.one_t.verticalHeader().setVisible(False)
         self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.one_t.hideColumn(self.detRisers_M.columnCount() - 1)
         self.one_t.hideColumn(self.detRisers_M.columnCount() - 2)
+=======
+        self.one_t.setModel(self.specWingTyp_M)
+        self.one_t.verticalHeader().setVisible(False)
+        self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.one_t.hideColumn(self.specWingTyp_M.columnCount() - 1)
+        self.one_t.hideColumn(self.specWingTyp_M.columnCount() - 2)
+>>>>>>> origin/latest
         self.one_t.hideColumn(0)
         self.one_t.setFixedHeight(2 +
                                  self.one_t.horizontalHeader().height() +
                                  self.one_t.rowHeight(0))
         self.window_ly.addWidget(self.one_t)
 
+<<<<<<< HEAD
         self.one_t.en_double_validator(DetailedRisersModel.LengthACol,
                                        DetailedRisersModel.LengthECol,
                                        ValidationValues.Proc.DetRisersMinLength_cm,
@@ -121,6 +135,19 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
                                  _('DetRisersL-LengthDDesc'))
         self.one_t.set_help_text(DetailedRisersModel.LengthECol,
                                  _('DetRisersL-LengthEDesc'))
+=======
+        self.one_t.en_double_validator(SpecWingTipModel.AngleLECol,
+                                      SpecWingTipModel.AngleTECol,
+                                      ValidationValues.Proc.MinSpecWingtipAngle_deg,
+                                      ValidationValues.Proc.MaxSpecWingtipAngle_deg,
+                                      2)
+
+        self.one_t.set_help_bar(self.helpBar)
+        self.one_t.set_help_text(SpecWingTipModel.AngleLECol,
+                                _('SpecWingTyp-AngleLEDesc'))
+        self.one_t.set_help_text(SpecWingTipModel.AngleTECol,
+                                _('SpecWingTyp-AngleTEDesc'))
+>>>>>>> origin/latest
 
         self.usage_update()
 
@@ -130,7 +157,11 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
+<<<<<<< HEAD
         self.btnBar.set_help_page('proc/detRisers.html')
+=======
+        self.btnBar.set_help_page('proc/specWingTip.html')
+>>>>>>> origin/latest
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()
@@ -145,7 +176,11 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
+<<<<<<< HEAD
         if self.detRisers_M.is_used():
+=======
+        if self.specWingTyp_M.is_used():
+>>>>>>> origin/latest
             self.usage_cb.setCurrentIndex(1)
             self.one_t.setEnabled(True)
         else:
@@ -157,9 +192,15 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the model as soon the usage CB has been changed
         """
         if self.usage_cb.currentIndex() == 0:
+<<<<<<< HEAD
             self.detRisers_M.set_is_used(False)
         else:
             self.detRisers_M.set_is_used(True)
+=======
+            self.specWingTyp_M.set_is_used(False)
+        else:
+            self.specWingTyp_M.set_is_used(True)
+>>>>>>> origin/latest
         self.pm.set_file_saved(False)
 
     def btn_press(self, q):
