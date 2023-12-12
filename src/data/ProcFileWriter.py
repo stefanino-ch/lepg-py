@@ -917,8 +917,6 @@ class ProcFileWriter:
             stream << '1\n'
 
             values = self.detRisers_M.get_row(1, 1)
-            print('werte')
-            print(values)
             riser_names = ['A', 'B', 'C', 'D', 'E']
 
             for val_it in range(0, 5):
