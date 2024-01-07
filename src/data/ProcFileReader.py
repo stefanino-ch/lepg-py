@@ -1382,6 +1382,29 @@ class ProcFileReader(QObject):
         else:
             self.detRisers_m.set_is_used(False)
 
+        ##############################
+        # 34. LINES CHARACTERISTICS
+        # Introduced with 3.21
+        if self.__fileVersion - 3.21 > -1e-10:
+            logging.debug(self.__className + '.read_file: 34. LINES CHARACTERISTICS')
+
+        ##############################
+        # 35: SOLVE EQUILIBRIUM EQUATIONS
+        # Introduced with 3.21
+        if self.__fileVersion - 3.21 > -1e-10:
+            logging.debug(self.__className + '.read_file: 35: SOLVE EQUILIBRIUM EQUATIONS')
+
+        ##############################
+        # 36: CREATE FILES FOR XFLR5 ANALYSIS
+        # Introduced with 3.21
+        if self.__fileVersion - 3.21 > -1e-10:
+            logging.debug(self.__className + '.read_file: 36: CREATE FILES FOR XFLR5 ANALYSIS')
+
+        ##############################
+        # 37: SOME SPECIAL PARAMETERS
+        # Introduced with 3.21
+        if self.__fileVersion - 3.21 > -1e-10:
+            logging.debug(self.__className + '.read_file: 37: SOME SPECIAL PARAMETERS')
 
         ##############################
         # Cleanup

@@ -61,6 +61,7 @@ from gui.SpecWingTip import SpecWingTip
 from gui.ThreeDDxf import ThreeDDxf
 from gui.ThreeDShaping import ThreeDShaping
 from gui.TwoDDxf import TwoDDxf
+from gui.LinesCharacteristics import LinesCharacteristics
 
 
 # TODO: bring windows to front if they are called
@@ -520,6 +521,14 @@ class MainWindow(QMainWindow):
         proc_brakes_a.setStatusTip(_('Edit Brake lines data'))
         proc_brakes_a.triggered.connect(self.proc_brakes_edit)
 
+        proc_el_lines_corr_a = QAction(_('Elastic lines correction'), self)
+        proc_el_lines_corr_a.setStatusTip(_('Edit elastic lines correction data'))
+        proc_el_lines_corr_a.triggered.connect(self.proc_el_lines_corr_edit)
+
+        proc_lines_char_a = QAction(_('Lines characteristics'), self)
+        proc_lines_char_a.setStatusTip(_('Define individual lines characteristics'))
+        proc_lines_char_a.triggered.connect(self.proc_lines_char_edit)
+
         proc_ram_a = QAction(_('Ramifications length'), self)
         proc_ram_a.setStatusTip(_('Edit Ramification data'))
         proc_ram_a.triggered.connect(self.proc_ramification_edit)
@@ -541,10 +550,6 @@ class MainWindow(QMainWindow):
         proc_add_rib_pts_a = QAction(_('Additional rib points'), self)
         proc_add_rib_pts_a.setStatusTip(_('Edit additional rib points data'))
         proc_add_rib_pts_a.triggered.connect(self.proc_add_rib_pts_edit)
-
-        proc_el_lines_corr_a = QAction(_('Elastic lines correction'), self)
-        proc_el_lines_corr_a.setStatusTip(_('Edit elastic lines correction data'))
-        proc_el_lines_corr_a.triggered.connect(self.proc_el_lines_corr_edit)
 
         proc_joncs_def_a = QAction(_('Joncs definitions'), self)
         proc_joncs_def_a.setStatusTip(_('Edit joncs (nylon rods) definition'))
@@ -613,8 +618,14 @@ class MainWindow(QMainWindow):
         proc_menu.addMenu(skin_tens_menu)
 
         proc_menu.addAction(proc_gen_ao_a_a)
-        proc_menu.addAction(proc_lines_a)
-        proc_menu.addAction(proc_brakes_a)
+
+        lines_brakes_menu = QMenu(_('Lines/ Brakes'), self)
+        lines_brakes_menu.addAction(proc_lines_a)
+        lines_brakes_menu.addAction(proc_brakes_a)
+        lines_brakes_menu.addAction(proc_el_lines_corr_a)
+        lines_brakes_menu.addAction(proc_lines_char_a)
+        proc_menu.addMenu(lines_brakes_menu)
+
         proc_menu.addAction(proc_ram_a)
         proc_menu.addAction(proc_hv_vh_ribs_a)
 
@@ -624,7 +635,7 @@ class MainWindow(QMainWindow):
         proc_menu.addMenu(cols_menu)
 
         proc_menu.addAction(proc_add_rib_pts_a)
-        proc_menu.addAction(proc_el_lines_corr_a)
+
         proc_menu.addAction(proc_joncs_def_a)
         proc_menu.addAction(proc_nose_mylars_a)
         proc_menu.addAction(proc_edit_tab_reinf_a)
@@ -725,7 +736,7 @@ class MainWindow(QMainWindow):
 
     def proc_lines_edit(self):
         """
-        :method: Called if the user selects *Processor* -> *Lines*
+        :method: Called if the user selects *Processor* -> *Lines/Brakes* -> *Lines*
         """
         self.lines_w = Lines()
         self.mdi.addSubWindow(self.lines_w)
@@ -733,11 +744,28 @@ class MainWindow(QMainWindow):
 
     def proc_brakes_edit(self):
         """
-        :method: Called if the user selects *Processor* -> *Brakes*
+        :method: Called if the user selects *Processor* -> *Processor* -> *Lines/Brakes* -> *Brakes*
         """
         self.brakes_w = Brakes()
         self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
+
+    def proc_el_lines_corr_edit(self):
+        """
+        :method: Called if the user selects *Processor* -> *Lines/Brakes* -> *Elastic lines correction*
+        """
+        self.el_lines_corr_w = ElasticLinesCorr()
+        self.mdi.addSubWindow(self.el_lines_corr_w)
+        self.el_lines_corr_w.show()
+
+    def proc_lines_char_edit(self):
+        """
+        :method: Called if the user selects *Processor* -> *Lines/Brakes*
+                 -> *Lines characteristics*
+        """
+        self.lines_char_w = LinesCharacteristics()
+        self.mdi.addSubWindow(self.lines_char_w)
+        self.lines_char_w.show()
 
     def proc_ramification_edit(self):
         """
@@ -780,14 +808,6 @@ class MainWindow(QMainWindow):
         self.mdi.addSubWindow(self.add_rib_pts_w)
         self.add_rib_pts_w.show()
 
-    def proc_el_lines_corr_edit(self):
-        """
-        :method: Called if the user selects *Processor*
-                 -> *Elastic lines correction*
-        """
-        self.el_lines_corr_w = ElasticLinesCorr()
-        self.mdi.addSubWindow(self.el_lines_corr_w)
-        self.el_lines_corr_w.show()
 
     def proc_joncs_def_edit(self):
         """

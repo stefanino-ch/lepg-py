@@ -20,12 +20,12 @@ from Singleton.Singleton import Singleton
 from gui.GlobalDefinition import ValidationValues
 
 
-class NoseMylars(QMdiSubWindow, metaclass=Singleton):
+class LinesCharacteristics(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit nose mylars details
+    :class: Window to display and edit Brake line details  
     """
 
-    __className = 'NoseMylars'
+    __className = 'LinesCharacteristics'
     '''
     :attr: Does help to indicate the source of the log messages
     '''

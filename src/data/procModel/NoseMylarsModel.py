@@ -12,7 +12,7 @@ from Singleton.Singleton import Singleton
 
 class NoseMylarsModel(SqlTableModel, metaclass=Singleton):
     """
-    :class: Provides a SqlTableModel holding the DXF layer names
+    :class: Provides a SqlTableModel holding the nose mylars data
     """
     OrderNumCol = 0
     ''':attr: num of column for ordering the individual lines of a config'''
