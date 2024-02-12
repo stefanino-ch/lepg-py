@@ -1,6 +1,6 @@
 # lepg-py
 
-Latest_Windows_Version = '3.20.1'
+Latest_Windows_Version = '3.20.2'
 
 Latest_Linux_Version = '3.19.0'
 
