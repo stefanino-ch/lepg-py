@@ -244,7 +244,7 @@ class MainWindow(QMainWindow):
                                     + '<br>' + '<br>'
                                     + _('Or in Settings-> Update checking'))
                     msg_box.setIcon(QMessageBox.Icon.Information)
-                    msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+                    msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                     msg_box.exec()
             else:
                 logging.error(self.__className
@@ -455,7 +455,7 @@ class MainWindow(QMainWindow):
                               'configure\nthe pre-processor in Setup '
                               '->Both Processors.'))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
         else:
             proc_runner.run_pre_proc()
@@ -912,7 +912,7 @@ class MainWindow(QMainWindow):
                               'configure\nthe processor in Setup->'
                               'Both Processors.'))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
         else:
             proc_runner.run_proc()

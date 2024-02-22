@@ -1,10 +1,6 @@
-__version__ = '3.21'
-
-# 3.21
-#
+__version__ = '3.20'
 
 # 3.20
-# Was never formally released.
 
 # 3.19.1
 # Introducing Python 3.11 and PyQt6

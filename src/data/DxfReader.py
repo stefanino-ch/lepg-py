@@ -32,7 +32,7 @@ class DxfReader:
         :retval: Reference to the document object
                  None if document can not be opened
         """
-        if len(doc_name) == 0:
+        if doc_name is None:
             return None
 
         try:

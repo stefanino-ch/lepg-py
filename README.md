@@ -1,10 +1,10 @@
 # lepg-py
 
-Latest_Windows_Version = '3.19.1'
+Latest_Windows_Version = '3.20.2'
 
-Latest_Linux_Version = '3.19.0'
+Latest_Linux_Version = '3.20.2'
 
-Latest_Mac_Version = '3.19.0'
+Latest_Mac_Version = 'na'
 
 [English user manual](https://stefanino-ch.github.io/lepg-py/en/english.html)  
 
