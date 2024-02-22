@@ -109,9 +109,9 @@ class TwoDDxf(QMdiSubWindow, metaclass=Singleton):
                                        TwoDDxfModel.LineNameCol,
                                        Regex.TwoDDxfLayerNames)
         self.one_t.en_int_validator(TwoDDxfModel.ColorCodeCol,
-                                   TwoDDxfModel.ColorCodeCol,
-                                   ValidationValues.Proc.MinTwoDDxfColorNum,
-                                   ValidationValues.Proc.MaxTwoDDxfColorNum)
+                                    TwoDDxfModel.ColorCodeCol,
+                                    ValidationValues.Proc.MinDxfColorNum,
+                                    ValidationValues.Proc.MaxDxfColorNum)
         self.one_t.en_reg_exp_validator(TwoDDxfModel.ColorNameCol,
                                        TwoDDxfModel.ColorNameCol,
                                        Regex.TwoDDxfColorDesc)

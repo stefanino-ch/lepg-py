@@ -3,7 +3,7 @@
 :License: General Public License GNU GPL 3.0
 """
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
 from data.SqlTableModel import SqlTableModel
@@ -14,6 +14,14 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the individual lines characteristics
     """
+    __isUsed = False
+    ''' :attr: Helps to remember if the section is in use or not'''
+
+    usageUpd = pyqtSignal()
+    '''
+    :signal: emitted as soon the usage flag is changed
+    '''
+
     OrderNumCol = 0
     ''':attr: num of column for ordering the individual lines of a config'''
     LineTypeCol = 1
@@ -80,7 +88,7 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(3, Qt.Orientation.Horizontal, _("Line Diam"))
         self.setHeaderData(4, Qt.Orientation.Horizontal, _("B-Diam"))
         self.setHeaderData(5, Qt.Orientation.Horizontal, _("Line Label"))
-        self.setHeaderData(6, Qt.Orientation.Horizontal, _("Min break str"))
+        self.setHeaderData(6, Qt.Orientation.Horizontal, _("Min break str [daN]"))
         self.setHeaderData(7, Qt.Orientation.Horizontal, _("Mat type"))
         self.setHeaderData(8, Qt.Orientation.Horizontal, _("Weight per m"))
         self.setHeaderData(9, Qt.Orientation.Horizontal, _("Loop type"))
@@ -123,6 +131,21 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
         query.bindValue(":order", order_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
+
+    def set_is_used(self, is_used):
+        """
+        :method: Set the usage flag of the section
+        :param is_used: True if section is in use, False otherwise
+        """
+        self.__isUsed = is_used
+        self.usageUpd.emit()
+
+    def is_used(self):
+        """
+        :method: Returns the information if the section is in use or not
+        :returns: True if section is in use, false otherwise
+        """
+        return self.__isUsed
 
     def get_row(self, config_num, order_num):
         """

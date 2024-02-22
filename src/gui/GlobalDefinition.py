@@ -36,6 +36,10 @@ class Regex:
     MarksTypesName = "^(typepoint|typepoint2|typepoint3|typevent|typetab|typejonc|typeref|type8|type9|type10)"
     TwoDDxfLayerNames = ThreeDDxfLayerNames = "^(A_lines_color|B_lines_color|C_lines_color|D_lines_color|E_lines_color|F_lines_color)"
     ThreeDDxfLayerNamesPlus = "^(Extrados|Vents|Intrados)"
+    LinesCharLineForm = "^(r|c)"
+    LinesCharLineLabel = LinesCharMatType = "[a-zA-Z0-9_.\-\']{0,15}$"     # 15 characters no whitespace
+    LinesCharLoopType = "^(s|p)"
+
 
 
 class ValidationValues:
@@ -69,6 +73,10 @@ class ValidationValues:
         aMax_deg = 120
 
     class Proc:
+        # Globals
+        MinDxfColorNum = 0
+        MaxDxfColorNum = 255
+
         # 1: Basic data
         ScaleMin = 0
         ScaleMax = 50
@@ -188,8 +196,6 @@ class ValidationValues:
 
         # 24: 2D DXF Layer names
         # 25: 3D DXF Layer names
-        MinTwoDDxfColorNum = MinThreeDDxfColorNum = 0
-        MaxTwoDDxfColorNum = MaxThreeDDxfColorNum = 255
 
         # 26: Glue vents
         MinGlueVentParamNum = -6
@@ -220,3 +226,14 @@ class ValidationValues:
         # 33: Detailed Risers
         DetRisersMinLength_cm = 0
         DetRisersMaxLength_cm = 100
+
+        # 34: Lines Characteristics
+        LinesCharTypeMax_num = 99
+        LinesCharMinDiam = 0.1
+        LinesCharMaxDiam = 10
+        LinesCharMinBreakStr = 1
+        LinesCharMaxBreakStr = 10000
+        LinesCharMinWeightPerM = 0.01
+        LinesCharMaxWeightPerM = 100
+        LinesCharMinLoopLength_cm = 0.0
+        LinesCharMaxLoopLength_cm = 100

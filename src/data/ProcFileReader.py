@@ -31,6 +31,7 @@ from data.procModel.JoncsDefModel import JoncsDefModel
 from data.procModel.LightConfModel import LightConfModel
 from data.procModel.LightDetModel import LightDetModel
 from data.procModel.LinesModel import LinesModel
+from data.procModel.LinesCharacteristicsModel import LinesCharacteristicsModel
 from data.procModel.MarksModel import MarksModel
 from data.procModel.MarksTypesModel import MarksTypesModel
 from data.procModel.NewSkinTensConfModel import NewSkinTensConfModel
@@ -114,6 +115,7 @@ class ProcFileReader(QObject):
         self.intradosColDet_M = IntradosColsDetModel()
         self.joncsDef_M = JoncsDefModel()
         self.lines_M = LinesModel()
+        self.linesChar_M = LinesCharacteristicsModel()
         self.lightC_M = LightConfModel()
         self.lightD_M = LightDetModel()
         self.marks_M = MarksModel()
@@ -1387,6 +1389,36 @@ class ProcFileReader(QObject):
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
             logging.debug(self.__className + '.read_file: 34. LINES CHARACTERISTICS')
+
+            in_header = True
+            while in_header:
+                data = stream.readLine()
+                if '*' not in data[0]:
+                    in_header = False
+
+            data = int(data)
+
+            self.linesChar_M.set_is_used(False)
+            self.linesChar_M.set_num_configs(0)
+
+            if data != 0:
+                self.linesChar_M.set_is_used(True)
+
+                num_configs = int(rem_tab_space(stream.readLine()))
+                self.linesChar_M.set_num_configs(num_configs)
+
+                for i in range(0, num_configs):
+                    values = split_line(stream.readLine())
+
+                    # There could be 13 or 14 values in each line
+                    if len(values) == 13:
+                        self.linesChar_M.update_row(1, i+1, values[0], values[1], values[2], 0,
+                                                    values[3],  values[4], values[6], values[7], values[9],
+                                                    values[10], values[12])
+                    else:
+                        self.linesChar_M.update_row(1, i + 1, values[0], values[1], values[2], values[3],
+                                                    values[4], values[5], values[7], values[8], values[10],
+                                                    values[11], values[13])
 
         ##############################
         # 35: SOLVE EQUILIBRIUM EQUATIONS

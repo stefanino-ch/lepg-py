@@ -112,9 +112,9 @@ class ThreeDDxf(QMdiSubWindow, metaclass=Singleton):
                                        Regex.ThreeDDxfLayerNames)
 
         self.one_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
-                                   ThreeDDxfModel.ColorCodeCol,
-                                   ValidationValues.Proc.MinThreeDDxfColorNum,
-                                   ValidationValues.Proc.MaxThreeDDxfColorNum)
+                                    ThreeDDxfModel.ColorCodeCol,
+                                    ValidationValues.Proc.MinDxfColorNum,
+                                    ValidationValues.Proc.MaxDxfColorNum)
 
         self.one_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
                                        ThreeDDxfModel.ColorNameCol,
@@ -151,9 +151,9 @@ class ThreeDDxf(QMdiSubWindow, metaclass=Singleton):
                                    0, 1)
 
         self.two_t.en_int_validator(ThreeDDxfModel.ColorCodeCol,
-                                   ThreeDDxfModel.ColorCodeCol,
-                                   ValidationValues.Proc.MinThreeDDxfColorNum,
-                                   ValidationValues.Proc.MaxThreeDDxfColorNum)
+                                    ThreeDDxfModel.ColorCodeCol,
+                                    ValidationValues.Proc.MinDxfColorNum,
+                                    ValidationValues.Proc.MaxDxfColorNum)
 
         self.two_t.en_reg_exp_validator(ThreeDDxfModel.ColorNameCol,
                                        ThreeDDxfModel.ColorNameCol,
