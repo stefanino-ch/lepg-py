@@ -21,6 +21,7 @@ Deutsche Anleitung
    proc/marks.rst
    proc/globalAoA.rst
    proc/lines.rst
+   proc/lineCharacteristics.rst
    proc/brakes.rst
    proc/ramification.rst
    proc/hVvHribs.rst

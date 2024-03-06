@@ -34,6 +34,7 @@ from data.procModel.JoncsDefModel import JoncsDefModel
 from data.procModel.LightConfModel import LightConfModel
 from data.procModel.LightDetModel import LightDetModel
 from data.procModel.LinesModel import LinesModel
+from data.procModel.LinesCharacteristicsModel import LinesCharacteristicsModel
 from data.procModel.MarksModel import MarksModel
 from data.procModel.MarksTypesModel import MarksTypesModel
 from data.procModel.NewSkinTensConfModel import NewSkinTensConfModel
@@ -87,6 +88,7 @@ class ProcFileWriter:
         self.marks_m = MarksModel()
         self.glob_aoa_m = GlobalAoAModel()
         self.lines_m = LinesModel()
+        self.lines_char_m = LinesCharacteristicsModel()
         self.brakes_m = BrakeModel()
         self.brake_length_m = BrakeLengthModel()
         self.ramific_m = RamificationModel()
@@ -920,9 +922,32 @@ class ProcFileWriter:
             riser_names = ['A', 'B', 'C', 'D', 'E']
 
             for val_it in range(0, 5):
-                test = values(val_it)
                 if values(val_it) != '':
                     stream << '%s\t%s\tcm\n' %(riser_names[val_it], values(val_it))
+
+        stream << separator
+        stream << '*       34. LINES CHARACTERISTICS TABLE\n'
+        stream << separator
+
+        if self.lines_char_m.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            num_lines = self.lines_char_m.num_rows_for_config(1)
+            stream << '%i\n' % num_lines
+
+            for i in range(0, num_lines):
+                values = self.lines_char_m.get_row(1, i+1)
+                for j in range(1, 12):
+                    stream << '%s\t' % values(j)
+                    if j == 6:
+                        stream << 'daN\t'
+                    if j == 8:
+                        stream << 'g\t'
+                    if j == 10:
+                        stream << 'cm\t'
+                stream << '\n'
 
         stream << '\n'
         stream.flush()

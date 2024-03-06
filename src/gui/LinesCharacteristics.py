@@ -134,7 +134,7 @@ class LinesCharacteristics(QMdiSubWindow, metaclass=Singleton):
                                      Regex.LinesCharLineForm)
 
         table_t.en_double_validator(LinesCharacteristicsModel.LineDiamCol,
-                                    LinesCharacteristicsModel.BDimCol,
+                                    LinesCharacteristicsModel.BDiamCol,
                                     ValidationValues.Proc.LinesCharMinDiam,
                                     ValidationValues.Proc.LinesCharMaxDiam,
                                     2)
@@ -183,7 +183,7 @@ class LinesCharacteristics(QMdiSubWindow, metaclass=Singleton):
                               _('LinesCharacteristics-LineForm'))
         table_t.set_help_text(LinesCharacteristicsModel.LineDiamCol,
                               _('LinesCharacteristics-LineDiameter'))
-        table_t.set_help_text(LinesCharacteristicsModel.BDimCol,
+        table_t.set_help_text(LinesCharacteristicsModel.BDiamCol,
                               _('LinesCharacteristics-BDim'))
         table_t.set_help_text(LinesCharacteristicsModel.LineLabelCol,
                               _('LinesCharacteristics-LineLabel'))
@@ -215,7 +215,7 @@ class LinesCharacteristics(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.set_help_page('proc/linesCharacteristics.html')
+        self.btnBar.set_help_page('proc/lineCharacteristics.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(sort_btn)

@@ -30,7 +30,7 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
     ''':attr: Number of the col holding the line form (rectangular or circular)'''
     LineDiamCol = 3
     ''':attr: Number of the col holding the line diameter'''
-    BDimCol = 4
+    BDiamCol = 4
     ''':attr: Number of the col holding the b-dimension'''
     LineLabelCol = 5
     ''':attr: Number of the col holding the line label'''
@@ -61,7 +61,7 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
                    "LineType INTEGER, "
                    "LineForm TEXT, "
                    "LineDiam REAL, "
-                   "BDim REAL, "
+                   "B_Diam REAL, "
                    "LineLabel TEXT, "
                    "MinBreakStr INTEGER, "
                    "MatType TEXT, "
@@ -90,26 +90,26 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(5, Qt.Orientation.Horizontal, _("Line Label"))
         self.setHeaderData(6, Qt.Orientation.Horizontal, _("Min break str [daN]"))
         self.setHeaderData(7, Qt.Orientation.Horizontal, _("Mat type"))
-        self.setHeaderData(8, Qt.Orientation.Horizontal, _("Weight per m"))
+        self.setHeaderData(8, Qt.Orientation.Horizontal, _("Weight per m [g]"))
         self.setHeaderData(9, Qt.Orientation.Horizontal, _("Loop type"))
-        self.setHeaderData(10, Qt.Orientation.Horizontal, _("Loop length"))
+        self.setHeaderData(10, Qt.Orientation.Horizontal, _("Loop length [cm]"))
         self.setHeaderData(11, Qt.Orientation.Horizontal, _("CAD Color"))
 
-    def update_row(self, config_num, order_num, line_type, line_form, line_diam, b_diam, line_label, min_break_str,
-                   mat_type, weight_per_m, loop_type, loop_length, cad_color):
+    def update_row(self, config_num, order_num, line_type, line_form, line_diam, b_diam, line_label,
+                   min_break_str, mat_type, weight_per_m, loop_type, loop_length, cad_color):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
         """
         query = QSqlQuery()
-        query.prepare("UPDATE NoseMylars SET "
+        query.prepare("UPDATE LinesCharacteristics SET "
                       "LineType= :line_type, "
                       "LineForm= :line_form, "
                       "LineDiam= :line_diam, "
-                      "BDim= : b_diam, "
+                      "B_Diam= :b_diam, "
                       "LineLabel= :line_label, "
                       "MinBreakStr= :min_break_str, "
-                      "MatType= : mat_type, "
+                      "MatType= :mat_type, "
                       "WeightPerM= :weight_per_m, "
                       "LoopType= :loop_type, "
                       "LoopLength= :loop_length, "
@@ -118,12 +118,11 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
         query.bindValue(":line_type", line_type)
         query.bindValue(":line_form", line_form)
         query.bindValue(":line_diam", line_diam)
-        query.bindValue(":line_label", line_label)
         query.bindValue(":b_diam", b_diam)
         query.bindValue(":line_label", line_label)
         query.bindValue(":min_break_str", min_break_str)
         query.bindValue(":mat_type", mat_type)
-        query.bindValue(":weight_per_m", loop_type)
+        query.bindValue(":weight_per_m", weight_per_m)
         query.bindValue(":loop_type", loop_type)
         query.bindValue(":loop_length", loop_length)
         query.bindValue(":cad_color", cad_color)
@@ -160,7 +159,7 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
                       "LineType, "
                       "LineForm, "
                       "LineDiam, "
-                      "BDim, "
+                      "B_Diam, "
                       "LineLabel, "
                       "MinBreakStr, "
                       "MatType, "
@@ -168,7 +167,7 @@ class LinesCharacteristicsModel(SqlTableModel, metaclass=Singleton):
                       "LoopType, "
                       "LoopLength, "
                       "LineCADColor "
-                      "FROM NoseMylars WHERE (ConfigNum = :config) ORDER BY OrderNum")
+                      "FROM LinesCharacteristics WHERE (ConfigNum = :config) ORDER BY OrderNum")
         query.bindValue(":config", config_num)
         query.exec()
         query.next()

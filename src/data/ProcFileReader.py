@@ -1403,16 +1403,17 @@ class ProcFileReader(QObject):
 
             if data != 0:
                 self.linesChar_M.set_is_used(True)
+                self.linesChar_M.set_num_configs(1)
 
-                num_configs = int(rem_tab_space(stream.readLine()))
-                self.linesChar_M.set_num_configs(num_configs)
+                num_lines = int(rem_tab_space(stream.readLine()))
+                self.linesChar_M.set_num_rows_for_config(1, num_lines)
 
-                for i in range(0, num_configs):
+                for i in range(0, num_lines):
                     values = split_line(stream.readLine())
 
                     # There could be 13 or 14 values in each line
                     if len(values) == 13:
-                        self.linesChar_M.update_row(1, i+1, values[0], values[1], values[2], 0,
+                        self.linesChar_M.update_row(1, i+1, values[0], values[1], values[2], '',
                                                     values[3],  values[4], values[6], values[7], values[9],
                                                     values[10], values[12])
                     else:
