@@ -271,3 +271,6 @@ class ValidationValues:
         SolveEquEqu_Ycp_max = 5000      # Keep in sync with ValidationValues.WingZMax_cm
         SolveEquEqu_Zcp_min = 0
         SolveEquEqu_Zcp_max = 5000      # Keep in sync with ValidationValues.WingZMax_cm
+
+        # 37: Special Parameters
+        SpecParams_MaxNumParams = 50

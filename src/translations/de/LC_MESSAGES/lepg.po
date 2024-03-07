@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2024-03-07 15:33+0100\n"
-"PO-Revision-Date: 2024-03-07 15:41+0100\n"
+"POT-Creation-Date: 2024-03-07 18:06+0100\n"
+"PO-Revision-Date: 2024-03-07 18:06+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -233,6 +233,7 @@ msgstr "a4 [deg]"
 #: data/procModel/AddRibPointsModel.py:53
 #: data/procModel/ExtradosColDetModel.py:51
 #: data/procModel/IntradosColsDetModel.py:51 data/procModel/LightDetModel.py:87
+#: data/procModel/SpecialParametersModel.py:56
 msgid "Order Num"
 msgstr "Sortierung"
 
@@ -973,6 +974,14 @@ msgstr "Winkel Eintrittsk. [Grad]"
 msgid "TE Angle [deg]"
 msgstr "Winkel Austrittsk. [Grad]"
 
+#: data/procModel/SpecialParametersModel.py:57
+msgid "Code"
+msgstr ""
+
+#: data/procModel/SpecialParametersModel.py:58
+msgid "Value"
+msgstr "Wert"
+
 #: data/procModel/ThreeDDxfModel.py:53
 msgid "Line Name"
 msgstr "Linienname"
@@ -1080,6 +1089,30 @@ msgstr ""
 msgid "y-Spacing"
 msgstr ""
 
+#: data/procModel/XflrModel.py:70
+msgid "cord nr"
+msgstr ""
+
+#: data/procModel/XflrModel.py:71
+#, fuzzy
+#| msgid "Upper panel"
+msgid "per cell"
+msgstr "Oberes Panel"
+
+#: data/procModel/XflrModel.py:72
+msgid "cosine dist"
+msgstr ""
+
+#: data/procModel/XflrModel.py:73
+#, fuzzy
+#| msgid "1: uniform "
+msgid "uniform"
+msgstr "1: identisch"
+
+#: data/procModel/XflrModel.py:74
+msgid "Include bill"
+msgstr ""
+
 #: gui/AddRibPoints.py:95 gui/MainWindow.py:557
 msgid "Additional rib points"
 msgstr "Zusätzliche Rippenpunkte"
@@ -1093,7 +1126,7 @@ msgstr "Anz Konfigurationen"
 #: gui/AddRibPoints.py:142 gui/Brakes.py:209 gui/ExtradColors.py:284
 #: gui/HvVhRibs.py:189 gui/IntradColors.py:280 gui/JoncsDefinition.py:333
 #: gui/Lines.py:336 gui/LinesCharacteristics.py:179 gui/NoseMylars.py:135
-#: gui/RibHoles.py:300 gui/SpecialParameters.py:179
+#: gui/RibHoles.py:300 gui/SpecialParameters.py:141
 msgid "OrderNumDesc"
 msgstr ""
 "Zeilen können mit der Taste Sortieren\n"
@@ -1114,7 +1147,7 @@ msgstr ""
 #: gui/AddRibPoints.py:148 gui/Brakes.py:278 gui/ExtradColors.py:126
 #: gui/HvVhRibs.py:213 gui/IntradColors.py:125 gui/JoncsDefinition.py:127
 #: gui/Lines.py:151 gui/LinesCharacteristics.py:203 gui/NewSkinTension.py:120
-#: gui/NoseMylars.py:153 gui/SpecialParameters.py:203
+#: gui/NoseMylars.py:153 gui/SpecialParameters.py:147
 msgid "Sort by order_num"
 msgstr "Sortieren."
 
@@ -1132,13 +1165,13 @@ msgstr "Keine"
 msgid "User defined"
 msgstr "Benutzerdefiniert"
 
-#: gui/AirfoilThickness.py:116 gui/Xflr.py:116
+#: gui/AirfoilThickness.py:116
 msgid "AirfThick-RibNumDesc"
 msgstr ""
 "Rippen Nummer für die der \n"
 "Koeffizient definiert wird"
 
-#: gui/AirfoilThickness.py:118 gui/Xflr.py:118
+#: gui/AirfoilThickness.py:118
 msgid "AirfThick-CoeffDesc"
 msgstr ""
 "Koeffizient welcher die Dicken-Modifikation\n"
@@ -2204,64 +2237,64 @@ msgstr "Rippen Nummer"
 msgid "Lines characteristics"
 msgstr "Leinen-Eigenschaften"
 
-#: gui/LinesCharacteristics.py:181 gui/SpecialParameters.py:181
+#: gui/LinesCharacteristics.py:181
 msgid "LinesCharacteristics-LineType"
 msgstr ""
 "Linientyp. Nummer wird verwendet \n"
 "für die Zuweisung von normalen und \n"
 "Bremsleinen."
 
-#: gui/LinesCharacteristics.py:183 gui/SpecialParameters.py:183
+#: gui/LinesCharacteristics.py:183
 msgid "LinesCharacteristics-LineForm"
 msgstr ""
 "Leinenform\n"
 "r=rectangular -> rechteckig\n"
 "c=circular -> rund"
 
-#: gui/LinesCharacteristics.py:185 gui/SpecialParameters.py:185
+#: gui/LinesCharacteristics.py:185
 msgid "LinesCharacteristics-LineDiameter"
 msgstr "Leinendurchmesser [mm]"
 
-#: gui/LinesCharacteristics.py:187 gui/SpecialParameters.py:187
+#: gui/LinesCharacteristics.py:187
 msgid "LinesCharacteristics-BDim"
 msgstr ""
 "Form = c : leer lassen\n"
 "Form = r -> b Dimension [mm]"
 
-#: gui/LinesCharacteristics.py:189 gui/SpecialParameters.py:189
+#: gui/LinesCharacteristics.py:189
 msgid "LinesCharacteristics-LineLabel"
 msgstr ""
 "Leinenname\n"
 "Max Länge 15 Zeichen \n"
 "KEINE Leerschläge"
 
-#: gui/LinesCharacteristics.py:191 gui/SpecialParameters.py:191
+#: gui/LinesCharacteristics.py:191
 msgid "LinesCharacteristics-MinBreakStr"
 msgstr "Bruchlast [daN]"
 
-#: gui/LinesCharacteristics.py:193 gui/SpecialParameters.py:193
+#: gui/LinesCharacteristics.py:193
 msgid "LinesCharacteristics-MatType"
 msgstr ""
 "Materialtyp\n"
 "Max Länge 15 Zeichen \n"
 "KEINE Leerschläge"
 
-#: gui/LinesCharacteristics.py:195 gui/SpecialParameters.py:195
+#: gui/LinesCharacteristics.py:195
 msgid "LinesCharacteristics-WeightPerM"
 msgstr "Gewicht pro Meter [g]"
 
-#: gui/LinesCharacteristics.py:197 gui/SpecialParameters.py:197
+#: gui/LinesCharacteristics.py:197
 msgid "LinesCharacteristics-LoopType"
 msgstr ""
 "Verarbeitung der Loops\n"
 "s=sewed-> genäht\n"
 "p=spliced -> gespleisst"
 
-#: gui/LinesCharacteristics.py:199 gui/SpecialParameters.py:199
+#: gui/LinesCharacteristics.py:199
 msgid "LinesCharacteristics-LoopLength"
 msgstr "Totale Schlaufenlänge [cm]"
 
-#: gui/LinesCharacteristics.py:201 gui/SpecialParameters.py:201
+#: gui/LinesCharacteristics.py:201
 msgid "LinesCharacteristics-LineCadColor"
 msgstr ""
 "CAD Farbe \n"
@@ -2709,27 +2742,23 @@ msgstr ""
 
 #: gui/MainWindow.py:1031
 msgid "XFLR5 analysis"
-msgstr ""
+msgstr "XFLR5 Analyse"
 
 #: gui/MainWindow.py:1032
-#, fuzzy
-#| msgid "Edit parameters for detailed risers"
 msgid "Edit parameters related to XFLR5 analysis"
-msgstr "Individuelle Gurtlängen definieren. "
+msgstr "Parameter für XFLR5 bearbeiten. "
 
 #: gui/MainWindow.py:1035
 msgid "Special Parameters"
-msgstr ""
+msgstr "Spezielle Parameter"
 
 #: gui/MainWindow.py:1036
-#, fuzzy
-#| msgid "Edit the Marks parameters"
 msgid "Edit special parameters"
-msgstr "Markierungsparameter bearbeiten"
+msgstr "Spezialparameter bearbeiten"
 
 #: gui/MainWindow.py:1040
 msgid "Expert"
-msgstr ""
+msgstr "Experten"
 
 #: gui/MainWindow.py:1074 gui/PreProcWingOutline.py:113
 msgid "Wing outline"
@@ -3592,10 +3621,16 @@ msgid "SpecWingTyp-AngleTEDesc"
 msgstr "Winkel an der Austrittskante [Grad]"
 
 #: gui/SpecialParameters.py:86
-#, fuzzy
-#| msgid "Lines control parameter"
 msgid "Special parameters"
-msgstr "Leinen-Kontrollparameter"
+msgstr "Spezielle Parameter"
+
+#: gui/SpecialParameters.py:143
+msgid "SpecialParameters-Code"
+msgstr "Parameter Code"
+
+#: gui/SpecialParameters.py:145
+msgid "SpecialParameters-Value"
+msgstr "Parameter Wert"
 
 #: gui/ThreeDDxf.py:81
 msgid "3D DXF Options"
@@ -3735,6 +3770,11 @@ msgstr "Pre-Proz DXF Datei öffnen"
 
 #: gui/Xflr.py:82
 msgid "XFLR5 data"
+msgstr ""
+
+#: gui/Xflr.py:115 gui/Xflr.py:117 gui/Xflr.py:119 gui/Xflr.py:121
+#: gui/Xflr.py:123
+msgid "na"
 msgstr ""
 
 #: processors/ProcRunner.py:129

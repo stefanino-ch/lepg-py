@@ -47,6 +47,7 @@ from data.procModel.SewingAllowancesModel import SewingAllowancesModel
 from data.procModel.SkinTensionModel import SkinTensionModel
 from data.procModel.SkinTensionParamsModel import SkinTensionParamsModel
 from data.procModel.SolveEquEquModel import SolveEquEquModel
+from data.procModel.SpecialParametersModel import SpecialParametersModel
 from data.procModel.SpecWingTipModel import SpecWingTipModel
 from data.procModel.ThreeDDxfModel import ThreeDDxfModel
 from data.procModel.ThreeDShConfModel import ThreeDShConfModel
@@ -87,6 +88,7 @@ class ProcFileWriter:
         self.skin_tens_m = SkinTensionModel()
         self.skin_tens_params_m = SkinTensionParamsModel()
         self.solve_equ_equ_m = SolveEquEquModel()
+        self.special_parameters_m = SpecialParametersModel()
         self.sewing_allow_m = SewingAllowancesModel()
         self.marks_m = MarksModel()
         self.glob_aoa_m = GlobalAoAModel()
@@ -1000,6 +1002,22 @@ class ProcFileWriter:
 
             stream << '* Include billowed airfoils (more accuracy)\n'
             stream << '%s\n' % values(5)
+
+        stream << separator
+        stream << '*       37. SOME SPECIAL PARAMETERS\n'
+        stream << separator
+
+        if self.special_parameters_m.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            num_lines = self.special_parameters_m.num_rows_for_config(1)
+            stream << '%i\n' % num_lines
+
+            for i in range(0, num_lines):
+                values = self.special_parameters_m.get_row(1, i+1)
+                stream << '%s\t%s\n' % (values(1), values(2))
 
         stream << '\n'
         stream.flush()

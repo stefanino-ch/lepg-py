@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2024-03-07 15:27+0100\n"
-"PO-Revision-Date: 2024-03-07 15:33+0100\n"
+"POT-Creation-Date: 2024-03-07 18:08+0100\n"
+"PO-Revision-Date: 2024-03-07 18:08+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -219,6 +219,7 @@ msgstr ""
 #: data/procModel/AddRibPointsModel.py:53
 #: data/procModel/ExtradosColDetModel.py:51
 #: data/procModel/IntradosColsDetModel.py:51 data/procModel/LightDetModel.py:87
+#: data/procModel/SpecialParametersModel.py:56
 msgid "Order Num"
 msgstr ""
 
@@ -951,6 +952,14 @@ msgstr ""
 msgid "TE Angle [deg]"
 msgstr ""
 
+#: data/procModel/SpecialParametersModel.py:57
+msgid "Code"
+msgstr ""
+
+#: data/procModel/SpecialParametersModel.py:58
+msgid "Value"
+msgstr ""
+
 #: data/procModel/ThreeDDxfModel.py:53
 msgid "Line Name"
 msgstr ""
@@ -1058,6 +1067,26 @@ msgstr ""
 msgid "y-Spacing"
 msgstr ""
 
+#: data/procModel/XflrModel.py:70
+msgid "cord nr"
+msgstr ""
+
+#: data/procModel/XflrModel.py:71
+msgid "per cell"
+msgstr ""
+
+#: data/procModel/XflrModel.py:72
+msgid "cosine dist"
+msgstr ""
+
+#: data/procModel/XflrModel.py:73
+msgid "uniform"
+msgstr ""
+
+#: data/procModel/XflrModel.py:74
+msgid "Include bill"
+msgstr ""
+
 #: gui/AddRibPoints.py:95 gui/MainWindow.py:557
 msgid "Additional rib points"
 msgstr ""
@@ -1071,7 +1100,7 @@ msgstr ""
 #: gui/AddRibPoints.py:142 gui/Brakes.py:209 gui/ExtradColors.py:284
 #: gui/HvVhRibs.py:189 gui/IntradColors.py:280 gui/JoncsDefinition.py:333
 #: gui/Lines.py:336 gui/LinesCharacteristics.py:179 gui/NoseMylars.py:135
-#: gui/RibHoles.py:300 gui/SpecialParameters.py:179
+#: gui/RibHoles.py:300 gui/SpecialParameters.py:141
 msgid "OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
@@ -1088,7 +1117,7 @@ msgstr "Ver distance from LE in [% chord]"
 #: gui/AddRibPoints.py:148 gui/Brakes.py:278 gui/ExtradColors.py:126
 #: gui/HvVhRibs.py:213 gui/IntradColors.py:125 gui/JoncsDefinition.py:127
 #: gui/Lines.py:151 gui/LinesCharacteristics.py:203 gui/NewSkinTension.py:120
-#: gui/NoseMylars.py:153 gui/SpecialParameters.py:203
+#: gui/NoseMylars.py:153 gui/SpecialParameters.py:147
 msgid "Sort by order_num"
 msgstr ""
 
@@ -1106,13 +1135,13 @@ msgstr ""
 msgid "User defined"
 msgstr ""
 
-#: gui/AirfoilThickness.py:116 gui/Xflr.py:116
+#: gui/AirfoilThickness.py:116
 msgid "AirfThick-RibNumDesc"
 msgstr ""
 "Rib num for which the coefficient\n"
 "is defined"
 
-#: gui/AirfoilThickness.py:118 gui/Xflr.py:118
+#: gui/AirfoilThickness.py:118
 msgid "AirfThick-CoeffDesc"
 msgstr ""
 "Coefficient describing the thickness modification\n"
@@ -2162,60 +2191,60 @@ msgstr "Number of the rib to connect to"
 msgid "Lines characteristics"
 msgstr ""
 
-#: gui/LinesCharacteristics.py:181 gui/SpecialParameters.py:181
+#: gui/LinesCharacteristics.py:181
 msgid "LinesCharacteristics-LineType"
 msgstr ""
 "Line type. Number is used for \n"
 "type assignment for SUSPENSION \n"
 "and BREAK lines."
 
-#: gui/LinesCharacteristics.py:183 gui/SpecialParameters.py:183
+#: gui/LinesCharacteristics.py:183
 msgid "LinesCharacteristics-LineForm"
 msgstr ""
 "r=rectangular \n"
 "c=circular"
 
-#: gui/LinesCharacteristics.py:185 gui/SpecialParameters.py:185
+#: gui/LinesCharacteristics.py:185
 msgid "LinesCharacteristics-LineDiameter"
 msgstr "Line diameter [mm]"
 
-#: gui/LinesCharacteristics.py:187 gui/SpecialParameters.py:187
+#: gui/LinesCharacteristics.py:187
 msgid "LinesCharacteristics-BDim"
 msgstr ""
 "For form = c empty\n"
 "For form = r -> b dimension [mm]"
 
-#: gui/LinesCharacteristics.py:189 gui/SpecialParameters.py:189
+#: gui/LinesCharacteristics.py:189
 msgid "LinesCharacteristics-LineLabel"
 msgstr ""
 "Use names without spaces\n"
 "up to 15 characters."
 
-#: gui/LinesCharacteristics.py:191 gui/SpecialParameters.py:191
+#: gui/LinesCharacteristics.py:191
 msgid "LinesCharacteristics-MinBreakStr"
 msgstr "Minimum breaking strength [daN]"
 
-#: gui/LinesCharacteristics.py:193 gui/SpecialParameters.py:193
+#: gui/LinesCharacteristics.py:193
 msgid "LinesCharacteristics-MatType"
 msgstr ""
 "Use names without spaces\n"
 "up to 15 characters."
 
-#: gui/LinesCharacteristics.py:195 gui/SpecialParameters.py:195
+#: gui/LinesCharacteristics.py:195
 msgid "LinesCharacteristics-WeightPerM"
 msgstr "Weight per line meter [g]"
 
-#: gui/LinesCharacteristics.py:197 gui/SpecialParameters.py:197
+#: gui/LinesCharacteristics.py:197
 msgid "LinesCharacteristics-LoopType"
 msgstr ""
 "s=sewed\n"
 "p=spliced loop"
 
-#: gui/LinesCharacteristics.py:199 gui/SpecialParameters.py:199
+#: gui/LinesCharacteristics.py:199
 msgid "LinesCharacteristics-LoopLength"
 msgstr "Total loop length [cm]"
 
-#: gui/LinesCharacteristics.py:201 gui/SpecialParameters.py:201
+#: gui/LinesCharacteristics.py:201
 msgid "LinesCharacteristics-LineCadColor"
 msgstr ""
 "Line CAD Color. \n"
@@ -3524,6 +3553,14 @@ msgstr ""
 msgid "Special parameters"
 msgstr ""
 
+#: gui/SpecialParameters.py:143
+msgid "SpecialParameters-Code"
+msgstr "Parameter code"
+
+#: gui/SpecialParameters.py:145
+msgid "SpecialParameters-Value"
+msgstr "Parameter value"
+
 #: gui/ThreeDDxf.py:81
 msgid "3D DXF Options"
 msgstr ""
@@ -3670,6 +3707,11 @@ msgstr "Opens a datafile from local storage"
 
 #: gui/Xflr.py:82
 msgid "XFLR5 data"
+msgstr ""
+
+#: gui/Xflr.py:115 gui/Xflr.py:117 gui/Xflr.py:119 gui/Xflr.py:121
+#: gui/Xflr.py:123
+msgid "na"
 msgstr ""
 
 #: processors/ProcRunner.py:129

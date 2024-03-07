@@ -47,6 +47,7 @@ English Manual
 
    expert/solveEquEqu.rst
    expert/xflr.rst
+   expert/specialParameters.rst
    
    view/wing_outline.rst
    view/two_d_dxf.rst

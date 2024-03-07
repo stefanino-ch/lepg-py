@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
                             QPushButton, QDataWidgetMapper
 
 from data.ProcModel import ProcModel
-from data.procModel.LinesCharacteristicsModel import LinesCharacteristicsModel
+from data.procModel.SpecialParametersModel import SpecialParametersModel
 
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
@@ -46,8 +46,8 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         self.win = None
 
         self.pm = ProcModel()
-        self.lines_char_m = LinesCharacteristicsModel()
-        self.lines_char_m.numRowsForConfigChanged.connect(self.model_size_changed)
+        self.spec_param_m = SpecialParametersModel()
+        self.spec_param_m.numRowsForConfigChanged.connect(self.model_size_changed)
         self.build_window()
 
     def closeEvent(self, event):
@@ -75,7 +75,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(1000, 400)
+        self.win.setMinimumSize(500, 400)
 
         self.window_ly = QVBoxLayout()
 
@@ -86,7 +86,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         self.setWindowTitle(_("Special parameters"))
 
         self.wrapper = QDataWidgetMapper()
-        self.wrapper.setModel(self.lines_char_m)
+        self.wrapper.setModel(self.spec_param_m)
 
         num_lines_l = QLabel(_('Number of configs'))
         num_lines_l.setAlignment(Qt.AlignmentFlag.AlignRight)
@@ -94,7 +94,8 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
                                               QSizePolicy.Policy.Fixed))
 
         self.numLines_s = QSpinBox()
-        self.numLines_s.setRange(0, 999)
+        self.numLines_s.setRange(0, ValidationValues.Proc.SpecParams_MaxNumParams)
+
         self.numLines_s.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                                   QSizePolicy.Policy.Fixed))
         self.numLines_s.valueChanged.connect(self.num_lines_change)
@@ -109,96 +110,39 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         ###############
 
         self.proxyModel = QSortFilterProxyModel()
-        self.proxyModel.setSourceModel(self.lines_char_m)
+        self.proxyModel.setSourceModel(self.spec_param_m)
 
         table_t = TableView()
         table_t.setModel(self.proxyModel)
         table_t.verticalHeader().setVisible(False)
         table_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        table_t.hideColumn(self.lines_char_m.columnCount() - 1)
-        table_t.hideColumn(self.lines_char_m.columnCount() - 2)
+        table_t.hideColumn(self.spec_param_m.columnCount() - 1)
+        table_t.hideColumn(self.spec_param_m.columnCount() - 2)
         self.window_ly.addWidget(table_t)
 
-        table_t.en_int_validator(LinesCharacteristicsModel.OrderNumCol,
-                                 LinesCharacteristicsModel.OrderNumCol,
+        table_t.en_int_validator(SpecialParametersModel.OrderNumCol,
+                                 SpecialParametersModel.OrderNumCol,
                                  1,
-                                 ValidationValues.MaxNumRibs)
+                                 ValidationValues.Proc.SpecParams_MaxNumParams)
 
-        table_t.en_int_validator(LinesCharacteristicsModel.LineTypeCol,
-                                 LinesCharacteristicsModel.LineTypeCol,
-                                 1,
-                                 ValidationValues.Proc.LinesCharTypeMax_num)
+        table_t.en_int_validator(SpecialParametersModel.code_Col,
+                                 SpecialParametersModel.code_Col,
+                                 1000,
+                                 9999)
 
-        table_t.en_reg_exp_validator(LinesCharacteristicsModel.LineFormCol,
-                                     LinesCharacteristicsModel.LineFormCol,
-                                     Regex.LinesCharLineForm)
-
-        table_t.en_double_validator(LinesCharacteristicsModel.LineDiamCol,
-                                    LinesCharacteristicsModel.BDiamCol,
-                                    ValidationValues.Proc.LinesCharMinDiam,
-                                    ValidationValues.Proc.LinesCharMaxDiam,
+        table_t.en_double_validator(SpecialParametersModel.value_Col,
+                                    SpecialParametersModel.value_Col,
+                                    0,
+                                    9999,
                                     2)
-
-        table_t.en_reg_exp_validator(LinesCharacteristicsModel.LineLabelCol,
-                                     LinesCharacteristicsModel.LineLabelCol,
-                                     Regex.LinesCharLineLabel)
-
-        table_t.en_int_validator(LinesCharacteristicsModel.MinBreakStrCol,
-                                 LinesCharacteristicsModel.MinBreakStrCol,
-                                 ValidationValues.Proc.LinesCharMinBreakStr,
-                                 ValidationValues.Proc.LinesCharMaxBreakStr)
-
-        table_t.en_reg_exp_validator(LinesCharacteristicsModel.MatTypeCol,
-                                     LinesCharacteristicsModel.MatTypeCol,
-                                     Regex.LinesCharMatType)
-
-        table_t.en_double_validator(LinesCharacteristicsModel.WeightPerMCol,
-                                    LinesCharacteristicsModel.WeightPerMCol,
-                                    ValidationValues.Proc.LinesCharMinWeightPerM,
-                                    ValidationValues.Proc.LinesCharMaxWeightPerM,
-                                    2)
-
-        table_t.en_reg_exp_validator(LinesCharacteristicsModel.LoopTypeCol,
-                                     LinesCharacteristicsModel.LoopTypeCol,
-                                     Regex.LinesCharLoopType)
-
-        table_t.en_double_validator(LinesCharacteristicsModel.LoopLengthCol,
-                                    LinesCharacteristicsModel.LoopLengthCol,
-                                    ValidationValues.Proc.LinesCharMinLoopLength_cm,
-                                    ValidationValues.Proc.LinesCharMaxLoopLength_cm,
-                                    2)
-
-        table_t.en_int_validator(LinesCharacteristicsModel.LineCadColorCol,
-                                 LinesCharacteristicsModel.LineCadColorCol,
-                                 ValidationValues.Proc.MinDxfColorNum,
-                                 ValidationValues.Proc.MaxDxfColorNum)
-
 
         table_t.set_help_bar(self.helpBar)
-        table_t.set_help_text(LinesCharacteristicsModel.OrderNumCol,
+        table_t.set_help_text(SpecialParametersModel.OrderNumCol,
                               _('OrderNumDesc'))
-        table_t.set_help_text(LinesCharacteristicsModel.LineTypeCol,
-                              _('LinesCharacteristics-LineType'))
-        table_t.set_help_text(LinesCharacteristicsModel.LineFormCol,
-                              _('LinesCharacteristics-LineForm'))
-        table_t.set_help_text(LinesCharacteristicsModel.LineDiamCol,
-                              _('LinesCharacteristics-LineDiameter'))
-        table_t.set_help_text(LinesCharacteristicsModel.BDiamCol,
-                              _('LinesCharacteristics-BDim'))
-        table_t.set_help_text(LinesCharacteristicsModel.LineLabelCol,
-                              _('LinesCharacteristics-LineLabel'))
-        table_t.set_help_text(LinesCharacteristicsModel.MinBreakStrCol,
-                              _('LinesCharacteristics-MinBreakStr'))
-        table_t.set_help_text(LinesCharacteristicsModel.MatTypeCol,
-                              _('LinesCharacteristics-MatType'))
-        table_t.set_help_text(LinesCharacteristicsModel.WeightPerMCol,
-                              _('LinesCharacteristics-WeightPerM'))
-        table_t.set_help_text(LinesCharacteristicsModel.LoopTypeCol,
-                              _('LinesCharacteristics-LoopType'))
-        table_t.set_help_text(LinesCharacteristicsModel.LoopLengthCol,
-                              _('LinesCharacteristics-LoopLength'))
-        table_t.set_help_text(LinesCharacteristicsModel.LineCadColorCol,
-                              _('LinesCharacteristics-LineCadColor'))
+        table_t.set_help_text(SpecialParametersModel.code_Col,
+                              _('SpecialParameters-Code'))
+        table_t.set_help_text(SpecialParametersModel.value_Col,
+                              _('SpecialParameters-Value'))
 
         sort_btn = QPushButton(_('Sort by order_num'))
         sort_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
@@ -206,7 +150,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         sort_btn.clicked.connect(self.sort_btn_press)
 
         self.numLines_s.blockSignals(True)
-        self.numLines_s.setValue(self.lines_char_m.num_rows_for_config(1))
+        self.numLines_s.setValue(self.spec_param_m.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
 
         #############################
@@ -215,7 +159,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.set_help_page('proc/lineCharacteristics.html')
+        self.btnBar.set_help_page('expert/specialParameters.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(sort_btn)
@@ -232,7 +176,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
                  assure the GUI follows the model.
         """
         self.numLines_s.blockSignals(True)
-        self.numLines_s.setValue(self.lines_char_m.num_rows_for_config(1))
+        self.numLines_s.setValue(self.spec_param_m.num_rows_for_config(1))
         self.numLines_s.blockSignals(False)
 
     def num_lines_change(self):
@@ -240,7 +184,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         :method: Called upon manual changes of the lines spin. Does assure all 
                  elements will follow the user configuration. 
         """
-        self.lines_char_m.set_num_rows_for_config(1, self.numLines_s.value())
+        self.spec_param_m.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
     def sort_btn_press(self):
@@ -248,7 +192,7 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         :method: Executed if the sort button is pressed. Does a one time sort 
                  based on the numbers in the OrderNum column.
         """
-        self.proxyModel.sort(LinesCharacteristicsModel.OrderNumCol,
+        self.proxyModel.sort(SpecialParametersModel.OrderNumCol,
                              Qt.SortOrder.AscendingOrder)
         self.proxyModel.setDynamicSortFilter(False)
 

@@ -3,7 +3,7 @@
 :License: General Public License GNU GPL 3.0
 """
 
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
 from data.SqlTableModel import SqlTableModel
@@ -52,6 +52,13 @@ class SpecialParametersModel(SqlTableModel, metaclass=Singleton):
         super().__init__()
         self.create_table()
         self.setTable("SpecialParameters")
+
+        self.setHeaderData(self.OrderNumCol, Qt.Orientation.Horizontal, _("Order Num"))
+        self.setHeaderData(self.code_Col, Qt.Orientation.Horizontal, _("Code"))
+        self.setHeaderData(self.value_Col, Qt.Orientation.Horizontal, _("Value"))
+
+
+
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
