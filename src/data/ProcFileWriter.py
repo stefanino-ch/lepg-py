@@ -56,6 +56,7 @@ from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
 from data.procModel.TwoDDxfModel import TwoDDxfModel
 from data.procModel.WingModel import WingModel
 from data.procModel.DetailedRisersModel import DetailedRisersModel
+from data.procModel.XflrModel import XflrModel
 
 
 class ProcFileWriter:
@@ -120,6 +121,7 @@ class ProcFileWriter:
         self.new_skin_tens_det_m = NewSkinTensDetModel()
         self.parts_sep_m = PartsSeparationModel()
         self.detRisers_M = DetailedRisersModel()
+        self.xflr_m = XflrModel()
 
     def set_file_path_name(self, file_path_name):
         """
@@ -979,6 +981,25 @@ class ProcFileWriter:
             stream << 'Mql\t%s\tg\tone quick link mass(riser - lines)\n' % values(16)
             stream << 'Ycp\t%s\tm\ty - coordinate center of pressure\n' % values(17)
             stream << 'Zcp\t%s\tm\tz - coordinate center of pressure\n' % values(18)
+
+        stream << separator
+        stream << '*       36. CREATE FILES FOR XFLR5 ANALYSIS\n'
+        stream << separator
+
+        if self.xflr_m.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+            stream << '* Panel parameters\n'
+
+            values = self.xflr_m.get_row(1, 1)
+            stream << '%s\tchord nr\n' % values(1)
+            stream << '%s\tper cell\n' % values(2)
+            stream << '%s\tcosine distribution along chord\n' % values(3)
+            stream << '%s\tuniform along span\n' % values(4)
+
+            stream << '* Include billowed airfoils (more accuracy)\n'
+            stream << '%s\n' % values(5)
 
         stream << '\n'
         stream.flush()

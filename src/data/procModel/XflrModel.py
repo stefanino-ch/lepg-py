@@ -3,7 +3,7 @@
 :License: General Public License GNU GPL 3.0
 """
 
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
 from data.SqlTableModel import SqlTableModel
@@ -34,9 +34,7 @@ class XflrModel(SqlTableModel, metaclass=Singleton):
     ''':attr: '''
     inc_bill_Col = 5
     ''':attr: '''
-    whatever_Col = 6
-    ''':attr: '''
-    ConfigNumCol = 7
+    ConfigNumCol = 6
     ''':attr: num of column for config number (always 1)'''
 
     def create_table(self):
@@ -53,7 +51,6 @@ class XflrModel(SqlTableModel, metaclass=Singleton):
                    "cos_dist REAL, "
                    "uniform INTEGER, "
                    "inc_bill Text, "
-                   "whatever Text, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
@@ -64,12 +61,19 @@ class XflrModel(SqlTableModel, metaclass=Singleton):
         super().__init__()
         self.create_table()
         self.setTable("xflr")
+
+        self.set_num_rows_for_config(1, 1)
+
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
-        # self.setHeaderData(0, Qt.Orientation.Horizontal, _("Order num"))
+        self.setHeaderData(1, Qt.Orientation.Horizontal, _("cord nr"))
+        self.setHeaderData(2, Qt.Orientation.Horizontal, _("per cell"))
+        self.setHeaderData(3, Qt.Orientation.Horizontal, _("cosine dist"))
+        self.setHeaderData(4, Qt.Orientation.Horizontal, _("uniform"))
+        self.setHeaderData(5, Qt.Orientation.Horizontal, _("Include bill"))
 
-    def update_row(self, config_num, order_num, chord_nr, per_cell, cos_dist, uniform, inc_bill, whatever):
+    def update_row(self, config_num, order_num, chord_nr, per_cell, cos_dist, uniform, inc_bill):
         """
         :method: Updates a specific row in the database with the values passed. Parameters are not explicitly
                  explained here as they should be well known.
@@ -80,15 +84,13 @@ class XflrModel(SqlTableModel, metaclass=Singleton):
                       "per_cell= :per_cell, "
                       "cos_dist= :cos_dist, "
                       "uniform= :uniform, "
-                      "inc_bill= :inc_bill, "
-                      "whatever= :whatever "
+                      "inc_bill= :inc_bill "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
         query.bindValue(":chord_nr", chord_nr)
         query.bindValue(":per_cell", per_cell)
         query.bindValue(":cos_dist", cos_dist)
         query.bindValue(":uniform", uniform)
         query.bindValue(":inc_bill", inc_bill)
-        query.bindValue(":whatever", whatever)
         query.bindValue(":config", config_num)
         query.bindValue(":order", order_num)
         query.exec()
@@ -123,8 +125,7 @@ class XflrModel(SqlTableModel, metaclass=Singleton):
                       "per_cell, "
                       "cos_dist, "
                       "uniform, "
-                      "inc_bill, "
-                      "whatever "
+                      "inc_bill "
                       "FROM xflr WHERE (ConfigNum = :config) ORDER BY OrderNum")
         query.bindValue(":config", config_num)
         query.exec()

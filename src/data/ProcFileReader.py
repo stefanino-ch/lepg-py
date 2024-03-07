@@ -1491,16 +1491,16 @@ class ProcFileReader(QObject):
 
                 # Read the comment located before the data
                 stream.readLine()
-
                 chord_nr= split_line(stream.readLine())[0]
                 per_cell= split_line(stream.readLine())[0]
                 cos_dist= split_line(stream.readLine())[0]
                 uniform= split_line(stream.readLine())[0]
+
+                stream.readLine()
                 inc_bill= split_line(stream.readLine())[0]
-                whatever= split_line(stream.readLine())[0]
 
                 self.xflr_M.update_row(1, 1, chord_nr, per_cell,
-                                       cos_dist, uniform, inc_bill, whatever)
+                                       cos_dist, uniform, inc_bill)
 
         ##############################
         # 37: SOME SPECIAL PARAMETERS

@@ -9,14 +9,14 @@ from PyQt6.QtWidgets import QMdiSubWindow, QWidget, QSizePolicy, QHeaderView, \
     QHBoxLayout, QVBoxLayout, QComboBox, QLabel
 
 from data.ProcModel import ProcModel
-from data.procModel.AirfoilThicknessModel import AirfoilThicknessModel
+from data.procModel.XflrModel import XflrModel
 
 from gui.elements.TableView import TableView
 from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
-from gui.GlobalDefinition import ValidationValues
+from gui.GlobalDefinition import Regex
 
 
 class Xflr(QMdiSubWindow, metaclass=Singleton):
@@ -43,8 +43,8 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
 
         self.pm = ProcModel()
 
-        self.airfThick_M = AirfoilThicknessModel()
-        self.airfThick_M.usageUpd.connect(self.usage_update)
+        self.xflr_m = XflrModel()
+        self.xflr_m.usageUpd.connect(self.usage_update)
         self.build_window()
 
     def closeEvent(self, event):
@@ -71,7 +71,7 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
-        self.win.setMinimumSize(500, 400)
+        self.win.setMinimumSize(500, 250)
 
         self.window_ly = QVBoxLayout()
 
@@ -94,28 +94,33 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         self.window_ly.addLayout(usage_ly)
 
         self.one_t = TableView()
-        self.one_t.setModel(self.airfThick_M)
+        self.one_t.setModel(self.xflr_m)
         self.one_t.verticalHeader().setVisible(False)
         self.one_t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.one_t.hideColumn(self.airfThick_M.columnCount() - 1)
-        self.one_t.hideColumn(self.airfThick_M.columnCount() - 2)
+        self.one_t.hideColumn(0)
+        self.one_t.hideColumn(self.xflr_m.columnCount() - 1)
+        self.one_t.hideColumn(self.xflr_m.columnCount() - 2)
+
+        self.one_t.setFixedHeight(2 + (2 * self.one_t.horizontalHeader().height()))
+
         self.window_ly.addWidget(self.one_t)
 
-        self.one_t.en_int_validator(AirfoilThicknessModel.OrderNumCol,
-                               AirfoilThicknessModel.OrderNumCol,
-                               1,
-                               ValidationValues.MaxNumRibs)
-        self.one_t.en_double_validator(AirfoilThicknessModel.CoeffCol,
-                                  AirfoilThicknessModel.CoeffCol,
-                                  ValidationValues.Proc.MinAirfoilThickness_coef,
-                                  ValidationValues.Proc.MaxAirfoilThickness_coef,
-                                  1)
+        self.one_t.en_int_validator(XflrModel.chord_nr_Col,
+                               XflrModel.inc_bill_Col,
+                               0,
+                               100)
 
         self.one_t.set_help_bar(self.helpBar)
-        self.one_t.set_help_text(AirfoilThicknessModel.OrderNumCol,
-                            _('AirfThick-RibNumDesc'))
-        self.one_t.set_help_text(AirfoilThicknessModel.CoeffCol,
-                            _('AirfThick-CoeffDesc'))
+        self.one_t.set_help_text(XflrModel.chord_nr_Col,
+                            _('na'))
+        self.one_t.set_help_text(XflrModel.per_cell_Col,
+                            _('na'))
+        self.one_t.set_help_text(XflrModel.cos_dist_Col,
+                            _('na'))
+        self.one_t.set_help_text(XflrModel.uniform_Col,
+                            _('na'))
+        self.one_t.set_help_text(XflrModel.inc_bill_Col,
+                                 _('na'))
 
         self.usage_update()
 
@@ -125,7 +130,7 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         self.btnBar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,
                                               QSizePolicy.Policy.Fixed))
         self.btnBar.my_signal.connect(self.btn_press)
-        self.btnBar.set_help_page('proc/airfoilThickness.html')
+        self.btnBar.set_help_page('expert/xflr.html')
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()
@@ -140,7 +145,7 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the GUI as soon in the model the usage flag has
                  been changed
         """
-        if self.airfThick_M.is_used():
+        if self.xflr_m.is_used():
             self.usage_cb.setCurrentIndex(1)
             self.one_t.setEnabled(True)
         else:
@@ -152,9 +157,9 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         :method: Updates the model as soon the usage CB has been changed
         """
         if self.usage_cb.currentIndex() == 0:
-            self.airfThick_M.set_is_used(False)
+            self.xflr_m.set_is_used(False)
         else:
-            self.airfThick_M.set_is_used(True)
+            self.xflr_m.set_is_used(True)
         self.pm.set_file_saved(False)
 
     def btn_press(self, q):

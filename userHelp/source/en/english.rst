@@ -46,6 +46,7 @@ English Manual
    proc/procOutput.rst
 
    expert/solveEquEqu.rst
+   expert/xflr.rst
    
    view/wing_outline.rst
    view/two_d_dxf.rst

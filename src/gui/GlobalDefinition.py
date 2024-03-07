@@ -40,7 +40,6 @@ class Regex:
     LinesCharLineLabel = LinesCharMatType = "[a-zA-Z0-9_.\-\']{0,15}$"     # 15 characters no whitespace
     LinesCharLoopType = "^(s|p)"
 
-
 class ValidationValues:
     MaxNumCells = MaxNumRibs = 100
     WingSpanMax_cm = 20000
