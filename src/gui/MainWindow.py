@@ -57,11 +57,14 @@ from gui.SewingAllowances import SewingAllowances
 from gui.SetupProcessors import SetupProcessors
 from gui.SetupUpdateChecking import SetupUpdateChecking
 from gui.SkinTension import SkinTension
+from gui.SolveEquEqu import SolveEquEqu
+from gui.SpecialParameters import SpecialParameters
 from gui.SpecWingTip import SpecWingTip
 from gui.ThreeDDxf import ThreeDDxf
 from gui.ThreeDShaping import ThreeDShaping
 from gui.TwoDDxf import TwoDDxf
 from gui.LinesCharacteristics import LinesCharacteristics
+from gui.Xflr import Xflr
 
 
 # TODO: bring windows to front if they are called
@@ -110,6 +113,8 @@ class MainWindow(QMainWindow):
         self.lines_w = None
         self.global_aoa_w = None
         self.skin_tension_w = None
+        self.solve_equ_equ_w = None
+        self.special_parameters_w = None
         self.rib_holes_w = None
         self.anchor_points_w = None
         self.airfoils_w = None
@@ -122,6 +127,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_cells_distr_w = None
         self.pre_proc_wing_outline_w = None
         self.proc_det_risers_w = None
+        self.xflr_w = None
 
         # Delete old log file
         self.delete_logfile()
@@ -195,6 +201,7 @@ class MainWindow(QMainWindow):
         self.build_pre_proc_menu()
         self.build_proc_menu()
         self.build_plan_menu()
+        self.build_expert_menu()
         self.build_view_menu()
         self.build_setup_menu()
         self.build_help_menu()
@@ -1011,6 +1018,53 @@ class MainWindow(QMainWindow):
         self.three_d_dxf_w = ThreeDDxf()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
+
+    def build_expert_menu(self):
+        """
+        :method: Builds the complete Expert menu
+        """
+        # Define the actions
+        exp_solve_equ_equ_a = QAction(_('Solve Equilibrium Equations'), self)
+        exp_solve_equ_equ_a.setStatusTip(_('Edit parameters used to solve the longitudinal equilibrium'))
+        exp_solve_equ_equ_a.triggered.connect(self.exp_solve_equ_equ_edit)
+
+        exp_xflr_a = QAction(_('XFLR5 analysis'), self)
+        exp_xflr_a.setStatusTip(_('Edit parameters related to XFLR5 analysis'))
+        exp_xflr_a.triggered.connect(self.exp_xflr_edit)
+
+        exp_special_params_a = QAction(_('Special Parameters'), self)
+        exp_special_params_a.setStatusTip(_('Edit special parameters'))
+        exp_special_params_a.triggered.connect(self.exp_special_param_edit)
+
+        # Build the menu
+        plan_menu = self.mainMenu.addMenu(_('Expert'))
+        plan_menu.addAction(exp_solve_equ_equ_a)
+        plan_menu.addAction(exp_xflr_a)
+        plan_menu.addAction(exp_special_params_a)
+
+    def exp_solve_equ_equ_edit(self):
+        """
+        :method: Called if the user selects *Expert* -> *Solve Equilibrium Equations*
+        """
+        self.solve_equ_equ_w = SolveEquEqu()
+        self.mdi.addSubWindow(self.solve_equ_equ_w)
+        self.solve_equ_equ_w.show()
+
+    def exp_xflr_edit(self):
+        """
+        :method: Called if the user selects *Expert* -> *XFLR5 Analysis*
+        """
+        self.xflr_w = Xflr()
+        self.mdi.addSubWindow(self.xflr_w)
+        self.xflr_w.show()
+
+    def exp_special_param_edit(self):
+        """
+        :method: Called if the user selects *Expert* -> *Detailed Risers*
+        """
+        self.special_parameters_w = SpecialParameters()
+        self.mdi.addSubWindow(self.special_parameters_w)
+        self.special_parameters_w.show()
 
     def build_view_menu(self):
         """

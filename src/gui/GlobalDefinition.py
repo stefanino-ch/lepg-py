@@ -41,7 +41,6 @@ class Regex:
     LinesCharLoopType = "^(s|p)"
 
 
-
 class ValidationValues:
     MaxNumCells = MaxNumRibs = 100
     WingSpanMax_cm = 20000
@@ -237,3 +236,39 @@ class ValidationValues:
         LinesCharMaxWeightPerM = 100
         LinesCharMinLoopLength_cm = 0.0
         LinesCharMaxLoopLength_cm = 100
+
+        # 35: SOLVE EQUILIBRIUM EQUATIONS
+        SolveEquEqu_g_min = 9.05
+        SolveEquEqu_g_max = 10
+        SolveEquEqu_ro_min = 1
+        SolveEquEqu_ro_max = 1.5
+        SolveEquEqu_mu_min = 10
+        SolveEquEqu_mu_max = 30
+        SolveEquEqu_V_min = 5
+        SolveEquEqu_V_max = 20
+        SolveEquEqu_cl_min = 0
+        SolveEquEqu_cl_max = 2
+        SolveEquEqu_cle_min = 0
+        SolveEquEqu_cle_max = 2
+        SolveEquEqu_Cd_min = 0
+        SolveEquEqu_Cd_max = 2
+        SolveEquEqu_cde_min = 0
+        SolveEquEqu_cde_max = 2
+        SolveEquEqu_cm_min = 0
+        SolveEquEqu_cm_max = 2
+        SolveEquEqu_Spilot_min = 0.2
+        SolveEquEqu_Spilot_max = 2
+        SolveEquEqu_Cdpilot_min = 0
+        SolveEquEqu_Cdpilot_max = 2
+        SolveEquEqu_Mw_min = 0
+        SolveEquEqu_Mw_max = 10
+        SolveEquEqu_Mp_min = 50
+        SolveEquEqu_Mp_max = 250
+        SolveEquEqu_Pmc_min = 0
+        SolveEquEqu_Pmc_max = 1
+        SolveEquEqu_Mql_min = 0
+        SolveEquEqu_Mql_max = 500
+        SolveEquEqu_Ycp_min = 0
+        SolveEquEqu_Ycp_max = 5000      # Keep in sync with ValidationValues.WingZMax_cm
+        SolveEquEqu_Zcp_min = 0
+        SolveEquEqu_Zcp_max = 5000      # Keep in sync with ValidationValues.WingZMax_cm

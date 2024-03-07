@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2024-03-06 12:56+0100\n"
-"PO-Revision-Date: 2024-03-06 14:20+0100\n"
+"POT-Creation-Date: 2024-03-07 15:27+0100\n"
+"PO-Revision-Date: 2024-03-07 15:33+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -40,7 +40,7 @@ msgid ""
 msgstr ""
 
 #: data/PreProcModel.py:218 data/ProcModel.py:440 data/ProcModel.py:483
-#: gui/MainWindow.py:313 gui/MainWindow.py:339
+#: gui/MainWindow.py:320 gui/MainWindow.py:346
 msgid "Unsaved data"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgid ""
 "(Setup->Both Processors)"
 msgstr ""
 
-#: data/ProcFileReader.py:74
+#: data/ProcFileReader.py:77
 msgid "Please wait.. reading might take some time"
 msgstr ""
 
@@ -123,7 +123,8 @@ msgstr ""
 #: gui/CalageVar.py:85 gui/DetailedRisers.py:83 gui/GlueVent.py:83
 #: gui/JoncsDefinition.py:237 gui/PartsSeparation.py:80
 #: gui/PreProcCellsDistribution.py:87 gui/PreProcData.py:261
-#: gui/SpecWingTip.py:83 gui/ThreeDDxf.py:83 gui/TwoDDxf.py:84
+#: gui/SolveEquEqu.py:84 gui/SpecWingTip.py:83 gui/ThreeDDxf.py:83
+#: gui/TwoDDxf.py:84 gui/Xflr.py:84
 msgid "Type"
 msgstr ""
 
@@ -1057,19 +1058,20 @@ msgstr ""
 msgid "y-Spacing"
 msgstr ""
 
-#: gui/AddRibPoints.py:95 gui/MainWindow.py:550
+#: gui/AddRibPoints.py:95 gui/MainWindow.py:557
 msgid "Additional rib points"
 msgstr ""
 
 #: gui/AddRibPoints.py:100 gui/ExtradColors.py:100 gui/HvVhRibs.py:127
 #: gui/IntradColors.py:99 gui/LinesCharacteristics.py:91 gui/NoseMylars.py:91
+#: gui/SpecialParameters.py:91
 msgid "Number of configs"
 msgstr ""
 
 #: gui/AddRibPoints.py:142 gui/Brakes.py:209 gui/ExtradColors.py:284
 #: gui/HvVhRibs.py:189 gui/IntradColors.py:280 gui/JoncsDefinition.py:333
 #: gui/Lines.py:336 gui/LinesCharacteristics.py:179 gui/NoseMylars.py:135
-#: gui/RibHoles.py:300
+#: gui/RibHoles.py:300 gui/SpecialParameters.py:179
 msgid "OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
@@ -1086,38 +1088,38 @@ msgstr "Ver distance from LE in [% chord]"
 #: gui/AddRibPoints.py:148 gui/Brakes.py:278 gui/ExtradColors.py:126
 #: gui/HvVhRibs.py:213 gui/IntradColors.py:125 gui/JoncsDefinition.py:127
 #: gui/Lines.py:151 gui/LinesCharacteristics.py:203 gui/NewSkinTension.py:120
-#: gui/NoseMylars.py:153
+#: gui/NoseMylars.py:153 gui/SpecialParameters.py:203
 msgid "Sort by order_num"
 msgstr ""
 
-#: gui/AirfoilThickness.py:82 gui/MainWindow.py:583
+#: gui/AirfoilThickness.py:82 gui/MainWindow.py:590
 msgid "Airfoil thickness"
 msgstr ""
 
 #: gui/AirfoilThickness.py:86 gui/CalageVar.py:87 gui/DetailedRisers.py:85
-#: gui/SpecWingTip.py:85
+#: gui/SolveEquEqu.py:86 gui/SpecWingTip.py:85 gui/Xflr.py:86
 msgid "None"
 msgstr ""
 
 #: gui/AirfoilThickness.py:87 gui/GlueVent.py:86 gui/PartsSeparation.py:83
-#: gui/ThreeDDxf.py:86 gui/TwoDDxf.py:87
+#: gui/SolveEquEqu.py:87 gui/ThreeDDxf.py:86 gui/TwoDDxf.py:87 gui/Xflr.py:87
 msgid "User defined"
 msgstr ""
 
-#: gui/AirfoilThickness.py:116
+#: gui/AirfoilThickness.py:116 gui/Xflr.py:116
 msgid "AirfThick-RibNumDesc"
 msgstr ""
 "Rib num for which the coefficient\n"
 "is defined"
 
-#: gui/AirfoilThickness.py:118
+#: gui/AirfoilThickness.py:118 gui/Xflr.py:118
 msgid "AirfThick-CoeffDesc"
 msgstr ""
 "Coefficient describing the thickness modification\n"
 "0.0 = thickness equals 0 (typical for wingtip)\n"
 "1.0 = thickness equally to definition in profile file"
 
-#: gui/Airfoils.py:77 gui/MainWindow.py:496
+#: gui/Airfoils.py:77 gui/MainWindow.py:503
 msgid "Airfoils"
 msgstr ""
 
@@ -1172,7 +1174,7 @@ msgstr ""
 msgid "Sort by Rib Number"
 msgstr ""
 
-#: gui/AnchorPoints.py:81 gui/MainWindow.py:500
+#: gui/AnchorPoints.py:81 gui/MainWindow.py:507
 msgid "Anchor points"
 msgstr ""
 
@@ -1500,7 +1502,7 @@ msgstr ""
 msgid "Data Status Overview"
 msgstr ""
 
-#: gui/DataStatusOverview.py:91 gui/MainWindow.py:385
+#: gui/DataStatusOverview.py:91 gui/MainWindow.py:392
 msgid "Pre Processor"
 msgstr ""
 
@@ -1516,11 +1518,11 @@ msgstr ""
 msgid "File saved"
 msgstr ""
 
-#: gui/DataStatusOverview.py:126 gui/MainWindow.py:602
+#: gui/DataStatusOverview.py:126 gui/MainWindow.py:609
 msgid "Processor"
 msgstr ""
 
-#: gui/DetailedRisers.py:81 gui/MainWindow.py:593
+#: gui/DetailedRisers.py:81 gui/MainWindow.py:600
 msgid "Detailed Risers"
 msgstr ""
 
@@ -1574,7 +1576,7 @@ msgstr ""
 "The name of the layer which can bee freely chosen\n"
 "and later on indicated in the DXF file"
 
-#: gui/ElasticLinesCorr.py:99 gui/MainWindow.py:524
+#: gui/ElasticLinesCorr.py:99 gui/MainWindow.py:531
 msgid "Elastic lines correction"
 msgstr ""
 
@@ -1660,7 +1662,7 @@ msgstr ""
 "Deformation coefficient for high \n"
 "line level with 10 kg load"
 
-#: gui/ExtradColors.py:98 gui/MainWindow.py:540
+#: gui/ExtradColors.py:98 gui/MainWindow.py:547
 msgid "Colors upper sail"
 msgstr ""
 
@@ -1680,7 +1682,7 @@ msgstr ""
 "Distance from TE \n"
 "in [% chord]"
 
-#: gui/Geometry.py:81 gui/MainWindow.py:492
+#: gui/Geometry.py:81 gui/MainWindow.py:499
 msgid "Geometry"
 msgstr ""
 
@@ -1939,7 +1941,7 @@ msgstr ""
 "Parameter I of this configuration\n"
 "Please check the online help for the detailed explanation"
 
-#: gui/IntradColors.py:97 gui/MainWindow.py:545
+#: gui/IntradColors.py:97 gui/MainWindow.py:552
 msgid "Colors lower sail"
 msgstr ""
 
@@ -2156,130 +2158,130 @@ msgstr ""
 msgid "Lines-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
 
-#: gui/LinesCharacteristics.py:86 gui/MainWindow.py:528
+#: gui/LinesCharacteristics.py:86 gui/MainWindow.py:535
 msgid "Lines characteristics"
 msgstr ""
 
-#: gui/LinesCharacteristics.py:181
+#: gui/LinesCharacteristics.py:181 gui/SpecialParameters.py:181
 msgid "LinesCharacteristics-LineType"
 msgstr ""
 "Line type. Number is used for \n"
 "type assignment for SUSPENSION \n"
 "and BREAK lines."
 
-#: gui/LinesCharacteristics.py:183
+#: gui/LinesCharacteristics.py:183 gui/SpecialParameters.py:183
 msgid "LinesCharacteristics-LineForm"
 msgstr ""
 "r=rectangular \n"
 "c=circular"
 
-#: gui/LinesCharacteristics.py:185
+#: gui/LinesCharacteristics.py:185 gui/SpecialParameters.py:185
 msgid "LinesCharacteristics-LineDiameter"
 msgstr "Line diameter [mm]"
 
-#: gui/LinesCharacteristics.py:187
+#: gui/LinesCharacteristics.py:187 gui/SpecialParameters.py:187
 msgid "LinesCharacteristics-BDim"
 msgstr ""
 "For form = c empty\n"
 "For form = r -> b dimension [mm]"
 
-#: gui/LinesCharacteristics.py:189
+#: gui/LinesCharacteristics.py:189 gui/SpecialParameters.py:189
 msgid "LinesCharacteristics-LineLabel"
 msgstr ""
 "Use names without spaces\n"
 "up to 15 characters."
 
-#: gui/LinesCharacteristics.py:191
+#: gui/LinesCharacteristics.py:191 gui/SpecialParameters.py:191
 msgid "LinesCharacteristics-MinBreakStr"
 msgstr "Minimum breaking strength [daN]"
 
-#: gui/LinesCharacteristics.py:193
+#: gui/LinesCharacteristics.py:193 gui/SpecialParameters.py:193
 msgid "LinesCharacteristics-MatType"
 msgstr ""
 "Use names without spaces\n"
 "up to 15 characters."
 
-#: gui/LinesCharacteristics.py:195
+#: gui/LinesCharacteristics.py:195 gui/SpecialParameters.py:195
 msgid "LinesCharacteristics-WeightPerM"
 msgstr "Weight per line meter [g]"
 
-#: gui/LinesCharacteristics.py:197
+#: gui/LinesCharacteristics.py:197 gui/SpecialParameters.py:197
 msgid "LinesCharacteristics-LoopType"
 msgstr ""
 "s=sewed\n"
 "p=spliced loop"
 
-#: gui/LinesCharacteristics.py:199
+#: gui/LinesCharacteristics.py:199 gui/SpecialParameters.py:199
 msgid "LinesCharacteristics-LoopLength"
 msgstr "Total loop length [cm]"
 
-#: gui/LinesCharacteristics.py:201
+#: gui/LinesCharacteristics.py:201 gui/SpecialParameters.py:201
 msgid "LinesCharacteristics-LineCadColor"
 msgstr ""
 "Line CAD Color. \n"
 "Code 1341 must be set in \n"
 "section 37 (Special Parameters)."
 
-#: gui/MainWindow.py:228
+#: gui/MainWindow.py:235
 msgid "Newer version found"
 msgstr ""
 
-#: gui/MainWindow.py:229
+#: gui/MainWindow.py:236
 msgid "Current Version: "
 msgstr ""
 
-#: gui/MainWindow.py:232
+#: gui/MainWindow.py:239
 msgid "Version on remote: "
 msgstr ""
 
-#: gui/MainWindow.py:234
+#: gui/MainWindow.py:241
 msgid "Maybe you should consider an update from"
 msgstr ""
 
-#: gui/MainWindow.py:241
+#: gui/MainWindow.py:248
 msgid ""
 "More info about the different versions you will find in the <br>online help: "
 "Help-> Online Help"
 msgstr ""
 
-#: gui/MainWindow.py:245
+#: gui/MainWindow.py:252
 msgid "Or in Settings-> Update checking"
 msgstr ""
 
-#: gui/MainWindow.py:264
+#: gui/MainWindow.py:271
 #, python-format
 msgid "File saved: Pre Proc %s  |  Proc %s"
 msgstr ""
 
-#: gui/MainWindow.py:273
+#: gui/MainWindow.py:280
 msgid "Show Data Status"
 msgstr ""
 
-#: gui/MainWindow.py:274
+#: gui/MainWindow.py:281
 msgid "Provides an overview about what data has (not) been saved"
 msgstr ""
 
-#: gui/MainWindow.py:278
+#: gui/MainWindow.py:285
 msgid "Restart"
 msgstr ""
 
-#: gui/MainWindow.py:279
+#: gui/MainWindow.py:286
 msgid "Restart the app"
 msgstr ""
 
-#: gui/MainWindow.py:282
+#: gui/MainWindow.py:289
 msgid "Exit"
 msgstr ""
 
-#: gui/MainWindow.py:283
+#: gui/MainWindow.py:290
 msgid "Leave the app"
 msgstr ""
 
-#: gui/MainWindow.py:287
+#: gui/MainWindow.py:294
 msgid "File"
 msgstr ""
 
-#: gui/MainWindow.py:314
+#: gui/MainWindow.py:321
 msgid ""
 "You have unsaved data. \n"
 "\n"
@@ -2287,7 +2289,7 @@ msgid ""
 "Press Cancel to abort. "
 msgstr ""
 
-#: gui/MainWindow.py:340
+#: gui/MainWindow.py:347
 msgid ""
 "You have unsaved data. \n"
 "\n"
@@ -2295,437 +2297,465 @@ msgid ""
 "Press Cancel to abort. "
 msgstr ""
 
-#: gui/MainWindow.py:359
+#: gui/MainWindow.py:366
 msgid "Open PreProc File"
 msgstr ""
 
-#: gui/MainWindow.py:360
+#: gui/MainWindow.py:367
 msgid "open_preProc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: gui/MainWindow.py:363
+#: gui/MainWindow.py:370
 msgid "Save PreProc File"
 msgstr ""
 
-#: gui/MainWindow.py:364
+#: gui/MainWindow.py:371
 msgid "save_preProc_file_desc"
 msgstr "Saves data to local file"
 
-#: gui/MainWindow.py:367
+#: gui/MainWindow.py:374
 msgid "Save PreProc File As .."
 msgstr ""
 
-#: gui/MainWindow.py:368
+#: gui/MainWindow.py:375
 msgid "save_preProc_file_as_desc"
 msgstr "Saves data under a new name"
 
-#: gui/MainWindow.py:371
+#: gui/MainWindow.py:378
 msgid "Name, LE, TE, Vault"
 msgstr ""
 
-#: gui/MainWindow.py:372
+#: gui/MainWindow.py:379
 msgid "edit_preProc_data_description"
 msgstr "Opens the window to edit name, LE, TE and vault settings"
 
-#: gui/MainWindow.py:375
+#: gui/MainWindow.py:382
 msgid "Cells distribution"
 msgstr ""
 
-#: gui/MainWindow.py:377
+#: gui/MainWindow.py:384
 msgid "edit_preProc_cellsDistr_description"
 msgstr "Opens the edit window for the cell distribution configuration"
 
-#: gui/MainWindow.py:380
+#: gui/MainWindow.py:387
 msgid "Run Pre-Processor"
 msgstr ""
 
-#: gui/MainWindow.py:381
+#: gui/MainWindow.py:388
 msgid "run_preProc_des"
 msgstr "Prepares the input file for the pre-processor and runs it"
 
-#: gui/MainWindow.py:453 gui/MainWindow.py:910
+#: gui/MainWindow.py:460 gui/MainWindow.py:917
 msgid "Potentially missing configuration!"
 msgstr ""
 
-#: gui/MainWindow.py:454
+#: gui/MainWindow.py:461
 msgid ""
 "For a successful pre-processor run you must configure\n"
 "the pre-processor in Setup ->Both Processors."
 msgstr ""
 
-#: gui/MainWindow.py:471
+#: gui/MainWindow.py:478
 msgid "Import Pre-Proc output file"
 msgstr ""
 
-#: gui/MainWindow.py:472
+#: gui/MainWindow.py:479
 msgid "import-pre-proc_file_desc"
 msgstr ""
 "Import the datafile created by the pre-processor to be further detailed"
 
-#: gui/MainWindow.py:475
+#: gui/MainWindow.py:482
 msgid "Open Processor File"
 msgstr ""
 
-#: gui/MainWindow.py:476
+#: gui/MainWindow.py:483
 msgid "open_Proc_file_desc"
 msgstr "Opens a datafile from local storage"
 
-#: gui/MainWindow.py:479
+#: gui/MainWindow.py:486
 msgid "Save Processor File"
 msgstr ""
 
-#: gui/MainWindow.py:480
+#: gui/MainWindow.py:487
 msgid "save_proc_file_desc"
 msgstr "Saves data to local file"
 
-#: gui/MainWindow.py:483
+#: gui/MainWindow.py:490
 msgid "Save Processor File As .."
 msgstr ""
 
-#: gui/MainWindow.py:484
+#: gui/MainWindow.py:491
 msgid "save_proc_file_as_desc"
 msgstr "Saves the data under a new name"
 
-#: gui/MainWindow.py:488
+#: gui/MainWindow.py:495
 msgid "Basic data"
 msgstr ""
 
-#: gui/MainWindow.py:489
+#: gui/MainWindow.py:496
 msgid "Editing the wing basics"
 msgstr ""
 
-#: gui/MainWindow.py:493
+#: gui/MainWindow.py:500
 msgid "Edit wing geometry"
 msgstr ""
 
-#: gui/MainWindow.py:497
+#: gui/MainWindow.py:504
 msgid "Edit airfoils geometry"
 msgstr ""
 
-#: gui/MainWindow.py:501
+#: gui/MainWindow.py:508
 msgid "Edit Anchor points data"
 msgstr ""
 
-#: gui/MainWindow.py:504
+#: gui/MainWindow.py:511
 msgid "Rib holes"
 msgstr ""
 
-#: gui/MainWindow.py:505
+#: gui/MainWindow.py:512
 msgid "Edit rib holes (rib lightening) data"
 msgstr ""
 
-#: gui/MainWindow.py:508 gui/MainWindow.py:615 gui/SkinTension.py:76
+#: gui/MainWindow.py:515 gui/MainWindow.py:622 gui/SkinTension.py:76
 msgid "Skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:509
+#: gui/MainWindow.py:516
 msgid "Edit skin tension data"
 msgstr ""
 
-#: gui/MainWindow.py:512
+#: gui/MainWindow.py:519
 msgid "Estimated general AoA"
 msgstr ""
 
-#: gui/MainWindow.py:513
+#: gui/MainWindow.py:520
 msgid "Edit global AoA data"
 msgstr ""
 
-#: gui/MainWindow.py:516
+#: gui/MainWindow.py:523
 msgid "Lines"
 msgstr ""
 
-#: gui/MainWindow.py:517
+#: gui/MainWindow.py:524
 msgid "Edit Lines data"
 msgstr ""
 
-#: gui/MainWindow.py:520
+#: gui/MainWindow.py:527
 msgid "Brakes"
 msgstr ""
 
-#: gui/MainWindow.py:521
+#: gui/MainWindow.py:528
 msgid "Edit Brake lines data"
 msgstr ""
 
-#: gui/MainWindow.py:525
+#: gui/MainWindow.py:532
 msgid "Edit elastic lines correction data"
 msgstr ""
 
-#: gui/MainWindow.py:529
+#: gui/MainWindow.py:536
 msgid "Define individual lines characteristics"
 msgstr ""
 
-#: gui/MainWindow.py:532
+#: gui/MainWindow.py:539
 msgid "Ramifications length"
 msgstr ""
 
-#: gui/MainWindow.py:533
+#: gui/MainWindow.py:540
 msgid "Edit Ramification data"
 msgstr ""
 
-#: gui/MainWindow.py:536
+#: gui/MainWindow.py:543
 msgid "HV and VH ribs"
 msgstr "Diagonal ribs"
 
-#: gui/MainWindow.py:537
+#: gui/MainWindow.py:544
 msgid "Edit HV/ VH ribs data"
 msgstr ""
 
-#: gui/MainWindow.py:541
+#: gui/MainWindow.py:548
 msgid "Edit the color settings of the upper sail"
 msgstr ""
 
-#: gui/MainWindow.py:546
+#: gui/MainWindow.py:553
 msgid "Edit the color settings of the lower sail"
 msgstr ""
 
-#: gui/MainWindow.py:551
+#: gui/MainWindow.py:558
 msgid "Edit additional rib points data"
 msgstr ""
 
-#: gui/MainWindow.py:554
+#: gui/MainWindow.py:561
 msgid "Joncs definitions"
 msgstr ""
 
-#: gui/MainWindow.py:555
+#: gui/MainWindow.py:562
 msgid "Edit joncs (nylon rods) definition"
 msgstr ""
 
-#: gui/MainWindow.py:558 gui/NoseMylars.py:86
+#: gui/MainWindow.py:565 gui/NoseMylars.py:86
 msgid "Nose mylars"
 msgstr ""
 
-#: gui/MainWindow.py:559
+#: gui/MainWindow.py:566
 msgid "Edit nose mylars definition"
 msgstr ""
 
-#: gui/MainWindow.py:562
+#: gui/MainWindow.py:569
 msgid "Tab reinforcements"
 msgstr ""
 
-#: gui/MainWindow.py:565
+#: gui/MainWindow.py:572
 msgid "Glue vents"
 msgstr ""
 
-#: gui/MainWindow.py:566
+#: gui/MainWindow.py:573
 msgid "Edit glue vent definitions"
 msgstr ""
 
-#: gui/MainWindow.py:569
+#: gui/MainWindow.py:576
 msgid "Special wingtip"
 msgstr ""
 
-#: gui/MainWindow.py:570
+#: gui/MainWindow.py:577
 msgid "Edit Special wing tip definitions"
 msgstr ""
 
-#: gui/MainWindow.py:573
+#: gui/MainWindow.py:580
 msgid "Calage variation"
 msgstr ""
 
-#: gui/MainWindow.py:574
+#: gui/MainWindow.py:581
 msgid "Edit parameters for calage variation study"
 msgstr ""
 
-#: gui/MainWindow.py:578 gui/ThreeDShaping.py:109
+#: gui/MainWindow.py:585 gui/ThreeDShaping.py:109
 msgid "3D shaping"
 msgstr ""
 
-#: gui/MainWindow.py:579
+#: gui/MainWindow.py:586
 msgid "Enable and edit parameters for 3D shaping"
 msgstr ""
 
-#: gui/MainWindow.py:584
+#: gui/MainWindow.py:591
 msgid "Edit parameters for airfoil thickness"
 msgstr ""
 
-#: gui/MainWindow.py:588 gui/NewSkinTension.py:94
+#: gui/MainWindow.py:595 gui/NewSkinTension.py:94
 msgid "New skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:589
+#: gui/MainWindow.py:596
 msgid "Edit parameters for new skin tension"
 msgstr ""
 
-#: gui/MainWindow.py:594
+#: gui/MainWindow.py:601
 msgid "Edit parameters for detailed risers"
 msgstr ""
 
-#: gui/MainWindow.py:597
+#: gui/MainWindow.py:604
 msgid "Run Processor"
 msgstr ""
 
-#: gui/MainWindow.py:598
+#: gui/MainWindow.py:605
 msgid "run_Processor_des"
 msgstr "Prepares the input file for the processor and runs it"
 
-#: gui/MainWindow.py:622
+#: gui/MainWindow.py:629
 msgid "Lines/ Brakes"
 msgstr ""
 
-#: gui/MainWindow.py:632
+#: gui/MainWindow.py:639
 msgid "Colors"
 msgstr ""
 
-#: gui/MainWindow.py:911
+#: gui/MainWindow.py:918
 msgid ""
 "For a successful processor run you must configure\n"
 "the processor in Setup->Both Processors."
 msgstr ""
 
-#: gui/MainWindow.py:926
+#: gui/MainWindow.py:933
 msgid "Seewing Allowance"
 msgstr ""
 
-#: gui/MainWindow.py:927
+#: gui/MainWindow.py:934
 msgid "Edit Seewing allowances"
 msgstr ""
 
-#: gui/MainWindow.py:930 gui/Marks.py:72
+#: gui/MainWindow.py:937 gui/Marks.py:72
 msgid "Marks"
 msgstr ""
 
-#: gui/MainWindow.py:931
+#: gui/MainWindow.py:938
 msgid "Edit the Marks parameters"
 msgstr ""
 
-#: gui/MainWindow.py:934
+#: gui/MainWindow.py:941
 msgid "DXF Layer names"
 msgstr ""
 
-#: gui/MainWindow.py:935
+#: gui/MainWindow.py:942
 msgid "Edit the names of the individual DXF layers"
 msgstr ""
 
-#: gui/MainWindow.py:939 gui/MarksTypes.py:83
+#: gui/MainWindow.py:946 gui/MarksTypes.py:83
 msgid "Marks types"
 msgstr ""
 
-#: gui/MainWindow.py:940
+#: gui/MainWindow.py:947
 msgid "Edit individual parameters for the marks on the plans"
 msgstr ""
 
-#: gui/MainWindow.py:944
+#: gui/MainWindow.py:951
 msgid "2D DXF options"
 msgstr ""
 
-#: gui/MainWindow.py:945
+#: gui/MainWindow.py:952
 msgid "Edit for the 2D dxf plans"
 msgstr ""
 
-#: gui/MainWindow.py:948
+#: gui/MainWindow.py:955
 msgid "3D DXF options"
 msgstr ""
 
-#: gui/MainWindow.py:949
+#: gui/MainWindow.py:956
 msgid "Edit for the 3D dxf plans"
 msgstr ""
 
-#: gui/MainWindow.py:952 gui/PartsSeparation.py:78
+#: gui/MainWindow.py:959 gui/PartsSeparation.py:78
 msgid "Parts separation"
 msgstr ""
 
-#: gui/MainWindow.py:953
+#: gui/MainWindow.py:960
 msgid "Edit the parameters for  Parts separation"
 msgstr ""
 
-#: gui/MainWindow.py:958
+#: gui/MainWindow.py:965
 msgid "Plan"
 msgstr ""
 
-#: gui/MainWindow.py:1020 gui/PreProcWingOutline.py:113
+#: gui/MainWindow.py:1027 gui/SolveEquEqu.py:82
+msgid "Solve Equilibrium Equations"
+msgstr ""
+
+#: gui/MainWindow.py:1028
+msgid "Edit parameters used to solve the longitudinal equilibrium"
+msgstr ""
+
+#: gui/MainWindow.py:1031
+msgid "XFLR5 analysis"
+msgstr ""
+
+#: gui/MainWindow.py:1032
+msgid "Edit parameters related to XFLR5 analysis"
+msgstr ""
+
+#: gui/MainWindow.py:1035
+msgid "Special Parameters"
+msgstr ""
+
+#: gui/MainWindow.py:1036
+msgid "Edit special parameters"
+msgstr ""
+
+#: gui/MainWindow.py:1040
+msgid "Expert"
+msgstr ""
+
+#: gui/MainWindow.py:1074 gui/PreProcWingOutline.py:113
 msgid "Wing outline"
 msgstr ""
 
-#: gui/MainWindow.py:1021
+#: gui/MainWindow.py:1075
 msgid "show_WingOutline_des"
 msgstr "Opens the wing outline window"
 
-#: gui/MainWindow.py:1024 gui/TwoDDxfViewer.py:97
+#: gui/MainWindow.py:1078 gui/TwoDDxfViewer.py:97
 msgid "2D DXF viewer"
 msgstr ""
 
-#: gui/MainWindow.py:1025
+#: gui/MainWindow.py:1079
 msgid "show_2d_Dxf_des"
 msgstr "Opens the 2D Viewer used to display the DXF drawings created by lep"
 
-#: gui/MainWindow.py:1028 gui/ThreeDDxfViewer.py:94
+#: gui/MainWindow.py:1082 gui/ThreeDDxfViewer.py:94
 msgid "3D DXF viewer"
 msgstr ""
 
-#: gui/MainWindow.py:1029
+#: gui/MainWindow.py:1083
 msgid "show_3d_Dxf_des"
 msgstr ""
 "Opens the 3D Viewer used to display the Paraglider modell created by lep"
 
-#: gui/MainWindow.py:1032
+#: gui/MainWindow.py:1086
 msgid "Cascade"
 msgstr ""
 
-#: gui/MainWindow.py:1033
+#: gui/MainWindow.py:1087
 msgid "Cascade all windows"
 msgstr ""
 
-#: gui/MainWindow.py:1036
+#: gui/MainWindow.py:1090
 msgid "Tile"
 msgstr ""
 
-#: gui/MainWindow.py:1037
+#: gui/MainWindow.py:1091
 msgid "Tile all windows"
 msgstr ""
 
-#: gui/MainWindow.py:1041
+#: gui/MainWindow.py:1095
 msgid "View"
 msgstr ""
 
-#: gui/MainWindow.py:1102
+#: gui/MainWindow.py:1156
 msgid "Both Processors"
 msgstr ""
 
-#: gui/MainWindow.py:1103
+#: gui/MainWindow.py:1157
 msgid "Setup locations for both processors"
 msgstr ""
 
-#: gui/MainWindow.py:1106
+#: gui/MainWindow.py:1160
 msgid "Update checking"
 msgstr ""
 
-#: gui/MainWindow.py:1107
+#: gui/MainWindow.py:1161
 msgid "Setup if and for which version to check for updates"
 msgstr ""
 
-#: gui/MainWindow.py:1112
+#: gui/MainWindow.py:1166
 msgid "Setup"
 msgstr ""
 
-#: gui/MainWindow.py:1113
+#: gui/MainWindow.py:1167
 msgid "Language"
 msgstr ""
 
-#: gui/MainWindow.py:1144
+#: gui/MainWindow.py:1198
 msgid "Switching language"
 msgstr ""
 
-#: gui/MainWindow.py:1146
+#: gui/MainWindow.py:1200
 msgid "Please restart the application."
 msgstr ""
 
-#: gui/MainWindow.py:1171
+#: gui/MainWindow.py:1225
 msgid "Online Help"
 msgstr ""
 
-#: gui/MainWindow.py:1172
+#: gui/MainWindow.py:1226
 msgid "Opens the online help in your browser"
 msgstr ""
 
-#: gui/MainWindow.py:1175
+#: gui/MainWindow.py:1229
 msgid "About"
 msgstr ""
 
-#: gui/MainWindow.py:1176
+#: gui/MainWindow.py:1230
 msgid "Short info about the program"
 msgstr ""
 
-#: gui/MainWindow.py:1180 gui/elements/WindowBtnBar.py:78
+#: gui/MainWindow.py:1234 gui/elements/WindowBtnBar.py:78
 msgid "Help"
 msgstr ""
 
@@ -3396,6 +3426,84 @@ msgstr ""
 "0.0 None\n"
 "1.0 maximal"
 
+#: gui/SolveEquEqu.py:163
+msgid "SolveEquEqu-g"
+msgstr "Gravity of Earth [m/s2] "
+
+#: gui/SolveEquEqu.py:165
+msgid "SolveEquEqu-ro"
+msgstr "Air mass Density [kg/m3]"
+
+#: gui/SolveEquEqu.py:167
+msgid "SolveEquEqu-mu"
+msgstr "Air dynamic viscosity [muPa] (microPascals)"
+
+#: gui/SolveEquEqu.py:169
+msgid "SolveEquEqu-V"
+msgstr "Estimated flow speed [m/s]"
+
+#: gui/SolveEquEqu.py:171
+msgid "SolveEquEqu-Alpha"
+msgstr ""
+"Estimated wing angle of attact\n"
+"at trim speed [deg]"
+
+#: gui/SolveEquEqu.py:173
+msgid "SolveEquEqu-Cl"
+msgstr "Wing lift coefficient"
+
+#: gui/SolveEquEqu.py:175
+msgid "SolveEquEqu-cle"
+msgstr "Lift correction coefficient"
+
+#: gui/SolveEquEqu.py:177
+msgid "SolveEquEqu-Cd"
+msgstr "Wing drag coefficient"
+
+#: gui/SolveEquEqu.py:179
+msgid "SolveEquEqu-cde"
+msgstr "Drag correction coefficient"
+
+#: gui/SolveEquEqu.py:181
+msgid "SolveEquEqu-Cm"
+msgstr "Wing moment coefficient"
+
+#: gui/SolveEquEqu.py:241
+msgid "SolveEquEqu-Spilot"
+msgstr "Pilot+harness frontal surface [m2]"
+
+#: gui/SolveEquEqu.py:243
+msgid "SolveEquEqu-Cdpilot"
+msgstr "Pilot+harness drag coefficient"
+
+#: gui/SolveEquEqu.py:245
+msgid "SolveEquEqu-Mw"
+msgstr "Wing mass [kg]"
+
+#: gui/SolveEquEqu.py:247
+msgid "SolveEquEqu-Mp"
+msgstr ""
+"Pilot mass included harness and\n"
+"instruments [kg]"
+
+#: gui/SolveEquEqu.py:249
+msgid "SolveEquEqu-Pmc"
+msgstr ""
+"Pilot mass center below \n"
+"main Karabiners [m]"
+
+#: gui/SolveEquEqu.py:251
+msgid "SolveEquEqu-Mql"
+msgstr "One quick link mass (riser-lines) [g]"
+
+#: gui/SolveEquEqu.py:253
+msgid "SolveEquEqu-Ycp"
+msgstr "Y-coordinate center of pressure [m]"
+
+#: gui/SolveEquEqu.py:255
+msgid "SolveEquEqu-Zcp"
+msgstr "Z-coordinate center of pressure"
+
 #: gui/SpecWingTip.py:81
 msgid "Special wing tip"
 msgstr ""
@@ -3411,6 +3519,10 @@ msgid "SpecWingTyp-AngleTEDesc"
 msgstr ""
 "Angle in [deg] of the trailing edge \n"
 "in the last cell"
+
+#: gui/SpecialParameters.py:86
+msgid "Special parameters"
+msgstr ""
 
 #: gui/ThreeDDxf.py:81
 msgid "3D DXF Options"
@@ -3555,6 +3667,10 @@ msgstr "The Name of the Color as text"
 #| msgid "Open Proc file"
 msgid "Open Pre-proc dxf file"
 msgstr "Opens a datafile from local storage"
+
+#: gui/Xflr.py:82
+msgid "XFLR5 data"
+msgstr ""
 
 #: processors/ProcRunner.py:129
 msgid "proc_terminating_msg"

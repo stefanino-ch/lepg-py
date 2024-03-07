@@ -46,6 +46,7 @@ from data.procModel.RibModel import RibModel
 from data.procModel.SewingAllowancesModel import SewingAllowancesModel
 from data.procModel.SkinTensionModel import SkinTensionModel
 from data.procModel.SkinTensionParamsModel import SkinTensionParamsModel
+from data.procModel.SolveEquEquModel import SolveEquEquModel
 from data.procModel.SpecWingTipModel import SpecWingTipModel
 from data.procModel.ThreeDDxfModel import ThreeDDxfModel
 from data.procModel.ThreeDShConfModel import ThreeDShConfModel
@@ -84,6 +85,7 @@ class ProcFileWriter:
         self.light_det_m = LightDetModel()
         self.skin_tens_m = SkinTensionModel()
         self.skin_tens_params_m = SkinTensionParamsModel()
+        self.solve_equ_equ_m = SolveEquEquModel()
         self.sewing_allow_m = SewingAllowancesModel()
         self.marks_m = MarksModel()
         self.glob_aoa_m = GlobalAoAModel()
@@ -948,6 +950,35 @@ class ProcFileWriter:
                     if j == 10:
                         stream << 'cm\t'
                 stream << '\n'
+
+        stream << separator
+        stream << '*       35. SOLVE EQUILIBRIUM EQUATIONS\n'
+        stream << separator
+
+        if self.solve_equ_equ_m.is_used() is False:
+            stream << '0\n'
+        else:
+            stream << '1\n'
+
+            values = self.solve_equ_equ_m.get_row(1, 1)
+            stream << 'g\t%s\tm/s2\tgravity of Earth\n' % values(1)
+            stream << 'ro\t%s\tkg/m3\tair mass density\n' % values(2)
+            stream << 'mu\t%s\tmuPa\tair dynamic viscosity(microPascal)\n' % values(3)
+            stream << 'V\t%s\tm/s\testimated flow speed\n' % values(4)
+            stream << 'Alpha\t%s\tdeg\testimated wing angle of attact at trim speed\n' % values(5)
+            stream << 'Cl\t%s\twing lift coefficient\n' % values(6)
+            stream << 'cle\t%s\tlift correction coefficient\n' % values(7)
+            stream << 'Cd\t%s\twing drag coefficient\n' % values(8)
+            stream << 'cde\t%s\tdrag correction coefficient\n' % values(9)
+            stream << 'Cm\t%s\twing moment coefficient\n' % values(10)
+            stream << 'Spilot\t%s\tm2\tpilot + harness frontal surface\n' % values(11)
+            stream << 'Cdpilot\t%s\tpilot + harness drag coefficient\n' % values(12)
+            stream << 'Mw\t%s\tkg\twing mass\n' % values(13)
+            stream << 'Mp\t%s\tkg\tpilot mass included harness and instruments\n' % values(14)
+            stream << 'Pmc\t%s\tm\tpilot mass center below main karabiners\n' % values(15)
+            stream << 'Mql\t%s\tg\tone quick link mass(riser - lines)\n' % values(16)
+            stream << 'Ycp\t%s\tm\ty - coordinate center of pressure\n' % values(17)
+            stream << 'Zcp\t%s\tm\tz - coordinate center of pressure\n' % values(18)
 
         stream << '\n'
         stream.flush()

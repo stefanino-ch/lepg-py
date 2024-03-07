@@ -44,6 +44,8 @@ English Manual
    proc/partsSeparation.rst
    proc/detRisers.rst
    proc/procOutput.rst
+
+   expert/solveEquEqu.rst
    
    view/wing_outline.rst
    view/two_d_dxf.rst

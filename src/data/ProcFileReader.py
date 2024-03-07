@@ -43,6 +43,8 @@ from data.procModel.RibModel import RibModel
 from data.procModel.SewingAllowancesModel import SewingAllowancesModel
 from data.procModel.SkinTensionModel import SkinTensionModel
 from data.procModel.SkinTensionParamsModel import SkinTensionParamsModel
+from data.procModel.SolveEquEquModel import SolveEquEquModel
+from data.procModel.SpecialParametersModel import SpecialParametersModel
 from data.procModel.SpecWingTipModel import SpecWingTipModel
 from data.procModel.ThreeDDxfModel import ThreeDDxfModel
 from data.procModel.ThreeDShConfModel import ThreeDShConfModel
@@ -51,6 +53,7 @@ from data.procModel.ThreeDShPrintModel import ThreeDShPrintModel
 from data.procModel.ThreeDShUpDetModel import ThreeDShUpDetModel
 from data.procModel.TwoDDxfModel import TwoDDxfModel
 from data.procModel.WingModel import WingModel
+from data.procModel.XflrModel import XflrModel
 from data.procModel.DetailedRisersModel import DetailedRisersModel
 
 
@@ -128,6 +131,8 @@ class ProcFileReader(QObject):
         self.rib_M = RibModel()
         self.skinTens_M = SkinTensionModel()
         self.skinTensParams_M = SkinTensionParamsModel()
+        self.solveEquEqu_M = SolveEquEquModel()
+        self.specialParameters_M = SpecialParametersModel()
         self.specWingTyp_M = SpecWingTipModel()
         self.sewAll_M = SewingAllowancesModel()
         self.threeDDxf_M = ThreeDDxfModel()
@@ -137,6 +142,7 @@ class ProcFileReader(QObject):
         self.threeDShPr_M = ThreeDShPrintModel()
         self.twoDDxf_M = TwoDDxfModel()
         self.wing_M = WingModel()
+        self.xflr_M = XflrModel()
         self.detRisers_m = DetailedRisersModel()
 
     def read_file(self, file_path_name, file_version):
@@ -1427,17 +1433,104 @@ class ProcFileReader(QObject):
         if self.__fileVersion - 3.21 > -1e-10:
             logging.debug(self.__className + '.read_file: 35: SOLVE EQUILIBRIUM EQUATIONS')
 
+            in_header = True
+            while in_header:
+                data = stream.readLine()
+                if '*' not in data[0]:
+                    in_header = False
+
+            data = int(data)
+
+            self.solveEquEqu_M.set_is_used(False)
+
+            if data != 0:
+                self.solveEquEqu_M.set_is_used(True)
+
+                g= split_line(stream.readLine())[1]
+                ro= split_line(stream.readLine())[1]
+                mu= split_line(stream.readLine())[1]
+                v= split_line(stream.readLine())[1]
+                alpha= split_line(stream.readLine())[1]
+                cl= split_line(stream.readLine())[1]
+                cle= split_line(stream.readLine())[1]
+                cd= split_line(stream.readLine())[1]
+                cde= split_line(stream.readLine())[1]
+                cm= split_line(stream.readLine())[1]
+                spilot= split_line(stream.readLine())[1]
+                cdpilot= split_line(stream.readLine())[1]
+                mw= split_line(stream.readLine())[1]
+                mp= split_line(stream.readLine())[1]
+                pmc= split_line(stream.readLine())[1]
+                mql= split_line(stream.readLine())[1]
+                ycp= split_line(stream.readLine())[1]
+                zcp= split_line(stream.readLine())[1]
+
+                self.solveEquEqu_M.update_row(1, 1, g, ro, mu, v, alpha, cl, cle, cd , cde, cm,
+                                              spilot, cdpilot, mw, mp, pmc, mql, ycp, zcp)
+
         ##############################
         # 36: CREATE FILES FOR XFLR5 ANALYSIS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
             logging.debug(self.__className + '.read_file: 36: CREATE FILES FOR XFLR5 ANALYSIS')
 
+            in_header = True
+            while in_header:
+                data = stream.readLine()
+                if '*' not in data[0]:
+                    in_header = False
+
+            data = int(data)
+
+            self.xflr_M.set_is_used(False)
+            self.xflr_M.set_num_configs(0)
+
+            if data != 0:
+                self.xflr_M.set_is_used(True)
+                self.xflr_M.set_num_configs(1)
+
+                # Read the comment located before the data
+                stream.readLine()
+
+                chord_nr= split_line(stream.readLine())[0]
+                per_cell= split_line(stream.readLine())[0]
+                cos_dist= split_line(stream.readLine())[0]
+                uniform= split_line(stream.readLine())[0]
+                inc_bill= split_line(stream.readLine())[0]
+                whatever= split_line(stream.readLine())[0]
+
+                self.xflr_M.update_row(1, 1, chord_nr, per_cell,
+                                       cos_dist, uniform, inc_bill, whatever)
+
         ##############################
         # 37: SOME SPECIAL PARAMETERS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
             logging.debug(self.__className + '.read_file: 37: SOME SPECIAL PARAMETERS')
+
+            in_header = True
+            while in_header:
+                data = stream.readLine()
+                if '*' not in data[0]:
+                    in_header = False
+
+            data = int(data)
+
+            self.specialParameters_M.set_is_used(False)
+            self.specialParameters_M.set_num_configs(0)
+
+            if data != 0:
+                self.specialParameters_M.set_is_used(True)
+                self.specialParameters_M.set_num_configs(1)
+
+                num_lines = int(rem_tab_space(stream.readLine()))
+                self.specialParameters_M.set_num_rows_for_config(1, num_lines)
+
+                for i in range(0, num_lines):
+                    values = split_line(stream.readLine())
+
+                    self.specialParameters_M.update_row(1, i+1, values[0], values[1])
+
 
         ##############################
         # Cleanup
