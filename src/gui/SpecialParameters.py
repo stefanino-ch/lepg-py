@@ -187,6 +187,11 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
         self.spec_param_m.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
+        if self.numLines_s.value() == 0:
+            self.spec_param_m.set_is_used(False)
+        else:
+            self.spec_param_m.set_is_used(True)
+
     def sort_btn_press(self):
         """
         :method: Executed if the sort button is pressed. Does a one time sort 

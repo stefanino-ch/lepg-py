@@ -29,7 +29,7 @@ class Database(QSqlDatabase, metaclass=Singleton):
             # open database
             self.db = QSqlDatabase.addDatabase("QSQLITE")
 
-            useInMemoryDb = False
+            useInMemoryDb = True
             if useInMemoryDb:
                 # use in memory db
                 self.db.setDatabaseName(":memory:")

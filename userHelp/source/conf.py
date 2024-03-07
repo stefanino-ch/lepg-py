@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'lepg'
-copyright = '2022, Stefan Feuz'
+copyright = '2024, Stefan Feuz'
 author = 'Stefan Feuz'
 
 # The full version, including alpha/beta/rc tags
-release = '3.17.x'
+release = '3.23.x'
 
 
 # -- General configuration ---------------------------------------------------

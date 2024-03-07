@@ -243,6 +243,11 @@ class LinesCharacteristics(QMdiSubWindow, metaclass=Singleton):
         self.lines_char_m.set_num_rows_for_config(1, self.numLines_s.value())
         self.pm.set_file_saved(False)
 
+        if self.numLines_s.value() == 0:
+            self.lines_char_m.set_is_used(False)
+        else:
+            self.lines_char_m.set_is_used(True)
+
     def sort_btn_press(self):
         """
         :method: Executed if the sort button is pressed. Does a one time sort 
