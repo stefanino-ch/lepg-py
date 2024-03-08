@@ -28,7 +28,8 @@ class BackgroundHighlight:
 
 class Regex:
     WingNameString = BrandNameString =\
-        DxfReferenceLayerName = TwoDDxfColorDesc = ThreeDDxfColorDesc = "^[a-zA-Z0-9_.\-\s\']*$"
+        DxfReferenceLayerName = TwoDDxfColorDesc = ThreeDDxfColorDesc =\
+        SpecialParametersCode = "^[a-zA-Z0-9_.\-\s\']*$"
     AirfoilsNameString = "(.|\s)*\S(.|\s)*"
     ParaTyp = "(.|\s)*\S(.|\s)*"
     ThreeDShapingPrintName = "^(Inter3D|Ovali3D|tesse3D|exteDXF|exteSTL)"
@@ -39,6 +40,7 @@ class Regex:
     LinesCharLineForm = "^(r|c)"
     LinesCharLineLabel = LinesCharMatType = "[a-zA-Z0-9_.\-\']{0,15}$"     # 15 characters no whitespace
     LinesCharLoopType = "^(s|p)"
+    LinesBrakesLineType = "^[0-9]*$"
 
 class ValidationValues:
     MaxNumCells = MaxNumRibs = 100

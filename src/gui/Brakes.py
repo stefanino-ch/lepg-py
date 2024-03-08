@@ -21,7 +21,7 @@ from gui.elements.WindowBtnBar import WindowBtnBar
 from gui.elements.WindowHelpBar import WindowHelpBar
 from Singleton.Singleton import Singleton
 
-from gui.GlobalDefinition import ValidationValues
+from gui.GlobalDefinition import Regex, ValidationValues
 
 
 class Brakes(QMdiSubWindow, metaclass=Singleton):
@@ -205,6 +205,10 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
                                   1,
                                   ValidationValues.MaxNumRibs)
 
+        brakes_t.en_reg_exp_validator(BrakeModel.TypeLvl1Col,
+                                      BrakeModel.TypeLvl4Col,
+                                      Regex.LinesBrakesLineType)
+
         brakes_t.set_help_bar(self.helpBar)
         brakes_t.set_help_text(BrakeModel.OrderNumCol, _('OrderNumDesc'))
         brakes_t.set_help_text(BrakeModel.NumBranchesCol, _('Brakes-NumBranchesDesc'))
@@ -223,6 +227,11 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
 
         brakes_t.set_help_text(BrakeModel.AnchorLineCol, _('Brakes-AnchorLineDesc'))
         brakes_t.set_help_text(BrakeModel.AnchorRibNumCol, _('Brakes-AnchorRibNumDesc'))
+
+        brakes_t.set_help_text(BrakeModel.TypeLvl1Col, _('Brakes-TypeDesc'))
+        brakes_t.set_help_text(BrakeModel.TypeLvl2Col, _('Brakes-TypeDesc'))
+        brakes_t.set_help_text(BrakeModel.TypeLvl3Col, _('Brakes-TypeDesc'))
+        brakes_t.set_help_text(BrakeModel.TypeLvl4Col, _('Brakes-TypeDesc'))
 
         center_dist_t = TableView()
         center_dist_t.setModel(self.brakeL_M)

@@ -41,7 +41,15 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
     ''':attr: Number of the col holding the  anchor line (1 = A, 2 = B, 3 = C, 4 = c 5 = D, 6 = brake) value'''
     AnchorRibNumCol = 11
     ''':attr: Number of the col holding the anchor rib number value'''
-    ConfigNumCol = 12
+    TypeLvl1Col = 12
+    ''':attr: Line type numer (from section 34) for level 1'''
+    TypeLvl2Col = 13
+    ''':attr: Line type numer (from section 34) for level 2'''
+    TypeLvl3Col = 14
+    ''':attr: Line type numer (from section 34) for level 3'''
+    TypeLvl4Col = 15
+    ''':attr: Line type numer (from section 34) for level 3'''
+    ConfigNumCol = 16
     ''':attr: num of column for config number'''
 
     def create_table(self):
@@ -64,6 +72,10 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
                    "OrderLvlFour INTEGER,"
                    "AnchorLine INTEGER,"
                    "AnchorRibNum INTEGER,"
+                   "TypeLvl1 TEXT, "
+                   "TypeLvl2 TEXT, "
+                   "TypeLvl3 TEXT, "
+                   "TypeLvl4 TEXT, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
         query.exec("INSERT into Brakes (OrderNum, ConfigNum, ID) Values( '1', '1', '1' );")
@@ -90,9 +102,13 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(9, Qt.Orientation.Horizontal, _("Order lvl 4"))
         self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
         self.setHeaderData(11, Qt.Orientation.Horizontal, _("An. Rib num"))
+        self.setHeaderData(12, Qt.Orientation.Horizontal, _("Type Lvl 1"))
+        self.setHeaderData(13, Qt.Orientation.Horizontal, _("Type Lvl 2"))
+        self.setHeaderData(14, Qt.Orientation.Horizontal, _("Type Lvl 3"))
+        self.setHeaderData(15, Qt.Orientation.Horizontal, _("Type Lvl 4"))
 
     def update_row(self, config_num, order_num, i1, i2, i3, i4, i5, i6,
-                   i7, i8, i9, i10, i11):
+                   i7, i8, i9, i10, i11, t_lvl_1='', t_lvl_2='', t_lvl_3='', t_lvl_4=''):
         """
         :method: Updates a specific row in the database with the values
                  passed. Parameters are not explicitly explained here as
@@ -110,7 +126,11 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
                       "BranchLvlFour= :i8, "
                       "OrderLvlFour= :i9, "
                       "AnchorLine= :i10, "
-                      "AnchorRibNum= :i11 "
+                      "AnchorRibNum= :i11, "
+                      "TypeLvl1= :t_lvl_1, "
+                      "TypeLvl2= :t_lvl_2, "
+                      "TypeLvl3= :t_lvl_3, "
+                      "TypeLvl4= :t_lvl_4 "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
         query.bindValue(":i1", i1)
         query.bindValue(":i2", i2)
@@ -123,6 +143,10 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
         query.bindValue(":i9", i9)
         query.bindValue(":i10", i10)
         query.bindValue(":i11", i11)
+        query.bindValue(":t_lvl_1", t_lvl_1)
+        query.bindValue(":t_lvl_2", t_lvl_2)
+        query.bindValue(":t_lvl_3", t_lvl_3)
+        query.bindValue(":t_lvl_4", t_lvl_4)
         query.bindValue(":config", config_num)
         query.bindValue(":order", order_num)
         query.exec()
@@ -147,7 +171,11 @@ class BrakeModel(SqlTableModel, metaclass=Singleton):
                       "BranchLvlFour, "
                       "OrderLvlFour, "
                       "AnchorLine, "
-                      "AnchorRibNum "
+                      "AnchorRibNum, "
+                      "TypeLvl1, "
+                      "TypeLvl2, "
+                      "TypeLvl3, "
+                      "TypeLvl4 "
                       "FROM Brakes WHERE (ConfigNum = :config) ORDER BY OrderNum")
         query.bindValue(":config", config_num)
         query.exec()

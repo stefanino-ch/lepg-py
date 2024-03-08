@@ -41,7 +41,7 @@ class SpecialParametersModel(SqlTableModel, metaclass=Singleton):
         query.exec("create table if not exists SpecialParameters ("
                    "OrderNum INTEGER, "
                    "Code INTEGER, "
-                   "Value REAL, "
+                   "Value TEXT, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 

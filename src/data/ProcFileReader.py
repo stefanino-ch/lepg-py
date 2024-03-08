@@ -483,6 +483,12 @@ class ProcFileReader(QObject):
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
+
+                # Starting with 3.21 there could be additional parameters
+                # Make sure we have all elements for the update in the list
+                while len(values) < 15:
+                    values.append('')
+
                 self.lines_M.update_row(i + 1, line_it + 1,
                                         values[0],
                                         values[1],
@@ -494,7 +500,11 @@ class ProcFileReader(QObject):
                                         values[7],
                                         values[8],
                                         values[9],
-                                        values[10])
+                                        values[10],
+                                        values[12],
+                                        values[13],
+                                        values[14])
+
 
         ##############################
         # 10. BRAKES
@@ -517,6 +527,10 @@ class ProcFileReader(QObject):
 
         for line_it in range(0, num_config_lines):
             values = split_line(stream.readLine())
+            # Starting with 3.21 there could be additional parameters
+            # Make sure we have all elements for the update in the list
+            while len(values) < 16:
+                values.append('')
             try:
                 self.brakes_M.update_row(1, line_it + 1,
                                          values[0],
@@ -529,7 +543,11 @@ class ProcFileReader(QObject):
                                          values[7],
                                          values[8],
                                          values[9],
-                                         values[10])
+                                         values[10],
+                                         values[12],
+                                         values[13],
+                                         values[14],
+                                         values[15])
             except:
                 self.brakes_M.update_row(1, line_it + 1,
                                          0,
@@ -542,7 +560,8 @@ class ProcFileReader(QObject):
                                          0,
                                          0,
                                          0,
-                                         0)
+                                         0,
+                                         0,0,0,0                                         )
                 logging.error(self.__className
                               + '.read_file: Brake lines data missing')
 

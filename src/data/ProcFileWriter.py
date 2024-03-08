@@ -181,7 +181,7 @@ class ProcFileWriter:
 
         stream << separator
         stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
-        stream << '* Input data file version 3.21\n'
+        stream << '* Input data file version 3.23\n'
         stream << separator
         today = date.today()
         stream << '* Version %s\n' % today.strftime("%Y-%m-%d")
@@ -217,7 +217,7 @@ class ProcFileWriter:
         else:
             stream << '\n'
 
-        stream << '* Paraglider type and parameter.\n'
+        stream << '* Paraglider type and parameter\n'
 
         stream << '\t\"%s\"' % chk_str(
             values.value(WingModel.ParaTypeCol),
@@ -380,12 +380,20 @@ class ProcFileWriter:
             for line_it in range(0, num_lines):
                 values = self.lines_m.get_row(g + 1, line_it + 1)
 
+                # Print the line data
                 for p in range(0, 11):
                     if p > 0:
                         stream << '\t'
-                    stream << '%s' % chk_num(values(p))
-                    if p == 10:
-                        stream << '\n'
+                    stream << '%s' % chk_num(values(p), '')
+
+                # Check if there is also type data
+                if values(11) != '':
+                    stream << '\t-'
+
+                    for p in range(11, 14):
+                        stream << '\t%s' % chk_num(values(p), '')
+
+                stream << '\n'
 
         stream << separator
         stream << '*       10. BRAKES\n'
@@ -399,12 +407,20 @@ class ProcFileWriter:
         for line_it in range(0, num_lines):
             values = self.brakes_m.get_row(1, line_it + 1)
 
+            # Print the line data
             for p in range(0, 11):
                 if p > 0:
                     stream << '\t'
-                stream << '%s' % chk_num(values(p))
-                if p == 10:
-                    stream << '\n'
+                stream << '%s' % chk_num(values(p), '')
+
+            # Check if there is also type data
+            if values(11) != '':
+                stream << '\t-'
+
+                for p in range(11, 15):
+                    stream << '\t%s' % chk_num(values(p), '')
+
+            stream << '\n'
 
         stream << '* Brake distribution\n'
         values = self.brake_length_m.get_row()
@@ -971,7 +987,7 @@ class ProcFileWriter:
             stream << 'V\t%s\tm/s\testimated flow speed\n' % values(4)
             stream << 'Alpha\t%s\tdeg\testimated wing angle of attact at trim speed\n' % values(5)
             stream << 'Cl\t%s\twing lift coefficient\n' % values(6)
-            stream << 'cle\t%s\tlift correction coefficient\n' % values(7)
+            stream << 'Cle\t%s\tlift correction coefficient\n' % values(7)
             stream << 'Cd\t%s\twing drag coefficient\n' % values(8)
             stream << 'cde\t%s\tdrag correction coefficient\n' % values(9)
             stream << 'Cm\t%s\twing moment coefficient\n' % values(10)
@@ -997,7 +1013,7 @@ class ProcFileWriter:
             values = self.xflr_m.get_row(1, 1)
             stream << '%s\tchord nr\n' % values(1)
             stream << '%s\tper cell\n' % values(2)
-            stream << '%s\tcosine distribution along chord\n' % values(3)
+            stream << '%i\tcosine distribution along chord\n' % values(3)
             stream << '%s\tuniform along span\n' % values(4)
 
             stream << '* Include billowed airfoils (more accuracy)\n'

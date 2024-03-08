@@ -130,11 +130,9 @@ class SpecialParameters(QMdiSubWindow, metaclass=Singleton):
                                  1000,
                                  9999)
 
-        table_t.en_double_validator(SpecialParametersModel.value_Col,
+        table_t.en_reg_exp_validator(SpecialParametersModel.value_Col,
                                     SpecialParametersModel.value_Col,
-                                    0,
-                                    9999,
-                                    2)
+                                    Regex.SpecialParametersCode)
 
         table_t.set_help_bar(self.helpBar)
         table_t.set_help_text(SpecialParametersModel.OrderNumCol,

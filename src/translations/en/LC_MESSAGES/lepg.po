@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
-"POT-Creation-Date: 2024-03-07 18:08+0100\n"
-"PO-Revision-Date: 2024-03-07 18:08+0100\n"
+"POT-Creation-Date: 2024-03-08 10:58+0100\n"
+"PO-Revision-Date: 2024-03-08 11:00+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan\n"
 "Language: en\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: userHelp\n"
 
 #: data/PreProcModel.py:195 data/PreProcOutfileReader.py:79
-#: data/ProcModel.py:340 data/ProcModel.py:416
+#: data/ProcModel.py:340 data/ProcModel.py:419
 msgid "File read error"
 msgstr ""
 
@@ -33,18 +33,18 @@ msgid ""
 msgstr ""
 
 #: data/PreProcModel.py:199 data/PreProcOutfileReader.py:83
-#: data/ProcModel.py:344 data/ProcModel.py:420
+#: data/ProcModel.py:344 data/ProcModel.py:423
 msgid ""
 "\n"
 "Title detected: "
 msgstr ""
 
-#: data/PreProcModel.py:218 data/ProcModel.py:440 data/ProcModel.py:483
+#: data/PreProcModel.py:218 data/ProcModel.py:443 data/ProcModel.py:486
 #: gui/MainWindow.py:320 gui/MainWindow.py:346
 msgid "Unsaved data"
 msgstr ""
 
-#: data/PreProcModel.py:219 data/ProcModel.py:441 data/ProcModel.py:484
+#: data/PreProcModel.py:219 data/ProcModel.py:444 data/ProcModel.py:487
 msgid ""
 "You have unsaved data. \n"
 "\n"
@@ -95,21 +95,21 @@ msgid ""
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:417
+#: data/ProcModel.py:420
 msgid ""
 "File seems not to be a valid Processor File!\n"
 "Version detected: "
 msgstr ""
 
-#: data/ProcModel.py:497
+#: data/ProcModel.py:500
 msgid "Open Proc file"
 msgstr "Opens a datafile from local storage"
 
-#: data/ProcModel.py:527
+#: data/ProcModel.py:530
 msgid "Save Processor file"
 msgstr ""
 
-#: data/ProcModel.py:548
+#: data/ProcModel.py:551
 msgid "Save Processor file as"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr "Vert position [% chord]"
 
 #: data/procModel/AirfoilThicknessModel.py:44
 #: data/procModel/ExtradosColConfModel.py:51
-#: data/procModel/IntradosColsConfModel.py:51 data/procModel/LinesModel.py:98
+#: data/procModel/IntradosColsConfModel.py:51 data/procModel/LinesModel.py:106
 msgid "Rib num"
 msgstr ""
 
@@ -343,57 +343,74 @@ msgstr ""
 msgid "d5 [cm]"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:81 data/procModel/HvVhRibsModel.py:93
+#: data/procModel/BrakeModel.py:93 data/procModel/HvVhRibsModel.py:93
 #: data/procModel/JoncsDefModel.py:101
 #: data/procModel/LinesCharacteristicsModel.py:85
-#: data/procModel/LinesModel.py:87 data/procModel/NewSkinTensDetModel.py:59
+#: data/procModel/LinesModel.py:95 data/procModel/NewSkinTensDetModel.py:59
 #: data/procModel/NoseMylarsModel.py:68
 #: data/procModel/PartsSeparationModel.py:89
 msgid "Order num"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:82
+#: data/procModel/BrakeModel.py:94
 msgid "num Branches"
 msgstr "Num branches"
 
-#: data/procModel/BrakeModel.py:83
+#: data/procModel/BrakeModel.py:95
 msgid "Ramif lvl 1"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:84
+#: data/procModel/BrakeModel.py:96
 msgid "Order lvl 1"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:85
+#: data/procModel/BrakeModel.py:97
 msgid "Ramif lvl2"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:86
+#: data/procModel/BrakeModel.py:98
 msgid "Order lvl 2"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:87
+#: data/procModel/BrakeModel.py:99
 msgid "Ramif lvl3"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:88
+#: data/procModel/BrakeModel.py:100
 msgid "Order lvl 3"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:89
+#: data/procModel/BrakeModel.py:101
 msgid "Ramif lvl 4"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:90
+#: data/procModel/BrakeModel.py:102
 msgid "Order lvl 4"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:91 data/procModel/LinesModel.py:97
+#: data/procModel/BrakeModel.py:103 data/procModel/LinesModel.py:105
 msgid "Anchor"
 msgstr ""
 
-#: data/procModel/BrakeModel.py:92
+#: data/procModel/BrakeModel.py:104
 msgid "An. Rib num"
+msgstr ""
+
+#: data/procModel/BrakeModel.py:105 data/procModel/LinesModel.py:107
+#: data/procModel/LinesModel.py:108 data/procModel/LinesModel.py:109
+msgid "Type Lvl 1"
+msgstr ""
+
+#: data/procModel/BrakeModel.py:106
+msgid "Type Lvl 2"
+msgstr ""
+
+#: data/procModel/BrakeModel.py:107
+msgid "Type Lvl 3"
+msgstr ""
+
+#: data/procModel/BrakeModel.py:108
+msgid "Type Lvl 4"
 msgstr ""
 
 #: data/procModel/CalageVarModel.py:65
@@ -732,39 +749,39 @@ msgstr ""
 msgid "CAD Color"
 msgstr ""
 
-#: data/procModel/LinesModel.py:88
+#: data/procModel/LinesModel.py:96
 msgid "Num branches"
 msgstr ""
 
-#: data/procModel/LinesModel.py:89
+#: data/procModel/LinesModel.py:97
 msgid "Ramif 1"
 msgstr ""
 
-#: data/procModel/LinesModel.py:90
+#: data/procModel/LinesModel.py:98
 msgid "Node 1"
 msgstr ""
 
-#: data/procModel/LinesModel.py:91
+#: data/procModel/LinesModel.py:99
 msgid "Ramif 2"
 msgstr ""
 
-#: data/procModel/LinesModel.py:92
+#: data/procModel/LinesModel.py:100
 msgid "Node 2"
 msgstr ""
 
-#: data/procModel/LinesModel.py:93
+#: data/procModel/LinesModel.py:101
 msgid "Ramif 3"
 msgstr ""
 
-#: data/procModel/LinesModel.py:94
+#: data/procModel/LinesModel.py:102
 msgid "Node 3"
 msgstr ""
 
-#: data/procModel/LinesModel.py:95
+#: data/procModel/LinesModel.py:103
 msgid "Ramif 4"
 msgstr ""
 
-#: data/procModel/LinesModel.py:96
+#: data/procModel/LinesModel.py:104
 msgid "Node 4"
 msgstr ""
 
@@ -1097,10 +1114,10 @@ msgstr ""
 msgid "Number of configs"
 msgstr ""
 
-#: gui/AddRibPoints.py:142 gui/Brakes.py:209 gui/ExtradColors.py:284
+#: gui/AddRibPoints.py:142 gui/Brakes.py:213 gui/ExtradColors.py:284
 #: gui/HvVhRibs.py:189 gui/IntradColors.py:280 gui/JoncsDefinition.py:333
-#: gui/Lines.py:336 gui/LinesCharacteristics.py:179 gui/NoseMylars.py:135
-#: gui/RibHoles.py:300 gui/SpecialParameters.py:141
+#: gui/Lines.py:341 gui/LinesCharacteristics.py:179 gui/NoseMylars.py:135
+#: gui/RibHoles.py:300 gui/SpecialParameters.py:139
 msgid "OrderNumDesc"
 msgstr ""
 "Number which will be used to order the lines\n"
@@ -1114,10 +1131,10 @@ msgstr "Hor distance from LE in [% chord]"
 msgid "AddRibPts-YCoordDesc"
 msgstr "Ver distance from LE in [% chord]"
 
-#: gui/AddRibPoints.py:148 gui/Brakes.py:278 gui/ExtradColors.py:126
+#: gui/AddRibPoints.py:148 gui/Brakes.py:287 gui/ExtradColors.py:126
 #: gui/HvVhRibs.py:213 gui/IntradColors.py:125 gui/JoncsDefinition.py:127
-#: gui/Lines.py:151 gui/LinesCharacteristics.py:203 gui/NewSkinTension.py:120
-#: gui/NoseMylars.py:153 gui/SpecialParameters.py:147
+#: gui/Lines.py:152 gui/LinesCharacteristics.py:203 gui/NewSkinTension.py:120
+#: gui/NoseMylars.py:153 gui/SpecialParameters.py:145
 msgid "Sort by order_num"
 msgstr ""
 
@@ -1329,61 +1346,61 @@ msgstr ""
 msgid "Number of Brake paths"
 msgstr ""
 
-#: gui/Brakes.py:210
+#: gui/Brakes.py:214
 msgid "Brakes-NumBranchesDesc"
 msgstr ""
 "Number of branches defined on \n"
 "this line"
 
-#: gui/Brakes.py:212
+#: gui/Brakes.py:216
 msgid "Brakes-BranchLvlOneDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:213
+#: gui/Brakes.py:217
 msgid "Brakes-OrderLvlOneDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:215
+#: gui/Brakes.py:219
 msgid "Brakes-LevelOfRamTwoDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:216
+#: gui/Brakes.py:220
 msgid "Brakes-OrderLvlTwoDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:218
+#: gui/Brakes.py:222
 msgid "Brakes-LevelOfRamThreeDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:219
+#: gui/Brakes.py:223
 msgid "Brakes-OrderLvlThreeDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:221
+#: gui/Brakes.py:225
 msgid "Brakes-BranchLvlFourDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Brakes.py:222
+#: gui/Brakes.py:226
 msgid "Brakes-OrderLvlFourDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Brakes.py:224
+#: gui/Brakes.py:228
 msgid "Brakes-AnchorLineDesc"
 msgstr ""
 "Number of the anchor\n"
@@ -1391,65 +1408,71 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: gui/Brakes.py:225
+#: gui/Brakes.py:229
 msgid "Brakes-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
 
-#: gui/Brakes.py:246
+#: gui/Brakes.py:231 gui/Brakes.py:232 gui/Brakes.py:233 gui/Brakes.py:234
+msgid "Brakes-TypeDesc"
+msgstr ""
+"Line type number defined in\n"
+"\"Lines characteristics\""
+
+#: gui/Brakes.py:255
 msgid "Brakes-s1Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:247
+#: gui/Brakes.py:256
 msgid "Brakes-s2Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:248
+#: gui/Brakes.py:257
 msgid "Brakes-s3Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:249
+#: gui/Brakes.py:258
 msgid "Brakes-s4Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:250
+#: gui/Brakes.py:259
 msgid "Brakes-s5Desc"
 msgstr ""
 "Lengths along vault from \n"
 "wing center in [% valult]"
 
-#: gui/Brakes.py:272
+#: gui/Brakes.py:281
 msgid "Brakes-d1Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:273
+#: gui/Brakes.py:282
 msgid "Brakes-d2Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:274
+#: gui/Brakes.py:283
 msgid "Brakes-d3Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:275
+#: gui/Brakes.py:284
 msgid "Brakes-d4Desc"
 msgstr ""
 "Lengths increment to \n"
 "brake line in [cm]"
 
-#: gui/Brakes.py:276
+#: gui/Brakes.py:285
 msgid "Brakes-d5Desc"
 msgstr ""
 "Lengths increment to \n"
@@ -2104,7 +2127,7 @@ msgstr ""
 msgid "Lines control parameter"
 msgstr ""
 
-#: gui/Lines.py:112
+#: gui/Lines.py:113
 msgid "Lines-LinesControlParamDesc"
 msgstr ""
 "Lower branches lined\n"
@@ -2113,69 +2136,69 @@ msgstr ""
 "2 = by weighting type 2\n"
 "3 = by weighting type 3 (span and chord optimization)"
 
-#: gui/Lines.py:122
+#: gui/Lines.py:123
 msgid "Number of Line plans"
 msgstr "Number of line plans"
 
-#: gui/Lines.py:242
+#: gui/Lines.py:243
 msgid "Number of Line paths"
 msgstr ""
 
-#: gui/Lines.py:339
+#: gui/Lines.py:344
 msgid "Lines-NumBranchesDesc"
 msgstr ""
 "Number of branches defined on \n"
 "this line"
 
-#: gui/Lines.py:342
+#: gui/Lines.py:347
 msgid "Lines-BranchLvlOneDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:345
+#: gui/Lines.py:350
 msgid "Lines-OrderLvlOneDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:348
+#: gui/Lines.py:353
 msgid "Lines-LevelOfRamTwoDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:351
+#: gui/Lines.py:356
 msgid "Lines-OrderLvlTwoDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:354
+#: gui/Lines.py:359
 msgid "Lines-LevelOfRamThreeDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:357
+#: gui/Lines.py:362
 msgid "Lines-OrderLvlThreeDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:360
+#: gui/Lines.py:365
 msgid "Lines-BranchLvlFourDesc"
 msgstr ""
 "Number of the branch level\n"
 "for this part of the path"
 
-#: gui/Lines.py:363
+#: gui/Lines.py:368
 msgid "Lines-OrderLvlFourDesc"
 msgstr ""
 "Number of the end node \n"
 "for this part of the path"
 
-#: gui/Lines.py:366
+#: gui/Lines.py:371
 msgid "Lines-AnchorLineDesc"
 msgstr ""
 "Number of the anchor\n"
@@ -2183,9 +2206,15 @@ msgstr ""
 "B= 2\n"
 "..."
 
-#: gui/Lines.py:369
+#: gui/Lines.py:374
 msgid "Lines-AnchorRibNumDesc"
 msgstr "Number of the rib to connect to"
+
+#: gui/Lines.py:377 gui/Lines.py:380 gui/Lines.py:383
+msgid "Lines-TypeDesc"
+msgstr ""
+"Line type number defined in\n"
+"\"Lines characteristics\""
 
 #: gui/LinesCharacteristics.py:86 gui/MainWindow.py:535
 msgid "Lines characteristics"
@@ -3553,11 +3582,11 @@ msgstr ""
 msgid "Special parameters"
 msgstr ""
 
-#: gui/SpecialParameters.py:143
+#: gui/SpecialParameters.py:141
 msgid "SpecialParameters-Code"
 msgstr "Parameter code"
 
-#: gui/SpecialParameters.py:145
+#: gui/SpecialParameters.py:143
 msgid "SpecialParameters-Value"
 msgstr "Parameter value"
 
@@ -3725,11 +3754,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Position of the wing center of \n"
 #~ "pressure estimated"
-
-#~ msgid "NewSkinTens-TypeDesc"
-#~ msgstr ""
-#~ "Calculation type\n"
-#~ "The only allowed value is currently 1"
 
 #~ msgid "AddRibPts-YCorodDesc"
 #~ msgstr "Vert positon in [% chord]"

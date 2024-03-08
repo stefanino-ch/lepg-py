@@ -397,6 +397,9 @@ class ProcModel(QObject, metaclass=Singleton):
             elif line.find('3.21') >= 0:
                 self.set_file_version('3.21')
                 version_ok = True
+            elif line.find('3.23') >= 0:
+                self.set_file_version('3.23')
+                version_ok = True
 
             if line.find('Input data file') >= 0:
                 title_ok = True
@@ -421,7 +424,7 @@ class ProcModel(QObject, metaclass=Singleton):
                             + str(title_ok))
             # TODO check if translation works if line is changed to correct length.
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
 
             self.set_file_name('')

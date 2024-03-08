@@ -17,7 +17,7 @@ from data.procModel.WingModel import WingModel
 from data.ProcModel import ProcModel
 from Singleton.Singleton import Singleton
 
-from gui.GlobalDefinition import ValidationValues
+from gui.GlobalDefinition import Regex, ValidationValues
 
 
 class Lines(QMdiSubWindow, metaclass=Singleton):
@@ -106,6 +106,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         self.control_e.setFixedWidth(40)
         self.wrapper.addMapping(self.control_e,
                                 WingModel.LinesConcTypeCol)
+
         self.control_e.en_int_validator(ValidationValues.Proc.LinesControlParamMin,
                                         ValidationValues.Proc.LinesControlParamMax)
 
@@ -330,6 +331,10 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
                                       1,
                                       ValidationValues.MaxNumRibs)
 
+        branch_table.en_reg_exp_validator(LinesModel.TypeLvl1Col,
+                                          LinesModel.TypeLvl3Col,
+                                          Regex.LinesBrakesLineType)
+
         branch_table.set_help_bar(self.helpBar)
         branch_table.set_help_text(
                         LinesModel.OrderNumCol,
@@ -367,6 +372,16 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
         branch_table.set_help_text(
                         LinesModel.AnchorRibNumCol,
                         _('Lines-AnchorRibNumDesc'))
+        branch_table.set_help_text(
+                        LinesModel.TypeLvl1Col,
+                        _('Lines-TypeDesc'))
+        branch_table.set_help_text(
+                        LinesModel.TypeLvl2Col,
+                        _('Lines-TypeDesc'))
+        branch_table.set_help_text(
+                        LinesModel.TypeLvl3Col,
+                        _('Lines-TypeDesc'))
+
 
         tab_widget.setLayout(tab_layout)
 
