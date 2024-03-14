@@ -390,7 +390,7 @@ class ProcFileWriter:
                 if values(11) != '':
                     stream << '\t-'
 
-                    for p in range(11, 14):
+                    for p in range(11, 15):
                         stream << '\t%s' % chk_num(values(p), '')
 
                 stream << '\n'

@@ -53,7 +53,9 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
     ''':attr: Line type numer (from section 34) for level 2'''
     TypeLvl3Col = 14
     ''':attr: Line type numer (from section 34) for level 3'''
-    ConfigNumCol = 15
+    TypeLvl4Col = 15
+    ''':attr: Line type numer (from section 34) for level 3'''
+    ConfigNumCol = 16
     ''':attr: num of column for config number'''
 
     def create_table(self):
@@ -79,6 +81,7 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                    "TypeLvl1 TEXT, "
                    "TypeLvl2 TEXT, "
                    "TypeLvl3 TEXT, "
+                   "TypeLvl4 TEXT, "
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
@@ -105,11 +108,12 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
         self.setHeaderData(10, Qt.Orientation.Horizontal, _("Anchor"))
         self.setHeaderData(11, Qt.Orientation.Horizontal, _("Rib num"))
         self.setHeaderData(12, Qt.Orientation.Horizontal, _("Type Lvl 1"))
-        self.setHeaderData(13, Qt.Orientation.Horizontal, _("Type Lvl 1"))
-        self.setHeaderData(14, Qt.Orientation.Horizontal, _("Type Lvl 1"))
+        self.setHeaderData(13, Qt.Orientation.Horizontal, _("Type Lvl 2"))
+        self.setHeaderData(14, Qt.Orientation.Horizontal, _("Type Lvl 3"))
+        self.setHeaderData(15, Qt.Orientation.Horizontal, _("Type Lvl 4"))
 
     def update_row(self, config_num, order_num, i1, i2, i3, i4, i5, i6,
-                   i7, i8, i9, i10, i11, t_lvl_1='', t_lvl_2='', t_lvl_3=''):
+                   i7, i8, i9, i10, i11, t_lvl_1='', t_lvl_2='', t_lvl_3='', t_lvl_4=''):
         """
         :method: Updates a specific row in the database with the values
                  passed. Parameters are not explicitly explained here
@@ -130,7 +134,8 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                       "AnchorRibNum= :i11, "
                       "TypeLvl1= :t_lvl_1, "
                       "TypeLvl2= :t_lvl_2, "
-                      "TypeLvl3= :t_lvl_3 "
+                      "TypeLvl3= :t_lvl_3, "
+                      "TypeLvl4= :t_lvl_4 "
                       "WHERE (ConfigNum = :config AND OrderNum = :order);")
         query.bindValue(":i1", i1)
         query.bindValue(":i2", i2)
@@ -146,6 +151,7 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
         query.bindValue(":t_lvl_1", t_lvl_1)
         query.bindValue(":t_lvl_2", t_lvl_2)
         query.bindValue(":t_lvl_3", t_lvl_3)
+        query.bindValue(":t_lvl_4", t_lvl_4)
         query.bindValue(":config", config_num)
         query.bindValue(":order", order_num)
         query.exec()
@@ -200,7 +206,8 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
                       "AnchorRibNum, "
                       "TypeLvl1, "
                       "TypeLvl2, "
-                      "TypeLvl3 "
+                      "TypeLvl3, "
+                      "TypeLvl4 "
                       "FROM Lines WHERE (ConfigNum = :config) "
                       "ORDER BY OrderNum")
         query.bindValue(":config", config_num)

@@ -486,7 +486,7 @@ class ProcFileReader(QObject):
 
                 # Starting with 3.21 there could be additional parameters
                 # Make sure we have all elements for the update in the list
-                while len(values) < 15:
+                while len(values) < 16:
                     values.append('')
 
                 self.lines_M.update_row(i + 1, line_it + 1,
@@ -503,7 +503,8 @@ class ProcFileReader(QObject):
                                         values[10],
                                         values[12],
                                         values[13],
-                                        values[14])
+                                        values[14],
+                                        values[15])
 
 
         ##############################

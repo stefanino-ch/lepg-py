@@ -104,6 +104,14 @@ need to specify
 **Code 1353**, set 0 to output the standard report in section 17 of lep-out.txt, or set to 1 or 2 for more
 detailed output used for studies and calibrating methods. Default is 0. Most verbose mode is 2.
 
+**Code 2003**
+If this code and angle is indicated, this is the assiette taken into account to calculate chi and phi, bypassing the
+program's internal calculation for tetha.
+
+Example for an angle of -1º:
+
+2003     -1.0
+
 
 A more detailed description you can find here |pere_link|.
 

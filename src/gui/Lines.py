@@ -332,7 +332,7 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
                                       ValidationValues.MaxNumRibs)
 
         branch_table.en_reg_exp_validator(LinesModel.TypeLvl1Col,
-                                          LinesModel.TypeLvl3Col,
+                                          LinesModel.TypeLvl4Col,
                                           Regex.LinesBrakesLineType)
 
         branch_table.set_help_bar(self.helpBar)
@@ -380,6 +380,9 @@ class Lines(QMdiSubWindow, metaclass=Singleton):
                         _('Lines-TypeDesc'))
         branch_table.set_help_text(
                         LinesModel.TypeLvl3Col,
+                        _('Lines-TypeDesc'))
+        branch_table.set_help_text(
+                        LinesModel.TypeLvl4Col,
                         _('Lines-TypeDesc'))
 
 

@@ -112,6 +112,14 @@ Setzen Sie den Wert 0, um den Standardbericht in Abschnitt 17 von lep-out.txt au
 oder 2 für detailliertere Ausgabe, die für Studien und Kalibrierungsmethoden verwendet wird. Die Voreinstellung ist 0.
 Der ausführlichste Modus ist 2.
 
+**Code 2003**
+Wenn dieser Code und der Winkel angegeben werden, ist dies die Assiette, die bei der Berechnung von chi und phi
+berücksichtigt wird, wobei die die programminterne Berechnung von Tetha übergangen wird.
+
+Beispiel für einen Winkel von -1º:
+
+2003     -1.0
+
 
 Eine detaillierte Beschreibung in englisch findest Du auf der |pere_link|.
 

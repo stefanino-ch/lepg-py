@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lepg-py\n"
 "POT-Creation-Date: 2024-03-08 11:01+0100\n"
-"PO-Revision-Date: 2024-03-08 11:10+0100\n"
+"PO-Revision-Date: 2024-03-14 19:14+0100\n"
 "Last-Translator: Stefan Feuz\n"
 "Language-Team: Stefan Feuz\n"
 "Language: de\n"
@@ -2684,10 +2684,8 @@ msgid "run_Processor_des"
 msgstr "Den Prozessor ausführen um die definitive Dokumentation zu erzeugen"
 
 #: gui/MainWindow.py:629
-#, fuzzy
-#| msgid "Line Name"
 msgid "Lines/ Brakes"
-msgstr "Linienname"
+msgstr "Leinen/ Bremsleinen"
 
 #: gui/MainWindow.py:639
 msgid "Colors"

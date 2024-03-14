@@ -66,6 +66,8 @@ Typ (Form) der Öffnung.
 
 **"3"** Dreieck
 
+**"4"** Rechteck
+
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole1_p.jpg
 
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole2_p.jpg
@@ -99,6 +101,8 @@ Für Typ **"1"** keine Bedeutung, sethe diesen Wert auf 0
 Für Typ **"2"** die Breite des Steges in [cm]
 
 Für Typ **"3"** der Eckenradius in [cm]
+
+Für Typ **"4"** der Eckenradius in [%]
 
 Sortieren
 ---------
