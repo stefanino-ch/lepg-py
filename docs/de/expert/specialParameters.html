@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spezielle Parameter &#8212; lepg 3.23.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Flügel Kontur" href="../view/wing_outline.html" />
+    <link rel="prev" title="Datei für XFLR5-Analyse erstellen" href="xflr.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../view/wing_outline.html" title="Flügel Kontur"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="xflr.html" title="Datei für XFLR5-Analyse erstellen"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Spezielle Parameter</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="xflr.html"
+                          title="previous chapter">Datei für XFLR5-Analyse erstellen</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../view/wing_outline.html"
+                          title="next chapter">Flügel Kontur</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="spezielle-parameter">
+<span id="specialparameters-de"></span><h1>Spezielle Parameter<a class="headerlink" href="#spezielle-parameter" title="Permalink to this heading">¶</a></h1>
+<p>Dieser Abschnitt ist ein “Platzhalter”, um spezielle Parameter hinzuzufügen, die Dinge aus vorherigen oder zukünftigen
+Datenabschnitten steuern.
+Datenabschnitte… Es ist ein unorthodoxer und etwas “gefährlicher” Abschnitt, weil jeder Parameter oder
+Änderung von vorherigen oder zukünftigen Parametern hinzugefügt werden kann. (!).</p>
+<p>Jede Zeile beginnt mit einem Kontrollcode, einer ganzen Zahl, die eine zu spezifizierende Bedeutung hat. Und dann,
+in derselben Zeile ein oder mehrere Parameter (ganze Zahlen, reelle Zahlen oder Zeichen), die mit dem Gegenstand des
+Kontrollcodes.</p>
+<a class="reference internal image-reference" href="../../_images/specialParameters-de.png"><img alt="../../_images/specialParameters-de.png" src="../../_images/specialParameters-de.png" style="width: 485px; height: 327px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">37.</span> <span class="n">SOME</span> <span class="n">SPECIAL</span> <span class="n">PARAMETERS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">6</span>
+<span class="mi">1291</span>   <span class="mi">8</span>    <span class="n">nsegments</span> <span class="ow">in</span> <span class="n">transverse</span> <span class="n">direction</span> <span class="p">(</span><span class="n">stl</span> <span class="n">surfaces</span><span class="p">)</span>
+<span class="mi">1341</span>    <span class="mi">0</span>    <span class="n">use</span> <span class="n">CAD</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">each</span> <span class="n">line</span> <span class="nb">type</span> <span class="n">according</span> <span class="n">table</span> <span class="mi">34</span>
+<span class="mi">1146</span>   <span class="mf">36.</span>  <span class="n">gravity</span> <span class="n">center</span> <span class="ow">in</span> <span class="o">%</span> <span class="n">of</span> <span class="n">a</span> <span class="n">typical</span> <span class="n">section</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">36</span><span class="o">%</span><span class="p">)</span>
+<span class="mi">1351</span>   <span class="mi">1</span>    <span class="n">Solve</span> <span class="n">method</span> <span class="p">(</span><span class="mi">1</span> <span class="ow">or</span> <span class="mi">6</span><span class="p">)</span>
+<span class="mi">1352</span>   <span class="mi">2</span>    <span class="n">Use</span> <span class="n">flat</span> <span class="n">area</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">projected</span> <span class="n">area</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="mi">1353</span>    <span class="mi">2</span>    <span class="n">Print</span> <span class="n">normal</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">advanced</span> <span class="n">detailed</span> <span class="n">output</span> <span class="p">(</span><span class="mi">1</span><span class="p">),(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Die in 2022-09-18 verfügbaren Codes sind:</p>
+<p><strong>Code 1146</strong>
+Definition eines geschätzter Massenschwerpunkt in % eines typischen Abschnitts (0% Vorderkante, 100% Hinterkante).
+Wird nur zur Berechnung des geschätzten Massenschwerpunkts des Flügels verwendet.
+Der Standardwert ist 36%.</p>
+<p><strong>Code 1291</strong>
+Anzahl der transversalen Segmente, die für die STL-Flächen zu verwenden sind (siehe Abschnitt 29)</p>
+<p><strong>Code 1341</strong>
+Wenn auf den Code eine “1” folgt, werden die Linien entsprechend den Farben nach Typ gezeichnet
+die in Abschnitt 34 definiert sind. Wenn es sich um eine “0” handelt, werden die Farben gemäß den normalen Leinenfarben
+gezeichnet, in Übereinstimmung mit den Abschnitten 24 und 25. Wenn der Code 1341 nicht vorhanden ist, werden die
+Farben durch die Abschnitte 24 und 25 definiert.</p>
+<p><strong>Code 1351</strong>
+Die Methode zur Lösung von Gleichgewichtsgleichungen einstellen. Derzeit sind sechs verschiedene Methoden
+möglich.</p>
+<p><strong>Methode 1</strong>: Der Auftrieb und der Widerstand werden mit einem Koeffizienten K multipliziert, um ihren Wert zu
+homogenisieren. Das System von vertikalen (I) und horizontalen (II) Gleichgewichtsgleichungen wird numerisch gelöst
+für die Unbekannten K und Gamma (Gleitwinkel) und für alle anderen Parameter, die Daten sind, numerisch gelöst.
+Ein kontinuierlicher Bereich von Gamma-Werten wird Wenn die K1-Werte in der vertikalen Gleichung mit dem K2-Wert in
+der horizontalen Gleichung übereinstimmen, gilt das System als gelöst. Durch Hinzufügen eines zusätzlichen
+Widerstandskoeffizienten zur Datendatei Cde=1,1 bis 1,4 sind die Ergebnisse recht realistisch. Mit diesem zusätzlichen
+Widerstandsbeiwert wird versucht, die Geometrie darzustellen zu repräsentieren, die in der aerodynamischen Berechnung
+nicht modelliert wurde (wahrscheinlich Wellen und Einlässe).</p>
+<p><strong>Methode 2</strong>: In den Bilanzgleichungen wird ein Extra-Widerstand des Flügels berücksichtigt: Die beiden zu lösenden
+Unbekannten sind gamma und Dragextra. Mit einer numerischen Methode, die dem vorherigen Fall ähnelt, untersuchen wir
+einen Bereich von gamma, bis die Dragextra-Werte in den beiden Gleichungen übereinstimmen. Bei einigen Anfangswerten
+von Lift und Luftwiderstand konvergiert das System nicht, eine Warnmeldung wird in der Ausgabedatei angezeigt, und dann
+sind allgemeine Anpassungen der Skalierung des Pilotengewichts oder der Flügelfläche erforderlich.</p>
+<p><strong>Methode 3</strong>: Kombination der beiden vorangegangenen, zunächst wird ein Koeffizient K vorläufig berechnet, um
+den Auftrieb und den Luftwiderstand zu homogenisieren, und dann wird das System der beiden Gleichungen (V,H) durch
+Gamma-Winkel und zusätzlichen Widerstand. Diese Methode liefert recht gute Ergebnisse.</p>
+<p><strong>Methode 4</strong>: Löst den Gleitwinkel Gamma direkt mit einem analytischen Ausdruck (horizontales Gleichgewicht).
+Verwenden Sie Code 1352 auf 2 gesetzt, wenn Methode 4 verwendet wird. Die Fluggeschwindigkeit ergibt sich aus der
+Auftriebsgleichung (wie bei den vorherigen Methoden).</p>
+<p><strong>Methode 5</strong>: Löst den Gleitwinkel-Gamma direkt mit Hilfe eines analytischen Ausdrucks (horizontales Gleichgewicht), wie
+in Methode 4. Dann wird die Fluggeschwindigkeit numerisch aus der vertikalen Gleichgewichtsgleichung gelöst. Dann
+werden erneut Gamma, Auftrieb, Widerstand und andere Werte berechnet.</p>
+<p><strong>Methode 6</strong>: Dies ist eine vollständig analytische Methode. Die Gleitwinkelberechnung gamma basiert auf der
+horizontalen Bilanzgleichung. Gamma wird aus Anfangswerten (und Ergebnissen von Zwischenberechnungen)
+Berechnungen) und ist unabhängig von der Fluggeschwindigkeit. Die Fluggeschwindigkeit wird ebenfalls analytisch aus der
+Gleichung für das vertikale Gleichgewicht. Nach der Berechnung der Fluggeschwindigkeit werden die Werte für Auftrieb
+und Widerstand erneut berechnet und in die Gleichung für das Momentengleichgewicht eingesetzt, um die ideale Trimmung
+zu erhalten. Auch andere Werte werden in einfacher Form abgeleitet. So wird das System auf sehr elegante Weise
+vollständig aufgelöst. Die Calage-Berechnung wird nur mit der Momentenbilanzgleichung (III) durchgeführt, sobald die
+Gamma (Gleit-) und Theta (Assiette)-Winkel bekannt sind, und ist für alle Methoden gleich.</p>
+<p>Die Genauigkeit der Methoden und ihre Anwendbarkeit werden derzeit noch untersucht. Es wird empfohlen, nur
+nur Methode 1 oder Methode 6 zu verwenden. Die Ergebnisse sind praktisch identisch. Die Ergebnisse der Methoden 1 und
+6 sind stimmen mit den experimentellen Ergebnissen überein, die mit Hegala- und Tuluaq-Gleitschirmen erzielt wurden.
+Der Parameter “cle” (zusätzlicher Auftriebskoeffizient) wird normalerweise auf 1,0 gesetzt. Der Parameter “cde”
+(zusätzlicher Luftwiderstandsbeiwert) hat eine Bedeutung für das Endergebnis. Er stellt den Widerstand dar, den das
+verwendete numerische Modell (XFLR5 oder CFD) nicht bestimmen konnte. Für praktische Zwecke ist es notwendig,
+“cde”-Werte zu verwenden, die auf früheren Gleitschirmkonstruktionen zu verwenden, oder einfach cde so lange
+anzupassen, bis die Gleitzahl den Erwartungen entspricht… Dies liefert einen Wert, der der Realität nahe kommt.
+Wenn der Code 1351 nicht angegeben wird, wird standardmäßig die Methode 1 verwendet. Die Methoden 2 bis 5 werden noch
+geprüft, bitte nicht verwenden</p>
+<p><strong>Code 1352</strong>
+Setzen Sie 1, um die flache Fläche zu verwenden, oder 2, um die projizierte Fläche in der Berechnung von Auftrieb,
+Widerstand und Geschwindigkeit zu verwenden. Aufgrund der der internen Anpassungen hat dieser Aspekt fast keinen
+Einfluss auf die Ergebnisse. Standardmäßig ist der Wert 2 verwendet, wenn Sie Methode 4 in Code 1352 verwenden.
+Dies ist ein Code, den der normale Benutzer nicht angeben muss.</p>
+<p><strong>Code 1353</strong>
+Setzen Sie den Wert 0, um den Standardbericht in Abschnitt 17 von lep-out.txt auszugeben, oder setzen Sie den Wert 1
+oder 2 für detailliertere Ausgabe, die für Studien und Kalibrierungsmethoden verwendet wird. Die Voreinstellung ist 0.
+Der ausführlichste Modus ist 2.</p>
+<p><strong>Code 2003</strong>
+Wenn dieser Code und der Winkel angegeben werden, ist dies die Assiette, die bei der Berechnung von chi und phi
+berücksichtigt wird, wobei die die programminterne Berechnung von Tetha übergangen wird.</p>
+<p>Beispiel für einen Winkel von -1º:</p>
+<p>2003     -1.0</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../view/wing_outline.html" title="Flügel Kontur"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="xflr.html" title="Datei für XFLR5-Analyse erstellen"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Spezielle Parameter</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

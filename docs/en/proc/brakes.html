@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Brakes &#8212; lepg 3.17.x documentation</title>
+    <title>Brakes &#8212; lepg 3.23.x documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Ramification" href="ramification.html" />
-    <link rel="prev" title="Lines" href="lines.html" />
+    <link rel="prev" title="Lines characteristics" href="lineCharacteristics.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
  
@@ -78,7 +78,7 @@
           <a href="ramification.html" title="Ramification"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="lines.html" title="Lines"
+          <a href="lineCharacteristics.html" title="Lines characteristics"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
@@ -99,6 +99,7 @@
 <li><a class="reference internal" href="#d-1-2-3-4-5">d 1, 2, 3, 4, 5</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#line-types">Line types</a></li>
 <li><a class="reference internal" href="#sort-by-order-num">Sort by Order Num</a></li>
 </ul>
 </li>
@@ -107,8 +108,8 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="lines.html"
-                          title="previous chapter">Lines</a></p>
+    <p class="topless"><a href="lineCharacteristics.html"
+                          title="previous chapter">Lines characteristics</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -138,28 +139,24 @@
 <section id="brakes">
 <h1>Brakes<a class="headerlink" href="#brakes" title="Permalink to this heading">¶</a></h1>
 <p>In the <em>Brakes</em> window you can define the parameters from the 10 th section of the lep file, the line paths for the brake lines.</p>
-<a class="reference internal image-reference" href="../../_images/brakes-en.png"><img alt="../../_images/brakes-en.png" src="../../_images/brakes-en.png" style="width: 736px; height: 340px;" /></a>
+<a class="reference internal image-reference" href="../../_images/brakes-en.png"><img alt="../../_images/brakes-en.png" src="../../_images/brakes-en.png" style="width: 838px; height: 395px;" /></a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
 <span class="o">*</span>       <span class="mf">10.</span> <span class="n">BRAKES</span>
 <span class="o">***************************************************</span>
 <span class="mi">270</span>
-<span class="mi">12</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">1</span>  <span class="mi">6</span> <span class="mi">2</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">2</span>  <span class="mi">6</span> <span class="mi">3</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">3</span>  <span class="mi">6</span> <span class="mi">4</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">4</span>  <span class="mi">6</span> <span class="mi">5</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>  <span class="mi">6</span> <span class="mi">6</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">6</span>  <span class="mi">6</span> <span class="mi">7</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">7</span>  <span class="mi">6</span> <span class="mi">8</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">4</span> <span class="mi">8</span>  <span class="mi">6</span> <span class="mi">9</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">9</span>  <span class="mi">6</span> <span class="mi">10</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">10</span> <span class="mi">6</span> <span class="mi">11</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">11</span> <span class="mi">6</span> <span class="mi">12</span>
-<span class="mi">4</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">12</span> <span class="mi">6</span> <span class="mi">13</span>
+<span class="mi">8</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">1</span>     <span class="mi">4</span> <span class="mi">1</span>     <span class="mi">6</span> <span class="mi">2</span>     <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">1</span>     <span class="mi">4</span> <span class="mi">2</span>     <span class="mi">6</span> <span class="mi">4</span>     <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">2</span>     <span class="mi">4</span> <span class="mi">3</span>     <span class="mi">6</span> <span class="mi">6</span>     <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">2</span>     <span class="mi">4</span> <span class="mi">4</span>     <span class="mi">6</span> <span class="mi">8</span>     <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">3</span>     <span class="mi">4</span> <span class="mi">5</span>     <span class="mi">6</span> <span class="mi">10</span>    <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">3</span>     <span class="mi">4</span> <span class="mi">6</span>     <span class="mi">6</span> <span class="mi">12</span>    <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">4</span>     <span class="mi">4</span> <span class="mi">7</span>     <span class="mi">6</span> <span class="mi">14</span>    <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
+<span class="mi">4</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">4</span>     <span class="mi">4</span> <span class="mi">8</span>     <span class="mi">6</span> <span class="mi">16</span>    <span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>
 <span class="o">*</span> <span class="n">Brake</span> <span class="n">distribution</span>
-<span class="mi">0</span>   <span class="mi">25</span>   <span class="mi">55</span>   <span class="mi">70</span>   <span class="mi">100</span>
-<span class="mi">0</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>
+<span class="mi">0</span>      <span class="mi">25</span>      <span class="mi">55</span>      <span class="mi">70</span>      <span class="mi">100</span>
+<span class="mi">0</span>      <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">0</span>       <span class="mi">0</span>
 </pre></div>
 </div>
 <p>Basically the definition of the line plan for the brake lines does follow the same scheme as the lines itself.</p>
@@ -185,6 +182,18 @@ To do so add a decimal to the rib number.</p>
 <p>Lengths increments in brake line.</p>
 </section>
 </section>
+<section id="line-types">
+<h2>Line types<a class="headerlink" href="#line-types" title="Permalink to this heading">¶</a></h2>
+<p>Since V3.23 the individual line characteristics can be defined. This is done in the <strong>Lines characteristics</strong> window.
+The type number defined there can afterwards be assigne to the indiviual line defined here.</p>
+<p>If in the window <strong>Edit Lines</strong> no type assignment will be made, a default assignement in the background will be
+done:</p>
+<ul class="simple">
+<li><p>Lvl 1-&gt; Typ 1</p></li>
+<li><p>Lvl 2-&gt; Typ 2</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
 <section id="sort-by-order-num">
 <h2>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this heading">¶</a></h2>
 <p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
@@ -209,7 +218,7 @@ To do so add a decimal to the rib number.</p>
           <a href="ramification.html" title="Ramification"
              >next</a> |</li>
         <li class="right" >
-          <a href="lines.html" title="Lines"
+          <a href="lineCharacteristics.html" title="Lines characteristics"
              >previous</a> |</li>
         <li><a href="../../index.html">Home</a>&#160;|</li>
         <li><a href="../../contents.html">Documentation</a> &#187;</li>
@@ -219,7 +228,7 @@ To do so add a decimal to the rib number.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2022, Stefan Feuz.
+        &#169; Copyright 2024, Stefan Feuz.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
     </div>
   </body>

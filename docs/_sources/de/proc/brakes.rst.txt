@@ -8,31 +8,27 @@ Bremsleinen
 Im Fenster *Bremsleinen* können die Parameter aus dem 10. Abschnitt der lep Datei bearbeitet werden, die Bremsleinen.
 
 .. image:: /images/proc/brakes-de.png
-   :width: 736
-   :height: 340
+   :width: 838
+   :height: 395
    
 Rohdaten::
 
-	***************************************************
-	*       10. BRAKES
-	***************************************************
-	270
-	12
-	4	1 1 2 1 3 1 4 1  6 2
-	4	1 1 2 1 3 1 4 2  6 3
-	4	1 1 2 1 3 2 4 3  6 4
-	4	1 1 2 1 3 2 4 4  6 5
-	4	1 1 2 2 3 3 4 5  6 6
-	4	1 1 2 2 3 3 4 6  6 7
-	4	1 1 2 2 3 4 4 7  6 8
-	4	1 1 2 2 3 4 4 8  6 9
-	4	1 1 2 3 3 5 4 9  6 10
-	4	1 1 2 3 3 5 4 10 6 11
-	4	1 1 2 3 3 5 4 11 6 12
-	4	1 1 2 3 3 5 4 12 6 13
-	* Brake distribution
-	0   25   55   70   100
-	0   0    0    0    0
+ ***************************************************
+ *       10. BRAKES
+ ***************************************************
+ 270
+ 8
+ 4	1 1	2 1	3 1	4 1	6 2	- 6 2 3 5
+ 4	1 1	2 1	3 1	4 2	6 4	- 6 2 3 5
+ 4	1 1	2 1	3 2	4 3	6 6	- 6 2 3 5
+ 4	1 1	2 1	3 2	4 4	6 8	- 6 2 3 5
+ 4	1 1	2 2	3 3	4 5	6 10	- 6 2 3 5
+ 4	1 1	2 2	3 3	4 6	6 12	- 6 2 3 5
+ 4	1 1	2 2	3 4	4 7	6 14	- 6 2 3 5
+ 4	1 1	2 2	3 4	4 8	6 16	- 6 2 3 5
+ * Brake distribution
+ 0	25	55	70	100
+ 0 	0	0	0	0
 
 Die Definition der Bremsleinen erfolgt nach demselben Schema wie für die Hauptleinen. 
 
@@ -61,6 +57,20 @@ Die Position des Eckpunktes entlang des Flügels ausgehend von der Flügelmitte.
 d 1, 2, 3, 4, 5
 '''''''''''''''
 Die Verlängerung der Bremsleinen für diesen Punkt.
+
+Leinentypen
+-----------
+Mit der Version 3.23 wurde die Möglichkeit eingeführt individuelle Leineneigenschaften zu definieren. Das passiert im
+Fenster **Leinen Eigenschaften**. Die Typen Nummer welche dort definiert wird, kann im Anschluss hier den individuellen
+Leinen-Pfaden zugeordnet werden.
+
+Werden im Fenster **Leinen bearbeiten** keine Typen-Nummern eingetragen, dann wird eine automatische Zuordnung gemacht:
+
+* Ebene 1-> Typ 1
+
+* Ebene 2-> Typ 2
+
+* ...
 
 Sortieren
 ---------

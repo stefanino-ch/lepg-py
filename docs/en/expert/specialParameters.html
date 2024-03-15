@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Special Parameters &#8212; lepg 3.23.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Wing outline" href="../view/wing_outline.html" />
+    <link rel="prev" title="Create File for XFLR5 analysis" href="xflr.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../view/wing_outline.html" title="Wing outline"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="xflr.html" title="Create File for XFLR5 analysis"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Special Parameters</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="xflr.html"
+                          title="previous chapter">Create File for XFLR5 analysis</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../view/wing_outline.html"
+                          title="next chapter">Wing outline</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="special-parameters">
+<span id="specialparameters-en"></span><h1>Special Parameters<a class="headerlink" href="#special-parameters" title="Permalink to this heading">¶</a></h1>
+<p>This section will be a “wildcard”, to add special parameters to control things from previous or future
+data sections… It is an unorthodox and somewhat “dangerous” section, because any parameter or
+modification of previous or future ones could be added here. (!).</p>
+<p>Each line will start with a control code, an integer that will have a meaning to be specified. And then,
+on the same line, one or more parameters (integers, reals, or characters) related to the subject of the
+control code.</p>
+<a class="reference internal image-reference" href="../../_images/specialParameters-en.png"><img alt="../../_images/specialParameters-en.png" src="../../_images/specialParameters-en.png" style="width: 485px; height: 327px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">37.</span> <span class="n">SOME</span> <span class="n">SPECIAL</span> <span class="n">PARAMETERS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">6</span>
+<span class="mi">1291</span>   <span class="mi">8</span>    <span class="n">nsegments</span> <span class="ow">in</span> <span class="n">transverse</span> <span class="n">direction</span> <span class="p">(</span><span class="n">stl</span> <span class="n">surfaces</span><span class="p">)</span>
+<span class="mi">1341</span>    <span class="mi">0</span>    <span class="n">use</span> <span class="n">CAD</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">each</span> <span class="n">line</span> <span class="nb">type</span> <span class="n">according</span> <span class="n">table</span> <span class="mi">34</span>
+<span class="mi">1146</span>   <span class="mf">36.</span>  <span class="n">gravity</span> <span class="n">center</span> <span class="ow">in</span> <span class="o">%</span> <span class="n">of</span> <span class="n">a</span> <span class="n">typical</span> <span class="n">section</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">36</span><span class="o">%</span><span class="p">)</span>
+<span class="mi">1351</span>   <span class="mi">1</span>    <span class="n">Solve</span> <span class="n">method</span> <span class="p">(</span><span class="mi">1</span> <span class="ow">or</span> <span class="mi">6</span><span class="p">)</span>
+<span class="mi">1352</span>   <span class="mi">2</span>    <span class="n">Use</span> <span class="n">flat</span> <span class="n">area</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">projected</span> <span class="n">area</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="mi">1353</span>    <span class="mi">2</span>    <span class="n">Print</span> <span class="n">normal</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">advanced</span> <span class="n">detailed</span> <span class="n">output</span> <span class="p">(</span><span class="mi">1</span><span class="p">),(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The codes available in 2022-09-18 are:</p>
+<p><strong>Code 1146</strong>, which means that it is necessary add a real estimated mass center % of a typical section
+(0% leading edge, 100% trailing edge). Used only to calculate the estimated wing center of mass.
+Default value is 36%.</p>
+<p><strong>Code 1291</strong>, which means that it is necessary to write on the right an integer number which is the
+number of transversal segments to use on the STL surfaces (related to section 29).</p>
+<p><strong>Code 1341</strong> if code is followed by a “1”, then the lines will be drawn according to the colors by type
+defined in section 34. If it is a “0” the colors will be drawn according to the risers, in accordance with
+sections 24 and 25 . If code 1341 does not exist, the colors are defined by sections 24 and 25.
+And some “Programmer secret parameters” (maybe, they will be removed soon):</p>
+<p><strong>Code 1351</strong> set the solve method of equilibrium equations. Six different methods are currently being
+calibrated.</p>
+<p><strong>Method 1</strong>: The Lift and Drag are multiplied by a coefficient K to homogenize their value. The system
+of vertical (I) and horizontal (II) equilibrium equations is solved numerically for the unknowns K and
+gamma (glide angle), and all other parameters being data. A continuous range of gamma values is
+explored, and when the K1 values in the vertical equation match the K2 value in the horizontal
+equation, the system is considered solved. By adding to the data file some additional drag coefficient
+Cde=1.1 to 1.4 the results are quite realistic. This extra drag coefficient tries to represent the geometry
+not modeled in the aerodynamic calculation (probably billow and inlets).</p>
+<p><strong>Method 2</strong>: In the balance equations an Extra Drag of the wing is considered: The two unknowns to be
+solved are gamma and Dragextra, with a numerical method similar to the previous case, we explore a
+range of gamma until the Dragextra values match in the two equations . With some initial values of Lift
+and Drag, the system does not converge, a warning message is displayed in output file, and then
+general scaling adjustments in pilot weight or wing area are required.</p>
+<p><strong>Method 3</strong>: Combination of the previous two, first a coefficient K is provisionally calculated, to
+homogenize the Lift and Drag, and then the two equations (V,H) system is solved by gamma angle and
+extra drag. This method provides quite good results.</p>
+<p><strong>Method 4</strong>: Solves glide angle gamma directly using analytical expression (horizontal equilibrium). Use
+code 1352 set to 2 when using method 4. Flight speed is obtained from the Lift equation (same as in the
+previous methods).</p>
+<p><strong>Method 5</strong>: Solves glide angle gamma directly using analytical expression (horizontal equilibrium), as
+in method 4. Then solves flight speed numerically, from the vertical equilibrium equation. Then
+computes again gamma, Lift, Drag and other values.</p>
+<p><strong>Method 6</strong>: This is a fully analytical method. The glide angle calculation gamma is based on the
+horizontal balance equation. Gamma is expressed from initial values (and results of intermediate
+calculations), and independent of flight speed. The flight speed is also calculated analytically from the
+vertical balance equation. With the flight speed calculated, the Lift and Drag values are calculated
+again, and used in the moment balance equation to obtain the ideal trim “calage”. Also other values
+derived in simple form. Thus the system is completely resolved in a very elegant way.
+The calage calculation is carried out using only the moment balance equation (III), once the gamma
+(glide) and theta (assiette) angles are known, and is the same for all methods.</p>
+<p>The accuracy of the methods and their applicability is currently under study. It is recommended to use
+only method 1 or method 6. The results are practically the same. Results of methods 1 and 6 are
+consistent with the experimental results obtained with Hegala and Tuluaq paragliders. The parameter
+“cle” (extra lift coefficient) is usually set to 1.0. The parameter “cde” (extra drag coefficient), has a key
+importance in the final result. It represents the drag that the numerical model used (XFLR5 o CFD)
+could not determine. For practical purposes it is necessary to use “cde” values based on previous
+paraglider designs, or simply adjust cde until the output glide ratio is as expected… This will provide a
+calage value close to reality.
+If code 1351 is not specified, the default used method is 1. Methods 2 to 5 are still under review, do
+not use</p>
+<p><strong>Code 1352</strong>, set 1 to use flat area, or 2 to use projected area, in Lift, Drag, and speed calculus. Due to
+the internal adjustments made, this aspect has almost no influence on the results. By default the value
+used is 2. Use value 2 when using method 4 in code 1352. It is a code that the regular user does not
+need to specify</p>
+<p><strong>Code 1353</strong>, set 0 to output the standard report in section 17 of lep-out.txt, or set to 1 or 2 for more
+detailed output used for studies and calibrating methods. Default is 0. Most verbose mode is 2.</p>
+<p><strong>Code 2003</strong>
+If this code and angle is indicated, this is the assiette taken into account to calculate chi and phi, bypassing the
+program’s internal calculation for tetha.</p>
+<p>Example for an angle of -1º:</p>
+<p>2003     -1.0</p>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../view/wing_outline.html" title="Wing outline"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="xflr.html" title="Create File for XFLR5 analysis"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" >English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Special Parameters</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

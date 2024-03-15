@@ -68,6 +68,19 @@ print()
 print('...copying new files in source tree...')
 shutil.copytree(htmlPath, tgtPath, ignore=None)
 
+print('\nUpdate github.pages tree? [y/ n]')
+answ = input('Default= n ')
+
+if answ == 'y':
+    print('...removing old help files in github.pages tree...')
+    tgtPath = os.path.join(dirpath, '../docs')
+    if os.path.isdir(tgtPath):
+        shutil.rmtree(tgtPath)
+
+    print()
+    print('...copying new files in github.pages tree...')
+    shutil.copytree(htmlPath, tgtPath, ignore=None)
+
 print()
 print('...removing unnecessary files...')
 tgtFile = os.path.join(dirpath, '../src/userHelp/.buildinfo')

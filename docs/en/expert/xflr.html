@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Create File for XFLR5 analysis &#8212; lepg 3.23.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Special Parameters" href="specialParameters.html" />
+    <link rel="prev" title="Solve Equilibrium Equations" href="solveEquEqu.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="specialParameters.html" title="Special Parameters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="solveEquEqu.html" title="Solve Equilibrium Equations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" accesskey="U">English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Create File for XFLR5 analysis</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="solveEquEqu.html"
+                          title="previous chapter">Solve Equilibrium Equations</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="specialParameters.html"
+                          title="next chapter">Special Parameters</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="create-file-for-xflr5-analysis">
+<span id="xflr-en"></span><h1>Create File for XFLR5 analysis<a class="headerlink" href="#create-file-for-xflr5-analysis" title="Permalink to this heading">¶</a></h1>
+<p>If you use this section, it will automatically be created in xflr5/ directory with a .xwimp file and
+profiles in .dat format to use in an aerodynamic analysis with the XFLR5 program. The details of how
+to do it are explained here: <a class="reference external" href="http://www.laboratoridenvol.com/info/lep2xflr5/lep2xflr5.html">http://www.laboratoridenvol.com/info/lep2xflr5/lep2xflr5.html</a>
+Unfortunately with XFLR5 we cannot model paragliders with profile rotations in the Z angle, nor
+single skin paragliders. CFD programs must be used for this type of paraglider.</p>
+<a class="reference internal image-reference" href="../../_images/xflr-en.png"><img alt="../../_images/xflr-en.png" src="../../_images/xflr-en.png" style="width: 402px; height: 287px;" /></a>
+<p>Raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">36.</span> <span class="n">CREATE</span> <span class="n">FILES</span> <span class="n">FOR</span> <span class="n">XFLR5</span> <span class="n">ANALYSIS</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="o">*</span> <span class="n">Panel</span> <span class="n">parameters</span>
+<span class="mi">10</span> <span class="n">chord</span> <span class="n">nr</span>
+<span class="mi">5</span> <span class="n">per</span> <span class="n">cell</span>
+<span class="mi">1</span> <span class="n">cosine</span> <span class="n">distribution</span> <span class="n">along</span> <span class="n">chord</span>
+<span class="mi">0</span> <span class="n">uniform</span> <span class="n">along</span> <span class="n">span</span>
+<span class="o">*</span> <span class="n">Include</span> <span class="n">billowed</span> <span class="n">airfoils</span> <span class="p">(</span><span class="n">more</span> <span class="n">accuracy</span><span class="p">)</span>
+<span class="mi">0</span>
+</pre></div>
+</div>
+<p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="specialParameters.html" title="Special Parameters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="solveEquEqu.html" title="Solve Equilibrium Equations"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../english.html" >English Manual</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Create File for XFLR5 analysis</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Leinen-Eigenschaften &#8212; lepg 3.23.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Bremsleinen" href="brakes.html" />
+    <link rel="prev" title="Leinen" href="lines.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+<!--    <li><a href="../../usage/installation.html">Get it</a></li>  -->
+<!--    <li><a href="../../contents.html">Docs</a></li>  -->
+<!--    <li><a href="../../develop.html">Extend/Develop</a></li>  -->
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/le-ge2-small.png" alt="lepg" />
+    </a>
+  </div> 
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="brakes.html" title="Bremsleinen"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lines.html" title="Leinen"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" accesskey="U">Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Leinen-Eigenschaften</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Leinen-Eigenschaften</a><ul>
+<li><a class="reference internal" href="#sortieren">Sortieren</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="lines.html"
+                          title="previous chapter">Leinen</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="brakes.html"
+                          title="next chapter">Bremsleinen</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<section id="leinen-eigenschaften">
+<span id="lines-characteristics-de"></span><h1>Leinen-Eigenschaften<a class="headerlink" href="#leinen-eigenschaften" title="Permalink to this heading">¶</a></h1>
+<p>Im Fenster <em>Leinen-Eigenschaften</em> definieren wir die speziellen eigenschaften der Trag- und Bremsleinen:</p>
+<a class="reference internal image-reference" href="../../_images/lineCharacteristics-de.png"><img alt="../../_images/lineCharacteristics-de.png" src="../../_images/lineCharacteristics-de.png" style="width: 764px; height: 330px;" /></a>
+<p>Rohdaten:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*******************************************************</span>
+<span class="o">*</span>       <span class="mf">34.</span> <span class="n">LINES</span> <span class="n">CHARACTERISTICS</span> <span class="n">TABLE</span>
+<span class="o">*******************************************************</span>
+<span class="mi">1</span>
+<span class="mi">6</span>
+<span class="mi">1</span>  <span class="n">c</span>  <span class="mf">5.0</span>   <span class="mf">2.0</span>  <span class="n">Riser</span>    <span class="mi">1000</span> <span class="n">daN</span>  <span class="n">u_dyneem</span>    <span class="mf">10.0</span>   <span class="n">g</span>   <span class="n">p</span> <span class="mf">12.</span> <span class="n">cm</span>  <span class="mi">7</span>
+<span class="mi">2</span>  <span class="n">c</span>  <span class="mf">1.90</span>  <span class="mf">3.0</span>  <span class="n">Line275</span>   <span class="mi">275</span> <span class="n">daN</span>  <span class="n">s_dyneem</span>    <span class="mf">2.26</span>   <span class="n">g</span>   <span class="n">s</span> <span class="mf">12.</span> <span class="n">cm</span>  <span class="mi">1</span>
+<span class="mi">3</span>  <span class="n">c</span>  <span class="mf">1.40</span>    <span class="n">Line160</span>   <span class="mi">160</span> <span class="n">daN</span>  <span class="n">s_dyneem</span>    <span class="mf">1.34</span>   <span class="n">g</span>   <span class="n">s</span> <span class="mf">10.</span> <span class="n">cm</span>  <span class="mi">3</span>
+<span class="mi">4</span>  <span class="n">c</span>  <span class="mf">1.15</span>    <span class="n">Line120</span>   <span class="mi">120</span> <span class="n">daN</span>  <span class="n">s_dyneem</span>    <span class="mf">1.00</span>   <span class="n">g</span>   <span class="n">s</span> <span class="mf">10.</span> <span class="n">cm</span>  <span class="mi">5</span>
+<span class="mi">5</span>  <span class="n">c</span>  <span class="mf">0.80</span>    <span class="n">Line100U</span>  <span class="mi">100</span> <span class="n">daN</span>  <span class="n">u_dyneem</span>    <span class="mf">0.43</span>   <span class="n">g</span>   <span class="n">p</span> <span class="mf">8.</span>  <span class="n">cm</span>  <span class="mi">2</span>
+<span class="mi">6</span>  <span class="n">c</span>  <span class="mf">2.00</span>    <span class="n">Line200B</span>  <span class="mi">200</span> <span class="n">daN</span>  <span class="n">s_dynemm</span>    <span class="mf">3.10</span>   <span class="n">g</span>   <span class="n">s</span> <span class="mf">12.</span> <span class="n">cm</span>  <span class="mi">6</span>
+</pre></div>
+</div>
+<p>Individuelle Definition der Eigenschaften von bis zu 50 verschiedenen Linientypen.</p>
+<p><strong>Leinentyp</strong> Diese Nummer wird verwendet für die Zuweisung der Eigenschaften zu den individuellen Leinen.</p>
+<p><strong>Leinenform</strong> r oder c (r=rectangular-&gt; rechteckiger oder c=circular-&gt; runder Querschnitt)</p>
+<p><strong>Leinendurchmesser</strong> in [mm]</p>
+<p><strong>B-Diam</strong> Nur anwendbar wenn Leinenform r verwendet wird, sonst leer lassen</p>
+<p><strong>Leinenname</strong> z.B. “Riser”, “PPSL275”, “DC60”,… max 15 Zeichen, KEINE LEERSCHLÄGE</p>
+<p><strong>Bruchlast</strong> in [daN]</p>
+<p><strong>Materialtyp</strong> “dyneema”, “aramid”, “polyester”, … max 15 Zeichen, KEINE LEERSCHLÄGE</p>
+<p><strong>Gewicht/m</strong> Leinengewicht in [g] pro Meter</p>
+<p><strong>Loop Typ</strong> s oder p (s=sewed-&gt; genähter der p=spliced-&gt; gespleisster Loop)</p>
+<p><strong>Loop Länge</strong> Total Länge des Loop [cm]</p>
+<p><strong>CAD Farbe</strong> Nummer der CAD Farbe. Funktioniert nur wenn Code 1341 in Abschnitt 37 (Spezielle Parameter) aktiviert wurde.</p>
+<section id="sortieren">
+<h2>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this heading">¶</a></h2>
+<p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
+<p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="brakes.html" title="Bremsleinen"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lines.html" title="Leinen"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../deutsch.html" >Deutsche Anleitung</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Leinen-Eigenschaften</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

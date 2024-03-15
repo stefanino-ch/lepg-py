@@ -21,6 +21,7 @@ English Manual
    proc/marks.rst
    proc/globalAoA.rst
    proc/lines.rst
+   proc/lineCharacteristics.rst
    proc/brakes.rst
    proc/ramification.rst
    proc/hVvHribs.rst
@@ -41,7 +42,12 @@ English Manual
    proc/airfoilThickness.rst
    proc/newSkinTension.rst
    proc/partsSeparation.rst
+   proc/detRisers.rst
    proc/procOutput.rst
+
+   expert/solveEquEqu.rst
+   expert/xflr.rst
+   expert/specialParameters.rst
    
    view/wing_outline.rst
    view/two_d_dxf.rst
