@@ -2,7 +2,7 @@
 
 Latest_Windows_Version = '3.23.0'
 
-Latest_Linux_Version = '3.20.2'
+Latest_Linux_Version = '3.23.0'
 
 Latest_Mac_Version = 'na'
 
