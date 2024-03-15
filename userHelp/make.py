@@ -6,4 +6,4 @@
 import os
 
 
-os.system('sphinx-build -b html . ./_build/html')
+os.system('sphinx-build -b html ./source ./_build/html')

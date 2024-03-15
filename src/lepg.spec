@@ -26,9 +26,9 @@ processor_w64 = [
 					
 processor_lin64 = [ 	
 				  (os.path.join('processors',
-				  'lep-3.19-lin64'),
+				  'lep-3.23-lin64'),
 				  os.path.join('processors',
-			      'lep-3.19-lin64'))
+			      'lep-3.23-lin64'))
 				  ]
 					
 processor_osx = [	
