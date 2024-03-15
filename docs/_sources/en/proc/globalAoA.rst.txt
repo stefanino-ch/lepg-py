@@ -18,7 +18,7 @@ Raw data::
 	*************************************************************
 	* Finesse GR
 		7.5
-	* Center of pressure % of chord
+	*  Plumb point estimation %
 		40
 	* Calage %
 		31
@@ -33,9 +33,9 @@ Finesse
 -------
 Finesse goal, according to the general proportions of the wing.
 
-Center of pressure
+Plumb point
 ------------------
-Position of the wing center of pressure estimated as % of central cord.
+The point on the central chord, located just at the same vertical of the pilot in % of central cord.
 
 Calage
 ------
@@ -55,7 +55,7 @@ Separation between main carabiners.
 
  | 
  
-.. image:: http://laboratoridenvol.com/leparagliding/lep2images/S08_calage_p.jpg
+.. image:: /images/proc/S08_calage_p.png
 
 A more detailed description you can find here |pere_link|.
 

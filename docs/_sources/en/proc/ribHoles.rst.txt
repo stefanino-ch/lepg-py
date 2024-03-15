@@ -66,6 +66,8 @@ The type of rib hole defined in this line:
 
 **"3"** triangle
 
+**"4"** rectangle
+
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole1_p.jpg
 
 .. image:: http://laboratoridenvol.com/leparagliding/lep2images/S04_Hole2_p.jpg
@@ -99,6 +101,8 @@ For type **"1"** holes set this value 0
 For type **"2"** holes this value defines the width of the strip in [cm]
 
 For type **"3"** holes the radius of the corners in [cm]
+
+For type **"4"** holes the radius of the corners in [%]
 
 Sort by Order Num
 -----------------

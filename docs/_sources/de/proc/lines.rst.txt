@@ -10,33 +10,33 @@ Leinen
 Im Fenster *Leinen* definieren wir den detaillierten Leinenplan unseres Flügels (ohne Bremsleinen):
 
 .. image:: /images/proc/lines-de.png
-   :width: 737
-   :height: 307
+   :width: 838
+   :height: 328
 
 Rohdaten::
 
-	***************************************************
-	*          9. SUSPENSION LINES DESCRIPTION
-	***************************************************
-	0
-	3
-	12
-	3	1 1 2 1 3 1  0 0 1 1
-	3	1 1 2 1 3 2  0 0 1 2
-	3	1 1 2 1 3 3  0 0 1 3
-	3	1 1 2 1 3 4  0 0 1 4
-	3	1 1 2 2 3 5  0 0 1 5
-	3	1 1 2 2 3 6  0 0 1 6
-	3	1 1 2 2 3 7  0 0 1 7
-	3	1 1 2 2 3 8  0 0 1 8
-	3	1 1 2 3 3 9  0 0 1 9
-	3	1 1 2 3 3 10 0 0 1 10
-	3	1 1 2 3 3 11 0 0 1 11
-	3	1 1 2 3 3 12 0 0 1 12
-	16
-	3	1 1 2 1 3 1  0 0 2 1
-	3	1 1 2 1 3 2  0 0 2 2
-	.......
+ ***************************************************
+ *          9. SUSPENSION LINES DESCRIPTION
+ ***************************************************
+ 3
+ 4
+ 11
+ 3	1 1	2 1	3 1	0 0 	1 1	- 1 2 3
+ 3	1 1	2 1	3 2	0 0	1 2	- 1 2 3
+ 3	1 1	2 2	3 3	0 0	1 4	- 1 2 3
+ 3	1 1	2 2	3 4	0 0	1 5	- 1 2 3
+ 3	1 1	2 2	3 5	0 0	1 6	- 1 2 3
+ 3	1 1	2 3	3 6	0 0	1 8	- 1 2 3
+ 3	1 1	2 3	3 7	0 0	1 9	- 1 2 3
+ 3	1 1	2 3	3 8	0 0	1 10	- 1 2 3
+ 3	1 1	2 4	3 9	0 0	1 12	- 1 2 3
+ 3	1 1	2 4	3 10	0 0	1 13	- 1 2 3
+ 3	1 1	2 4	3 11	0 0	1 14	- 1 2 3
+ 17
+ 3	1 1	2 1	3 1	0 0 	2 1	- 1 2 3
+ 3	1 1	2 1	3 2	0 0	2 2	- 1 2 3
+ 3	1 1	2 2	3 3	0 0	2 4	- 1 2 3
+ ......
 
 Leinen-Kontrollparameter
 ========================
@@ -51,7 +51,9 @@ Erlaubte Werte sind 0..4:
 
 * 2 = Gewichtungstyp 2 der unteren Leinen
 
-* 3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe). Eine genaue Beschreibung (in Englisch) findest Du hier |manual_link|.
+* 3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe).
+
+Eine genaue Beschreibung (in Englisch) findest Du hier |manual_link|.
 
 Parameter **3** ist die aktuell empfohlene Berechnungsart für neue Entwürfe. Die Lastverteilung sollte gegenüber den anderen Varianten besser werden und der Schirm dadurch stabiler.
 
@@ -126,6 +128,20 @@ Definiert die Ebenennummer für eine bestimmte Verzweigung.
 Knoten Verzw 1, 2, 3, 4
 -----------------------
 Die Knotennummer eines Pfades auf einer bestimmten Ebene. 
+
+Leinentypen
+-----------
+Mit der Version 3.23 wurde die Möglichkeit eingeführt individuelle Leineneigenschaften zu definieren. Das passiert im
+Fenster **Leinen Eigenschaften**. Die Typen Nummer welche dort definiert wird, kann im Anschluss hier den individuellen
+Leinen-Pfaden zugeordnet werden.
+
+Werden im Fenster **Leinen bearbeiten** keine Typen-Nummern eingetragen, dann wird eine automatische Zuordnung gemacht:
+
+* Ebene 1-> Typ 1
+
+* Ebene 2-> Typ 2
+
+* ...
 
 Sortieren
 ---------

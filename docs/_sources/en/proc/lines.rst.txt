@@ -11,33 +11,33 @@ In the *Lines* window you can define the parameters from the 9th section of the 
 The brake lines will be defined in a 2nd window. 
 
 .. image:: /images/proc/lines-en.png
-   :width: 737
-   :height: 307
+   :width: 838
+   :height: 328
    
 Raw data::
 
-	***************************************************
-	*          9. SUSPENSION LINES DESCRIPTION
-	***************************************************
-	0
-	3
-	12
-	3	1 1 2 1 3 1  0 0 1 1
-	3	1 1 2 1 3 2  0 0 1 2
-	3	1 1 2 1 3 3  0 0 1 3
-	3	1 1 2 1 3 4  0 0 1 4
-	3	1 1 2 2 3 5  0 0 1 5
-	3	1 1 2 2 3 6  0 0 1 6
-	3	1 1 2 2 3 7  0 0 1 7
-	3	1 1 2 2 3 8  0 0 1 8
-	3	1 1 2 3 3 9  0 0 1 9
-	3	1 1 2 3 3 10 0 0 1 10
-	3	1 1 2 3 3 11 0 0 1 11
-	3	1 1 2 3 3 12 0 0 1 12
-	16
-	3	1 1 2 1 3 1  0 0 2 1
-	3	1 1 2 1 3 2  0 0 2 2
-	.......
+ ***************************************************
+ *          9. SUSPENSION LINES DESCRIPTION
+ ***************************************************
+ 3
+ 4
+ 11
+ 3	1 1	2 1	3 1	0 0 	1 1	- 1 2 3
+ 3	1 1	2 1	3 2	0 0	1 2	- 1 2 3
+ 3	1 1	2 2	3 3	0 0	1 4	- 1 2 3
+ 3	1 1	2 2	3 4	0 0	1 5	- 1 2 3
+ 3	1 1	2 2	3 5	0 0	1 6	- 1 2 3
+ 3	1 1	2 3	3 6	0 0	1 8	- 1 2 3
+ 3	1 1	2 3	3 7	0 0	1 9	- 1 2 3
+ 3	1 1	2 3	3 8	0 0	1 10	- 1 2 3
+ 3	1 1	2 4	3 9	0 0	1 12	- 1 2 3
+ 3	1 1	2 4	3 10	0 0	1 13	- 1 2 3
+ 3	1 1	2 4	3 11	0 0	1 14	- 1 2 3
+ 17
+ 3	1 1	2 1	3 1	0 0 	2 1	- 1 2 3
+ 3	1 1	2 1	3 2	0 0	2 2	- 1 2 3
+ 3	1 1	2 2	3 3	0 0	2 4	- 1 2 3
+ ......
 
 Lines control parameter
 =======================
@@ -51,7 +51,9 @@ Values allowed are 0..4:
 
 * 2 = lower branches lined by weighting type 2
 
-* 3 = lower branches lined by weighting type 3 (spanwise and chordwise optimization). Read more details |manual_link|.
+* 3 = lower branches lined by weighting type 3 (spanwise and chordwise optimization).
+
+Read more details |manual_link|.
 
 Parameter **3** is what is recommend for all new designs. The distribution of loads on the lines will be much better. Possibly the paraglider will be more solid.
 
@@ -127,9 +129,24 @@ Node 1, 2, 3, 4
 --------------------
 Node number on which a specific path ends on a specific Ramif level.
 
+Line types
+----------
+Since V3.23 the individual line characteristics can be defined. This is done in the **Lines characteristics** window.
+The type number defined there can afterwards be assigne to the indiviual line defined here.
+
+If in the window **Edit Lines** no type assignment will be made, a default assignement in the background will be
+done:
+
+* Lvl 1-> Typ 1
+
+* Lvl 2-> Typ 2
+
+* ...
+
 Sort by Order Num
 -----------------
 The button **Sort by Order Num** can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you've choosen. 
+
 
 A more detailed description you can find here |pere_link|.
 

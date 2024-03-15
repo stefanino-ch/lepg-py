@@ -8,31 +8,27 @@ Brakes
 In the *Brakes* window you can define the parameters from the 10 th section of the lep file, the line paths for the brake lines.
 
 .. image:: /images/proc/brakes-en.png
-   :width: 736
-   :height: 340
+   :width: 838
+   :height: 395
    
 Raw data::
 
-	***************************************************
-	*       10. BRAKES
-	***************************************************
-	270
-	12
-	4	1 1 2 1 3 1 4 1  6 2
-	4	1 1 2 1 3 1 4 2  6 3
-	4	1 1 2 1 3 2 4 3  6 4
-	4	1 1 2 1 3 2 4 4  6 5
-	4	1 1 2 2 3 3 4 5  6 6
-	4	1 1 2 2 3 3 4 6  6 7
-	4	1 1 2 2 3 4 4 7  6 8
-	4	1 1 2 2 3 4 4 8  6 9
-	4	1 1 2 3 3 5 4 9  6 10
-	4	1 1 2 3 3 5 4 10 6 11
-	4	1 1 2 3 3 5 4 11 6 12
-	4	1 1 2 3 3 5 4 12 6 13
-	* Brake distribution
-	0   25   55   70   100
-	0   0    0    0    0
+ ***************************************************
+ *       10. BRAKES
+ ***************************************************
+ 270
+ 8
+ 4	1 1	2 1	3 1	4 1	6 2	- 6 2 3 5
+ 4	1 1	2 1	3 1	4 2	6 4	- 6 2 3 5
+ 4	1 1	2 1	3 2	4 3	6 6	- 6 2 3 5
+ 4	1 1	2 1	3 2	4 4	6 8	- 6 2 3 5
+ 4	1 1	2 2	3 3	4 5	6 10	- 6 2 3 5
+ 4	1 1	2 2	3 3	4 6	6 12	- 6 2 3 5
+ 4	1 1	2 2	3 4	4 7	6 14	- 6 2 3 5
+ 4	1 1	2 2	3 4	4 8	6 16	- 6 2 3 5
+ * Brake distribution
+ 0	25	55	70	100
+ 0 	0	0	0	0
 
 Basically the definition of the line plan for the brake lines does follow the same scheme as the lines itself. 
 
@@ -62,6 +58,20 @@ Length along vault based on wing center.
 d 1, 2, 3, 4, 5
 '''''''''''''''
 Lengths increments in brake line.
+
+Line types
+----------
+Since V3.23 the individual line characteristics can be defined. This is done in the **Lines characteristics** window.
+The type number defined there can afterwards be assigne to the indiviual line defined here.
+
+If in the window **Edit Lines** no type assignment will be made, a default assignement in the background will be
+done:
+
+* Lvl 1-> Typ 1
+
+* Lvl 2-> Typ 2
+
+* ...
 
 Sort by Order Num
 -----------------

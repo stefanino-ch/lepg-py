@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Leinen &#8212; lepg 3.17.x documentation</title>
+    <title>Leinen &#8212; lepg 3.23.x documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -14,7 +14,7 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Bremsleinen" href="brakes.html" />
+    <link rel="next" title="Leinen-Eigenschaften" href="lineCharacteristics.html" />
     <link rel="prev" title="Anstellwinkel" href="globalAoA.html" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
           rel='stylesheet' type='text/css' />
@@ -75,7 +75,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="brakes.html" title="Bremsleinen"
+          <a href="lineCharacteristics.html" title="Leinen-Eigenschaften"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="globalAoA.html" title="Anstellwinkel"
@@ -101,6 +101,7 @@
 <li><a class="reference internal" href="#anzahl-ebenen">Anzahl Ebenen</a></li>
 <li><a class="reference internal" href="#verzw-1-2-3-4">Verzw 1, 2, 3, 4</a></li>
 <li><a class="reference internal" href="#knoten-verzw-1-2-3-4">Knoten Verzw 1, 2, 3, 4</a></li>
+<li><a class="reference internal" href="#leinentypen">Leinentypen</a></li>
 <li><a class="reference internal" href="#sortieren">Sortieren</a></li>
 </ul>
 </li>
@@ -116,8 +117,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="brakes.html"
-                          title="next chapter">Bremsleinen</a></p>
+    <p class="topless"><a href="lineCharacteristics.html"
+                          title="next chapter">Leinen-Eigenschaften</a></p>
   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -142,30 +143,30 @@
 <section id="leinen">
 <span id="lines-configuration-de"></span><h1>Leinen<a class="headerlink" href="#leinen" title="Permalink to this heading">¶</a></h1>
 <p>Im Fenster <em>Leinen</em> definieren wir den detaillierten Leinenplan unseres Flügels (ohne Bremsleinen):</p>
-<a class="reference internal image-reference" href="../../_images/lines-de.png"><img alt="../../_images/lines-de.png" src="../../_images/lines-de.png" style="width: 737px; height: 307px;" /></a>
+<a class="reference internal image-reference" href="../../_images/lines-de.png"><img alt="../../_images/lines-de.png" src="../../_images/lines-de.png" style="width: 838px; height: 328px;" /></a>
 <p>Rohdaten:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
 <span class="o">*</span>          <span class="mf">9.</span> <span class="n">SUSPENSION</span> <span class="n">LINES</span> <span class="n">DESCRIPTION</span>
 <span class="o">***************************************************</span>
-<span class="mi">0</span>
 <span class="mi">3</span>
-<span class="mi">12</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">3</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">3</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">4</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">5</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">6</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">6</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">7</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">7</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">8</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">8</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">9</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">9</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">10</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">11</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">11</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">12</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">12</span>
-<span class="mi">16</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">1</span>
-<span class="mi">3</span>       <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span>
-<span class="o">.......</span>
+<span class="mi">4</span>
+<span class="mi">11</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">1</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">1</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">2</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">2</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">3</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">4</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">4</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">5</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">5</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">6</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">3</span>     <span class="mi">3</span> <span class="mi">6</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">8</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">3</span>     <span class="mi">3</span> <span class="mi">7</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">9</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">3</span>     <span class="mi">3</span> <span class="mi">8</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">10</span>    <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">4</span>     <span class="mi">3</span> <span class="mi">9</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">12</span>    <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">4</span>     <span class="mi">3</span> <span class="mi">10</span>    <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">13</span>    <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">4</span>     <span class="mi">3</span> <span class="mi">11</span>    <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">1</span> <span class="mi">14</span>    <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">17</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">1</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">1</span>     <span class="mi">3</span> <span class="mi">2</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span>      <span class="mi">1</span> <span class="mi">1</span>     <span class="mi">2</span> <span class="mi">2</span>     <span class="mi">3</span> <span class="mi">3</span>     <span class="mi">0</span> <span class="mi">0</span>     <span class="mi">2</span> <span class="mi">4</span>     <span class="o">-</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="o">......</span>
 </pre></div>
 </div>
 <section id="leinen-kontrollparameter">
@@ -176,8 +177,9 @@
 <li><p>0 = strikte geometrisch Berechnung der unteren Leinen</p></li>
 <li><p>1 = Gewichtungstyp 1 der unteren Leinen</p></li>
 <li><p>2 = Gewichtungstyp 2 der unteren Leinen</p></li>
-<li><p>3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe). Eine genaue Beschreibung (in Englisch) findest Du hier <a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>.</p></li>
+<li><p>3 = Gewichtungstyp 1 der unteren Leinen (Optimiert nach Spannweite und Profiltiefe).</p></li>
 </ul>
+<p>Eine genaue Beschreibung (in Englisch) findest Du hier <a href="http://www.laboratoridenvol.com/leparagliding/linesopt/lineopt.en.html" target="_blank">OPTIMIZE YOUR LINES IN LEPARAGLIDING</a>.</p>
 <p>Parameter <strong>3</strong> ist die aktuell empfohlene Berechnungsart für neue Entwürfe. Die Lastverteilung sollte gegenüber den anderen Varianten besser werden und der Schirm dadurch stabiler.</p>
 </section>
 <section id="leinenplan">
@@ -232,6 +234,18 @@ Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2
 <h3>Knoten Verzw 1, 2, 3, 4<a class="headerlink" href="#knoten-verzw-1-2-3-4" title="Permalink to this heading">¶</a></h3>
 <p>Die Knotennummer eines Pfades auf einer bestimmten Ebene.</p>
 </section>
+<section id="leinentypen">
+<h3>Leinentypen<a class="headerlink" href="#leinentypen" title="Permalink to this heading">¶</a></h3>
+<p>Mit der Version 3.23 wurde die Möglichkeit eingeführt individuelle Leineneigenschaften zu definieren. Das passiert im
+Fenster <strong>Leinen Eigenschaften</strong>. Die Typen Nummer welche dort definiert wird, kann im Anschluss hier den individuellen
+Leinen-Pfaden zugeordnet werden.</p>
+<p>Werden im Fenster <strong>Leinen bearbeiten</strong> keine Typen-Nummern eingetragen, dann wird eine automatische Zuordnung gemacht:</p>
+<ul class="simple">
+<li><p>Ebene 1-&gt; Typ 1</p></li>
+<li><p>Ebene 2-&gt; Typ 2</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
 <section id="sortieren">
 <h3>Sortieren<a class="headerlink" href="#sortieren" title="Permalink to this heading">¶</a></h3>
 <p>Mit der Schaltfläche <strong>Sortieren</strong> können die Zeilen neu angeordnet werden. Wenn das gemacht werden soll kannst Du die neuen Nummern in der ersten Spalte einsetzten und anschliessend mit der Schaltfläche die Tabelle neu sortieren.</p>
@@ -254,7 +268,7 @@ Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="brakes.html" title="Bremsleinen"
+          <a href="lineCharacteristics.html" title="Leinen-Eigenschaften"
              >next</a> |</li>
         <li class="right" >
           <a href="globalAoA.html" title="Anstellwinkel"
@@ -267,7 +281,7 @@ Hier teilt sich der Pfad auf, während der Berechnung wird das automatisch als 2
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2022, Stefan Feuz.
+        &#169; Copyright 2024, Stefan Feuz.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
     </div>
   </body>
