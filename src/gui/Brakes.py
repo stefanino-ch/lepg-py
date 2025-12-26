@@ -83,7 +83,6 @@ class Brakes(QMdiSubWindow, metaclass=Singleton):
             conf is always one as there is only one brake line configuration allowed
             details equals brake line paths
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)

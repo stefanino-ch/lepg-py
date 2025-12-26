@@ -80,7 +80,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)

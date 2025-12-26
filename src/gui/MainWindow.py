@@ -190,7 +190,6 @@ class MainWindow(QMainWindow):
         self.pm.dataStatusUpdate.connect(self.update_save_status)
 
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg-py %s" % getattr(__init__, '__version__'))

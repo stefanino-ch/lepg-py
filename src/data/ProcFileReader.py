@@ -68,7 +68,6 @@ class WaitWindow(QTextEdit):
 
     def __init__(self):
         super(WaitWindow, self).__init__()
-        self.setWindowIcon(QIcon('gui\\appIcon.ico'))
         self.setWindowFlag(Qt.WindowType.WindowCloseButtonHint, False)
         self.setWindowFlag(Qt.WindowType.WindowMaximizeButtonHint, False)
         self.setWindowFlag(Qt.WindowType.WindowMinimizeButtonHint, False)
@@ -1374,17 +1373,17 @@ class ProcFileReader(QObject):
 
             self.detRisers_m.set_is_used(False)
 
+            length_a = ''
+            length_b = ''
+            length_c = ''
+            length_d = ''
+            length_e = ''
+
             if data != 0:
                 self.detRisers_m.set_is_used(True)
                 # Type line: only type 1 at the moment, we don't need to evaluate this line
                 stream.readLine()
-                length_a = ''
-                length_b = ''
-                length_c = ''
-                length_d = ''
-                length_e = ''
                 more_data = True
-
                 while more_data:
                     data = split_line(stream.readLine())
 

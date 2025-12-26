@@ -1,0 +1,12 @@
+[project]
+name = "lepg-py"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.14"
+dependencies = [
+    "ezdxf>=1.4.3",
+    "packaging>=25.0",
+    "pyqt6>=6.10.1",
+    "requests>=2.32.5",
+    "sphinx>=9.0.4",
+]

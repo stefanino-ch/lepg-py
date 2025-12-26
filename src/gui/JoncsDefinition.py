@@ -83,7 +83,6 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
 
             conf equals blocs
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)

@@ -921,8 +921,8 @@ class ProcFileWriter:
             stream << 'panel_y\t%s\n' % values.value(2)
             stream << 'rib_x\t%s\n' % values.value(3)
             stream << 'rib_y\t%s\n' % values.value(4)
-            stream << 'rib_1y\t%s\n' % values.value(5)
             # following parameters are not used, therefore hardcoded here
+            stream << 'parameter6\t1.0\n'
             stream << 'parameter7\t1.0\n'
             stream << 'parameter8\t1.0\n'
             stream << 'parameter9\t1.0\n'

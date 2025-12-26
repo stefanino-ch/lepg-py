@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from PyQt6.QtWidgets import QApplication
+from PyQt6.QtGui import QIcon
 
 from gui.MainWindow import MainWindow
 
@@ -18,16 +19,28 @@ from gui.MainWindow import MainWindow
 # Wayland needs special environment setting to run lepg
 # Check environment and make sure wayland settings apply if needed
 
-if platform.system() == 'Linux':
-    retVal = subprocess.check_output(['echo $XDG_SESSION_TYPE'], shell=True, text=True)
-    if 'wayland' in retVal:
-        # os.system('export QT_QPA_PLATFORM="xcb"')
-        # os.system('source ./shellSetup.sh')
-        os.environ['QT_QPA_PLATFORM'] = "xcb"
+basedir = os.path.dirname(__file__)
+
+match platform.system():
+    case 'Windows':
+        # Special code to get the appIcon also in the taskbar
+        try:
+            from ctypes import windll  # Only exists on Windows.
+            myappid = "stefanino-ch.gliderrank"
+            windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        except ImportError:
+            pass
+    case 'Linux':
+        retVal = subprocess.check_output(['echo $XDG_SESSION_TYPE'], shell=True, text=True)
+        if 'wayland' in retVal:
+            # os.system('export QT_QPA_PLATFORM="xcb"')
+            # os.system('source ./shellSetup.sh')
+            os.environ['QT_QPA_PLATFORM'] = "xcb"
 
 
 def main():
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(os.path.join(basedir, 'gui', 'elements', 'appIcon.ico')))
     ex = MainWindow()
     ex.show()
     sys.exit(app.exec())

@@ -67,7 +67,6 @@ class DetailedRisers(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(450, 200)
