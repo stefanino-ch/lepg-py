@@ -16,8 +16,6 @@ class ConfigReader(QObject, metaclass=Singleton):
     :class: Does all the necessary work to read and save global program
             configurations.
     """
-    LANGUAGE = 'language'
-
     PRE_PROC_PATH_NAME = 'pre_proc_path_name'
     PRE_PROC_SHOW_OUTLINE = 'pre_proc_show_outline'
 
@@ -34,7 +32,6 @@ class ConfigReader(QObject, metaclass=Singleton):
 
         # Variables and instances used across the class
         self.__config_file_path_name = ""
-        self.__language = ""
 
         self.__pre_proc_path_name = ""
         self.__pre_proc_path = ""
@@ -45,6 +42,8 @@ class ConfigReader(QObject, metaclass=Singleton):
 
         self.__check_for_updates = True  # type: bool
         self.__track_branch = ''
+
+        self.__loglevel = None
 
         self.config_parser = configparser.ConfigParser()
 
@@ -69,13 +68,6 @@ class ConfigReader(QObject, metaclass=Singleton):
 
             if not self.config_parser.has_section('Defaults'):
                 self.config_parser.add_section('Defaults')
-
-            try:
-                self.__language = self.config_parser.get('Defaults',
-                                                         self.LANGUAGE)
-            except configparser.Error:
-                # Value does not exist
-                self.__language = "en"
 
             try:
                 self.__pre_proc_path_name = \
@@ -128,6 +120,22 @@ class ConfigReader(QObject, metaclass=Singleton):
                 # Value does not exist
                 self.__track_branch = 'stable'
 
+            # Section Development
+            if not self.config_parser.has_section('Development'):
+                self.config_parser.add_section('Development')
+
+            # Values within Development section
+            try:
+                self.__loglevel = self.config_parser.get('Development', 'LogLevel')
+            except configparser.Error:
+                # Value does not exist
+                self.__loglevel = 'INFO'
+                # Available levels are
+                # DEBUG
+                # INFO
+                # WARNING
+                # ERROR
+                # CRITICAL
             openFile.close()
 
     def write_config_file(self):
@@ -140,9 +148,6 @@ class ConfigReader(QObject, metaclass=Singleton):
         write operation as well.
         """
         config_file = open(self.__configFilePathName, 'w')
-        self.config_parser.set('Defaults',
-                               self.LANGUAGE,
-                               self.__language)
         self.config_parser.set('Defaults',
                                self.PRE_PROC_PATH_NAME,
                                self.__pre_proc_path_name)
@@ -158,23 +163,13 @@ class ConfigReader(QObject, metaclass=Singleton):
         self.config_parser.set('Defaults',
                                self.TRACKING_BRANCH,
                                self.__track_branch)
+        # Section Development
+        self.config_parser.set('Development',
+                               'LogLevel',
+                               self.__loglevel)
 
         self.config_parser.write(config_file)
         config_file.close()
-
-    def set_language(self, lang):
-        """
-        :method: Set the language info.
-        :param lang: language string e.g. en, de
-        """
-        self.__language = lang
-        self.write_config_file()
-
-    def get_language(self):
-        """
-        :method: Returns language info e.g. en.
-        """
-        return self.__language
 
     def set_pre_proc_path_name(self, path_name):
         """
@@ -277,3 +272,9 @@ class ConfigReader(QObject, metaclass=Singleton):
                  stable or latest.
         """
         return self.__track_branch
+
+    def get_loglevel(self):
+        """
+        :method: Returns loglevel info.
+        """
+        return self.__loglevel

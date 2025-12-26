@@ -3,8 +3,10 @@
 :License: General Public License GNU GPL 3.0
 """
 import gettext
+import locale
 import logging.config
 import os
+import platform
 import sys
 import webbrowser
 
@@ -132,56 +134,72 @@ class MainWindow(QMainWindow):
         # Delete old log file
         self.delete_logfile()
 
-        # Set up the logger
         # Additional code needed due to pyinstaller.
         # determine if application is a script file or frozen exe
         # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
         if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
+            # If the application is run as a bundle, the PyInstaller bootloader
+            # extends the sys module by a flag frozen=True and sets the app
+            # path into variable _MEIPASS'.
+            application_path = sys._MEIPASS
             running_mode = 'Frozen/executable'
-            path_to_dat = os.path.join(bundle_dir, 'logger.conf')
-            locale_path = os.path.join(bundle_dir, 'translations')
+            path_to_dat = os.path.join(application_path, 'logger.conf')
+            locale_path = os.path.join(application_path, 'translations')
         else:
             try:
                 app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
+                application_path = os.path.dirname(app_full_path)
                 running_mode = "Non-interactive (e.g. 'python myapp.py')"
             except NameError:
-                bundle_dir = os.getcwd()
+                application_path = os.getcwd()
                 running_mode = 'Interactive'
-
-            path_to_dat = os.path.join(bundle_dir, '..', 'logger.conf')
-            locale_path = os.path.join(bundle_dir, '..', 'translations')
+            locale_path = os.path.join(application_path, '..', 'translations')
 
         print('Running mode:', running_mode)
-        # print('  Bundle dir  :', bundle_dir)
-        # print('  Config full path :', path_to_dat)
 
-        logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
-        self.logger = logging.getLogger('root')
-        # DEBUG
-        # INFO
-        # WARNING
-        # ERROR
-        # CRITICAL
-        # Setup languages
+        # Read config file
         self.config_reader = ConfigReader()
 
-        if self.config_reader.get_language() == "de":
-            lang_de = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['de'])
-            lang_de.install()
-        elif self.config_reader.get_language() == "en":
-            lang_en = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['en'])
-            lang_en.install()
-        else:
-            lang_en = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['en'])
-            lang_en.install()
+        # Setup logging
+        # Delete old log file
+        self.delete_logfile()
+        # Create logger
+        logger = logging.getLogger(__name__)
+        file_handler = logging.FileHandler("lepg.log", mode="a", encoding="utf-8")
+        logger.addHandler(file_handler)
+        formatter = logging.Formatter(
+            "{asctime} {module}.{funcName}:{lineno}\t{levelname:>10} {message}",
+            style = "{",
+            datefmt = "%Y-%m-%d %H:%M")
+        file_handler.setFormatter(formatter)
+        logger.setLevel(self.config_reader.get_loglevel())
+
+        # Language configuration
+        self.my_locale = locale.getdefaultlocale()
+        logger.debug(f'Locale: {self.my_locale}')
+        match platform.uname()[0]:
+            case 'Linux':
+                self.my_language = (self.my_locale[0].split('-'))[0]
+            case 'Windows':
+                self.my_language = (self.my_locale[0].split('_'))[0]
+            case _:
+                logger.warning('Unknown system, unable to determine language automatically.')
+                self.my_language = 'en'
+        logger.debug(f'Platform: {platform.uname()}')
+        logger.info(f'Detected language |{self.my_language}|')
+
+        try:
+            translation_lang = gettext.translation('lepg',
+                                                   locale_path,
+                                                   languages=[self.my_language])
+            translation_lang.install()
+        except FileNotFoundError:
+            logger.exception('Translation files not found.')
+            logger.info('Using default language.')
+            translation_lang = gettext.translation('lepg',
+                                                   locale_path,
+                                                   languages=['en'])
+            translation_lang.install()
 
         self.ppm = PreProcModel()
         self.ppm.dataStatusUpdate.connect(self.update_save_status)
@@ -354,6 +372,8 @@ class MainWindow(QMainWindow):
             if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
+
+        self.config_reader.write_config_file()
 
         sys.exit()
 
@@ -1143,15 +1163,6 @@ class MainWindow(QMainWindow):
         :method: Builds the Setup menu
         """
         # Define actions
-        setup_lang_en_act = QAction("English", self)
-        setup_lang_en_act.setStatusTip('Switches the display language '
-                                       'to english')
-        setup_lang_en_act.triggered.connect(self.setup_lang_en)
-
-        setup_lang_de_act = QAction("Deutsch", self)
-        setup_lang_de_act.setStatusTip('Wechselt zur deutschen Anzeige')
-        setup_lang_de_act.triggered.connect(self.setup_lang_de)
-
         setup_proc_act = QAction(_('Both Processors'), self)
         setup_proc_act.setStatusTip(_('Setup locations for both processors'))
         setup_proc_act.triggered.connect(self.setup_processors)
@@ -1163,43 +1174,9 @@ class MainWindow(QMainWindow):
 
         # add actions
         setup_menu = self.mainMenu.addMenu(_('Setup'))
-        setup_lang_menu = setup_menu.addMenu(_('Language'))
-        setup_lang_menu.addAction(setup_lang_en_act)
-        setup_lang_menu.addAction(setup_lang_de_act)
-        setup_menu.addSeparator()
         setup_menu.addAction(setup_proc_act)
         setup_menu.addSeparator()
         setup_menu.addAction(setup_upd_check_act)
-
-    def setup_lang_de(self):
-        """
-        :method: Called if the user selects *Setup* *Language* -> *German*
-        """
-        config = ConfigReader()
-        config.set_language("de")
-        self.display_restart_msg()
-
-    def setup_lang_en(self):
-        """
-        :method: Called if the user selects *Setup* *Language* -> *English*
-        """
-        config = ConfigReader()
-        config.set_language("en")
-        self.display_restart_msg()
-
-    def display_restart_msg(self):
-        """
-        :method: Displays a message to the user to restart the application
-                after switching the language
-        """
-        msg = QMessageBox()
-
-        msg.setWindowTitle(_("Switching language"))
-        msg.setIcon(QMessageBox.Icon.Information)
-        msg.setText(_("Please restart the application."))
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        msg.setFixedWidth(300)
-        msg.exec()
 
     def setup_processors(self):
         """
@@ -1273,7 +1250,7 @@ class MainWindow(QMainWindow):
         :method: Deletes the log file if there's one
         """
         directory_path = os.path.dirname(os.path.realpath(__file__))
-        log_path_name = os.path.join(directory_path, '../logfile.txt')
+        log_path_name = os.path.join(directory_path, '../lepg.log')
 
         if os.path.isfile(log_path_name):
             os.remove(log_path_name)
