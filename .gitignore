@@ -54,4 +54,4 @@ src/processors/lep-*
 __MACOSX
 
 # all .bak files
-# *.bak
+*.bak

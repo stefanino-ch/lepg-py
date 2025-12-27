@@ -24,4 +24,5 @@ def detect_language():
 
     logging.debug(f'Platform: {platform.uname()}')
     logging.info(f'Detected language |{my_language}|')
+
     return my_language

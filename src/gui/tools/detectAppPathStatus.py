@@ -16,11 +16,10 @@ def detect_app_path_status():
             file_full_path = os.path.realpath(__file__)
             application_path = os.path.dirname(file_full_path)
             running_mode = "Non-interactive (e.g. 'python myapp.py')"
+            application_path = os.path.realpath(os.path.join(application_path, '..', '..'))
         except NameError:
             application_path = os.getcwd()
             running_mode = 'Interactive'
-
-    application_path = os.path.realpath(os.path.join(application_path, '..', '..'))
 
     return running_mode, application_path
 

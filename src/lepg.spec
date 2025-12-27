@@ -11,7 +11,6 @@ pathex_path = [os.path.join(dirpath, '..','src')]
 block_cipher = None
 
 data_files_to_add = [
-					('logger.conf', '.' ),
 					('translations', 'translations' ),
 					('userHelp', 'userHelp' ),
 					(os.path.join('gui','elements', 'appIcon.ico'), os.path.join('gui','elements'))

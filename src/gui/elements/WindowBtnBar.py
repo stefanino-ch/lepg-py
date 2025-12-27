@@ -4,14 +4,13 @@
 """
 
 import os
-import sys
 import webbrowser
 
 from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt6.QtCore import pyqtSignal
 
-from ConfigReader.ConfigReader import ConfigReader
 from gui.tools.detectLanguage import detect_language
+from gui.tools.detectAppPathStatus import detect_app_path_status
 
 class WindowBtnBar(QWidget):
     """
@@ -106,36 +105,15 @@ class WindowBtnBar(QWidget):
         """
         :class: Called if the *Help* button is pressed
         """
+        bundle_dir = os.path.join(detect_app_path_status()[1])
+        system_language = detect_language()
 
-        config = ConfigReader()
-
-        if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
-
-        else:
-            try:
-                # running unpacked
-                app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
-                bundle_dir = os.path.join(bundle_dir, '..', '..')
-            except NameError:
-                bundle_dir = os.getcwd()
-
-
-        # Additional code needed due to pyinstaller.
-        # determine if application is a script file or frozen exe
-        # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
-        if getattr(sys, 'frozen', False):
-            # If the application is run as a bundle, the PyInstaller bootloader
-            # extends the sys module by a flag frozen=True and sets the app
-            # path into variable _MEIPASS'.
-            application_path = sys._MEIPASS
-        else:
-            try:
-                app_full_path = os.path.realpath(__file__)
-                application_path = os.path.dirname(app_full_path)
-            except NameError:
-                application_path = os.getcwd()
+        # Check if there are user help files for the detected language
+        lang_path = os.path.join(bundle_dir, 'userHelp', system_language)
+        if not os.path.isdir(lang_path):
+            # There seems to be no help in the current lang.
+            # Fallback to the default index.html file
+            self.__helpPage = 'index.html'
 
         if self.__helpPage == 'index.html':
             webbrowser.open('file://'

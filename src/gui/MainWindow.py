@@ -158,9 +158,6 @@ class MainWindow(QMainWindow):
         #     locale_path = os.path.join(application_path, '..', 'translations')
 
         print(f'running: {detect_app_path_status()[0]}')
-        print(f'application_path: {detect_app_path_status()[1]}')
-
-        application_path = detect_app_path_status()[1]
         locale_path = os.path.join(detect_app_path_status()[1], 'translations')
 
         # Read config file
@@ -183,6 +180,7 @@ class MainWindow(QMainWindow):
         logger.debug('application start')
 
         self.my_language = detect_language()
+        logger.debug(f'detect_language(): {detect_language()}')
 
         try:
             translation_lang = gettext.translation('lepg',
