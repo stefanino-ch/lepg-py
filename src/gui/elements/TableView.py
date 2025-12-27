@@ -288,8 +288,8 @@ class TableView(QTableView):
     
     def eventFilter(self, widget, event):
         """
-        :method: Catches specific events and controls (the updates of the help
-        window and the validation of the user inputs).
+        :method: Catches specific events and controls (the updates of the help window and
+                 the validation of the user inputs)
         """
         if widget is self.viewport():
             index = self._last_index

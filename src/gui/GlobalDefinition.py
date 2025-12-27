@@ -29,16 +29,16 @@ class BackgroundHighlight:
 class Regex:
     WingNameString = BrandNameString =\
         DxfReferenceLayerName = TwoDDxfColorDesc = ThreeDDxfColorDesc =\
-        SpecialParametersCode = "^[a-zA-Z0-9_.\-\s\']*$"
-    AirfoilsNameString = "(.|\s)*\S(.|\s)*"
-    ParaTyp = "(.|\s)*\S(.|\s)*"
+        SpecialParametersCode = r"^[a-zA-Z0-9_.\-\s\']*$"
+    AirfoilsNameString = r"(.|\s)*\S(.|\s)*"
+    ParaTyp = r"(.|\s)*\S(.|\s)*"
     ThreeDShapingPrintName = "^(Inter3D|Ovali3D|tesse3D|exteDXF|exteSTL)"
     DxfLayerName = "^(general|line-external|cutexternal|line-sewing|points|circles|triangles|square|text|reference|notes)"
     MarksTypesName = "^(typepoint|typepoint2|typepoint3|typevent|typetab|typejonc|typeref|type8|type9|type10)"
     TwoDDxfLayerNames = ThreeDDxfLayerNames = "^(A_lines_color|B_lines_color|C_lines_color|D_lines_color|E_lines_color|F_lines_color)"
     ThreeDDxfLayerNamesPlus = "^(Extrados|Vents|Intrados)"
     LinesCharLineForm = "^(r|c)"
-    LinesCharLineLabel = LinesCharMatType = "[a-zA-Z0-9_.\-\']{0,15}$"     # 15 characters no whitespace
+    LinesCharLineLabel = LinesCharMatType = r"[a-zA-Z0-9_.\-\']{0,15}$"     # 15 characters no whitespace
     LinesCharLoopType = "^(s|p)"
     LinesBrakesLineType = "^[0-9]*$"
 

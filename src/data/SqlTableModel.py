@@ -14,19 +14,25 @@ class SqlTableModel(QSqlTableModel):
             sw related, partially to work around some Qt limitations
     """
     __className = 'SqlTableModel'
-    '''
+    """
     :attr: Does help to indicate the source of the log messages
-    '''
+    """
 
     didSelect = pyqtSignal()
-    '''
+    """
     :signal: Emitted as soon select() was executed on the model.
              You must know about this fact if you have mappers to LineEdits
              in place, as the mapping must be redone after every select().
-    '''
+    """
 
     numDetailsChanged = pyqtSignal(int, int)
+    """
+    :signal: Emitted as soon the number detail lines has been changed.
+    """
     numRowsForConfigChanged = pyqtSignal(int, int)
+    """
+    :signal: Emitted as soon the number of rows for a specific config has been changed.
+    """
 
     def __init__(self, parent=None):  # @UnusedVariable
         """

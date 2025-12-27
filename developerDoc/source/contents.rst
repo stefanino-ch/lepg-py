@@ -11,6 +11,8 @@ Doc overview
    gui
    
    gui_elements
+
+   gui_tools
    
    support_classes
 

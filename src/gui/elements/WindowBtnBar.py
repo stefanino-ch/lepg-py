@@ -7,11 +7,11 @@ import os
 import sys
 import webbrowser
 
-
 from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt6.QtCore import pyqtSignal
-from ConfigReader.ConfigReader import ConfigReader
 
+from ConfigReader.ConfigReader import ConfigReader
+from gui.tools.detectLanguage import detect_language
 
 class WindowBtnBar(QWidget):
     """
@@ -121,6 +121,22 @@ class WindowBtnBar(QWidget):
             except NameError:
                 bundle_dir = os.getcwd()
 
+
+        # Additional code needed due to pyinstaller.
+        # determine if application is a script file or frozen exe
+        # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
+        if getattr(sys, 'frozen', False):
+            # If the application is run as a bundle, the PyInstaller bootloader
+            # extends the sys module by a flag frozen=True and sets the app
+            # path into variable _MEIPASS'.
+            application_path = sys._MEIPASS
+        else:
+            try:
+                app_full_path = os.path.realpath(__file__)
+                application_path = os.path.dirname(app_full_path)
+            except NameError:
+                application_path = os.getcwd()
+
         if self.__helpPage == 'index.html':
             webbrowser.open('file://'
                             + os.path.realpath(os.path.join(bundle_dir,
@@ -130,7 +146,7 @@ class WindowBtnBar(QWidget):
             webbrowser.open('file://'
                             + os.path.realpath(os.path.join(bundle_dir,
                                                             'userHelp',
-                                                            config.get_language(),
+                                                            detect_language(),
                                                             self.__helpPage)))
 
     def set_help_page(self, help_page):

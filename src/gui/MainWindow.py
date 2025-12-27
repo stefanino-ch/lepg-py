@@ -68,6 +68,8 @@ from gui.TwoDDxf import TwoDDxf
 from gui.LinesCharacteristics import LinesCharacteristics
 from gui.Xflr import Xflr
 
+from gui.tools.detectLanguage import detect_language
+from gui.tools.detectAppPathStatus import detect_app_path_status
 
 # TODO: bring windows to front if they are called
 
@@ -134,28 +136,32 @@ class MainWindow(QMainWindow):
         # Delete old log file
         self.delete_logfile()
 
-        # Additional code needed due to pyinstaller.
-        # determine if application is a script file or frozen exe
-        # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
-        if getattr(sys, 'frozen', False):
-            # If the application is run as a bundle, the PyInstaller bootloader
-            # extends the sys module by a flag frozen=True and sets the app
-            # path into variable _MEIPASS'.
-            application_path = sys._MEIPASS
-            running_mode = 'Frozen/executable'
-            path_to_dat = os.path.join(application_path, 'logger.conf')
-            locale_path = os.path.join(application_path, 'translations')
-        else:
-            try:
-                app_full_path = os.path.realpath(__file__)
-                application_path = os.path.dirname(app_full_path)
-                running_mode = "Non-interactive (e.g. 'python myapp.py')"
-            except NameError:
-                application_path = os.getcwd()
-                running_mode = 'Interactive'
-            locale_path = os.path.join(application_path, '..', 'translations')
+        # # Additional code needed due to pyinstaller.
+        # # determine if application is a script file or frozen exe
+        # # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
+        # if getattr(sys, 'frozen', False):
+        #     # If the application is run as a bundle, the PyInstaller bootloader
+        #     # extends the sys module by a flag frozen=True and sets the app
+        #     # path into variable _MEIPASS'.
+        #     application_path = sys._MEIPASS
+        #     running_mode = 'Frozen/executable'
+        #     path_to_dat = os.path.join(application_path, 'logger.conf')
+        #     locale_path = os.path.join(application_path, 'translations')
+        # else:
+        #     try:
+        #         app_full_path = os.path.realpath(__file__)
+        #         application_path = os.path.dirname(app_full_path)
+        #         running_mode = "Non-interactive (e.g. 'python myapp.py')"
+        #     except NameError:
+        #         application_path = os.getcwd()
+        #         running_mode = 'Interactive'
+        #     locale_path = os.path.join(application_path, '..', 'translations')
 
-        print('Running mode:', running_mode)
+        print(f'running: {detect_app_path_status()[0]}')
+        print(f'application_path: {detect_app_path_status()[1]}')
+
+        application_path = detect_app_path_status()[1]
+        locale_path = os.path.join(detect_app_path_status()[1], 'translations')
 
         # Read config file
         self.config_reader = ConfigReader()
@@ -164,7 +170,7 @@ class MainWindow(QMainWindow):
         # Delete old log file
         self.delete_logfile()
         # Create logger
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger('root')
         file_handler = logging.FileHandler("lepg.log", mode="a", encoding="utf-8")
         logger.addHandler(file_handler)
         formatter = logging.Formatter(
@@ -174,19 +180,9 @@ class MainWindow(QMainWindow):
         file_handler.setFormatter(formatter)
         logger.setLevel(self.config_reader.get_loglevel())
 
-        # Language configuration
-        self.my_locale = locale.getdefaultlocale()
-        logger.debug(f'Locale: {self.my_locale}')
-        match platform.uname()[0]:
-            case 'Linux':
-                self.my_language = (self.my_locale[0].split('-'))[0]
-            case 'Windows':
-                self.my_language = (self.my_locale[0].split('_'))[0]
-            case _:
-                logger.warning('Unknown system, unable to determine language automatically.')
-                self.my_language = 'en'
-        logger.debug(f'Platform: {platform.uname()}')
-        logger.info(f'Detected language |{self.my_language}|')
+        logger.debug('application start')
+
+        self.my_language = detect_language()
 
         try:
             translation_lang = gettext.translation('lepg',
@@ -299,10 +295,6 @@ class MainWindow(QMainWindow):
                                             'data has (not) been saved'))
         file_data_status_act.triggered.connect(self.file_data_status)
 
-        file_restart_act = QAction(_('Restart'), self)
-        file_restart_act.setStatusTip(_('Restart the app'))
-        file_restart_act.triggered.connect(self.file_restart)
-
         file_exit_act = QAction(_('Exit'), self)
         file_exit_act.setStatusTip(_('Leave the app'))
         file_exit_act.triggered.connect(self.file_exit)
@@ -310,8 +302,6 @@ class MainWindow(QMainWindow):
         # Build the menu
         file_menu = self.mainMenu.addMenu(_('File'))
         file_menu.addAction(file_data_status_act)
-        file_menu.addSeparator()
-        file_menu.addAction(file_restart_act)
         file_menu.addSeparator()
         file_menu.addAction(file_exit_act)
 
@@ -322,31 +312,6 @@ class MainWindow(QMainWindow):
         self.file_data_status_w = DataStatusOverview()
         self.mdi.addSubWindow(self.file_data_status_w)
         self.file_data_status_w.show()
-
-    def file_restart(self):
-        """
-        :method: Restarts the application.
-            Thanks to: https://blog.petrzemek.net/2014/03/23/
-            restarting-a-python-script-within-itself/
-        """
-
-        if self.ppm.file_saved() is not True\
-                or self.pm.file_saved() is not True:
-            # There is unsaved data, show a warning
-            msg_box = QMessageBox()
-            msg_box.setWindowTitle(_("Unsaved data"))
-            msg_box.setText(_("You have unsaved data. \n\n"
-                              "Press OK to restart anyway.\n"
-                              "Press Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
-            answer = msg_box.exec()
-
-            if answer == QMessageBox.StandardButton.Cancel:
-                # User wants to abort
-                return
-
-        os.execv(sys.executable, ['python'] + sys.argv)
 
     def closeEvent(self, event):
         event.ignore()
