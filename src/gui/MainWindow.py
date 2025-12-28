@@ -3,15 +3,13 @@
 :License: General Public License GNU GPL 3.0
 """
 import gettext
-import locale
 import logging.config
 import os
-import platform
 import sys
 import webbrowser
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QMdiArea, \
     QMessageBox, QMenu, QLabel, QStatusBar
 from packaging import version
@@ -91,7 +89,7 @@ class MainWindow(QMainWindow):
         self.airfoil_thick_w = None
         self.new_skin_tens_w = None
         self.parts_separation_w = None
-        self.seewing_all_w = None
+        self.sewing_all_w = None
         self.marks_w = None
         self.dxf_layer_names_w = None
         self.marks_types_w = None
@@ -127,9 +125,6 @@ class MainWindow(QMainWindow):
         self.proc_det_risers_w = None
         self.xflr_w = None
 
-        # Delete old log file
-        self.delete_logfile()
-
         # # Additional code needed due to pyinstaller.
         # # determine if application is a script file or frozen exe
         # # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
@@ -162,7 +157,7 @@ class MainWindow(QMainWindow):
         self.delete_logfile()
         # Create logger
         logger = logging.getLogger('root')
-        file_handler = logging.FileHandler("lepg.log", mode="a", encoding="utf-8")
+        file_handler = logging.FileHandler("lepg.log", mode="w", encoding="utf-8")
         logger.addHandler(file_handler)
         formatter = logging.Formatter(
             "{asctime} {module}.{funcName}:{lineno}\t{levelname:>10} {message}",
@@ -899,9 +894,9 @@ class MainWindow(QMainWindow):
         """
         # Define the actions
 
-        plan_seewing_all_a = QAction(_('Seewing Allowance'), self)
-        plan_seewing_all_a.setStatusTip(_('Edit Seewing allowances'))
-        plan_seewing_all_a.triggered.connect(self.plan_seewing_all_edit)
+        plan_sewing_all_a = QAction(_('Sewing Allowance'), self)
+        plan_sewing_all_a.setStatusTip(_('Edit Sewing allowances'))
+        plan_sewing_all_a.triggered.connect(self.plan_sewing_all_edit)
 
         plan_marks_a = QAction(_('Marks'), self)
         plan_marks_a.setStatusTip(_('Edit the Marks parameters'))
@@ -932,7 +927,7 @@ class MainWindow(QMainWindow):
 
         # Build the menu
         plan_menu = self.mainMenu.addMenu(_('Plan'))
-        plan_menu.addAction(plan_seewing_all_a)
+        plan_menu.addAction(plan_sewing_all_a)
         plan_menu.addAction(plan_marks_a)
         plan_menu.addAction(plan_dxf_layer_names_a)
         plan_menu.addAction(proc_marks_t_a)
@@ -940,13 +935,13 @@ class MainWindow(QMainWindow):
         plan_menu.addAction(proc_three_d_dxf_a)
         plan_menu.addAction(proc_parts_sep_a)
 
-    def plan_seewing_all_edit(self):
+    def plan_sewing_all_edit(self):
         """
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         """
-        self.seewing_all_w = SewingAllowances()
-        self.mdi.addSubWindow(self.seewing_all_w)
-        self.seewing_all_w.show()
+        self.sewing_all_w = SewingAllowances()
+        self.mdi.addSubWindow(self.sewing_all_w)
+        self.sewing_all_w.show()
 
     def plan_marks_edit(self):
         """
@@ -1179,7 +1174,6 @@ class MainWindow(QMainWindow):
                 bundle_dir = os.path.join(bundle_dir, '..')
             except NameError:
                 bundle_dir = os.getcwd()
-                # bundle_dir = os.path.join(bundle_dir, '..')
 
         webbrowser.open('file://'
                         + os.path.realpath(os.path.join(bundle_dir,
@@ -1194,13 +1188,3 @@ class MainWindow(QMainWindow):
         self.help_about_w = HelpAbout()
         self.mdi.addSubWindow(self.help_about_w)
         self.help_about_w.show()
-
-    def delete_logfile(self):
-        """
-        :method: Deletes the log file if there's one
-        """
-        directory_path = os.path.dirname(os.path.realpath(__file__))
-        log_path_name = os.path.join(directory_path, '../lepg.log')
-
-        if os.path.isfile(log_path_name):
-            os.remove(log_path_name)
