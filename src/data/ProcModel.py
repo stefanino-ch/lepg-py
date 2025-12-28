@@ -288,12 +288,13 @@ class ProcModel(QObject, metaclass=Singleton):
                  N = Unsaved data
         :rtype: str
         """
-        if self.__fileSaved is True:
+        if self.__fileSaved:
             return 'Y'
         else:
             return 'N'
 
-    def is_valid_pre_proc_file(self, file_name):
+    @staticmethod
+    def is_valid_pre_proc_file(file_name):
         """
         :method: Checks if a file can be opened and contains a valid title
                  and known version number
@@ -338,7 +339,7 @@ class ProcModel(QObject, metaclass=Singleton):
                 + str(version_ok) + _('\nTitle detected: ')
                 + str(title_ok))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
 
         return version_ok and title_ok
@@ -410,7 +411,6 @@ class ProcModel(QObject, metaclass=Singleton):
                             + str(version_ok)
                             + _('\nTitle detected: ')
                             + str(title_ok))
-            # TODO check if translation works if line is changed to correct length.
             msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
@@ -502,7 +502,7 @@ class ProcModel(QObject, metaclass=Singleton):
     def save_file(self):
         """
         :method: Checks if there is already a valid file name, if not it
-                 asks for it. Starts afterwards the writing process.
+                 asks for it. Starts afterward the writing process.
         """
         file_name = self.get_file_name()
         if len(file_name) > 0:
@@ -530,8 +530,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
     def save_file_as(self):
         """
-        :method: Asks for a new filename. Starts afterwards the
-                 writing process.
+        :method: Asks for a new filename. Starts afterward the writing process.
         """
         # Ask first for the filename
         file_name = QFileDialog.getSaveFileName(
