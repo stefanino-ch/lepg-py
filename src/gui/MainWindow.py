@@ -69,7 +69,6 @@ from gui.tools.detectLanguage import detect_language
 from gui.tools.detectAppPathStatus import detect_app_path_status
 from gui.tools.openUserHelpFile import open_user_help_file
 
-# TODO: bring windows to front if they are called
 
 class MainWindow(QMainWindow):
     """
@@ -107,6 +106,7 @@ class MainWindow(QMainWindow):
         self.ramification_w = None
         self.brakes_w = None
         self.lines_w = None
+        self.lines_char_w = None
         self.global_aoa_w = None
         self.skin_tension_w = None
         self.solve_equ_equ_w = None
@@ -124,27 +124,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_wing_outline_w = None
         self.proc_det_risers_w = None
         self.xflr_w = None
-
-        # # Additional code needed due to pyinstaller.
-        # # determine if application is a script file or frozen exe
-        # # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
-        # if getattr(sys, 'frozen', False):
-        #     # If the application is run as a bundle, the PyInstaller bootloader
-        #     # extends the sys module by a flag frozen=True and sets the app
-        #     # path into variable _MEIPASS'.
-        #     application_path = sys._MEIPASS
-        #     running_mode = 'Frozen/executable'
-        #     path_to_dat = os.path.join(application_path, 'logger.conf')
-        #     locale_path = os.path.join(application_path, 'translations')
-        # else:
-        #     try:
-        #         app_full_path = os.path.realpath(__file__)
-        #         application_path = os.path.dirname(app_full_path)
-        #         running_mode = "Non-interactive (e.g. 'python myapp.py')"
-        #     except NameError:
-        #         application_path = os.getcwd()
-        #         running_mode = 'Interactive'
-        #     locale_path = os.path.join(application_path, '..', 'translations')
+        self.detailed_risers_w = None
 
         print(f'running: {detect_app_path_status()[0]}')
         locale_path = os.path.join(detect_app_path_status()[1], 'translations')
@@ -289,6 +269,7 @@ class MainWindow(QMainWindow):
         self.file_data_status_w = DataStatusOverview()
         self.mdi.addSubWindow(self.file_data_status_w)
         self.file_data_status_w.show()
+        self.mdi.setActiveSubWindow(self.file_data_status_w)
 
     def closeEvent(self, event):
         event.ignore()
@@ -389,6 +370,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_edit_w = PreProcData()
         self.mdi.addSubWindow(self.pre_proc_edit_w)
         self.pre_proc_edit_w.show()
+        self.mdi.setActiveSubWindow(self.pre_proc_edit_w)
 
     def pre_proc_cells_distr_edit(self):
         """
@@ -398,6 +380,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_cells_distr_w = PreProcCellsDistribution()
         self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
         self.pre_proc_cells_distr_w.show()
+        self.mdi.setActiveSubWindow(self.pre_proc_cells_distr_w)
 
     def pre_proc_run(self):
         """
@@ -412,6 +395,7 @@ class MainWindow(QMainWindow):
         self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
         self.proc_out_w.clear_text()
+        self.mdi.setActiveSubWindow(self.proc_out_w)
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
@@ -653,6 +637,7 @@ class MainWindow(QMainWindow):
         self.basic_data_w = BasicData()
         self.mdi.addSubWindow(self.basic_data_w)
         self.basic_data_w.show()
+        self.mdi.setActiveSubWindow(self.basic_data_w)
 
     def proc_geometry_edit(self):
         """
@@ -661,6 +646,7 @@ class MainWindow(QMainWindow):
         self.geometry_w = Geometry()
         self.mdi.addSubWindow(self.geometry_w)
         self.geometry_w.show()
+        self.mdi.setActiveSubWindow(self.geometry_w)
 
     def proc_airfoils_edit(self):
         """
@@ -669,6 +655,7 @@ class MainWindow(QMainWindow):
         self.airfoils_w = Airfoils()
         self.mdi.addSubWindow(self.airfoils_w)
         self.airfoils_w.show()
+        self.mdi.setActiveSubWindow(self.airfoils_w)
 
     def proc_anchor_points_edit(self):
         """
@@ -677,6 +664,7 @@ class MainWindow(QMainWindow):
         self.anchor_points_w = AnchorPoints()
         self.mdi.addSubWindow(self.anchor_points_w)
         self.anchor_points_w.show()
+        self.mdi.setActiveSubWindow(self.anchor_points_w)
 
     def proc_rib_holes_edit(self):
         """
@@ -685,6 +673,7 @@ class MainWindow(QMainWindow):
         self.rib_holes_w = RibHoles()
         self.mdi.addSubWindow(self.rib_holes_w)
         self.rib_holes_w.show()
+        self.mdi.setActiveSubWindow(self.rib_holes_w)
 
     def proc_skin_tension_edit(self):
         """
@@ -693,6 +682,7 @@ class MainWindow(QMainWindow):
         self.skin_tension_w = SkinTension()
         self.mdi.addSubWindow(self.skin_tension_w)
         self.skin_tension_w.show()
+        self.mdi.setActiveSubWindow(self.skin_tension_w)
 
     def proc_global_aoa_edit(self):
         """
@@ -701,6 +691,7 @@ class MainWindow(QMainWindow):
         self.global_aoa_w = GlobalAoA()
         self.mdi.addSubWindow(self.global_aoa_w)
         self.global_aoa_w.show()
+        self.mdi.setActiveSubWindow(self.global_aoa_w)
 
     def proc_lines_edit(self):
         """
@@ -709,6 +700,7 @@ class MainWindow(QMainWindow):
         self.lines_w = Lines()
         self.mdi.addSubWindow(self.lines_w)
         self.lines_w.show()
+        self.mdi.setActiveSubWindow(self.lines_w)
 
     def proc_brakes_edit(self):
         """
@@ -717,6 +709,7 @@ class MainWindow(QMainWindow):
         self.brakes_w = Brakes()
         self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
+        self.mdi.setActiveSubWindow(self.brakes_w)
 
     def proc_el_lines_corr_edit(self):
         """
@@ -725,6 +718,7 @@ class MainWindow(QMainWindow):
         self.el_lines_corr_w = ElasticLinesCorr()
         self.mdi.addSubWindow(self.el_lines_corr_w)
         self.el_lines_corr_w.show()
+        self.mdi.setActiveSubWindow(self.el_lines_corr_w)
 
     def proc_lines_char_edit(self):
         """
@@ -734,6 +728,7 @@ class MainWindow(QMainWindow):
         self.lines_char_w = LinesCharacteristics()
         self.mdi.addSubWindow(self.lines_char_w)
         self.lines_char_w.show()
+        self.mdi.setActiveSubWindow(self.lines_char_w)
 
     def proc_ramification_edit(self):
         """
@@ -742,6 +737,7 @@ class MainWindow(QMainWindow):
         self.ramification_w = Ramification()
         self.mdi.addSubWindow(self.ramification_w)
         self.ramification_w.show()
+        self.mdi.setActiveSubWindow(self.ramification_w)
 
     def proc_hv_vh_edit(self):
         """
@@ -750,6 +746,7 @@ class MainWindow(QMainWindow):
         self.hv_vh_w = HvVhRibs()
         self.mdi.addSubWindow(self.hv_vh_w)
         self.hv_vh_w.show()
+        self.mdi.setActiveSubWindow(self.hv_vh_w)
 
     def proc_extrados_colors_edit(self):
         """
@@ -758,6 +755,7 @@ class MainWindow(QMainWindow):
         self.extrados_colors_w = ExtradColors()
         self.mdi.addSubWindow(self.extrados_colors_w)
         self.extrados_colors_w.show()
+        self.mdi.setActiveSubWindow(self.extrados_colors_w)
 
     def proc_intrados_colors_edit(self):
         """
@@ -766,6 +764,7 @@ class MainWindow(QMainWindow):
         self.intrados_colors_w = IntradColors()
         self.mdi.addSubWindow(self.intrados_colors_w)
         self.intrados_colors_w.show()
+        self.mdi.setActiveSubWindow(self.intrados_colors_w)
 
     def proc_add_rib_pts_edit(self):
         """
@@ -775,6 +774,7 @@ class MainWindow(QMainWindow):
         self.add_rib_pts_w = AddRibPoints()
         self.mdi.addSubWindow(self.add_rib_pts_w)
         self.add_rib_pts_w.show()
+        self.mdi.setActiveSubWindow(self.add_rib_pts_w)
 
 
     def proc_joncs_def_edit(self):
@@ -784,6 +784,7 @@ class MainWindow(QMainWindow):
         self.joncs_def_w = JoncsDefinition()
         self.mdi.addSubWindow(self.joncs_def_w)
         self.joncs_def_w.show()
+        self.mdi.setActiveSubWindow(self.joncs_def_w)
 
     def proc_nose_mylars_edit(self):
         """
@@ -792,6 +793,7 @@ class MainWindow(QMainWindow):
         self.nose_mylars_w = NoseMylars()
         self.mdi.addSubWindow(self.nose_mylars_w)
         self.nose_mylars_w.show()
+        self.mdi.setActiveSubWindow(self.nose_mylars_w)
 
     def proc_glue_vent_edit(self):
         """
@@ -800,6 +802,7 @@ class MainWindow(QMainWindow):
         self.glue_vent_w = GlueVent()
         self.mdi.addSubWindow(self.glue_vent_w)
         self.glue_vent_w.show()
+        self.mdi.setActiveSubWindow(self.glue_vent_w)
 
     def proc_spec_wing_tip_edit(self):
         """
@@ -808,6 +811,7 @@ class MainWindow(QMainWindow):
         self.spec_wing_tip_w = SpecWingTip()
         self.mdi.addSubWindow(self.spec_wing_tip_w)
         self.spec_wing_tip_w.show()
+        self.mdi.setActiveSubWindow(self.spec_wing_tip_w)
 
     def proc_calage_var_edit(self):
         """
@@ -816,6 +820,7 @@ class MainWindow(QMainWindow):
         self.calage_var_w = CalageVar()
         self.mdi.addSubWindow(self.calage_var_w)
         self.calage_var_w.show()
+        self.mdi.setActiveSubWindow(self.calage_var_w)
 
     def proc_three_d_shaping_edit(self):
         """
@@ -824,6 +829,7 @@ class MainWindow(QMainWindow):
         self.three_d_sh_w = ThreeDShaping()
         self.mdi.addSubWindow(self.three_d_sh_w)
         self.three_d_sh_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_sh_w)
 
     def proc_airfoil_thick_edit(self):
         """
@@ -832,6 +838,7 @@ class MainWindow(QMainWindow):
         self.airfoil_thick_w = AirfoilThickness()
         self.mdi.addSubWindow(self.airfoil_thick_w)
         self.airfoil_thick_w.show()
+        self.mdi.setActiveSubWindow(self.airfoil_thick_w)
 
     def proc_new_skin_tension_edit(self):
         """
@@ -840,6 +847,7 @@ class MainWindow(QMainWindow):
         self.new_skin_tens_w = NewSkinTension()
         self.mdi.addSubWindow(self.new_skin_tens_w)
         self.new_skin_tens_w.show()
+        self.mdi.setActiveSubWindow(self.new_skin_tens_w)
 
     def proc_parts_sep_edit(self):
         """
@@ -848,6 +856,7 @@ class MainWindow(QMainWindow):
         self.parts_separation_w = PartsSeparation()
         self.mdi.addSubWindow(self.parts_separation_w)
         self.parts_separation_w.show()
+        self.mdi.setActiveSubWindow(self.parts_separation_w)
 
     def proc_detailed_risers_edit(self):
         """
@@ -856,6 +865,7 @@ class MainWindow(QMainWindow):
         self.detailed_risers_w = DetailedRisers()
         self.mdi.addSubWindow(self.detailed_risers_w)
         self.detailed_risers_w.show()
+        self.mdi.setActiveSubWindow(self.detailed_risers_w)
 
     def proc_run(self):
         """
@@ -868,6 +878,7 @@ class MainWindow(QMainWindow):
         self.proc_out_w = ProcessorOutput()
         self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.mdi.setActiveSubWindow(self.proc_out_w)
         self.proc_out_w.clear_text()
 
         # Finally, run the processor
@@ -939,6 +950,7 @@ class MainWindow(QMainWindow):
         self.sewing_all_w = SewingAllowances()
         self.mdi.addSubWindow(self.sewing_all_w)
         self.sewing_all_w.show()
+        self.mdi.setActiveSubWindow(self.sewing_all_w)
 
     def plan_marks_edit(self):
         """
@@ -947,6 +959,7 @@ class MainWindow(QMainWindow):
         self.marks_w = Marks()
         self.mdi.addSubWindow(self.marks_w)
         self.marks_w.show()
+        self.mdi.setActiveSubWindow(self.marks_w)
 
     def plan_dxf_layer_names_edit(self):
         """
@@ -955,6 +968,7 @@ class MainWindow(QMainWindow):
         self.dxf_layer_names_w = DxfLayerNames()
         self.mdi.addSubWindow(self.dxf_layer_names_w)
         self.dxf_layer_names_w.show()
+        self.mdi.setActiveSubWindow(self.dxf_layer_names_w)
 
     def marks_types_edit(self):
         """
@@ -963,6 +977,7 @@ class MainWindow(QMainWindow):
         self.marks_types_w = MarksTypes()
         self.mdi.addSubWindow(self.marks_types_w)
         self.marks_types_w.show()
+        self.mdi.setActiveSubWindow(self.marks_types_w)
 
     def two_d_dxf_edit(self):
         """
@@ -971,6 +986,7 @@ class MainWindow(QMainWindow):
         self.two_d_dxf_w = TwoDDxf()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.two_d_dxf_w)
 
     def three_d_dxf_edit(self):
         """
@@ -979,6 +995,7 @@ class MainWindow(QMainWindow):
         self.three_d_dxf_w = ThreeDDxf()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_dxf_w)
 
     def build_expert_menu(self):
         """
@@ -1010,6 +1027,7 @@ class MainWindow(QMainWindow):
         self.solve_equ_equ_w = SolveEquEqu()
         self.mdi.addSubWindow(self.solve_equ_equ_w)
         self.solve_equ_equ_w.show()
+        self.mdi.setActiveSubWindow(self.solve_equ_equ_w)
 
     def exp_xflr_edit(self):
         """
@@ -1018,6 +1036,7 @@ class MainWindow(QMainWindow):
         self.xflr_w = Xflr()
         self.mdi.addSubWindow(self.xflr_w)
         self.xflr_w.show()
+        self.mdi.setActiveSubWindow(self.xflr_w)
 
     def exp_special_param_edit(self):
         """
@@ -1026,6 +1045,7 @@ class MainWindow(QMainWindow):
         self.special_parameters_w = SpecialParameters()
         self.mdi.addSubWindow(self.special_parameters_w)
         self.special_parameters_w.show()
+        self.mdi.setActiveSubWindow(self.special_parameters_w)
 
     def build_view_menu(self):
         """
@@ -1069,6 +1089,7 @@ class MainWindow(QMainWindow):
         self.view_wing_outline_w = PreProcWingOutline()
         self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
+        self.mdi.setActiveSubWindow(self.view_wing_outline_w)
 
     def view_2d_dxf(self):
         """
@@ -1078,6 +1099,7 @@ class MainWindow(QMainWindow):
         self.two_d_dxf_w = TwoDDxfViewer()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.two_d_dxf_w)
 
     def view_3d_dxf(self):
         """
@@ -1087,6 +1109,7 @@ class MainWindow(QMainWindow):
         self.three_d_dxf_w = ThreeDDxfViewer()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_dxf_w)
 
     def view_cascade(self):
         """
@@ -1127,6 +1150,7 @@ class MainWindow(QMainWindow):
         self.setup_proc_w = SetupProcessors()
         self.mdi.addSubWindow(self.setup_proc_w)
         self.setup_proc_w.show()
+        self.mdi.setActiveSubWindow(self.setup_proc_w)
 
     def setup_update_checking(self):
         """
@@ -1135,6 +1159,7 @@ class MainWindow(QMainWindow):
         self.setup_update_check_w = SetupUpdateChecking()
         self.mdi.addSubWindow(self.setup_update_check_w)
         self.setup_update_check_w.show()
+        self.mdi.setActiveSubWindow(self.setup_update_check_w)
 
     def build_help_menu(self):
         """
@@ -1153,7 +1178,8 @@ class MainWindow(QMainWindow):
         file_menu.addAction(online_help_act)
         file_menu.addAction(help_about_act)
 
-    def online_help(self):
+    @staticmethod
+    def online_help():
         """
         :method: Opens the online help in the browser
         """
@@ -1166,3 +1192,4 @@ class MainWindow(QMainWindow):
         self.help_about_w = HelpAbout()
         self.mdi.addSubWindow(self.help_about_w)
         self.help_about_w.show()
+        self.mdi.setActiveSubWindow(self.help_about_w)
