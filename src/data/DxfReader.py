@@ -14,11 +14,6 @@ class DxfReader:
     :class: Reads content from a DXF file
     """
 
-    __className = 'DxfReader'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -40,14 +35,10 @@ class DxfReader:
             return self.doc
 
         except IOError:
-            logging.error(self.__className
-                          + '.open_doc'
-                          + 'Not a DXF file or a generic I/O error.')
+            logging.error('open_doc not a DXF file or a generic I/O error.')
             return None
         except ezdxf.DXFStructureError:
-            logging.error(self.__className
-                          + '.open_doc'
-                          + 'Invalid or corrupted DXF file.')
+            logging.error('open_doc invalid or corrupted DXF file.')
             return None
 
     def read_layers_entities(self):
@@ -88,9 +79,7 @@ class DxfReader:
                                       *ezdxf.colors.aci2rgb(entity.dxf.color))
                     entities_list.append(circle)
                 else:
-                    logging.info(self.__className
-                                 + '.open_doc'
-                                 + f'unknown element found: {dxf_type}')
+                    logging.info(f'open_doc unknown element found: {dxf_type}')
 
             inventory[layer] = entities_list.copy()
 

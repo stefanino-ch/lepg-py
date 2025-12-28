@@ -73,16 +73,10 @@ from gui.tools.detectAppPathStatus import detect_app_path_status
 
 # TODO: bring windows to front if they are called
 
-
 class MainWindow(QMainWindow):
     """
     :class: Creates the main window of the application
     """
-
-    __className = 'MainWindow'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self, parent=None):
         """
@@ -232,13 +226,10 @@ class MainWindow(QMainWindow):
 
             if version_check.remoteVersionFound():
                 remote_version = version_check.getRemoteVersion()
-                logging.debug(self.__className
-                              + ' Remote Version:   '
-                              + remote_version + '\n')
-                logging.debug(self.__className
-                              + ' Current Version:  '
-                              + getattr(__init__, '__version__')
-                              + '\n')
+                logging.debug('Remote Version:   '
+                              + remote_version)
+                logging.debug(' Current Version:  '
+                              + getattr(__init__, '__version__'))
 
                 if version.parse(remote_version) > version.parse(getattr(__init__, '__version__')):
                     msg_box = QMessageBox()
@@ -265,15 +256,11 @@ class MainWindow(QMainWindow):
                     msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                     msg_box.exec()
             else:
-                logging.error(self.__className
-                              + 'Unable to get the update information.\n')
-                logging.error(self.__className
-                              + 'Error information: '
-                              + version_check.getErrorInfo()
-                              + '\n')
+                logging.error('Unable to get the update information.\n')
+                logging.error('Error information: '
+                              + version_check.getErrorInfo())
         else:
-            logging.debug(self.__className
-                          + ' Update check disabled in config file.\n')
+            logging.debug('Update check disabled in config file.\n')
 
     def update_save_status(self):
         """

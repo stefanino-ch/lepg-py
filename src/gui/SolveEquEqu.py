@@ -24,11 +24,6 @@ class SolveEquEqu(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit Solve Equilibrium Equations data
     """
 
-    __className = 'SolveEquEqu'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -308,6 +303,4 @@ class SolveEquEqu(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

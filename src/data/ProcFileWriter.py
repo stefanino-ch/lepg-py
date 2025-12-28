@@ -162,9 +162,7 @@ class ProcFileWriter:
         out_file = QFile(file_path_name)
 
         if not out_file.open(QFile.OpenModeFlag.ReadWrite | QFile.OpenModeFlag.Text):
-            logging.error(self.__className
-                          + '.write_file '
-                          + out_file.errorString())
+            logging.error('write_file ' + out_file.errorString())
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle("File save error")

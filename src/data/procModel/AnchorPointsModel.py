@@ -14,10 +14,6 @@ class AnchorPointsModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding all data related to the Anchor points.
     """
-    __className = 'AnchorPointsModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     RibNumCol = 0
     ''':attr: Number of the rib number column'''
     NumAnchCol = 1

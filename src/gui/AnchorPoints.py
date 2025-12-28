@@ -23,11 +23,6 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit anchor points data
     """
 
-    __className = 'AnchorPoints'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -163,6 +158,4 @@ class AnchorPoints(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

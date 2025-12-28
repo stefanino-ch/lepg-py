@@ -26,11 +26,6 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit airfoils holes data
     """
 
-    __className = 'IntradColors'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -344,4 +339,4 @@ class IntradColors(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press ' + q)
+            logging.error('.btn_press unrecognized button press ' + q)

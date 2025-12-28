@@ -14,10 +14,6 @@ class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
     """
     :class: provides a SqlTableModel holding all data related to the Intrados colors configuration
     """
-    __className = 'IntradosColsConfModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     FirstRibCol = 1

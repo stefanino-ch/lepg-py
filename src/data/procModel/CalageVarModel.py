@@ -14,8 +14,6 @@ class CalageVarModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the DXF layer names
     """
-    __className = 'CalageVarModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
     __isUsed = False
     ''' :attr: Helps to remember if the section is in use or not'''
 

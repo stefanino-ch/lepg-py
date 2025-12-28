@@ -22,13 +22,8 @@ from gui.GlobalDefinition import ValidationValues
 
 class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit airfoils holes data
+    :class: Window to display and edit joncs data
     """
-
-    __className = 'JoncsDefinition'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -487,6 +482,4 @@ class JoncsDefinition(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

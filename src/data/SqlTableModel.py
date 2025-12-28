@@ -13,10 +13,6 @@ class SqlTableModel(QSqlTableModel):
     :class: Inherits QSqlTableModel and adds a few specific methods, partially
             sw related, partially to work around some Qt limitations
     """
-    __className = 'SqlTableModel'
-    """
-    :attr: Does help to indicate the source of the log messages
-    """
 
     didSelect = pyqtSignal()
     """
@@ -58,17 +54,17 @@ class SqlTableModel(QSqlTableModel):
             record.setValue("RibNum", num_rows+1)
             # -1 is set to indicate that it will be added to the last row
             if not self.insertRecord(row+i, record):
-                logging.critical(self.__className + '.add_rows insertRecord Err type: %s'
+                logging.critical('add_rows insertRecord Err type: %s'
                                  % self.lastError().type())
-                logging.critical(self.__className + '.add_rows insertRecord Err text: %s'
+                logging.critical('add_rows insertRecord Err text: %s'
                                  % self.lastError().text())
                 QSqlDatabase.database().rollback()
                 return False
 
         if not QSqlDatabase.database().commit():
-            logging.critical(self.__className + '.add_rows commit Err type: %s'
+            logging.critical('add_rows commit Err type: %s'
                              % self.lastError().type())
-            logging.critical(self.__className + '.add_rows commit Err text: %s'
+            logging.critical('add_rows commit Err text: %s'
                              % self.lastError().text())
             return False
         return True
@@ -183,11 +179,9 @@ class SqlTableModel(QSqlTableModel):
         query.bindValue(":order", curr_num_rows+1)
         res = query.exec()
         if not res:
-            logging.critical(self.__className
-                             + '.addRowsForConfig insertRecord Err type: %s'
+            logging.critical('addRowsForConfig insertRecord Err type: %s'
                              % self.lastError().type())
-            logging.critical(self.__className
-                             + '.addRowsForConfig insertRecord Err text: %s'
+            logging.critical('addRowsForConfig insertRecord Err text: %s'
                              % self.lastError().text())
         # to a select() to assure the model is updated properly
         self.select()
@@ -263,5 +257,5 @@ class SqlTableModel(QSqlTableModel):
                 QRegularExpression(str(config_num)))
             return proxy_model.rowCount()
         else:
-            logging.critical(self.__className+'.num_rows_for_config: ConfigNumCol not defined')
+            logging.critical('num_rows_for_config: ConfigNumCol not defined')
             return

@@ -304,9 +304,7 @@ class ProcModel(QObject, metaclass=Singleton):
             if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
                 stream = QTextStream(in_file)
         except:
-            logging.error(self.__className
-                          + 'File cannot be opened '
-                          + file_name)
+            logging.error('File cannot be opened ' + file_name)
             return False
 
         title_ok = False
@@ -329,12 +327,8 @@ class ProcModel(QObject, metaclass=Singleton):
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of Pre-Proc out file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of Pre-Proc out file title check %s',
-                          title_ok)
+            logging.error(' Result of Pre-Proc out file version check %s', version_ok)
+            logging.error(' Result of Pre-Proc out file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))
@@ -359,9 +353,7 @@ class ProcModel(QObject, metaclass=Singleton):
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
-            logging.error(self.__className +
-                          'File cannot be opened ' +
-                          file_name)
+            logging.error('File cannot be opened ' + file_name)
             return False
 
         title_ok = False
@@ -408,12 +400,8 @@ class ProcModel(QObject, metaclass=Singleton):
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of Proc file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of Proc file title check %s',
-                          title_ok)
+            logging.error(' Result of Proc file version check %s', version_ok)
+            logging.error(' Result of Proc file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))

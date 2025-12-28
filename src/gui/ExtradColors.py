@@ -23,13 +23,8 @@ from gui.GlobalDefinition import ValidationValues
 
 class ExtradColors(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit airfoils holes data
+    :class: Window to display and edit extrados colors data
     """
-
-    __className = 'ExtradColors'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -349,4 +344,4 @@ class ExtradColors(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press ' + q)
+            logging.error('.btn_press unrecognized button press ' + q)

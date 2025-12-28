@@ -20,13 +20,8 @@ from gui.GlobalDefinition import ValidationValues
 
 class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Brake line details
+    :class: Window to display and edit the parts separation data
     """
-
-    __className = 'PartsSeparation'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -177,6 +172,4 @@ class PartsSeparation(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

@@ -50,8 +50,6 @@ class WingModel(SqlTableModel, metaclass=Singleton):
     :class: Provides a SqlTableModel holding all data related to the
             wing itself.
     """
-    __className = 'WingModel'
-
     BrandNameCol = 0
     ''':attr: number of the brand name column'''
     WingNameCol = 1

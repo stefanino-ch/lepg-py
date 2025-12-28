@@ -37,4 +37,4 @@ class Database(QSqlDatabase, metaclass=Singleton):
                 self.db.setDatabaseName("lepgModel.sqlite")
 
             if not self.db.open():
-                logging.error(self.__className+ '.__init__ cannot open db')
+                logging.error('__init__ cannot open db')

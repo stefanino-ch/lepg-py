@@ -16,10 +16,8 @@ from Singleton.Singleton import Singleton
 
 class HelpAbout(QMdiSubWindow, metaclass=Singleton):
     """
-    Window displaying
-        The help about information
+    Window displaying the help about information
     """
-    __className = 'HelpAbout'
 
     def __init__(self):
         self.helpAboutLicL = None
@@ -112,6 +110,4 @@ class HelpAbout(QMdiSubWindow, metaclass=Singleton):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

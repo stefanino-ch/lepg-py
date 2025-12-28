@@ -76,11 +76,6 @@ class FileHelpers(object):
     :class: little helpers for file reading and writing all over.
     """
 
-    __className = 'FileHelpers'
-    '''
-    :attr: Does help to indicate the source of the log messages.
-    '''
-
     def __init__(self):
         """
         :method: Class initialization

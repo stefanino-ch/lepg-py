@@ -14,9 +14,6 @@ class LinesModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the lines parameters.
     """
-    __className = 'LinesModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     '''
     :attr: num of column for 1..3: ordering the individual lines

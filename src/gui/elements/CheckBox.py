@@ -12,10 +12,6 @@ class CheckBox(QCheckBox):
     """
         :class: Subclasses QCheckBox to add additional functionality.
         """
-    __className = 'LineEdit'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self, *args, **kwargs):
         """

@@ -21,13 +21,8 @@ from gui.GlobalDefinition import ValidationValues
 
 class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit airfoils holes data
+    :class: Window to display and edit the new definition of skin tension data
     """
-
-    __className = 'NewSkinTension'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -358,4 +353,4 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press ' + q)
+            logging.error('btn_press unrecognized button press ' + q)

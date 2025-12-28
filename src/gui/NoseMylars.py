@@ -25,11 +25,6 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit nose mylars details
     """
 
-    __className = 'NoseMylars'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -214,6 +209,4 @@ class NoseMylars(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

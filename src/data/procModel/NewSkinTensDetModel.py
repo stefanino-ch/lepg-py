@@ -14,9 +14,6 @@ class NewSkinTensDetModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding all detail data related to New skin tension.
     """
-    __className = 'NewSkinTensionDetModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     ''':attr: num of column for ordering the individual lines of a config'''
     TopDistLECol = 1

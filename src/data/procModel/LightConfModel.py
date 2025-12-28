@@ -14,11 +14,6 @@ class LightConfModel(SqlTableModel, metaclass=Singleton):
     """
     :class: provides a SqlTableModel holding all data related to the global lightening config parameters
     """
-
-    __className = 'LightConfModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     __numConfigs = 0
 
     OrderNumCol = 0

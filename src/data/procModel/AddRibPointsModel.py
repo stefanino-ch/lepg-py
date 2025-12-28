@@ -14,9 +14,6 @@ class AddRibPointsModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the parameters for the additional rib points.
     """
-    __className = 'AddRibPointsModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     ''':attr: num of column used for ordering the individual lines of a config'''
     XCoordCol = 1

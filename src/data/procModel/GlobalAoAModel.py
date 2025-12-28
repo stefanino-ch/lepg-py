@@ -14,9 +14,6 @@ class GlobalAoAModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the global AoA parameters.
     """
-    __className = 'GlobalAoAModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     FinesseCol = 0
     ''':attr: Number of the col holding the finesse value'''
     PlumbPointCol = 1

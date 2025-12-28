@@ -14,9 +14,6 @@ class JoncsDefModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the Joncs definition data
     """
-    __className = 'JoncsDefModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     ''':attr: num of column for ordering the individual lines of a config'''
     FirstRibCol = 1

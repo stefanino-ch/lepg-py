@@ -14,10 +14,6 @@ class TrailingEdgeModel(SqlTableModel, metaclass=Singleton):
     :class: Provides a SqlTableModel holding all data for trailing
             edge definition
     """
-    __className = 'TrailingEdgeModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     OrderNumCol = 0
     TypeCol = 1
     aOneCol = 2

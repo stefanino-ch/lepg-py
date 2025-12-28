@@ -21,13 +21,8 @@ from gui.GlobalDefinition import Regex, ValidationValues
 
 class MarksTypes(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Brake line details
+    :class: Window to display and edit marks types details
     """
-
-    __className = 'MarksTypes'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -203,6 +198,4 @@ class MarksTypes(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className 
-                          + '.btn_press unrecognized button press ' 
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

@@ -14,10 +14,6 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
     """
     :class: provides a SqlTableModel holding all data related to the Extrados colors configuration
     """
-    __className = 'ExtradosColConfModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     FirstRibCol = 1

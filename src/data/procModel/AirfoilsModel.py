@@ -14,10 +14,6 @@ class AirfoilsModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding all data related to the individual ribs.
     """
-    __className = 'AirfoilsModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     RibNumCol = 0
     ''':attr: number of the rib number column'''
     AirfNameCol = 1

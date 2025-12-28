@@ -14,9 +14,6 @@ class BrakeLengthModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the Marks parameters.
     """
-    __className = 'BrakeLengthModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     s1Col = 0
     ''':attr: Number of the col holding the s1 value'''
     s2Col = 1

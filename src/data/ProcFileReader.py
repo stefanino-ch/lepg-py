@@ -82,11 +82,6 @@ class ProcFileReader(QObject):
             into the according models.
     """
 
-    __className = 'ProcFileReader'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     __fileNamePath = ''  # type: str
     __fileVersion = 0.0  # type: float
 
@@ -163,7 +158,7 @@ class ProcFileReader(QObject):
         ##############################
         # 1. GEOMETRY
         # Over read file header
-        logging.debug(self.__className + '.read_file: 1. GEOMETRY')
+        logging.debug('.read_file: 1. GEOMETRY')
 
         counter = 0
         while counter < 4:
@@ -228,7 +223,7 @@ class ProcFileReader(QObject):
             self.wing_M.setData(
                 self.wing_M.index(0, WingModel.AlphaModeCol),
                 '')
-            logging.error(self.__className + '.read_file: AlphaMode missing')
+            logging.error('read_file: AlphaMode missing')
 
         if len(values) > 2:
             self.wing_M.setData(
@@ -254,7 +249,7 @@ class ProcFileReader(QObject):
             self.wing_M.setData(
                 self.wing_M.index(0, WingModel.ParaParamCol),
                 '')
-            logging.error(self.__className + '.read_file: ParaParam missing')
+            logging.error('read_file: ParaParam missing')
 
         # Rib geometric parameters
         # Rib  x-rib  y-LE  y-TE  xp  z  beta  RP  Washin Rot_z  Pos_z
@@ -277,7 +272,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 2. AIRFOILS
-        logging.debug(self.__className + '.read_file: 2. AIRFOILS')
+        logging.debug('read_file: 2. AIRFOILS')
 
         for i in range(4):
             stream.readLine()
@@ -289,7 +284,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 3. ANCHOR POINTS
-        logging.debug(self.__className + '.read_file: 3. ANCHOR POINTS')
+        logging.debug('read_file: 3. ANCHOR POINTS')
 
         # Just over-read the lines for temporary testing
         for i in range(4):
@@ -303,7 +298,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 4. RIB HOLES
-        logging.debug(self.__className + '.read_file: 4. RIB HOLES')
+        logging.debug('read_file: 4. RIB HOLES')
 
         for i in range(3):
             stream.readLine()
@@ -333,7 +328,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 5. SKIN TENSION
-        logging.debug(self.__className + '.read_file: 5. SKIN TENSION')
+        logging.debug('read_file: 5. SKIN TENSION')
 
         for i in range(4):
             stream.readLine()
@@ -346,7 +341,7 @@ class ProcFileReader(QObject):
             except:
                 # in case of an empty file values[1...3] are missing
                 self.skinTens_M.updateRow(line_it + 1, 0, 0, 0, 0)
-                logging.error(self.__className + '.read_file: Skin tension params missing')
+                logging.error('read_file: Skin tension params missing')
 
         val = rem_tab_space(stream.readLine())
         self.skinTensParams_M.setData(
@@ -366,7 +361,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 6. SEWING ALLOWANCES
-        logging.debug(self.__className + '.read_file: 6. SEWING ALLOWANCES')
+        logging.debug('read_file: 6. SEWING ALLOWANCES')
 
         for i in range(3):
             stream.readLine()
@@ -379,31 +374,25 @@ class ProcFileReader(QObject):
             else:
                 # in case of an empty file
                 self.sewAll_M.update_row(line_it + 1, 15, 25, 25)
-                logging.error(
-                    self.__className
-                    + '.read_file: Sewing allowances for panels missing')
+                logging.error('read_file: Sewing allowances for panels missing')
 
         values = split_line(stream.readLine())
         if len(values) > 2:
             self.sewAll_M.update_row(3, values[0])
         else:
             self.sewAll_M.update_row(3, 15)
-            logging.error(
-                self.__className
-                + '.read_file: Sewing allowances for ribs missing')
+            logging.error('read_file: Sewing allowances for ribs missing')
 
         values = split_line(stream.readLine())
         if len(values) > 2:
             self.sewAll_M.update_row(4, values[0])
         else:
             self.sewAll_M.update_row(4, 15)
-            logging.error(
-                self.__className
-                + '.read_file: Sewing allowances for v-ribs missing')
+            logging.error('read_file: Sewing allowances for v-ribs missing')
 
         ##############################
         # 7. MARKS
-        logging.debug(self.__className + '.read_file: 7. MARKS')
+        logging.debug('read_file: 7. MARKS')
 
         for i in range(3):
             stream.readLine()
@@ -414,12 +403,11 @@ class ProcFileReader(QObject):
         except:
             # in case of an empty file values[1...2] are missing
             self.marks_M.update_row(25, 0.5, 0.15)
-            logging.error(self.__className + '.read_file: Marks missing')
+            logging.error('read_file: Marks missing')
 
         ##############################
         # 8. GLOBAL ANGLE OF ATTACK ESTIMATION
-        logging.debug(self.__className
-                      + '.read_file: 8. GLOBAL ANGLE OF ATTACK ESTIMATION')
+        logging.debug('read_file: 8. GLOBAL ANGLE OF ATTACK ESTIMATION')
 
         for i in range(3):
             stream.readLine()
@@ -462,8 +450,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 9. SUSPENSION LINES DESCRIPTION
-        logging.debug(self.__className
-                      + '.read_file: 9. SUSPENSION LINES DESCRIPTION')
+        logging.debug('read_file: 9. SUSPENSION LINES DESCRIPTION')
 
         for i in range(3):
             stream.readLine()
@@ -508,7 +495,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 10. BRAKES
-        logging.debug(self.__className + '.read_file: 10. BRAKES')
+        logging.debug('read_file: 10. BRAKES')
 
         for i in range(3):
             stream.readLine()
@@ -562,8 +549,7 @@ class ProcFileReader(QObject):
                                          0,
                                          0,
                                          0,0,0,0                                         )
-                logging.error(self.__className
-                              + '.read_file: Brake lines data missing')
+                logging.error('read_file: Brake lines data missing')
 
         stream.readLine()
 
@@ -577,13 +563,11 @@ class ProcFileReader(QObject):
                 except:
                     self.brakeL_M.setData(
                         self.brakeL_M.index(0, p + (c * 5)), 0)
-                    logging.error(
-                        self.__className
-                        + '.read_file: Brake distribution data missing')
+                    logging.error('read_file: Brake distribution data missing')
 
         ##############################
         # 11. RAMIFICATION LENGTH
-        logging.debug(self.__className + '.read_file:11. RAMIFICATION LENGTH')
+        logging.debug('read_file:11. RAMIFICATION LENGTH')
 
         for i in range(3):
             stream.readLine()
@@ -593,37 +577,32 @@ class ProcFileReader(QObject):
             self.ramific_M.update_row(1, 1, values[0], values[1], 0)
         except:
             self.ramific_M.update_row(1, 1, 0, 0, 0)
-            logging.error(self.__className
-                          + '.read_file: Ramification data missing')
+            logging.error('read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
             self.ramific_M.update_row(1, 2, values[0], values[1], values[2])
         except:
             self.ramific_M.update_row(1, 2, 0, 0, 0)
-            logging.error(self.__className
-                          + '.read_file: Ramification data missing')
+            logging.error('read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
             self.ramific_M.update_row(1, 3, values[0], values[1], 0)
         except:
             self.ramific_M.update_row(1, 3, 0, 0, 0)
-            logging.error(self.__className
-                          + '.read_file: Ramification data missing')
+            logging.error('read_file: Ramification data missing')
 
         values = split_line(stream.readLine())
         try:
             self.ramific_M.update_row(1, 4, values[0], values[1], values[2])
         except:
             self.ramific_M.update_row(1, 4, 0, 0, 0)
-            logging.error(self.__className
-                          + '.read_file: Ramification data missing')
+            logging.error('read_file: Ramification data missing')
 
         ##############################
         # 12. H V AND VH RIBS (Mini Ribs)
-        logging.debug(self.__className
-                      + '.read_file: 12. H V AND VH RIBS (Mini Ribs)')
+        logging.debug('read_file: 12. H V AND VH RIBS (Mini Ribs)')
 
         for i in range(3):
             stream.readLine()
@@ -644,8 +623,7 @@ class ProcFileReader(QObject):
             self.wing_M.setData(
                 self.wing_M.index(0,
                                   WingModel.ySpacingCol), 0)
-            logging.error(self.__className
-                          + '.read_file: H V and VH ribs data missing')
+            logging.error('read_file: H V and VH ribs data missing')
 
         # delete existing data
         self.hVvHRibs_M.set_num_rows_for_config(1, 0)
@@ -681,7 +659,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 15. EXTRADOS COLORS
-        logging.debug(self.__className + '.read_file: 15. EXTRADOS COLORS')
+        logging.debug('read_file: 15. EXTRADOS COLORS')
 
         for i in range(3):
             stream.readLine()
@@ -706,7 +684,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 16. INTRADOS COLORS
-        logging.debug(self.__className + '.read_file: 16. INTRADOS COLORS')
+        logging.debug('read_file: 16. INTRADOS COLORS')
 
         for i in range(3):
             stream.readLine()
@@ -731,8 +709,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 17. ADDITIONAL RIB POINTS
-        logging.debug(self.__className
-                      + '.read_file: 17. ADDITIONAL RIB POINTS')
+        logging.debug('.read_file: 17. ADDITIONAL RIB POINTS')
 
         for i in range(3):
             stream.readLine()
@@ -748,8 +725,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 18. ELASTIC LINES CORRECTIONS
-        logging.debug(self.__className
-                      + '.read_file: 18. ELASTIC LINES CORRECTIONS')
+        logging.debug('read_file: 18. ELASTIC LINES CORRECTIONS')
 
         for i in range(3):
             stream.readLine()
@@ -774,8 +750,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.TwoLineDistBCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
 
         values = split_line(stream.readLine())
         self.elLinesCorr_M.setData(
@@ -792,8 +767,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.ThreeLineDistBCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -804,8 +778,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.ThreeLineDistCCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
 
         values = split_line(stream.readLine())
         self.elLinesCorr_M.setData(
@@ -822,8 +795,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FourLineDistBCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -834,8 +806,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FourLineDistCCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -846,8 +817,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FourLineDistDCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
 
         values = split_line(stream.readLine())
         self.elLinesCorr_M.setData(
@@ -864,8 +834,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FiveLineDistBCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -876,8 +845,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FiveLineDistCCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -888,8 +856,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FiveLineDistDCol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
         try:
             self.elLinesCorr_M.setData(
                 self.elLinesCorr_M.index(0,
@@ -900,8 +867,7 @@ class ProcFileReader(QObject):
                 self.elLinesCorr_M.index(0,
                                          ElLinesCorrModel.FiveLineDistECol),
                 0)
-            logging.error(self.__className
-                          + '.read_file: Elastic lines corr data missing')
+            logging.error('read_file: Elastic lines corr data missing')
 
         for line_it in range(0, 5):
             values = split_line(stream.readLine())
@@ -917,12 +883,11 @@ class ProcFileReader(QObject):
                                              0,
                                              0,
                                              0)
-                logging.error(self.__className
-                              + '.read_file: Elastic lines corr data missing')
+                logging.error('read_file: Elastic lines corr data missing')
 
         ##############################
         # 19. DXF LAYER NAMES
-        logging.debug(self.__className + '.read_file: 19. DXF LAYER NAMES')
+        logging.debug('read_file: 19. DXF LAYER NAMES')
 
         for i in range(3):
             stream.readLine()
@@ -938,7 +903,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 20. MARKS TYPES
-        logging.debug(self.__className + '.read_file: 20. MARKS TYPES')
+        logging.debug('read_file: 20. MARKS TYPES')
 
         for i in range(3):
             stream.readLine()
@@ -956,8 +921,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 21. JONCS DEFINITION (NYLON RODS)
-        logging.debug(self.__className
-                      + '.read_file: 21. JONCS DEFINITION (NYLON RODS)')
+        logging.debug('read_file: 21. JONCS DEFINITION (NYLON RODS)')
 
         for i in range(3):
             stream.readLine()
@@ -1032,8 +996,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 22. NOSE MYLARS DEFINITION
-        logging.debug(self.__className
-                      + '.read_file: 22. NOSE MYLARS DEFINITION')
+        logging.debug('read_file: 22. NOSE MYLARS DEFINITION')
 
         for i in range(3):
             stream.readLine()
@@ -1059,8 +1022,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 23. TAB REINFORCEMENTS
-        logging.debug(self.__className
-                      + '.read_file: Jump over 23. TAB REINFORCEMENTS')
+        logging.debug('read_file: Jump over 23. TAB REINFORCEMENTS')
 
         counter = 0
         while counter < 4:
@@ -1071,8 +1033,7 @@ class ProcFileReader(QObject):
         ##############################
         # 24. GENERAL 2D DXF OPTIONS
         # be carefully: previous code has already read both **** lines of header
-        logging.debug(self.__className
-                      + '.read_file: 24. GENERAL 2D DXF OPTIONS')
+        logging.debug('read_file: 24. GENERAL 2D DXF OPTIONS')
 
         data = int(rem_tab_space(stream.readLine()))
 
@@ -1089,8 +1050,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 25. GENERAL 3D DXF OPTIONS
-        logging.debug(self.__className
-                      + '.read_file: 25. GENERAL 3D DXF OPTIONS')
+        logging.debug('read_file: 25. GENERAL 3D DXF OPTIONS')
 
         for i in range(3):
             stream.readLine()
@@ -1116,7 +1076,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 26. GLUE VENTS
-        logging.debug(self.__className + '.read_file: 26. GLUE VENTS')
+        logging.debug('read_file: 26. GLUE VENTS')
 
         for i in range(3):
             stream.readLine()
@@ -1160,7 +1120,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 26. SPECIAL WING TIP
-        logging.debug(self.__className + '.read_file: 26. SPECIAL WING TIP')
+        logging.debug('read_file: 26. SPECIAL WING TIP')
 
         for i in range(3):
             stream.readLine()
@@ -1181,8 +1141,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 28. PARAMETERS FOR CALAGE VARIATION
-        logging.debug(self.__className
-                      + '.read_file: 28. PARAMETERS FOR CALAGE VARIATION')
+        logging.debug('read_file: 28. PARAMETERS FOR CALAGE VARIATION')
 
         for i in range(3):
             stream.readLine()
@@ -1206,7 +1165,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 29. 3D SHAPING
-        logging.debug(self.__className + '.read_file: 29. 3D SHAPING')
+        logging.debug('read_file: 29. 3D SHAPING')
 
         for i in range(3):
             stream.readLine()
@@ -1275,7 +1234,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 30. AIRFOIL THICKNESS
-        logging.debug(self.__className + '.read_file: 30. AIRFOIL THICKNESS')
+        logging.debug('read_file: 30. AIRFOIL THICKNESS')
 
         for i in range(3):
             stream.readLine()
@@ -1293,7 +1252,7 @@ class ProcFileReader(QObject):
 
         ##############################
         # 31. NEW SKIN TENSION
-        logging.debug(self.__className + '.read_file: 31. NEW SKIN TENSION')
+        logging.debug('read_file: 31. NEW SKIN TENSION')
 
         for i in range(3):
             stream.readLine()
@@ -1328,7 +1287,7 @@ class ProcFileReader(QObject):
 
         if self.__fileVersion - 3.17 > -1e-10:
 
-            logging.debug(self.__className + '.read_file: 32. PARTS SEPARATION')
+            logging.debug('read_file: 32. PARTS SEPARATION')
 
             for line_it in range(3):
                 stream.readLine()
@@ -1364,7 +1323,7 @@ class ProcFileReader(QObject):
         # 33. DETAILED RISERS
         # Detailed raisers was introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
-            logging.debug(self.__className + '.read_file: 33. DETAILED RISERS')
+            logging.debug('read_file: 33. DETAILED RISERS')
 
             for line_it in range(3):
                 stream.readLine()
@@ -1413,7 +1372,7 @@ class ProcFileReader(QObject):
         # 34. LINES CHARACTERISTICS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
-            logging.debug(self.__className + '.read_file: 34. LINES CHARACTERISTICS')
+            logging.debug('read_file: 34. LINES CHARACTERISTICS')
 
             in_header = True
             while in_header:
@@ -1450,7 +1409,7 @@ class ProcFileReader(QObject):
         # 35: SOLVE EQUILIBRIUM EQUATIONS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
-            logging.debug(self.__className + '.read_file: 35: SOLVE EQUILIBRIUM EQUATIONS')
+            logging.debug('read_file: 35: SOLVE EQUILIBRIUM EQUATIONS')
 
             in_header = True
             while in_header:
@@ -1491,7 +1450,7 @@ class ProcFileReader(QObject):
         # 36: CREATE FILES FOR XFLR5 ANALYSIS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
-            logging.debug(self.__className + '.read_file: 36: CREATE FILES FOR XFLR5 ANALYSIS')
+            logging.debug('read_file: 36: CREATE FILES FOR XFLR5 ANALYSIS')
 
             in_header = True
             while in_header:
@@ -1525,7 +1484,7 @@ class ProcFileReader(QObject):
         # 37: SOME SPECIAL PARAMETERS
         # Introduced with 3.21
         if self.__fileVersion - 3.21 > -1e-10:
-            logging.debug(self.__className + '.read_file: 37: SOME SPECIAL PARAMETERS')
+            logging.debug('read_file: 37: SOME SPECIAL PARAMETERS')
 
             in_header = True
             while in_header:
