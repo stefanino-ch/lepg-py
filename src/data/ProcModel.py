@@ -91,7 +91,7 @@ class ProcModel(QObject, metaclass=Singleton):
     '''
     :attr: Version number of the file currently in use
     '''
-    __latestFileVersion = '3.21'
+    __latestFileVersion = '3.27'
     '''
     :attr: Version number of the currently supported processor
     '''
@@ -433,7 +433,7 @@ class ProcModel(QObject, metaclass=Singleton):
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
             answer = msg_box.exec()
 
             if answer == QMessageBox.StandardButton.Cancel:
@@ -461,7 +461,7 @@ class ProcModel(QObject, metaclass=Singleton):
                                      0)
             self.set_file_name('')
             self.set_file_version('')
-            self.set_file_saved(True)
+            self.set_file_saved(False)
 
     def open_file(self):
         """

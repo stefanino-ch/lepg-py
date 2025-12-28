@@ -435,7 +435,6 @@ class MainWindow(QMainWindow):
         proc_save_as_a = QAction(_('Save Processor File As ..'), self)
         proc_save_as_a.setStatusTip(_('save_proc_file_as_desc'))
         proc_save_as_a.triggered.connect(self.proc_save_file_as)
-        # FIXME if Save As is used Data Status Window shows file version 3.17
 
         proc_basic_data_a = QAction(_('Basic data'), self)
         proc_basic_data_a.setStatusTip(_('Editing the wing basics'))
@@ -607,7 +606,6 @@ class MainWindow(QMainWindow):
                  *Import Pre-Proc File*
         """
         self.pm.import_pre_proc_file()
-        # FIXME If file is imported, File saved info is not updated
 
     def proc_open_file(self):
         """
