@@ -9,8 +9,7 @@ import webbrowser
 from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt6.QtCore import pyqtSignal
 
-from gui.tools.detectLanguage import detect_language
-from gui.tools.detectAppPathStatus import detect_app_path_status
+from gui.tools.openUserHelpFile import open_user_help_file
 
 class WindowBtnBar(QWidget):
     """
@@ -105,27 +104,7 @@ class WindowBtnBar(QWidget):
         """
         :class: Called if the *Help* button is pressed
         """
-        bundle_dir = os.path.join(detect_app_path_status()[1])
-        system_language = detect_language()
-
-        # Check if there are user help files for the detected language
-        lang_path = os.path.join(bundle_dir, 'userHelp', system_language)
-        if not os.path.isdir(lang_path):
-            # There seems to be no help in the current lang.
-            # Fallback to the default index.html file
-            self.__helpPage = 'index.html'
-
-        if self.__helpPage == 'index.html':
-            webbrowser.open('file://'
-                            + os.path.realpath(os.path.join(bundle_dir,
-                                                            'userHelp',
-                                                            self.__helpPage)))
-        else:
-            webbrowser.open('file://'
-                            + os.path.realpath(os.path.join(bundle_dir,
-                                                            'userHelp',
-                                                            detect_language(),
-                                                            self.__helpPage)))
+        open_user_help_file(self.__helpPage)
 
     def set_help_page(self, help_page):
         """

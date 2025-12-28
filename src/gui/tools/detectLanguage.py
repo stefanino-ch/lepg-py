@@ -20,7 +20,6 @@ def detect_language():
             my_language = (my_locale[0].split('_'))[0]
         case _:
             logging.warning('Unknown system, unable to determine language automatically.')
-            pass
 
     logging.debug(f'Platform: {platform.uname()}')
     logging.info(f'Detected language |{my_language}|')

@@ -6,7 +6,6 @@ import gettext
 import logging.config
 import os
 import sys
-import webbrowser
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction
@@ -68,6 +67,7 @@ from gui.Xflr import Xflr
 
 from gui.tools.detectLanguage import detect_language
 from gui.tools.detectAppPathStatus import detect_app_path_status
+from gui.tools.openUserHelpFile import open_user_help_file
 
 # TODO: bring windows to front if they are called
 
@@ -152,9 +152,6 @@ class MainWindow(QMainWindow):
         # Read config file
         self.config_reader = ConfigReader()
 
-        # Setup logging
-        # Delete old log file
-        self.delete_logfile()
         # Create logger
         logger = logging.getLogger('root')
         file_handler = logging.FileHandler("lepg.log", mode="w", encoding="utf-8")
@@ -1160,26 +1157,7 @@ class MainWindow(QMainWindow):
         """
         :method: Opens the online help in the browser
         """
-
-        config = ConfigReader()
-
-        if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
-
-        else:
-            try:
-                # running unpacked
-                app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
-                bundle_dir = os.path.join(bundle_dir, '..')
-            except NameError:
-                bundle_dir = os.getcwd()
-
-        webbrowser.open('file://'
-                        + os.path.realpath(os.path.join(bundle_dir,
-                                       'userHelp',
-                                       config.get_language(),
-                                       'introduction.html')))
+        open_user_help_file('introduction.html')
 
     def help_about(self):
         """
