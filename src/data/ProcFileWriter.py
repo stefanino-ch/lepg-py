@@ -144,7 +144,7 @@ class ProcFileWriter:
         """
         separator = '***************************************************\n'
 
-        if for_proc is True:
+        if for_proc:
             # Special file write into the directory where the
             # PreProcessor resides
             config_reader = ConfigReader()
@@ -169,7 +169,7 @@ class ProcFileWriter:
             msg_box.setText('File can not be saved: '
                             + out_file.errorString())
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
             return False
 
@@ -179,7 +179,7 @@ class ProcFileWriter:
 
         stream << separator
         stream << '* LABORATORI D\'ENVOL PARAGLIDING DESIGN\n'
-        stream << '* Input data file version 3.23\n'
+        stream << '* Input data file version 3.27\n'
         stream << separator
         today = date.today()
         stream << '* Version %s\n' % today.strftime("%Y-%m-%d")
@@ -486,38 +486,65 @@ class ProcFileWriter:
         stream << separator
         stream << '*    15. Extrados colors\n'
         stream << separator
+
         num_groups = self.extrados_col_conf_m.num_configs()
-        stream << '%s\n' % num_groups
+
+        if self.extrados_col_conf_m.type() == 0:
+            stream << '0\n'
+        elif self.extrados_col_conf_m.type() == 1:
+            # Old style
+            stream << '%s\n' % num_groups
+        else:
+            # New style
+            stream << '-2\n'
+            stream << '%s\n' % num_groups
 
         for g in range(0, num_groups):
             num_lines = self.extrados_col_det_m.num_rows_for_config(g + 1)
 
             values = self.extrados_col_conf_m.get_row(g + 1)
-            stream << '%s' % values(0)
-            stream << '\t%s\n' % num_lines
+            stream << '%s' % values(0)          # Rib
+            stream << '\t%s\n' % num_lines      # Number of cuts
 
             for line_it in range(0, num_lines):
-                values = self.extrados_col_det_m.getRow(g + 1, line_it + 1)
+                values = self.extrados_col_det_m.get_row(g + 1, line_it + 1)
                 stream << '%s' % (line_it + 1)
-                stream << '\t%s\t0.\n' % chk_num(values(0))
+                if self.extrados_col_conf_m.type() == 1:
+                    stream << '\t%s\t0.\n' % chk_num(values(0))
+                else:
+                    stream << '\t%s\t%s\t%s\t0\n' % (chk_num(values(0)), chk_num(values(1)), chk_num(values(2)))
+
 
         stream << separator
         stream << '*    16. Intrados colors\n'
         stream << separator
+
         num_groups = self.intrados_col_conf_m.num_configs()
-        stream << '%s\n' % num_groups
+
+        if self.intrados_col_conf_m.type() == 0:
+            stream << '0\n'
+        elif self.intrados_col_conf_m.type() == 1:
+            # Old style
+            stream << '%s\n' % num_groups
+        else:
+            # New style
+            stream << '-2\n'
+            stream << '%s\n' % num_groups
 
         for g in range(0, num_groups):
             num_lines = self.intrados_col_det_m.num_rows_for_config(g + 1)
 
-            values = self.intrados_col_conf_m.getRow(g + 1)
-            stream << '%s' % values(0)
-            stream << '\t%s\n' % num_lines
+            values = self.intrados_col_conf_m.get_row(g + 1)
+            stream << '%s' % values(0)          # Rib
+            stream << '\t%s\n' % num_lines      # Number of cuts
 
             for line_it in range(0, num_lines):
-                values = self.intrados_col_det_m.getRow(g + 1, line_it + 1)
+                values = self.intrados_col_det_m.get_row(g + 1, line_it + 1)
                 stream << '%s' % (line_it + 1)
-                stream << '\t%s\t0.\n' % chk_num(values(0))
+                if self.intrados_col_conf_m.type() == 1:
+                    stream << '\t%s\t0.\n' % chk_num(values(0))
+                else:
+                    stream << '\t%s\t%s\t%s\t0\n' % (chk_num(values(0)), chk_num(values(1)), chk_num(values(2)))
 
         stream << separator
         stream << '*       17. Additional rib points\n'
@@ -908,7 +935,7 @@ class ProcFileWriter:
         stream << '*       32. PARAMETERS FOR PARTS SEPARATION\n'
         stream << separator
 
-        if self.parts_sep_m.is_used() is False:
+        if not self.parts_sep_m.is_used():
             stream << '0\n'
         else:
             stream << '1\n'

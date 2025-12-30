@@ -122,6 +122,8 @@ class ValidationValues:
         SkinTensionAddWidthMax = 100
 
         # 6: Sewing Allowances
+        # 15: Extrados Colors
+        # 16: Intrados Colors
         MinSewingAllowance_mm = 0
         MaxSewingAllowance_mm = 100
 

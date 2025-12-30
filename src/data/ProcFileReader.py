@@ -665,7 +665,19 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.extradosColConf_M.set_num_configs(num_configs)
+        if num_configs == 0:
+            # Section not used
+            self.extradosColConf_M.set_type(0)
+            self.extradosColConf_M.set_num_configs(num_configs)
+        elif num_configs > 0:
+            # Old style file
+            self.extradosColConf_M.set_type(1)
+            self.extradosColConf_M.set_num_configs(num_configs)
+        else:
+            # For new style file introduced with v3.24 we need to read a 2nd line for the number of configs
+            self.extradosColConf_M.set_type(2)
+            num_configs = int(rem_tab_space(stream.readLine()))
+            self.extradosColConf_M.set_num_configs(num_configs)
 
         for configCounter in range(0, num_configs):
             values = split_line(stream.readLine())
@@ -673,14 +685,16 @@ class ProcFileReader(QObject):
             self.extradosColConf_M.update_row(configCounter + 1, values[0])
 
             num_config_lines = int(values[1])
-            self.extradosColDet_M.set_num_rows_for_config(configCounter + 1,
-                                                          num_config_lines)
+            self.extradosColDet_M.set_num_rows_for_config(configCounter + 1, num_config_lines)
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
-                self.extradosColDet_M.updateRow(configCounter + 1,
-                                                line_it + 1,
-                                                values[1])
+
+                # In old files we have not enough values
+                if len(values) == 3:
+                    values.append('0')
+
+                self.extradosColDet_M.update_row(configCounter + 1, line_it + 1, values[1], values[2], values[3])
 
         ##############################
         # 16. INTRADOS COLORS
@@ -690,22 +704,36 @@ class ProcFileReader(QObject):
             stream.readLine()
 
         num_configs = int(rem_tab_space(stream.readLine()))
-        self.intradosColConf_M.set_num_configs(num_configs)
+        if num_configs == 0:
+            # Section not used
+            self.intradosColConf_M.set_type(0)
+            self.intradosColConf_M.set_num_configs(num_configs)
+        elif num_configs > 0:
+            # Old style file
+            self.intradosColConf_M.set_type(1)
+            self.intradosColConf_M.set_num_configs(num_configs)
+        else:
+            # For new style file introduced with v3.24 we need to read a 2nd line for the number of configs
+            self.intradosColConf_M.set_type(2)
+            num_configs = int(rem_tab_space(stream.readLine()))
+            self.intradosColConf_M.set_num_configs(num_configs)
 
         for configCounter in range(0, num_configs):
             values = split_line(stream.readLine())
 
-            self.intradosColConf_M.updateRow(configCounter + 1, values[0])
+            self.intradosColConf_M.update_row(configCounter + 1, values[0])
 
             num_config_lines = int(values[1])
-            self.intradosColDet_M.set_num_rows_for_config(configCounter + 1,
-                                                          num_config_lines)
+            self.intradosColDet_M.set_num_rows_for_config(configCounter + 1, num_config_lines)
 
             for line_it in range(0, num_config_lines):
                 values = split_line(stream.readLine())
-                self.intradosColDet_M.updateRow(configCounter + 1,
-                                                line_it + 1,
-                                                values[1])
+
+                # In old files we have not enough values
+                if len(values) == 3:
+                    values.append('0')
+
+                self.intradosColDet_M.update_row(configCounter + 1, line_it + 1, values[1], values[2], values[3])
 
         ##############################
         # 17. ADDITIONAL RIB POINTS

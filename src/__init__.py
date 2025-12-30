@@ -1,4 +1,9 @@
-__version__ = '3.23.0'
+__version__ = '3.27.0'
+# 3.27
+# Fixes
+# New definition for Intrados and Extrados Colors added.
+
+# 3.23
 
 # 3.20
 

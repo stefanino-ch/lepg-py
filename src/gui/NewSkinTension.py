@@ -185,7 +185,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
 
         # Configuration 
         conf_table = TableView()
-        # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensConf_M)
         self.confProxyModel[curr_num_tabs].setFilterKeyColumn(NewSkinTensConfModel.ConfigNumCol)
