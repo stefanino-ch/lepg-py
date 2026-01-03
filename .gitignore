@@ -1,5 +1,5 @@
 # Logfiles
-src/logfile.txt
+src/lepg.log
 
 # Config file
 src/configFile.txt
@@ -43,6 +43,7 @@ __MACOSX
 .pydevproject
 .pydevproject.bak
 /preTest.txt
+
 # PyCharm development environment
 /.idea
 
@@ -52,3 +53,6 @@ src/processors/lep-*
 # MAC specifics
 .DS_Store
 __MACOSX
+
+# all .bak files
+*.bak

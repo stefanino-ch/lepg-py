@@ -4,14 +4,12 @@
 """
 
 import os
-import sys
 import webbrowser
-
 
 from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt6.QtCore import pyqtSignal
-from ConfigReader.ConfigReader import ConfigReader
 
+from gui.tools.openUserHelpFile import open_user_help_file
 
 class WindowBtnBar(QWidget):
     """
@@ -106,32 +104,7 @@ class WindowBtnBar(QWidget):
         """
         :class: Called if the *Help* button is pressed
         """
-
-        config = ConfigReader()
-
-        if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
-
-        else:
-            try:
-                # running unpacked
-                app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
-                bundle_dir = os.path.join(bundle_dir, '..', '..')
-            except NameError:
-                bundle_dir = os.getcwd()
-
-        if self.__helpPage == 'index.html':
-            webbrowser.open('file://'
-                            + os.path.realpath(os.path.join(bundle_dir,
-                                                            'userHelp',
-                                                            self.__helpPage)))
-        else:
-            webbrowser.open('file://'
-                            + os.path.realpath(os.path.join(bundle_dir,
-                                                            'userHelp',
-                                                            config.get_language(),
-                                                            self.__helpPage)))
+        open_user_help_file(self.__helpPage)
 
     def set_help_page(self, help_page):
         """

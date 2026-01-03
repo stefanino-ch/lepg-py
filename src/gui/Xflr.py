@@ -24,11 +24,6 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit XFLR5 data
     """
 
-    __className = 'Xflr'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -68,7 +63,6 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(500, 250)
@@ -175,6 +169,4 @@ class Xflr(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

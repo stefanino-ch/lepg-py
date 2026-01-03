@@ -3,7 +3,7 @@
 :License: General Public License GNU GPL 3.0
 """
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
 from data.SqlTableModel import SqlTableModel
@@ -14,10 +14,10 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
     """
     :class: provides a SqlTableModel holding all data related to the Extrados colors configuration
     """
-    __className = 'ExtradosColConfModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
+    __config_type = 0
+    ''' :attr: Stores the current configuration type '''
+    usageUpd = pyqtSignal()
+    ''' :signal: emitted as soon the usage flag is changed '''
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     FirstRibCol = 1
@@ -25,7 +25,8 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 2
     ''':attr: number of the column holding the config number'''
 
-    def create_table(self):
+    @staticmethod
+    def create_table():
         """
         :method: Creates initially the empty table.
         """
@@ -38,11 +39,12 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
+        self.__config_type = 0
         self.create_table()
         self.setTable("ExtradColsConf")
         self.select()
@@ -58,7 +60,8 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def get_row(self, config_num):
+    @staticmethod
+    def get_row(config_num):
         """
         :method: reads values back from the internal database for a specific config and order number
         :param config_num: Configuration number. Starting with 1
@@ -72,3 +75,19 @@ class ExtradosColConfModel(SqlTableModel, metaclass=Singleton):
         query.exec()
         query.next()
         return query.value
+
+    def set_type(self, config_type):
+        """
+        :method: Set and remember the configuration type currently in use
+        :param config_type: Configuration type 0: not used, 1: old style, 2: new style
+        :return: na
+        """
+        self.__config_type = config_type
+        self.usageUpd.emit()
+
+    def type(self):
+        """
+        :method: Return the configuration type currently used in use
+        :return: 0: not used, 1: old style, 2: new style
+        """
+        return self.__config_type

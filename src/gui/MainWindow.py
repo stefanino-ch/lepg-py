@@ -6,10 +6,9 @@ import gettext
 import logging.config
 import os
 import sys
-import webbrowser
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QMdiArea, \
     QMessageBox, QMenu, QLabel, QStatusBar
 from packaging import version
@@ -66,19 +65,15 @@ from gui.TwoDDxf import TwoDDxf
 from gui.LinesCharacteristics import LinesCharacteristics
 from gui.Xflr import Xflr
 
-
-# TODO: bring windows to front if they are called
+from gui.tools.detectLanguage import detect_language
+from gui.tools.detectAppPathStatus import detect_app_path_status
+from gui.tools.openUserHelpFile import open_user_help_file
 
 
 class MainWindow(QMainWindow):
     """
     :class: Creates the main window of the application
     """
-
-    __className = 'MainWindow'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self, parent=None):
         """
@@ -93,7 +88,7 @@ class MainWindow(QMainWindow):
         self.airfoil_thick_w = None
         self.new_skin_tens_w = None
         self.parts_separation_w = None
-        self.seewing_all_w = None
+        self.sewing_all_w = None
         self.marks_w = None
         self.dxf_layer_names_w = None
         self.marks_types_w = None
@@ -111,6 +106,7 @@ class MainWindow(QMainWindow):
         self.ramification_w = None
         self.brakes_w = None
         self.lines_w = None
+        self.lines_char_w = None
         self.global_aoa_w = None
         self.skin_tension_w = None
         self.solve_equ_equ_w = None
@@ -128,60 +124,42 @@ class MainWindow(QMainWindow):
         self.pre_proc_wing_outline_w = None
         self.proc_det_risers_w = None
         self.xflr_w = None
+        self.detailed_risers_w = None
 
-        # Delete old log file
-        self.delete_logfile()
+        print(f'running: {detect_app_path_status()[0]}')
+        locale_path = os.path.join(detect_app_path_status()[1], 'translations')
 
-        # Set up the logger
-        # Additional code needed due to pyinstaller.
-        # determine if application is a script file or frozen exe
-        # https://stackoverflow.com/questions/404744/determining-application-path-in-a-python-exe-generated-by-pyinstaller#404750
-        if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
-            running_mode = 'Frozen/executable'
-            path_to_dat = os.path.join(bundle_dir, 'logger.conf')
-            locale_path = os.path.join(bundle_dir, 'translations')
-        else:
-            try:
-                app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
-                running_mode = "Non-interactive (e.g. 'python myapp.py')"
-            except NameError:
-                bundle_dir = os.getcwd()
-                running_mode = 'Interactive'
-
-            path_to_dat = os.path.join(bundle_dir, '..', 'logger.conf')
-            locale_path = os.path.join(bundle_dir, '..', 'translations')
-
-        print('Running mode:', running_mode)
-        # print('  Bundle dir  :', bundle_dir)
-        # print('  Config full path :', path_to_dat)
-
-        logging.config.fileConfig(path_to_dat, disable_existing_loggers=False)
-        self.logger = logging.getLogger('root')
-        # DEBUG
-        # INFO
-        # WARNING
-        # ERROR
-        # CRITICAL
-        # Setup languages
+        # Read config file
         self.config_reader = ConfigReader()
 
-        if self.config_reader.get_language() == "de":
-            lang_de = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['de'])
-            lang_de.install()
-        elif self.config_reader.get_language() == "en":
-            lang_en = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['en'])
-            lang_en.install()
-        else:
-            lang_en = gettext.translation('lepg',
-                                          locale_path,
-                                          languages=['en'])
-            lang_en.install()
+        # Create logger
+        logger = logging.getLogger('root')
+        file_handler = logging.FileHandler("lepg.log", mode="w", encoding="utf-8")
+        logger.addHandler(file_handler)
+        formatter = logging.Formatter(
+            "{asctime} {module}.{funcName}:{lineno}\t{levelname:>10} {message}",
+            style = "{",
+            datefmt = "%Y-%m-%d %H:%M")
+        file_handler.setFormatter(formatter)
+        logger.setLevel(self.config_reader.get_loglevel())
+
+        logger.debug('application start')
+
+        self.my_language = detect_language()
+        logger.debug(f'detect_language(): {detect_language()}')
+
+        try:
+            translation_lang = gettext.translation('lepg',
+                                                   locale_path,
+                                                   languages=[self.my_language])
+            translation_lang.install()
+        except FileNotFoundError:
+            logger.exception('Translation files not found.')
+            logger.info('Using default language.')
+            translation_lang = gettext.translation('lepg',
+                                                   locale_path,
+                                                   languages=['en'])
+            translation_lang.install()
 
         self.ppm = PreProcModel()
         self.ppm.dataStatusUpdate.connect(self.update_save_status)
@@ -190,7 +168,6 @@ class MainWindow(QMainWindow):
         self.pm.dataStatusUpdate.connect(self.update_save_status)
 
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
         self.setWindowTitle("lepg-py %s" % getattr(__init__, '__version__'))
@@ -221,13 +198,10 @@ class MainWindow(QMainWindow):
 
             if version_check.remoteVersionFound():
                 remote_version = version_check.getRemoteVersion()
-                logging.debug(self.__className
-                              + ' Remote Version:   '
-                              + remote_version + '\n')
-                logging.debug(self.__className
-                              + ' Current Version:  '
-                              + getattr(__init__, '__version__')
-                              + '\n')
+                logging.debug('Remote Version:   '
+                              + remote_version)
+                logging.debug(' Current Version:  '
+                              + getattr(__init__, '__version__'))
 
                 if version.parse(remote_version) > version.parse(getattr(__init__, '__version__')):
                     msg_box = QMessageBox()
@@ -254,15 +228,11 @@ class MainWindow(QMainWindow):
                     msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                     msg_box.exec()
             else:
-                logging.error(self.__className
-                              + 'Unable to get the update information.\n')
-                logging.error(self.__className
-                              + 'Error information: '
-                              + version_check.getErrorInfo()
-                              + '\n')
+                logging.error('Unable to get the update information.\n')
+                logging.error('Error information: '
+                              + version_check.getErrorInfo())
         else:
-            logging.debug(self.__className
-                          + ' Update check disabled in config file.\n')
+            logging.debug('Update check disabled in config file.\n')
 
     def update_save_status(self):
         """
@@ -282,10 +252,6 @@ class MainWindow(QMainWindow):
                                             'data has (not) been saved'))
         file_data_status_act.triggered.connect(self.file_data_status)
 
-        file_restart_act = QAction(_('Restart'), self)
-        file_restart_act.setStatusTip(_('Restart the app'))
-        file_restart_act.triggered.connect(self.file_restart)
-
         file_exit_act = QAction(_('Exit'), self)
         file_exit_act.setStatusTip(_('Leave the app'))
         file_exit_act.triggered.connect(self.file_exit)
@@ -293,8 +259,6 @@ class MainWindow(QMainWindow):
         # Build the menu
         file_menu = self.mainMenu.addMenu(_('File'))
         file_menu.addAction(file_data_status_act)
-        file_menu.addSeparator()
-        file_menu.addAction(file_restart_act)
         file_menu.addSeparator()
         file_menu.addAction(file_exit_act)
 
@@ -305,31 +269,7 @@ class MainWindow(QMainWindow):
         self.file_data_status_w = DataStatusOverview()
         self.mdi.addSubWindow(self.file_data_status_w)
         self.file_data_status_w.show()
-
-    def file_restart(self):
-        """
-        :method: Restarts the application.
-            Thanks to: https://blog.petrzemek.net/2014/03/23/
-            restarting-a-python-script-within-itself/
-        """
-
-        if self.ppm.file_saved() is not True\
-                or self.pm.file_saved() is not True:
-            # There is unsaved data, show a warning
-            msg_box = QMessageBox()
-            msg_box.setWindowTitle(_("Unsaved data"))
-            msg_box.setText(_("You have unsaved data. \n\n"
-                              "Press OK to restart anyway.\n"
-                              "Press Cancel to abort. "))
-            msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
-            answer = msg_box.exec()
-
-            if answer == QMessageBox.StandardButton.Cancel:
-                # User wants to abort
-                return
-
-        os.execv(sys.executable, ['python'] + sys.argv)
+        self.mdi.setActiveSubWindow(self.file_data_status_w)
 
     def closeEvent(self, event):
         event.ignore()
@@ -355,6 +295,8 @@ class MainWindow(QMainWindow):
             if answer == QMessageBox.StandardButton.Cancel:
                 # User wants to abort
                 return
+
+        self.config_reader.write_config_file()
 
         sys.exit()
 
@@ -428,6 +370,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_edit_w = PreProcData()
         self.mdi.addSubWindow(self.pre_proc_edit_w)
         self.pre_proc_edit_w.show()
+        self.mdi.setActiveSubWindow(self.pre_proc_edit_w)
 
     def pre_proc_cells_distr_edit(self):
         """
@@ -437,6 +380,7 @@ class MainWindow(QMainWindow):
         self.pre_proc_cells_distr_w = PreProcCellsDistribution()
         self.mdi.addSubWindow(self.pre_proc_cells_distr_w)
         self.pre_proc_cells_distr_w.show()
+        self.mdi.setActiveSubWindow(self.pre_proc_cells_distr_w)
 
     def pre_proc_run(self):
         """
@@ -451,6 +395,7 @@ class MainWindow(QMainWindow):
         self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
         self.proc_out_w.clear_text()
+        self.mdi.setActiveSubWindow(self.proc_out_w)
 
         # Finally, run the processor
         proc_runner = ProcRunner(self.proc_out_w)
@@ -490,7 +435,6 @@ class MainWindow(QMainWindow):
         proc_save_as_a = QAction(_('Save Processor File As ..'), self)
         proc_save_as_a.setStatusTip(_('save_proc_file_as_desc'))
         proc_save_as_a.triggered.connect(self.proc_save_file_as)
-        # FIXME if Save As is used Data Status Window shows file version 3.17
 
         proc_basic_data_a = QAction(_('Basic data'), self)
         proc_basic_data_a.setStatusTip(_('Editing the wing basics'))
@@ -662,7 +606,6 @@ class MainWindow(QMainWindow):
                  *Import Pre-Proc File*
         """
         self.pm.import_pre_proc_file()
-        # FIXME If file is imported, File saved info is not updated
 
     def proc_open_file(self):
         """
@@ -692,6 +635,7 @@ class MainWindow(QMainWindow):
         self.basic_data_w = BasicData()
         self.mdi.addSubWindow(self.basic_data_w)
         self.basic_data_w.show()
+        self.mdi.setActiveSubWindow(self.basic_data_w)
 
     def proc_geometry_edit(self):
         """
@@ -700,6 +644,7 @@ class MainWindow(QMainWindow):
         self.geometry_w = Geometry()
         self.mdi.addSubWindow(self.geometry_w)
         self.geometry_w.show()
+        self.mdi.setActiveSubWindow(self.geometry_w)
 
     def proc_airfoils_edit(self):
         """
@@ -708,6 +653,7 @@ class MainWindow(QMainWindow):
         self.airfoils_w = Airfoils()
         self.mdi.addSubWindow(self.airfoils_w)
         self.airfoils_w.show()
+        self.mdi.setActiveSubWindow(self.airfoils_w)
 
     def proc_anchor_points_edit(self):
         """
@@ -716,6 +662,7 @@ class MainWindow(QMainWindow):
         self.anchor_points_w = AnchorPoints()
         self.mdi.addSubWindow(self.anchor_points_w)
         self.anchor_points_w.show()
+        self.mdi.setActiveSubWindow(self.anchor_points_w)
 
     def proc_rib_holes_edit(self):
         """
@@ -724,6 +671,7 @@ class MainWindow(QMainWindow):
         self.rib_holes_w = RibHoles()
         self.mdi.addSubWindow(self.rib_holes_w)
         self.rib_holes_w.show()
+        self.mdi.setActiveSubWindow(self.rib_holes_w)
 
     def proc_skin_tension_edit(self):
         """
@@ -732,6 +680,7 @@ class MainWindow(QMainWindow):
         self.skin_tension_w = SkinTension()
         self.mdi.addSubWindow(self.skin_tension_w)
         self.skin_tension_w.show()
+        self.mdi.setActiveSubWindow(self.skin_tension_w)
 
     def proc_global_aoa_edit(self):
         """
@@ -740,6 +689,7 @@ class MainWindow(QMainWindow):
         self.global_aoa_w = GlobalAoA()
         self.mdi.addSubWindow(self.global_aoa_w)
         self.global_aoa_w.show()
+        self.mdi.setActiveSubWindow(self.global_aoa_w)
 
     def proc_lines_edit(self):
         """
@@ -748,6 +698,7 @@ class MainWindow(QMainWindow):
         self.lines_w = Lines()
         self.mdi.addSubWindow(self.lines_w)
         self.lines_w.show()
+        self.mdi.setActiveSubWindow(self.lines_w)
 
     def proc_brakes_edit(self):
         """
@@ -756,6 +707,7 @@ class MainWindow(QMainWindow):
         self.brakes_w = Brakes()
         self.mdi.addSubWindow(self.brakes_w)
         self.brakes_w.show()
+        self.mdi.setActiveSubWindow(self.brakes_w)
 
     def proc_el_lines_corr_edit(self):
         """
@@ -764,6 +716,7 @@ class MainWindow(QMainWindow):
         self.el_lines_corr_w = ElasticLinesCorr()
         self.mdi.addSubWindow(self.el_lines_corr_w)
         self.el_lines_corr_w.show()
+        self.mdi.setActiveSubWindow(self.el_lines_corr_w)
 
     def proc_lines_char_edit(self):
         """
@@ -773,6 +726,7 @@ class MainWindow(QMainWindow):
         self.lines_char_w = LinesCharacteristics()
         self.mdi.addSubWindow(self.lines_char_w)
         self.lines_char_w.show()
+        self.mdi.setActiveSubWindow(self.lines_char_w)
 
     def proc_ramification_edit(self):
         """
@@ -781,6 +735,7 @@ class MainWindow(QMainWindow):
         self.ramification_w = Ramification()
         self.mdi.addSubWindow(self.ramification_w)
         self.ramification_w.show()
+        self.mdi.setActiveSubWindow(self.ramification_w)
 
     def proc_hv_vh_edit(self):
         """
@@ -789,6 +744,7 @@ class MainWindow(QMainWindow):
         self.hv_vh_w = HvVhRibs()
         self.mdi.addSubWindow(self.hv_vh_w)
         self.hv_vh_w.show()
+        self.mdi.setActiveSubWindow(self.hv_vh_w)
 
     def proc_extrados_colors_edit(self):
         """
@@ -797,6 +753,7 @@ class MainWindow(QMainWindow):
         self.extrados_colors_w = ExtradColors()
         self.mdi.addSubWindow(self.extrados_colors_w)
         self.extrados_colors_w.show()
+        self.mdi.setActiveSubWindow(self.extrados_colors_w)
 
     def proc_intrados_colors_edit(self):
         """
@@ -805,6 +762,7 @@ class MainWindow(QMainWindow):
         self.intrados_colors_w = IntradColors()
         self.mdi.addSubWindow(self.intrados_colors_w)
         self.intrados_colors_w.show()
+        self.mdi.setActiveSubWindow(self.intrados_colors_w)
 
     def proc_add_rib_pts_edit(self):
         """
@@ -814,6 +772,7 @@ class MainWindow(QMainWindow):
         self.add_rib_pts_w = AddRibPoints()
         self.mdi.addSubWindow(self.add_rib_pts_w)
         self.add_rib_pts_w.show()
+        self.mdi.setActiveSubWindow(self.add_rib_pts_w)
 
 
     def proc_joncs_def_edit(self):
@@ -823,6 +782,7 @@ class MainWindow(QMainWindow):
         self.joncs_def_w = JoncsDefinition()
         self.mdi.addSubWindow(self.joncs_def_w)
         self.joncs_def_w.show()
+        self.mdi.setActiveSubWindow(self.joncs_def_w)
 
     def proc_nose_mylars_edit(self):
         """
@@ -831,6 +791,7 @@ class MainWindow(QMainWindow):
         self.nose_mylars_w = NoseMylars()
         self.mdi.addSubWindow(self.nose_mylars_w)
         self.nose_mylars_w.show()
+        self.mdi.setActiveSubWindow(self.nose_mylars_w)
 
     def proc_glue_vent_edit(self):
         """
@@ -839,6 +800,7 @@ class MainWindow(QMainWindow):
         self.glue_vent_w = GlueVent()
         self.mdi.addSubWindow(self.glue_vent_w)
         self.glue_vent_w.show()
+        self.mdi.setActiveSubWindow(self.glue_vent_w)
 
     def proc_spec_wing_tip_edit(self):
         """
@@ -847,6 +809,7 @@ class MainWindow(QMainWindow):
         self.spec_wing_tip_w = SpecWingTip()
         self.mdi.addSubWindow(self.spec_wing_tip_w)
         self.spec_wing_tip_w.show()
+        self.mdi.setActiveSubWindow(self.spec_wing_tip_w)
 
     def proc_calage_var_edit(self):
         """
@@ -855,6 +818,7 @@ class MainWindow(QMainWindow):
         self.calage_var_w = CalageVar()
         self.mdi.addSubWindow(self.calage_var_w)
         self.calage_var_w.show()
+        self.mdi.setActiveSubWindow(self.calage_var_w)
 
     def proc_three_d_shaping_edit(self):
         """
@@ -863,6 +827,7 @@ class MainWindow(QMainWindow):
         self.three_d_sh_w = ThreeDShaping()
         self.mdi.addSubWindow(self.three_d_sh_w)
         self.three_d_sh_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_sh_w)
 
     def proc_airfoil_thick_edit(self):
         """
@@ -871,6 +836,7 @@ class MainWindow(QMainWindow):
         self.airfoil_thick_w = AirfoilThickness()
         self.mdi.addSubWindow(self.airfoil_thick_w)
         self.airfoil_thick_w.show()
+        self.mdi.setActiveSubWindow(self.airfoil_thick_w)
 
     def proc_new_skin_tension_edit(self):
         """
@@ -879,6 +845,7 @@ class MainWindow(QMainWindow):
         self.new_skin_tens_w = NewSkinTension()
         self.mdi.addSubWindow(self.new_skin_tens_w)
         self.new_skin_tens_w.show()
+        self.mdi.setActiveSubWindow(self.new_skin_tens_w)
 
     def proc_parts_sep_edit(self):
         """
@@ -887,6 +854,7 @@ class MainWindow(QMainWindow):
         self.parts_separation_w = PartsSeparation()
         self.mdi.addSubWindow(self.parts_separation_w)
         self.parts_separation_w.show()
+        self.mdi.setActiveSubWindow(self.parts_separation_w)
 
     def proc_detailed_risers_edit(self):
         """
@@ -895,6 +863,7 @@ class MainWindow(QMainWindow):
         self.detailed_risers_w = DetailedRisers()
         self.mdi.addSubWindow(self.detailed_risers_w)
         self.detailed_risers_w.show()
+        self.mdi.setActiveSubWindow(self.detailed_risers_w)
 
     def proc_run(self):
         """
@@ -907,6 +876,7 @@ class MainWindow(QMainWindow):
         self.proc_out_w = ProcessorOutput()
         self.mdi.addSubWindow(self.proc_out_w)
         self.proc_out_w.show()
+        self.mdi.setActiveSubWindow(self.proc_out_w)
         self.proc_out_w.clear_text()
 
         # Finally, run the processor
@@ -930,9 +900,9 @@ class MainWindow(QMainWindow):
         """
         # Define the actions
 
-        plan_seewing_all_a = QAction(_('Seewing Allowance'), self)
-        plan_seewing_all_a.setStatusTip(_('Edit Seewing allowances'))
-        plan_seewing_all_a.triggered.connect(self.plan_seewing_all_edit)
+        plan_sewing_all_a = QAction(_('Sewing Allowance'), self)
+        plan_sewing_all_a.setStatusTip(_('Edit Sewing allowances'))
+        plan_sewing_all_a.triggered.connect(self.plan_sewing_all_edit)
 
         plan_marks_a = QAction(_('Marks'), self)
         plan_marks_a.setStatusTip(_('Edit the Marks parameters'))
@@ -963,7 +933,7 @@ class MainWindow(QMainWindow):
 
         # Build the menu
         plan_menu = self.mainMenu.addMenu(_('Plan'))
-        plan_menu.addAction(plan_seewing_all_a)
+        plan_menu.addAction(plan_sewing_all_a)
         plan_menu.addAction(plan_marks_a)
         plan_menu.addAction(plan_dxf_layer_names_a)
         plan_menu.addAction(proc_marks_t_a)
@@ -971,13 +941,14 @@ class MainWindow(QMainWindow):
         plan_menu.addAction(proc_three_d_dxf_a)
         plan_menu.addAction(proc_parts_sep_a)
 
-    def plan_seewing_all_edit(self):
+    def plan_sewing_all_edit(self):
         """
         :method: Called if the user selects *Plan* -> *Sewing allowances*
         """
-        self.seewing_all_w = SewingAllowances()
-        self.mdi.addSubWindow(self.seewing_all_w)
-        self.seewing_all_w.show()
+        self.sewing_all_w = SewingAllowances()
+        self.mdi.addSubWindow(self.sewing_all_w)
+        self.sewing_all_w.show()
+        self.mdi.setActiveSubWindow(self.sewing_all_w)
 
     def plan_marks_edit(self):
         """
@@ -986,6 +957,7 @@ class MainWindow(QMainWindow):
         self.marks_w = Marks()
         self.mdi.addSubWindow(self.marks_w)
         self.marks_w.show()
+        self.mdi.setActiveSubWindow(self.marks_w)
 
     def plan_dxf_layer_names_edit(self):
         """
@@ -994,6 +966,7 @@ class MainWindow(QMainWindow):
         self.dxf_layer_names_w = DxfLayerNames()
         self.mdi.addSubWindow(self.dxf_layer_names_w)
         self.dxf_layer_names_w.show()
+        self.mdi.setActiveSubWindow(self.dxf_layer_names_w)
 
     def marks_types_edit(self):
         """
@@ -1002,6 +975,7 @@ class MainWindow(QMainWindow):
         self.marks_types_w = MarksTypes()
         self.mdi.addSubWindow(self.marks_types_w)
         self.marks_types_w.show()
+        self.mdi.setActiveSubWindow(self.marks_types_w)
 
     def two_d_dxf_edit(self):
         """
@@ -1010,6 +984,7 @@ class MainWindow(QMainWindow):
         self.two_d_dxf_w = TwoDDxf()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.two_d_dxf_w)
 
     def three_d_dxf_edit(self):
         """
@@ -1018,6 +993,7 @@ class MainWindow(QMainWindow):
         self.three_d_dxf_w = ThreeDDxf()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_dxf_w)
 
     def build_expert_menu(self):
         """
@@ -1049,6 +1025,7 @@ class MainWindow(QMainWindow):
         self.solve_equ_equ_w = SolveEquEqu()
         self.mdi.addSubWindow(self.solve_equ_equ_w)
         self.solve_equ_equ_w.show()
+        self.mdi.setActiveSubWindow(self.solve_equ_equ_w)
 
     def exp_xflr_edit(self):
         """
@@ -1057,6 +1034,7 @@ class MainWindow(QMainWindow):
         self.xflr_w = Xflr()
         self.mdi.addSubWindow(self.xflr_w)
         self.xflr_w.show()
+        self.mdi.setActiveSubWindow(self.xflr_w)
 
     def exp_special_param_edit(self):
         """
@@ -1065,6 +1043,7 @@ class MainWindow(QMainWindow):
         self.special_parameters_w = SpecialParameters()
         self.mdi.addSubWindow(self.special_parameters_w)
         self.special_parameters_w.show()
+        self.mdi.setActiveSubWindow(self.special_parameters_w)
 
     def build_view_menu(self):
         """
@@ -1108,6 +1087,7 @@ class MainWindow(QMainWindow):
         self.view_wing_outline_w = PreProcWingOutline()
         self.mdi.addSubWindow(self.view_wing_outline_w)
         self.view_wing_outline_w.show()
+        self.mdi.setActiveSubWindow(self.view_wing_outline_w)
 
     def view_2d_dxf(self):
         """
@@ -1117,6 +1097,7 @@ class MainWindow(QMainWindow):
         self.two_d_dxf_w = TwoDDxfViewer()
         self.mdi.addSubWindow(self.two_d_dxf_w)
         self.two_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.two_d_dxf_w)
 
     def view_3d_dxf(self):
         """
@@ -1126,6 +1107,7 @@ class MainWindow(QMainWindow):
         self.three_d_dxf_w = ThreeDDxfViewer()
         self.mdi.addSubWindow(self.three_d_dxf_w)
         self.three_d_dxf_w.show()
+        self.mdi.setActiveSubWindow(self.three_d_dxf_w)
 
     def view_cascade(self):
         """
@@ -1144,15 +1126,6 @@ class MainWindow(QMainWindow):
         :method: Builds the Setup menu
         """
         # Define actions
-        setup_lang_en_act = QAction("English", self)
-        setup_lang_en_act.setStatusTip('Switches the display language '
-                                       'to english')
-        setup_lang_en_act.triggered.connect(self.setup_lang_en)
-
-        setup_lang_de_act = QAction("Deutsch", self)
-        setup_lang_de_act.setStatusTip('Wechselt zur deutschen Anzeige')
-        setup_lang_de_act.triggered.connect(self.setup_lang_de)
-
         setup_proc_act = QAction(_('Both Processors'), self)
         setup_proc_act.setStatusTip(_('Setup locations for both processors'))
         setup_proc_act.triggered.connect(self.setup_processors)
@@ -1164,43 +1137,9 @@ class MainWindow(QMainWindow):
 
         # add actions
         setup_menu = self.mainMenu.addMenu(_('Setup'))
-        setup_lang_menu = setup_menu.addMenu(_('Language'))
-        setup_lang_menu.addAction(setup_lang_en_act)
-        setup_lang_menu.addAction(setup_lang_de_act)
-        setup_menu.addSeparator()
         setup_menu.addAction(setup_proc_act)
         setup_menu.addSeparator()
         setup_menu.addAction(setup_upd_check_act)
-
-    def setup_lang_de(self):
-        """
-        :method: Called if the user selects *Setup* *Language* -> *German*
-        """
-        config = ConfigReader()
-        config.set_language("de")
-        self.display_restart_msg()
-
-    def setup_lang_en(self):
-        """
-        :method: Called if the user selects *Setup* *Language* -> *English*
-        """
-        config = ConfigReader()
-        config.set_language("en")
-        self.display_restart_msg()
-
-    def display_restart_msg(self):
-        """
-        :method: Displays a message to the user to restart the application
-                after switching the language
-        """
-        msg = QMessageBox()
-
-        msg.setWindowTitle(_("Switching language"))
-        msg.setIcon(QMessageBox.Icon.Information)
-        msg.setText(_("Please restart the application."))
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        msg.setFixedWidth(300)
-        msg.exec()
 
     def setup_processors(self):
         """
@@ -1209,6 +1148,7 @@ class MainWindow(QMainWindow):
         self.setup_proc_w = SetupProcessors()
         self.mdi.addSubWindow(self.setup_proc_w)
         self.setup_proc_w.show()
+        self.mdi.setActiveSubWindow(self.setup_proc_w)
 
     def setup_update_checking(self):
         """
@@ -1217,6 +1157,7 @@ class MainWindow(QMainWindow):
         self.setup_update_check_w = SetupUpdateChecking()
         self.mdi.addSubWindow(self.setup_update_check_w)
         self.setup_update_check_w.show()
+        self.mdi.setActiveSubWindow(self.setup_update_check_w)
 
     def build_help_menu(self):
         """
@@ -1235,31 +1176,12 @@ class MainWindow(QMainWindow):
         file_menu.addAction(online_help_act)
         file_menu.addAction(help_about_act)
 
-    def online_help(self):
+    @staticmethod
+    def online_help():
         """
         :method: Opens the online help in the browser
         """
-
-        config = ConfigReader()
-
-        if getattr(sys, 'frozen', False):
-            bundle_dir = os.path.dirname(sys.executable)
-
-        else:
-            try:
-                # running unpacked
-                app_full_path = os.path.realpath(__file__)
-                bundle_dir = os.path.dirname(app_full_path)
-                bundle_dir = os.path.join(bundle_dir, '..')
-            except NameError:
-                bundle_dir = os.getcwd()
-                # bundle_dir = os.path.join(bundle_dir, '..')
-
-        webbrowser.open('file://'
-                        + os.path.realpath(os.path.join(bundle_dir,
-                                       'userHelp',
-                                       config.get_language(),
-                                       'introduction.html')))
+        open_user_help_file('introduction.html')
 
     def help_about(self):
         """
@@ -1268,13 +1190,4 @@ class MainWindow(QMainWindow):
         self.help_about_w = HelpAbout()
         self.mdi.addSubWindow(self.help_about_w)
         self.help_about_w.show()
-
-    def delete_logfile(self):
-        """
-        :method: Deletes the log file if there's one
-        """
-        directory_path = os.path.dirname(os.path.realpath(__file__))
-        log_path_name = os.path.join(directory_path, '../logfile.txt')
-
-        if os.path.isfile(log_path_name):
-            os.remove(log_path_name)
+        self.mdi.setActiveSubWindow(self.help_about_w)

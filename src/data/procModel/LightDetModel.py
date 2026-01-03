@@ -20,11 +20,6 @@ class LightDetModel(SqlTableModel, metaclass=Singleton):
     Param 1: the configuration number which has changed \
     Param2: new number of data lines
     '''
-
-    __className = 'LightDetModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a confit'''
     LightTypCol = 1

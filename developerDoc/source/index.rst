@@ -8,6 +8,7 @@ lepg developer doc's
    :caption: Contents:
    
    project_structure
+   internationalization
    contents
     
 

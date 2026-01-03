@@ -13,9 +13,6 @@ class ElLinesCorrModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the parameters for the elastic lines correction.
     """
-    __className = 'ElLinesCorrModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     LoadCol = 0
     ''':attr: Num of column for flight load'''
     TwoLineDistACol = 1

@@ -25,12 +25,9 @@ from gui.GlobalDefinition import ValidationValues
 
 class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Brake line details  
+    :class: Window to display and Hv Vh Ribs details
     """
-    __className = 'HvVhRibs'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
+
     def __init__(self):
         """
         :method: Class initialization
@@ -77,7 +74,6 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         Naming:
             Conf is always one as there is only one configuration possible
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(1100, 400)
@@ -271,6 +267,4 @@ class HvVhRibs(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

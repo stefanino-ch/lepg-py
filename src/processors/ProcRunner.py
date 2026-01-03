@@ -15,10 +15,6 @@ class ProcRunner:
     :class: Does take care about the data handling for the executables
             for processing.
     """
-    __className = 'ProcRunner'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self, proc_out_w):
         """
@@ -102,7 +98,7 @@ class ProcRunner:
         """
 
         for cmd in cmds:
-            logging.debug(self.__className+'.run_command ' + cmd)
+            logging.debug('run_command ' + cmd)
 
         if platform.system() == "Windows":
             process = Popen('cmd.exe', stdin=PIPE, stdout=PIPE, stderr=PIPE,
@@ -130,8 +126,7 @@ class ProcRunner:
                 break
 
             if output:
-                logging.debug(self.__className+'.run_command '
-                              + output.strip())
+                logging.debug('run_command ' + output.strip())
                 self.userInfo.append_text(output.strip())
 
         return

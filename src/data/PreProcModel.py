@@ -157,9 +157,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
-            logging.error(self.__className
-                          + 'File cannot be opened '
-                          + file_name)
+            logging.error('File cannot be opened ' + file_name)
             return False
 
         title_ok = False
@@ -184,12 +182,8 @@ class PreProcModel(QObject, metaclass=Singleton):
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of PreProc file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of PreProc file title check %s',
-                          title_ok)
+            logging.error(' Result of PreProc file version check %s', version_ok)
+            logging.error(' Result of PreProc file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))
@@ -443,8 +437,7 @@ class PreProcModel(QObject, metaclass=Singleton):
         out_file = QFile(file_path_name)
 
         if not out_file.open(QFile.OpenModeFlag.ReadWrite | QFile.OpenModeFlag.Text):
-            logging.error(self.__className+'.write_file '
-                          + out_file.errorString())
+            logging.error('write_file ' + out_file.errorString())
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_("File save error"))

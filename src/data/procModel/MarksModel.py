@@ -14,9 +14,6 @@ class MarksModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the Marks parameters.
     """
-    __className = 'MarksModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     MarksSpCol = 0
     ''':attr: Number of the col holding the marks spacing value'''
     PointRadCol = 1

@@ -14,10 +14,6 @@ class GlueVentModel(SqlTableModel, metaclass=Singleton):
     """
     :class: Provides a SqlTableModel holding the glue vent parameters.
     """
-    __className = 'GlueVentModel'
-    '''
-    :attr: Does help to indicate the source of the log messages.
-    '''
     __isUsed = False
     '''
     :attr: Helps to remember if the section is in use or not

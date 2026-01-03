@@ -27,13 +27,8 @@ from Singleton.Singleton import Singleton
 
 class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display the wing outline calculated by the
-            PreProcessor.
+    :class: Window to display the 2D dxf files calculated by the processor
     """
-    __className = 'TwoDDxfViewer'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -83,7 +78,6 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
         self.window.setMinimumSize(900, 400)
@@ -369,9 +363,7 @@ class TwoDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)
 
     def closeEvent(self, event):
         """

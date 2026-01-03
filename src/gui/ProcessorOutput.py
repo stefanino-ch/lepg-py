@@ -17,7 +17,6 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
     """
     :class: Window displaying the output of both of the processors
     """
-    __className = 'ProcessorOutput'
 
     def __init__(self):
         """
@@ -46,7 +45,6 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
 
                     btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(700, 400)
@@ -104,6 +102,4 @@ class ProcessorOutput(QMdiSubWindow, metaclass=Singleton):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

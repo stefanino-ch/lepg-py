@@ -17,11 +17,6 @@ class PreProcOutfileReader:
     :class: Supports the reading of the output file *geometry-out.txt* created
             by the pre-processor.
     """
-
-    __className = 'PreProcOutfileReader'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
     __file_path_name = ''
     '''
     :attr: Full path and name of the data file currently in use
@@ -43,9 +38,7 @@ class PreProcOutfileReader:
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
-            logging.error(self.__className
-                          + 'File cannot be opened '
-                          + file_path_name)
+            logging.error('File cannot be opened ' + file_path_name)
             return False
 
         title_ok = False
@@ -68,12 +61,8 @@ class PreProcOutfileReader:
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of PreProc file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of PreProc file title check %s',
-                          title_ok)
+            logging.error(' Result of PreProc file version check %s', version_ok)
+            logging.error(' Result of PreProc file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))

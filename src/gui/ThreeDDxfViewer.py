@@ -28,11 +28,6 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
             PreProcessor.
     """
 
-    __className = 'ThreeDDxfViewer'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -80,7 +75,6 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.window = QWidget()
         self.setWidget(self.window)
         self.window.setMinimumSize(900, 400)
@@ -405,9 +399,7 @@ class ThreeDDxfViewer(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)
 
     def closeEvent(self, event):
         """

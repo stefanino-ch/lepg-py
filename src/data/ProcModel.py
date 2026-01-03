@@ -91,7 +91,7 @@ class ProcModel(QObject, metaclass=Singleton):
     '''
     :attr: Version number of the file currently in use
     '''
-    __latestFileVersion = '3.21'
+    __latestFileVersion = '3.27'
     '''
     :attr: Version number of the currently supported processor
     '''
@@ -288,12 +288,13 @@ class ProcModel(QObject, metaclass=Singleton):
                  N = Unsaved data
         :rtype: str
         """
-        if self.__fileSaved is True:
+        if self.__fileSaved:
             return 'Y'
         else:
             return 'N'
 
-    def is_valid_pre_proc_file(self, file_name):
+    @staticmethod
+    def is_valid_pre_proc_file(file_name):
         """
         :method: Checks if a file can be opened and contains a valid title
                  and known version number
@@ -304,9 +305,7 @@ class ProcModel(QObject, metaclass=Singleton):
             if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
                 stream = QTextStream(in_file)
         except:
-            logging.error(self.__className
-                          + 'File cannot be opened '
-                          + file_name)
+            logging.error('File cannot be opened ' + file_name)
             return False
 
         title_ok = False
@@ -329,12 +328,8 @@ class ProcModel(QObject, metaclass=Singleton):
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of Pre-Proc out file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of Pre-Proc out file title check %s',
-                          title_ok)
+            logging.error(' Result of Pre-Proc out file version check %s', version_ok)
+            logging.error(' Result of Pre-Proc out file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))
@@ -344,7 +339,7 @@ class ProcModel(QObject, metaclass=Singleton):
                 + str(version_ok) + _('\nTitle detected: ')
                 + str(title_ok))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
 
         return version_ok and title_ok
@@ -359,9 +354,7 @@ class ProcModel(QObject, metaclass=Singleton):
         if in_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
             stream = QTextStream(in_file)
         else:
-            logging.error(self.__className +
-                          'File cannot be opened ' +
-                          file_name)
+            logging.error('File cannot be opened ' + file_name)
             return False
 
         title_ok = False
@@ -408,12 +401,8 @@ class ProcModel(QObject, metaclass=Singleton):
         in_file.close()
 
         if not (version_ok and title_ok):
-            logging.error(self.__className
-                          + ' Result of Proc file version check %s',
-                          version_ok)
-            logging.error(self.__className
-                          + ' Result of Proc file title check %s',
-                          title_ok)
+            logging.error(' Result of Proc file version check %s', version_ok)
+            logging.error(' Result of Proc file title check %s', title_ok)
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_('File read error'))
@@ -422,7 +411,6 @@ class ProcModel(QObject, metaclass=Singleton):
                             + str(version_ok)
                             + _('\nTitle detected: ')
                             + str(title_ok))
-            # TODO check if translation works if line is changed to correct length.
             msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg_box.exec()
@@ -445,7 +433,7 @@ class ProcModel(QObject, metaclass=Singleton):
                               "Press OK to open the new file and overwrite "
                               "the current changes.\nPress Cancel to abort. "))
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setStandardButtons(QMessageBox.Icon.Ok | QMessageBox.Icon.Cancel)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
             answer = msg_box.exec()
 
             if answer == QMessageBox.StandardButton.Cancel:
@@ -473,7 +461,7 @@ class ProcModel(QObject, metaclass=Singleton):
                                      0)
             self.set_file_name('')
             self.set_file_version('')
-            self.set_file_saved(True)
+            self.set_file_saved(False)
 
     def open_file(self):
         """
@@ -514,7 +502,7 @@ class ProcModel(QObject, metaclass=Singleton):
     def save_file(self):
         """
         :method: Checks if there is already a valid file name, if not it
-                 asks for it. Starts afterwards the writing process.
+                 asks for it. Starts afterward the writing process.
         """
         file_name = self.get_file_name()
         if len(file_name) > 0:
@@ -542,8 +530,7 @@ class ProcModel(QObject, metaclass=Singleton):
 
     def save_file_as(self):
         """
-        :method: Asks for a new filename. Starts afterwards the
-                 writing process.
+        :method: Asks for a new filename. Starts afterward the writing process.
         """
         # Ask first for the filename
         file_name = QFileDialog.getSaveFileName(

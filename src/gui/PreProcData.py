@@ -23,13 +23,8 @@ from Singleton.Singleton import Singleton
 
 class PreProcData(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit Skin tension data
+    :class: Window to display and edit data needed by the pre-processor
     """
-
-    __className = 'PreProcData'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -77,7 +72,6 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------
                                 help_bar | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
@@ -439,5 +433,4 @@ class PreProcData(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '+q)
+            logging.error('btn_press unrecognized button press '+q)

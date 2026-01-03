@@ -22,11 +22,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
     :class: Window to display and edit the Basic Data
     """
 
-    __className = 'ProcBasicData'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -65,7 +60,6 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
                                 | help_bar
                                 | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(400, 300)
@@ -315,6 +309,4 @@ class BasicData(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press '
-                          + q)
+            logging.error('btn_press unrecognized button press ' + q)

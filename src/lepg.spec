@@ -11,7 +11,6 @@ pathex_path = [os.path.join(dirpath, '..','src')]
 block_cipher = None
 
 data_files_to_add = [
-					('logger.conf', '.' ),
 					('translations', 'translations' ),
 					('userHelp', 'userHelp' ),
 					(os.path.join('gui','elements', 'appIcon.ico'), os.path.join('gui','elements'))
@@ -19,7 +18,7 @@ data_files_to_add = [
 
 processor_w64 = [
 			    (os.path.join('processors',
-				'lep-3.23-win64'),
+				'lep-3.27-win64'),
 				os.path.join('processors',
 			    'lep-3.23-win64'))
 				]

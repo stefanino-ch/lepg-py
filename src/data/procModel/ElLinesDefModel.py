@@ -15,9 +15,6 @@ class ElLinesDefModel(SqlTableModel, metaclass=Singleton):
     :class: Provides a SqlTableModel holding the Elastic lines deformation parameters. (2nd part of elastic
             lines correction)
     """
-    __className = 'ElLinesDefModel'
-    ''' :attr: Does help to indicate the source of the log messages. '''
-
     OrderNumCol = 0
     ''':attr: used here for the number of lines'''
     DefLowCol = 1

@@ -83,10 +83,9 @@ Processor Model
    :members:
    :private-members:
 
-
 Proc Runner
 -----------
-.. automodule::    Processors.ProcRunner
+.. automodule::    processors.ProcRunner
    :undoc-members:
    :members:
    :private-members:

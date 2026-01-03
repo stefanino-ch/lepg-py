@@ -101,7 +101,13 @@ class CellsDistrModel(SqlTableModel, metaclass=Singleton):
         return query.value
 
     def update_type(self, config_num, order_num, distr_type):
-        # TODO: doc
+        """
+        :method: Updates type value back from the internal database
+        :param config_num: Number of the configuration
+        :param order_num: Number of the line within the configuration
+        :param distr_type: New type
+        :return: na
+        """
 
         query = QSqlQuery()
         query.prepare("UPDATE PreProcCellsDistr SET "

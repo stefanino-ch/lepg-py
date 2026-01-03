@@ -211,9 +211,9 @@ Processor New skin tension
    :private-members:
    
    
-Plan Seewing allowances
+Plan Sewing allowances
 -----------------------
-.. automodule:: gui.SeewingAllowances
+.. automodule:: gui.SewingAllowances
    :undoc-members:
    :members:
    :private-members:

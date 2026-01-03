@@ -21,13 +21,8 @@ from gui.GlobalDefinition import ValidationValues
 
 class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
     """
-    :class: Window to display and edit airfoils holes data
+    :class: Window to display and edit the new definition of skin tension data
     """
-
-    __className = 'NewSkinTension'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
 
     def __init__(self):
         """
@@ -80,7 +75,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
                     -------------------------
                             help_bar  | btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
         self.win.setMinimumSize(900, 400)
@@ -191,7 +185,6 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
 
         # Configuration 
         conf_table = TableView()
-        # TODO: remove type as the only allowed value is 1
         self.confProxyModel.append(QSortFilterProxyModel())
         self.confProxyModel[curr_num_tabs].setSourceModel(self.newSkinTensConf_M)
         self.confProxyModel[curr_num_tabs].setFilterKeyColumn(NewSkinTensConfModel.ConfigNumCol)
@@ -359,4 +352,4 @@ class NewSkinTension(QMdiSubWindow, metaclass=Singleton):
         elif q == 'Cancel':
             self.close()
         else:
-            logging.error(self.__className + '.btn_press unrecognized button press ' + q)
+            logging.error('btn_press unrecognized button press ' + q)

@@ -1,3 +1,5 @@
+# TODO: Springt man in der Breadcrum Zeile auf das root element, wird die falsche Seite aufgrufen.
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -18,11 +20,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'lepg'
-copyright = '2024, Stefan Feuz'
+copyright = '2026, Stefan Feuz'
 author = 'Stefan Feuz'
 
 # The full version, including alpha/beta/rc tags
-release = '3.23.x'
+release = '3.27.x'
 
 
 # -- General configuration ---------------------------------------------------

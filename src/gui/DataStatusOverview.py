@@ -22,11 +22,6 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
             windows has been applied
     """
 
-    __className = 'DataStatusOverview'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
-
     def __init__(self):
         """
         :method: Class initialization
@@ -75,7 +70,6 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
                     ---------------------------------
                     btn_bar
         """
-        self.setWindowIcon(QIcon('gui/elements/appIcon.ico'))
         self.win = QWidget()
         self.setWidget(self.win)
 
@@ -213,5 +207,4 @@ class DataStatusOverview(QMdiSubWindow, metaclass=Singleton):
         if q == 'Ok':
             self.close()
         else:
-            logging.error(self.__className
-                          + '.btn_press unrecognized button press ' + q)
+            logging.error('.btn_press unrecognized button press ' + q)

@@ -3,7 +3,9 @@
 :License: General Public License GNU GPL 3.0
 """
 
-from PyQt6.QtCore import Qt
+# TODO: rename class as we have extradosCol vs intradosCols
+
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtSql import QSqlQuery, QSqlTableModel
 
 from data.SqlTableModel import SqlTableModel
@@ -14,10 +16,10 @@ class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
     """
     :class: provides a SqlTableModel holding all data related to the Intrados colors configuration
     """
-    __className = 'IntradosColsConfModel'
-    '''
-    :attr: Does help to indicate the source of the log messages
-    '''
+    __config_type = 0
+    ''' :attr: Stores the current configuration type '''
+    usageUpd = pyqtSignal()
+    ''' :signal: emitted as soon the usage flag is changed '''
     OrderNumCol = 0
     ''':attr: num of column for 1..3: ordering the individual lines of a config'''
     FirstRibCol = 1
@@ -25,7 +27,8 @@ class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
     ConfigNumCol = 2
     ''':attr: number of the column holding the config number'''
 
-    def createTable(self):
+    @staticmethod
+    def create_table():
         """
         :method: Creates initially the empty table.
         """
@@ -38,37 +41,55 @@ class IntradosColsConfModel(SqlTableModel, metaclass=Singleton):
                    "ConfigNum INTEGER,"
                    "ID INTEGER PRIMARY KEY);")
 
-    def __init__(self, parent=None):  # @UnusedVariable
+    def __init__(self):
         """
         :method: Class initialization
         """
         super().__init__()
-        self.createTable()
+        self.__config_type = 0
+        self.create_table()
         self.setTable("IntradColsConf")
         self.select()
         self.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 
         self.setHeaderData(self.FirstRibCol, Qt.Orientation.Horizontal, _("Rib num"))
 
-    def updateRow(self, configNum, firstRib):
+    def update_row(self, config_num, first_rib):
         query = QSqlQuery()
         query.prepare("UPDATE IntradColsConf SET FirstRib= :first_rib WHERE (ConfigNum = :config);")
-        query.bindValue(":first_rib", firstRib)
-        query.bindValue(":config", configNum)
+        query.bindValue(":first_rib", first_rib)
+        query.bindValue(":config", config_num)
         query.exec()
         self.select()  # to a select() to assure the model is updated properly
 
-    def getRow(self, configNum):
+    @staticmethod
+    def get_row(config_num):
         """
         :method: reads values back from the internal database for a specific config and order number
-        :param configNum: Configuration number. Starting with 1
+        :param config_num: Configuration number. Starting with 1
         :return: specific values read from internal database
         """
         query = QSqlQuery()
         query.prepare("Select "
                       "FirstRib "
                       "FROM IntradColsConf WHERE (ConfigNum = :config)")
-        query.bindValue(":config", configNum)
+        query.bindValue(":config", config_num)
         query.exec()
         query.next()
         return query.value
+
+    def set_type(self, config_type):
+        """
+        :method: Set and remember the configuration type currently in use
+        :param config_type: Configuration type 0: not used, 1: old style, 2: new style
+        :return: na
+        """
+        self.__config_type = config_type
+        self.usageUpd.emit()
+
+    def type(self):
+        """
+        :method: Return the configuration type currently used in use
+        :return: 0: not used, 1: old style, 2: new style
+        """
+        return self.__config_type
