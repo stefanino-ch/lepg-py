@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Airfoils &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Airfoils &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Anchor points" href="anchorPoints.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Airfoils</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -120,7 +120,7 @@
     <p class="topless"><a href="anchorPoints.html"
                           title="next chapter">Anchor points</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -128,7 +128,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -141,9 +141,10 @@
   <blockquote>
 <div></div></blockquote>
 <section id="airfoils">
-<h1>Airfoils<a class="headerlink" href="#airfoils" title="Permalink to this heading">¶</a></h1>
+<h1>Airfoils<a class="headerlink" href="#airfoils" title="Link to this heading">¶</a></h1>
 <p>In the Airfoils window you can define the parameters from the 2nd section of the lep file.</p>
-<a class="reference internal image-reference" href="../../_images/airfoils-en.png"><img alt="../../_images/airfoils-en.png" src="../../_images/airfoils-en.png" style="width: 602px; height: 225px;" /></a>
+<a class="reference internal image-reference" href="../../_images/airfoils-en.png"><img alt="../../_images/airfoils-en.png" height="225" src="../../_images/airfoils-en.png" width="602" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**************************************************************</span>
 <span class="o">*</span>             <span class="mf">2.</span> <span class="n">AIRFOILS</span>                                    <span class="o">*</span>
@@ -166,48 +167,50 @@
 </pre></div>
 </div>
 <section id="airfoil-name">
-<h2>Airfoil name<a class="headerlink" href="#airfoil-name" title="Permalink to this heading">¶</a></h2>
+<h2>Airfoil name<a class="headerlink" href="#airfoil-name" title="Link to this heading">¶</a></h2>
 <p>Name of the file containing the rib profile used for this cell. Before processing finally the wing you must assure the file is saved in the same directory also the processor is placed.</p>
 </section>
 <section id="intake-start">
-<h2>Intake start<a class="headerlink" href="#intake-start" title="Permalink to this heading">¶</a></h2>
+<h2>Intake start<a class="headerlink" href="#intake-start" title="Link to this heading">¶</a></h2>
 <p>Percentage of chord where the start of the air inlet shall be placed.</p>
 </section>
 <section id="intake-end">
-<h2>Intake end<a class="headerlink" href="#intake-end" title="Permalink to this heading">¶</a></h2>
+<h2>Intake end<a class="headerlink" href="#intake-end" title="Link to this heading">¶</a></h2>
 <p>Percentage of chord where the end of the air inlet shall be placed.</p>
 </section>
 <section id="open-close">
-<h2>Open close<a class="headerlink" href="#open-close" title="Permalink to this heading">¶</a></h2>
+<h2>Open close<a class="headerlink" href="#open-close" title="Link to this heading">¶</a></h2>
 <p>Value 1 or 0 to create open or closed cells, at the left of rib.</p>
 <p><strong>“0”</strong> indicates closed cell</p>
 <p><strong>“1”</strong> indicates an open cell</p>
 </section>
 <section id="vert-displacement">
-<h2>vert Displacement<a class="headerlink" href="#vert-displacement" title="Permalink to this heading">¶</a></h2>
+<h2>vert Displacement<a class="headerlink" href="#vert-displacement" title="Link to this heading">¶</a></h2>
 <p>Displacement in [cm] of the rib perpendicular to the chord, and in the plane of the rib itself. Serves to improve the position of the ribs without suspension lines. Value is usually 0.</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" style="width: 532px; height: 375px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" height="375" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_delta_displacement.jpg" width="532" />
+</a>
 </section>
 <section id="rel-weight">
-<h2>Rel weight<a class="headerlink" href="#rel-weight" title="Permalink to this heading">¶</a></h2>
+<h2>Rel weight<a class="headerlink" href="#rel-weight" title="Link to this heading">¶</a></h2>
 <p>Relative weight of the chord, in relation to the load. Value is usually 1.</p>
 </section>
 <section id="rrw">
-<h2>rrw<a class="headerlink" href="#rrw" title="Permalink to this heading">¶</a></h2>
+<h2>rrw<a class="headerlink" href="#rrw" title="Link to this heading">¶</a></h2>
 <p>Depending of the wing type there are two different properties which can be defined.</p>
 <section id="single-skin-wings">
-<h3>Single skin wings<a class="headerlink" href="#single-skin-wings" title="Permalink to this heading">¶</a></h3>
+<h3>Single skin wings<a class="headerlink" href="#single-skin-wings" title="Link to this heading">¶</a></h3>
 <p><strong>“0”</strong> means that the triangles are not rotated, but they are set according to the angle “beta” specified in Geometry.</p>
 <p><strong>“1”</strong> means that the triangles are rotated automatically in the corresponding profile.</p>
 </section>
 <section id="double-skin-wings">
-<h3>Double skin wings<a class="headerlink" href="#double-skin-wings" title="Permalink to this heading">¶</a></h3>
+<h3>Double skin wings<a class="headerlink" href="#double-skin-wings" title="Link to this heading">¶</a></h3>
 <p>If the numerical value greater than 1.0 is possible define and draw trailing edge “miniribs” in non “ss” paragliders: The value, simply define the minirib length (in % chord).</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" style="width: 294px; height: 416px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" height="416" src="http://laboratoridenvol.com/leparagliding/lep2images/S02_minicab-minirib.jpg" width="294" />
+</a>
 </section>
 </section>
 <section id="sort-by-rib-number">
-<h2>Sort by Rib Number<a class="headerlink" href="#sort-by-rib-number" title="Permalink to this heading">¶</a></h2>
+<h2>Sort by Rib Number<a class="headerlink" href="#sort-by-rib-number" title="Link to this heading">¶</a></h2>
 <p>The button <strong>Sort by Rib Number</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the rib numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
 <p><strong>ATTENTION</strong> you have to order the lines in a way that the wing is defined from the middle to the tip.</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.2" target="_blank">Laboratori d'envol website</a>.</p>
@@ -221,7 +224,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -241,8 +244,8 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

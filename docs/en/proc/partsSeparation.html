@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Parts separation &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Parts separation &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Detailed Risers" href="detRisers.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Parts separation</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -116,7 +116,7 @@
     <p class="topless"><a href="detRisers.html"
                           title="next chapter">Detailed Risers</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -124,7 +124,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -137,7 +137,7 @@
   <blockquote>
 <div></div></blockquote>
 <section id="parts-separation">
-<h1>Parts separation<a class="headerlink" href="#parts-separation" title="Permalink to this heading">¶</a></h1>
+<h1>Parts separation<a class="headerlink" href="#parts-separation" title="Link to this heading">¶</a></h1>
 <p>The program separates the different pieces (panels, ribs, …) drawn in 2D
 automatically, trying to not overlap with each other or put outside the
 drawing box. However, sometimes the separation between the pieces is not as
@@ -147,8 +147,10 @@ or increase the separations in horizontal (x) or vertical (y) directions.
 If in doubt, do not need to change any of the parameters in this section,
 leave the default values to 1.0, or put a single parameter 0 at the beginning,
 which is equivalent to maintaining the default default values.</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png" src="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png" style="width: 585px; height: 290px;" /></a>
-<a class="reference internal image-reference" href="../../_images/parts_separation-en.png"><img alt="../../_images/parts_separation-en.png" src="../../_images/parts_separation-en.png" style="width: 407px; height: 155px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png" height="290" src="http://laboratoridenvol.com/leparagliding/lep2images/S32.m.png" width="585" />
+</a>
+<a class="reference internal image-reference" href="../../_images/parts_separation-en.png"><img alt="../../_images/parts_separation-en.png" height="155" src="../../_images/parts_separation-en.png" width="407" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
 <span class="o">*</span>       <span class="mf">32.</span> <span class="n">PARAMETERS</span> <span class="n">FOR</span> <span class="n">PARTS</span> <span class="n">SEPARATION</span>
@@ -167,37 +169,37 @@ which is equivalent to maintaining the default default values.</p>
 </pre></div>
 </div>
 <section id="type">
-<h2>Type<a class="headerlink" href="#type" title="Permalink to this heading">¶</a></h2>
+<h2>Type<a class="headerlink" href="#type" title="Link to this heading">¶</a></h2>
 <p><em>Parts separation</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the Type to <strong>None</strong>.</p>
 </section>
 <section id="panel-x">
-<h2>panel_x<a class="headerlink" href="#panel-x" title="Permalink to this heading">¶</a></h2>
+<h2>panel_x<a class="headerlink" href="#panel-x" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor for x-direction panels separation.</p>
 </section>
 <section id="panel-x-min">
-<h2>panel_x_min<a class="headerlink" href="#panel-x-min" title="Permalink to this heading">¶</a></h2>
+<h2>panel_x_min<a class="headerlink" href="#panel-x-min" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor for x-direction panels minimum separation.</p>
 </section>
 <section id="panel-y">
-<h2>panel_y<a class="headerlink" href="#panel-y" title="Permalink to this heading">¶</a></h2>
+<h2>panel_y<a class="headerlink" href="#panel-y" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor for y-direction panels separation.</p>
 </section>
 <section id="rib-x">
-<h2>rib_x<a class="headerlink" href="#rib-x" title="Permalink to this heading">¶</a></h2>
+<h2>rib_x<a class="headerlink" href="#rib-x" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor for x-direction ribs separation.</p>
 </section>
 <section id="rib-y">
-<h2>rib_y<a class="headerlink" href="#rib-y" title="Permalink to this heading">¶</a></h2>
+<h2>rib_y<a class="headerlink" href="#rib-y" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor for y-direction ribs separation.</p>
 </section>
 <section id="rib-1y">
-<h2>rib_1y<a class="headerlink" href="#rib-1y" title="Permalink to this heading">¶</a></h2>
+<h2>rib_1y<a class="headerlink" href="#rib-1y" title="Link to this heading">¶</a></h2>
 <p>Multiplication factor to adjust the separation in y-direction for the
 horizontals straps type 1 or 11.</p>
 </section>
 <section id="parameter7-10">
-<h2>parameter7…10<a class="headerlink" href="#parameter7-10" title="Permalink to this heading">¶</a></h2>
+<h2>parameter7…10<a class="headerlink" href="#parameter7-10" title="Link to this heading">¶</a></h2>
 <p>These parameters are currently not used. If you edit directly the data file
 you need to define a valid value. If you use lepg, the SW will take care
 about in the background.</p>
@@ -212,7 +214,7 @@ about in the background.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -232,8 +234,8 @@ about in the background.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Basic data &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Basic data &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Geometry" href="geometry.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Basic data</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -122,7 +122,7 @@
     <p class="topless"><a href="geometry.html"
                           title="next chapter">Geometry</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -130,7 +130,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -143,9 +143,10 @@
   <blockquote>
 <div></div></blockquote>
 <section id="basic-data">
-<h1>Basic data<a class="headerlink" href="#basic-data" title="Permalink to this heading">¶</a></h1>
+<h1>Basic data<a class="headerlink" href="#basic-data" title="Link to this heading">¶</a></h1>
 <p>In the Basic data window you can edit a subset of the parameters from the first section in the lep file.</p>
-<a class="reference internal image-reference" href="../../_images/basicData-en.png"><img alt="../../_images/basicData-en.png" src="../../_images/basicData-en.png" style="width: 351px; height: 337px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicData-en.png"><img alt="../../_images/basicData-en.png" height="337" src="../../_images/basicData-en.png" width="351" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**************************************************************</span>
 <span class="o">*</span>             <span class="mf">1.</span> <span class="n">GEOMETRY</span>                                    <span class="o">*</span>
@@ -169,53 +170,56 @@
 </pre></div>
 </div>
 <section id="drawing-scale">
-<h2>Drawing scale<a class="headerlink" href="#drawing-scale" title="Permalink to this heading">¶</a></h2>
+<h2>Drawing scale<a class="headerlink" href="#drawing-scale" title="Link to this heading">¶</a></h2>
 <p>A drawing scale of 1 means that the drawings will be created in a scale of 1:1.</p>
 </section>
 <section id="wing-scale">
-<h2>Wing scale<a class="headerlink" href="#wing-scale" title="Permalink to this heading">¶</a></h2>
+<h2>Wing scale<a class="headerlink" href="#wing-scale" title="Link to this heading">¶</a></h2>
 <p>With the wing scale you can scale the whole design in once without chaning every single parameter.
 A Wing scale of 1 means that the whole design is created with the original values as edited in the GUI.</p>
 </section>
 <section id="number-of-cells-and-ribs">
-<h2>Number of cells and ribs<a class="headerlink" href="#number-of-cells-and-ribs" title="Permalink to this heading">¶</a></h2>
+<h2>Number of cells and ribs<a class="headerlink" href="#number-of-cells-and-ribs" title="Link to this heading">¶</a></h2>
 <p>There’s a direct connection between the number of ribs and cells. If there are values which can not be achieved pyhisically the input fields will be marked in red.</p>
-<a class="reference internal image-reference" href="../../_images/basicDataError-en.png"><img alt="../../_images/basicDataError-en.png" src="../../_images/basicDataError-en.png" style="width: 351px; height: 337px;" /></a>
+<a class="reference internal image-reference" href="../../_images/basicDataError-en.png"><img alt="../../_images/basicDataError-en.png" height="337" src="../../_images/basicDataError-en.png" width="351" />
+</a>
 <p>Depending of the setting for the ribs other windows (e.g. Geometry and Anchor points) will be adapted as well.</p>
 <p>Maximun allowed number of ribs is 100 per side (200 ribs or 199 cells).</p>
 </section>
 <section id="max-torsion-angle">
-<h2>Max torsion angle<a class="headerlink" href="#max-torsion-angle" title="Permalink to this heading">¶</a></h2>
+<h2>Max torsion angle<a class="headerlink" href="#max-torsion-angle" title="Link to this heading">¶</a></h2>
 <p>Maximum torsion angle (washin) between central airfoil and tips.</p>
 <section id="alpha-max-tip">
-<h3>Alpha max tip<a class="headerlink" href="#alpha-max-tip" title="Permalink to this heading">¶</a></h3>
+<h3>Alpha max tip<a class="headerlink" href="#alpha-max-tip" title="Link to this heading">¶</a></h3>
 <p>Defines the max torsion angle in the wing tip.</p>
 </section>
 <section id="alpha-mode">
-<h3>Alpha mode<a class="headerlink" href="#alpha-mode" title="Permalink to this heading">¶</a></h3>
+<h3>Alpha mode<a class="headerlink" href="#alpha-mode" title="Link to this heading">¶</a></h3>
 <p><strong>“0”</strong> the washin will be done manually as shown in the figure below</p>
 <p><strong>“1”</strong> then washin will be done proportinal to the chord, being maximun and positive at the tip, based on the first parameter.</p>
 <p><strong>“2”</strong> then automatic washin angles are set from center airfoil to wingtip. If you set “2” then you have to define a 3rd parameter the washin in the central airfoil must be defined additionally.</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" style="width: 400px; height: 373px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" height="373" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_washin_p.jpg" width="400" />
+</a>
 </section>
 <section id="alpha-max-cent">
-<h3>Alpha max cent<a class="headerlink" href="#alpha-max-cent" title="Permalink to this heading">¶</a></h3>
+<h3>Alpha max cent<a class="headerlink" href="#alpha-max-cent" title="Link to this heading">¶</a></h3>
 <p>If Alpha mode ist set to “2” then you must define in here the wasin angle for the central airfoil.</p>
 </section>
 </section>
 <section id="paraglider-type-and-parameter">
-<h2>Paraglider type and parameter<a class="headerlink" href="#paraglider-type-and-parameter" title="Permalink to this heading">¶</a></h2>
+<h2>Paraglider type and parameter<a class="headerlink" href="#paraglider-type-and-parameter" title="Link to this heading">¶</a></h2>
 <section id="para-type">
-<h3>Para type<a class="headerlink" href="#para-type" title="Permalink to this heading">¶</a></h3>
+<h3>Para type<a class="headerlink" href="#para-type" title="Link to this heading">¶</a></h3>
 <p><strong>“ds”</strong> the design and calculation parameters are adjusted to create paragliders and parachute of double surface airfoils (intrados and extrados)</p>
 <p><strong>“ss”</strong> the design and calculation parameters are adjusted to create single skin paragliders and parachutes, surfaces corresponding to the intrados are not draw. But it is not enough to indicate this parameter to create single skin paraglider. It is necessary to define an special intrados sawtooth profile (or parabolic shaped), so that the vertices of the triangles are located exactly at the point where is defined the anchor points. As a general rule, we use covers of the air intakes, as part of the sigle skin profile.</p>
 <p><strong>“pc”</strong> the design and calculation parameters are adjusted to create parachutes using double surface airfoils (intrados and extrados).</p>
 </section>
 <section id="para-parameter">
-<h3>Para parameter<a class="headerlink" href="#para-parameter" title="Permalink to this heading">¶</a></h3>
+<h3>Para parameter<a class="headerlink" href="#para-parameter" title="Link to this heading">¶</a></h3>
 <p><strong>“0”</strong> leading edge triangles will be rotated. This parameter applies to “ss” wings only.</p>
 <p><strong>“1”</strong> leading edge triangles will be not rotated. This parameter applies to “ss” wings only.</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" style="width: 403px; height: 240px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" height="240" src="http://laboratoridenvol.com/leparagliding/lep2images/S01_rotated_triangles.jpg" width="403" />
+</a>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.1" target="_blank">Laboratori d'envol website</a>.</p>
 </section>
 </section>
@@ -228,7 +232,7 @@ A Wing scale of 1 means that the whole design is created with the original value
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -248,8 +252,8 @@ A Wing scale of 1 means that the whole design is created with the original value
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

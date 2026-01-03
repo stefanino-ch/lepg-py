@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3D shaping &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>3D shaping &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Airfoil thickness" href="airfoilThickness.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">3D shaping</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -120,7 +120,7 @@
     <p class="topless"><a href="airfoilThickness.html"
                           title="next chapter">Airfoil thickness</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -128,7 +128,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -141,7 +141,7 @@
   <blockquote>
 <div></div></blockquote>
 <section id="d-shaping">
-<h1>3D shaping<a class="headerlink" href="#d-shaping" title="Permalink to this heading">¶</a></h1>
+<h1>3D shaping<a class="headerlink" href="#d-shaping" title="Link to this heading">¶</a></h1>
 <p>The model of 3-Shaping proposed by the Laboratori, consists in making one or two transverse cuts in the
 upper surface, near the leading edge, and another optional cut on the bottom surface.</p>
 <p>The edges of the transverse cuts will be modified from the straight line into an arc of a circle.
@@ -150,7 +150,8 @@ this direction.</p>
 <p>Ovalization in transverse direction is achieved via the <em>Skin tension</em>.</p>
 <p>In summary, we can control the amount of tissue and tension in transverse and in longitudinal direction
 near the nose, where the curvatures are greatest.</p>
-<a class="reference internal image-reference" href="../../_images/threeDShaping-en.png"><img alt="../../_images/threeDShaping-en.png" src="../../_images/threeDShaping-en.png" style="width: 504px; height: 418px;" /></a>
+<a class="reference internal image-reference" href="../../_images/threeDShaping-en.png"><img alt="../../_images/threeDShaping-en.png" height="418" src="../../_images/threeDShaping-en.png" width="504" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
 <span class="mi">1</span>
@@ -173,45 +174,46 @@ near the nose, where the curvatures are greatest.</p>
 </pre></div>
 </div>
 <section id="number-of-groups">
-<h2>Number of groups<a class="headerlink" href="#number-of-groups" title="Permalink to this heading">¶</a></h2>
+<h2>Number of groups<a class="headerlink" href="#number-of-groups" title="Link to this heading">¶</a></h2>
 <p><em>3D shaping</em> is an <strong>optional section</strong>.</p>
 <p>If you do not want to define/ use these parameters set the <strong>Number of groups</strong> value to <strong>0</strong>.</p>
 </section>
 <section id="first-and-last-rib">
-<h2>First and last rib<a class="headerlink" href="#first-and-last-rib" title="Permalink to this heading">¶</a></h2>
+<h2>First and last rib<a class="headerlink" href="#first-and-last-rib" title="Link to this heading">¶</a></h2>
 <p>You can define several groups with individual 3D shaping parameters. With the first and last rib parameters
 you define where in the wing the settings must be applied.</p>
-<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" style="width: 442px; height: 625px;" /></a>
+<a class="reference internal image-reference" href="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg"><img alt="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" height="625" src="http://laboratoridenvol.com/leparagliding/lep2images/S29_3D-shaping1.jpg" width="442" />
+</a>
 </section>
 <section id="number-of-upper-cuts">
-<h2>Number of upper cuts<a class="headerlink" href="#number-of-upper-cuts" title="Permalink to this heading">¶</a></h2>
+<h2>Number of upper cuts<a class="headerlink" href="#number-of-upper-cuts" title="Link to this heading">¶</a></h2>
 <p>You can define max two cuts in the upper sail. Number and position of cuts do control the 3D shaping.</p>
 </section>
 <section id="ini-p">
-<h2>Ini P<a class="headerlink" href="#ini-p" title="Permalink to this heading">¶</a></h2>
+<h2>Ini P<a class="headerlink" href="#ini-p" title="Link to this heading">¶</a></h2>
 <p>The wing profile is defined by a number of x,y coordinates defining each a point on the profile edge.
 The Ini P is the number of the point where the <em>Zone of influence</em> starts. To derive the point number
 open the profile file either with a CAD or a text editor. To count the respective points you start at
 the trailing edge and then you must follow first the upper sail towards the leading edge.</p>
 </section>
 <section id="cut-p">
-<h2>Cut P<a class="headerlink" href="#cut-p" title="Permalink to this heading">¶</a></h2>
+<h2>Cut P<a class="headerlink" href="#cut-p" title="Link to this heading">¶</a></h2>
 <p>The cut point is the next point in the definition. Again here it is defined in the number of points
 of the profile definition starting from the trailing edge.</p>
 </section>
 <section id="depth">
-<h2>Depth<a class="headerlink" href="#depth" title="Permalink to this heading">¶</a></h2>
+<h2>Depth<a class="headerlink" href="#depth" title="Link to this heading">¶</a></h2>
 <p>With the depth coefficient you control how much fabric is added or removed.</p>
 <p>The coefficient range starts at -1.0 and runs until +1.0.</p>
 <p>A value of 0.0 means no fabric is added or removed.</p>
 </section>
 <section id="number-of-cuts-in-the-lower-sail">
-<h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Permalink to this heading">¶</a></h2>
+<h2>Number of cuts in the lower sail<a class="headerlink" href="#number-of-cuts-in-the-lower-sail" title="Link to this heading">¶</a></h2>
 <p>There’s a maximum of one cut in the lower sail you can define.</p>
 <p>The definition of the three values <em>Ini P</em>, <em>Cut P</em> and <em>Depth</em> depth is identical to the values of the upper sail.</p>
 </section>
 <section id="name">
-<h2>Name<a class="headerlink" href="#name" title="Permalink to this heading">¶</a></h2>
+<h2>Name<a class="headerlink" href="#name" title="Link to this heading">¶</a></h2>
 <p>The names are fix, do not alter them!</p>
 <p><strong>Inter3D</strong>: representation of the intermediate airfoils in 3D lep-3d.dxf</p>
 <p><strong>Ovali3D</strong>: representation of the intermediate ovalized airfoils in 3D lep-3d.dxf</p>
@@ -224,20 +226,20 @@ have an effect yet, but you must define them for compatibility reasons!</p>
 <p>In the following section you define if an how the 3D Shaping data should be printed.</p>
 </section>
 <section id="draw">
-<h2>Draw<a class="headerlink" href="#draw" title="Permalink to this heading">¶</a></h2>
+<h2>Draw<a class="headerlink" href="#draw" title="Link to this heading">¶</a></h2>
 <p><strong>0</strong>: do not draw</p>
 <p><strong>1</strong>: draw</p>
 </section>
 <section id="first-panel">
-<h2>First panel<a class="headerlink" href="#first-panel" title="Permalink to this heading">¶</a></h2>
+<h2>First panel<a class="headerlink" href="#first-panel" title="Link to this heading">¶</a></h2>
 <p>Number of the first airfoil to draw</p>
 </section>
 <section id="last-panel">
-<h2>Last panel<a class="headerlink" href="#last-panel" title="Permalink to this heading">¶</a></h2>
+<h2>Last panel<a class="headerlink" href="#last-panel" title="Link to this heading">¶</a></h2>
 <p>Number of the last airfoil to draw</p>
 </section>
 <section id="symmetric">
-<h2>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this heading">¶</a></h2>
+<h2>Symmetric<a class="headerlink" href="#symmetric" title="Link to this heading">¶</a></h2>
 <p><strong>0</strong>: it indicates to draw with symmetry</p>
 <p><strong>1</strong>: draw only one side</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.29" target="_blank">Laboratori d'envol website</a>.</p>
@@ -251,7 +253,7 @@ have an effect yet, but you must define them for compatibility reasons!</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -271,8 +273,8 @@ have an effect yet, but you must define them for compatibility reasons!</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

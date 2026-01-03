@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Elastic lines correction &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Elastic lines correction &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="DXF Layer names" href="dxfLayerNames.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Elastic lines correction</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -111,7 +111,7 @@
     <p class="topless"><a href="dxfLayerNames.html"
                           title="next chapter">DXF Layer names</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -119,7 +119,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -132,12 +132,13 @@
   <blockquote>
 <div></div></blockquote>
 <section id="elastic-lines-correction">
-<h1>Elastic lines correction<a class="headerlink" href="#elastic-lines-correction" title="Permalink to this heading">¶</a></h1>
+<h1>Elastic lines correction<a class="headerlink" href="#elastic-lines-correction" title="Link to this heading">¶</a></h1>
 <p>Option to estimate the elastic elongation of the lines in normal flight configuration.
 These elongations are subtracted from strictly geometric length, so that in flight,
 are the exact lengths of project.</p>
 <p>To calculate the elongation, we take into account the loads on each line, and the rigidly coefficient of each line, the elongation estimated by Hook’s law: F = k·dx</p>
-<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-en.png"><img alt="../../_images/elasticLinesCorr-en.png" src="../../_images/elasticLinesCorr-en.png" style="width: 566px; height: 310px;" /></a>
+<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-en.png"><img alt="../../_images/elasticLinesCorr-en.png" height="310" src="../../_images/elasticLinesCorr-en.png" width="566" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*****************************************************</span>
 <span class="o">*</span>       <span class="mf">18.</span> <span class="n">Elastic</span> <span class="n">lines</span> <span class="n">corrections</span>
@@ -155,15 +156,15 @@ are the exact lengths of project.</p>
 </pre></div>
 </div>
 <section id="in-flight-load">
-<h2>In flight load<a class="headerlink" href="#in-flight-load" title="Permalink to this heading">¶</a></h2>
+<h2>In flight load<a class="headerlink" href="#in-flight-load" title="Link to this heading">¶</a></h2>
 <p>The total in flight load in [kg] without the wing itself.</p>
 </section>
 <section id="load-distribution">
-<h2>Load distribution<a class="headerlink" href="#load-distribution" title="Permalink to this heading">¶</a></h2>
+<h2>Load distribution<a class="headerlink" href="#load-distribution" title="Link to this heading">¶</a></h2>
 <p>Here you define the load distribution across the individual anchors based on the number of anchors used per rib.</p>
 </section>
 <section id="line-deformation">
-<h2>Line deformation<a class="headerlink" href="#line-deformation" title="Permalink to this heading">¶</a></h2>
+<h2>Line deformation<a class="headerlink" href="#line-deformation" title="Link to this heading">¶</a></h2>
 <p>Depending of the number of anchors and the line level you setup here the rigidly coefficient of the lines.</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
 </section>
@@ -176,7 +177,7 @@ are the exact lengths of project.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -196,8 +197,8 @@ are the exact lengths of project.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

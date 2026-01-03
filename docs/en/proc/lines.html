@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lines &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Lines &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Lines characteristics" href="lineCharacteristics.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Lines</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -120,7 +120,7 @@
     <p class="topless"><a href="lineCharacteristics.html"
                           title="next chapter">Lines characteristics</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -128,7 +128,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -141,10 +141,11 @@
   <blockquote>
 <div></div></blockquote>
 <section id="lines">
-<span id="lines-configuration-en"></span><h1>Lines<a class="headerlink" href="#lines" title="Permalink to this heading">¶</a></h1>
+<span id="lines-configuration-en"></span><h1>Lines<a class="headerlink" href="#lines" title="Link to this heading">¶</a></h1>
 <p>In the <em>Lines</em> window you can define the parameters from the 9th section of the lep file. Here you create the detailed line plan.
 The brake lines will be defined in a 2nd window.</p>
-<a class="reference internal image-reference" href="../../_images/lines-en.png"><img alt="../../_images/lines-en.png" src="../../_images/lines-en.png" style="width: 838px; height: 328px;" /></a>
+<a class="reference internal image-reference" href="../../_images/lines-en.png"><img alt="../../_images/lines-en.png" height="328" src="../../_images/lines-en.png" width="838" />
+</a>
 <p>Raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***************************************************</span>
 <span class="o">*</span>          <span class="mf">9.</span> <span class="n">SUSPENSION</span> <span class="n">LINES</span> <span class="n">DESCRIPTION</span>
@@ -171,7 +172,7 @@ The brake lines will be defined in a 2nd window.</p>
 </pre></div>
 </div>
 <section id="lines-control-parameter">
-<h2>Lines control parameter<a class="headerlink" href="#lines-control-parameter" title="Permalink to this heading">¶</a></h2>
+<h2>Lines control parameter<a class="headerlink" href="#lines-control-parameter" title="Link to this heading">¶</a></h2>
 <p>The first parameter <strong>Lines control parameter</strong> defines how the individual lengts of the lines will be calculated afterwards.</p>
 <p>Values allowed are 0..4:
 * 0 = lower branches lined only by geometric mean of the anchor points</p>
@@ -184,7 +185,7 @@ The brake lines will be defined in a 2nd window.</p>
 <p>Parameter <strong>3</strong> is what is recommend for all new designs. The distribution of loads on the lines will be much better. Possibly the paraglider will be more solid.</p>
 </section>
 <section id="line-plans">
-<h2>Line plans<a class="headerlink" href="#line-plans" title="Permalink to this heading">¶</a></h2>
+<h2>Line plans<a class="headerlink" href="#line-plans" title="Link to this heading">¶</a></h2>
 <p>Imagine you look from the front/ rear of the wing towards the lines.</p>
 <img alt="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" src="http://laboratoridenvol.com/leparagliding/lep2images/S09_lines_matrix_definition_p.jpg" />
 <p>A line path can go in max across 4 levels. For each path you define the number of the node on which it ends at the end of the level.</p>
@@ -209,34 +210,34 @@ The brake lines will be defined in a 2nd window.</p>
 Here the paths split. On level 4 we have a new target node.</p>
 <p><strong>(A=1) 2</strong> This new node we connect again to anchor A but now on rib 2.</p>
 <section id="general-rules">
-<h3>General rules<a class="headerlink" href="#general-rules" title="Permalink to this heading">¶</a></h3>
+<h3>General rules<a class="headerlink" href="#general-rules" title="Link to this heading">¶</a></h3>
 <p><strong>For each riser you will need to create a line plan.</strong></p>
 <p><strong>If you do not want to use a level you have to fill 0 for the definition pair of this level.</strong></p>
 <p>The line below shows a path which needs only 3 levels for it’s definition.</p>
 <p><strong>3</strong>   1 1 2 3 3 17 <strong>0 0</strong> 3 9</p>
 </section>
 <section id="id1">
-<h3>Lines control parameter<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<h3>Lines control parameter<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <p>Standard value is always <strong>0</strong> as this is currently the only valid description for lines.</p>
 </section>
 <section id="number-of-line-plans">
-<h3>Number of line plans<a class="headerlink" href="#number-of-line-plans" title="Permalink to this heading">¶</a></h3>
+<h3>Number of line plans<a class="headerlink" href="#number-of-line-plans" title="Link to this heading">¶</a></h3>
 <p>Will be considered as many plans as risers.</p>
 </section>
 <section id="num-branches">
-<h3>Num branches<a class="headerlink" href="#num-branches" title="Permalink to this heading">¶</a></h3>
+<h3>Num branches<a class="headerlink" href="#num-branches" title="Link to this heading">¶</a></h3>
 <p>Defines how many branches (or levels) you have defined on this specific line.</p>
 </section>
 <section id="ramif-1-2-3-4">
-<h3>Ramif 1, 2, 3, 4<a class="headerlink" href="#ramif-1-2-3-4" title="Permalink to this heading">¶</a></h3>
+<h3>Ramif 1, 2, 3, 4<a class="headerlink" href="#ramif-1-2-3-4" title="Link to this heading">¶</a></h3>
 <p>Describes the level for which you define the according node.</p>
 </section>
 <section id="node-1-2-3-4">
-<h3>Node 1, 2, 3, 4<a class="headerlink" href="#node-1-2-3-4" title="Permalink to this heading">¶</a></h3>
+<h3>Node 1, 2, 3, 4<a class="headerlink" href="#node-1-2-3-4" title="Link to this heading">¶</a></h3>
 <p>Node number on which a specific path ends on a specific Ramif level.</p>
 </section>
 <section id="line-types">
-<h3>Line types<a class="headerlink" href="#line-types" title="Permalink to this heading">¶</a></h3>
+<h3>Line types<a class="headerlink" href="#line-types" title="Link to this heading">¶</a></h3>
 <p>Since V3.23 the individual line characteristics can be defined. This is done in the <strong>Lines characteristics</strong> window.
 The type number defined there can afterwards be assigne to the indiviual line defined here.</p>
 <p>If in the window <strong>Edit Lines</strong> no type assignment will be made, a default assignement in the background will be
@@ -248,7 +249,7 @@ done:</p>
 </ul>
 </section>
 <section id="sort-by-order-num">
-<h3>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Permalink to this heading">¶</a></h3>
+<h3>Sort by Order Num<a class="headerlink" href="#sort-by-order-num" title="Link to this heading">¶</a></h3>
 <p>The button <strong>Sort by Order Num</strong> can be used to rearrange the definition lines. If for whatever reasons you will rearrange the lines, just define the numbering in an ascending order and press the Order button afterwards. Lepg will reorder the lines according to the numbering you’ve choosen.</p>
 <p>A more detailed description you can find here <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.9" target="_blank">Laboratori d'envol website</a>.</p>
 </section>
@@ -262,7 +263,7 @@ done:</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -282,8 +283,8 @@ done:</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>

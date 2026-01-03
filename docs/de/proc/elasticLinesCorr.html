@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Korrektur Leinenelastizität &#8212; lepg 3.23.x documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <title>Korrektur Leinenelastizität &#8212; lepg 3.27.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css?v=c25b3f42" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/documentation_options.js?v=a5ba867a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="DXF Layer Namen" href="dxfLayerNames.html" />
@@ -68,7 +68,7 @@
   </div> 
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -87,7 +87,7 @@
         <li class="nav-item nav-item-this"><a href="">Korrektur Leinenelastizität</a></li> 
       </ul>
     </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
@@ -111,7 +111,7 @@
     <p class="topless"><a href="dxfLayerNames.html"
                           title="next chapter">DXF Layer Namen</a></p>
   </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -119,7 +119,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -132,12 +132,13 @@
   <blockquote>
 <div></div></blockquote>
 <section id="korrektur-leinenelastizitat">
-<h1>Korrektur Leinenelastizität<a class="headerlink" href="#korrektur-leinenelastizitat" title="Permalink to this heading">¶</a></h1>
+<h1>Korrektur Leinenelastizität<a class="headerlink" href="#korrektur-leinenelastizitat" title="Link to this heading">¶</a></h1>
 <p>Hier kannst Du die Korrekturparameter für die Leinenelastizität eingeben.
 Die Leinenverlängerung unter Last wird von der geometrischen Länge abgezogen so dass die
 Geometrie möglichst den geplanten Werten entspricht.</p>
 <p>Zum Berechnen verwenden wir die Last der einzelnen Leinen und den Dehnungskoeffizient. Die Berechnung bastiert auf Hook’s Gesetz: F = k·dx</p>
-<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-de.png"><img alt="../../_images/elasticLinesCorr-de.png" src="../../_images/elasticLinesCorr-de.png" style="width: 566px; height: 310px;" /></a>
+<a class="reference internal image-reference" href="../../_images/elasticLinesCorr-de.png"><img alt="../../_images/elasticLinesCorr-de.png" height="310" src="../../_images/elasticLinesCorr-de.png" width="566" />
+</a>
 <p>Rohdaten:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*****************************************************</span>
 <span class="o">*</span>       <span class="mf">18.</span> <span class="n">Elastic</span> <span class="n">lines</span> <span class="n">corrections</span>
@@ -155,15 +156,15 @@ Geometrie möglichst den geplanten Werten entspricht.</p>
 </pre></div>
 </div>
 <section id="zuladung-des-flugels">
-<h2>Zuladung des Flügels<a class="headerlink" href="#zuladung-des-flugels" title="Permalink to this heading">¶</a></h2>
+<h2>Zuladung des Flügels<a class="headerlink" href="#zuladung-des-flugels" title="Link to this heading">¶</a></h2>
 <p>Die Zuladung des Flügels in [kg]. Das Flügelgewicht selber nicht einrechnen.</p>
 </section>
 <section id="lastverteilung">
-<h2>Lastverteilung<a class="headerlink" href="#lastverteilung" title="Permalink to this heading">¶</a></h2>
+<h2>Lastverteilung<a class="headerlink" href="#lastverteilung" title="Link to this heading">¶</a></h2>
 <p>Hier wird abhängig von der Anzahl Aufhängepunkte die Lastverteilung der einzelnen Aufhängepunkte eingegeben.</p>
 </section>
 <section id="leinendeformation">
-<h2>Leinendeformation<a class="headerlink" href="#leinendeformation" title="Permalink to this heading">¶</a></h2>
+<h2>Leinendeformation<a class="headerlink" href="#leinendeformation" title="Link to this heading">¶</a></h2>
 <p>Abhängig von der Anzahl Aufhängepunkte und der Leinenebenen werden hier die Deformationkoeffizienten der Leinen festgelegt.</p>
 <p>Eine detaillierte Beschreibung in englisch findest Du auf der <a href="http://laboratoridenvol.com/leparagliding/manual.en.html#6.18" target="_blank">Laboratori d'envol website</a>.</p>
 </section>
@@ -176,7 +177,7 @@ Geometrie möglichst den geplanten Werten entspricht.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -196,8 +197,8 @@ Geometrie möglichst den geplanten Werten entspricht.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Stefan Feuz.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    &#169; Copyright 2026, Stefan Feuz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     </div>
   </body>
 </html>
