@@ -2,7 +2,7 @@
 
  .. Copyright: General Public License GNU GPL 3.0
 
- .. _extrados_colors_en:
+ .. _intrados_colors_de:
 
 ----------------------------------
 Farben Untersegel: Alte Definition

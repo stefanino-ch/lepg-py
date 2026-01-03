@@ -18,7 +18,7 @@ data_files_to_add = [
 
 processor_w64 = [
 			    (os.path.join('processors',
-				'lep-3.23-win64'),
+				'lep-3.27-win64'),
 				os.path.join('processors',
 			    'lep-3.23-win64'))
 				]
