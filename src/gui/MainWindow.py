@@ -143,8 +143,7 @@ class MainWindow(QMainWindow):
         file_handler.setFormatter(formatter)
         logger.setLevel(self.config_reader.get_loglevel())
 
-        logger.debug('application start')
-
+        # Language setups
         self.my_language = detect_language()
         logger.debug(f'detect_language(): {detect_language()}')
 
